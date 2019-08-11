@@ -29,7 +29,7 @@ connectDB();
 app.use(morgan("dev"));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
-app.use(cors({ origin: "https://vantty.sebashr20.now.sh" }));
+app.use(cors({ origin: "https://vantty.now.sh" }));
 app.use(formData.parse());
 
 // Routes

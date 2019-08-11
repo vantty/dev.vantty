@@ -11,7 +11,7 @@ import { server } from "../utils/axios";
 import { getCurrentProfile } from "./profile";
 import { loadUser } from "./auth";
 
-const API_URL = "https://apivantty.sebashr20.now.sh/api";
+const API_URL = "https://apivantty.now.sh/api";
 
 export const uploadImages = e => async dispatch => {
   const errs = [];
