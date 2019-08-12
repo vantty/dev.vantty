@@ -105,9 +105,7 @@ const Profile = ({
           auth.user._id === profile.user._id) ? (
           isMobile ? (
             <BottomNavabar />
-          ) : (
-            <Navbar />
-          )
+          ) : null
         ) : (
           <ConctactButton profile={profile} />
         )}

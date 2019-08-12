@@ -17,7 +17,8 @@ import { isMobile } from "react-device-detect";
 
 const ProfileInfo = ({
   auth,
-  profile: { user, location, profilePicture, bio, profession },
+  profile: { user, location, profilePicture, bio, profession, loading },
+
   classes,
   ...rest
 }) => {
@@ -88,6 +89,7 @@ const ProfileInfo = ({
             </Grid>
           </div>
         </div>
+
         <Divider variant='middle' />
       </div>
     </div>
