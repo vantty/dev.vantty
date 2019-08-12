@@ -5,7 +5,6 @@ import profile from "./profile";
 import review from "./review";
 import navbar from "./navbar";
 import uploader from "./uploader";
-import form from "./form";
 
 export default combineReducers({
   alert,
@@ -13,6 +12,5 @@ export default combineReducers({
   profile,
   review,
   navbar,
-  uploader,
-  form
+  uploader
 });

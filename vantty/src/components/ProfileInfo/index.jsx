@@ -13,6 +13,7 @@ import Star from "@material-ui/icons/StarRateOutlined";
 
 // Styles
 import styles from "./styles";
+import { isMobile } from "react-device-detect";
 
 const ProfileInfo = ({
   auth,
@@ -25,7 +26,15 @@ const ProfileInfo = ({
       <div>
         <div className={classes.profile}>
           <Grid container justify='center' alignItems='center'>
-            <Avatar src={profilePicture} className={classes.bigAvatar} />
+            {isMobile ? (
+              <Avatar
+                src={profilePicture}
+                className={classes.bigAvatar}
+                style={{ marginTop: "-10px" }}
+              />
+            ) : (
+              <Avatar src={profilePicture} className={classes.bigAvatar} />
+            )}
           </Grid>
           <div>
             <h1 className={classes.name}>

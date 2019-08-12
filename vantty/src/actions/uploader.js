@@ -3,8 +3,7 @@ import {
   IMAGES_UPLOAD_FAIL,
   IMAGES_UPLOADING,
   IMAGES_DELETE_SUCCESS,
-  IMAGES_DELETE_FAIL,
-  CREATE_PORTFOLIO_FORM
+  IMAGES_DELETE_FAIL
 } from "./types";
 
 import { server, API_URL } from "../utils/axios";

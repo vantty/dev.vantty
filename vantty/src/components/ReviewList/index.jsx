@@ -31,14 +31,14 @@ const ReviewItem = ({
   ...rest
 }) => {
   return (
-    <Grid direction="column-reverse" justify="space-evenly" alignItems="center">
+    <Grid>
       <h1>Reviews</h1>
       <List>
         {comments.map(comment => (
           <Fragment key={comment._id}>
-            <ListItem key={comment._id} alignItems="flex-start">
+            <ListItem key={comment._id} alignItems='flex-start'>
               <ListItemAvatar>
-                <Avatar alt="" src={""}>
+                <Avatar alt='' src={""}>
                   {comment.name
                     .split(" ")
                     .map((n, i, a) =>
@@ -53,18 +53,18 @@ const ReviewItem = ({
                 secondary={
                   <Fragment>
                     <Typography
-                      component="span"
-                      variant="body2"
+                      component='span'
+                      variant='body2'
                       className={classes.date}
-                      color="textPrimary"
+                      color='textPrimary'
                     >
-                      <Moment format="YYYY/MM/DD">{date}</Moment>{" "}
+                      <Moment format='YYYY/MM/DD'>{date}</Moment>{" "}
                     </Typography>
                     <Typography
-                      component="span"
-                      variant="body2"
+                      component='span'
+                      variant='body2'
                       className={classes.messageReview}
-                      color="textPrimary"
+                      color='textPrimary'
                     >
                       {comment.text}
                     </Typography>
@@ -72,7 +72,7 @@ const ReviewItem = ({
                       ? !auth.loading &&
                         comment.user === auth.user._id && (
                           <Button
-                            color="secondary"
+                            color='secondary'
                             onClick={() => deleteComment(_id, comment._id)}
                           >
                             Borrar
@@ -85,9 +85,9 @@ const ReviewItem = ({
               <Fragment>
                 <div style={{ display: "inline-block" }}>
                   <Chip
-                    variant="outlined"
-                    color="yellow"
-                    size="small"
+                    variant='outlined'
+                    color='yellow'
+                    size='small'
                     icon={<Star style={{ color: "#fdd835" }} />}
                     label={"4.5"}
                   />
@@ -95,7 +95,7 @@ const ReviewItem = ({
               </Fragment>
             </ListItem>
 
-            <Divider variant="inset" component="li" />
+            <Divider variant='inset' component='li' />
           </Fragment>
         ))}
 
@@ -103,8 +103,8 @@ const ReviewItem = ({
           <Link to={`/profile/artist/${user}/${_id}`}>
             <Button
               fullWidth
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               className={classes.submit}
             >
               Give a comment
@@ -113,14 +113,14 @@ const ReviewItem = ({
         </Fragment>
         {/* Footer */}
         <footer className={classes.footer}>
-          <Typography variant="h6" align="center" gutterBottom>
+          <Typography variant='h6' align='center' gutterBottom>
             Footer
           </Typography>
           <Typography
-            variant="subtitle1"
-            align="center"
-            color="textSecondary"
-            component="p"
+            variant='subtitle1'
+            align='center'
+            color='textSecondary'
+            component='p'
           >
             Something here to give the footer a purpose!
           </Typography>

@@ -2,9 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -44,12 +42,14 @@ const SettingsDrawer = () => {
   const [state, setState] = useState({
     right: false,
     "Edit Profile": "/dashboard",
-    "Change Password": "/profiles",
+    "Change Password": "/",
+    "Change Lenguage": "/",
+    "Privacy Policy": "/",
+    "Terms & Conditions": "/",
     "Add Porfolio": "/add-portfolio",
     "Add Education": "add-education",
-    "Delete My Account": "/delete"
+    "Delete My Account": "/"
   });
-
   const toggleDrawer = (side, open) => event => {
     if (
       event &&
@@ -99,7 +99,6 @@ const SettingsDrawer = () => {
       <MuiLink
         underline='none'
         color='inherit'
-        component={Link}
         onClick={toggleDrawer("right", true)}
       >
         <SettingsIcon className={classes.settings} />

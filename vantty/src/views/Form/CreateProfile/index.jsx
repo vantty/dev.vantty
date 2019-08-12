@@ -5,13 +5,11 @@ import { connect } from "react-redux";
 
 //Actions
 import { createProfile } from "../../../actions/profile";
-import { createProfileForm } from "../../../actions/form";
 
 //Components
 import FormBottomNav from "../ComponentsForm/FormBottomNav";
 import Alert from "../../../components/Alert";
 import SimpleAppBar from "../ComponentsForm/SimpleAppBar";
-import ArrowBack from "../../../components/ArrowBack";
 
 //Materila-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -54,7 +52,7 @@ const CreateProfile = ({ createProfile, history }) => {
       <SimpleAppBar
         message={"1: This is your first step"}
         progress={1}
-        // page={`/profile/artist/${user._id}`}
+        page={`/dashboard`}
       />
       <Box pt={11} pb={8}>
         <Alert />
@@ -156,7 +154,7 @@ CreateProfile.propTypes = {
 
 export default connect(
   null,
-  { createProfile, createProfileForm }
+  { createProfile }
 )(withRouter(CreateProfile));
 
 // export default withStyles(formPages)(

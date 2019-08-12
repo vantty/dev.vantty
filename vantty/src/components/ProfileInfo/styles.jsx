@@ -1,7 +1,6 @@
 const profilePageStyle = {
   profile: {
-    textAlign: "center",
-    marginTop: "-10%"
+    textAlign: "center"
   },
 
   container: {

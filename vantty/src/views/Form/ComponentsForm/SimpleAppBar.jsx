@@ -15,7 +15,7 @@ const SimpleAppBar = ({ message, progress, page }) => {
     <div style={{ flexGrow: 1 }}>
       <AppBar position='fixed' color='default'>
         <Toolbar>
-          <ArrowBack page={page} />
+          {progress === 1 && <ArrowBack page={page} />}
           <Container maxWidth='sm'>
             <Typography variant='h6' color='inherit' type='title'>
               {message}

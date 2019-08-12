@@ -53,7 +53,7 @@ const ProfileItem = ({
   return (
     <Fragment>
       <Grid container spacing={4}>
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map(card => (
@@ -65,7 +65,7 @@ const ProfileItem = ({
                     // title='Image title'
                   />
                   <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant='h5' component='h2'>
                       {"Hello"}
                     </Typography>
                     <Typography>{profession}</Typography>
@@ -73,10 +73,10 @@ const ProfileItem = ({
                   </CardContent>
                   <CardActions>
                     <Button
-                      size="small"
-                      color="primary"
+                      size='small'
+                      color='primary'
                       component={Link}
-                      to={`/profile/artist/${user._id}`}
+                      // to={`/profile/artist/${user._id}`}
                     >
                       View
                     </Button>

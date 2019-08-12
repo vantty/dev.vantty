@@ -17,7 +17,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import NumberFormat from "react-number-format";
 import { Container, Input, Box } from "@material-ui/core";
-import ArrowBack from "../../../components/ArrowBack";
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
@@ -94,20 +93,11 @@ const InfoContact = ({
     getCurrentProfile();
 
     setFormData({
-      mobileNumber: loading || !profile.social ? "" : profile.mobileNumber
+      mobileNumber: loading || !profile.mobileNumber ? "" : profile.mobileNumber
     });
   }, [loading, getCurrentProfile]);
 
-  const {
-    profilePicture,
-    bio,
-    profession,
-    location,
-    mobileNumber,
-    instagramUsername,
-    youtube,
-    instagram
-  } = formData;
+  const { mobileNumber } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
