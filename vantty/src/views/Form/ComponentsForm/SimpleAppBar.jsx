@@ -1,5 +1,5 @@
 import React from "react";
-
+import { isMobile } from "react-device-detect";
 //Components
 import ProgressBarForm from "./ProgressBarForm";
 
@@ -15,7 +15,7 @@ const SimpleAppBar = ({ message, progress, page }) => {
     <div style={{ flexGrow: 1 }}>
       <AppBar position='fixed' color='default'>
         <Toolbar>
-          {progress === 1 && <ArrowBack page={page} />}
+          {isMobile && progress === 1 && <ArrowBack page={page} />}
           <Container maxWidth='sm'>
             <Typography variant='h6' color='inherit' type='title'>
               {message}

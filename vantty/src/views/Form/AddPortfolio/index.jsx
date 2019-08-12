@@ -15,9 +15,13 @@ import Alert from "../../../components/Alert";
 //Materila-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import { Container, Box } from "@material-ui/core";
+import { Container, Box, Avatar, withStyles, Grid } from "@material-ui/core";
+import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 
-const AddPortfolio = ({ profile: { profile, loading } }) => {
+//Style
+import Style from "./style";
+
+const AddPortfolio = ({ profile: { profile, loading }, classes }) => {
   return (
     <Fragment>
       <CssBaseline />
@@ -29,10 +33,22 @@ const AddPortfolio = ({ profile: { profile, loading } }) => {
       <Alert />
       <Box pt={11} pb={8}>
         <Container maxWidth='sm'>
-          <Typography component='h5' variant='h6' align='left'>
-            Recuerda que tus portfolio define tu experiencia y talento! no de
-            papaya
-          </Typography>
+          <div>
+            <Grid container justify='center' alignItems='center'>
+              {!loading && profile.profilePicture ? (
+                <Avatar className={classes.bigAvatar}>
+                  <AddPhotoIcon style={{ fontSize: "48px" }} />
+                </Avatar>
+              ) : (
+                <Avatar className={classes.bigAvatar}>
+                  <AddPhotoIcon />
+                </Avatar>
+              )}
+            </Grid>
+            <Typography component='h5' variant='h6' align='center'>
+              Profile Image
+            </Typography>
+          </div>
 
           <ImagesUploader />
           {!loading && profile.portfolioPictures.length < 5 ? (
@@ -65,7 +81,9 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { addPortfolio }
-)(withRouter(AddPortfolio));
+export default withStyles(Style)(
+  connect(
+    mapStateToProps,
+    { addPortfolio }
+  )(withRouter(AddPortfolio))
+);

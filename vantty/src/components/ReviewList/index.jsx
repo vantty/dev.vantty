@@ -86,7 +86,6 @@ const ReviewItem = ({
                 <div style={{ display: "inline-block" }}>
                   <Chip
                     variant='outlined'
-                    color='yellow'
                     size='small'
                     icon={<Star style={{ color: "#fdd835" }} />}
                     label={"4.5"}
