@@ -9,6 +9,7 @@ import MaskedInput from "react-text-mask";
 import FormBottomNav from "../ComponentsForm/FormBottomNav";
 import Alert from "../../../components/Alert";
 import SimpleAppBar from "../ComponentsForm/SimpleAppBar";
+import NumberValidation from "../../../components/NumberValidation";
 
 //Materila-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -68,7 +69,7 @@ function NumberFormatCustom(props) {
         });
       }}
       thousandSeparator
-      prefix='$'
+      prefix="$"
     />
   );
 }
@@ -129,18 +130,19 @@ const InfoContact = ({
       />
       <Box pt={11} pb={8}>
         <Alert />
-        <Container maxWidth='sm'>
-          <Typography component='h5' variant='h6' align='left'>
-            Para activar tu cuenta debes confirmar tu número de contacto
+        <Container maxWidth="sm">
+          <Typography component="h5" variant="h6" align="left">
+            Click here to validate ypu Whatsapp number
           </Typography>
-          <FormControl>
-            <InputLabel htmlFor='formatted-text-mask-input'>
+          <NumberValidation />
+          {/* <FormControl>
+            <InputLabel htmlFor="formatted-text-mask-input">
               react-text-mask
             </InputLabel>
             <Input
               value={values.textmask}
               onChange={handleChange("textmask")}
-              id='formatted-text-mask-input'
+              id="formatted-text-mask-input"
               inputComponent={TextMaskCustom}
             />
             <FormBottomNav
@@ -149,7 +151,7 @@ const InfoContact = ({
               nextPage={"/welcome"}
               disabled={true}
             />
-          </FormControl>
+          </FormControl> */}
         </Container>
       </Box>
       {/* </div> */}

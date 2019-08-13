@@ -15,6 +15,7 @@ import InfoContact from "./views/Form/InfoContact";
 import Welcome from "./views/Form/Welcome";
 import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
+import NumberValidation from "./components/NumberValidation";
 
 // Views
 import Home from "./views/Home";
@@ -44,37 +45,38 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Route exact path='/' component={Home} />
+          <Route exact path="/" component={Home} />
           {/* <Container> */}
           <Alert />
           <Switch>
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/artists' component={Artists} />
-            <Route exact path='/favorites' component={Favorites} />
-            <Route exact path='/profile/artist/:id' component={Profile} />
-            <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <Route exact path="/number" component={NumberValidation} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/artists" component={Artists} />
+            <Route exact path="/favorites" component={Favorites} />
+            <Route exact path="/profile/artist/:id" component={Profile} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute
               exact
-              path='/create-profile'
+              path="/create-profile"
               component={CreateProfile}
             />
-            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
-            <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <Route exact path='/welcome' component={Welcome} />
+            <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+            <PrivateRoute exact path="/info-contact" component={InfoContact} />
+            <Route exact path="/welcome" component={Welcome} />
             <PrivateRoute
               exact
-              path='/add-education'
+              path="/add-education"
               component={AddEducation}
             />
             <PrivateRoute
               exact
-              path='/add-portfolio'
+              path="/add-portfolio"
               component={AddPortfolio}
             />
             <PrivateRoute
               exact
-              path='/profile/artist/:userId/:reviewId'
+              path="/profile/artist/:userId/:reviewId"
               component={ReviewForm}
             />
           </Switch>

@@ -62,41 +62,40 @@ const Profile = ({
   return (
     <Fragment>
       {!isMobile && <Navbar />}
-      <Container maxWidth='md'>
-        <CssBaseline />
-        {profile === null || loading ? (
-          <Progress />
-        ) : (
-          // <div>
-          <Fragment>
-            {isMobile ? (
-              <AppBar
-                position='static'
-                color='default'
-                className={classes.appbar}
-              >
-                <Toolbar>
-                  <ArrowBack page={"/artists"} />{" "}
-                  <div style={{ flexGrow: 1 }}>
-                    {auth.isAuthenticated &&
-                      auth.loading === false &&
-                      auth.user._id === profile.user._id &&
-                      (isMobile && <SettingsDrawer />)}
-                  </div>
-                </Toolbar>
-              </AppBar>
-            ) : (
-              undefined
-            )}
-
+      <CssBaseline />
+      {profile === null || loading ? (
+        <Progress />
+      ) : (
+        // <div>
+        <Fragment>
+          {isMobile ? (
+            <AppBar
+              position="static"
+              color="default"
+              className={classes.appbar}
+            >
+              <Toolbar>
+                <ArrowBack page={"/artists"} />{" "}
+                <div style={{ flexGrow: 1 }}>
+                  {auth.isAuthenticated &&
+                    auth.loading === false &&
+                    auth.user._id === profile.user._id &&
+                    (isMobile && <SettingsDrawer />)}
+                </div>
+              </Toolbar>
+            </AppBar>
+          ) : (
+            undefined
+          )}
+          <Container maxWidth="md">
             <ProfileInfo profile={profile} auth={auth} />
             <br />
             <ProfileCarousel profile={profile} />
             <br />
             <ReviewCard profile={profile} />
-          </Fragment>
-        )}
-      </Container>
+          </Container>
+        </Fragment>
+      )}
       <div>
         {profile === null ||
         (!loading &&

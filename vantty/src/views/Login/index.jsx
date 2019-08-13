@@ -4,6 +4,11 @@ import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import FacebookAuth from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleAuth from "react-google-login";
+import { isMobile } from "react-device-detect";
+
+// Components
+import Navbar from "../../components/Navbar";
+import BottomNavabar from "../../components/BottomNavbar";
 
 // Actions
 import { login, googleLogin, facebookLogin } from "../../actions/auth";
@@ -105,6 +110,7 @@ const Login = ({
 
   return (
     <Fragment>
+      {isMobile ? <BottomNavabar /> : <Navbar />}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
