@@ -12,10 +12,11 @@ import BottomNavabar from "../../components/BottomNavbar";
 import { getProfiles } from "../../actions/profile";
 import { changeNavbarValue } from "../../actions/navbar";
 
-// Material-ui
+// Material-UI
 import { makeStyles } from "@material-ui/core/styles";
 import Progress from "@material-ui/core/LinearProgress";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -63,13 +64,13 @@ const Artists = ({
 
   return (
     <Fragment>
-      <CssBaseline />
       {!isMobile ? <Navbar /> : <BottomNavabar />}
       {loading ? (
         <Progress />
       ) : (
         <Fragment>
-          <div>
+          <CssBaseline />
+          <Container>
             {profiles.length > 0 ? (
               profiles.map(profile => (
                 <ProfileCard key={profile._id} profile={profile} />
@@ -77,7 +78,7 @@ const Artists = ({
             ) : (
               <Progress />
             )}
-          </div>
+          </Container>
         </Fragment>
       )}
     </Fragment>

@@ -159,32 +159,38 @@ const Home = ({ changeNavbarValue }) => {
   return (
     <Fragment>
       <CssBaseline />
-      {isMobile ? <BottomNavabar /> : <Navbar />}
+      {isMobile ? (
+        <BottomNavabar />
+      ) : (
+        <Fragment>
+          <Navbar />
+        </Fragment>
+      )}
       <main>
-        <Container maxWidth='xl' className={classes.jumbotron}>
+        <Container maxWidth="xl" className={classes.jumbotron}>
           {/* Main featured post */}
           <Paper className={classes.mainFeaturedPost}>
             {/* Increase the priority of the hero background image */}
-            {<img style={{ display: "none" }} src={top} alt='background' />}
+            {<img style={{ display: "none" }} src={top} alt="background" />}
             <div className={classes.overlay} />
             <Grid container>
-              <Container maxWidth='md'>
+              <Container maxWidth="md">
                 <Grid item md={8}>
                   <div className={classes.mainFeaturedPostContent}>
                     <Typography
-                      component='h1'
-                      variant='h3'
-                      color='inherit'
+                      component="h1"
+                      variant="h3"
+                      color="inherit"
                       gutterBottom
                     >
                       Title of a longer featured blog post
                     </Typography>
-                    <Typography variant='h5' color='inherit' paragraph>
+                    <Typography variant="h5" color="inherit" paragraph>
                       Multiple lines of text that form the lede, informing new
                       readers quickly and efficiently about what&apos;s most
                       interesting in this post&apos;s contents.
                     </Typography>
-                    <Link variant='subtitle1' href='#'>
+                    <Link variant="subtitle1" href="#">
                       Continue reading…
                     </Link>
                   </div>
@@ -193,7 +199,7 @@ const Home = ({ changeNavbarValue }) => {
             </Grid>
           </Paper>
         </Container>
-        <Container className={classes.cardGrid} maxWidth='md'>
+        <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={2}>
             {cards.map(card => (
@@ -202,14 +208,14 @@ const Home = ({ changeNavbarValue }) => {
                   <CardMedia
                     className={classes.cardMedia}
                     image={v1}
-                    title='Image title'
+                    title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Toolbar className={classes.cardTitle}>
-                      <Avatar alt='' src={v2} className={classes.avatar} />
+                      <Avatar alt="" src={v2} className={classes.avatar} />
                       <Typography
                         gutterBottom
-                        variant='body1'
+                        variant="body1"
                         className={classes.name}
                       >
                         by Natalia Zuluaga
@@ -222,7 +228,7 @@ const Home = ({ changeNavbarValue }) => {
           </Grid>
         </Container>
 
-        <Container maxWidth='md' className={classes.carousel}>
+        <Container maxWidth="md" className={classes.carousel}>
           <Carousel
             swipeable={true}
             draggable={true}
@@ -231,11 +237,11 @@ const Home = ({ changeNavbarValue }) => {
             infinite={true}
             autoPlaySpeed={1000}
             keyBoardControl={true}
-            customTransition='transform 600ms ease-in-out'
+            customTransition="transform 600ms ease-in-out"
             transitionDuration={100}
-            containerClass='carousel-container'
+            containerClass="carousel-container"
             removeArrowOnDeviceType={["tablet", "mobile"]}
-            dotListClass='custom-dot-list-style'
+            dotListClass="custom-dot-list-style"
             // itemClass="carousel-item-padding-30-px"
             // showDots
             // renderDotsOutside
@@ -243,33 +249,33 @@ const Home = ({ changeNavbarValue }) => {
             slidesToSlide={1}
           >
             <div className={classes.image}>
-              {<img style={{ display: "none" }} src={v1} alt='background' />}
+              {<img style={{ display: "none" }} src={v1} alt="background" />}
             </div>
             <div className={classes.image}>
-              {<img style={{ display: "none" }} src={v1} alt='background' />}
+              {<img style={{ display: "none" }} src={v1} alt="background" />}
             </div>
             <div className={classes.image}>
-              {<img style={{ display: "none" }} src={v1} alt='background' />}
+              {<img style={{ display: "none" }} src={v1} alt="background" />}
             </div>
             <div className={classes.image}>
-              {<img style={{ display: "none" }} src={v1} alt='background' />}
+              {<img style={{ display: "none" }} src={v1} alt="background" />}
             </div>
             <div className={classes.image}>
-              {<img style={{ display: "none" }} src={v1} alt='background' />}
+              {<img style={{ display: "none" }} src={v1} alt="background" />}
             </div>
           </Carousel>
         </Container>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
-        <Typography variant='h6' align='center' gutterBottom>
+        <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
         <Typography
-          variant='subtitle1'
-          align='center'
-          color='textSecondary'
-          component='p'
+          variant="subtitle1"
+          align="center"
+          color="textSecondary"
+          component="p"
         >
           Something here to give the footer a purpose!
         </Typography>
