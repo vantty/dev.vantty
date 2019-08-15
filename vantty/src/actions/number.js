@@ -1,7 +1,14 @@
-import { NUMBER_VERIFY_SUCCESS, NUMBER_VERIFY_FAIL } from "./types";
+import {
+  NUMBER_VERIFY_SUCCESS,
+  NUMBER_VERIFY_FAIL,
+  GET_PROFILE
+} from "./types";
 
 import axios from "axios";
 import crypto from "crypto";
+import setAlert from "./alert";
+import { server } from "../utils/axios";
+import { createProfile, createMobileNumber } from "./profile";
 const appId = "619096385268555";
 const appSecret = "736811c32359eacd02377d882ee49d04";
 const csfr = "f20825edcc1a0ef2e4a546155119c52c";
@@ -26,11 +33,12 @@ export const verifyNumber = res => dispatch => {
         )
         .then(res => {
           const numberVerified = res.data.phone.number;
-          console.log(numberVerified);
+
           dispatch({
             type: NUMBER_VERIFY_SUCCESS,
             payload: numberVerified
           });
+          dispatch(createMobileNumber({ mobileNumber: numberVerified }, true));
         })
         .catch(err => {
           dispatch({

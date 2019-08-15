@@ -15,17 +15,17 @@ const ProfileSchema = new mongoose.Schema({
     // required: true
   },
   bio: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
 
   profession: {
-    type: [String],
-    required: true
+    type: [String]
+    // required: true
   },
   location: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
   mobileNumber: {
     type: String

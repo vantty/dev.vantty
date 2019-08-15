@@ -105,6 +105,36 @@ export const createProfile = (
   }
 };
 
+//Create Mobile Number
+export const createMobileNumber = (
+  formData,
+  edit = false
+) => async dispatch => {
+  console.log(formData);
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    const res = await server.post("/profile", formData, config);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert(edit ? "Mobile Number Validated" : null, "success"));
+  } catch (err) {
+    console.log(err);
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 // Add Education
 export const addEducation = (formData, history) => async dispatch => {
   try {

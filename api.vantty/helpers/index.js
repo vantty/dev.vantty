@@ -19,7 +19,7 @@ exports.validator = (req, res, next) => {
 };
 
 exports.profileValidator = (req, res, next) => {
-  req.check("profession", "Profession is required").notEmpty();
+  // req.check("profession", "Profession is required").notEmpty();
   // req.check("profilePicture", "Picture is required").notEmpty();
   const errors = req.validationErrors();
   if (errors) {

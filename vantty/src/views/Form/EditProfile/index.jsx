@@ -52,7 +52,8 @@ const EditProfile = ({
       location: loading || !profile.location ? "" : profile.location,
       instagramUsername:
         loading || !profile.instagramUsername ? "" : profile.instagramUsername,
-      mobileNumber: loading || !profile.social ? "" : profile.mobileNumber,
+      mobileNumber:
+        loading || !profile.mobileNumber ? "" : profile.mobileNumber,
       youtube: loading || !profile.social ? "" : profile.social.youtube,
       instagram: loading || !profile.social ? "" : profile.social.instagram
     });

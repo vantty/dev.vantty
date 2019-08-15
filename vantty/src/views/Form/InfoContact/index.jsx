@@ -1,90 +1,34 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+
+//npm package
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/dist/style.css";
+
+// Actions
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../../actions/profile";
 
-import MaskedInput from "react-text-mask";
-
-import FormBottomNav from "../ComponentsForm/FormBottomNav";
-import Alert from "../../../components/Alert";
+//Components
 import SimpleAppBar from "../ComponentsForm/SimpleAppBar";
 import NumberValidation from "../../../components/NumberValidation";
-
 //Materila-UI
+import { Container, Box } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import NumberFormat from "react-number-format";
-import { Container, Input, Box } from "@material-ui/core";
-
-function TextMaskCustom(props) {
-  const { inputRef, ...other } = props;
-
-  return (
-    <MaskedInput
-      {...other}
-      ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
-      mask={[
-        "(",
-        /[1-9]/,
-        /\d/,
-        /\d/,
-        ")",
-        " ",
-        /\d/,
-        /\d/,
-        /\d/,
-        "-",
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/
-      ]}
-      placeholderChar={"\u2000"}
-      showMask
-    />
-  );
-}
-
-TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired
-};
-
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, ...other } = props;
-
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.value
-          }
-        });
-      }}
-      thousandSeparator
-      prefix="$"
-    />
-  );
-}
-
-NumberFormatCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
-};
+import FormBottomNav from "../ComponentsForm/FormBottomNav";
+import { verifyNumber } from "../../../actions/number";
+import setAlert from "../../../actions/alert";
 
 const InfoContact = ({
   profile: { profile, loading },
+  number: { numberIsVerified, numberVerified },
   createProfile,
   getCurrentProfile,
-  history,
-  classes
+  history
 }) => {
   const [formData, setFormData] = useState({
     mobileNumber: ""
@@ -98,27 +42,20 @@ const InfoContact = ({
     });
   }, [loading, getCurrentProfile]);
 
-  const { mobileNumber } = formData;
-
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = e => {
-    e.preventDefault();
-    createProfile(formData, history, true);
-  };
-
-  const [values, setValues] = React.useState({
-    textmask: "(1  )    -      ",
-    numberformat: "1320"
+  //validation
+  const [formDataNumber, setFormDataNumber] = useState({
+    phone: "",
+    countryCode: ""
   });
 
-  const handleChange = name => event => {
-    setValues({
-      ...values,
-      [name]: event.target.value
+  const { phone, countryCode } = formDataNumber;
+
+  function handleOnChange(value, data) {
+    setFormDataNumber({
+      phone: value.replace(/[^0-9]+/g, ""),
+      countryCode: data.countryCode === "co" ? "57" : "1"
     });
-  };
+  }
 
   return (
     <Fragment>
@@ -129,32 +66,38 @@ const InfoContact = ({
         page={"/profile"}
       />
       <Box pt={11} pb={8}>
-        <Alert />
-        <Container maxWidth="sm">
-          <Typography component="h5" variant="h6" align="left">
-            Click here to validate ypu Whatsapp number
-          </Typography>
-          <NumberValidation />
-          {/* <FormControl>
-            <InputLabel htmlFor="formatted-text-mask-input">
-              react-text-mask
-            </InputLabel>
-            <Input
-              value={values.textmask}
-              onChange={handleChange("textmask")}
-              id="formatted-text-mask-input"
-              inputComponent={TextMaskCustom}
-            />
-            <FormBottomNav
-              step={3}
-              backPage={"/add-portfolio"}
-              nextPage={"/welcome"}
-              disabled={true}
-            />
-          </FormControl> */}
+        <Container maxWidth='sm'>
+          {!numberIsVerified ? (
+            <div>
+              <Typography component='h5' variant='h6' align='left'>
+                Click here to validate ypu Whatsapp number
+              </Typography>
+              <ReactPhoneInput
+                defaultCountry='us'
+                onlyCountries={["co", "us", "ca"]}
+                masks={{
+                  co: "+.. (...) ...-..-..",
+                  ca: "+. (...) ...-..-..",
+                  us: "+. (...) ...-..-.."
+                }}
+                disableAreaCodes
+                value={phone}
+                onChange={handleOnChange}
+              />
+
+              <NumberValidation phone={phone} countryCode={countryCode} />
+            </div>
+          ) : (
+            "Hello Artists, your mobile number had been validated. Welcome to"
+          )}
+          <FormBottomNav
+            step={3}
+            backPage={"/add-portfolio"}
+            nextPage={"/welcome"}
+            disabled={true}
+          />
         </Container>
       </Box>
-      {/* </div> */}
     </Fragment>
   );
 };
@@ -162,11 +105,13 @@ const InfoContact = ({
 InfoContact.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  number: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  number: state.number
 });
 
 export default connect(
