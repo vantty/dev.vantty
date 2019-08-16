@@ -94,6 +94,7 @@ const CreateProfile = ({ createProfile, history }) => {
         progress={1}
         page={`/dashboard`}
       />
+
       <Box pt={11} pb={8}>
         <Container maxWidth='sm'>
           <Paper>
