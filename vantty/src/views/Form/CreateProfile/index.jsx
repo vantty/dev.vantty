@@ -21,10 +21,50 @@ import {
   FormControlLabel,
   Checkbox,
   Container,
-  Box
+  Box,
+  Paper,
+  makeStyles
 } from "@material-ui/core";
 
+const useStyles = makeStyles(theme => ({
+  appBar: {
+    position: "relative"
+  },
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: 600,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3)
+    }
+  },
+  stepper: {
+    padding: theme.spacing(3, 0, 5)
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end"
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1)
+  }
+}));
+
 const CreateProfile = ({ createProfile, history }) => {
+  const styles = useStyles();
   const [formData, setFormData] = useState({
     profilePicture: "",
     bio: "",
@@ -55,93 +95,95 @@ const CreateProfile = ({ createProfile, history }) => {
         page={`/dashboard`}
       />
       <Box pt={11} pb={8}>
-        <Alert />
         <Container maxWidth='sm'>
-          <Typography component='h5' variant='h6' align='left'>
-            Recuerda que tu perfil pasará por un proceso de revisión y se te
-            notificará por correo electrónico cuando sea activado.
-          </Typography>
-          <form id='0' className='form' onSubmit={e => onSubmit(e)}>
-            <Fragment>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={12}>
-                  <Typography component='h5' variant='h6' align='left'>
-                    I am ...
-                  </Typography>
-                  <FormGroup row align='right'>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          id='profession'
-                          name='profession'
-                          label='profession'
-                          value={"Makeup Artist"}
-                          onChange={e => onChange(e)}
-                        />
-                      }
-                      label='Makeup Artist'
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={e => onChange(e)}
-                          id='profession'
-                          name='profession'
-                          label='profession'
-                          value={"Hair Stylist"}
-                        />
-                      }
-                      label='Hair Stylist'
-                    />
-                  </FormGroup>
-                </Grid>
+          <Paper>
+            <Typography component='h5' variant='h6' align='left'>
+              Recuerda que tu perfil pasará por un proceso de revisión y se te
+              notificará por correo electrónico cuando sea activado.
+            </Typography>
+            <form id='0' className='form' onSubmit={e => onSubmit(e)}>
+              <Fragment>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={12}>
+                    <Typography component='h5' variant='h6' align='left'>
+                      I am ...
+                    </Typography>
+                    <FormGroup row align='right'>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            id='profession'
+                            name='profession'
+                            label='profession'
+                            value={"Makeup Artist"}
+                            onChange={e => onChange(e)}
+                          />
+                        }
+                        label='Makeup Artist'
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={e => onChange(e)}
+                            id='profession'
+                            name='profession'
+                            label='profession'
+                            value={"Hair Stylist"}
+                          />
+                        }
+                        label='Hair Stylist'
+                      />
+                    </FormGroup>
+                  </Grid>
 
-                <Grid item xs={12}>
-                  <TextField
-                    variant='outlined'
-                    id='bio'
-                    name='bio'
-                    label='bio'
-                    fullWidth
-                    multiline
-                    rows='4'
-                    value={bio}
-                    autoComplete='fname'
-                    onChange={e => onChange(e)}
-                  />
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      variant='outlined'
+                      id='bio'
+                      name='bio'
+                      label='bio'
+                      fullWidth
+                      multiline
+                      rows='4'
+                      value={bio}
+                      autoComplete='fname'
+                      onChange={e => onChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      variant='outlined'
+                      id='location'
+                      name='location'
+                      label='location'
+                      fullWidth
+                      value={location}
+                      autoComplete='fname'
+                      onChange={e => onChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      variant='outlined'
+                      id='instagramUsername'
+                      name='instagramUsername'
+                      label='instagramUsername'
+                      fullWidth
+                      value={instagramUsername}
+                      autoComplete='fname'
+                      onChange={e => onChange(e)}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant='outlined'
-                    id='location'
-                    name='location'
-                    label='location'
-                    fullWidth
-                    value={location}
-                    autoComplete='fname'
-                    onChange={e => onChange(e)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant='outlined'
-                    id='instagramUsername'
-                    name='instagramUsername'
-                    label='instagramUsername'
-                    fullWidth
-                    value={instagramUsername}
-                    autoComplete='fname'
-                    onChange={e => onChange(e)}
-                  />
-                </Grid>
-              </Grid>
-              <FormBottomNav
-                step={1}
-                backPage={"/add-portfolio"}
-                nextPage={""}
-              />
-            </Fragment>
-          </form>
+                <FormBottomNav
+                  step={1}
+                  backPage={"/add-portfolio"}
+                  nextPage={""}
+                />
+              </Fragment>
+            </form>
+          </Paper>
         </Container>
       </Box>
     </Fragment>

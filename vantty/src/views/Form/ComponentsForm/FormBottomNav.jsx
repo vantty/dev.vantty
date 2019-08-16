@@ -41,6 +41,7 @@ const SimpleBottomNav = ({ step, backPage, nextPage, disabled }) => {
             </Button>
             {nextPage === "" ? (
               <Button
+                style={{ backgroundColor: "#f5ff" }}
                 disabled={disabled}
                 type='submit'
                 variant='outlined'
@@ -50,6 +51,7 @@ const SimpleBottomNav = ({ step, backPage, nextPage, disabled }) => {
               </Button>
             ) : (
               <Button
+                style={{ color: "#f5ff" }}
                 component={Link}
                 to={nextPage}
                 variant='outlined'

@@ -30,7 +30,7 @@ const AddPortfolio = ({ profile: { profile, loading }, classes }) => {
         progress={2}
         page={"/edit-profile"}
       />
-      <Alert />
+
       <Box pt={11} pb={8}>
         <Container maxWidth='sm'>
           <div>

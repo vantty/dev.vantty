@@ -13,11 +13,11 @@ import ArrowBack from "../../../components/ArrowBack";
 const SimpleAppBar = ({ message, progress, page }) => {
   return (
     <div style={{ flexGrow: 1 }}>
-      <AppBar position='fixed' color='default'>
+      <AppBar position='fixed' style={{ backgroundColor: "#ffffff" }}>
         <Toolbar>
           {isMobile && progress === 1 && <ArrowBack page={page} />}
           <Container maxWidth='sm'>
-            <Typography variant='h6' color='inherit' type='title'>
+            <Typography variant='h6' style={{ color: "#000000" }} type='title'>
               {message}
             </Typography>
           </Container>

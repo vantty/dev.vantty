@@ -125,6 +125,7 @@ export const createMobileNumber = (
     });
 
     dispatch(setAlert(edit ? "Mobile Number Validated" : null, "success"));
+    dispatch(setAlert(!edit ? "Mobile Number NO Validated" : null, "error"));
   } catch (err) {
     console.log(err);
 

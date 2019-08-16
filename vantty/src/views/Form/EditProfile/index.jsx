@@ -77,7 +77,7 @@ const EditProfile = ({
         progress={1}
         page={`/dashboard`}
       />
-      <Alert />
+
       <Box pt={11} pb={8}>
         <Container maxWidth='sm'>
           <Typography component='h5' variant='h6' align='left'>
