@@ -84,13 +84,13 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
 
-    if (!edit) {
-      history.push("/add-portfolio");
-    }
+    // if (!edit) {
+    //   history.push("/add-portfolio");
+    // }
 
-    if (edit) {
-      history.push("/add-portfolio");
-    }
+    // if (edit) {
+    //   history.push("/add-portfolio");
+    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

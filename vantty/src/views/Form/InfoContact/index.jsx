@@ -11,24 +11,23 @@ import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../../actions/profile";
 
 //Components
-import SimpleAppBar from "../ComponentsForm/SimpleAppBar";
 import NumberValidation from "../../../components/NumberValidation";
 //Materila-UI
-import { Container, Box } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import FormBottomNav from "../ComponentsForm/FormBottomNav";
 import { verifyNumber } from "../../../actions/number";
-import setAlert from "../../../actions/alert";
 
 const InfoContact = ({
   profile: { profile, loading },
   number: { numberIsVerified, numberVerified },
   createProfile,
   getCurrentProfile,
-  history
+  history,
+  nextStep,
+  step,
+  prevStep
 }) => {
   const [formData, setFormData] = useState({
     mobileNumber: ""
@@ -57,47 +56,62 @@ const InfoContact = ({
     });
   }
 
+  const continues = e => {
+    e.preventDefault();
+    nextStep();
+  };
+
+  const back = e => {
+    e.preventDefault();
+    prevStep();
+  };
+
   return (
     <Fragment>
       <CssBaseline />
-      <SimpleAppBar
-        message={"3: Whatsapp number"}
-        progress={3}
-        page={"/profile"}
-      />
-      <Box pt={11} pb={8}>
-        <Container maxWidth='sm'>
-          {!numberIsVerified ? (
-            <div>
-              <Typography component='h5' variant='h6' align='left'>
-                Click here to validate ypu Whatsapp number
-              </Typography>
-              <ReactPhoneInput
-                defaultCountry='us'
-                onlyCountries={["co", "us", "ca"]}
-                masks={{
-                  co: "+.. (...) ...-..-..",
-                  ca: "+. (...) ...-..-..",
-                  us: "+. (...) ...-..-.."
-                }}
-                disableAreaCodes
-                value={phone}
-                onChange={handleOnChange}
-              />
-
-              <NumberValidation phone={phone} countryCode={countryCode} />
-            </div>
-          ) : (
-            "Hello Artists, your mobile number had been validated. Welcome to"
-          )}
-          <FormBottomNav
-            step={3}
-            backPage={"/add-portfolio"}
-            nextPage={"/welcome"}
-            disabled={true}
+      {!numberIsVerified ? (
+        <div>
+          <Typography component='h5' variant='h6' align='left'>
+            Click here to validate you Whatsapp number
+          </Typography>
+          <ReactPhoneInput
+            defaultCountry='us'
+            onlyCountries={["co", "us", "ca"]}
+            masks={{
+              co: "+.. (...) ...-..-..",
+              ca: "+. (...) ...-..-..",
+              us: "+. (...) ...-..-.."
+            }}
+            disableAreaCodes
+            value={phone}
+            onChange={handleOnChange}
           />
-        </Container>
-      </Box>
+
+          <NumberValidation phone={phone} countryCode={countryCode} />
+        </div>
+      ) : (
+        "Hello Artists, your mobile number had been validated. Welcome to"
+      )}
+      <FormBottomNav
+        step={step}
+        Children={
+          <div>
+            <div>
+              <Button primary={true} onClick={back}>
+                Back
+              </Button>
+
+              <Button
+                style={{ backgroundColor: "#f5f5" }}
+                primary={true}
+                onClick={continues}
+              >
+                Last Step
+              </Button>
+            </div>
+          </div>
+        }
+      />
     </Fragment>
   );
 };

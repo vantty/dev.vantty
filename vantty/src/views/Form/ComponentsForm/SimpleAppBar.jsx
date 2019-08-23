@@ -7,22 +7,26 @@ import ProgressBarForm from "./ProgressBarForm";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Container } from "@material-ui/core";
 import ArrowBack from "../../../components/ArrowBack";
 
-const SimpleAppBar = ({ message, progress, page }) => {
+const SimpleAppBar = ({ step, page }) => {
   return (
     <div style={{ flexGrow: 1 }}>
-      <AppBar position='fixed' style={{ backgroundColor: "#ffffff" }}>
+      <AppBar position='relative' style={{ backgroundColor: "#ffffff" }}>
         <Toolbar>
-          {isMobile && progress === 1 && <ArrowBack page={page} />}
-          <Container maxWidth='sm'>
-            <Typography variant='h6' style={{ color: "#000000" }} type='title'>
-              {message}
-            </Typography>
-          </Container>
+          {isMobile && step === 1 && <ArrowBack page={page} />}
+
+          <Typography
+            variant='h6'
+            color='inherit'
+            noWrap
+            style={{ color: "#000000" }}
+            type='title'
+          >
+            Vantty
+          </Typography>
         </Toolbar>
-        <ProgressBarForm value={progress} />
+        <ProgressBarForm value={step} />
       </AppBar>
     </div>
   );

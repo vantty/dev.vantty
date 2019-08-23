@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Children } from "react";
 import { Link } from "react-router-dom";
 
 //Materila-UI
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SimpleBottomNav = ({ step, backPage, nextPage, disabled }) => {
+const SimpleBottomNav = ({ step, Children }) => {
   const classes = useStyles();
   return (
     <Fragment>
@@ -31,35 +31,7 @@ const SimpleBottomNav = ({ step, backPage, nextPage, disabled }) => {
             >{`${step} / 3`}</Typography>
 
             <div className={classes.grow} />
-            <Button
-              disabled={step === 1}
-              component={Link}
-              to={backPage}
-              className={classes.backButton}
-            >
-              Back
-            </Button>
-            {nextPage === "" ? (
-              <Button
-                style={{ backgroundColor: "#f5ff" }}
-                disabled={disabled}
-                type='submit'
-                variant='outlined'
-                color='inherit'
-              >
-                {step === 3 ? "Finish" : "Next"}
-              </Button>
-            ) : (
-              <Button
-                style={{ color: "#f5ff" }}
-                component={Link}
-                to={nextPage}
-                variant='outlined'
-                color='inherit'
-              >
-                {"Next"}
-              </Button>
-            )}
+            {Children}
           </Toolbar>
         </Container>
       </AppBar>

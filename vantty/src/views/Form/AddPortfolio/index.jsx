@@ -15,59 +15,104 @@ import Alert from "../../../components/Alert";
 //Materila-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import { Container, Box, Avatar, withStyles, Grid } from "@material-ui/core";
+import {
+  Container,
+  Box,
+  Avatar,
+  withStyles,
+  Grid,
+  Button
+} from "@material-ui/core";
 import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 
 //Style
 import Style from "./style";
 
-const AddPortfolio = ({ profile: { profile, loading }, classes }) => {
+const AddPortfolio = ({
+  profile: { profile, loading },
+  classes,
+  formData,
+  handleChange,
+  nextStep,
+  prevStep,
+  step
+}) => {
+  const continues = e => {
+    e.preventDefault();
+    nextStep();
+  };
+
+  const back = e => {
+    e.preventDefault();
+    prevStep();
+  };
   return (
     <Fragment>
       <CssBaseline />
-      <SimpleAppBar
-        message={"2: Your porfolio is all"}
-        progress={2}
-        page={"/edit-profile"}
-      />
 
-      <Box pt={11} pb={8}>
-        <Container maxWidth='sm'>
-          <div>
-            <Grid container justify='center' alignItems='center'>
-              {!loading && profile.profilePicture ? (
-                <Avatar className={classes.bigAvatar}>
-                  <AddPhotoIcon style={{ fontSize: "48px" }} />
-                </Avatar>
-              ) : (
-                <Avatar className={classes.bigAvatar}>
-                  <AddPhotoIcon />
-                </Avatar>
-              )}
-            </Grid>
-            <Typography component='h5' variant='h6' align='center'>
-              Profile Image
-            </Typography>
-          </div>
+      <Container maxWidth='sm'>
+        <div>
+          <Grid container justify='center' alignItems='center'>
+            {!loading && profile.profilePicture ? (
+              <Avatar className={classes.bigAvatar}>
+                <AddPhotoIcon style={{ fontSize: "48px" }} />
+              </Avatar>
+            ) : (
+              <Avatar className={classes.bigAvatar}>
+                <AddPhotoIcon />
+              </Avatar>
+            )}
+          </Grid>
+          <Typography component='h5' variant='h6' align='center'>
+            Profile Image
+          </Typography>
+        </div>
 
-          <ImagesUploader />
-          {!loading && profile.portfolioPictures.length < 5 ? (
-            <FormBottomNav
-              disabled={true}
-              step={2}
-              backPage={"/edit-profile"}
-              nextPage={""}
-              botton={3}
-            />
-          ) : (
-            <FormBottomNav
-              step={2}
-              backPage={"/edit-profile"}
-              nextPage={"/info-contact"}
-            />
-          )}
-        </Container>
-      </Box>
+        <ImagesUploader />
+        {!loading && profile.portfolioPictures.length < 5 ? (
+          <FormBottomNav
+            step={step}
+            Children={
+              <div>
+                <div>
+                  <Button primary={true} onClick={back}>
+                    Back
+                  </Button>
+
+                  <Button
+                    style={{ backgroundColor: "#f5f5" }}
+                    disabled={true}
+                    primary={true}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+            }
+          />
+        ) : (
+          <FormBottomNav
+            step={step}
+            Children={
+              <div>
+                <div>
+                  <Button primary={true} onClick={back}>
+                    Back
+                  </Button>
+
+                  <Button
+                    style={{ backgroundColor: "#f5f5" }}
+                    primary={true}
+                    onClick={continues}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+            }
+          />
+        )}
+      </Container>
     </Fragment>
   );
 };
@@ -80,7 +125,6 @@ AddPortfolio.propTypes = {
 const mapStateToProps = state => ({
   profile: state.profile
 });
-
 export default withStyles(Style)(
   connect(
     mapStateToProps,

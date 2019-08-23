@@ -7,12 +7,12 @@ import store from "./store";
 
 // Components
 import Dashboard from "./components/dashboard/Dashboard";
-import CreateProfile from "./views/Form/CreateProfile";
+import CreateProfile from "./views/Form/UserForm";
 import EditProfile from "./views/Form/EditProfile";
 import AddEducation from "./views/Form/AddEducation";
 import AddPortfolio from "./views/Form/AddPortfolio";
 import InfoContact from "./views/Form/InfoContact";
-import Welcome from "./views/Form/Welcome";
+import UserForm from "./views/Form/UserForm";
 import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
 import NumberValidation from "./components/NumberValidation";
@@ -63,7 +63,7 @@ const App = () => {
             />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <Route exact path='/welcome' component={Welcome} />
+            <Route exact path='/userform' component={UserForm} />
             <PrivateRoute
               exact
               path='/add-education'
