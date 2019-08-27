@@ -18,7 +18,7 @@
     "material-ui-rating": "^4.1.1",
     "moment": "^2.24.0",
     "react": "^16.8.1",
-    "react-country-region-selector-material-ui-new": "^1.5.2",
+    "react-animated-css": "^1.2.1",
     "react-device-detect": "^1.7.5",
     "react-dom": "^16.8.1",
     "react-facebook-account-kit": "^0.1.5",

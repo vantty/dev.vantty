@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Actions
@@ -11,18 +11,61 @@ import Alert from "../../../components/Alert";
 import SimpleAppBar from "../ComponentsForm/SimpleAppBar";
 
 //Materila-UI
-import {
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  Container,
-  Box
-} from "@material-ui/core";
+
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+  Button
+} from "@material-ui/core";
+
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import FormBottomNav from "../ComponentsForm/FormBottomNav";
+
+const useStyles = makeStyles(theme => ({
+  appBar: {
+    position: "relative"
+  },
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: 600,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3)
+    }
+  },
+  stepper: {
+    padding: theme.spacing(3, 0, 5)
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end"
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1)
+  }
+}));
 
 const EditProfile = ({
   profile: { profile, loading },
@@ -30,11 +73,12 @@ const EditProfile = ({
   getCurrentProfile,
   history
 }) => {
+  const classes = useStyles();
   const [formData, setFormData] = useState({
     profilePicture: "",
     bio: "",
     profession: "",
-    location: "",
+    city: "",
     mobileNumber: "",
     instagramUsername: "",
     youtube: "",
@@ -55,11 +99,12 @@ const EditProfile = ({
       mobileNumber:
         loading || !profile.mobileNumber ? "" : profile.mobileNumber,
       youtube: loading || !profile.social ? "" : profile.social.youtube,
-      instagram: loading || !profile.social ? "" : profile.social.instagram
+      instagram: loading || !profile.social ? "" : profile.social.instagram,
+      city: loading || !profile.location ? "" : profile.location.city
     });
   }, [loading, getCurrentProfile]);
 
-  const { bio, location, instagramUsername } = formData;
+  const { bio, instagramUsername, profession, city } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -72,99 +117,164 @@ const EditProfile = ({
   return (
     <Fragment>
       <CssBaseline />
-      <SimpleAppBar
-        message={"1: This is your first step"}
-        progress={1}
-        page={`/dashboard`}
-      />
+      <div>
+        <SimpleAppBar step={0} />
+      </div>
+      <main className={classes.layout}>
+        <Paper className={classes.paper}>
+          {/* <form className='form' onSubmit={e => onSubmit(e)}> */}
+          <Fragment>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12}>
+                <Typography component='h1' variant='h4' align='center'>
+                  I am ......
+                </Typography>
+              </Grid>
+            </Grid>
+          </Fragment>
+          <br />
+          {/* def3ewds */}
+          <Grid container direction='row' justify='center' alignItems='center'>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              container
+              direction='row'
+              justify='center'
+              alignItems='center'
+            >
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor='age-helper'>Profesion</InputLabel>
+                <Select
+                  value={profession}
+                  onChange={e => onChange(e)}
+                  id='profession'
+                  name='profession'
+                  label='profession'
+                >
+                  <MenuItem value={"Makeup Artists"}>Makeup Artists</MenuItem>
+                  <MenuItem value={"Makeup Artist & Hair"}>
+                    Makeup Artist & Hair
+                  </MenuItem>
+                  <MenuItem value={"Hair Stylist"}>Hair Stylist</MenuItem>
+                </Select>
+                <FormHelperText>
+                  Obviously, we know you are an artist
+                </FormHelperText>
+              </FormControl>
+            </Grid>
 
-      <Box pt={11} pb={8}>
-        <Container maxWidth='sm'>
-          <Typography component='h5' variant='h6' align='left'>
-            Recuerda que tu perfil pasará por un proceso de revisión y se te
-            notificará por correo electrónico cuando sea activado.
-          </Typography>
-          <form className='form' onSubmit={e => onSubmit(e)}>
-            <Fragment>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={12}>
-                  <Typography component='h5' variant='h6' align='left'>
-                    I am ......
+            <Grid container>
+              <Grid item xs={12} sm={6} md={12}>
+                <Typography
+                  component='h1'
+                  variant='h5'
+                  className={classes.typography}
+                >
+                  Recogniced by
+                </Typography>
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  variant='outlined'
+                  id='bio'
+                  name='bio'
+                  label='bio'
+                  margin='normal'
+                  value={bio}
+                  multiline
+                  rows='4'
+                  fullWidth
+                  onChange={e => onChange(e)}
+                />
+              </Grid>
+            </Grid>
+
+            <Grid container>
+              <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6}>
+                  <Typography
+                    component='h1'
+                    variant='h5'
+                    className={classes.typography}
+                  >
+                    Living in
                   </Typography>
-                  <FormGroup row align='right'>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          // checked={state.MakeUp}
-                          // onChange={handleChange("checkedG")}
-                          id='profession'
-                          name='profession'
-                          label='profession'
-                          value={"Makeup Artist"}
-                          onChange={e => onChange(e)}
-                        />
-                      }
-                      label='Makeup Artist'
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={e => onChange(e)}
-                          id='profession'
-                          name='profession'
-                          label='profession'
-                          value={"Hair Stylist"}
-                        />
-                      }
-                      label='Hair Stylist'
-                    />
-                  </FormGroup>
                 </Grid>
 
-                <Grid item xs={12}>
-                  <TextField
-                    variant='outlined'
-                    id='bio'
-                    name='bio'
-                    label='bio'
-                    fullWidth
-                    multiline
-                    rows='4'
-                    value={bio}
-                    autoComplete='fname'
-                    onChange={e => onChange(e)}
-                  />
+                <Grid>
+                  <FormControl className={classes.textField}>
+                    <InputLabel>City</InputLabel>
+                    <Select
+                      required
+                      id='city'
+                      name='city'
+                      value={city}
+                      autoComplete='fname'
+                      onChange={e => onChange(e)}
+                    >
+                      <MenuItem value={"Toronto - Canadá"}>
+                        Toronto - Canadá
+                      </MenuItem>
+                      <MenuItem value={"Medellín - Colombia"}>
+                        Medellín - Colombia
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant='outlined'
-                    id='location'
-                    name='location'
-                    label='location'
-                    fullWidth
-                    value={location}
-                    autoComplete='fname'
-                    onChange={e => onChange(e)}
-                  />
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={12} md={12}>
+                  <Typography
+                    component='h1'
+                    variant='h5'
+                    className={classes.typography}
+                  >
+                    Uses Instagram as
+                  </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+
+                <Grid item xs={12} sm={12} md={12}>
                   <TextField
-                    variant='outlined'
                     id='instagramUsername'
                     name='instagramUsername'
-                    label='instagramUsername'
-                    fullWidth
+                    label={`@Username`}
+                    margin='normal'
+                    className={classes.textField}
                     value={instagramUsername}
-                    autoComplete='fname'
                     onChange={e => onChange(e)}
                   />
                 </Grid>
               </Grid>
-            </Fragment>
-            <FormBottomNav step={1} backPage={""} nextPage={""} />
-          </form>
-        </Container>
-      </Box>
+            </Grid>
+          </Grid>
+
+          <FormBottomNav
+            // step={step}
+            Children={
+              <div>
+                <div>
+                  <Button component={Link} to='/dashboard'>
+                    Back
+                  </Button>
+                  <Button
+                    style={{ backgroundColor: "#f5f5" }}
+                    onClick={e => onSubmit(e)}
+                  >
+                    Update
+                  </Button>
+                </div>
+              </div>
+            }
+          />
+
+          {/* </form> */}
+        </Paper>
+      </main>
     </Fragment>
   );
 };

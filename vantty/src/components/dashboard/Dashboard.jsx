@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
+  number: { numberIsVerified, numberVerified },
   auth: { user },
   profile: { profile, loading }
 }) => {
@@ -105,12 +106,14 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  number: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
+  number: state.number
 });
 
 export default connect(

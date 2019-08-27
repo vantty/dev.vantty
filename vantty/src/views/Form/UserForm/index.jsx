@@ -142,9 +142,9 @@ const UserForm = ({ profile }) => {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component='h1' variant='h4' align='center'>
-            {steps[activeStep - 1]}
+            {activeStep !== 3 ? steps[activeStep - 1] : null}
           </Typography>
-
+          <br />
           <Fragment>
             {activeStep === steps.length + 1 ? (
               <Fragment>

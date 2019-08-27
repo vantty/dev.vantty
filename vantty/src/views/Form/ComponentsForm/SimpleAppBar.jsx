@@ -15,7 +15,6 @@ const SimpleAppBar = ({ step, page }) => {
       <AppBar position='sticky' style={{ backgroundColor: "#ffffff" }}>
         <Toolbar>
           {isMobile && step === 1 && <ArrowBack page={page} />}
-
           <Typography
             variant='h6'
             color='inherit'
@@ -26,7 +25,7 @@ const SimpleAppBar = ({ step, page }) => {
             Vantty
           </Typography>
         </Toolbar>
-        <ProgressBarForm value={step} />
+        {!step === null && <ProgressBarForm value={step} />}
       </AppBar>
     </div>
   );

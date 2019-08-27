@@ -63,7 +63,7 @@ const App = () => {
             />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <Route exact path='/userform' component={UserForm} />
+            <PrivateRoute exact path='/userform' component={UserForm} />
             <PrivateRoute
               exact
               path='/add-education'
