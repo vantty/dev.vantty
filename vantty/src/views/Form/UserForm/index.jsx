@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["I am ...", "My Profile & Portfolio", "Contact Number"];
 
 const UserForm = ({ profile }) => {
   const classes = useStyles();
@@ -64,13 +64,17 @@ const UserForm = ({ profile }) => {
     profilePicture: "",
     bio: "",
     profession: "",
-    location: "",
+    location: { country: "", state: "", city: "" },
+    // location: {},
     mobileNumber: "",
     instagramUsername: ""
   });
 
   const {
     bio,
+    country,
+    state,
+    city,
     location,
     instagramUsername,
     mobileNumber,
@@ -78,7 +82,7 @@ const UserForm = ({ profile }) => {
     profession
   } = formData;
 
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = useState(1);
 
   // Handle fields change
   const handleChange = e =>
@@ -103,7 +107,6 @@ const UserForm = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             formData={formData}
-            classes={classes}
           />
         );
       case 2:
@@ -139,7 +142,7 @@ const UserForm = ({ profile }) => {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component='h1' variant='h4' align='center'>
-            Checkout
+            {steps[activeStep - 1]}
           </Typography>
 
           <Fragment>

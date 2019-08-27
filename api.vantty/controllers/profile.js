@@ -27,12 +27,14 @@ exports.createANDupdate = async (req, res) => {
     profilePicture,
     bio,
     profession,
-    location,
     mobileNumber,
     instagramUsername,
     youtube,
     instagram,
-    review
+    review,
+    country,
+    state,
+    city
   } = req.body;
 
   // Build profile object
@@ -40,7 +42,7 @@ exports.createANDupdate = async (req, res) => {
   profileFields.user = req.user.id;
   if (profilePicture) profileFields.profilePicture = profilePicture;
   if (bio) profileFields.bio = bio;
-  if (location) profileFields.location = location;
+  // if (location) profileFields.location = location;
   if (mobileNumber) profileFields.mobileNumber = mobileNumber;
   if (instagramUsername) profileFields.instagramUsername = instagramUsername;
   if (profession) {
@@ -49,6 +51,12 @@ exports.createANDupdate = async (req, res) => {
   // if (profession) {
   //   profileFields.profession = profession.split(",").map(pro => pro.trim());
   // }
+
+  // Build location object
+  profileFields.location = {};
+  if (country) profileFields.location.country = country;
+  if (state) profileFields.location.state = state;
+  if (city) profileFields.location.city = city;
 
   // Build social object
   profileFields.social = {};

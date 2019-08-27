@@ -75,14 +75,12 @@ const AddPortfolio = ({
             Children={
               <div>
                 <div>
-                  <Button primary={true} onClick={back}>
-                    Back
-                  </Button>
+                  <Button onClick={back}>Back</Button>
 
                   <Button
                     style={{ backgroundColor: "#f5f5" }}
                     disabled={true}
-                    primary={true}
+                    // primary={true}
                   >
                     Next
                   </Button>
@@ -96,13 +94,10 @@ const AddPortfolio = ({
             Children={
               <div>
                 <div>
-                  <Button primary={true} onClick={back}>
-                    Back
-                  </Button>
+                  <Button onClick={back}>Back</Button>
 
                   <Button
                     style={{ backgroundColor: "#f5f5" }}
-                    primary={true}
                     onClick={continues}
                   >
                     Next
