@@ -16,17 +16,17 @@ const DashboardActions = () => {
   const classes = useStyles();
   return (
     <Fragment>
-      <Link to='/edit-profile'>
-        <Button
-          variant='contained'
-          color='secondary'
-          className={classes.button}
-        >
-          Edit Profile
-        </Button>
-      </Link>
+      <Button
+        variant='contained'
+        color='secondary'
+        className={classes.button}
+        component={Link}
+        to='/edit-profile'
+      >
+        Edit Profile
+      </Button>
 
-      <Link to='/add-education'>
+      {/* <Link to='/add-education'>
         <Button
           variant='contained'
           color='secondary'
@@ -34,17 +34,27 @@ const DashboardActions = () => {
         >
           Add Education
         </Button>
-      </Link>
+      </Link> */}
 
-      <Link to='/add-portfolio'>
-        <Button
-          variant='contained'
-          color='secondary'
-          className={classes.button}
-        >
-          Add Pictures
-        </Button>
-      </Link>
+      <Button
+        variant='contained'
+        color='secondary'
+        className={classes.button}
+        component={Link}
+        to='/add-portfolio'
+      >
+        Add Pictures
+      </Button>
+
+      <Button
+        variant='contained'
+        color='secondary'
+        className={classes.button}
+        component={Link}
+        to='/personal-info'
+      >
+        Personal Information
+      </Button>
     </Fragment>
   );
 };

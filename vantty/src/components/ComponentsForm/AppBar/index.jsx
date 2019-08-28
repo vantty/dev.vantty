@@ -1,13 +1,13 @@
 import React from "react";
 import { isMobile } from "react-device-detect";
 //Components
-import ProgressBarForm from "./ProgressBarForm";
+import ProgressBarForm from "../ProgressBar";
 
 //Material
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import ArrowBack from "../../../components/ArrowBack";
+import ArrowBack from "../../ArrowBack";
 
 const SimpleAppBar = ({ step, page }) => {
   return (

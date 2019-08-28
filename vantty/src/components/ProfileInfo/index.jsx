@@ -43,7 +43,7 @@ const ProfileInfo = ({
             </h1>
             <h3 className={classes.subTitle}>{profession}</h3>
             <h3 className={classes.description}>{bio}</h3>
-            <p>{location && <span>{location}</span>}</p>
+            <p>{location && <span>{location.city}</span>}</p>
 
             <div style={{ display: "inline-block" }}>
               <Toolbar>

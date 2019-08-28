@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { createProfile } from "../../../actions/profile";
 
 //components
-import FormBottomNav from "../ComponentsForm/FormBottomNav";
+import FormBottomNav from "../../../components/ComponentsForm/FormBottomNav";
 
 //Material-UI
 import {
@@ -24,27 +24,8 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
-  textField: {
-    marginTop: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    width: "100%"
-  },
-  container: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    textAlign: "center",
-    cursor: "none"
-  },
-  typography: {
-    marginTop: "1rem",
-    marginBottom: "-0.5rem"
-  }
-}));
+//classes
+import Style from "../style";
 
 const CreateProfile = ({
   createProfile,
@@ -54,7 +35,7 @@ const CreateProfile = ({
   nextStep,
   step
 }) => {
-  const classes = useStyles();
+  const classes = Style();
 
   const onSubmit = e => {
     e.preventDefault();

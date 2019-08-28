@@ -70,7 +70,7 @@ const ProfileItem = ({
                         {"Hello"}
                       </Typography>
                       <Typography>{profession}</Typography>
-                      <Typography>{location}</Typography>
+                      <Typography>{location && location.city}</Typography>
                     </CardContent>
                     <CardActions>
                       <Button

@@ -16,7 +16,7 @@ import NumberValidation from "../../../components/NumberValidation";
 import { Button, Grid } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import FormBottomNav from "../ComponentsForm/FormBottomNav";
+import FormBottomNav from "../../../components/ComponentsForm/FormBottomNav";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({

@@ -66,34 +66,39 @@ const Dashboard = ({
 
           {profile !== null ? (
             <Fragment>
-              <Link to={`/profile/artist/${profile.user._id}`}>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.button}
-                >
-                  Profile
-                </Button>
-              </Link>
+              <Button
+                variant='contained'
+                color='primary'
+                className={classes.button}
+                to={`/profile/artist/${profile.user._id}`}
+                component={Link}
+              >
+                Profile
+              </Button>
+
               <DashboardActions />
               <Education education={profile.education} />
-              <Link to='/login'>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  className={classes.button}
-                  onClick={() => deleteAccount()}
-                >
-                  Delete My Account
-                </Button>
-              </Link>
+
+              <Button
+                variant='contained'
+                color='secondary'
+                className={classes.button}
+                onClick={() => deleteAccount()}
+                to='/login'
+                component={Link}
+              >
+                Delete My Account
+              </Button>
             </Fragment>
           ) : (
             <Fragment>
               <Typography>Do you want to become an Artists?</Typography>
-              <Button variant='contained' color='secondary'>
-                <Link to='/create-profile'>Create Profile</Link>
-              </Button>
+              <Button
+                variant='contained'
+                color='secondary'
+                to='/create-profile'
+                component={Link}
+              ></Button>
             </Fragment>
           )}
         </Fragment>

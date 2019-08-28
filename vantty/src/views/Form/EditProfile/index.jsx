@@ -8,7 +8,8 @@ import { createProfile, getCurrentProfile } from "../../../actions/profile";
 
 //Components
 import Alert from "../../../components/Alert";
-import SimpleAppBar from "../ComponentsForm/SimpleAppBar";
+import AppBarForm from "../../../components/ComponentsForm/AppBar";
+import FormBottomNav from "../../../components/ComponentsForm/FormBottomNav";
 
 //Materila-UI
 
@@ -28,44 +29,8 @@ import {
 
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import FormBottomNav from "../ComponentsForm/FormBottomNav";
 
-const useStyles = makeStyles(theme => ({
-  appBar: {
-    position: "relative"
-  },
-  layout: {
-    width: "auto",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3)
-    }
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5)
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end"
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1)
-  }
-}));
+import Style from "../style";
 
 const EditProfile = ({
   profile: { profile, loading },
@@ -73,7 +38,7 @@ const EditProfile = ({
   getCurrentProfile,
   history
 }) => {
-  const classes = useStyles();
+  const classes = Style();
   const [formData, setFormData] = useState({
     profilePicture: "",
     bio: "",
@@ -118,11 +83,10 @@ const EditProfile = ({
     <Fragment>
       <CssBaseline />
       <div>
-        <SimpleAppBar step={0} />
+        <AppBarForm step={null} />
       </div>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          {/* <form className='form' onSubmit={e => onSubmit(e)}> */}
           <Fragment>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
@@ -133,7 +97,7 @@ const EditProfile = ({
             </Grid>
           </Fragment>
           <br />
-          {/* def3ewds */}
+
           <Grid container direction='row' justify='center' alignItems='center'>
             <Grid
               item
@@ -214,6 +178,7 @@ const EditProfile = ({
                       name='city'
                       value={city}
                       autoComplete='fname'
+                      fullWidth
                       onChange={e => onChange(e)}
                     >
                       <MenuItem value={"Toronto - Canadá"}>
@@ -238,12 +203,11 @@ const EditProfile = ({
                   </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={12}>
+                <Grid>
                   <TextField
                     id='instagramUsername'
                     name='instagramUsername'
                     label={`@Username`}
-                    margin='normal'
                     className={classes.textField}
                     value={instagramUsername}
                     onChange={e => onChange(e)}
@@ -254,7 +218,6 @@ const EditProfile = ({
           </Grid>
 
           <FormBottomNav
-            // step={step}
             Children={
               <div>
                 <div>

@@ -16,6 +16,7 @@ import UserForm from "./views/Form/UserForm";
 import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
 import NumberValidation from "./components/NumberValidation";
+import EditPorfolio from "./views/Form/EditPortfolio";
 
 // Views
 import Home from "./views/Home";
@@ -31,6 +32,7 @@ import { loadUser } from "./actions/auth";
 // Utils
 import PrivateRoute from "./router/PrivateRoute";
 import setAuthToken from "./utils/setAuthToken";
+import EditPersonalInfo from "./views/Form/EditPersonalInfo";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -62,8 +64,13 @@ const App = () => {
               component={CreateProfile}
             />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+            <PrivateRoute
+              exact
+              path='/personal-info'
+              component={EditPersonalInfo}
+            />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <PrivateRoute exact path='/userform' component={UserForm} />
+            <Route exact path='/userform' component={UserForm} />
             <PrivateRoute
               exact
               path='/add-education'
@@ -72,7 +79,7 @@ const App = () => {
             <PrivateRoute
               exact
               path='/add-portfolio'
-              component={AddPortfolio}
+              component={EditPorfolio}
             />
             <PrivateRoute
               exact

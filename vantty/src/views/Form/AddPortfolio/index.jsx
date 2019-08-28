@@ -7,8 +7,8 @@ import { spacing } from "@material-ui/system";
 import { addPortfolio } from "../../../actions/profile";
 
 //Components
-import SimpleAppBar from "../ComponentsForm/SimpleAppBar";
-import FormBottomNav from "../ComponentsForm/FormBottomNav";
+import SimpleAppBar from "../../../components/ComponentsForm/AppBar";
+import FormBottomNav from "../../../components/ComponentsForm/FormBottomNav";
 import ImagesUploader from "../../../components/ImagesUploader";
 import Alert from "../../../components/Alert";
 
@@ -17,11 +17,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import {
   Container,
-  Box,
   Avatar,
   withStyles,
   Grid,
-  Button
+  Button,
+  Paper
 } from "@material-ui/core";
 import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 
@@ -77,11 +77,7 @@ const AddPortfolio = ({
                 <div>
                   <Button onClick={back}>Back</Button>
 
-                  <Button
-                    style={{ backgroundColor: "#f5f5" }}
-                    disabled={true}
-                    // primary={true}
-                  >
+                  <Button style={{ backgroundColor: "#f5f5" }} disabled={true}>
                     Next
                   </Button>
                 </div>
