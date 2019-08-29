@@ -15,7 +15,7 @@ import {
 // Get current users profile
 export const getCurrentProfile = () => async dispatch => {
   try {
-    // dispatch({ type: CLEAR_PROFILE });
+    // dispatch({ type: GET_PROFILE });
     await dispatch(loadUser());
     const res = await server.get("/profile/me");
     await dispatch({

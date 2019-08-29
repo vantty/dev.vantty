@@ -69,3 +69,79 @@ generateToken = user => {
     JWT_SECRET
   );
 };
+
+//Update Personal Info
+exports.updatePersonalInfo = async (req, res) => {
+  const { firstName, lastName, email, id, password } = req.body;
+  console.log("BEFORE", req.body);
+
+  let data = await User.findOne({ _id: id });
+
+  // Build profile object
+
+  const userFields = {};
+  // userFields.user = id;
+  userFields.method = "local";
+  userFields.local = {};
+  userFields.local.password = data.local.password;
+  if (firstName) userFields.local.firstName = firstName;
+  if (lastName) userFields.local.lastName = lastName;
+  if (email) userFields.local.email = email;
+
+  try {
+    let user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: userFields },
+      { new: true }
+    );
+    console.log(user);
+
+    return res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// //Create or Update
+// exports.register = async (req, res) => {
+//   const { firstName, lastName, email, password } = req.body;
+//   console.log("USER", user);
+//   try {
+//     var user = await User.findOne({ "local.email": email });
+//     if (user) {
+//       const userFields = {};
+//       userFields.user = req.user.id;
+//       userFields.method = "local";
+//       userFields.local = {};
+//       if (firstName) userFields.local.firstName = firstName;
+//       if (lastName) userFields.local.lastName = lastName;
+//       if (email) userFields.local.email = email;
+//       console.log("USER INSIDE TRY", user);
+
+//       try {
+//         user = await User.findOne({ user: req.user.id });
+//         user = await User.findOneAndUpdate(
+//           { user: req.user.id },
+//           { $set: userFields },
+//           { new: true }
+//         );
+
+//         return res.json(user);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     } else {
+//       const newUser = await User.create({
+//         method: "local",
+//         local: { firstName, lastName, email, password }
+//       });
+//       console.log("NEW USER", newUser);
+
+//       const token = generateToken(newUser);
+//       res.status(200).json({ token });
+//     }
+//   } catch (err) {
+//     res.status(500).send("Server error");
+//   }
+// };

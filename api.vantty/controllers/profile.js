@@ -36,7 +36,7 @@ exports.createANDupdate = async (req, res) => {
     state,
     city
   } = req.body;
-
+  // console.log(req);
   // Build profile object
   const profileFields = {};
   profileFields.user = req.user.id;
@@ -76,7 +76,6 @@ exports.createANDupdate = async (req, res) => {
 
       return res.json(profile);
     }
-
     // Create review id
     const newReview = new Review({
       user: req.user.id,

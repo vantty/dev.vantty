@@ -58,11 +58,7 @@ const App = () => {
             <Route exact path='/favorites' component={Favorites} />
             <Route exact path='/profile/artist/:id' component={Profile} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <PrivateRoute
-              exact
-              path='/create-profile'
-              component={CreateProfile}
-            />
+            <PrivateRoute exact path='/create-profile' component={UserForm} />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             <PrivateRoute
               exact
@@ -70,7 +66,7 @@ const App = () => {
               component={EditPersonalInfo}
             />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <Route exact path='/userform' component={UserForm} />
+            <Route exact path='/create-profile' component={UserForm} />
             <PrivateRoute
               exact
               path='/add-education'

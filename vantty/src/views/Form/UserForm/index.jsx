@@ -29,8 +29,7 @@ const UserForm = ({ profile }) => {
     profilePicture: "",
     bio: "",
     profession: "",
-    location: { country: "", state: "", city: "" },
-    // location: {},
+    city: "",
     mobileNumber: "",
     instagramUsername: ""
   });
@@ -40,7 +39,6 @@ const UserForm = ({ profile }) => {
     country,
     state,
     city,
-    location,
     instagramUsername,
     mobileNumber,
     profilePicture,

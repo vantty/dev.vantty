@@ -24,6 +24,7 @@ import {
   Paper
 } from "@material-ui/core";
 import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
+import Progress from "@material-ui/core/LinearProgress";
 
 //Style
 import Style from "./style";
@@ -51,58 +52,69 @@ const AddPortfolio = ({
       <CssBaseline />
 
       <Container maxWidth='sm'>
-        <div>
-          <Grid container justify='center' alignItems='center'>
-            {!loading && profile.profilePicture ? (
-              <Avatar className={classes.bigAvatar}>
-                <AddPhotoIcon style={{ fontSize: "48px" }} />
-              </Avatar>
+        <Fragment>
+          {profile ? (
+            <div>
+              <Grid container justify='center' alignItems='center'>
+                {!loading && profile.profilePicture ? (
+                  <Avatar className={classes.bigAvatar}>
+                    <AddPhotoIcon style={{ fontSize: "48px" }} />
+                  </Avatar>
+                ) : (
+                  <Avatar className={classes.bigAvatar}>
+                    <AddPhotoIcon />
+                  </Avatar>
+                )}
+              </Grid>
+              <Typography component='h5' variant='h6' align='center'>
+                Profile Image
+              </Typography>
+            </div>
+          ) : (
+            <Progress />
+          )}
+
+          <div>
+            <ImagesUploader />
+            {!loading && profile.portfolioPictures.length < 5 ? (
+              <FormBottomNav
+                step={step}
+                Children={
+                  <div>
+                    <div>
+                      <Button onClick={back}>Back</Button>
+
+                      <Button
+                        style={{ backgroundColor: "#f5f5" }}
+                        disabled={true}
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  </div>
+                }
+              />
             ) : (
-              <Avatar className={classes.bigAvatar}>
-                <AddPhotoIcon />
-              </Avatar>
+              <FormBottomNav
+                step={step}
+                Children={
+                  <div>
+                    <div>
+                      <Button onClick={back}>Back</Button>
+
+                      <Button
+                        style={{ backgroundColor: "#f5f5" }}
+                        onClick={continues}
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  </div>
+                }
+              />
             )}
-          </Grid>
-          <Typography component='h5' variant='h6' align='center'>
-            Profile Image
-          </Typography>
-        </div>
-
-        <ImagesUploader />
-        {!loading && profile.portfolioPictures.length < 5 ? (
-          <FormBottomNav
-            step={step}
-            Children={
-              <div>
-                <div>
-                  <Button onClick={back}>Back</Button>
-
-                  <Button style={{ backgroundColor: "#f5f5" }} disabled={true}>
-                    Next
-                  </Button>
-                </div>
-              </div>
-            }
-          />
-        ) : (
-          <FormBottomNav
-            step={step}
-            Children={
-              <div>
-                <div>
-                  <Button onClick={back}>Back</Button>
-
-                  <Button
-                    style={{ backgroundColor: "#f5f5" }}
-                    onClick={continues}
-                  >
-                    Next
-                  </Button>
-                </div>
-              </div>
-            }
-          />
-        )}
+          </div>
+        </Fragment>
       </Container>
     </Fragment>
   );

@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Packages
@@ -58,15 +58,13 @@ const CreateProfile = ({
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor='age-helper'>Profesion</InputLabel>
             <Select
+              select
               value={formData.profession}
               onChange={e => handleChange(e)}
               id='profession'
               name='profession'
               label='profession'
             >
-              <MenuItem value=''>
-                <em>None</em>
-              </MenuItem>
               <MenuItem value={"Makeup Artists"}>Makeup Artists</MenuItem>
               <MenuItem value={"Makeup Artist & Hair"}>
                 Makeup Artist & Hair
@@ -123,11 +121,11 @@ const CreateProfile = ({
               <FormControl className={classes.textField}>
                 <InputLabel>City</InputLabel>
                 <Select
-                  required
+                  select
                   id='city'
                   name='city'
                   value={formData.city}
-                  autoComplete='fname'
+                  // autoComplete='fname'
                   onChange={e => handleChange(e)}
                 >
                   <MenuItem value={"Toronto - Canadá"}>
@@ -172,6 +170,9 @@ const CreateProfile = ({
         Children={
           <div>
             <div>
+              <Button component={Link} to='/dashboard'>
+                Back
+              </Button>
               <Button
                 style={{ backgroundColor: "#f5f5" }}
                 onClick={e => onSubmit(e)}

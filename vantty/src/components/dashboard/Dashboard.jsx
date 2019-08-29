@@ -98,7 +98,17 @@ const Dashboard = ({
                 color='secondary'
                 to='/create-profile'
                 component={Link}
-              ></Button>
+              >
+                Create Profile
+              </Button>
+              <Button
+                variant='contained'
+                color='secondary'
+                to='/personal-info'
+                component={Link}
+              >
+                Personal Info
+              </Button>
             </Fragment>
           )}
         </Fragment>
