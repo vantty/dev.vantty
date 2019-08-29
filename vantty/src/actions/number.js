@@ -34,11 +34,12 @@ export const verifyNumber = res => dispatch => {
         .then(res => {
           const numberVerified = res.data.phone.number;
 
+          dispatch(createMobileNumber({ mobileNumber: numberVerified }, true));
+
           dispatch({
             type: NUMBER_VERIFY_SUCCESS,
             payload: numberVerified
           });
-          dispatch(createMobileNumber({ mobileNumber: numberVerified }, true));
         })
         .catch(err => {
           dispatch({
