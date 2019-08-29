@@ -64,7 +64,7 @@ generateToken = user => {
       iss: "vantty",
       sub: user.id,
       iat: Math.floor(Date.now() / 1000), // current time
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 // current time + 1h
+      exp: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60 // current time + 1yr
     },
     JWT_SECRET
   );

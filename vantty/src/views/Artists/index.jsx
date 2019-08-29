@@ -70,15 +70,15 @@ const Artists = ({
       ) : (
         <Fragment>
           <CssBaseline />
-          <Container>
-            {profiles.length > 0 ? (
-              profiles.map(profile => (
+          {profiles.length > 0 ? (
+            profiles.map(profile => (
+              <Container>
                 <ProfileCard key={profile._id} profile={profile} />
-              ))
-            ) : (
-              <Progress />
-            )}
-          </Container>
+              </Container>
+            ))
+          ) : (
+            <Progress />
+          )}
         </Fragment>
       )}
     </Fragment>

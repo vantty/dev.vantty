@@ -31,6 +31,10 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -57,6 +61,18 @@ const useStyles = makeStyles(theme => ({
   },
   login: {
     marginTop: theme.spacing(2)
+  },
+  root: {
+    width: "100%",
+    paddingTop: "16px",
+    paddingBottom: "8px"
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular
+  },
+  panel: {
+    marginTop: "-2rem"
   }
 }));
 
@@ -157,100 +173,115 @@ const Register = ({
               />
             </Grid>
           </Grid>
-          <form className={classes.form} noValidate onSubmit={e => onSubmit(e)}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  name="firstName"
-                  label="First Name"
-                  id="firstName"
-                  autoComplete="fname"
-                  fullWidth
-                  required
-                  value={firstName}
-                  onChange={e => onChange(e)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  name="lastName"
-                  label="Last Name"
-                  id="lastName"
-                  autoComplete="lname"
-                  fullWidth
-                  required
-                  value={lastName}
-                  onChange={e => onChange(e)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  name="email"
-                  label="Email Address"
-                  id="email"
-                  autoComplete="email"
-                  fullWidth
-                  required
-                  value={email}
-                  onChange={e => onChange(e)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  name="password"
-                  label="Password"
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  autoComplete="current-password"
-                  fullWidth
-                  required
-                  value={password}
-                  onChange={e => onChange(e)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          edge="end"
-                          aria-label="Toggle password visibility"
-                          onClick={handleClickShowPassword}
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+          <div className={classes.root}>
+            <ExpansionPanel>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className={classes.heading}>
+                  With your email account
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.panel}>
+                <form
+                  className={classes.form}
+                  noValidate
+                  onSubmit={e => onSubmit(e)}
+                >
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        name="firstName"
+                        label="First Name"
+                        id="firstName"
+                        autoComplete="fname"
+                        fullWidth
+                        required
+                        value={firstName}
+                        onChange={e => onChange(e)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        name="lastName"
+                        label="Last Name"
+                        id="lastName"
+                        autoComplete="lname"
+                        fullWidth
+                        required
+                        value={lastName}
+                        onChange={e => onChange(e)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        name="email"
+                        label="Email Address"
+                        id="email"
+                        autoComplete="email"
+                        fullWidth
+                        required
+                        value={email}
+                        onChange={e => onChange(e)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        name="password"
+                        label="Password"
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        autoComplete="current-password"
+                        fullWidth
+                        required
+                        value={password}
+                        onChange={e => onChange(e)}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                edge="end"
+                                aria-label="Toggle password visibility"
+                                onClick={handleClickShowPassword}
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
+                    Register
+                  </Button>
+                </form>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </div>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <LinkMui variant="body2" component={Link} to="/login">
+                Already have an account? Login
+              </LinkMui>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Register
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <LinkMui variant="body2" component={Link} to="/login">
-                  Already have an account? Login
-                </LinkMui>
-              </Grid>
-            </Grid>
-          </form>
+          </Grid>
         </div>
       </Container>
     </Fragment>

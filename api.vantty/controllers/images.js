@@ -6,7 +6,7 @@ cloudinary.config({
   api_secret: "rI4jV_piPjs1uJ_Z73DWgLYhbyk"
 });
 
-exports.addImages = async (req, res) => {
+exports.addImages = (req, res) => {
   const values = Object.values(req.files);
   const promises = values.map(image =>
     cloudinary.v2.uploader.upload(image.path)
@@ -17,7 +17,8 @@ exports.addImages = async (req, res) => {
     })
     .catch(err => res.status(400).json(err));
 };
-exports.deleteImages = async (req, res) => {
+
+exports.deleteImages = (req, res) => {
   const id = Object.values(req.body);
   cloudinary.v2.uploader
     .destroy(id)

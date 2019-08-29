@@ -32,12 +32,12 @@ const ImagesUploader = ({
   const UploadButton = () => {
     return (
       <Fragment>
-        <Button variant='contained' component='label' color='primary'>
+        <Button variant="contained" component="label" color="primary">
           Upload File
           <input
             style={{ display: "none" }}
-            type='file'
-            name='file'
+            type="file"
+            name="file"
             multiple
             onChange={onChange}
           />

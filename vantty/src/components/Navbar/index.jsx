@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   register: {
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(2),
     "&:hover": {
       backgroundColor: "rgb(245, 0, 87)"
     }
