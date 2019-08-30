@@ -7,9 +7,9 @@ import { connect } from "react-redux";
 import { createProfile } from "../../../actions/profile";
 
 //Components
-import CreateProfile from "../CreateProfile";
-import AddPortfolio from "../AddPortfolio";
-import InfoContact from "../InfoContact";
+import CreateProfile from "./CreateProfile";
+import AddPortfolio from "./AddPortfolio";
+import InfoContact from "./InfoContact";
 import AppBarForm from "../../../components/ComponentsForm/AppBar";
 
 //Material-UI
@@ -19,6 +19,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 import Style from "../style";
+import { Container } from "@material-ui/core";
 
 const steps = ["I am ...", "My Profile & Portfolio", "Contact Number"];
 
@@ -104,26 +105,28 @@ const UserForm = ({ profile }) => {
       </div>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component='h1' variant='h4' align='center'>
-            {activeStep !== 3 ? steps[activeStep - 1] : null}
-          </Typography>
-          <br />
-          <Fragment>
-            {activeStep === steps.length + 1 ? (
-              <Fragment>
-                <Typography variant='h5' gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant='subtitle1'>
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </Fragment>
-            ) : (
-              <Fragment>{getStepContent(activeStep)}</Fragment>
-            )}
-          </Fragment>
+          <Container maxWidth='xs'>
+            <Typography component='h1' variant='h4' align='center'>
+              {activeStep !== 3 ? steps[activeStep - 1] : null}
+            </Typography>
+            <br />
+            <Fragment>
+              {activeStep === steps.length + 1 ? (
+                <Fragment>
+                  <Typography variant='h5' gutterBottom>
+                    Thank you for your order.
+                  </Typography>
+                  <Typography variant='subtitle1'>
+                    Your order number is #2001539. We have emailed your order
+                    confirmation, and will send you an update when your order
+                    has shipped.
+                  </Typography>
+                </Fragment>
+              ) : (
+                <Fragment>{getStepContent(activeStep)}</Fragment>
+              )}
+            </Fragment>
+          </Container>
         </Paper>
       </main>
     </Fragment>

@@ -8,15 +8,16 @@ import store from "./store";
 // Components
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./views/Form/UserForm";
-import EditProfile from "./views/Form/EditProfile";
-import AddEducation from "./views/Form/AddEducation";
-import AddPortfolio from "./views/Form/AddPortfolio";
-import InfoContact from "./views/Form/InfoContact";
+import EditProfile from "./views/Form/EditForm/EditProfile";
+import AddEducation from "./views/Form/UserForm/AddEducation";
+import AddPortfolio from "./views/Form/UserForm/AddPortfolio";
+import InfoContact from "./views/Form/UserForm/InfoContact";
 import UserForm from "./views/Form/UserForm";
 import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
 import NumberValidation from "./components/NumberValidation";
-import EditPorfolio from "./views/Form/EditPortfolio";
+import EditPorfolio from "./views/Form/EditForm/EditPortfolio";
+import EditPersonalInfo from "./views/Form/EditForm/EditPersonalInfo";
 
 // Views
 import Home from "./views/Home";
@@ -32,7 +33,6 @@ import { loadUser } from "./actions/auth";
 // Utils
 import PrivateRoute from "./router/PrivateRoute";
 import setAuthToken from "./utils/setAuthToken";
-import EditPersonalInfo from "./views/Form/EditPersonalInfo";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

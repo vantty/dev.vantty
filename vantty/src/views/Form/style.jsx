@@ -1,12 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/core/styles";
 
 const Style = makeStyles(theme => ({
-  appBar: {
-    position: "relative"
-  },
   layout: {
     width: "auto",
     marginLeft: theme.spacing(2),
@@ -18,12 +12,12 @@ const Style = makeStyles(theme => ({
     }
   },
   paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(8),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
+      marginTop: theme.spacing(13),
+      marginBottom: theme.spacing(12),
       padding: theme.spacing(3)
     }
   },

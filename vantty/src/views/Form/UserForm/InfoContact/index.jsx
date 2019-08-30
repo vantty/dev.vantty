@@ -8,15 +8,15 @@ import "react-phone-input-2/dist/style.css";
 import { Animated } from "react-animated-css";
 // Actions
 import { connect } from "react-redux";
-import { createProfile, getCurrentProfile } from "../../../actions/profile";
+import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 
 //Components
-import NumberValidation from "../../../components/NumberValidation";
+import NumberValidation from "../../../../components/NumberValidation";
 //Materila-UI
 import { Button, Grid } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import FormBottomNav from "../../../components/ComponentsForm/FormBottomNav";
+import FormBottomNav from "../../../../components/ComponentsForm/FormBottomNav";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({

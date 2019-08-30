@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 //Packages
 
 //Actions
-import { createProfile } from "../../../actions/profile";
+import { createProfile } from "../../../../actions/profile";
 
 //components
-import FormBottomNav from "../../../components/ComponentsForm/FormBottomNav";
+import FormBottomNav from "../../../../components/ComponentsForm/FormBottomNav";
 
 //Material-UI
 import {
@@ -25,7 +25,7 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 
 //classes
-import Style from "../style";
+import Style from "../../style";
 
 const CreateProfile = ({
   createProfile,
@@ -80,7 +80,7 @@ const CreateProfile = ({
         <Grid container>
           <Grid item xs={12} sm={6} md={12}>
             <Typography
-              component='h1'
+              component='h5'
               variant='h5'
               className={classes.typography}
             >
@@ -109,7 +109,7 @@ const CreateProfile = ({
           <Grid item xs={12} sm={6} md={6}>
             <Grid item xs={12} sm={6} md={6}>
               <Typography
-                component='h1'
+                component='h6'
                 variant='h5'
                 className={classes.typography}
               >
@@ -142,7 +142,7 @@ const CreateProfile = ({
           <Grid item xs={12} sm={6} md={6}>
             <Grid item xs={12} sm={12} md={12}>
               <Typography
-                component='h1'
+                component='h5'
                 variant='h5'
                 className={classes.typography}
               >

@@ -12,7 +12,7 @@ import ArrowBack from "../../ArrowBack";
 const SimpleAppBar = ({ step, page }) => {
   return (
     <div style={{ flexGrow: 1 }}>
-      <AppBar position='sticky' style={{ backgroundColor: "#ffffff" }}>
+      <AppBar position='fixed' style={{ backgroundColor: "#ffffff" }}>
         <Toolbar>
           {isMobile && step === 1 && <ArrowBack page={page} />}
           <Typography
@@ -25,7 +25,7 @@ const SimpleAppBar = ({ step, page }) => {
             Vantty
           </Typography>
         </Toolbar>
-        {!step === null && <ProgressBarForm value={step} />}
+        {step && <ProgressBarForm value={step} />}
       </AppBar>
     </div>
   );
