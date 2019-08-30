@@ -69,3 +69,33 @@ generateToken = user => {
     JWT_SECRET
   );
 };
+
+//Update Personal Info
+exports.updatePersonalInfo = async (req, res) => {
+  const { firstName, lastName, email, id, password } = req.body;
+
+  let data = await User.findOne({ _id: id });
+
+  // Build profile object
+
+  const userFields = {};
+
+  userFields.method = "local";
+  userFields.local = {};
+  userFields.local.password = data.local.password;
+  if (firstName) userFields.local.firstName = firstName;
+  if (lastName) userFields.local.lastName = lastName;
+  if (email) userFields.local.email = email;
+
+  try {
+    let user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: userFields },
+      { new: true }
+    );
+
+    return res.json(user);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+};

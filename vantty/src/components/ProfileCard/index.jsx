@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 // Material-UI
 import Button from "@material-ui/core/Button";
@@ -47,42 +48,44 @@ const useStyles = makeStyles(theme => ({
 const cards = [1];
 
 const ProfileItem = ({
-  profile: { user, firstName, lastName, location, profession, profilePicture }
+  profile: { user, location, profession, profilePicture }
 }) => {
   const classes = useStyles();
   return (
     <Fragment>
       <Grid container spacing={4}>
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid} maxWidth='md'>
           {/* End hero unit */}
           {user != null && (
             <Grid container spacing={4}>
-              <Grid item xs={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={profilePicture}
-                    // title='Image title'
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {"Hello"}
-                    </Typography>
-                    <Typography>{profession}</Typography>
-                    <Typography>{location}</Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      color="primary"
-                      component={Link}
-                      to={`/profile/artist/${user._id}`}
-                    >
-                      View
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
+              {cards.map(card => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    {/* <CardMedia
+                      className={classes.cardMedia}
+                      image={profilePicture}
+                      // title='Image title'
+                    /> */}
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant='h5' component='h2'>
+                        {"Hello"}
+                      </Typography>
+                      <Typography>{profession}</Typography>
+                      <Typography>{location && location.city}</Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        size='small'
+                        color='primary'
+                        component={Link}
+                        to={`/profile/artist/${user._id}`}
+                      >
+                        View
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
           )}
         </Container>

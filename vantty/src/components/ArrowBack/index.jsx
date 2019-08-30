@@ -17,7 +17,12 @@ export default function ArrowBack({ page }) {
   const classes = useStyles();
   return (
     <Fragment>
-      <LinkMui underline='none' color='inherit' component={Link} to={page}>
+      <LinkMui
+        underline='none'
+        color='inherit'
+        component={Link}
+        to={"/dashboard"}
+      >
         <ArrowBackMui className={classes.arrowBack} />
       </LinkMui>
     </Fragment>

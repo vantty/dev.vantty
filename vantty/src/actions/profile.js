@@ -15,7 +15,7 @@ import {
 // Get current users profile
 export const getCurrentProfile = () => async dispatch => {
   try {
-    // dispatch({ type: CLEAR_PROFILE });
+    // dispatch({ type: GET_PROFILE });
     await dispatch(loadUser());
     const res = await server.get("/profile/me");
     await dispatch({
@@ -84,13 +84,13 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
 
-    if (!edit) {
-      history.push("/add-portfolio");
-    }
+    // if (!edit) {
+    //   history.push("/add-portfolio");
+    // }
 
-    if (edit) {
-      history.push("/add-portfolio");
-    }
+    // if (edit) {
+    //   history.push("/add-portfolio");
+    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

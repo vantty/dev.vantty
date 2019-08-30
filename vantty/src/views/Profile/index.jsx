@@ -70,8 +70,8 @@ const Profile = ({
         <Fragment>
           {isMobile ? (
             <AppBar
-              position="static"
-              color="default"
+              position='static'
+              color='default'
               className={classes.appbar}
             >
               <Toolbar>
@@ -87,7 +87,7 @@ const Profile = ({
           ) : (
             undefined
           )}
-          <Container maxWidth="md">
+          <Container maxWidth='md'>
             <ProfileInfo profile={profile} auth={auth} />
             <br />
             <ProfileCarousel profile={profile} />
@@ -130,21 +130,3 @@ export default connect(
   mapStateToProps,
   { getProfileById }
 )(Profile);
-
-{
-  /* <Grid>
-<h1>Education</h1>
-{profile.education.length > 0 ? (
-  <Fragment>
-    {profile.education.map(education => (
-      <ProfileEducation
-        key={education._id}
-        education={education}
-      />
-    ))}
-  </Fragment>
-) : (
-  <h4>No Education</h4>
-)}
-</Grid> */
-}

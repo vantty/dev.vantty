@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
+  number: { numberIsVerified, numberVerified },
   auth: { user },
   profile: { profile, loading }
 }) => {
@@ -65,33 +66,48 @@ const Dashboard = ({
 
           {profile !== null ? (
             <Fragment>
-              <Link to={`/profile/artist/${profile.user._id}`}>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.button}
-                >
-                  Profile
-                </Button>
-              </Link>
+              <Button
+                variant='contained'
+                color='primary'
+                className={classes.button}
+                to={`/profile/artist/${profile.user._id}`}
+                component={Link}
+              >
+                Profile
+              </Button>
+
               <DashboardActions />
               <Education education={profile.education} />
-              <Link to='/login'>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  className={classes.button}
-                  onClick={() => deleteAccount()}
-                >
-                  Delete My Account
-                </Button>
-              </Link>
+
+              <Button
+                variant='contained'
+                color='secondary'
+                className={classes.button}
+                onClick={() => deleteAccount()}
+                to='/login'
+                component={Link}
+              >
+                Delete My Account
+              </Button>
             </Fragment>
           ) : (
             <Fragment>
               <Typography>Do you want to become an Artists?</Typography>
-              <Button variant='contained' color='secondary'>
-                <Link to='/create-profile'>Create Profile</Link>
+              <Button
+                variant='contained'
+                color='secondary'
+                to='/create-profile'
+                component={Link}
+              >
+                Create Profile
+              </Button>
+              <Button
+                variant='contained'
+                color='secondary'
+                to='/personal-info'
+                component={Link}
+              >
+                Personal Info
               </Button>
             </Fragment>
           )}
@@ -105,12 +121,14 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  number: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
+  number: state.number
 });
 
 export default connect(

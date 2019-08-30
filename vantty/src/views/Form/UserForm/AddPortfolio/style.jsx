@@ -5,8 +5,8 @@ const Style = {
 
   bigAvatar: {
     margin: 10,
-    width: 90,
-    height: 90,
+    width: 80,
+    height: 80,
     backgroundColor: "#1FF0F0"
   }
 };

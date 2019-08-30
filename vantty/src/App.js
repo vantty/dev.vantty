@@ -7,15 +7,17 @@ import store from "./store";
 
 // Components
 import Dashboard from "./components/dashboard/Dashboard";
-import CreateProfile from "./views/Form/CreateProfile";
-import EditProfile from "./views/Form/EditProfile";
-import AddEducation from "./views/Form/AddEducation";
-import AddPortfolio from "./views/Form/AddPortfolio";
-import InfoContact from "./views/Form/InfoContact";
-import Welcome from "./views/Form/Welcome";
+import CreateProfile from "./views/Form/UserForm";
+import EditProfile from "./views/Form/EditForm/EditProfile";
+import AddEducation from "./views/Form/UserForm/AddEducation";
+import AddPortfolio from "./views/Form/UserForm/AddPortfolio";
+import InfoContact from "./views/Form/UserForm/InfoContact";
+import UserForm from "./views/Form/UserForm";
 import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
 import NumberValidation from "./components/NumberValidation";
+import EditPorfolio from "./views/Form/EditForm/EditPortfolio";
+import EditPersonalInfo from "./views/Form/EditForm/EditPersonalInfo";
 
 // Views
 import Home from "./views/Home";
@@ -56,14 +58,15 @@ const App = () => {
             <Route exact path='/favorites' component={Favorites} />
             <Route exact path='/profile/artist/:id' component={Profile} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute exact path='/create-profile' component={UserForm} />
+            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             <PrivateRoute
               exact
-              path='/create-profile'
-              component={CreateProfile}
+              path='/personal-info'
+              component={EditPersonalInfo}
             />
-            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <Route exact path='/welcome' component={Welcome} />
+            <Route exact path='/create-profile' component={UserForm} />
             <PrivateRoute
               exact
               path='/add-education'
@@ -72,7 +75,7 @@ const App = () => {
             <PrivateRoute
               exact
               path='/add-portfolio'
-              component={AddPortfolio}
+              component={EditPorfolio}
             />
             <PrivateRoute
               exact

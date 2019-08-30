@@ -62,7 +62,8 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
     <div>
       <GridList>
         <GridListTile key='Subheader' cols={2} style={{ height: "auto" }}>
-          <ListSubheader component='div'>Portfolio</ListSubheader>
+          {/* <ListSubheader component='div'>Portfolio</ListSubheader> */}
+          <br />
         </GridListTile>
         {portfolioPictures.map(picture => (
           <GridListTile key={picture._id} style={{ height: "auto" }}>

@@ -24,8 +24,15 @@ const ProfileSchema = new mongoose.Schema({
     // required: true
   },
   location: {
-    type: String
-    // required: true
+    country: {
+      type: String
+    },
+    state: {
+      type: String
+    },
+    city: {
+      type: String
+    }
   },
   mobileNumber: {
     type: String
@@ -37,12 +44,12 @@ const ProfileSchema = new mongoose.Schema({
   education: [
     {
       school: {
-        type: String,
-        required: true
+        type: String
+        // required: true
       },
       degree: {
-        type: String,
-        required: true
+        type: String
+        // required: true
       },
       description: {
         type: String

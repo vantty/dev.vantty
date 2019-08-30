@@ -9,7 +9,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  INFO_UPDATE_SUCCESS,
+  INFO_UPDATE_FAIL
 } from "./types";
 
 // Load User
@@ -58,6 +60,43 @@ export const register = ({
     dispatch({
       type: REGISTER_FAIL
     });
+  }
+};
+
+//Update Personal Info
+export const updateInfo = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    const res = await server.post("/auth/update-info", formData, config);
+    console.log(res);
+    dispatch({
+      type: INFO_UPDATE_SUCCESS
+    });
+
+    dispatch(setAlert(edit && "User Update", "success"));
+
+    if (edit) {
+      history.push("/dashboard");
+    }
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, "error"));
+      });
+    }
+    dispatch({
+      type: INFO_UPDATE_FAIL
+    });
+    dispatch(setAlert("Update Fail", "error"));
   }
 };
 

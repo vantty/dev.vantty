@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 //Actions
-import { addEducation } from "../../../actions/profile";
+import { addEducation } from "../../../../actions/profile";
 
 //Materila-UI
 import { makeStyles } from "@material-ui/core/styles";

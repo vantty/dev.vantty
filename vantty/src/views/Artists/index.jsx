@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { withRouter, Link } from "react-router-dom";
+
 import { isMobile } from "react-device-detect";
 
 // Components
@@ -17,6 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Progress from "@material-ui/core/LinearProgress";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -65,22 +68,26 @@ const Artists = ({
   return (
     <Fragment>
       {!isMobile ? <Navbar /> : <BottomNavabar />}
-      {loading ? (
-        <Progress />
-      ) : (
-        <Fragment>
-          <CssBaseline />
-          {profiles.length > 0 ? (
-            profiles.map(profile => (
-              <Container>
-                <ProfileCard key={profile._id} profile={profile} />
-              </Container>
-            ))
-          ) : (
-            <Progress />
-          )}
-        </Fragment>
-      )}
+      <Fragment>
+        {loading ? (
+          <Progress />
+        ) : (
+          <Fragment>
+            <CssBaseline />
+            {profiles.length > 0 ? (
+              profiles.map(profile => (
+                <Container>
+                  <Grid item key={profile._id}>
+                    <ProfileCard key={profile._id} profile={profile} />
+                  </Grid>
+                </Container>
+              ))
+            ) : (
+              <Progress />
+            )}
+          </Fragment>
+        )}
+      </Fragment>
     </Fragment>
   );
 };

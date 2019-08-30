@@ -9,7 +9,7 @@ const BorderLinearProgress = withStyles({
   },
   bar: {
     borderRadius: 20,
-    backgroundColor: "#f5f"
+    backgroundColor: "#f5f5"
   }
 })(LinearProgress);
 
@@ -26,7 +26,7 @@ export default function ProgressBarForm({ value }) {
     1: 20,
     2: 50,
     3: 80,
-    4: 100
+    4: 90
   };
 
   return (
