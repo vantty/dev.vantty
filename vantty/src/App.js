@@ -17,7 +17,7 @@ import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
 import NumberValidation from "./components/NumberValidation";
 import EditPorfolio from "./views/Form/EditForm/EditPortfolio";
-import EditPersonalInfo from "./views/Form/EditForm/EditPersonalInfo";
+import Account from "./views/Account";
 
 // Views
 import Home from "./views/Home";
@@ -60,11 +60,7 @@ const App = () => {
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/create-profile' component={UserForm} />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
-            <PrivateRoute
-              exact
-              path='/personal-info'
-              component={EditPersonalInfo}
-            />
+            <Route exact path='/personal-info' component={Account} />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
             <Route exact path='/create-profile' component={UserForm} />
             <PrivateRoute
