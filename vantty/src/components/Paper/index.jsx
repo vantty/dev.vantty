@@ -1,20 +1,20 @@
-import React from 'react';
+import React from "react";
 
 // Externals
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 
 // Material components
-import { Paper } from '@material-ui/core';
+import { Paper } from "@material-ui/core";
 
 // Component styles
 const styles = theme => {
   return {
     root: {
-      borderRadius: '4px'
+      borderRadius: "4px"
     },
     squared: {
       borderRadius: 0
@@ -39,7 +39,7 @@ const CustomPaper = props => {
 
   return (
     <Paper
-      {...rest}
+      // {...rest}
       className={rootClassName}
     >
       {children}

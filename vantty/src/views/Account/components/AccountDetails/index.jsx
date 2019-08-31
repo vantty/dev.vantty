@@ -82,7 +82,6 @@ const Account = ({
   const onSubmit = async e => {
     e.preventDefault();
     updateInfo(formData, history, true);
-    console.log(formData);
   };
   const rootClassName = classNames(classes.root, className);
 
@@ -206,15 +205,3 @@ export default connect(
   mapStateToProps,
   { getCurrentProfile, updateInfo }
 )(withStyles(styles)(withRouter(Account)));
-
-// export default withRouter(
-//   connect(
-//     mapStateToProps,
-//     { getCurrentProfile, updateInfo }
-//   )(withStyles(styles)(Account))
-// );
-
-// export default connect(
-//   mapStateToProps,
-//   { getCurrentProfile, updateInfo }
-// )(withRouter(Account))(withStyles(styles)(Account));

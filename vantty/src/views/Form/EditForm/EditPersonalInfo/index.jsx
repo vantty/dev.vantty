@@ -54,7 +54,6 @@ const EditPersonalInfo = ({
   const onSubmit = async e => {
     e.preventDefault();
     updateInfo(formData, history, true);
-    console.log(formData);
   };
 
   const classes = Style();
