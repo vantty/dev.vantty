@@ -9,6 +9,9 @@ import classNames from "classnames";
 // Actions
 import { getCurrentProfile } from "../../../../actions/profile";
 
+//helpers
+import { getInitials } from "../../../../helpers";
+
 // Material helpers
 import { withStyles } from "@material-ui/core";
 
@@ -46,7 +49,7 @@ const AccountProfile = ({
                 {user && user.local.firstName}
               </Typography>
               <Typography className={classes.locationText} variant='body1'>
-                {profile && profile.location.city}
+                {/* {profile && profile.location.city} */}
               </Typography>
               <Typography className={classes.dateText} variant='body1'>
                 4:32PM (GMT-4)
@@ -54,11 +57,7 @@ const AccountProfile = ({
             </div>
 
             <Avatar alt='' src={""} className={classes.avatar}>
-              {user.local.firstName
-                .split(" ")
-                .map((n, i, a) => (i === 0 || i + 1 === a.length ? n[0] : null))
-                .join("")
-                .toUpperCase()}
+              {getInitials(user.local.firstName)}
             </Avatar>
           </div>
           <div className={classes.progressWrapper}>

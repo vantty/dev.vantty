@@ -7,12 +7,12 @@ import store from "./store";
 
 // Components
 import Dashboard from "./components/dashboard/Dashboard";
-import CreateProfile from "./views/Form/UserForm";
+import CreateProfile from "./views/Form2";
 import EditProfile from "./views/Form/EditForm/EditProfile";
 import AddEducation from "./views/Form/UserForm/AddEducation";
 import AddPortfolio from "./views/Form/UserForm/AddPortfolio";
 import InfoContact from "./views/Form/UserForm/InfoContact";
-import UserForm from "./views/Form/UserForm";
+import Form2 from "./views/Form2";
 import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
 import NumberValidation from "./components/NumberValidation";
@@ -58,11 +58,10 @@ const App = () => {
             <Route exact path='/favorites' component={Favorites} />
             <Route exact path='/profile/artist/:id' component={Profile} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <PrivateRoute exact path='/create-profile' component={UserForm} />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             <Route exact path='/personal-info' component={Account} />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <Route exact path='/create-profile' component={UserForm} />
+            <Route exact path='/create-profile' component={Form2} />
             <PrivateRoute
               exact
               path='/add-education'

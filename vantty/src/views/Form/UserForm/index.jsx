@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 //Actions
 import { createProfile } from "../../../actions/profile";
 
-//Components
+//Custom  components
 import CreateProfile from "./CreateProfile";
 import AddPortfolio from "./AddPortfolio";
 import InfoContact from "./InfoContact";

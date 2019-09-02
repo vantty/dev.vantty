@@ -11,14 +11,14 @@ import { withStyles } from "@material-ui/core";
 const styles = theme => ({
   root: {
     alignItems: "center",
-    borderBottom: `1px solid ${theme.palette.border}`,
+    borderBottom: `1px solid #e0e0e0`,
     borderTopLeftRadius: "2px",
     borderTopRightRadius: "2px",
     display: "flex",
     height: "64px",
     justifyContent: "space-between",
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     position: "relative"
   },
   noDivider: {

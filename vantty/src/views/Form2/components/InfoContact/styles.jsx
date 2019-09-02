@@ -13,5 +13,14 @@ export default theme => ({
     paddingRight: theme.spacing(3),
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2)
+  },
+  formControl: {
+    // width: "80%",
+    alignContent: "center",
+    alignItems: "center"
+  },
+  typography: {
+    // marginTop: "1rem",
+    marginBottom: "1.5rem"
   }
 });

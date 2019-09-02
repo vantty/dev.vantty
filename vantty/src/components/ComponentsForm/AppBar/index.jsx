@@ -11,7 +11,7 @@ import ArrowBack from "../../ArrowBack";
 
 const SimpleAppBar = ({ step, page }) => {
   return (
-    <div style={{ flexGrow: 1 }}>
+    <div style={{ flexGrow: 1, marginBottom: "5rem" }}>
       <AppBar position='fixed' style={{ backgroundColor: "#ffffff" }}>
         <Toolbar>
           {isMobile && step === 1 && <ArrowBack page={page} />}

@@ -13,8 +13,8 @@ export default theme => ({
   },
   avatar: {
     marginLeft: "auto",
-    height: "110px",
-    width: "110px",
+    height: "90px",
+    width: "90px",
     flexShrink: 0,
     flexGrow: 0
   },

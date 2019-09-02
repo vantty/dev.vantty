@@ -1,25 +1,27 @@
-import React from 'react';
+import React from "react";
 
 // Externals
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 
 // Component styles
 const styles = theme => ({
   root: {
-    paddingBottom: theme.spacing.unit,
-    paddingTop: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    borderTop: `1px solid ${theme.palette.border}`,
-    borderBottomLeftRadius: '2px',
-    borderBottomRightRadius: '2px'
+    paddingBottom: theme.spacing(),
+    paddingTop: theme.spacing(),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    borderTop: `1px solid #e0e0e0`,
+    borderBottomLeftRadius: "2px",
+    borderBottomRightRadius: "2px",
+
+    textAlign: "right"
   },
   noDivider: {
-    borderTop: 'none'
+    borderTop: "none"
   }
 });
 
@@ -35,10 +37,7 @@ const PortletFooter = props => {
   );
 
   return (
-    <div
-      {...rest}
-      className={rootClassName}
-    >
+    <div {...rest} className={rootClassName}>
       {children}
     </div>
   );
