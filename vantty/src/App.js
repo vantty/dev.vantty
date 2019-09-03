@@ -33,6 +33,8 @@ import { loadUser } from "./actions/auth";
 // Utils
 import PrivateRoute from "./router/PrivateRoute";
 import setAuthToken from "./utils/setAuthToken";
+import Account from "./views/Account";
+import Form2 from "./views/Form2";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -58,15 +60,11 @@ const App = () => {
             <Route exact path='/favorites' component={Favorites} />
             <Route exact path='/profile/artist/:id' component={Profile} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <PrivateRoute exact path='/create-profile' component={UserForm} />
+            <PrivateRoute exact path='/create-profile' component={Form2} />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
-            <PrivateRoute
-              exact
-              path='/personal-info'
-              component={EditPersonalInfo}
-            />
+            <PrivateRoute exact path='/personal-info' component={Account} />
             <PrivateRoute exact path='/info-contact' component={InfoContact} />
-            <Route exact path='/create-profile' component={UserForm} />
+
             <PrivateRoute
               exact
               path='/add-education'
