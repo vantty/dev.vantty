@@ -55,6 +55,15 @@ const DashboardActions = () => {
       >
         Personal Information
       </Button>
+      <Button
+        variant='contained'
+        // color='secondary'
+        className={classes.button}
+        component={Link}
+        to='/create-profile'
+      >
+        Create Profile
+      </Button>
     </Fragment>
   );
 };

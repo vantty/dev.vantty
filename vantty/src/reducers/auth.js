@@ -6,8 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  ACCOUNT_DELETE,
-  INFO_UPDATE_SUCCESS
+  ACCOUNT_DELETE
 } from "../actions/types";
 
 const initialState = {
