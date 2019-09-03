@@ -13,7 +13,7 @@ import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 //Components
 import NumberValidation from "../../../../components/NumberValidation";
 //Materila-UI
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Box } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import FormBottomNav from "../../../../components/ComponentsForm/FormBottomNav";
@@ -94,15 +94,7 @@ const InfoContact = ({
           alignItems='center'
         >
           {!numberIsVerified ? (
-            <div>
-              <Typography
-                component='h1'
-                variant='h4'
-                align='center'
-                className={classes.typography}
-              >
-                Contact Number
-              </Typography>
+            <Box mr={1}>
               <Typography
                 component='h5'
                 variant='h6'
@@ -143,7 +135,7 @@ const InfoContact = ({
               >
                 <NumberValidation phone={phone} countryCode={countryCode} />
               </Grid>
-            </div>
+            </Box>
           ) : (
             <Animated
               animationIn='slideInDown'

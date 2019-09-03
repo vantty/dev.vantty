@@ -7,8 +7,7 @@ import { withRouter } from "react-router-dom";
 import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
 
 //Components
-
-import { ImagesUploader } from "../../../../components";
+import { FormBottomNav, ImagesUploader } from "../../../../components";
 
 // Externals
 import PropTypes from "prop-types";
@@ -33,11 +32,23 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
+import LinkMui from "@material-ui/core/Link";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {},
-  buttons: {
-    textAlign: "right"
+
+  content: {
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginRight: theme.spacing(10),
+      marginLeft: theme.spacing(10),
+      padding: theme.spacing(3)
+    }
+  },
+  buttonUpload: {
+    textAlign: "center"
   }
 }));
 
@@ -71,12 +82,41 @@ const AddPortfolio = ({
   // const rootClassName = classNames(classes.root, className);
   const classes = useStyles();
   return (
-    <Card {...rest} className={clsx(classes.root, className)}>
+    <Card className={clsx(classes.root, className)}>
       <form autoComplete='off' noValidate>
-        <CardHeader subheader='The information can be edited' title='Profile' />
+        <CardHeader
+          subheader='You decide how you want to be knowledges'
+          title='Portfolio & Profile Image'
+        />
         <Divider />
-        <CardContent>
-          {/* <div>
+        <CardContent className={classes.content}>
+          <div>
+            <div>
+              <Typography gutterBottom variant='h2'>
+                {/* {profile.user.firstName} */}
+              </Typography>
+              <Typography
+                className={classes.locationText}
+                color='textSecondary'
+                variant='body1'
+              >
+                {/* {user.city}, {user.country} */}
+              </Typography>
+              <Typography
+                className={classes.dateText}
+                color='textSecondary'
+                variant='body1'
+              >
+                {/* {moment().format("hh:mm A")} */}
+                {/* ({user.timezone}) */}
+              </Typography>
+            </div>
+            <Avatar className={classes.avatar} src={""}>
+              {/* {getInitials(user.local.firstName)} */}
+              <AddPhotoIcon style={{ fontSize: "48px" }} />
+            </Avatar>
+          </div>
+          <div>
             <div>
               {match.url === "/add-portfolio" && (
                 <Typography component='h1' variant='h4' align='center'>
@@ -95,76 +135,92 @@ const AddPortfolio = ({
                 )}
               </Grid>
             </div>
-          </div> */}
-          <ImagesUploader />
+          </div>
+          <div>
+            <ImagesUploader />
+          </div>
         </CardContent>
         <Divider />
         <CardActions>
-          <div>
-            <div>
-              {!loading && profile.portfolioPictures.length < 5 ? (
-                <div>
-                  <div>
-                    {match.url === "/add-portfolio" ? (
-                      <Fragment>
-                        <Button component={Link} to='/dashboard'>
-                          Back
-                        </Button>
-                        <Button
-                          component={Link}
-                          to='/dashboard'
-                          style={{ backgroundColor: "#f5f5" }}
-                          disabled={true}
-                        >
-                          Update1
-                        </Button>
-                      </Fragment>
-                    ) : (
-                      <Fragment>
-                        <Button onClick={back}>Back</Button>
-                        <Button
-                          style={{ backgroundColor: "#f5f5" }}
-                          disabled={true}
-                        >
-                          Next
-                        </Button>
-                      </Fragment>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className={classes.buttons}>
-                  <div>
-                    {match.url === "/add-portfolio" ? (
-                      <Fragment>
-                        <Button component={Link} to='/dashboard'>
-                          Back
-                        </Button>
-                        <Button
-                          component={Link}
-                          to='/dashboard'
-                          style={{ backgroundColor: "#f5f5" }}
-                        >
-                          Update
-                        </Button>
-                      </Fragment>
-                    ) : (
-                      <Fragment>
-                        <Button onClick={back}>Back</Button>
-                        <Button
-                          style={{ backgroundColor: "#f5f5" }}
-                          onClick={continues}
-                        >
-                          Next
-                        </Button>
-                      </Fragment>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+          <LinkMui component={Link} to='/'>
+            learn how to build the best profile
+          </LinkMui>
         </CardActions>
+
+        <div>
+          <div>
+            {!loading && profile.portfolioPictures.length < 5 ? (
+              <FormBottomNav
+                step={step}
+                Children={
+                  <div>
+                    <div>
+                      {match.url === "/add-portfolio" ? (
+                        <Fragment>
+                          <Button component={Link} to='/dashboard'>
+                            Back
+                          </Button>
+                          <Button
+                            component={Link}
+                            to='/dashboard'
+                            style={{ backgroundColor: "#f5f5" }}
+                            disabled={true}
+                          >
+                            Update1
+                          </Button>
+                        </Fragment>
+                      ) : (
+                        <Fragment>
+                          <Button onClick={back}>Back</Button>
+                          <Button
+                            style={{ backgroundColor: "#f5f5" }}
+                            disabled={true}
+                          >
+                            Next
+                          </Button>
+                        </Fragment>
+                      )}
+                    </div>
+                  </div>
+                }
+              />
+            ) : (
+              <FormBottomNav
+                step={step}
+                Children={
+                  <div>
+                    <div>
+                      {match.url === "/add-portfolio" ? (
+                        <Fragment>
+                          <Button component={Link} to='/dashboard'>
+                            Back
+                          </Button>
+                          <Button
+                            component={Link}
+                            to='/dashboard'
+                            style={{ backgroundColor: "#f5f5" }}
+                          >
+                            Update
+                          </Button>
+                        </Fragment>
+                      ) : (
+                        <Fragment>
+                          <Button onClick={back}>Back</Button>
+                          <Button
+                            style={{ backgroundColor: "#f5f5" }}
+                            onClick={continues}
+                          >
+                            Next
+                          </Button>
+                        </Fragment>
+                      )}
+                    </div>
+                  </div>
+                }
+              />
+            )}
+          </div>
+        </div>
       </form>
     </Card>
   );
@@ -172,7 +228,6 @@ const AddPortfolio = ({
 
 AddPortfolio.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   addPortfolio: PropTypes.func.isRequired,
   files: PropTypes.string,
   profile: PropTypes.object.isRequired

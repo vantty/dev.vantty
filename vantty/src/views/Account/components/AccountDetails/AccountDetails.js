@@ -129,7 +129,7 @@ const AccountDetails = ({
                 onChange={e => onChange(e)}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label='Phone Number'
@@ -170,7 +170,7 @@ const AccountDetails = ({
                 // value={values.country}
                 variant='outlined'
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />

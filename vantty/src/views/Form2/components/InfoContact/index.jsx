@@ -9,6 +9,8 @@ import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 // Externals
 import PropTypes from "prop-types";
 
+// import ReactPhoneInput from "react-phone-input-mui";
+import { TextField, withStyles } from "@material-ui/core";
 //npm package
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/dist/style.css";
@@ -17,8 +19,11 @@ import { Animated } from "react-animated-css";
 //Components
 import NumberValidation from "../../../../components/NumberValidation";
 
+import { FormBottomNav } from "../../../../components";
+
 // Material helpers
 import { makeStyles } from "@material-ui/styles";
+import { spacing } from "@material-ui/system";
 
 //Material Compoments
 import {
@@ -29,15 +34,26 @@ import {
   CardHeader,
   CardContent,
   CardActions,
-  Divider
+  Divider,
+  Box
 } from "@material-ui/core";
+import LinkMui from "@material-ui/core/Link";
 
 import clsx from "clsx";
 
 // Component styles
 
 const useStyles = makeStyles(() => ({
-  root: {}
+  root: {},
+  formControl: {
+    // width: "80%",
+    alignContent: "center",
+    alignItems: "center"
+  },
+  typography: {
+    // marginTop: "1rem",
+    marginBottom: "1.5rem"
+  }
 }));
 
 const InfoContact = ({
@@ -94,7 +110,7 @@ const InfoContact = ({
 
   return (
     <Fragment>
-      <Card {...rest} className={clsx(classes.root, className)}>
+      <Card className={clsx(classes.root, className)}>
         <form autoComplete='off' noValidate>
           <CardHeader
             subheader='The information can be edited'
@@ -120,7 +136,7 @@ const InfoContact = ({
                   alignItems='center'
                 >
                   {!numberIsVerified ? (
-                    <div>
+                    <Box>
                       <Typography
                         component='h5'
                         variant='h6'
@@ -132,8 +148,16 @@ const InfoContact = ({
                         validate it.
                       </Typography>
                       <br />
-                      <div style={{ textAlign: "center" }}>
-                        <div style={{ display: "inline-block" }}>
+                      <div
+                        style={{
+                          textAlign: "center"
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "inline-block"
+                          }}
+                        >
                           <ReactPhoneInput
                             defaultCountry='us'
                             onlyCountries={["co", "us", "ca"]}
@@ -145,6 +169,13 @@ const InfoContact = ({
                             disableAreaCodes
                             value={phone}
                             onChange={handleOnChange}
+                            inputExtraProps={{
+                              margin: "normal",
+                              autoComplete: "phone",
+                              name: "custom-username"
+                            }}
+                            inputClass={classes.field}
+                            dropdownClass={classes.countryList}
                           />
                         </div>
                       </div>
@@ -166,7 +197,7 @@ const InfoContact = ({
                         />
                       </Grid>
                       <br />
-                    </div>
+                    </Box>
                   ) : (
                     <Animated
                       animationIn='slideInDown'
@@ -178,11 +209,6 @@ const InfoContact = ({
                         <Typography component='h1' variant='h3' align='center'>
                           Welcome to Vantty
                         </Typography>
-                        <br />
-                        <Typography component='h4' variant='h6' align='center'>
-                          It is a pleasure for us to have you with us. Our team
-                          of artists will activate your account in 10 hours.
-                        </Typography>
                       </div>
                     </Animated>
                   )}
@@ -192,24 +218,31 @@ const InfoContact = ({
           </CardContent>
           <Divider />
           <CardActions>
-            <div>
-              <div>
-                <Button onClick={back}>Back</Button>
-                <Button component={Link} to='/dashboard'>
-                  Save and Exit
-                </Button>
-              </div>
-            </div>
+            <LinkMui component={Link} to='/'>
+              learn how to build the best profile
+            </LinkMui>
           </CardActions>
         </form>
       </Card>
+      <FormBottomNav
+        step={step}
+        Children={
+          <div>
+            <div>
+              <Button onClick={back}>Back</Button>
+              <Button component={Link} to='/dashboard'>
+                Save and Exit
+              </Button>
+            </div>
+          </div>
+        }
+      />
     </Fragment>
   );
 };
 
 InfoContact.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,

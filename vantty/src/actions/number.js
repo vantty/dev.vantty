@@ -6,7 +6,6 @@ import {
 
 import axios from "axios";
 import crypto from "crypto";
-import setAlert from "./alert";
 import { server } from "../utils/axios";
 import { createProfile, createMobileNumber } from "./profile";
 const appId = "619096385268555";
@@ -41,6 +40,7 @@ export const verifyNumber = res => dispatch => {
             payload: numberVerified
           });
         })
+
         .catch(err => {
           dispatch({
             type: NUMBER_VERIFY_FAIL,

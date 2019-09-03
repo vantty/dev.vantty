@@ -9,6 +9,9 @@ import { createProfile } from "../../../../actions/profile";
 // Externals
 import PropTypes from "prop-types";
 
+//Components
+import { FormBottomNav } from "../../../../components";
+
 // Material components
 import {
   FormControl,
@@ -28,6 +31,7 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
+import LinkMui from "@material-ui/core/Link";
 
 // Component styles
 const useStyles = makeStyles(() => ({
@@ -186,21 +190,33 @@ const CreateProfile = ({
           <CardActions className={classes.buttons}>
             <div>
               <div>
-                <Button component={Link} to='/dashboard'>
-                  Back
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f5f5" }}
-                  onClick={e => onSubmit(e)}
-                >
-                  Next
-                </Button>
+                <LinkMui component={Link} to='/'>
+                  learn how to build the best profile
+                </LinkMui>
               </div>
             </div>
           </CardActions>
           {/* </Grid> */}
         </form>
       </Card>
+      <FormBottomNav
+        step={"1"}
+        Children={
+          <div>
+            <div>
+              <Button component={Link} to='/dashboard'>
+                Back
+              </Button>
+              <Button
+                style={{ backgroundColor: "#f5f5" }}
+                onClick={e => onSubmit(e)}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        }
+      />
     </Fragment>
   );
 };
