@@ -12,7 +12,7 @@ import ImagesUploader from "../../../../components/ImagesUploader";
 
 //Materila-UI
 import Typography from "@material-ui/core/Typography";
-import { Avatar, withStyles, Grid, Button } from "@material-ui/core";
+import { Avatar, Grid, Button } from "@material-ui/core";
 import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 
 //Style

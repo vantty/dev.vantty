@@ -7,7 +7,6 @@ import { withRouter } from "react-router-dom";
 import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 
 // Externals
-import classNames from "classnames";
 import PropTypes from "prop-types";
 
 //npm package
@@ -19,29 +18,23 @@ import { Animated } from "react-animated-css";
 import NumberValidation from "../../../../components/NumberValidation";
 
 // Material helpers
+import { makeStyles } from "@material-ui/styles";
+
+//Material Compoments
 import {
-  withStyles,
-  FormControl,
-  FormHelperText,
-  OutlinedInput,
+  Button,
   Typography,
-  Grid
+  Grid,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Divider
 } from "@material-ui/core";
 
-import FormBottomNav from "../../../../components/ComponentsForm/FormBottomNav";
-
-// Material components
-import { Button, TextField } from "@material-ui/core";
-
-import { InputLabel, Select, MenuItem } from "@material-ui/core";
-
-import { CardActions, Divider } from "@material-ui/core";
 import clsx from "clsx";
 
-import { Card, CardHeader, CardContent, CardAction } from "@material-ui/core";
-
 // Component styles
-import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() => ({
   root: {}

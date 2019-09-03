@@ -22,7 +22,6 @@ const Account = ({
   profile: { profile, loading },
   ...rest
 }) => {
-  const state = { tabIndex: 0 };
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);

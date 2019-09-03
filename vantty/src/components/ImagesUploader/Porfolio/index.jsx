@@ -8,7 +8,7 @@ import { deletePicture } from "../../../actions/profile";
 //Material-UI
 import CancelIcon from "@material-ui/icons/CancelRounded";
 import { makeStyles } from "@material-ui/styles";
-import { GridListTile, ListSubheader, GridList } from "@material-ui/core";
+import { GridListTile, GridList } from "@material-ui/core";
 import clsx from "clsx";
 
 const useStyles = makeStyles(theme => ({

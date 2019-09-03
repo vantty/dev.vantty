@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -7,35 +7,27 @@ import { withRouter } from "react-router-dom";
 import { createProfile } from "../../../../actions/profile";
 
 // Externals
-import classNames from "classnames";
 import PropTypes from "prop-types";
 
-// Material helpers
+// Material components
 import {
-  withStyles,
   FormControl,
   FormHelperText,
   OutlinedInput,
   CardActions,
-  Divider
-} from "@material-ui/core";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-
-import {
+  Divider,
   Card,
   CardHeader,
   CardContent,
-  CardAction,
   Button,
   TextField,
-  Grid
+  Grid,
+  InputLabel,
+  Select,
+  MenuItem
 } from "@material-ui/core";
-import FormBottomNav from "../../../../components/ComponentsForm/FormBottomNav";
-
-// Material components
-
-import { InputLabel, Select, MenuItem } from "@material-ui/core";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 
 // Component styles
 const useStyles = makeStyles(() => ({

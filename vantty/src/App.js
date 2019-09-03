@@ -7,17 +7,10 @@ import store from "./store";
 
 // Components
 import Dashboard from "./components/dashboard/Dashboard";
-import CreateProfile from "./views/Form/UserForm";
-import EditProfile from "./views/Form/EditForm/EditProfile";
-import AddEducation from "./views/Form/UserForm/AddEducation";
-import AddPortfolio from "./views/Form/UserForm/AddPortfolio";
-import InfoContact from "./views/Form/UserForm/InfoContact";
-import UserForm from "./views/Form/UserForm";
-import Alert from "./components/Alert";
+
+// import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
 import NumberValidation from "./components/NumberValidation";
-import EditPorfolio from "./views/Form/EditForm/EditPortfolio";
-import EditPersonalInfo from "./views/Form/EditForm/EditPersonalInfo";
 
 // Views
 import Home from "./views/Home";
@@ -26,6 +19,10 @@ import Login from "./views/Login";
 import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
+import EditProfile from "./views/Form/EditForm/EditProfile";
+import AddEducation from "./views/Form/UserForm/AddEducation";
+import InfoContact from "./views/Form/UserForm/InfoContact";
+import EditPorfolio from "./views/Form/EditForm/EditPortfolio";
 
 // Actions
 import { loadUser } from "./actions/auth";

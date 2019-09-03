@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -11,17 +11,15 @@ import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
 import { ImagesUploader } from "../../../../components";
 
 // Externals
-import classNames from "classnames";
 import PropTypes from "prop-types";
 
 // Material helpers
-import { withStyles } from "@material-ui/core";
 
 //Icon
 import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 
 // Material components
-import { Avatar, Typography } from "@material-ui/core";
+import {} from "@material-ui/core";
 import {
   Card,
   CardHeader,
@@ -30,13 +28,11 @@ import {
   Divider,
   Grid,
   Button,
-  TextField
+  Avatar,
+  Typography
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-
-// Custom components
-import { AccountProfile } from "../../../Account/components";
 
 const useStyles = makeStyles(() => ({
   root: {},
