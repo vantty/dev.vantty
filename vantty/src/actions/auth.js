@@ -76,7 +76,7 @@ export const updateInfo = (
       }
     };
     const res = await server.post("/auth/update-info", formData, config);
-    console.log(res);
+
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
