@@ -32,7 +32,9 @@ export const verifyNumber = res => dispatch => {
         )
         .then(res => {
           const numberVerified = res.data.phone.number;
-
+          if (numberVerified !== "") {
+            window.location.href = "http://localhost:3000/dashboard";
+          }
           dispatch(createMobileNumber({ mobileNumber: numberVerified }, true));
 
           dispatch({
@@ -40,7 +42,6 @@ export const verifyNumber = res => dispatch => {
             payload: numberVerified
           });
         })
-
         .catch(err => {
           dispatch({
             type: NUMBER_VERIFY_FAIL,

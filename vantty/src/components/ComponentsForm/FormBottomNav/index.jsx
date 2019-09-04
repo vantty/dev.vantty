@@ -22,7 +22,7 @@ const SimpleBottomNav = ({ step, Children }) => {
     <Fragment>
       <CssBaseline />
       <AppBar position='fixed' color='inherit' className={classes.appBar}>
-        <Container maxWidth='xs'>
+        <Container maxWidth='sm'>
           <Toolbar>
             {step !== undefined && (
               <Typography

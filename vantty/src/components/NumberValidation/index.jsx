@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   }
 });
 
-const NumberValidation = ({ verifyNumber, phone, countryCode }) => {
+const NumberValidation = ({ verifyNumber, phone, countryCode, history }) => {
   const classes = useStyles();
   return (
     <AccountKit

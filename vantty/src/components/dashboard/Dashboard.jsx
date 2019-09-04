@@ -77,7 +77,7 @@ const Dashboard = ({
               </Button>
 
               <DashboardActions />
-              <Education education={profile.education} />
+              {/* <Education education={profile.education} /> */}
 
               <Button
                 variant='contained'
