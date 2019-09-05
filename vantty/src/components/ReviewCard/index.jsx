@@ -14,6 +14,8 @@ import Progress from "@material-ui/core/LinearProgress";
 
 // Styles
 import styles from "./styles";
+import { Container } from "@material-ui/core";
+import { isMobile } from "react-device-detect";
 
 const ReviewCard = ({
   getReview,
@@ -30,9 +32,9 @@ const ReviewCard = ({
     <Progress />
   ) : (
     <Fragment>
-      <div>
+      <Container maxWidth={isMobile ? "md" : "sm"}>
         <ReviewList review={review} />
-      </div>
+      </Container>
     </Fragment>
   );
 };

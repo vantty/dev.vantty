@@ -22,6 +22,15 @@ import Favorites from "./views/Favorites";
 import { EditProfile } from "./views/EditForm/components";
 import { InfoContact } from "./views/Form/components";
 import { EditPortfolio } from "./views/EditForm/components";
+import Account from "./views/Account";
+import Form from "./views/Form";
+
+//Layouts
+import { Redirect } from "react-router-dom";
+import { RouteWithLayout } from "./components";
+import { Main as MainLayout, Minimal as MinimalLayout } from "./layouts";
+
+import { Account as AccountView } from "./views";
 
 // Actions
 import { loadUser } from "./actions/auth";
@@ -34,8 +43,6 @@ import "./assets/scss/index.scss";
 
 // Material-UI
 import { ThemeProvider } from "@material-ui/styles";
-import Account from "./views/Account";
-import Form from "./views/Form";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -82,6 +89,12 @@ const App = () => {
                 exact
                 path='/profile/artist/:userId/:reviewId'
                 component={ReviewForm}
+              />
+              <RouteWithLayout
+                component={AccountView}
+                exact
+                layout={MainLayout}
+                path='/account'
               />
             </Switch>
           </Fragment>

@@ -1,32 +1,32 @@
-import React from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
-import { Divider, Drawer } from '@material-ui/core';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import PeopleIcon from '@material-ui/icons/People';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import ImageIcon from '@material-ui/icons/Image';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import SettingsIcon from '@material-ui/icons/Settings';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import React from "react";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/styles";
+import { Divider, Drawer } from "@material-ui/core";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import PeopleIcon from "@material-ui/icons/People";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import TextFieldsIcon from "@material-ui/icons/TextFields";
+import ImageIcon from "@material-ui/icons/Image";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import SettingsIcon from "@material-ui/icons/Settings";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 
-import { Profile, SidebarNav, UpgradePlan } from './components';
+import { Profile, SidebarNav, UpgradePlan } from "./components";
 
 const useStyles = makeStyles(theme => ({
   drawer: {
     width: 240,
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up("lg")]: {
       marginTop: 64,
-      height: 'calc(100% - 64px)'
+      height: "calc(100% - 64px)"
     }
   },
   root: {
     backgroundColor: theme.palette.white,
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
     padding: theme.spacing(2)
   },
   divider: {
@@ -44,64 +44,66 @@ const Sidebar = props => {
 
   const pages = [
     {
-      title: 'Dashboard',
-      href: '/dashboard',
+      title: "Dashboard",
+      href: "/dashboard",
       icon: <DashboardIcon />
     },
     {
-      title: 'Users',
-      href: '/users',
+      title: "Users",
+      href: "/users",
       icon: <PeopleIcon />
     },
     {
-      title: 'Products',
-      href: '/products',
+      title: "Products",
+      href: "/products",
       icon: <ShoppingBasketIcon />
     },
     {
-      title: 'Authentication',
-      href: '/sign-in',
+      title: "Authentication",
+      href: "/sign-in",
       icon: <LockOpenIcon />
     },
     {
-      title: 'Typography',
-      href: '/typography',
+      title: "Typography",
+      href: "/typography",
       icon: <TextFieldsIcon />
     },
     {
-      title: 'Icons',
-      href: '/icons',
+      title: "Icons",
+      href: "/icons",
       icon: <ImageIcon />
     },
     {
-      title: 'Account',
-      href: '/account',
+      title: "Account",
+      href: "/account",
       icon: <AccountBoxIcon />
     },
     {
-      title: 'Settings',
-      href: '/settings',
+      title: "Settings",
+      href: "/settings",
       icon: <SettingsIcon />
     },
     {
-      title: 'New',
-      href: '/settings',
+      title: "New",
+      href: "/settings",
       icon: <SettingsIcon />
     }
   ];
 
   return (
     <Drawer
-      anchor="right"
+      anchor='right'
       classes={{ paper: classes.drawer }}
       onClose={onClose}
       open={open}
-      variant={variant}>
+      variant={variant}
+    >
       <div {...rest} className={clsx(classes.root, className)}>
         <Profile />
         <Divider className={classes.divider} />
         <SidebarNav className={classes.nav} pages={pages} />
         <UpgradePlan />
+        <SettingsIcon />
       </div>
     </Drawer>
   );

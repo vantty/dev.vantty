@@ -7,4 +7,5 @@ export { default as ImagesUploader } from "./ImagesUploader";
 // export { default as TagButton } from "./TagButton";
 
 export { default as StatusBullet } from "./StatusBullet";
+export { default as CardAction } from "./CardAction";
 export { default as RouteWithLayout } from "./RouteWithLayout";
