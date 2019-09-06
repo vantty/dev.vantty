@@ -27,7 +27,7 @@ const SimpleBottomNav = ({ step, Children }) => {
             {step !== undefined && (
               <Typography
                 style={{ color: "#bdbdbd" }}
-              >{`${step} / 3`}</Typography>
+              >{`${step} / 4`}</Typography>
             )}
             <div className={classes.grow} />
             {Children}

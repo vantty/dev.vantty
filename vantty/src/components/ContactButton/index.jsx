@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 });
 
-const ContactButton = ({ profile: { mobileNumber, user } }) => {
+const ContactButton = ({ profile: { mobileNumber, user, price } }) => {
   const classes = useStyles();
   // useEffect(() => {
   //   isOwner(auth, user._id);
@@ -42,7 +42,7 @@ const ContactButton = ({ profile: { mobileNumber, user } }) => {
               alignItems='center'
             >
               <Grid item>
-                <h2 className={classes.price}>From CAD$ 50</h2>
+                <h2 className={classes.price}>From CAD$ {price}</h2>
               </Grid>
               <Grid item>
                 <a

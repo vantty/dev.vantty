@@ -19,7 +19,7 @@ import { getInitials } from "../../../../helpers";
 import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 
 // Material components
-import {} from "@material-ui/core";
+
 import {
   Card,
   CardHeader,
@@ -91,7 +91,7 @@ const AddPortfolio = ({
             <form autoComplete='off' noValidate>
               <CardHeader
                 subheader='You decide how you want to be knowledges'
-                title='Portfolio & Profile Image'
+                title='Portfolio & ps Image'
               />
               <Divider />
               <CardContent className={classes.content}>
@@ -151,7 +151,7 @@ const AddPortfolio = ({
       <Fragment>
         <div>
           <div>
-            {!loading && profile.portfolioPictures.length < 5 ? (
+            {profile && !loading && profile.portfolioPictures.length < 5 ? (
               <FormBottomNav
                 step={step}
                 Children={

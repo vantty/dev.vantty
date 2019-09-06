@@ -116,10 +116,7 @@ const EditProfile = ({
                           margin='dense'
                           fullWidth
                         >
-                          <InputLabel
-                            ref={inputLabel}
-                            htmlFor='filled-age-simple'
-                          >
+                          <InputLabel ref={inputLabel} htmlFor='profession'>
                             Profesion
                           </InputLabel>
                           <Select
@@ -133,7 +130,7 @@ const EditProfile = ({
                               <OutlinedInput
                                 labelWidth={labelWidth}
                                 name='Profession'
-                                id='outlined-age-simple'
+                                id='profession'
                               />
                             }
                           >
@@ -164,7 +161,7 @@ const EditProfile = ({
                             margin='normal'
                             value={bio}
                             multiline
-                            rows='4'
+                            rows='6'
                             fullWidth
                             onChange={e => onChange(e)}
                           />

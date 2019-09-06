@@ -21,7 +21,7 @@ import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
 import { EditProfile } from "./views/EditForm/components";
 import { InfoContact } from "./views/Form/components";
-import { EditPortfolio } from "./views/EditForm/components";
+import { EditPortfolio, EditPrice } from "./views/EditForm/components";
 import Account from "./views/Account";
 import Form from "./views/Form";
 
@@ -79,6 +79,7 @@ const App = () => {
                 path='/info-contact'
                 component={InfoContact}
               />
+              <PrivateRoute exact path='/price' component={EditPrice} />
 
               <PrivateRoute
                 exact

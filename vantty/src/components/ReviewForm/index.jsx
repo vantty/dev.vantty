@@ -2,19 +2,35 @@ import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Rating from "material-ui-rating";
+// import Rating from "material-ui-rating";
 
 // Actions
 import { addComment } from "../../actions/review";
 
+//Compornents
+import { FrameForm } from "../../components";
+
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+
+import { Box, Container } from "@material-ui/core";
+
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Divider,
+  Grid,
+  Button,
+  Avatar,
+  Typography
+} from "@material-ui/core";
+import clsx from "clsx";
+import { Rating } from "@material-ui/lab";
 import LinkMui from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
@@ -65,83 +81,131 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ReviewForm = ({ addComment, match }) => {
+const ReviewForm = ({ addComment, match, className, history }) => {
   const classes = useStyles();
 
   const [text, setText] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(4);
+
+  const handleBack = () => {
+    history.goBack();
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    addComment(match.params.reviewId, { text, rating });
+    setText("");
+    setRating();
+    handleBack();
+  };
 
   return (
     <Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Comments
-          </Typography>
-          <form
-            className="form"
-            onSubmit={e => {
-              e.preventDefault();
-              addComment(match.params.reviewId, { text, rating });
-              setText("");
-              setRating(5);
-            }}
-          >
-            <Fragment>
-              <Fragment>
-                <Rating
-                  // iconFilled={}
-                  readOnly={false}
-                  value={5}
-                  max={5}
-                  onChange={value => setRating(value)}
-                />
-              </Fragment>
+      <FrameForm>
+        <Fragment>
+          <Fragment>
+            <Card className={clsx(classes.root, className)}>
+              <CardHeader
+                subheader='You commet is like you give us 1000 aplausos'
+                title='Commet'
+              />
+              <Divider />
+              {/* <Grid container direction='row'> */}
+              <CardContent className={classes.content}>
+                <form
+                  className='form'
+                  // onSubmit={e => {
+                  //   e.preventDefault();
+                  //   addComment(match.params.reviewId, { text, rating });
+                  //   setText("");
+                  //   setRating();
+                  // }}
+                  onSubmit={e => onSubmit(e)}
+                >
+                  <Fragment>
+                    <Grid
+                      container
+                      direction='column'
+                      justify='flex-end'
+                      alignItems='stretch'
+                    >
+                      <Grid item xs={12} sm={12} md={12}>
+                        <Rating
+                          size='large'
+                          precision={0.5}
+                          name='half-rating'
+                          value={rating}
+                          onChange={(event, newValue) => {
+                            setRating(newValue);
+                          }}
+                        />
+                      </Grid>
 
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="text"
-                    name="text"
-                    label="text"
-                    fullWidth
-                    value={text}
-                    autoComplete="fname"
-                    onChange={e => setText(e.target.value)}
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Submit
-              </Button>
-              <Grid container justify="flex-end">
-                <Grid item>
-                  <LinkMui
-                    variant="body2"
-                    component={Link}
-                    to={`/profile/artist/${match.params.userId}`}
-                  >
-                    Go back
-                  </LinkMui>
-                </Grid>
-              </Grid>
-            </Fragment>
-          </form>
-        </Paper>
-      </main>
+                      <Grid item xs={12} sm={12} md={12}>
+                        <TextField
+                          id='text'
+                          name='text'
+                          label='Write the best comment'
+                          fullWidth
+                          value={text}
+                          variant='outlined'
+                          multiline
+                          rows='4'
+                          margin='normal'
+                          autoComplete='fname'
+                          onChange={e => setText(e.target.value)}
+                        />
+                      </Grid>
+                    </Grid>
+
+                    <Divider />
+
+                    {/* </Grid> */}
+
+                    <CardActions>
+                      <Grid
+                        container
+                        direction='row'
+                        justify='flex-end'
+                        alignItems='center'
+                        spacing={3}
+                      >
+                        <Grid item>
+                          <LinkMui
+                            variant='body2'
+                            component={Link}
+                            to={`/profile/artist/${match.params.userId}`}
+                          >
+                            Go back
+                          </LinkMui>
+                        </Grid>
+                        <Grid item>
+                          <Button
+                            type='submit'
+                            fullWidth
+                            variant='contained'
+                            color='primary'
+                            onChange={() => handleBack()}
+                          >
+                            Submit
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </CardActions>
+                  </Fragment>
+                </form>
+              </CardContent>
+            </Card>
+          </Fragment>
+        </Fragment>
+      </FrameForm>
     </Fragment>
   );
 };
 
 ReviewForm.propTypes = {
-  addComment: PropTypes.func.isRequired
+  addComment: PropTypes.func.isRequired,
+  className: PropTypes.string
 };
 
 // const mapStateToProps = state => ({

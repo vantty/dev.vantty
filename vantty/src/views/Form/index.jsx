@@ -9,14 +9,15 @@ import { connect } from "react-redux";
 import { getCurrentProfile, createProfile } from "../../actions/profile";
 
 // Material helpers
-import { withStyles, Typography, Container } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
+
 // Material components
 import { Grid, Box } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 
 // Custom components
-import { CreateProfile, AddPortfolio, InfoContact } from "./components";
+import { CreateProfile, AddPortfolio, InfoContact, Price } from "./components";
 
 import { AppBarForm } from "../../components";
 
@@ -106,6 +107,15 @@ const Form = ({ profile }) => {
           />
         );
       case 3:
+        return (
+          <Price
+            step={activeStep}
+            nextStep={nextStep}
+            handleChange={handleChange}
+            prevStep={prevStep}
+          />
+        );
+      case 4:
         return (
           <InfoContact
             step={activeStep}

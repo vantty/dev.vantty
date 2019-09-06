@@ -139,7 +139,7 @@ const CreateProfile = ({
                 defaultValue={formData.bio}
                 variant='outlined'
                 multiline
-                rows='4'
+                rows='6'
                 fullWidth
                 onChange={e => handleChange(e)}
               />

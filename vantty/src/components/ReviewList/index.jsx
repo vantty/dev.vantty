@@ -117,7 +117,7 @@ const ReviewItem = ({
                     variant='outlined'
                     size='small'
                     icon={<Star style={{ color: "#fdd835" }} />}
-                    label={"4.5"}
+                    label={comment.rating}
                   />
                 </div>
               </Fragment>
