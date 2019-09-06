@@ -10,6 +10,9 @@ import Education from "./Education";
 import Navbar from "../../components/Navbar";
 import BottomNavabar from "../../components/BottomNavbar";
 
+//Helpers
+import { getStrategyName } from "../../helpers";
+
 //Material-ui
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -39,18 +42,6 @@ const Dashboard = ({
 
   const classes = useStyles();
 
-  function name(user) {
-    if (user && user.hasOwnProperty("google")) {
-      return user.google.firstName;
-    } else if (user && user.hasOwnProperty("local")) {
-      return user.local.firstName;
-    } else if (user && user.user.hasOwnProperty("facebook")) {
-      return user.facebook.firstName;
-    } else {
-      return null;
-    }
-  }
-
   return loading && profile === null ? (
     <Progress />
   ) : (
@@ -62,7 +53,7 @@ const Dashboard = ({
           <Typography variant='h4' gutterBottom>
             Dashboard
           </Typography>
-          <Typography variant='h5'>Welcome {name(user)}</Typography>
+          <Typography variant='h5'>Welcome {getStrategyName(user)}</Typography>
 
           {profile !== null ? (
             <Fragment>

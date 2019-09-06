@@ -2,6 +2,9 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+//Helpers
+import { getStrategyName } from "../../helpers";
+
 // Material-UI
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
@@ -40,7 +43,8 @@ const ProfileInfo = ({
 
           <div>
             <h1 className={classes.name}>
-              {user.local.firstName} {user.local.lastName}
+              {getStrategyName(auth.user)}
+              {/* {user.local.lastName} */}
             </h1>
             <br />
             <h3 className={classes.subTitle}>{profession}</h3>

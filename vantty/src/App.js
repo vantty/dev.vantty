@@ -15,7 +15,7 @@ import NumberValidation from "./components/NumberValidation";
 // Views
 import Home from "./views/Home";
 import Register from "./views/Register";
-import Login from "./views/LoginKit";
+import Login from "./views/Login";
 import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";

@@ -17,7 +17,7 @@ import {
 } from "@material-ui/core";
 
 //helpers
-import { getInitials } from "../../../../helpers";
+import { getInitials, getStrategyName } from "../../../../helpers";
 
 // Actions
 import { getCurrentProfile } from "../../../../actions/profile";
@@ -73,7 +73,7 @@ const AccountProfile = ({
         <div className={classes.details}>
           <div>
             <Typography gutterBottom variant='h2'>
-              {user && user.local.firstName}
+              {user && getStrategyName(user)}
             </Typography>
             <Typography
               className={classes.locationText}
@@ -92,7 +92,7 @@ const AccountProfile = ({
             </Typography>
           </div>
           <Avatar className={classes.avatar} src={""}>
-            {getInitials(user.local.firstName)}
+            {user && getInitials(getStrategyName(user))}
           </Avatar>
         </div>
         <div className={classes.progress}>
@@ -114,7 +114,8 @@ const AccountProfile = ({
 AccountProfile.propTypes = {
   className: PropTypes.string,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  getStrategyName: PropTypes.func
 };
 
 const mapStateToProps = state => ({

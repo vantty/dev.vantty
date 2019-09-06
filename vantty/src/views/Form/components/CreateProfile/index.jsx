@@ -111,7 +111,7 @@ const CreateProfile = ({
                     <OutlinedInput
                       labelWidth={labelWidth}
                       name='Profession'
-                      id='outlined-age-simple'
+                      id='filled-age-simple'
                     />
                   }
                 >
@@ -150,16 +150,16 @@ const CreateProfile = ({
                 <InputLabel htmlFor='filled-city-simple'>City</InputLabel>
                 <Select
                   select
+                  value={formData.city}
+                  onChange={e => handleChange(e)}
                   id='city'
                   name='city'
-                  value={formData.city}
                   label='city'
-                  onChange={e => handleChange(e)}
                   input={
                     <OutlinedInput
                       labelWidth={labelWidth}
                       name='City'
-                      id='outlined-city-simple'
+                      id='filled-city-simple'
                     />
                   }
                 >
