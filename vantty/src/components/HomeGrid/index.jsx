@@ -14,8 +14,26 @@ import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
+import Divider from "@material-ui/core/Divider";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
+  blockTitle: {
+    paddingBottom: "6px",
+    paddingLeft: "10px",
+    paddingRight: "10px"
+  },
+  title: {
+    fontSize: "22px",
+    display: "inline-block"
+  },
+  seeAll: {
+    fontSize: "22px",
+    display: "inline-block"
+  },
+  pageBlock: {
+    backgroundColor: "#FAFAFA"
+  },
   cardGrid: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4)
@@ -56,35 +74,56 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
-
-const HomeGrid = () => {
+const HomeGrid = ({ title, images }) => {
   const classes = useStyles();
   return (
-    <Container className={classes.cardGrid} maxWidth="md">
-      <Grid container spacing={2}>
-        {cards.map(card => (
-          <Grid item key={card} xs={6} md={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                image={v1}
-                title="Image title"
-              />
-              <CardContent className={classes.cardContent}>
-                <Toolbar className={classes.cardTitle}>
-                  <Avatar alt="" src={v2} className={classes.avatar} />
-                  <Typography gutterBottom className={classes.name}>
-                    by Natalia Zuluaga
-                  </Typography>
-                </Toolbar>
-              </CardContent>
-            </Card>
+    <div className={classes.pageBlock}>
+      <Container className={classes.cardGrid} maxWidth="md">
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+          className={classes.blockTitle}
+        >
+          <Grid item>
+            <Typography className={classes.title}>{title}</Typography>
           </Grid>
-        ))}
-      </Grid>
-    </Container>
+          <Grid item>
+            <Typography className={classes.seeAll}>See All</Typography>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          {images.map((image, index) => (
+            <Grid item key={index} xs={6} md={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  key={index}
+                  className={classes.cardMedia}
+                  image={Object.values(image)}
+                  title="Image title"
+                />
+                <CardContent className={classes.cardContent}>
+                  <Toolbar className={classes.cardTitle}>
+                    <Avatar alt="" src={v2} className={classes.avatar} />
+                    <Typography gutterBottom className={classes.name}>
+                      {"by "}
+                      {Object.keys(image)}
+                    </Typography>
+                  </Toolbar>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+      <Divider />
+    </div>
   );
+};
+HomeGrid.propTypes = {
+  title: PropTypes.string,
+  images: PropTypes.array
 };
 
 export default HomeGrid;

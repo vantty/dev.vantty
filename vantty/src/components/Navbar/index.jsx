@@ -20,6 +20,9 @@ import Progress from "@material-ui/core/LinearProgress";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import Slide from "@material-ui/core/Slide";
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -83,134 +86,137 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Navbar = ({ isAuthenticated, loading, logout }) => {
-  const classes = useStyles();
+const HideOnScroll = props => {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+};
 
+const Navbar = props => {
+  const { isAuthenticated, loading, logout } = props;
+  const classes = useStyles();
   return (
     <Fragment>
-      <section data-test="navbar">
-        <Headroom>
-          <CssBaseline />
-          <AppBar position="relative" className={classes.root}>
-            <Container maxWidth="xl">
-              <Toolbar>
-                <Typography variant="h5" className={classes.title}>
-                  <LinkMui
-                    underline="none"
-                    color="inherit"
-                    component={Link}
-                    to="/"
-                  >
-                    {"Vantty"}
-                  </LinkMui>
-                </Typography>
-                {loading ? (
-                  <Progress data-test="progress" />
+      <CssBaseline />
+      <HideOnScroll {...props}>
+        <AppBar className={classes.root}>
+          {/* <Container> */}
+          <Toolbar>
+            <Typography variant="h5" className={classes.title}>
+              <LinkMui underline="none" color="inherit" component={Link} to="/">
+                {"Vantty"}
+              </LinkMui>
+            </Typography>
+            {loading ? (
+              <Progress data-test="progress" />
+            ) : (
+              <Fragment>
+                {!isAuthenticated ? (
+                  <Fragment>
+                    <section data-test="noAuthButtons">
+                      <div className={classes.sectionDesktop}>
+                        <div className={classes.search}>
+                          <div className={classes.searchIcon}>
+                            <SearchIcon />
+                          </div>
+                          <InputBase
+                            placeholder="Search…"
+                            classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput
+                            }}
+                            inputProps={{ "aria-label": "search" }}
+                          />
+                        </div>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.button}
+                          component={Link}
+                          to="/artists"
+                        >
+                          Artists
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.button}
+                          size="medium"
+                          component={Link}
+                          to="/login"
+                        >
+                          Login
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.register}
+                          size="medium"
+                          component={Link}
+                          to="/register"
+                        >
+                          Register
+                        </Button>
+                      </div>
+                    </section>
+                  </Fragment>
                 ) : (
                   <Fragment>
-                    {!isAuthenticated ? (
-                      <Fragment>
-                        <section data-test="noAuthButtons">
-                          <div className={classes.sectionDesktop}>
-                            <div className={classes.search}>
-                              <div className={classes.searchIcon}>
-                                <SearchIcon />
-                              </div>
-                              <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                  root: classes.inputRoot,
-                                  input: classes.inputInput
-                                }}
-                                inputProps={{ "aria-label": "search" }}
-                              />
-                            </div>
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              className={classes.button}
-                              component={Link}
-                              to="/artists"
-                            >
-                              Artists
-                            </Button>
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              className={classes.button}
-                              size="medium"
-                              component={Link}
-                              to="/login"
-                            >
-                              Login
-                            </Button>
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              className={classes.register}
-                              size="medium"
-                              component={Link}
-                              to="/register"
-                            >
-                              Register
-                            </Button>
+                    <section data-test="authButtons">
+                      <div className={classes.sectionDesktop}>
+                        <div className={classes.search}>
+                          <div className={classes.searchIcon}>
+                            <SearchIcon />
                           </div>
-                        </section>
-                      </Fragment>
-                    ) : (
-                      <Fragment>
-                        <section data-test="authButtons">
-                          <div className={classes.sectionDesktop}>
-                            <div className={classes.search}>
-                              <div className={classes.searchIcon}>
-                                <SearchIcon />
-                              </div>
-                              <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                  root: classes.inputRoot,
-                                  input: classes.inputInput
-                                }}
-                                inputProps={{ "aria-label": "search" }}
-                              />
-                            </div>
-                            <Button
-                              color="inherit"
-                              className={classes.button}
-                              component={Link}
-                              to="/artists"
-                            >
-                              Artists
-                            </Button>
-                            <Button
-                              color="inherit"
-                              className={classes.button}
-                              component={Link}
-                              to="/dashboard"
-                            >
-                              Profile
-                            </Button>
-                            <Button
-                              data-test="logoutButton"
-                              color="inherit"
-                              className={classes.button}
-                              component={Link}
-                              to="/"
-                              onClick={logout}
-                            >
-                              Logout
-                            </Button>
-                          </div>
-                        </section>
-                      </Fragment>
-                    )}
+                          <InputBase
+                            placeholder="Search…"
+                            classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput
+                            }}
+                            inputProps={{ "aria-label": "search" }}
+                          />
+                        </div>
+                        <Button
+                          color="inherit"
+                          className={classes.button}
+                          component={Link}
+                          to="/artists"
+                        >
+                          Artists
+                        </Button>
+                        <Button
+                          color="inherit"
+                          className={classes.button}
+                          component={Link}
+                          to="/dashboard"
+                        >
+                          Profile
+                        </Button>
+                        <Button
+                          data-test="logoutButton"
+                          color="inherit"
+                          className={classes.button}
+                          component={Link}
+                          to="/"
+                          onClick={logout}
+                        >
+                          Logout
+                        </Button>
+                      </div>
+                    </section>
                   </Fragment>
                 )}
-              </Toolbar>
-            </Container>
-          </AppBar>
-        </Headroom>
-      </section>
+              </Fragment>
+            )}
+          </Toolbar>
+          {/* </Container> */}
+        </AppBar>
+      </HideOnScroll>
     </Fragment>
   );
 };
@@ -219,6 +225,11 @@ Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool.isRequired
+};
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  window: PropTypes.func
 };
 
 const mapStateToProps = state => ({

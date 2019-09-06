@@ -155,8 +155,8 @@ const Register = props => {
   const {
     register,
     isAuthenticated,
-    googleLogin,
-    facebookLogin,
+    googleRegister,
+    facebookRegister,
     changeNavbarValue
   } = props;
 
@@ -217,11 +217,11 @@ const Register = props => {
     formState.touched[field] && formState.errors[field] ? true : false;
 
   const responseFacebook = res => {
-    facebookLogin(res.accessToken);
+    facebookRegister(res.accessToken);
   };
 
   const responseGoogle = res => {
-    googleLogin(res.accessToken);
+    googleRegister(res.accessToken);
   };
 
   if (isAuthenticated) {

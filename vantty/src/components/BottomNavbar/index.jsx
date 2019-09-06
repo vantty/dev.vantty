@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 function HideOnScroll({ children, window }) {
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
   return (
-    <Slide appear={false} direction='up' in={!trigger}>
+    <Slide appear={false} direction="up" in={!trigger}>
       {children}
     </Slide>
   );
@@ -60,40 +60,40 @@ const BottomNavabar = props => {
             showLabels
           >
             <BottomNavigationAction
-              label='Home'
-              value='home'
+              label="Home"
+              value="home"
               component={Link}
-              to='/'
+              to="/"
               icon={<HomeIcon />}
             />
             <BottomNavigationAction
-              label='Search'
-              value='artists'
+              label="Search"
+              value="artists"
               component={Link}
-              to='/artists'
+              to="/artists"
               icon={<SearchIcon />}
             />
             <BottomNavigationAction
-              label='Favorites'
-              value='favorites'
+              label="Favorites"
+              value="favorites"
               component={Link}
-              to='/favorites'
+              to="/favorites"
               icon={<FavoriteIcon />}
             />
             {!loading && !isAuthenticated ? (
               <BottomNavigationAction
-                label='Register'
-                value='register'
+                label="Register"
+                value="register"
                 component={Link}
-                to='/register'
+                to="/register"
                 icon={<AccountIcon />}
               />
             ) : (
               <BottomNavigationAction
-                label='Profile'
-                value='profile'
+                label="Profile"
+                value="profile"
                 component={Link}
-                to='/dashboard'
+                to="/dashboard"
                 icon={<AccountIcon />}
               />
             )}
