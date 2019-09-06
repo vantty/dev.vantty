@@ -2,6 +2,9 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+//Helpers
+import { getStrategyName } from "../../helpers";
+
 // Material-UI
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
@@ -37,16 +40,21 @@ const ProfileInfo = ({
               <Avatar src={profilePicture} className={classes.bigAvatar} />
             )}
           </Grid>
+
           <div>
             <h1 className={classes.name}>
-              {user.local.firstName} {user.local.lastName}
+              {getStrategyName(auth.user)}
+              {/* {user.local.lastName} */}
             </h1>
+            <br />
             <h3 className={classes.subTitle}>{profession}</h3>
+            <br />
+            <br />
             <h3 className={classes.description}>{bio}</h3>
+            <br />
             <p>{location && <span>{location.city}</span>}</p>
-
             <div style={{ display: "inline-block" }}>
-              <Toolbar>
+              {/* <Toolbar>
                 <Typography
                   type='title'
                   color='inherit'
@@ -67,7 +75,7 @@ const ProfileInfo = ({
                   <Star style={{ color: "#fdd835" }} />
                   hello
                 </Typography>
-              </Toolbar>
+              </Toolbar> */}
             </div>
             <Grid>
               <Fragment>

@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
+import LinkMui from "@material-ui/core/Link";
+//Helpers
+import { getInitials } from "../../helpers";
 
 // Actions
 import { deleteComment } from "../../actions/review";
@@ -17,7 +20,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Star from "@material-ui/icons/StarRateOutlined";
-import { Chip, Grid } from "@material-ui/core";
+import { Chip, Grid, Container } from "@material-ui/core";
 import List from "@material-ui/core/List";
 
 // Styles
@@ -32,20 +35,46 @@ const ReviewItem = ({
 }) => {
   return (
     <Grid>
-      <h1>Reviews</h1>
+      <Grid
+        container
+        direction='row'
+        justify='space-between'
+        alignItems='stretch'
+      >
+        <Grid item>
+          <h1>Reviews</h1>
+        </Grid>
+
+        <Grid item>
+          {/* <Button
+            size='small'
+            color='primary'
+            component={Link}
+            to={`/profile/artist/${user}/${_id}`}
+          >
+            Give a comment
+          </Button> */}
+          <LinkMui
+            component={Link}
+            variant='body1'
+            to={`/profile/artist/${user}/${_id}`}
+          >
+            Give a comment
+          </LinkMui>
+        </Grid>
+      </Grid>
+
+      <br />
+      <Divider variant='middle' />
+      <br />
+
       <List>
         {comments.map(comment => (
           <Fragment key={comment._id}>
             <ListItem key={comment._id} alignItems='flex-start'>
               <ListItemAvatar>
                 <Avatar alt='' src={""}>
-                  {comment.name
-                    .split(" ")
-                    .map((n, i, a) =>
-                      i === 0 || i + 1 === a.length ? n[0] : null
-                    )
-                    .join("")
-                    .toUpperCase()}
+                  {getInitials(comment.name)}
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
@@ -88,7 +117,7 @@ const ReviewItem = ({
                     variant='outlined'
                     size='small'
                     icon={<Star style={{ color: "#fdd835" }} />}
-                    label={"4.5"}
+                    label={comment.rating}
                   />
                 </div>
               </Fragment>
@@ -98,18 +127,6 @@ const ReviewItem = ({
           </Fragment>
         ))}
 
-        <Fragment>
-          <Link to={`/profile/artist/${user}/${_id}`}>
-            <Button
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-            >
-              Give a comment
-            </Button>
-          </Link>
-        </Fragment>
         {/* Footer */}
         <footer className={classes.footer}>
           <Typography variant='h6' align='center' gutterBottom>

@@ -3,19 +3,21 @@ import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
+// import CardAction from "@material-ui/core/CardAction";
+import CardAction from "../CardAction";
 
 const useStyles = makeStyles({
   image: {
     float: "left",
     position: "relative",
-    width: "98%",
+    width: "100%",
     paddingBottom: "100%",
-    paddingRight: "1rem",
-    paddingLeft: "1rem",
     backgroundPosition: "center center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    borderRadius: "10px"
+    borderRadius: "0.6rem",
+    borderColor: "white",
+    borderStyle: "solid"
   }
 });
 
@@ -23,17 +25,20 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 3,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    paritialVisibilityGutter: 0
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 2,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    paritialVisibilityGutter: 20
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    paritialVisibilityGutter: 20
   }
 };
 
@@ -42,35 +47,38 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
 
   return (
     <Fragment>
-      <Carousel
-        swipeable={true}
-        draggable={true}
-        responsive={responsive}
-        ssr={true}
-        infinite={true}
-        autoPlaySpeed={1000}
-        keyBoardControl={true}
-        customTransition='transform 100ms ease-in-out'
-        transitionDuration={100}
-        containerClass='carousel-container'
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass='custom-dot-list-style'
-        itemClass='carousel-item-padding-40-px'
-        renderDotsOutside={false}
-        partialVisbile={true}
-        minimumTouchDrag={100}
-        slidesToSlide={1}
-      >
-        {portfolioPictures.map(image => (
-          <span
-            key={image._id}
-            style={{
-              backgroundImage: `url(${image.original})`
-            }}
-            className={classes.image}
-          />
-        ))}
-      </Carousel>
+      <Fragment>
+        <Carousel
+          responsive={responsive}
+          additionalTransfrom={0}
+          arrows
+          autoPlaySpeed={3000}
+          centerMode={false}
+          containerClass='container'
+          dotListClass=''
+          draggable
+          focusOnSelect={false}
+          infinite
+          itemClass=''
+          keyBoardControl
+          minimumTouchDrag={80}
+          partialVisbile='right'
+          renderDotsOutside={false}
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+        >
+          {portfolioPictures.map(image => (
+            <CardAction>
+              <span
+                key={image._id}
+                style={{
+                  backgroundImage: `url(${image.original})`
+                }}
+                className={classes.image}
+              />
+            </CardAction>
+          ))}
+        </Carousel>
+      </Fragment>
     </Fragment>
   );
 };

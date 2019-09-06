@@ -7,14 +7,12 @@ import ProgressBarForm from "../ProgressBar";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import ArrowBack from "../../ArrowBack";
 
 const SimpleAppBar = ({ step, page }) => {
   return (
-    <div style={{ flexGrow: 1, marginBottom: "6rem" }}>
+    <div style={{ flexGrow: 1 }}>
       <AppBar position='fixed' style={{ backgroundColor: "#ffffff" }}>
         <Toolbar>
-          {isMobile && step === 1 && <ArrowBack page={page} />}
           <Typography
             variant='h6'
             color='inherit'

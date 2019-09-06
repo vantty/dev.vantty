@@ -28,7 +28,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: "#ffffff",
     color: "#505050",
-    boxShadow: "0 0.04em 0 0 #808080"
+    boxShadow: "0 0.04em 0 0 #808080",
+    position: "relative"
   },
   title: {
     flexGrow: 1

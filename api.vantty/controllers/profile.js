@@ -1,6 +1,7 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Review = require("../models/Review");
+// const Strategy = require("../helpers/getStrategy");
 
 // Current User
 exports.current = async (req, res) => {
@@ -34,7 +35,8 @@ exports.createANDupdate = async (req, res) => {
     review,
     country,
     state,
-    city
+    city,
+    price
   } = req.body;
   // console.log(req);
   // Build profile object
@@ -44,6 +46,7 @@ exports.createANDupdate = async (req, res) => {
   if (bio) profileFields.bio = bio;
   // if (location) profileFields.location = location;
   if (mobileNumber) profileFields.mobileNumber = mobileNumber;
+  if (price) profileFields.price = price;
   if (instagramUsername) profileFields.instagramUsername = instagramUsername;
   if (profession) {
     profileFields.profession = profession;

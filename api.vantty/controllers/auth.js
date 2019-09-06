@@ -1,6 +1,7 @@
 const JWT = require("jsonwebtoken"),
   JWT_SECRET = "vanttymakeup",
   User = require("../models/User");
+const { getStrategy } = require("../helpers");
 
 exports.auth = async (req, res) => {
   try {
@@ -75,17 +76,18 @@ exports.updatePersonalInfo = async (req, res) => {
   const { firstName, lastName, email, id, password } = req.body;
 
   let data = await User.findOne({ _id: id });
-
+  console.log("DATA", data);
+  console.log("BODY", req.body);
   // Build profile object
 
+  const strategy = data.method;
   const userFields = {};
-
-  userFields.method = "local";
-  userFields.local = {};
-  userFields.local.password = data.local.password;
-  if (firstName) userFields.local.firstName = firstName;
-  if (lastName) userFields.local.lastName = lastName;
-  if (email) userFields.local.email = email;
+  userFields.method = strategy;
+  userFields[strategy] = {};
+  userFields[strategy].password = data[strategy].password;
+  if (firstName) userFields[strategy].firstName = firstName;
+  if (lastName) userFields[strategy].lastName = lastName;
+  if (email) userFields[strategy].email = email;
 
   try {
     let user = await User.findOneAndUpdate(

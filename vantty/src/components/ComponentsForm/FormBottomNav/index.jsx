@@ -24,10 +24,10 @@ const SimpleBottomNav = ({ step, Children }) => {
       <AppBar position='fixed' color='inherit' className={classes.appBar}>
         <Container maxWidth='sm'>
           <Toolbar>
-            {step === null && (
+            {step !== undefined && (
               <Typography
                 style={{ color: "#bdbdbd" }}
-              >{`${step} / 3`}</Typography>
+              >{`${step} / 4`}</Typography>
             )}
             <div className={classes.grow} />
             {Children}

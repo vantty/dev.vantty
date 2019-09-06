@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 
+import { getStrategy } from "../../../../helpers";
+
 //Material Components
 import { makeStyles } from "@material-ui/styles";
 import {
@@ -45,10 +47,11 @@ const AccountDetails = ({
 
   useEffect(() => {
     getCurrentProfile();
+    const strategy = getStrategy(user);
     setFormData({
-      firstName: loading || !user.local ? "" : user.local.firstName,
-      lastName: loading || !user.local ? "" : user.local.lastName,
-      email: loading || !user.local ? "" : user.local.email,
+      firstName: loading || !strategy ? "" : strategy.firstName,
+      lastName: loading || !strategy ? "" : strategy.lastName,
+      email: loading || !strategy ? "" : strategy.email,
       id: loading || !user._id ? "" : user._id,
       password: loading || !user.password ? "" : user.password
     });
@@ -129,7 +132,7 @@ const AccountDetails = ({
                 onChange={e => onChange(e)}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label='Phone Number'
@@ -170,7 +173,7 @@ const AccountDetails = ({
                 // value={values.country}
                 variant='outlined'
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />
