@@ -13,7 +13,7 @@ import { FormBottomNav, ImagesUploader } from "../../../../components";
 import PropTypes from "prop-types";
 
 //helpers
-import { getInitials } from "../../../../helpers";
+import { getInitials, getStrategyName } from "../../../../helpers";
 
 //Icon
 import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
@@ -64,7 +64,6 @@ const AddPortfolio = ({
   match,
   getCurrentProfile,
   className,
-
   ...rest
 }) => {
   useEffect(() => {
@@ -119,17 +118,17 @@ const AddPortfolio = ({
                 </div>
                 <div>
                   <div>
-                    {/* <Grid container justify='center' alignItems='center'>
-                {!loading && profile.profilePicture ? (
-                  <Avatar className={classes.bigAvatar}>
-                    <AddPhotoIcon style={{ fontSize: "48px" }} />
-                  </Avatar>
-                ) : (
-                  <Avatar className={classes.bigAvatar}>
-                    {getInitials(profile.user.local.firstName)}
-                  </Avatar>
-                )}
-              </Grid> */}
+                    <Grid container justify='center' alignItems='center'>
+                      {!loading && profile.profilePicture ? (
+                        <Avatar className={classes.bigAvatar}>
+                          <AddPhotoIcon style={{ fontSize: "48px" }} />
+                        </Avatar>
+                      ) : (
+                        <Avatar className={classes.bigAvatar}>
+                          {getInitials(getStrategyName(profile.user))}
+                        </Avatar>
+                      )}
+                    </Grid>
                   </div>
                 </div>
                 <div>

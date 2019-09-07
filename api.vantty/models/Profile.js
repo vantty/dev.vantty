@@ -27,17 +27,7 @@ const ProfileSchema = new mongoose.Schema({
     type: [String]
     // required: true
   },
-  location: {
-    country: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    city: {
-      type: String
-    }
-  },
+
   mobileNumber: {
     type: String
     // required: true
@@ -76,6 +66,17 @@ const ProfileSchema = new mongoose.Schema({
       type: String
     },
     instagram: {
+      type: String
+    }
+  },
+  location: {
+    country: {
+      type: String
+    },
+    state: {
+      type: String
+    },
+    city: {
       type: String
     }
   },

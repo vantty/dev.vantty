@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //Helpers
-import { getStrategyName } from "../../helpers";
+import { getStrategyName } from "../../../../helpers";
 
 // Material-UI
 import Avatar from "@material-ui/core/Avatar";

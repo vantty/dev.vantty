@@ -42,7 +42,9 @@ const AccountDetails = ({
     lastName: "",
     email: "",
     id: "",
-    password: ""
+    password: "",
+    socialId: "",
+    profifePicture: ""
   });
 
   useEffect(() => {
@@ -52,12 +54,14 @@ const AccountDetails = ({
       firstName: loading || !strategy ? "" : strategy.firstName,
       lastName: loading || !strategy ? "" : strategy.lastName,
       email: loading || !strategy ? "" : strategy.email,
+      socialId: loading || !strategy ? "" : strategy.socialId,
+      profifePicture: loading || !strategy ? "" : strategy.profifePicture,
       id: loading || !user._id ? "" : user._id,
       password: loading || !user.password ? "" : user.password
     });
   }, [loading, getCurrentProfile]);
 
-  const { firstName, lastName, email } = formData;
+  const { firstName, lastName, email, id, socialId, profifePicture } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

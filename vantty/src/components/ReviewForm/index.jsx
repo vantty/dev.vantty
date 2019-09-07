@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import { addComment } from "../../actions/review";
 
 //Compornents
-import { FrameForm } from "../../components";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,6 +31,7 @@ import {
 import clsx from "clsx";
 import { Rating } from "@material-ui/lab";
 import LinkMui from "@material-ui/core/Link";
+import { FrameForm } from "../../components";
 
 const useStyles = makeStyles(theme => ({
   appBar: {

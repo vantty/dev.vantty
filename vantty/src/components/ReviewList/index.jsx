@@ -28,7 +28,7 @@ import styles from "./styles";
 
 const ReviewItem = ({
   auth,
-  review: { user, _id, comments, date, name },
+  review: { user, _id, comments, date },
   deleteComment,
   classes,
   ...rest

@@ -53,6 +53,8 @@ const Form = ({ profile }) => {
     bio: "",
     profession: "",
     city: "",
+    state: "",
+    country: "",
     mobileNumber: "",
     instagramUsername: ""
   });
@@ -113,6 +115,7 @@ const Form = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             prevStep={prevStep}
+            values={formData}
           />
         );
       case 4:
@@ -122,6 +125,7 @@ const Form = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             prevStep={prevStep}
+            values={formData}
           />
         );
       default:

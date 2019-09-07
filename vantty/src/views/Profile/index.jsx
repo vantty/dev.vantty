@@ -8,11 +8,13 @@ import Navbar from "../../components/Navbar";
 import SettingsDrawer from "../../components/SettingsDrawer";
 // import SettingsDrawer from "../../layouts/Main/components/Sidebar";
 
-import ProfileInfo from "../../components/ProfileInfo";
-import ProfileCarousel from "../../components/ProfileCarousel";
-import ReviewCard from "../../components/ReviewCard";
+//Comonents
 import ConctactButton from "../../components/ContactButton";
 import BottomNavabar from "../../components/BottomNavbar";
+import { ReviewCard } from "../../components/";
+
+//Components inside
+import { ProfileCarousel, ProfileInfo } from "./components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";
