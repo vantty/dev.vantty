@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // Components
-import PortfolioPictures from "./Porfolio";
+import Picture from "./Picture";
 
 // Actions
-import { uploadImages } from "../../actions/uploader";
+import { profileImage } from "../../actions/uploader";
 import { getCurrentProfile } from "../../actions/profile";
 
 // Material-UI
@@ -14,8 +14,8 @@ import Progress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 
-const ImagesUploader = ({
-  uploadImages,
+const AvatarUploader = ({
+  profileImage,
   uploading,
   images,
   getCurrentProfile,
@@ -26,14 +26,14 @@ const ImagesUploader = ({
   }, []);
 
   const onChange = e => {
-    uploadImages(e);
+    profileImage(e);
   };
 
   const UploadButton = () => {
     return (
       <Fragment>
         <Button variant='contained' component='label' color='primary'>
-          Upload File
+          Upload Image Profile
           <input
             style={{ display: "none" }}
             type='file'
@@ -48,17 +48,15 @@ const ImagesUploader = ({
 
   const loadImages = () => {
     if (profile !== null) {
-      return (
-        <PortfolioPictures portfolioPictures={profile.portfolioPictures} />
-      );
+      return <Picture profilePicture={profile.profilePicture} />;
     }
   };
 
-  const loadMessage = () => {
-    if (profile !== null && profile.portfolioPictures.length < 5) {
-      return <Typography pt={5}>You need at least 5 pictures</Typography>;
-    }
-  };
+  //   const loadMessage = () => {
+  //     if (profile !== null && profile.portfolioPictures.length < 5) {
+  //       return <Typography pt={5}>You need at least 5 pictures</Typography>;
+  //     }
+  //   };
 
   return (
     <Fragment>
@@ -69,15 +67,17 @@ const ImagesUploader = ({
         </Fragment>
       ) : (
         <Fragment>
-          {loadMessage()} {loadImages()}
+          {/* {loadMessage()} */}
+          {loadImages()}
+          hello
         </Fragment>
       )}
     </Fragment>
   );
 };
 
-ImagesUploader.propTypes = {
-  uploadImages: PropTypes.func.isRequired,
+AvatarUploader.propTypes = {
+  profileImage: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
   images: PropTypes.array,
   getCurrentProfile: PropTypes.func.isRequired,
@@ -92,5 +92,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { uploadImages, getCurrentProfile }
-)(ImagesUploader);
+  { profileImage, getCurrentProfile }
+)(AvatarUploader);

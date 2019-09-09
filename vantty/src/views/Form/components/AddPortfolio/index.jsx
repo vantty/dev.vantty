@@ -35,6 +35,7 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
+import AvatarUploader from "../../../../components/AvatarUploader";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -97,7 +98,7 @@ const AddPortfolio = ({
                 <div>
                   <div>
                     <Typography gutterBottom variant='h2'>
-                      {/* {profile.user.local.firstName} */}
+                      {getStrategyName(profile.user)}
                     </Typography>
                     <Typography
                       className={classes.locationText}
@@ -116,21 +117,19 @@ const AddPortfolio = ({
                     </Typography>
                   </div>
                 </div>
+
                 <div>
-                  <div>
-                    <Grid container justify='center' alignItems='center'>
-                      {!loading && profile.profilePicture ? (
-                        <Avatar className={classes.bigAvatar}>
-                          <AddPhotoIcon style={{ fontSize: "48px" }} />
-                        </Avatar>
-                      ) : (
-                        <Avatar className={classes.bigAvatar}>
-                          {getInitials(getStrategyName(profile.user))}
-                        </Avatar>
-                      )}
-                    </Grid>
-                  </div>
+                  <Grid container justify='center' alignItems='center'>
+                    {!loading && profile.profilePicture ? (
+                      <AvatarUploader />
+                    ) : (
+                      <Avatar className={classes.bigAvatar}>
+                        {getInitials(getStrategyName(profile.user))}
+                      </Avatar>
+                    )}
+                  </Grid>
                 </div>
+
                 <div>
                   <ImagesUploader />
                 </div>

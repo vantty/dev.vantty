@@ -17,6 +17,7 @@ import Star from "@material-ui/icons/StarRateOutlined";
 // Styles
 import styles from "./styles";
 import { isMobile } from "react-device-detect";
+import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
@@ -29,21 +30,34 @@ const ProfileInfo = ({
     <div>
       <div>
         <div className={classes.profile}>
+          {/* <Grid container justify='center' alignItems='center'>
+            {profilePicture ? (
+              <span className={classes.bigAvatar}>
+                <AvatarUploader />
+              </span>
+            ) : (
+              <Avatar>{getStrategyName(auth.user)}</Avatar>
+            )}
+          </Grid> */}
+
           <Grid container justify='center' alignItems='center'>
             {isMobile ? (
               <Avatar
-                src={profilePicture}
+                src={profilePicture[0].original}
                 className={classes.bigAvatar}
                 style={{ marginTop: "-10px" }}
               />
             ) : (
-              <Avatar src={profilePicture} className={classes.bigAvatar} />
+              <Avatar
+                src={profilePicture[0].original}
+                className={classes.bigAvatar}
+              />
             )}
           </Grid>
 
           <div>
             <h1 className={classes.name}>
-              {getStrategyName(auth.user)}
+              {/* {getStrategyName(auth.user)} */}
               {/* {user.local.lastName} */}
             </h1>
             <br />

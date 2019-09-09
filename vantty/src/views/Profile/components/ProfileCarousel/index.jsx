@@ -67,7 +67,7 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {portfolioPictures.map(image => (
-            <CardAction>
+            <CardAction key={image._id}>
               <span
                 key={image._id}
                 style={{

@@ -57,8 +57,8 @@ const profilePageStyle = {
   },
   bigAvatar: {
     margin: 10,
-    width: 120,
-    height: 120
+    width: 90,
+    height: 90
   },
   button: {
     margin: 10
