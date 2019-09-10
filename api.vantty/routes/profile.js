@@ -18,7 +18,8 @@ const {
   deleteEducation,
   addPortfolio,
   deletePicture,
-  addProfileImage
+  addProfileImage,
+  deleteProfilePicture
 } = require("../controllers/profile");
 
 // @desc     Get current users profile
@@ -59,8 +60,11 @@ router.put("/portfolio", passportJWT, addPortfolio);
 // @access   Private
 router.delete("/portfolio/:pic_id", passportJWT, deletePicture);
 
-// @route    PUT /profile/portfolio
+// @route    PUT /profile/profilePicture
 // @access   Private
 router.put("/profile-image", passportJWT, addProfileImage);
 
+// @route    DELETE /profile/portfolio/:pic_id
+// @access   Private
+router.delete("/profilePicture/:pic_id", passportJWT, deleteProfilePicture);
 module.exports = router;

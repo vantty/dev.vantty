@@ -9,14 +9,14 @@ exports.current = async (req, res) => {
     // var method = "";
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       "user",
-      ["local.firstName"]
-      // [`${req.user.method}.firstName`, `${req.user.method}.lastName`]
+      // ["local.firstName"]
+      [`${req.user.method}.firstName`, `${req.user.method}.lastName`]
     );
 
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
     }
-
+    // console.log(profile);
     res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -247,6 +247,28 @@ exports.addProfileImage = async (req, res) => {
     await profile.save();
     res.json(profile);
     // if (profile.portfolioPictures) res.send("Hello");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Delete ProfilePicture
+exports.deleteProfilePicture = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    // Get remove index
+    const removeIndex = profile.profilePicture
+      .map(item => item.id)
+      .indexOf(req.params.pic_id);
+
+    // profile.profilePicture.splice(removeIndex, 1);
+    profile.profilePicture.shift();
+
+    await profile.save();
+
+    res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

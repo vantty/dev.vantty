@@ -7,7 +7,7 @@ import Picture from "./Picture";
 
 // Actions
 import { profileImage } from "../../actions/uploader";
-import { getCurrentProfile } from "../../actions/profile";
+import { getCurrentProfile, deleteProfilePicture } from "../../actions/profile";
 
 // Material-UI
 import Progress from "@material-ui/core/LinearProgress";
@@ -19,7 +19,9 @@ const AvatarUploader = ({
   uploading,
   images,
   getCurrentProfile,
-  profile: { profile }
+  deleteProfilePicture,
+  profile: { profile },
+  profilePicture
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -32,8 +34,13 @@ const AvatarUploader = ({
   const UploadButton = () => {
     return (
       <Fragment>
-        <Button variant='contained' component='label' color='primary'>
-          Upload Image Profile
+        <Button
+          component='label'
+          size='small'
+          variant='outlined'
+          color='primary'
+        >
+          Upload File
           <input
             style={{ display: "none" }}
             type='file'
@@ -46,32 +53,36 @@ const AvatarUploader = ({
     );
   };
 
-  const loadImages = () => {
-    if (profile !== null) {
-      return <Picture profilePicture={profile.profilePicture} />;
-    }
+  const DeletePicture = () => {
+    return (
+      <Fragment>
+        <Button
+          size='small'
+          component='label'
+          color='primary'
+          disabled={profilePicture.length === 0 && true}
+          onClick={() =>
+            deleteProfilePicture(
+              profilePicture[0]._id,
+              profilePicture[0].cloudId
+            )
+          }
+        >
+          Delete Picture
+        </Button>
+      </Fragment>
+    );
   };
 
-  //   const loadMessage = () => {
-  //     if (profile !== null && profile.portfolioPictures.length < 5) {
-  //       return <Typography pt={5}>You need at least 5 pictures</Typography>;
-  //     }
-  //   };
-
+  // const loadImages = () => {
+  //   if (profile !== null) {
+  //     return <Picture profilePicture={profilePicture} />;
+  //   }
+  // };
   return (
     <Fragment>
+      <DeletePicture />
       <UploadButton />
-      {uploading ? (
-        <Fragment>
-          <Progress />
-        </Fragment>
-      ) : (
-        <Fragment>
-          {/* {loadMessage()} */}
-          {loadImages()}
-          hello
-        </Fragment>
-      )}
     </Fragment>
   );
 };
@@ -80,8 +91,10 @@ AvatarUploader.propTypes = {
   profileImage: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
   images: PropTypes.array,
+  profilePicture: PropTypes.array,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  deleteProfilePicture: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -92,5 +105,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { profileImage, getCurrentProfile }
+  { profileImage, getCurrentProfile, deleteProfilePicture }
 )(AvatarUploader);

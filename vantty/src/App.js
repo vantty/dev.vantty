@@ -19,7 +19,7 @@ import Login from "./views/Login";
 import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
-import { EditProfile } from "./views/EditForm/components";
+import { EditProfile, EditPersonalInfo } from "./views/EditForm/components";
 import { InfoContact } from "./views/Form/components";
 import { EditPortfolio, EditPrice } from "./views/EditForm/components";
 import Account from "./views/Account";
@@ -73,7 +73,11 @@ const App = () => {
                 path='/edit-profile'
                 component={EditProfile}
               />
-              <PrivateRoute exact path='/personal-info' component={Account} />
+              <PrivateRoute
+                exact
+                path='/personal-info'
+                component={EditPersonalInfo}
+              />
               <PrivateRoute
                 exact
                 path='/info-contact'

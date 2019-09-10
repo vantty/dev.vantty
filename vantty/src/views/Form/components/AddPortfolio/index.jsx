@@ -36,9 +36,12 @@ import { makeStyles } from "@material-ui/styles";
 import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
 import AvatarUploader from "../../../../components/AvatarUploader";
+import { positions } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    flexGrow: 1
+  },
 
   // content: {
   //   marginRight: theme.spacing(2),
@@ -52,12 +55,21 @@ const useStyles = makeStyles(theme => ({
   // },
   buttonUpload: {
     textAlign: "center"
+  },
+  name: {
+    textAlign: "center",
+    paddingBottom: "0.5rem"
+  },
+  avatar: {
+    margin: "auto",
+    height: 90,
+    width: 90
   }
 }));
 
 const AddPortfolio = ({
   profile: { profile, loading },
-  formData,
+  // formData,
   handleChange,
   nextStep,
   prevStep,
@@ -95,41 +107,48 @@ const AddPortfolio = ({
               />
               <Divider />
               <CardContent className={classes.content}>
-                <div>
-                  <div>
-                    <Typography gutterBottom variant='h2'>
-                      {getStrategyName(profile.user)}
-                    </Typography>
-                    <Typography
-                      className={classes.locationText}
-                      color='textSecondary'
-                      variant='body1'
-                    >
-                      Toronto
-                    </Typography>
-                    <Typography
-                      className={classes.dateText}
-                      color='textSecondary'
-                      variant='body1'
-                    >
-                      {/* {moment().format("hh:mm A")} */}
-                      {/* ({user.timezone}) */}
-                    </Typography>
-                  </div>
-                </div>
-
-                <div>
-                  <Grid container justify='center' alignItems='center'>
-                    {!loading && profile.profilePicture ? (
-                      <AvatarUploader />
-                    ) : (
-                      <Avatar className={classes.bigAvatar}>
-                        {getInitials(getStrategyName(profile.user))}
-                      </Avatar>
-                    )}
+                <Grid
+                  container
+                  direction='row'
+                  justify='center'
+                  alignItems='center'
+                >
+                  <Grid item>
+                    <div className={classes.name}>
+                      <Typography variant='h3'>
+                        {getStrategyName(profile.user)}
+                      </Typography>
+                      <Typography color='textSecondary' variant='body1'>
+                        {profile.profession}
+                      </Typography>
+                    </div>
                   </Grid>
-                </div>
-
+                  <Grid item>
+                    <Grid item>
+                      <div>
+                        {profile.profilePicture[0] ? (
+                          <Avatar
+                            src={profile.profilePicture[0].original}
+                            className={classes.avatar}
+                          />
+                        ) : (
+                          <Avatar className={classes.avatar}>
+                            {getInitials(getStrategyName(profile.user))}
+                          </Avatar>
+                        )}
+                      </div>
+                      <br />
+                      <Grid>
+                        <AvatarUploader
+                          profilePicture={profile.profilePicture}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <br />
+                <Divider />
+                <br />
                 <div>
                   <ImagesUploader />
                 </div>

@@ -20,6 +20,7 @@ exports.addImages = (req, res) => {
 
 exports.deleteImages = (req, res) => {
   const id = Object.values(req.body);
+  console.log(req.body);
   cloudinary.v2.uploader
     .destroy(id)
     .then(results => {

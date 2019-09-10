@@ -84,6 +84,7 @@ export const deleteImages = id => dispatch => {
   }
 };
 
+//Profile Picture
 export const profileImage = e => async dispatch => {
   console.log(e.target.files);
   const errs = [];
