@@ -32,8 +32,7 @@ export const loadUser = () => async dispatch => {
   }
 };
 
-// Register User
-export const register = ({
+export const sendEmail = ({
   firstName,
   lastName,
   email,
@@ -44,7 +43,27 @@ export const register = ({
   };
   const body = JSON.stringify({ firstName, lastName, email, password });
   try {
-    const res = await server.post("/auth/register", body, config);
+    await server.post("/auth/register", body, config);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Confirm Email
+export const confirmEmail = token => async dispatch => {
+  try {
+    await server.get(`/auth/confirmation/${token}`);
+    await dispatch(register(token));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Register User
+export const register = token => async dispatch => {
+  try {
+    const res = await server.post(`/auth/validated/${token}`);
+    console.log(res.data);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data

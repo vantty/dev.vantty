@@ -159,7 +159,6 @@ const Login = props => {
   });
 
   useEffect(() => {
-    changeNavbarValue("login");
     const errors = validate(formState.values, schema);
     setFormState(formState => ({
       ...formState,
@@ -167,6 +166,10 @@ const Login = props => {
       errors: errors || {}
     }));
   }, [formState.values]);
+
+  useEffect(() => {
+    changeNavbarValue("login");
+  }, []);
 
   const handleChange = event => {
     event.persist();

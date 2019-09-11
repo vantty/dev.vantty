@@ -8,6 +8,7 @@ const userSchema = new Schema(
       enum: ["local", "google", "facebook"],
       required: true
     },
+    confirmed: { type: Boolean, default: false },
     local: {
       firstName: { type: String },
       lastName: { type: String },

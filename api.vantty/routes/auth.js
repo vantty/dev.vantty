@@ -11,16 +11,20 @@ const express = require("express"),
     login,
     google,
     facebook,
-    updatePersonalInfo
+    updatePersonalInfo,
+    sendEmail,
+    confirmEmail
   } = require("../controllers/auth"),
   { validator } = require("../helpers"),
   router = express.Router();
 
 router.get("/", passportJWT, auth);
-router.post("/register", validator, register);
+router.post("/register", validator, sendEmail);
 router.post("/login", passportLocal, login);
 router.post("/google", passportGoogle, google);
 router.post("/facebook", passportFacebook, facebook);
 router.post("/update-info", passportJWT, updatePersonalInfo);
+router.get("/confirmation/:token", confirmEmail);
+router.post("/validated/:token", register);
 
 module.exports = router;

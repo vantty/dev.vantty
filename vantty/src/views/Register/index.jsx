@@ -23,7 +23,11 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { connect } from "react-redux";
 import FacebookAuth from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleAuth from "react-google-login";
-import { register, googleRegister, facebookRegister } from "../../actions/auth";
+import {
+  sendEmail,
+  googleRegister,
+  facebookRegister
+} from "../../actions/auth";
 import { changeNavbarValue } from "../../actions/navbar";
 
 const schema = {
@@ -153,7 +157,7 @@ const useStyles = makeStyles(theme => ({
 
 const Register = props => {
   const {
-    register,
+    sendEmail,
     isAuthenticated,
     googleRegister,
     facebookRegister,
@@ -171,7 +175,6 @@ const Register = props => {
   });
 
   useEffect(() => {
-    changeNavbarValue("login");
     const errors = validate(formState.values, schema);
     setFormState(formState => ({
       ...formState,
@@ -179,6 +182,9 @@ const Register = props => {
       errors: errors || {}
     }));
   }, [formState.values]);
+  useEffect(() => {
+    changeNavbarValue("register");
+  }, []);
 
   const handleChange = event => {
     event.persist();
@@ -210,7 +216,7 @@ const Register = props => {
 
   const handleRegister = event => {
     event.preventDefault();
-    register({ firstName, lastName, email, password });
+    sendEmail({ firstName, lastName, email, password });
   };
 
   const hasError = field =>
@@ -227,6 +233,7 @@ const Register = props => {
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
+
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
@@ -424,5 +431,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { register, googleRegister, facebookRegister, changeNavbarValue }
+  { sendEmail, googleRegister, facebookRegister, changeNavbarValue }
 )(withRouter(Register));

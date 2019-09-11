@@ -49,31 +49,31 @@ import {
 } from "../../assets/images/featuresHairstyles";
 
 const weddingImages = [
-  { Natalia: w1 },
-  { Sofía: w2 },
-  { Sara: w3 },
-  { Luisa: w4 },
-  { Marta: w5 },
-  { Lina: w6 }
+  { name: "Natalia", photo: w1 },
+  { name: "Luisa", photo: w2 },
+  { name: "Lina", photo: w3 },
+  { name: "Cate", photo: w4 },
+  { name: "Sara", photo: w5 },
+  { name: "Sor", photo: w6 }
 ];
 const featuresArtistImages = [fa1, fa2, fa3, fa4, fa5, fa6, fa7];
 const bannerImage = b1;
 const banner2Image = b2;
 const featuredMakeupsImages = [
-  { Natalia: fm1 },
-  { Sofía: fm2 },
-  { Sara: fm3 },
-  { Luisa: fm4 },
-  { Marta: fm5 },
-  { Lina: fm6 }
+  { name: "Natalia", photo: fm1 },
+  { name: "Luisa", photo: fm2 },
+  { name: "Lina", photo: fm3 },
+  { name: "Cate", photo: fm4 },
+  { name: "Sara", photo: fm5 },
+  { name: "Sor", photo: fm6 }
 ];
 const featuresHairstyles = [
-  { Natalia: fh1 },
-  { Sofía: fh2 },
-  { Sara: fh3 },
-  { Luisa: fh4 },
-  { Marta: fh5 },
-  { Lina: fh6 }
+  { name: "Natalia", photo: fh1 },
+  { name: "Luisa", photo: fh2 },
+  { name: "Lina", photo: fh3 },
+  { name: "Cate", photo: fh4 },
+  { name: "Sara", photo: fh5 },
+  { name: "Sor", photo: fh6 }
 ];
 
 const Home = ({ changeNavbarValue }) => {

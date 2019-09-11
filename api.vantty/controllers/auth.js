@@ -1,6 +1,8 @@
 const JWT = require("jsonwebtoken"),
   JWT_SECRET = "vanttymakeup",
-  User = require("../models/User");
+  EMAIL_SECRET = "emailsecret",
+  User = require("../models/User"),
+  nodemailer = require("nodemailer");
 const { getStrategy } = require("../helpers");
 
 exports.auth = async (req, res) => {
@@ -13,7 +15,7 @@ exports.auth = async (req, res) => {
   }
 };
 
-exports.register = async (req, res) => {
+exports.sendEmail = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
     const user = await User.findOne({ "local.email": email });
@@ -24,7 +26,64 @@ exports.register = async (req, res) => {
       method: "local",
       local: { firstName, lastName, email, password }
     });
-    const token = generateToken(newUser);
+
+    const emailToken = generateEmailToken(newUser);
+    const url = `http://localhost:3000/confirmation/${emailToken}`;
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: "sebhernandezram@gmail.com",
+        pass: "S.Hernandez.R.20.G"
+      }
+    });
+
+    const mailOptions = {
+      from: "sebhernandezram@gmail.com",
+      to: `${email}`,
+      subject: "Confirm Email",
+      html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
+    };
+
+    transporter.sendMail(mailOptions, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Email sent");
+      }
+    });
+  } catch (error) {
+    res.status(500).send("Server error");
+  }
+};
+
+exports.confirmEmail = async (req, res) => {
+  try {
+    const tokenVerified = JWT.verify(req.params.token, EMAIL_SECRET);
+    const id = tokenVerified.user;
+    let user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: { confirmed: true } },
+      { new: true }
+    );
+    res.status(200).json(user);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+exports.register = async (req, res) => {
+  try {
+    const tokenVerified = JWT.verify(req.params.token, EMAIL_SECRET);
+    const id = tokenVerified.user;
+    const user = await User.findOne({ _id: id });
+    if (!user.confirmed) {
+      return res
+        .status(403)
+        .json({ errors: [{ msg: "Please validate your email" }] });
+    }
+    const token = generateToken(user);
+    console.log("LOGIN TOKEN", token);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).send("Server error");
@@ -58,7 +117,7 @@ exports.facebook = async (req, res) => {
   }
 };
 
-// Token Generator
+// Login Token Generator
 generateToken = user => {
   return JWT.sign(
     {
@@ -69,6 +128,11 @@ generateToken = user => {
     },
     JWT_SECRET
   );
+};
+
+// Email Token Generator
+generateEmailToken = user => {
+  return JWT.sign({ user: user.id }, EMAIL_SECRET, { expiresIn: "1d" });
 };
 
 //Update Personal Info

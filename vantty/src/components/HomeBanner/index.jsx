@@ -13,12 +13,15 @@ const useStyles = makeStyles(theme => ({
   bannerImage: {
     position: "relative",
     width: "100%",
-    paddingTop: "90%",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     borderRadius: "0.6rem",
-    backgroundColor: "rgba(0,0,0,.3)"
+    backgroundColor: "rgba(0,0,0,.3)",
+    paddingTop: "80%",
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "100%"
+    }
   },
   banner: {
     paddingTop: theme.spacing(4),

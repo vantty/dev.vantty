@@ -98,17 +98,21 @@ const HomeGrid = ({ title, images }) => {
             <Grid item key={index} xs={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
-                  key={index}
+                  key={image.photo}
                   className={classes.cardMedia}
-                  image={Object.values(image)}
+                  image={`${image.photo}`}
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
                   <Toolbar className={classes.cardTitle}>
                     <Avatar alt="" src={v2} className={classes.avatar} />
-                    <Typography gutterBottom className={classes.name}>
+                    <Typography
+                      key={index}
+                      gutterBottom
+                      className={classes.name}
+                    >
                       {"by "}
-                      {Object.keys(image)}
+                      {image.name}
                     </Typography>
                   </Toolbar>
                 </CardContent>

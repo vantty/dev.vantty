@@ -28,8 +28,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: "#ffffff",
     color: "#505050",
-    boxShadow: "0 0.04em 0 0 #808080",
-    position: "relative"
+    boxShadow: "0 0.04em 0 0 #808080"
   },
   title: {
     flexGrow: 1
@@ -105,7 +104,6 @@ const Navbar = props => {
       <CssBaseline />
       <HideOnScroll {...props}>
         <AppBar className={classes.root}>
-          {/* <Container> */}
           <Toolbar>
             <Typography variant="h5" className={classes.title}>
               <LinkMui underline="none" color="inherit" component={Link} to="/">
@@ -215,7 +213,6 @@ const Navbar = props => {
               </Fragment>
             )}
           </Toolbar>
-          {/* </Container> */}
         </AppBar>
       </HideOnScroll>
     </Fragment>
