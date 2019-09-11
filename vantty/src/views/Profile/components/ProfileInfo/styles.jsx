@@ -61,7 +61,8 @@ const profilePageStyle = {
     height: 90
   },
   button: {
-    margin: 10
+    margin: 10,
+    backgroundColor: "rgb(120, 40, 146)"
   },
   input: {
     display: "none"
