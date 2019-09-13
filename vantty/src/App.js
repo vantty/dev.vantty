@@ -20,6 +20,7 @@ import Login from "./views/Login";
 import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
+import Landing from "./views/Landing";
 import { EditProfile } from "./views/EditForm/components";
 import { InfoContact } from "./views/Form/components";
 import { EditPortfolio, EditPrice } from "./views/EditForm/components";
@@ -59,7 +60,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <Fragment>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Landing} />
             <Switch>
               <Route exact path="/number" component={NumberValidation} />
               <Route exact path="/register" component={Register} />
@@ -72,6 +73,7 @@ const App = () => {
               <Route exact path="/artists" component={Artists} />
               <Route exact path="/favorites" component={Favorites} />
               <Route exact path="/profile/artist/:id" component={Profile} />
+              <Route exact path="/home" component={Home} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/create-profile" component={Form} />
               <PrivateRoute
