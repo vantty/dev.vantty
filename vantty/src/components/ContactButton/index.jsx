@@ -62,7 +62,7 @@ const ContactButton = ({ profile: { mobileNumber, user, price } }) => {
                     user
                   )},%20I%20watched%20your%20profile%20in%20www.vantty.com,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
                 > */}
-                <a href={`sms:${mobileNumber}?body=hello world`}>
+                <a href={`sms:${mobileNumber}`}>
                   <Button className={classes.button} variant='contained'>
                     Contact
                   </Button>
