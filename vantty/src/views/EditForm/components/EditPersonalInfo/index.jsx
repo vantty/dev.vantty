@@ -22,7 +22,7 @@ import {
 
 // Actions
 import { updateInfo } from "../../../../actions/auth";
-import { getCurrentProfile } from "../../../../actions/profile";
+import { getCurrentProfile, createProfile } from "../../../../actions/profile";
 import { FormBottomNav } from "../../../../components";
 
 const useStyles = makeStyles(() => ({
@@ -33,6 +33,8 @@ const AccountDetails = ({
   auth: { user, loading },
   getCurrentProfile,
   updateInfo,
+  createProfile,
+  profile: { profile },
   history,
   className,
   ...rest
@@ -63,15 +65,22 @@ const AccountDetails = ({
     });
   }, [loading, getCurrentProfile]);
 
-  const { firstName, lastName, email, id, socialId, profifePicture } = formData;
+  const { firstName, lastName, email, profifePicture } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
-    updateInfo(formData, history, true);
+    await updateInfo(formData, history, true);
+    profile &&
+      (await createProfile(
+        { name: { firstName: firstName, lastName: lastName } },
+        history,
+        true
+      ));
   };
+
   // const rootClassName = classNames(classes.root, className);
 
   const states = [
@@ -220,7 +229,8 @@ AccountDetails.propTypes = {
   className: PropTypes.string,
   updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  createProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -236,5 +246,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, updateInfo }
+  { getCurrentProfile, updateInfo, createProfile }
 )(withRouter(AccountDetails));

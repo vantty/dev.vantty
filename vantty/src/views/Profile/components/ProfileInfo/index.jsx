@@ -21,7 +21,7 @@ import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
-  profile: { user, location, profilePicture, bio, profession, loading },
+  profile: { user, location, profilePicture, bio, profession, name, loading },
 
   classes,
   ...rest
@@ -41,7 +41,7 @@ const ProfileInfo = ({
           </Grid> */}
 
           <Grid container justify='center' alignItems='center'>
-            {profilePicture !== "" ? (
+            {profilePicture[0] ? (
               isMobile ? (
                 <Avatar
                   src={profilePicture[0].original}
@@ -62,7 +62,9 @@ const ProfileInfo = ({
           </Grid>
 
           <div>
-            <h1 className={classes.name}>{getStrategyName(auth.user)}</h1>
+            <h1
+              className={classes.name}
+            >{`${name.firstName} ${name.lastName}`}</h1>
             <br />
             <h3 className={classes.subTitle}>{profession}</h3>
             <br />

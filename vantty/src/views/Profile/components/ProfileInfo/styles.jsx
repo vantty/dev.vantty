@@ -53,7 +53,9 @@ const profilePageStyle = {
     textAlign: "center"
   },
   avatar: {
-    margin: 100
+    margin: "auto",
+    height: 90,
+    width: 90
   },
   bigAvatar: {
     margin: 10,

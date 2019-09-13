@@ -73,6 +73,7 @@ const ReviewItem = ({
           <Fragment key={comment._id}>
             <ListItem key={comment._id} alignItems='flex-start'>
               <ListItemAvatar>
+                {/* <Avatar alt='' src={comment.profilePicture} /> */}
                 <Avatar alt='' src={""}>
                   {getInitials(comment.name)}
                 </Avatar>
