@@ -53,8 +53,11 @@ const Form = ({ profile }) => {
     bio: "",
     profession: "",
     city: "",
+    state: "",
+    country: "",
     mobileNumber: "",
-    instagramUsername: ""
+    instagramUsername: "",
+    user: ""
   });
   const classes = useStyles();
 
@@ -66,7 +69,8 @@ const Form = ({ profile }) => {
     instagramUsername,
     mobileNumber,
     profilePicture,
-    profession
+    profession,
+    user
   } = formData;
 
   const [activeStep, setActiveStep] = useState(1);
@@ -103,7 +107,7 @@ const Form = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             prevStep={prevStep}
-            values={formData}
+            // values={formData}
           />
         );
       case 3:
@@ -113,6 +117,7 @@ const Form = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             prevStep={prevStep}
+            // values={formData}
           />
         );
       case 4:
@@ -122,6 +127,7 @@ const Form = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             prevStep={prevStep}
+            // values={formData}
           />
         );
       default:

@@ -6,14 +6,28 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
+  name: {
+    firstName: {
+      type: String
+    },
+    lastName: {
+      type: String
+    }
+  },
   reviewId: {
     // unique review id,
     type: String
   },
-  profilePicture: {
-    type: String
-    // required: true
-  },
+  profilePicture: [
+    {
+      original: {
+        type: String
+      },
+      cloudId: {
+        type: String
+      }
+    }
+  ],
   bio: {
     type: String
     // required: true
@@ -27,17 +41,7 @@ const ProfileSchema = new mongoose.Schema({
     type: [String]
     // required: true
   },
-  location: {
-    country: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    city: {
-      type: String
-    }
-  },
+
   mobileNumber: {
     type: String
     // required: true
@@ -76,6 +80,17 @@ const ProfileSchema = new mongoose.Schema({
       type: String
     },
     instagram: {
+      type: String
+    }
+  },
+  location: {
+    country: {
+      type: String
+    },
+    state: {
+      type: String
+    },
+    city: {
       type: String
     }
   },

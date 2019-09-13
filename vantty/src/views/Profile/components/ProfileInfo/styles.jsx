@@ -53,15 +53,18 @@ const profilePageStyle = {
     textAlign: "center"
   },
   avatar: {
-    margin: 100
+    margin: "auto",
+    height: 90,
+    width: 90
   },
   bigAvatar: {
     margin: 10,
-    width: 120,
-    height: 120
+    width: 90,
+    height: 90
   },
   button: {
-    margin: 10
+    margin: 10,
+    backgroundColor: "rgb(120, 40, 146)"
   },
   input: {
     display: "none"

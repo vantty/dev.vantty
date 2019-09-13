@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //Helpers
-import { getStrategyName } from "../../helpers";
+import { getStrategyName, getInitials } from "../../../../helpers";
 
 // Material-UI
 import Avatar from "@material-ui/core/Avatar";
@@ -11,16 +11,17 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Divider from "@material-ui/core/Divider";
-import { Typography, Toolbar } from "@material-ui/core";
+import { Typography, Toolbar, IconButton } from "@material-ui/core";
 import Star from "@material-ui/icons/StarRateOutlined";
 
 // Styles
 import styles from "./styles";
 import { isMobile } from "react-device-detect";
+import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
-  profile: { user, location, profilePicture, bio, profession, loading },
+  profile: { user, location, profilePicture, bio, profession, name, loading },
 
   classes,
   ...rest
@@ -29,23 +30,41 @@ const ProfileInfo = ({
     <div>
       <div>
         <div className={classes.profile}>
-          <Grid container justify='center' alignItems='center'>
-            {isMobile ? (
-              <Avatar
-                src={profilePicture}
-                className={classes.bigAvatar}
-                style={{ marginTop: "-10px" }}
-              />
+          {/* <Grid container justify='center' alignItems='center'>
+            {profilePicture ? (
+              <span className={classes.bigAvatar}>
+                <AvatarUploader />
+              </span>
             ) : (
-              <Avatar src={profilePicture} className={classes.bigAvatar} />
+              <Avatar>{getStrategyName(auth.user)}</Avatar>
+            )}
+          </Grid> */}
+
+          <Grid container justify='center' alignItems='center'>
+            {profilePicture[0] ? (
+              isMobile ? (
+                <Avatar
+                  src={profilePicture[0].original}
+                  className={classes.bigAvatar}
+                  style={{ marginTop: "-10px" }}
+                />
+              ) : (
+                <Avatar
+                  src={profilePicture[0].original}
+                  className={classes.bigAvatar}
+                />
+              )
+            ) : (
+              <Avatar className={classes.avatar} src={""}>
+                {user && getInitials(getStrategyName(user))}
+              </Avatar>
             )}
           </Grid>
 
           <div>
-            <h1 className={classes.name}>
-              {getStrategyName(auth.user)}
-              {/* {user.local.lastName} */}
-            </h1>
+            <h1
+              className={classes.name}
+            >{`${name.firstName} ${name.lastName}`}</h1>
             <br />
             <h3 className={classes.subTitle}>{profession}</h3>
             <br />

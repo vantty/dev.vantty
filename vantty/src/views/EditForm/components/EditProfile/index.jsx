@@ -56,7 +56,8 @@ const EditProfile = ({
     mobileNumber: "",
     instagramUsername: "",
     youtube: "",
-    instagram: ""
+    instagram: "",
+    user: ""
   });
 
   useEffect(() => {

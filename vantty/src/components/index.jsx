@@ -9,4 +9,10 @@ export { default as ImagesUploader } from "./ImagesUploader";
 export { default as StatusBullet } from "./StatusBullet";
 export { default as CardAction } from "./CardAction";
 export { default as RouteWithLayout } from "./RouteWithLayout";
+
+//Review
+export { default as ReviewCard } from "./ReviewCard";
+export { default as ReviewForm } from "./ReviewForm";
+export { default as ReviewList } from "./ReviewList";
 export { default as FrameForm } from "./FrameForm";
+export { default as AvatarUploader } from "./AvatarUploader";

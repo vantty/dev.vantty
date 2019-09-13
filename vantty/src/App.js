@@ -20,8 +20,12 @@ import Login from "./views/Login";
 import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
+<<<<<<< HEAD
 import Landing from "./views/Landing";
 import { EditProfile } from "./views/EditForm/components";
+=======
+import { EditProfile, EditPersonalInfo } from "./views/EditForm/components";
+>>>>>>> a6434e7e341c4392c839e5c4bd87dcabe6914a4e
 import { InfoContact } from "./views/Form/components";
 import { EditPortfolio, EditPrice } from "./views/EditForm/components";
 import Account from "./views/Account";
@@ -62,11 +66,11 @@ const App = () => {
           <Fragment>
             <Route exact path="/" component={Landing} />
             <Switch>
-              <Route exact path="/number" component={NumberValidation} />
-              <Route exact path="/register" component={Register} />
+              <Route exact path='/number' component={NumberValidation} />
+              <Route exact path='/register' component={Register} />
               <Route
                 exact
-                path="/confirmation/:token"
+                path='/confirmation/:token'
                 component={Confirmation}
               />
               <Route exact path="/login" component={Login} />
@@ -78,32 +82,36 @@ const App = () => {
               <PrivateRoute exact path="/create-profile" component={Form} />
               <PrivateRoute
                 exact
-                path="/edit-profile"
+                path='/edit-profile'
                 component={EditProfile}
               />
-              <PrivateRoute exact path="/personal-info" component={Account} />
               <PrivateRoute
                 exact
-                path="/info-contact"
+                path='/personal-info'
+                component={EditPersonalInfo}
+              />
+              <PrivateRoute
+                exact
+                path='/info-contact'
                 component={InfoContact}
               />
-              <PrivateRoute exact path="/price" component={EditPrice} />
+              <PrivateRoute exact path='/price' component={EditPrice} />
 
               <PrivateRoute
                 exact
-                path="/add-portfolio"
+                path='/add-portfolio'
                 component={EditPortfolio}
               />
               <PrivateRoute
                 exact
-                path="/profile/artist/:userId/:reviewId"
+                path='/profile/artist/:userId/:reviewId'
                 component={ReviewForm}
               />
               <RouteWithLayout
                 component={AccountView}
                 exact
                 layout={MainLayout}
-                path="/account"
+                path='/account'
               />
             </Switch>
           </Fragment>

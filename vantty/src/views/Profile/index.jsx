@@ -6,13 +6,15 @@ import { isMobile } from "react-device-detect";
 // Components
 import Navbar from "../../components/Navbar";
 import SettingsDrawer from "../../components/SettingsDrawer";
-// import SettingsDrawer from "../../layouts/Main/components/Sidebar";
+// import SideBar from "../../layouts/Main/components/Sidebar";
 
-import ProfileInfo from "../../components/ProfileInfo";
-import ProfileCarousel from "../../components/ProfileCarousel";
-import ReviewCard from "../../components/ReviewCard";
+//Comonents
 import ConctactButton from "../../components/ContactButton";
 import BottomNavabar from "../../components/BottomNavbar";
+import { ReviewCard } from "../../components/";
+
+//Components inside
+import { ProfileCarousel, ProfileInfo } from "./components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";
@@ -24,7 +26,8 @@ import {
   Container,
   Toolbar,
   AppBar,
-  IconButton
+  IconButton,
+  Button
 } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 // import ArrowBack from "../../components/ArrowBack";
@@ -99,7 +102,11 @@ const Profile = ({
                   {auth.isAuthenticated &&
                     auth.loading === false &&
                     auth.user._id === profile.user._id &&
-                    (isMobile && <SettingsDrawer />)}
+                    // (isMobile && <SettingsDrawer />)}
+                    (isMobile && "hello")}
+                  {/* (isMobile && (
+                      <Button component='outline' onClick={<SideBar />} />
+                    ))} */}
                 </div>
               </Toolbar>
             </AppBar>

@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 const EditForm = ({
   profile: { profile, loading },
+  auth: { user },
   getCurrentProfile,
   Children,
   match
@@ -56,7 +57,19 @@ const EditForm = ({
       <div>
         <AppBarForm step={null} />
       </div>
-      {profile ? (
+      {match.url === "/personal-info" ? (
+        <Box pt={11} pb={11}>
+          <div className={classes.root}>
+            <Grid container spacing={4}>
+              <Grid item lg={12} md={12} xl={12} xs={12}>
+                <Container maxWidth='md'>
+                  <Fragment>{Children}</Fragment>
+                </Container>
+              </Grid>
+            </Grid>
+          </div>
+        </Box>
+      ) : profile ? (
         <Box pt={11} pb={11}>
           <div className={classes.root}>
             <Grid container spacing={4}>
@@ -76,7 +89,8 @@ const EditForm = ({
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,
