@@ -76,11 +76,9 @@ const Artists = ({
             <CssBaseline />
             {profiles.length > 0 ? (
               profiles.map(profile => (
-                <Container>
-                  <Grid item key={profile._id}>
-                    <ProfileCard key={profile._id} profile={profile} />
-                  </Grid>
-                </Container>
+                <Grid item key={profile._id}>
+                  <ProfileCard key={profile._id} profile={profile} />
+                </Grid>
               ))
             ) : (
               <Progress />

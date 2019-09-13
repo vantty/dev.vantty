@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 // Components
 import Navbar from "../../components/Navbar";
 import SettingsDrawer from "../../components/SettingsDrawer";
-// import SettingsDrawer from "../../layouts/Main/components/Sidebar";
+// import SideBar from "../../layouts/Main/components/Sidebar";
 
 //Comonents
 import ConctactButton from "../../components/ContactButton";
@@ -26,7 +26,8 @@ import {
   Container,
   Toolbar,
   AppBar,
-  IconButton
+  IconButton,
+  Button
 } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 // import ArrowBack from "../../components/ArrowBack";
@@ -102,6 +103,9 @@ const Profile = ({
                     auth.loading === false &&
                     auth.user._id === profile.user._id &&
                     (isMobile && <SettingsDrawer />)}
+                  {/* (isMobile && (
+                      <Button component='outline' onClick={<SideBar />} />
+                    ))} */}
                 </div>
               </Toolbar>
             </AppBar>

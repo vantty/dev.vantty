@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-
+import validate from "validate.js";
 //Actions
 import { createProfile } from "../../../../actions/profile";
 
@@ -41,20 +41,15 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const states = [
-  {
-    value: "alabama",
-    label: "Alabama"
-  },
-  {
-    value: "new-york",
-    label: "New York"
-  },
-  {
-    value: "san-francisco",
-    label: "San Francisco"
+const schema = {
+  bio: {
+    presence: { allowEmpty: false, message: "is required" },
+    bio: true,
+    length: {
+      maximum: 64
+    }
   }
-];
+};
 
 const CreateProfile = ({
   createProfile,
@@ -71,6 +66,46 @@ const CreateProfile = ({
     createProfile(formData, history);
     nextStep();
   };
+
+  // const [formState, setFormState] = useState({
+  //   isValid: false,
+  //   values: {},
+  //   touched: {},
+  //   errors: {}
+  // });
+
+  // useEffect(() => {
+  //   const errors = validate(formState.values, bio, schema);
+  //   setFormState(formState => ({
+  //     ...formState,
+  //     isValid: errors ? false : true,
+  //     errors: errors || {}
+  //   }));
+  // }, [formState.values]);
+
+  // // const handleChangeVal = event => {
+  // //   event.persist();
+
+  // //   setFormState(formState => ({
+  // //     ...formState,
+  // //     values: {
+  // //       ...formState.values,
+  // //       [event.target.name]:
+  // //         event.target.type === "checkbox"
+  //           ? event.target.checked
+  //           : event.target.value
+  //     },
+  //     touched: {
+  //       ...formState.touched,
+  //       [event.target.name]: true
+  //     }
+  //   }));
+  // };
+  // const {
+  //   values: { bio }
+  // } = formState;
+  // const hasError = field =>
+  //   formState.touched[field] && formState.errors[field] ? true : false;
 
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
@@ -129,7 +164,7 @@ const CreateProfile = ({
             <br /> <br />
             <Grid item md={12} xs={12}>
               <TextField
-                helperText='Please specify the first name'
+                // helperText={hasError("bio") ? formState.errors.bio[0] : null}
                 margin='dense'
                 id='bio'
                 name='bio'
@@ -137,10 +172,14 @@ const CreateProfile = ({
                 autoComplete='fname'
                 required
                 defaultValue={formData.bio}
+                // value={bio || ""}
+                // error={hasError("bio")}
                 variant='outlined'
+                type='text'
                 multiline
                 rows='6'
                 fullWidth
+                // onChange={handleChangeVal}
                 onChange={e => handleChange(e)}
               />
             </Grid>
