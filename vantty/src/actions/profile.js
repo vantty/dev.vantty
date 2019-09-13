@@ -76,7 +76,6 @@ export const createProfile = (
       }
     };
     const res = await server.post("/profile", formData, config);
-
     dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -253,6 +252,28 @@ export const deletePicture = (dataBaseId, cloudId) => async dispatch => {
       type: UPDATE_PROFILE,
       payload: res.data
     });
+
+    dispatch(setAlert("Picture Removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+export const deleteProfilePicture = (dataBaseId, cloudId) => async dispatch => {
+  try {
+    const res = await server.delete(`/profile/profilePicture/${dataBaseId}`);
+
+    dispatch(deleteImages(cloudId));
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(getCurrentProfile());
 
     dispatch(setAlert("Picture Removed", "success"));
   } catch (err) {

@@ -68,7 +68,6 @@ const useStyles = makeStyles(theme => ({
 
 const Price = ({
   profile: { profile, loading },
-  // handleChange,
   createProfile,
   nextStep,
   prevStep,

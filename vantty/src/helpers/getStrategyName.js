@@ -6,6 +6,6 @@ export default user => {
   } else if (user && user.hasOwnProperty("facebook")) {
     return `${user.facebook.firstName} ${user.facebook.lastName}`;
   } else {
-    return console.log("Hello");
+    return undefined;
   }
 };

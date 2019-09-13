@@ -92,7 +92,7 @@ const Sidebar = props => {
 
   return (
     <Drawer
-      anchor='right'
+      anchor='left'
       classes={{ paper: classes.drawer }}
       onClose={onClose}
       open={open}

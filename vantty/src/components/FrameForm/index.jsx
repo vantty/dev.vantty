@@ -7,8 +7,6 @@ import { spacing } from "@material-ui/system";
 import { Grid, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import ReviewForm from "../ReviewForm";
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: "auto",

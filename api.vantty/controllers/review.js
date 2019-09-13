@@ -1,7 +1,7 @@
 const Review = require("../models/Review");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
-
+const { getStrategy } = require("../helpers/getStrategy");
 // @desc     Create a review
 exports.create = async (req, res) => {
   try {
@@ -85,10 +85,12 @@ exports.commentReview = async (req, res) => {
     const user = await User.findById(req.user.id).select("-password");
     const review = await Review.findById(req.params.id);
 
+    var method = user.method;
     const newComment = {
       rating: req.body.rating,
       text: req.body.text,
-      name: user.local.firstName,
+      name: user[method].firstName,
+      profilePicture: user[method].profilePicture,
       user: req.user.id
     };
     review.comments.unshift(newComment);

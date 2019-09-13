@@ -28,7 +28,7 @@ import styles from "./styles";
 
 const ReviewItem = ({
   auth,
-  review: { user, _id, comments, date, name },
+  review: { user, _id, comments, date },
   deleteComment,
   classes,
   ...rest
@@ -73,6 +73,7 @@ const ReviewItem = ({
           <Fragment key={comment._id}>
             <ListItem key={comment._id} alignItems='flex-start'>
               <ListItemAvatar>
+                {/* <Avatar alt='' src={comment.profilePicture} /> */}
                 <Avatar alt='' src={""}>
                   {getInitials(comment.name)}
                 </Avatar>
