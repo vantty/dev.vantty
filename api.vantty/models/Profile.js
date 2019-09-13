@@ -6,6 +6,14 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
+  name: {
+    firstName: {
+      type: String
+    },
+    lastName: {
+      type: String
+    }
+  },
   reviewId: {
     // unique review id,
     type: String

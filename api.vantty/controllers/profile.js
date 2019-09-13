@@ -38,15 +38,20 @@ exports.createANDupdate = async (req, res) => {
     country,
     state,
     city,
-    price
+    price,
+    name
   } = req.body;
   // console.log(req);
   // Build profile object
-  // var method = user.method;
+  var method = req.user.method;
 
   const profileFields = {};
   profileFields.user = req.user.id;
-  // profileFields.firstName = req.user[method].firstName;
+  // Build name object
+  profileFields.name = {};
+  profileFields.name.firstName = req.user[method].firstName;
+  profileFields.name.lastName = req.user[method].lastName;
+  // profileFields.info.firstName = req.user[method].firstName;
   if (profilePicture) profileFields.profilePicture = profilePicture;
   if (bio) profileFields.bio = bio;
   // if (location) profileFields.location = location;

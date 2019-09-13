@@ -10,6 +10,7 @@ const userSchema = new Schema(
     },
     local: {
       firstName: { type: String },
+      profilePicture: { type: String },
       lastName: { type: String },
       email: { type: String, lowercase: true, unique: true, sparse: true },
       password: { type: String }
