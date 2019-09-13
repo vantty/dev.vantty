@@ -48,6 +48,8 @@ function ProductHero(props) {
         src={backgroundImage}
         alt="increase priority"
       />
+      <br />
+      <br />
       <Typography color="inherit" align="center" variant="h2">
         Encuentra tu look ideal
       </Typography>
