@@ -6,6 +6,7 @@ const express = require("express"),
   formData = require("express-form-data"),
   app = express();
 
+const Profile = require("./models/Profile");
 // env
 const PORT = 5000,
   MONGODB_URI =
@@ -38,6 +39,43 @@ var corsOptions = {
     }
   }
 };
+
+Profile.search(
+  {
+    query_string: {
+      query: "bio"
+    }
+  },
+  function(err, results) {
+    console.log(results);
+    console.log(err);
+  }
+);
+
+// Profile.createMapping(function(err, mapping) {
+//   if (err) {
+//     console.log("err creating mapping");
+//     console.log(err);
+//   } else {
+//     console.log("Mapping Creating");
+//     console.log(mapping);
+//   }
+// });
+
+// var stream = Profile.synchronize();
+// var count = 0;
+
+// stream.on("data", function() {
+//   count++;
+// });
+
+// stream.on("close", function() {
+//   console.log("indexes" + count + "documents");
+// });
+
+// stream.on("err", function() {
+//   console.log(err);
+// });
 
 // Init Middleware
 app.use(morgan("dev"));

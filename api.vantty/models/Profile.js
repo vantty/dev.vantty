@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosastic = require("mongoosastic");
 
 const ProfileSchema = new mongoose.Schema({
   user: {
@@ -98,6 +99,11 @@ const ProfileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+});
+
+ProfileSchema.plugin(mongoosastic, {
+  hosts: ["https://localhost:9200"]
+  // hosts: ["72.141.25.65:9200"]
 });
 
 module.exports = Profile = mongoose.model("Profile", ProfileSchema);
