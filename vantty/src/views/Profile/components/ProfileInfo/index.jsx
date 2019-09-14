@@ -30,29 +30,16 @@ const ProfileInfo = ({
     <div>
       <div>
         <div className={classes.profile}>
-          {/* <Grid container justify='center' alignItems='center'>
-            {profilePicture ? (
-              <span className={classes.bigAvatar}>
-                <AvatarUploader />
-              </span>
-            ) : (
-              <Avatar>{getStrategyName(auth.user)}</Avatar>
-            )}
-          </Grid> */}
-
           <Grid container justify='center' alignItems='center'>
-            {profilePicture[0] ? (
+            {profilePicture ? (
               isMobile ? (
                 <Avatar
-                  src={profilePicture[0].original}
+                  src={profilePicture}
                   className={classes.bigAvatar}
-                  style={{ marginTop: "-10px" }}
+                  // style={{ marginTop: "-10px" }}
                 />
               ) : (
-                <Avatar
-                  src={profilePicture[0].original}
-                  className={classes.bigAvatar}
-                />
+                <Avatar src={profilePicture} className={classes.bigAvatar} />
               )
             ) : (
               <Avatar className={classes.avatar} src={""}>

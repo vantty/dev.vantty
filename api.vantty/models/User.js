@@ -11,21 +11,42 @@ const userSchema = new Schema(
     confirmed: { type: Boolean, default: false },
     local: {
       firstName: { type: String },
-      profilePicture: { type: String },
+      profilePicture: {
+        original: {
+          type: String
+        },
+        cloudId: {
+          type: String
+        }
+      },
       lastName: { type: String },
       email: { type: String, lowercase: true, unique: true, sparse: true },
       password: { type: String }
     },
     google: {
       id: { type: String },
-      profilePicture: { type: String },
+      profilePicture: {
+        original: {
+          type: String
+        },
+        cloudId: {
+          type: String
+        }
+      },
       firstName: { type: String },
       lastName: { type: String },
       email: { type: String, lowercase: true, unique: true, sparse: true }
     },
     facebook: {
       id: { type: String },
-      profilePicture: { type: String },
+      profilePicture: {
+        original: {
+          type: String
+        },
+        cloudId: {
+          type: String
+        }
+      },
       firstName: { type: String },
       lastName: { type: String },
       email: { type: String, lowercase: true, unique: true, sparse: true }

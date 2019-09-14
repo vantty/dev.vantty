@@ -18,16 +18,8 @@ const ProfileSchema = new mongoose.Schema({
     // unique review id,
     type: String
   },
-  profilePicture: [
-    {
-      original: {
-        type: String
-      },
-      cloudId: {
-        type: String
-      }
-    }
-  ],
+  profilePicture: { type: String },
+
   bio: {
     type: String
     // required: true

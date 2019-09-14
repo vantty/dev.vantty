@@ -13,6 +13,8 @@ import {
   INFO_UPDATE_SUCCESS,
   INFO_UPDATE_FAIL
 } from "./types";
+import { deleteImages } from "./uploader";
+import { getCurrentProfile } from "./profile";
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -102,9 +104,9 @@ export const updateInfo = (
 
     dispatch(setAlert(edit && "User Update", "success"));
 
-    if (edit) {
-      history.push("/dashboard");
-    }
+    // if (edit) {
+    //   history.push("/dashboard");
+    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -261,4 +263,29 @@ export const googleLogin = data => async dispatch => {
 export const logout = () => dispatch => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
+};
+
+export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
+  console.log(dataBaseId, cloudId);
+  try {
+    // const res = await server.post(`/auth/userPicture`, dataBaseId);
+    dispatch(
+      updateInfo({ id: dataBaseId, profilePicture: "" }, undefined, true)
+    );
+    dispatch(deleteImages(cloudId));
+
+    dispatch({
+      type: INFO_UPDATE_SUCCESS
+    });
+
+    dispatch(getCurrentProfile());
+    await dispatch(loadUser());
+
+    dispatch(setAlert("Picture Removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: INFO_UPDATE_FAIL
+    });
+    dispatch(setAlert("Update Fail", "error"));
+  }
 };

@@ -2,6 +2,7 @@ const JWT = require("jsonwebtoken"),
   JWT_SECRET = "vanttymakeup",
   EMAIL_SECRET = "emailsecret",
   User = require("../models/User"),
+  Profile = require("../models/Profile"),
   nodemailer = require("nodemailer");
 const { getStrategy } = require("../helpers");
 
@@ -137,10 +138,10 @@ generateEmailToken = user => {
 
 //Update Personal Info
 exports.updatePersonalInfo = async (req, res) => {
-  const { firstName, lastName, email, id } = req.body;
-
-  let data = await User.findOne({ _id: id });
-  // console.log("DATA", data);
+  const { firstName, lastName, email, id, profilePicture } = req.body;
+  console.log(req.body);
+  let data = await User.findById({ _id: id });
+  console.log("DATA", data);
   // console.log("BODY", req.body);
   // Build profile object
 
@@ -148,14 +149,14 @@ exports.updatePersonalInfo = async (req, res) => {
   const userFields = {};
   userFields.method = strategy;
   userFields[strategy] = {};
-
   //General
   userFields[strategy].id = data[strategy].id;
-  userFields[strategy].profilePicture = data[strategy].profilePicture;
   userFields[strategy].password = data[strategy].password;
   if (firstName) userFields[strategy].firstName = firstName;
   if (lastName) userFields[strategy].lastName = lastName;
   if (email) userFields[strategy].email = email;
+
+  if (profilePicture) userFields[strategy].profilePicture = profilePicture;
 
   try {
     let user = await User.findOneAndUpdate(
@@ -166,6 +167,52 @@ exports.updatePersonalInfo = async (req, res) => {
 
     return res.json(user);
   } catch (err) {
+    res.status(500).send("Server Error");
+  }
+};
+
+// Add User Pictures
+exports.addUserImage = async (req, res) => {
+  const { original, cloudId, id } = req.body;
+  const newPicture = { original, cloudId };
+
+  try {
+    const user = await User.findById(id);
+    console.log(user);
+
+    const strategy = user.method;
+    user[strategy].profilePicture = newPicture;
+
+    await user.save();
+    res.json(user);
+
+    // if (user.portfolioPictures) res.send("Hello");
+    console.log("FINAL", user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Delete ProfilePicture
+exports.deleteUserPicture = async (req, res) => {
+  console.log(req.body);
+  try {
+    // const user = await User.findOne({ user: req.user.id });
+
+    // Get remove index
+    // const removeIndex = user.profilePicture
+    //   .map(item => item.id)
+    //   .indexOf(req.params.pic_id);
+
+    // // user.profilePicture.splice(removeIndex, 1);
+    // user.profilePicture.shift();
+
+    // await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send("Server Error");
   }
 };

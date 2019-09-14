@@ -7,7 +7,7 @@ import {
 } from "./types";
 
 import { server, API_URL } from "../utils/axios";
-import { getCurrentProfile } from "./profile";
+import { getCurrentProfile, createProfile } from "./profile";
 import { loadUser } from "./auth";
 
 export const uploadImages = e => async dispatch => {
@@ -85,7 +85,7 @@ export const deleteImages = id => dispatch => {
 };
 
 //Profile Picture
-export const profileImage = e => async dispatch => {
+export const userImage = (e, id) => async dispatch => {
   console.log(e.target.files);
   const errs = [];
   const files = Array.from(e.target.files);
@@ -126,12 +126,17 @@ export const profileImage = e => async dispatch => {
     .then(async res => {
       const images = res.data;
       for (let i = 0; i < images.length; i++) {
-        const sendImage = {
+        var sendImage = {
           original: images[i].secure_url,
-          cloudId: images[i].public_id
+          cloudId: images[i].public_id,
+          id: id
         };
-        await server.put("/profile/profile-image", sendImage);
+        await server.put("/auth/user-image", sendImage);
       }
+      await dispatch(
+        createProfile({ profilePicture: sendImage.original }, null, true)
+      );
+
       await dispatch({
         type: IMAGES_UPLOAD_SUCCESS,
         payload: images

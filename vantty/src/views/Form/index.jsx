@@ -17,7 +17,13 @@ import { Grid, Box } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 
 // Custom components
-import { CreateProfile, AddPortfolio, InfoContact, Price } from "./components";
+import {
+  CreateProfile,
+  AddPortfolio,
+  InfoContact,
+  Price,
+  PersonalInfo
+} from "./components";
 
 import { AppBarForm } from "../../components";
 
@@ -93,14 +99,23 @@ const Form = ({ profile }) => {
     switch (step) {
       case 1:
         return (
+          <PersonalInfo
+            step={activeStep}
+            nextStep={nextStep}
+            handleChange={handleChange}
+          />
+        );
+      case 2:
+        return (
           <CreateProfile
             step={activeStep}
             nextStep={nextStep}
             handleChange={handleChange}
             formData={formData}
+            prevStep={prevStep}
           />
         );
-      case 2:
+      case 3:
         return (
           <AddPortfolio
             step={activeStep}
@@ -110,7 +125,7 @@ const Form = ({ profile }) => {
             // values={formData}
           />
         );
-      case 3:
+      case 4:
         return (
           <Price
             step={activeStep}
@@ -120,7 +135,7 @@ const Form = ({ profile }) => {
             // values={formData}
           />
         );
-      case 4:
+      case 5:
         return (
           <InfoContact
             step={activeStep}

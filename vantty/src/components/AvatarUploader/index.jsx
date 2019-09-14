@@ -5,8 +5,10 @@ import PropTypes from "prop-types";
 // Components
 
 // Actions
-import { profileImage } from "../../actions/uploader";
-import { getCurrentProfile, deleteProfilePicture } from "../../actions/profile";
+import { userImage } from "../../actions/uploader";
+import { getCurrentProfile } from "../../actions/profile";
+import { loadUser, updateInfo } from "../../actions/auth";
+import { deleteUserPicture } from "../../actions/auth";
 
 // Material-UI
 import Progress from "@material-ui/core/LinearProgress";
@@ -14,20 +16,27 @@ import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 
 const AvatarUploader = ({
-  profileImage,
+  userImage,
   uploading,
   images,
   getCurrentProfile,
-  deleteProfilePicture,
+  updateInfo,
+  history,
+  loadUser,
+  deleteUserPicture,
   profile: { profile },
-  profilePicture
+  profilePicture,
+  onSubmit,
+  id,
+  ...rest
 }) => {
   useEffect(() => {
+    loadUser();
     getCurrentProfile();
   }, []);
 
   const onChange = e => {
-    profileImage(e);
+    userImage(e, id);
   };
 
   const UploadButton = () => {
@@ -59,13 +68,9 @@ const AvatarUploader = ({
           size='small'
           component='label'
           color='primary'
-          disabled={profilePicture.length === 0 && true}
-          onClick={() =>
-            deleteProfilePicture(
-              profilePicture[0]._id,
-              profilePicture[0].cloudId
-            )
-          }
+          disabled={!profilePicture && true}
+          // onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
+          onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
         >
           Delete Picture
         </Button>
@@ -73,36 +78,34 @@ const AvatarUploader = ({
     );
   };
 
-  // const loadImages = () => {
-  //   if (profile !== null) {
-  //     return <Picture profilePicture={profilePicture} />;
-  //   }
-  // };
   return (
     <Fragment>
-      <DeletePicture />
+      {/* <DeletePicture /> */}
       <UploadButton />
     </Fragment>
   );
 };
 
 AvatarUploader.propTypes = {
-  profileImage: PropTypes.func.isRequired,
+  userImage: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
   images: PropTypes.array,
-  profilePicture: PropTypes.array,
+  profilePicture: PropTypes.object,
   getCurrentProfile: PropTypes.func.isRequired,
+  updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  deleteProfilePicture: PropTypes.func.isRequired
+  deleteUserPicture: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   uploading: state.uploader.uploading,
   images: state.uploader.images,
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { profileImage, getCurrentProfile, deleteProfilePicture }
+  { userImage, getCurrentProfile, deleteUserPicture, loadUser, updateInfo }
 )(AvatarUploader);

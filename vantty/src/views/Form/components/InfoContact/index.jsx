@@ -107,8 +107,6 @@ const InfoContact = ({
   };
   const classes = useStyles();
 
-  // const rootClassName = classNames(classes.root, className);
-
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
