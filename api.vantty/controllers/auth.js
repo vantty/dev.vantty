@@ -139,12 +139,10 @@ generateEmailToken = user => {
 //Update Personal Info
 exports.updatePersonalInfo = async (req, res) => {
   const { firstName, lastName, email, id, profilePicture } = req.body;
-  console.log(req.body);
-  let data = await User.findById({ _id: id });
-  console.log("DATA", data);
-  // console.log("BODY", req.body);
-  // Build profile object
 
+  let data = await User.findById({ _id: id });
+
+  // Build profile object
   const strategy = data.method;
   const userFields = {};
   userFields.method = strategy;
@@ -178,7 +176,6 @@ exports.addUserImage = async (req, res) => {
 
   try {
     const user = await User.findById(id);
-    console.log(user);
 
     const strategy = user.method;
     user[strategy].profilePicture = newPicture;
@@ -187,7 +184,6 @@ exports.addUserImage = async (req, res) => {
     res.json(user);
 
     // if (user.portfolioPictures) res.send("Hello");
-    console.log("FINAL", user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

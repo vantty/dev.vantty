@@ -75,17 +75,22 @@ const ProfileSchema = new mongoose.Schema({
       type: String
     }
   },
-  location: {
-    country: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    city: {
-      type: String
-    }
+  city: {
+    type: [String]
+    // required: true
   },
+
+  // area: {
+  //   country: {
+  //     type: String
+  //   },
+  //   state: {
+  //     type: String
+  //   },
+  //   city: {
+  //     type: String
+  //   }
+  // },
   date: {
     type: Date,
     default: Date.now

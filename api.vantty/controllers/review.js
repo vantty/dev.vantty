@@ -90,7 +90,7 @@ exports.commentReview = async (req, res) => {
       rating: req.body.rating,
       text: req.body.text,
       name: user[method].firstName,
-      profilePicture: user[method].profilePicture,
+      profilePicture: user[method].profilePicture.original,
       user: req.user.id
     };
     review.comments.unshift(newComment);
