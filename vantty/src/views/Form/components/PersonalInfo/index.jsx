@@ -39,6 +39,7 @@ const AccountDetails = ({
   auth: { user, loading },
   getCurrentProfile,
   updateInfo,
+  uploading,
   createProfile,
   loadUser,
   profile: { profile },
@@ -64,6 +65,8 @@ const AccountDetails = ({
 
   useEffect(() => {
     getCurrentProfile();
+    loadUser();
+
     const strategy = getStrategy(user);
     setFormData({
       firstName: loading || !strategy ? "" : strategy.firstName,
@@ -74,7 +77,7 @@ const AccountDetails = ({
       id: loading || !user._id ? "" : user._id,
       password: loading || !user.password ? "" : user.password
     });
-  }, [loading, getCurrentProfile]);
+  }, [loading, getCurrentProfile, loadUser]);
 
   const { firstName, lastName, email, profilePicture, id } = formData;
 
@@ -86,17 +89,22 @@ const AccountDetails = ({
     await updateInfo(formData, history, true);
     profile &&
       (await createProfile(
-        { name: { firstName: firstName, lastName: lastName } },
+        {
+          name: {
+            firstName: firstName,
+            lastName: lastName
+          }
+        },
         history,
         true
       ));
-    loadUser();
-    nextStep();
+
+    (await match.url) !== "/personal-info" && nextStep();
   };
   useEffect(() => {
-    loadUser();
     getCurrentProfile();
   }, []);
+
   const continues = e => {
     e.preventDefault();
     nextStep();
@@ -124,7 +132,7 @@ const AccountDetails = ({
 
   return (
     <Fragment>
-      <Card {...rest} className={clsx(classes.root, className)}>
+      <Card className={clsx(classes.root, className)}>
         <form autoComplete='off' noValidate>
           <CardHeader
             subheader='The information can be edited'
@@ -157,7 +165,6 @@ const AccountDetails = ({
                       <br />
                       <Grid>
                         <AvatarUploader
-                          {...rest}
                           profilePicture={profilePicture}
                           id={id}
                           onSubmit={onSubmit}
@@ -244,8 +251,7 @@ const AccountDetails = ({
                         Back
                       </Button>
                       <Button
-                        component={Link}
-                        to='/dashboard'
+                        onClick={e => onSubmit(e)}
                         style={{ backgroundColor: "#f5f5" }}
                       >
                         Update
@@ -279,12 +285,14 @@ AccountDetails.propTypes = {
   updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired
+  createProfile: PropTypes.func.isRequired,
+  uploading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  uploading: state.uploader.uploading
 });
 
 export default connect(

@@ -122,7 +122,7 @@ const Form = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             prevStep={prevStep}
-            // values={formData}
+            values={formData}
           />
         );
       case 4:
@@ -132,7 +132,6 @@ const Form = ({ profile }) => {
             nextStep={nextStep}
             handleChange={handleChange}
             prevStep={prevStep}
-            // values={formData}
           />
         );
       case 5:

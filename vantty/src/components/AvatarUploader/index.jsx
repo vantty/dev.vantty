@@ -36,7 +36,7 @@ const AvatarUploader = ({
   }, []);
 
   const onChange = e => {
-    userImage(e, id);
+    userImage(e, id, profile);
   };
 
   const UploadButton = () => {
@@ -82,6 +82,7 @@ const AvatarUploader = ({
     <Fragment>
       {/* <DeletePicture /> */}
       <UploadButton />
+      {uploading && <Progress />}
     </Fragment>
   );
 };

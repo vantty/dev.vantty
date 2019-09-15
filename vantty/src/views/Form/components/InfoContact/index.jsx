@@ -110,103 +110,100 @@ const InfoContact = ({
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
-        <form autoComplete='off' noValidate>
-          <CardHeader
-            subheader='The information can be edited'
-            title='Profile'
-          />
-          <Divider />
-          <CardContent>
-            <Fragment>
+        {/* <form autoComplete='off' noValidate> */}
+        <CardHeader subheader='The information can be edited' title='Profile' />
+        <Divider />
+        <CardContent>
+          <Fragment>
+            <Grid
+              container
+              direction='row'
+              justify='center'
+              alignItems='center'
+            >
               <Grid
+                item
+                xs={12}
+                sm={12}
+                md={12}
                 container
                 direction='row'
                 justify='center'
                 alignItems='center'
               >
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  container
-                  direction='row'
-                  justify='center'
-                  alignItems='center'
-                >
-                  <Box>
-                    <Typography
-                      component='h5'
-                      variant='h6'
-                      align='center'
-                      className={classes.typography}
-                    >
-                      This number will be where your clients could contact with
-                      you. You should have this phone with you to validate it.
-                    </Typography>
-                    <br />
+                <Box>
+                  <Typography
+                    component='h5'
+                    variant='h6'
+                    align='center'
+                    className={classes.typography}
+                  >
+                    This number will be where your clients could contact with
+                    you. You should have this phone with you to validate it.
+                  </Typography>
+                  <br />
+                  <div
+                    style={{
+                      textAlign: "center"
+                    }}
+                  >
                     <div
                       style={{
-                        textAlign: "center"
+                        display: "inline-block"
                       }}
                     >
-                      <div
-                        style={{
-                          display: "inline-block"
+                      <ReactPhoneInput
+                        defaultCountry='us'
+                        onlyCountries={["co", "us", "ca"]}
+                        masks={{
+                          co: "+.. (...) ...-..-..",
+                          ca: "+. (...) ...-..-..",
+                          us: "+. (...) ...-..-.."
                         }}
-                      >
-                        <ReactPhoneInput
-                          defaultCountry='us'
-                          onlyCountries={["co", "us", "ca"]}
-                          masks={{
-                            co: "+.. (...) ...-..-..",
-                            ca: "+. (...) ...-..-..",
-                            us: "+. (...) ...-..-.."
-                          }}
-                          disableAreaCodes
-                          value={phone}
-                          onChange={handleOnChange}
-                          inputExtraProps={{
-                            margin: "normal",
-                            autoComplete: "phone",
-                            name: "custom-username"
-                          }}
-                          inputClass={classes.field}
-                          dropdownClass={classes.countryList}
-                        />
-                      </div>
-                    </div>
-                    <br />
-
-                    <Grid
-                      item
-                      xs={12}
-                      sm={12}
-                      md={12}
-                      container
-                      direction='row'
-                      justify='center'
-                      alignItems='center'
-                    >
-                      <NumberValidation
-                        phone={phone}
-                        countryCode={countryCode}
-                        history={history}
+                        disableAreaCodes
+                        value={phone}
+                        onChange={handleOnChange}
+                        inputExtraProps={{
+                          margin: "normal",
+                          autoComplete: "phone",
+                          name: "custom-username"
+                        }}
+                        inputClass={classes.field}
+                        dropdownClass={classes.countryList}
                       />
-                    </Grid>
-                    <br />
-                  </Box>
-                </Grid>
+                    </div>
+                  </div>
+                  <br />
+
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    container
+                    direction='row'
+                    justify='center'
+                    alignItems='center'
+                  >
+                    <NumberValidation
+                      phone={phone}
+                      countryCode={countryCode}
+                      history={history}
+                    />
+                  </Grid>
+                  <br />
+                </Box>
               </Grid>
-            </Fragment>
-          </CardContent>
-          <Divider />
-          <CardActions>
-            <LinkMui component={Link} to='/'>
-              learn how to build the best profile
-            </LinkMui>
-          </CardActions>
-        </form>
+            </Grid>
+          </Fragment>
+        </CardContent>
+        <Divider />
+        <CardActions>
+          <LinkMui component={Link} to='/'>
+            learn how to build the best profile
+          </LinkMui>
+        </CardActions>
+        {/* </form> */}
       </Card>
       <FormBottomNav
         step={step}

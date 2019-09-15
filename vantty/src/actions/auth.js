@@ -84,43 +84,6 @@ export const register = token => async dispatch => {
   }
 };
 
-//Update Personal Info
-export const updateInfo = (
-  formData,
-  history,
-  edit = false
-) => async dispatch => {
-  try {
-    const config = {
-      headers: {
-        "Content-type": "application/json"
-      }
-    };
-    const res = await server.post("/auth/update-info", formData, config);
-
-    dispatch({
-      type: INFO_UPDATE_SUCCESS
-    });
-
-    dispatch(setAlert(edit && "User Update", "success"));
-
-    // if (edit) {
-    //   history.push("/dashboard");
-    // }
-  } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
-    dispatch({
-      type: INFO_UPDATE_FAIL
-    });
-    dispatch(setAlert("Update Fail", "error"));
-  }
-};
-
 // Login User
 export const login = ({ email, password }) => async dispatch => {
   const config = {
@@ -245,7 +208,7 @@ export const googleLogin = data => async dispatch => {
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-    dispatch(loadUser());
+    await dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -265,6 +228,44 @@ export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
 };
 
+//Update Personal Info
+export const updateInfo = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    const res = await server.post("/auth/update-info", formData, config);
+    await dispatch(loadUser());
+    dispatch({
+      type: INFO_UPDATE_SUCCESS
+    });
+
+    dispatch(setAlert(edit && "User Update", "success"));
+
+    // if (edit) {
+    //   history.push("/dashboard");
+    // }
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, "error"));
+      });
+    }
+    dispatch({
+      type: INFO_UPDATE_FAIL
+    });
+    dispatch(setAlert("Update Fail", "error"));
+  }
+};
+
+//delete user picture
 export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
   console.log(dataBaseId, cloudId);
   try {

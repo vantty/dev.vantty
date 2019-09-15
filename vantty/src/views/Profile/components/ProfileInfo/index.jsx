@@ -21,7 +21,7 @@ import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
-  profile: { user, location, profilePicture, bio, profession, name, loading },
+  profile: { user, area, profilePicture, bio, profession, name, loading },
 
   classes,
   ...rest
@@ -53,12 +53,13 @@ const ProfileInfo = ({
               className={classes.name}
             >{`${name.firstName} ${name.lastName}`}</h1>
             <br />
+
             <h3 className={classes.subTitle}>{profession}</h3>
             <br />
             <br />
             <h3 className={classes.description}>{bio}</h3>
             <br />
-            <p>{location && <span>{location.city}</span>}</p>
+            <p>{area && <span>{area.city}</span>}</p>
             <div style={{ display: "inline-block" }}>
               {/* <Toolbar>
                 <Typography
