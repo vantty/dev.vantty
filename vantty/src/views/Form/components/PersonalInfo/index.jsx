@@ -4,7 +4,12 @@ import { withRouter, Link } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 
-import { getStrategy, getInitials, getStrategyName } from "../../../../helpers";
+import {
+  getStrategy,
+  getInitials,
+  getStrategyName,
+  fieldErrors
+} from "../../../../helpers";
 import EditForm from "../../../EditForm";
 
 //Material Components
@@ -115,21 +120,6 @@ const AccountDetails = ({
     prevStep();
   };
 
-  const states = [
-    {
-      value: "alabama",
-      label: "Alabama"
-    },
-    {
-      value: "new-york",
-      label: "New York"
-    },
-    {
-      value: "san-francisco",
-      label: "San Francisco"
-    }
-  ];
-
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
@@ -176,9 +166,9 @@ const AccountDetails = ({
               <Divider />
               <br />
               <Grid item md={6} xs={12}>
+                {/* {fieldErrors()} */}
                 <TextField
                   fullWidth
-                  helperText='Please specify the first name'
                   label='First name'
                   margin='dense'
                   name='firstName'
