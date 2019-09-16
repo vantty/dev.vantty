@@ -238,7 +238,7 @@ const EditProfile = ({
                 Children={
                   <div>
                     <div>
-                      <Button component={Link} to='/dashboard'>
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button
@@ -258,7 +258,7 @@ const EditProfile = ({
                 Children={
                   <div>
                     <div>
-                      <Button component={Link} to='/dashboard'>
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button

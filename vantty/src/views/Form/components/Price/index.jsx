@@ -192,12 +192,12 @@ const Price = ({
               <div>
                 {match.url === "/price" ? (
                   <Fragment>
-                    <Button component={Link} to='/dashboard'>
+                    <Button component={Link} to='/settings'>
                       Back
                     </Button>
                     <Button
                       component={Link}
-                      to='/dashboard'
+                      to='/settings'
                       style={{ backgroundColor: "#f5f5" }}
                       onClick={e => onSubmitPrice(e)}
                     >

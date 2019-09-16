@@ -141,42 +141,41 @@ const AccountDetails = ({
           <Divider />
           <CardContent>
             <Grid container spacing={3}>
-              <Grid item md={6} xs={12}>
-                <Grid
-                  container
-                  direction='row'
-                  justify='center'
-                  alignItems='center'
-                >
+              <Grid
+                container
+                direction='row'
+                justify='center'
+                alignItems='center'
+              >
+                <Grid item>
                   <Grid item>
-                    <Grid item>
-                      <div>
-                        {profilePicture.original ? (
-                          <Avatar
-                            src={profilePicture.original}
-                            className={classes.avatar}
-                          />
-                        ) : (
-                          <Avatar className={classes.avatar}>
-                            {getInitials(firstName)}
-                          </Avatar>
-                        )}
-                      </div>
-                      <br />
-                      <Grid>
-                        <AvatarUploader
-                          profilePicture={profilePicture}
-                          id={id}
-                          onSubmit={onSubmit}
+                    <div>
+                      {profilePicture.original ? (
+                        <Avatar
+                          src={profilePicture.original}
+                          className={classes.avatar}
                         />
-                      </Grid>
+                      ) : (
+                        <Avatar className={classes.avatar}>
+                          {getInitials(firstName)}
+                        </Avatar>
+                      )}
+                    </div>
+                    <br />
+                    <Grid>
+                      <AvatarUploader
+                        profilePicture={profilePicture}
+                        id={id}
+                        onSubmit={onSubmit}
+                      />
                     </Grid>
                   </Grid>
                 </Grid>
-                <br />
-                <Divider />
-                <br />
-
+              </Grid>
+              <br />
+              <Divider />
+              <br />
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   helperText='Please specify the first name'
@@ -204,7 +203,7 @@ const AccountDetails = ({
                   onChange={e => onChange(e)}
                 />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid item md={12} xs={12}>
                 <TextField
                   fullWidth
                   label='Email Address'
@@ -245,9 +244,9 @@ const AccountDetails = ({
             Children={
               <div>
                 <div>
-                  {match.url === "/personal-info" ? (
+                  {match.url === "/personal-info" && !profile ? (
                     <Fragment>
-                      <Button component={Link} to='/dashboard'>
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button
@@ -259,7 +258,7 @@ const AccountDetails = ({
                     </Fragment>
                   ) : (
                     <Fragment>
-                      <Button component={Link} to='/dashboard'>
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button

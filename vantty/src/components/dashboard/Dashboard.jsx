@@ -12,7 +12,7 @@ import BottomNavabar from "../../components/BottomNavbar";
 
 //Helpers
 import { getStrategyName } from "../../helpers";
-
+import { Header } from "../../components";
 //Material-ui
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -47,6 +47,7 @@ const Dashboard = ({
   ) : (
     <Fragment>
       {!isMobile ? <Navbar /> : <BottomNavabar />}
+      <Header />
       <Container>
         <CssBaseline />
         <Fragment>

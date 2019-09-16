@@ -44,6 +44,7 @@ import "./assets/scss/index.scss";
 
 // Material-UI
 import { ThemeProvider } from "@material-ui/styles";
+import Settings from "./views/Settings";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -84,6 +85,7 @@ const App = () => {
                 path='/personal-info'
                 component={EditPersonalInfo}
               />
+              <PrivateRoute exact path='/settings' component={Settings} />
               <PrivateRoute
                 exact
                 path='/info-contact'

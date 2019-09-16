@@ -21,7 +21,7 @@ import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
-  profile: { user, area, profilePicture, bio, profession, name, loading },
+  profile: { user, city, profilePicture, bio, profession, name, loading },
 
   classes,
   ...rest
@@ -59,31 +59,8 @@ const ProfileInfo = ({
             <br />
             <h3 className={classes.description}>{bio}</h3>
             <br />
-            <p>{area && <span>{area.city}</span>}</p>
-            <div style={{ display: "inline-block" }}>
-              {/* <Toolbar>
-                <Typography
-                  type='title'
-                  color='inherit'
-                  style={{
-                    borderRight: "0.1em solid black",
-                    padding: "0.5em",
-                    display: "block"
-                  }}
-                >
-                  trew rew
-                </Typography>
-
-                <Typography
-                  type='title'
-                  color='inherit'
-                  style={{ padding: "0.5em" }}
-                >
-                  <Star style={{ color: "#fdd835" }} />
-                  hello
-                </Typography>
-              </Toolbar> */}
-            </div>
+            <p>{<span>{city}</span>}</p>
+            <div style={{ display: "inline-block" }}></div>
             <Grid>
               <Fragment>
                 {auth.isAuthenticated &&
@@ -94,9 +71,9 @@ const ProfileInfo = ({
                       variant='contained'
                       color='primary'
                       className={classes.button}
-                      to='/edit-profile'
+                      to='/settings'
                     >
-                      Edit Profile
+                      settings
                     </Button>
                   )}
               </Fragment>
@@ -118,3 +95,28 @@ ProfileInfo.propTypes = {
 };
 
 export default withStyles(styles)(ProfileInfo);
+
+{
+  /* <Toolbar>
+                <Typography
+                  type='title'
+                  color='inherit'
+                  style={{
+                    borderRight: "0.1em solid black",
+                    padding: "0.5em",
+                    display: "block"
+                  }}
+                >
+                  trew rew
+                </Typography>
+
+                <Typography
+                  type='title'
+                  color='inherit'
+                  style={{ padding: "0.5em" }}
+                >
+                  <Star style={{ color: "#fdd835" }} />
+                  hello
+                </Typography>
+              </Toolbar> */
+}

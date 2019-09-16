@@ -16,3 +16,5 @@ export { default as ReviewForm } from "./ReviewForm";
 export { default as ReviewList } from "./ReviewList";
 export { default as FrameForm } from "./FrameForm";
 export { default as AvatarUploader } from "./AvatarUploader";
+export { default as SimpleAppBar } from "./SimpleAppBar";
+export { default as Header } from "./Header";

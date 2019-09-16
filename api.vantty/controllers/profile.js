@@ -42,9 +42,8 @@ exports.createANDupdate = async (req, res) => {
     firstName,
     lastName
   } = req.body;
-  // console.log(req);
+
   // Build profile object
-  console.log("BODY", req.body);
 
   var method = req.user.method;
 
@@ -87,7 +86,7 @@ exports.createANDupdate = async (req, res) => {
         { $set: profileFields },
         { new: true }
       );
-      console.log("FINAL", profile);
+
       return res.json(profile);
     }
     // Create review id
