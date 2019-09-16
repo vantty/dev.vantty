@@ -37,21 +37,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SimpleAppBar = ({ history }) => {
+const SimpleAppBar = ({ history, path }) => {
   const classes = useStyles();
 
-  const handleBack = () => {
-    history.goBack(-2);
-  };
+  // const handleBack = () => {
+  //   history.goBack(-2);
+  // };
 
   return (
     <div>
       <Fragment>
         <AppBar position='static' color='default' className={classes.appbar}>
           <Toolbar>
-            <IconButton onClick={handleBack} className={classes.arrowBack}>
-              <ArrowBackIcon />
-            </IconButton>
+            <MuiLink
+              underline='none'
+              color='inherit'
+              component={Link}
+              to={path}
+            >
+              <IconButton className={classes.arrowBack}>
+                <ArrowBackIcon />
+              </IconButton>
+            </MuiLink>
           </Toolbar>
         </AppBar>
         <Divider />

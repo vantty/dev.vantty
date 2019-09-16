@@ -20,18 +20,13 @@ import Login from "./views/Login";
 import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
-import { EditProfile, EditPersonalInfo } from "./views/EditForm/components";
-import { InfoContact } from "./views/Form/components";
+import {
+  EditProfile,
+  EditPersonalInfo,
+  EditMobile
+} from "./views/EditForm/components";
 import { EditPortfolio, EditPrice } from "./views/EditForm/components";
-import Account from "./views/Account";
 import Form from "./views/Form";
-
-//Layouts
-import { Redirect } from "react-router-dom";
-import { RouteWithLayout } from "./components";
-import { Main as MainLayout, Minimal as MinimalLayout } from "./layouts";
-
-import { Account as AccountView } from "./views";
 
 // Actions
 import { loadUser } from "./actions/auth";
@@ -86,11 +81,7 @@ const App = () => {
                 component={EditPersonalInfo}
               />
               <PrivateRoute exact path='/settings' component={Settings} />
-              <PrivateRoute
-                exact
-                path='/info-contact'
-                component={InfoContact}
-              />
+              <PrivateRoute exact path='/mobile' component={EditMobile} />
               <PrivateRoute exact path='/price' component={EditPrice} />
 
               <PrivateRoute
@@ -102,12 +93,6 @@ const App = () => {
                 exact
                 path='/profile/artist/:userId/:reviewId'
                 component={ReviewForm}
-              />
-              <RouteWithLayout
-                component={AccountView}
-                exact
-                layout={MainLayout}
-                path='/account'
               />
             </Switch>
           </Fragment>

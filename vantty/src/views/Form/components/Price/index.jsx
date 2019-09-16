@@ -153,7 +153,7 @@ const Price = ({
                               name='price'
                               // onChange={e => onChange(e)}
                               onChange={handleChange}
-                              handleDragStop={price}
+                              // handleDragStop={price}
                             />
                             <br />
                             <br />

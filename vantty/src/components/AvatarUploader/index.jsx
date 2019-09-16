@@ -68,7 +68,7 @@ const AvatarUploader = ({
           size='small'
           component='label'
           color='primary'
-          disabled={!profilePicture && true}
+          disabled={!profilePicture.original && true}
           // onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
           onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
         >

@@ -94,7 +94,7 @@ const Profile = ({
         <Fragment>
           {isMobile && (
             <Fragment>
-              <SimpleAppBar history={history} />
+              <SimpleAppBar path={"/artists"} />
             </Fragment>
           )}
           <Header />

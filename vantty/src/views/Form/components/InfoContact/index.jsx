@@ -66,7 +66,7 @@ const InfoContact = ({
   step,
   prevStep,
   className,
-
+  match,
   ...rest
 }) => {
   const [formData, setFormData] = useState({
@@ -111,7 +111,7 @@ const InfoContact = ({
     <Fragment>
       <Card className={clsx(classes.root, className)}>
         {/* <form autoComplete='off' noValidate> */}
-        <CardHeader subheader='The information can be edited' title='Profile' />
+        <CardHeader subheader='The information can be edited' title='Mobile' />
         <Divider />
         <CardContent>
           <Fragment>
@@ -215,6 +215,28 @@ const InfoContact = ({
           </div>
         }
       />
+      <Fragment>
+        <FormBottomNav
+          step={step}
+          Children={
+            <div>
+              <div>
+                {match.url === "/mobile" ? (
+                  <Fragment>
+                    <Button component={Link} to='/settings'>
+                      Back
+                    </Button>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <Button onClick={back}>Back</Button>
+                  </Fragment>
+                )}
+              </div>
+            </div>
+          }
+        />
+      </Fragment>
     </Fragment>
   );
 };

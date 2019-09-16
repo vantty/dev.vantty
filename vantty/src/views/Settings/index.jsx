@@ -7,6 +7,7 @@ import { isMobile } from "react-device-detect";
 
 //Actions
 import { getProfileById, getCurrentProfile } from "../../actions/profile";
+import { loadUser } from "../../actions/auth";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -27,6 +28,7 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { SimpleAppBar } from "../../components";
 import { AppBarSettings } from "./components";
+
 const useStyles = makeStyles({
   list: {
     width: "auto"
@@ -61,14 +63,16 @@ const useStyles = makeStyles({
 const Settings = ({
   getProfileById,
   getCurrentProfile,
+  loadUser,
   profile: { profile, loading },
-  auth,
+  auth: { user },
   match,
   history
 }) => {
   const classes = useStyles();
   useEffect(() => {
     getCurrentProfile();
+    loadUser();
   }, []);
   const pages = [
     {
@@ -76,11 +80,7 @@ const Settings = ({
       href: "/personal-info",
       icon: <PeopleIcon />
     },
-    {
-      title: "Profile",
-      href: "/edit-profile",
-      icon: <LockOpenIcon />
-    },
+
     {
       title: "Portfolio",
       href: "/add-portfolio",
@@ -98,33 +98,51 @@ const Settings = ({
     },
 
     {
-      title: "Account",
-      href: "/account",
-      icon: <AccountBoxIcon />
-    },
-    {
-      title: "Change Password",
+      title: "**Change Password",
       href: "/password",
       icon: <ImageIcon />
     },
+    {
+      title: "D == Create profile",
+      href: "/create-profile",
+      icon: <LockOpenIcon />
+    },
 
     {
-      title: "Settings",
-      href: "/settings",
+      title: "D == Main Page",
+      href: "/",
       icon: <SettingsIcon />
+    },
+    {
+      title: "D == Dashboard",
+      href: "/Dashboard",
+      icon: <SettingsIcon />
+    }
+  ];
+
+  const pagesUser = [
+    {
+      title: "Profile Image",
+      href: "/personal-info",
+      icon: <PeopleIcon />
+    },
+    {
+      title: "Profile",
+      href: "/edit-profile",
+      icon: <LockOpenIcon />
     }
   ];
 
   const sideList = side => (
     <div className={classes.list}>
-      <AppBarSettings id={profile && profile.user._id} />
+      <AppBarSettings id={user && user._id} />
       <br />
       <Container>
         <List subheader={<li />}>
           <ListSubheader className={classes.title}>{"Profile"}</ListSubheader>
           {pages.map((page, index) => (
-            <Fragment>
-              {page.title === "Account" && (
+            <span key={page.title}>
+              {page.title === "**Change Password" && (
                 <ListSubheader className={classes.title}>
                   {"Account"}
                 </ListSubheader>
@@ -139,7 +157,7 @@ const Settings = ({
                 <ListItemText primary={page.title} />
                 <Divider />
               </ListItem>
-            </Fragment>
+            </span>
           ))}
         </List>
       </Container>
@@ -155,10 +173,11 @@ Settings.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileById, getCurrentProfile }
+  { getProfileById, getCurrentProfile, loadUser }
 )(Settings);
