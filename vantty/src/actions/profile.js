@@ -1,4 +1,4 @@
-import { server } from "../utils/axios";
+import { server, elastic } from "../utils/axios";
 import setAlert from "./alert";
 import { loadUser } from "./auth";
 import { deleteImages } from "./uploader";
@@ -90,6 +90,17 @@ export const createProfile = (
     // if (edit) {
     //   history.push("/add-portfolio");
     // }
+
+    const elasticConfig = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization:
+          "Basic M0U1azRWaVZ3OmM1NGIyYjdjLTE1YWEtNGExZi1hNDg0LTU3MTQyNDRhMzkxZQ=="
+      }
+    };
+
+    const esRes = await elastic.post("/", res.data, elasticConfig);
+    console.log("ELASTIC", esRes);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

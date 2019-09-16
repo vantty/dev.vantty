@@ -12,6 +12,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@appbaseio/reactivesearch": "^3.0.1",
     "@material-ui/core": "^4.3.1",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/lab": "^4.0.0-alpha.25",

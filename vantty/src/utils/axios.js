@@ -4,6 +4,10 @@ export const server = axios.create({
   baseURL: "https://apivantty.now.sh/api/"
 });
 
+export const elastic = axios.create({
+  baseURL: "https://scalr.api.appbase.io/vantty-database/_doc/"
+});
+
 export const API_URL = "https://apivantty.now.sh/api";
 
 // export const server = axios.create({
