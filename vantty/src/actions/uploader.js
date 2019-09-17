@@ -36,7 +36,6 @@ export const uploadImages = e => async dispatch => {
     }
 
     formData.append(i, file);
-    console.log("formadata", file);
   });
 
   if (errs.length) {

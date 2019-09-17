@@ -53,6 +53,7 @@ const schema = {
   password: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
+      minimum: 6,
       maximum: 128
     }
   }
@@ -217,6 +218,7 @@ const Register = props => {
   const handleRegister = event => {
     event.preventDefault();
     sendEmail({ firstName, lastName, email, password });
+    window.location.href = "http://localhost:3000/confirmation";
   };
 
   const hasError = field =>
@@ -229,10 +231,6 @@ const Register = props => {
   const responseGoogle = res => {
     googleRegister(res.accessToken);
   };
-
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
 
   return (
     <div className={classes.root}>

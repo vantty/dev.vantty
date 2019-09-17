@@ -84,7 +84,6 @@ exports.register = async (req, res) => {
         .json({ errors: [{ msg: "Please validate your email" }] });
     }
     const token = generateToken(user);
-    console.log("LOGIN TOKEN", token);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).send("Server error");

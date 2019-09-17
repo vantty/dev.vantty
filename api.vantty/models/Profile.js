@@ -79,6 +79,7 @@ const ProfileSchema = new mongoose.Schema({
     type: [String]
     // required: true
   },
+  elasticId: { type: String, default: null },
 
   // area: {
   //   country: {

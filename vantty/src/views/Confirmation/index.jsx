@@ -2,14 +2,10 @@ import React, { Fragment, useEffect } from "react";
 import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Progress from "@material-ui/core/LinearProgress";
 
 // Actions
 import { confirmEmail, register } from "../../actions/auth";
-
-// const confirmAndRegister = token => {
-//   console.log("I AM HERE", token);
-//   confirmEmail(token);
-// };
 
 const Confirmation = ({ match, confirmEmail, register, isAuthenticated }) => {
   confirmEmail(match.params.token);
@@ -18,11 +14,7 @@ const Confirmation = ({ match, confirmEmail, register, isAuthenticated }) => {
     return <Redirect to="/dashboard" />;
   }
 
-  return (
-    <div>
-      <h1>Confirmation Page</h1>
-    </div>
-  );
+  return <Progress />;
 };
 
 Confirmation.propTypes = {

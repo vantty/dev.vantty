@@ -19,7 +19,8 @@ const {
   addPortfolio,
   deletePicture,
   addProfileImage,
-  deleteProfilePicture
+  deleteProfilePicture,
+  loadToElastic
 } = require("../controllers/profile");
 
 // @desc     Get current users profile
@@ -67,4 +68,7 @@ router.put("/profile-image", passportJWT, addProfileImage);
 // @route    DELETE /profile/portfolio/:pic_id
 // @access   Private
 router.delete("/profilePicture/:pic_id", passportJWT, deleteProfilePicture);
+
+router.put("/elastic", passportJWT, loadToElastic);
+
 module.exports = router;

@@ -31,13 +31,13 @@ const Favorites = () => {
   return (
     <Container>
       <ReactiveBase
-        app='vantty-database'
-        credentials='fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666'
+        app="vantty-database"
+        credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
       >
         <CategorySearch
-          componentId='searchbox'
-          dataField='name'
-          placeholder='Search for cars'
+          componentId="searchbox"
+          dataField={["name.firstName", "name.lastName", "city", "profession"]}
+          placeholder="Search..."
         />
         {/* <SingleRange
           componentId="ratingsfilter"
@@ -52,13 +52,13 @@ const Favorites = () => {
           ]}
           defaultValue="see all ratings"
         /> */}
+
         <ReactiveList
-          componentId='result'
-          title='Results'
-          dataField='name'
+          componentId="result"
+          title="Results"
+          dataField={["name.firstName", "name.lastName", "city", "profession"]}
           from={0}
           size={4}
-          fuzziness={2}
           pagination={true}
           react={{
             and: ["searchbox"]
@@ -69,41 +69,29 @@ const Favorites = () => {
                 <ResultCard key={item._id}>
                   <CardMedia
                     className={classes.media}
-                    image='https://bit.do/demoimg'
-                    title='Contemplative Reptile'
+                    image="https://bit.do/demoimg"
+                    title="Contemplative Reptile"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      {item.name}
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {item.name.firstName}
                     </Typography>
                     <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
                     >
-                      {item.price}
                       {item.profession}
+                      <br />
+                      {item.city}
                     </Typography>
                   </CardContent>
-
                   <CardActions>
-                    <Button size='small' color='primary'>
+                    <Button size="small" color="primary">
                       View
                     </Button>
                   </CardActions>
                 </ResultCard>
-
-                // <ResultCard key={item._id}>
-                //   <ResultCard.Image src="https://bit.do/demoimg" />
-                //   <ResultCard.Title
-                //     dangerouslySetInnerHTML={{
-                //       __html: item.brand
-                //     }}
-                //   />
-                //   <ResultCard.Description>
-                //     {item.model + " " + "*".repeat(item.rating)}
-                //   </ResultCard.Description>
-                // </ResultCard>
               ))}
             </ReactiveList.ResultCardsWrapper>
           )}

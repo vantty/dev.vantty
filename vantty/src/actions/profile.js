@@ -84,24 +84,38 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
 
-    // if (!edit) {
-    //   history.push("/add-portfolio");
-    // }
-
-    // if (edit) {
-    //   history.push("/add-portfolio");
-    // }
-
-    const elasticConfig = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization:
-          "Basic NzQ5MzJ3WlZGOjQxOGE1Y2I1LTczYjQtNDVkMi05ZGUzLTdjMjBkM2NiY2JlMA=="
-      }
+    const {
+      bio,
+      city,
+      education,
+      elasticId,
+      instagramUsername,
+      name,
+      portfolioPictures,
+      profession,
+      profilePicture,
+      reviewId,
+      user,
+      _id
+    } = res.data;
+    const userId = user,
+      profileId = _id;
+    const data = {
+      bio,
+      city,
+      education,
+      elasticId,
+      instagramUsername,
+      name,
+      portfolioPictures,
+      profession,
+      profilePicture,
+      reviewId,
+      userId,
+      profileId
     };
 
-    const esRes = await elastic.post("/", formData, elasticConfig);
-    console.log("ELASTIC", esRes);
+    loadToElastic(data, profileId, elasticId);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -200,9 +214,10 @@ export const deleteEducation = id => async dispatch => {
 };
 
 // Delete Account & PROFILE
-export const deleteAccount = id => async dispatch => {
+export const deleteAccount = elastidId => async dispatch => {
   if (window.confirm("Are you sure?")) {
     try {
+      await deleteFromElastic(elastidId);
       await server.delete("/profile");
 
       dispatch({ type: CLEAR_PROFILE });
@@ -294,4 +309,33 @@ export const deleteProfilePicture = (dataBaseId, cloudId) => async dispatch => {
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
+};
+
+const loadToElastic = async (data, profileId, elasticId) => {
+  const elasticConfig = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization:
+        "Basic NzQ5MzJ3WlZGOjQxOGE1Y2I1LTczYjQtNDVkMi05ZGUzLTdjMjBkM2NiY2JlMA=="
+    }
+  };
+  if (!elasticId) {
+    const esRes = await elastic.post("/", data, elasticConfig);
+    elasticId = await esRes.data._id;
+    const body = { elasticId, profileId };
+    await server.put("/profile/elastic", body);
+  } else {
+    await elastic.put(`/${elasticId}`, data, elasticConfig);
+  }
+};
+
+const deleteFromElastic = async elasticId => {
+  const elasticConfig = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization:
+        "Basic NzQ5MzJ3WlZGOjQxOGE1Y2I1LTczYjQtNDVkMi05ZGUzLTdjMjBkM2NiY2JlMA=="
+    }
+  };
+  await elastic.delete(`/${elasticId}`, elasticConfig);
 };

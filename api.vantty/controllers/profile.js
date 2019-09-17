@@ -279,3 +279,13 @@ exports.deleteProfilePicture = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+exports.loadToElastic = async (req, res) => {
+  const { profileId, elasticId } = req.body;
+  let profile = await Profile.findOneAndUpdate(
+    { _id: profileId },
+    { $set: { elasticId: elasticId } },
+    { new: true }
+  );
+  res.status(200).json(profile);
+};
