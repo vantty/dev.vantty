@@ -39,10 +39,12 @@ exports.createANDupdate = async (req, res) => {
     state,
     city,
     price,
-    name
+    firstName,
+    lastName
   } = req.body;
-  // console.log(req);
+
   // Build profile object
+
   var method = req.user.method;
 
   const profileFields = {};
@@ -51,25 +53,23 @@ exports.createANDupdate = async (req, res) => {
   profileFields.name = {};
   profileFields.name.firstName = req.user[method].firstName;
   profileFields.name.lastName = req.user[method].lastName;
-  // profileFields.info.firstName = req.user[method].firstName;
-  if (profilePicture) profileFields.profilePicture = profilePicture;
+
+  profileFields.profilePicture = req.user[method].profilePicture.original;
   if (bio) profileFields.bio = bio;
-  // if (location) profileFields.location = location;
+  // if (area) profileFields.area = area;
   if (mobileNumber) profileFields.mobileNumber = mobileNumber;
   if (price) profileFields.price = price;
   if (instagramUsername) profileFields.instagramUsername = instagramUsername;
   if (profession) {
     profileFields.profession = profession;
   }
+  if (city) {
+    profileFields.city = city;
+  }
+
   // if (profession) {
   //   profileFields.profession = profession.split(",").map(pro => pro.trim());
   // }
-
-  // Build location object
-  profileFields.location = {};
-  if (country) profileFields.location.country = country;
-  if (state) profileFields.location.state = state;
-  if (city) profileFields.location.city = city;
 
   // Build social object
   profileFields.social = {};

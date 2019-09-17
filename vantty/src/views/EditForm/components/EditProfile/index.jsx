@@ -57,7 +57,8 @@ const EditProfile = ({
     instagramUsername: "",
     youtube: "",
     instagram: "",
-    user: ""
+    user: "",
+    price: ""
   });
 
   useEffect(() => {
@@ -68,14 +69,14 @@ const EditProfile = ({
       profilePicture:
         loading || !profile.profilePicture ? "" : profile.profilePicture,
       profession: loading || !profile.profession ? "" : profile.profession,
-      location: loading || !profile.location ? "" : profile.location,
       instagramUsername:
         loading || !profile.instagramUsername ? "" : profile.instagramUsername,
       mobileNumber:
         loading || !profile.mobileNumber ? "" : profile.mobileNumber,
       youtube: loading || !profile.social ? "" : profile.social.youtube,
       instagram: loading || !profile.social ? "" : profile.social.instagram,
-      city: loading || !profile.location ? "" : profile.location.city
+      city: loading || !profile.city ? "" : profile.city,
+      price: loading || !profile.price ? "" : profile.price
     });
   }, [loading, getCurrentProfile]);
 
@@ -175,7 +176,7 @@ const EditProfile = ({
                           margin='dense'
                           fullWidth
                         >
-                          <InputLabel htmlFor='filled-city-simple'>
+                          <InputLabel ref={inputLabel} htmlFor='city'>
                             City
                           </InputLabel>
                           <Select
@@ -188,8 +189,8 @@ const EditProfile = ({
                             input={
                               <OutlinedInput
                                 labelWidth={labelWidth}
-                                name='City'
-                                id='outlined-city-simple'
+                                name='city'
+                                id='city'
                               />
                             }
                           >
@@ -237,7 +238,7 @@ const EditProfile = ({
                 Children={
                   <div>
                     <div>
-                      <Button component={Link} to='/dashboard'>
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button
@@ -257,7 +258,7 @@ const EditProfile = ({
                 Children={
                   <div>
                     <div>
-                      <Button component={Link} to='/dashboard'>
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button

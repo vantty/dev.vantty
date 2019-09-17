@@ -26,6 +26,9 @@ const ReviewSchema = new Schema({
       name: {
         type: String
       },
+      profilePicture: {
+        type: String
+      },
       date: {
         type: Date,
         default: Date.now

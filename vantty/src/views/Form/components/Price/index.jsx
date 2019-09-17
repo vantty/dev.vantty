@@ -24,7 +24,8 @@ import {
   Button,
   Avatar,
   Typography,
-  Slider
+  Slider,
+  Container
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
@@ -103,12 +104,12 @@ const Price = ({
   };
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history, true);
+    createProfile({ price }, history, true);
     nextStep();
   };
   const onSubmitPrice = e => {
     e.preventDefault();
-    createProfile(formData, history, true);
+    createProfile({ price }, history, true);
   };
 
   const classes = useStyles();
@@ -126,27 +127,48 @@ const Price = ({
               <CardContent className={classes.content}>
                 <div>
                   <div>
-                    <Typography
-                      className={classes.locationText}
-                      color='textSecondary'
-                      variant='body1'
-                    >
-                      {price}
-                    </Typography>
-                    <Fragment>
-                      <PrettoSlider
-                        defaultValue={60}
-                        valueLabelDisplay='on'
-                        max={500}
-                        step={10}
-                        disabled={false}
-                        value={price}
-                        name='price'
-                        // onChange={e => onChange(e)}
-                        onChange={handleChange}
-                        // handleDragStop={price}
-                      />
-                    </Fragment>
+                    <Container>
+                      <Typography color='textSecondary' variant='body1'>
+                        This is the minimum price for which you provide a
+                        service but you define the final price with the customer
+                      </Typography>
+                      <br />
+                      <br />
+                      <br />
+                      <Fragment>
+                        <Grid
+                          container
+                          direction='row'
+                          justify='center'
+                          alignItems='center'
+                        >
+                          <Grid item xs={8}>
+                            <PrettoSlider
+                              defaultValue={60}
+                              valueLabelDisplay='on'
+                              max={500}
+                              step={10}
+                              disabled={false}
+                              value={price || 80}
+                              name='price'
+                              // onChange={e => onChange(e)}
+                              onChange={handleChange}
+                              // handleDragStop={price}
+                            />
+                            <br />
+                            <br />
+                            <Typography
+                              // className={classes.locationText}
+                              // color='textSecondary'
+                              variant='body1'
+                            >
+                              I provide a service minimum for{" "}
+                              <strong>${price}</strong>
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Fragment>
+                    </Container>
                   </div>
                 </div>
               </CardContent>
@@ -170,12 +192,12 @@ const Price = ({
               <div>
                 {match.url === "/price" ? (
                   <Fragment>
-                    <Button component={Link} to='/dashboard'>
+                    <Button component={Link} to='/settings'>
                       Back
                     </Button>
                     <Button
                       component={Link}
-                      to='/dashboard'
+                      to='/settings'
                       style={{ backgroundColor: "#f5f5" }}
                       onClick={e => onSubmitPrice(e)}
                     >

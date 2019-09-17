@@ -2,16 +2,16 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
-
+import { Link } from "react-router-dom";
 // Components
 import Navbar from "../../components/Navbar";
-import SettingsDrawer from "../../components/SettingsDrawer";
+import SettingsDrawer from "../Settings";
 // import SideBar from "../../layouts/Main/components/Sidebar";
 
 //Comonents
 import ConctactButton from "../../components/ContactButton";
 import BottomNavabar from "../../components/BottomNavbar";
-import { ReviewCard } from "../../components/";
+import { ReviewCard, Header } from "../../components/";
 
 //Components inside
 import { ProfileCarousel, ProfileInfo } from "./components";
@@ -31,7 +31,10 @@ import {
 } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 // import ArrowBack from "../../components/ArrowBack";
+import MuiLink from "@material-ui/core/Link";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import SettingsIcon from "@material-ui/icons/SettingsOutlined";
+import { SimpleAppBar } from "../../components";
 
 const useStyles = makeStyles(theme => ({
   buttonSetting: {
@@ -42,10 +45,11 @@ const useStyles = makeStyles(theme => ({
   },
   settings: {
     float: "right",
-    fontSize: "26px",
-    fontWeight: "ligther",
-    marginTop: "1rem"
+    fontSize: "26px"
+    // fontWeight: "ligther",
+    // marginTop: "1rem"
   },
+
   arrowBack: {
     float: "left",
     fontSize: "26px",
@@ -53,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: "1rem"
   },
   appbar: {
-    background: "transparent",
+    // background: "transparent",
     boxShadow: "none",
     paddingRight: "-35%"
   },
@@ -88,38 +92,21 @@ const Profile = ({
       ) : (
         // <div>
         <Fragment>
-          {isMobile ? (
-            <AppBar
-              position='static'
-              color='default'
-              className={classes.appbar}
-            >
-              <Toolbar>
-                <IconButton onClick={handleBack}>
-                  <ArrowBackIcon />
-                </IconButton>
-                <div className={classes.toolbar}>
-                  {auth.isAuthenticated &&
-                    auth.loading === false &&
-                    auth.user._id === profile.user._id &&
-                    // (isMobile && <SettingsDrawer />)}
-                    (isMobile && "hello")}
-                  {/* (isMobile && (
-                      <Button component='outline' onClick={<SideBar />} />
-                    ))} */}
-                </div>
-              </Toolbar>
-            </AppBar>
-          ) : (
-            undefined
+          {isMobile && (
+            <Fragment>
+              <SimpleAppBar path={"/artists"} />
+            </Fragment>
           )}
+          <Header />
           <Container maxWidth='md'>
-            <ProfileInfo profile={profile} auth={auth} />
-            <br />
-            <ProfileCarousel profile={profile} />
-            <br />
-            <br />
-            <ReviewCard profile={profile} />
+            <Fragment>
+              <ProfileInfo profile={profile} auth={auth} />
+              <br />
+              <ProfileCarousel profile={profile} />
+              <br />
+              <br />
+              <ReviewCard profile={profile} />
+            </Fragment>
           </Container>
         </Fragment>
       )}

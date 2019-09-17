@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     marginBottom: "0.5rem",
     width: "10rem",
     float: "right",
-    // backgroundColor: "rgb(90, 40, 146)",
-    backgroundColor: "rgb(0, 223, 212)",
+    backgroundColor: "rgb(90, 40, 146)",
+    // backgroundColor: "rgb(0, 223, 212)",
     color: "white"
   },
   price: {

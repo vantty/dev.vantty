@@ -9,11 +9,10 @@ import DashboardActions from "../dashboard/DashboardActions";
 import Education from "./Education";
 import Navbar from "../../components/Navbar";
 import BottomNavabar from "../../components/BottomNavbar";
-import Header from "../Header";
 
 //Helpers
 import { getStrategyName } from "../../helpers";
-
+import { Header } from "../../components";
 //Material-ui
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -52,16 +51,16 @@ const Dashboard = ({
       <Container>
         <CssBaseline />
         <Fragment>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant='h4' gutterBottom>
             Dashboard
           </Typography>
-          <Typography variant="h5">Welcome {getStrategyName(user)}</Typography>
+          <Typography variant='h5'>Welcome {getStrategyName(user)}</Typography>
 
           {profile !== null ? (
             <Fragment>
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 className={classes.button}
                 to={`/profile/artist/${profile.user._id}`}
                 component={Link}
@@ -73,11 +72,11 @@ const Dashboard = ({
               {/* <Education education={profile.education} /> */}
 
               <Button
-                variant="contained"
-                color="secondary"
+                variant='contained'
+                color='secondary'
                 className={classes.button}
                 onClick={() => deleteAccount()}
-                to="/login"
+                to='/login'
                 component={Link}
               >
                 Delete My Account
@@ -87,17 +86,17 @@ const Dashboard = ({
             <Fragment>
               <Typography>Do you want to become an Artists?</Typography>
               <Button
-                variant="contained"
-                color="secondary"
-                to="/create-profile"
+                variant='contained'
+                color='secondary'
+                to='/create-profile'
                 component={Link}
               >
                 Create Profile
               </Button>
               <Button
-                variant="contained"
-                color="secondary"
-                to="/personal-info"
+                variant='contained'
+                color='secondary'
+                to='/personal-info'
                 component={Link}
               >
                 Personal Info

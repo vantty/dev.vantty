@@ -18,16 +18,8 @@ const ProfileSchema = new mongoose.Schema({
     // unique review id,
     type: String
   },
-  profilePicture: [
-    {
-      original: {
-        type: String
-      },
-      cloudId: {
-        type: String
-      }
-    }
-  ],
+  profilePicture: { type: String },
+
   bio: {
     type: String
     // required: true
@@ -83,17 +75,22 @@ const ProfileSchema = new mongoose.Schema({
       type: String
     }
   },
-  location: {
-    country: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    city: {
-      type: String
-    }
+  city: {
+    type: [String]
+    // required: true
   },
+
+  // area: {
+  //   country: {
+  //     type: String
+  //   },
+  //   state: {
+  //     type: String
+  //   },
+  //   city: {
+  //     type: String
+  //   }
+  // },
   date: {
     type: Date,
     default: Date.now

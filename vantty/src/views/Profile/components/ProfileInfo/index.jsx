@@ -21,7 +21,7 @@ import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
-  profile: { user, location, profilePicture, bio, profession, name, loading },
+  profile: { user, city, profilePicture, bio, profession, name, loading },
 
   classes,
   ...rest
@@ -30,29 +30,16 @@ const ProfileInfo = ({
     <div>
       <div>
         <div className={classes.profile}>
-          {/* <Grid container justify='center' alignItems='center'>
-            {profilePicture ? (
-              <span className={classes.bigAvatar}>
-                <AvatarUploader />
-              </span>
-            ) : (
-              <Avatar>{getStrategyName(auth.user)}</Avatar>
-            )}
-          </Grid> */}
-
           <Grid container justify='center' alignItems='center'>
-            {profilePicture[0] ? (
+            {profilePicture ? (
               isMobile ? (
                 <Avatar
-                  src={profilePicture[0].original}
+                  src={profilePicture}
                   className={classes.bigAvatar}
-                  style={{ marginTop: "-10px" }}
+                  // style={{ marginTop: "-10px" }}
                 />
               ) : (
-                <Avatar
-                  src={profilePicture[0].original}
-                  className={classes.bigAvatar}
-                />
+                <Avatar src={profilePicture} className={classes.bigAvatar} />
               )
             ) : (
               <Avatar className={classes.avatar} src={""}>
@@ -66,36 +53,14 @@ const ProfileInfo = ({
               className={classes.name}
             >{`${name.firstName} ${name.lastName}`}</h1>
             <br />
+
             <h3 className={classes.subTitle}>{profession}</h3>
             <br />
             <br />
             <h3 className={classes.description}>{bio}</h3>
             <br />
-            <p>{location && <span>{location.city}</span>}</p>
-            <div style={{ display: "inline-block" }}>
-              {/* <Toolbar>
-                <Typography
-                  type='title'
-                  color='inherit'
-                  style={{
-                    borderRight: "0.1em solid black",
-                    padding: "0.5em",
-                    display: "block"
-                  }}
-                >
-                  trew rew
-                </Typography>
-
-                <Typography
-                  type='title'
-                  color='inherit'
-                  style={{ padding: "0.5em" }}
-                >
-                  <Star style={{ color: "#fdd835" }} />
-                  hello
-                </Typography>
-              </Toolbar> */}
-            </div>
+            <p>{<span>{city}</span>}</p>
+            <div style={{ display: "inline-block" }}></div>
             <Grid>
               <Fragment>
                 {auth.isAuthenticated &&
@@ -106,9 +71,9 @@ const ProfileInfo = ({
                       variant='contained'
                       color='primary'
                       className={classes.button}
-                      to='/edit-profile'
+                      to='/settings'
                     >
-                      Edit Profile
+                      settings
                     </Button>
                   )}
               </Fragment>
@@ -130,3 +95,28 @@ ProfileInfo.propTypes = {
 };
 
 export default withStyles(styles)(ProfileInfo);
+
+{
+  /* <Toolbar>
+                <Typography
+                  type='title'
+                  color='inherit'
+                  style={{
+                    borderRight: "0.1em solid black",
+                    padding: "0.5em",
+                    display: "block"
+                  }}
+                >
+                  trew rew
+                </Typography>
+
+                <Typography
+                  type='title'
+                  color='inherit'
+                  style={{ padding: "0.5em" }}
+                >
+                  <Star style={{ color: "#fdd835" }} />
+                  hello
+                </Typography>
+              </Toolbar> */
+}

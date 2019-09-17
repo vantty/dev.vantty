@@ -107,45 +107,6 @@ const AddPortfolio = ({
               />
               <Divider />
               <CardContent className={classes.content}>
-                <Grid
-                  container
-                  direction='row'
-                  justify='center'
-                  alignItems='center'
-                >
-                  <Grid item>
-                    <div className={classes.name}>
-                      <Typography variant='h3'>
-                        {getStrategyName(profile.user)}
-                      </Typography>
-                      <Typography color='textSecondary' variant='body1'>
-                        {profile.profession}
-                      </Typography>
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <Grid item>
-                      <div>
-                        {profile.profilePicture[0] ? (
-                          <Avatar
-                            src={profile.profilePicture[0].original}
-                            className={classes.avatar}
-                          />
-                        ) : (
-                          <Avatar className={classes.avatar}>
-                            {getInitials(getStrategyName(profile.user))}
-                          </Avatar>
-                        )}
-                      </div>
-                      <br />
-                      <Grid>
-                        <AvatarUploader
-                          profilePicture={profile.profilePicture}
-                        />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
                 <br />
                 <Divider />
                 <br />
@@ -176,12 +137,12 @@ const AddPortfolio = ({
                     <div>
                       {match.url === "/add-portfolio" ? (
                         <Fragment>
-                          <Button component={Link} to='/dashboard'>
+                          <Button component={Link} to='/settings'>
                             Back
                           </Button>
                           <Button
                             component={Link}
-                            to='/dashboard'
+                            to='/settings'
                             style={{ backgroundColor: "#f5f5" }}
                             disabled={true}
                           >
@@ -211,12 +172,12 @@ const AddPortfolio = ({
                     <div>
                       {match.url === "/add-portfolio" ? (
                         <Fragment>
-                          <Button component={Link} to='/dashboard'>
+                          <Button component={Link} to='/settings'>
                             Back
                           </Button>
                           <Button
                             component={Link}
-                            to='/dashboard'
+                            to='/settings'
                             style={{ backgroundColor: "#f5f5" }}
                           >
                             Update

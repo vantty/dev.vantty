@@ -66,6 +66,15 @@ const DashboardActions = () => {
       </Button>
       <Button
         variant='contained'
+        color='secondary'
+        className={classes.button}
+        component={Link}
+        to='/mobile'
+      >
+        Mobile
+      </Button>
+      <Button
+        variant='contained'
         // color='secondary'
         className={classes.button}
         component={Link}

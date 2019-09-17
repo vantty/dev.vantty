@@ -76,6 +76,7 @@ export const createProfile = (
       }
     };
     const res = await server.post("/profile", formData, config);
+    dispatch(getCurrentProfile());
     dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -95,11 +96,11 @@ export const createProfile = (
       headers: {
         "Content-type": "application/json",
         Authorization:
-          "Basic M0U1azRWaVZ3OmM1NGIyYjdjLTE1YWEtNGExZi1hNDg0LTU3MTQyNDRhMzkxZQ=="
+          "Basic NzQ5MzJ3WlZGOjQxOGE1Y2I1LTczYjQtNDVkMi05ZGUzLTdjMjBkM2NiY2JlMA=="
       }
     };
 
-    const esRes = await elastic.post("/", res.data, elasticConfig);
+    const esRes = await elastic.post("/", formData, elasticConfig);
     console.log("ELASTIC", esRes);
   } catch (err) {
     const errors = err.response.data.errors;

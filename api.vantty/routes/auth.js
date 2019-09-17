@@ -13,7 +13,9 @@ const express = require("express"),
     facebook,
     updatePersonalInfo,
     sendEmail,
-    confirmEmail
+    confirmEmail,
+    addUserImage,
+    deleteUserPicture
   } = require("../controllers/auth"),
   { validator } = require("../helpers"),
   router = express.Router();
@@ -26,5 +28,12 @@ router.post("/facebook", passportFacebook, facebook);
 router.post("/update-info", passportJWT, updatePersonalInfo);
 router.get("/confirmation/:token", confirmEmail);
 router.post("/validated/:token", register);
+// @route    PUT /profile/profilePicture
+// @access   Private
+router.put("/user-image", addUserImage);
+
+// @route    DELETE /profile/portfolio/:pic_id
+// @access   Private
+router.post("/userPicture", passportJWT, deleteUserPicture);
 
 module.exports = router;

@@ -57,6 +57,7 @@ const CreateProfile = ({
   formData,
   handleChange,
   nextStep,
+  prevStep,
   step,
   className,
   ...rest
@@ -65,6 +66,11 @@ const CreateProfile = ({
     e.preventDefault();
     createProfile(formData, history);
     nextStep();
+  };
+
+  const back = e => {
+    e.preventDefault();
+    prevStep();
   };
 
   // const [formState, setFormState] = useState({
@@ -242,13 +248,11 @@ const CreateProfile = ({
         {/* </form> */}
       </Card>
       <FormBottomNav
-        step={"1"}
+        step={step}
         Children={
           <div>
             <div>
-              <Button component={Link} to='/dashboard'>
-                Back
-              </Button>
+              <Button onClick={back}>Back</Button>
               <Button
                 style={{ backgroundColor: "#f5f5" }}
                 onClick={e => onSubmit(e)}
