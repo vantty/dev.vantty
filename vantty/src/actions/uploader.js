@@ -136,7 +136,7 @@ export const userImage = (e, id, profile) => async dispatch => {
       await dispatch(loadUser());
       profile &&
         (await dispatch(
-          createProfile({ profilePicture: sendImage.original }, null, true)
+          createProfile({ profilePicture: sendImage.original }, undefined, true)
         ));
 
       await dispatch(getCurrentProfile());

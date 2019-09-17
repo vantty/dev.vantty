@@ -236,7 +236,7 @@ const AccountDetails = ({
                 <div>
                   {match.url === "/personal-info" && !profile ? (
                     <Fragment>
-                      <Button component={Link} to='/settings'>
+                      <Button component={Link} to='/dashboard'>
                         Back
                       </Button>
                       <Button
@@ -248,7 +248,7 @@ const AccountDetails = ({
                     </Fragment>
                   ) : (
                     <Fragment>
-                      <Button component={Link} to='/settings'>
+                      <Button component={Link} to='/dashboard'>
                         Back
                       </Button>
                       <Button
