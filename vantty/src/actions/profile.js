@@ -2,7 +2,7 @@ import { server, elastic } from "../utils/axios";
 import setAlert from "./alert";
 import { loadUser } from "./auth";
 import { deleteImages } from "./uploader";
-
+import { elasticData } from "../helpers";
 import {
   GET_PROFILE,
   GET_PROFILES,
@@ -35,6 +35,7 @@ export const getProfiles = () => async dispatch => {
   dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await server.get("/profile");
+
     dispatch({
       type: GET_PROFILES,
       payload: res.data
@@ -84,37 +85,8 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
 
-    const {
-      bio,
-      city,
-      education,
-      elasticId,
-      instagramUsername,
-      name,
-      portfolioPictures,
-      profession,
-      profilePicture,
-      reviewId,
-      user,
-      _id
-    } = res.data;
-    const userId = user,
-      profileId = _id;
-    const data = {
-      bio,
-      city,
-      education,
-      elasticId,
-      instagramUsername,
-      name,
-      portfolioPictures,
-      profession,
-      profilePicture,
-      reviewId,
-      userId,
-      profileId
-    };
-
+    const data = elasticData(res);
+    const { profileId, elasticId } = data;
     loadToElastic(data, profileId, elasticId);
   } catch (err) {
     const errors = err.response.data.errors;
@@ -311,7 +283,7 @@ export const deleteProfilePicture = (dataBaseId, cloudId) => async dispatch => {
   }
 };
 
-const loadToElastic = async (data, profileId, elasticId) => {
+export const loadToElastic = async (data, profileId, elasticId) => {
   const elasticConfig = {
     headers: {
       "Content-type": "application/json",

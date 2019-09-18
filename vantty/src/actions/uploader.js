@@ -7,8 +7,9 @@ import {
 } from "./types";
 
 import { server, API_URL } from "../utils/axios";
-import { getCurrentProfile, createProfile } from "./profile";
+import { getCurrentProfile, createProfile, loadToElastic } from "./profile";
 import { loadUser } from "./auth";
+import { elasticData } from "../helpers";
 
 export const uploadImages = e => async dispatch => {
   const errs = [];
@@ -56,12 +57,18 @@ export const uploadImages = e => async dispatch => {
         };
         await server.put("/profile/portfolio", sendImage);
       }
+
       await dispatch({
         type: IMAGES_UPLOAD_SUCCESS,
         payload: images
       });
       await dispatch(loadUser());
       await dispatch(getCurrentProfile());
+
+      const resProfile = await server.get("/profile/me");
+      const data = elasticData(resProfile);
+      const { profileId, elasticId } = data;
+      loadToElastic(data, profileId, elasticId);
     })
     .catch(error => {
       console.log(error);
@@ -69,7 +76,7 @@ export const uploadImages = e => async dispatch => {
     });
 };
 
-export const deleteImages = id => dispatch => {
+export const deleteImages = id => async dispatch => {
   try {
     const formData = new FormData();
     formData.append("id", id);
@@ -77,6 +84,10 @@ export const deleteImages = id => dispatch => {
       method: "POST",
       body: formData
     });
+    const resProfile = await server.get("/profile/me");
+    const data = elasticData(resProfile);
+    const { profileId, elasticId } = data;
+    loadToElastic(data, profileId, elasticId);
     dispatch({ type: IMAGES_DELETE_SUCCESS });
   } catch (err) {
     dispatch({ type: IMAGES_DELETE_FAIL });

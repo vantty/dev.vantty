@@ -65,7 +65,6 @@ export const confirmEmail = token => async dispatch => {
 export const register = token => async dispatch => {
   try {
     const res = await server.post(`/auth/validated/${token}`);
-    console.log(res.data);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
