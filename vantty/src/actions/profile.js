@@ -100,8 +100,8 @@ export const createProfile = (
       }
     };
 
-    const esRes = await elastic.post("/", formData, elasticConfig);
-    console.log("ELASTIC", esRes);
+    // const esRes = await elastic.post("/", formData, elasticConfig);
+    // console.log("ELASTIC", esRes);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

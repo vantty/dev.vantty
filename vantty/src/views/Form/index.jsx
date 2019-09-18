@@ -28,6 +28,7 @@ import {
 import { AppBarForm } from "../../components";
 
 import { makeStyles } from "@material-ui/core/styles";
+import Alert from "../../components/Alert";
 
 // Component styles
 const useStyles = makeStyles(theme => ({

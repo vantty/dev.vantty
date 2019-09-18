@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import validate from "validate.js";
 
 import {
   getStrategy,
@@ -29,7 +30,8 @@ import {
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
 import { getCurrentProfile, createProfile } from "../../../../actions/profile";
-import { FormBottomNav, AvatarUploader } from "../../../../components";
+import { FormBottomNav, AvatarUploader, Alert } from "../../../../components";
+import { schemaErrors } from "../../../../helpers/errorsData";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -50,7 +52,6 @@ const AccountDetails = ({
   profile: { profile },
   history,
   className,
-  handleChange,
   nextStep,
   prevStep,
   match,
@@ -66,6 +67,14 @@ const AccountDetails = ({
     id: "",
     password: "",
     profilePicture: {}
+  });
+
+  //errors
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {},
+    touched: {},
+    errors: {}
   });
 
   useEffect(() => {
@@ -86,8 +95,46 @@ const AccountDetails = ({
 
   const { firstName, lastName, email, profilePicture, id } = formData;
 
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  // const onChange = e => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
+
+  useEffect(() => {
+    const errors = validate(formState.values, schemaErrors);
+    setFormState(formState => ({
+      ...formState,
+      values: formData,
+      isValid: errors ? false : true,
+      errors: errors || {}
+    }));
+  }, [formState.values]);
+
+  //Errors
+  const handleChange = async event => {
+    event.persist();
+
+    setFormState(formState => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]:
+          event.target.name === "checkbox"
+            ? event.target.checked
+            : event.target.value
+      },
+
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true
+      }
+    }));
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const {
+    isValid,
+    values: {}
+  } = formState;
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -119,6 +166,10 @@ const AccountDetails = ({
     e.preventDefault();
     prevStep();
   };
+
+  //errors
+  const hasError = field =>
+    formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <Fragment>
@@ -168,17 +219,24 @@ const AccountDetails = ({
               <Grid item md={6} xs={12}>
                 {/* {fieldErrors()} */}
                 <TextField
+                  error={hasError("firstName")}
+                  helperText={
+                    hasError("firstName") ? formState.errors.firstName[0] : null
+                  }
                   fullWidth
                   label='First name'
                   margin='dense'
                   name='firstName'
                   required
+                  type='text'
                   variant='outlined'
                   id='firstName'
                   autoComplete='fname'
-                  value={firstName}
-                  onChange={e => onChange(e)}
+                  value={formState.values.firstName || firstName}
+                  onChange={handleChange}
                 />
+                {console.log("FIRST", firstName)}
+                {console.log("STATE", formState.values.firstName)}
               </Grid>
               <Grid item md={6} xs={12}>
                 <TextField
@@ -188,9 +246,14 @@ const AccountDetails = ({
                   name='lastName'
                   required
                   variant='outlined'
-                  value={lastName}
                   id='lastName'
-                  onChange={e => onChange(e)}
+                  error={hasError("lastName")}
+                  helperText={
+                    hasError("lastName") ? formState.errors.lastName[0] : null
+                  }
+                  // value={lastName}
+                  value={formState.values.lastName || lastName}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -203,62 +266,36 @@ const AccountDetails = ({
                   variant='outlined'
                   id='local.email'
                   autoComplete='email'
-                  value={email}
-                  onChange={e => onChange(e)}
+                  error={hasError("email")}
+                  helperText={
+                    hasError("email") ? formState.errors.email[0] : null
+                  }
+                  value={formState.values.email || email}
+                  // value={email}
+                  onChange={handleChange}
                 />
               </Grid>
             </Grid>
           </CardContent>
           <Divider />
-          {/* <Fragment>
-            <FormBottomNav
-              Children={
-                <div>
-                  <div>
-                    <Button component={Link} to='/dashboard'>
-                      Back
-                    </Button>
-                    <Button
-                      style={{ backgroundColor: "#f5f5" }}
-                      onClick={e => onSubmit(e)}
-                    >
-                      Update
-                    </Button>
-                  </div>
-                </div>
-              }
-            />
-          </Fragment> */}
+
           <FormBottomNav
             step={step}
             Children={
               <div>
                 <div>
-                  {match.url === "/personal-info" && !profile ? (
-                    <Fragment>
-                      <Button component={Link} to='/dashboard'>
-                        Back
-                      </Button>
-                      <Button
-                        onClick={e => onSubmit(e)}
-                        style={{ backgroundColor: "#f5f5" }}
-                      >
-                        Update
-                      </Button>
-                    </Fragment>
-                  ) : (
-                    <Fragment>
-                      <Button component={Link} to='/dashboard'>
-                        Back
-                      </Button>
-                      <Button
-                        style={{ backgroundColor: "#f5f5" }}
-                        onClick={e => onSubmit(e)}
-                      >
-                        Next
-                      </Button>
-                    </Fragment>
-                  )}
+                  <Fragment>
+                    <Button component={Link} to='/dashboard'>
+                      Back
+                    </Button>
+                    <Button
+                      onClick={e => onSubmit(e)}
+                      style={{ backgroundColor: "#f5f5" }}
+                      disabled={!formState.isValid}
+                    >
+                      {match.url === "/personal-info" ? "Update" : "Next"}
+                    </Button>
+                  </Fragment>
                 </div>
               </div>
             }
