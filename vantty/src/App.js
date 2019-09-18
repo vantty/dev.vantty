@@ -43,6 +43,7 @@ import "./assets/scss/index.scss";
 // Material-UI
 import { ThemeProvider } from "@material-ui/styles";
 import Settings from "./views/Settings";
+import { Alert } from "./components";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -111,6 +112,7 @@ const App = () => {
             </Switch>
           </Fragment>
         </Router>
+        <Alert />
       </ThemeProvider>
     </Provider>
   );

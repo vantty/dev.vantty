@@ -1,9 +1,10 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 
 // Externals
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import validate from "validate.js";
 
 // Actions
 import { getCurrentProfile, createProfile } from "../../actions/profile";
@@ -28,6 +29,7 @@ import {
 import { AppBarForm } from "../../components";
 
 import { makeStyles } from "@material-ui/core/styles";
+import Alert from "../../components/Alert";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -53,7 +55,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Form = ({ profile }) => {
+const Form = ({ profile, getCurrentProfile }) => {
+  const classes = useStyles();
+
+  const [activeStep, setActiveStep] = useState(1);
+
   const [formData, setFormData] = useState({
     profilePicture: "",
     bio: "",
@@ -65,24 +71,12 @@ const Form = ({ profile }) => {
     instagramUsername: "",
     user: ""
   });
-  const classes = useStyles();
 
-  const {
-    bio,
-    country,
-    state,
-    city,
-    instagramUsername,
-    mobileNumber,
-    profilePicture,
-    profession,
-    user
-  } = formData;
-
-  const [activeStep, setActiveStep] = useState(1);
-
+  useEffect(() => {
+    getCurrentProfile();
+  }, []);
   // Handle fields change
-  const handleChange = e =>
+  const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   // Proceed to next step
@@ -98,21 +92,16 @@ const Form = ({ profile }) => {
   function getStepContent(step) {
     switch (step) {
       case 1:
-        return (
-          <PersonalInfo
-            step={activeStep}
-            nextStep={nextStep}
-            handleChange={handleChange}
-          />
-        );
+        return <PersonalInfo step={activeStep} nextStep={nextStep} />;
       case 2:
         return (
           <CreateProfile
             step={activeStep}
             nextStep={nextStep}
-            handleChange={handleChange}
+            getCurrentProfile={getCurrentProfile}
             formData={formData}
             prevStep={prevStep}
+            onChange={onChange}
           />
         );
       case 3:
@@ -120,28 +109,19 @@ const Form = ({ profile }) => {
           <AddPortfolio
             step={activeStep}
             nextStep={nextStep}
-            handleChange={handleChange}
             prevStep={prevStep}
-            values={formData}
           />
         );
       case 4:
         return (
-          <Price
-            step={activeStep}
-            nextStep={nextStep}
-            handleChange={handleChange}
-            prevStep={prevStep}
-          />
+          <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
         );
       case 5:
         return (
           <InfoContact
             step={activeStep}
             nextStep={nextStep}
-            handleChange={handleChange}
             prevStep={prevStep}
-            // values={formData}
           />
         );
       default:
@@ -155,23 +135,38 @@ const Form = ({ profile }) => {
         <AppBarForm step={activeStep} />
       </div>
       <Box pt={11} pb={11}>
-        <div className={classes.root}>
-          <Grid container spacing={4}>
-            <Grid item lg={12} md={12} xl={12} xs={12}>
-              <Container maxWidth='md'>
-                <Fragment>
-                  <Fragment>{getStepContent(activeStep)}</Fragment>
-                </Fragment>
-              </Container>
+        {profile ? (
+          <div className={classes.root}>
+            <Grid container spacing={4}>
+              <Grid item lg={12} md={12} xl={12} xs={12}>
+                <Container maxWidth='md'>
+                  <Fragment>
+                    <Fragment>{getStepContent(activeStep)}</Fragment>
+                  </Fragment>
+                </Container>
+              </Grid>
             </Grid>
-          </Grid>
-        </div>
+          </div>
+        ) : (
+          <Progress />
+        )}
       </Box>
     </Fragment>
   );
 };
 
+Form.propTypes = {
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  createProfile: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  profile: state.profile,
+  auth: state.auth
+});
+
 export default connect(
-  null,
-  { createProfile }
+  mapStateToProps,
+  { getCurrentProfile, createProfile }
 )(withRouter(Form));

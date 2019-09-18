@@ -1,5 +1,11 @@
 import React, { Fragment } from "react";
-import { AppBar, Toolbar, IconButton, Divider } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Divider,
+  Container
+} from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MuiLink from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
@@ -24,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     // float: "left"
     // fontSize: "26px"
     // fontWeight: "ligther"
-    // marginTop: "1rem"
+    marginBottom: "0.5rem"
   },
   appbar: {
     background: "transparent",
@@ -51,9 +57,11 @@ const AppBarSettings = ({ id }) => {
               component={Link}
               to={`/profile/artist/${id}`}
             >
-              <IconButton className={classes.arrowBack}>
-                <ArrowBackIcon />
-              </IconButton>
+              <Container>
+                <IconButton className={classes.arrowBack}>
+                  <ArrowBackIcon />
+                </IconButton>
+              </Container>
             </MuiLink>
           </Toolbar>
         </AppBar>

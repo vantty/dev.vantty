@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import clsx from "clsx";
@@ -11,6 +11,7 @@ import { amber, green } from "@material-ui/core/colors";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import WarningIcon from "@material-ui/icons/Warning";
 import { makeStyles } from "@material-ui/core/styles";
+import { Slide, Button } from "@material-ui/core";
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -44,14 +45,16 @@ const useStyles1 = makeStyles(theme => ({
     alignItems: "center"
   }
 }));
-
+function TransitionLeft(props) {
+  return <Slide {...props} direction='left' />;
+}
 const Snackbar = ({ className, message, variant }) => {
   const classes = useStyles1();
   const Icon = variantIcon[variant];
 
   return (
     <SnackbarContent
-      className={clsx(classes[variant], className)}
+      className={clsx(classes[variant])}
       aria-describedby='client-snackbar'
       message={
         <span id='client-snackbar' className={classes.message}>
@@ -70,19 +73,33 @@ Snackbar.propTypes = {
 };
 
 const useStyles2 = makeStyles(theme => ({
-  margin: {
-    margin: theme.spacing(1)
+  // margin: {
+  //   margin: theme.spacing(1)
+  // },
+  anchorOriginTopCenter: {
+    [theme.breakpoints.down("md")]: {
+      top: "20px",
+      justifyContent: "center"
+    }
+  },
+  root: {
+    [theme.breakpoints.down("md")]: {
+      borderRadius: 4,
+      minWidth: "20px"
+    }
   }
 }));
 
 const Alert = ({ alerts }) => {
   const classes = useStyles2();
+
   return (
     alerts !== null &&
     alerts.length > 0 &&
     alerts.map(alert => (
-      <div key={alert.id}>
+      <div key={alert.id} className={classes.root}>
         <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           variant={alert.alertType}
           className={classes.margin}
           message={alert.msg}

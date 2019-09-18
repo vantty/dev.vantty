@@ -185,6 +185,7 @@ const Price = ({
         </Card>
       </Fragment>
       <Fragment>
+        {console.log(step)}
         <FormBottomNav
           step={step}
           Children={
@@ -210,6 +211,7 @@ const Price = ({
                     <Button
                       style={{ backgroundColor: "#f5f5" }}
                       onClick={e => onSubmit(e)}
+                      disabled={!price}
                     >
                       Next
                     </Button>

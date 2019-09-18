@@ -354,6 +354,7 @@ const Login = props => {
                   type='submit'
                   variant='contained'
                 >
+                  {console.log(formState.isValid)}
                   Login now
                 </Button>
                 <Typography color='textSecondary' variant='body1'>

@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import validate from "validate.js";
+import { schemaErrors } from "../../helpers/errorsData";
 //errors
-const schema = {
-  firstName: {
-    presence: { allowEmpty: false, message: "is required" },
-    firstName: true,
-    length: {
-      maximum: 64
-    }
-  }
-};
 
-const fieldErrors = () => {
+const fieldErrors = field => {
   const [formState, setFormState] = useState({
     isValid: false,
     showPassword: false,
@@ -22,7 +14,7 @@ const fieldErrors = () => {
   });
 
   useEffect(() => {
-    const errors = validate(formState.values, schema);
+    const errors = validate(formState.values, schemaErrors);
     setFormState(formState => ({
       ...formState,
       isValid: errors ? false : true,
@@ -31,13 +23,13 @@ const fieldErrors = () => {
   }, [formState.values]);
 
   const {
-    values: { firstName }
+    values: { field }
   } = formState;
 
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
 
-  return <div>{fieldErrors()}</div>;
+  return <div>{}</div>;
 };
 
 export default fieldErrors;

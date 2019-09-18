@@ -58,17 +58,21 @@ const EditForm = ({
         <AppBarForm step={null} />
       </div>
       {match.url === "/personal-info" ? (
-        <Box pt={11} pb={11}>
-          <div className={classes.root}>
-            <Grid container spacing={4}>
-              <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
-                  <Fragment>{Children}</Fragment>
-                </Container>
+        user ? (
+          <Box pt={11} pb={11}>
+            <div className={classes.root}>
+              <Grid container spacing={4}>
+                <Grid item lg={12} md={12} xl={12} xs={12}>
+                  <Container maxWidth='md'>
+                    <Fragment>{Children}</Fragment>
+                  </Container>
+                </Grid>
               </Grid>
-            </Grid>
-          </div>
-        </Box>
+            </div>
+          </Box>
+        ) : (
+          <Progress />
+        )
       ) : profile ? (
         <Box pt={11} pb={11}>
           <div className={classes.root}>

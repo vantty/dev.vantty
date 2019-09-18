@@ -24,9 +24,10 @@ export default function ProgressBarForm({ value }) {
 
   const progress = {
     1: 20,
-    2: 50,
-    3: 80,
-    4: 90
+    2: 40,
+    3: 60,
+    4: 80,
+    5: 95
   };
 
   return (

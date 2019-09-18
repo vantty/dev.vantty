@@ -2,6 +2,9 @@ import React, { useState, Fragment, useEffect, useRef } from "react";
 import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
+//External
+import validate from "validate.js";
+
 // Actions
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../../../actions/profile";
@@ -32,6 +35,7 @@ import {
   TextField,
   Grid
 } from "@material-ui/core";
+import { schemaErrorsCreateProfile } from "../../../../helpers/errorsData";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -60,6 +64,22 @@ const EditProfile = ({
     user: "",
     price: ""
   });
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {},
+    touched: {},
+    errors: {}
+  });
+
+  useEffect(() => {
+    const errors = validate(formState.values, schemaErrorsCreateProfile);
+    setFormState(formState => ({
+      ...formState,
+      values: formData,
+      isValid: errors ? false : true,
+      errors: errors || {}
+    }));
+  }, [formState.values]);
 
   useEffect(() => {
     getCurrentProfile();
@@ -85,6 +105,27 @@ const EditProfile = ({
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const handleChange = async event => {
+    event.persist();
+
+    setFormState(formState => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]:
+          event.target.type === "checkbox"
+            ? event.target.checked
+            : event.target.value
+      },
+
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true
+      }
+    }));
+    onChange(event);
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     createProfile(formData, history, true);
@@ -95,6 +136,9 @@ const EditProfile = ({
   useEffect(() => {
     setLabelWidth(inputLabel.current.labelWidth);
   }, []);
+
+  const hasError = field =>
+    formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <Fragment>
@@ -123,8 +167,13 @@ const EditProfile = ({
                           </InputLabel>
                           <Select
                             select
-                            value={profession}
-                            onChange={e => onChange(e)}
+                            error={hasError("profession")}
+                            value={
+                              formState.values.profession ||
+                              formData.profession ||
+                              ""
+                            }
+                            onChange={handleChange}
                             id='profession'
                             name='profession'
                             label='profession'
@@ -147,7 +196,7 @@ const EditProfile = ({
                             </MenuItem>
                           </Select>
                           <FormHelperText>
-                            Obviously, we know you are an artist
+                            Give us your profession
                           </FormHelperText>
                         </FormControl>
                       </Grid>
@@ -161,11 +210,15 @@ const EditProfile = ({
                             name='bio'
                             label='bio'
                             margin='normal'
-                            value={bio}
+                            onChange={handleChange}
                             multiline
                             rows='6'
                             fullWidth
-                            onChange={e => onChange(e)}
+                            value={formState.values.bio || formData.bio || ""}
+                            error={hasError("bio")}
+                            helperText={
+                              hasError("bio") ? formState.errors.bio[0] : null
+                            }
                           />
                         </Grid>
                       </Grid>
@@ -206,7 +259,6 @@ const EditProfile = ({
                           <TextField
                             fullWidth
                             margin='dense'
-                            required
                             variant='outlined'
                             id='instagramUsername'
                             name='instagramUsername'
@@ -234,7 +286,7 @@ const EditProfile = ({
                 </form>
               </Card>
               <FormBottomNav
-                step={"1"}
+                // step={"1"}
                 Children={
                   <div>
                     <div>
@@ -244,28 +296,9 @@ const EditProfile = ({
                       <Button
                         style={{ backgroundColor: "#f5f5" }}
                         onClick={e => onSubmit(e)}
+                        disabled={!formState.isValid}
                       >
                         Next
-                      </Button>
-                    </div>
-                  </div>
-                }
-              />
-            </Fragment>
-
-            <Fragment>
-              <FormBottomNav
-                Children={
-                  <div>
-                    <div>
-                      <Button component={Link} to='/settings'>
-                        Back
-                      </Button>
-                      <Button
-                        style={{ backgroundColor: "#f5f5" }}
-                        onClick={e => onSubmit(e)}
-                      >
-                        Update
                       </Button>
                     </div>
                   </div>
