@@ -141,8 +141,8 @@ const Settings = ({
   const sideList = side => (
     <div className={classes.list}>
       <AppBarSettings id={user && user._id} />
-      <br />
       <Container>
+        <br />
         <List subheader={<li />}>
           <ListSubheader className={classes.title}>{"Profile"}</ListSubheader>
           {pages.map((page, index) => (

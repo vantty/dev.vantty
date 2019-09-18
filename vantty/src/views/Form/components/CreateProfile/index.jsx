@@ -6,10 +6,7 @@ import { withRouter } from "react-router-dom";
 import { createProfile } from "../../../../actions/profile";
 
 //helpers
-import {
-  schemaErrors,
-  schemaErrorsCreateProfile
-} from "../../../../helpers/errorsData";
+import { schemaErrorsCreateProfile } from "../../../../helpers/errorsData";
 
 // Externals
 import PropTypes from "prop-types";

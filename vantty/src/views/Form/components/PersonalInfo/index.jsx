@@ -287,7 +287,7 @@ const AccountDetails = ({
               <div>
                 <div>
                   <Fragment>
-                    <Button component={Link} to='/dashboard'>
+                    <Button component={Link} to='/settings'>
                       Back
                     </Button>
                     <Button
