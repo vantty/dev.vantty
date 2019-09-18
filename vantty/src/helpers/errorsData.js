@@ -21,3 +21,21 @@ export const schemaErrors = {
     }
   }
 };
+
+export const schemaErrorsCreateProfile = {
+  bio: {
+    presence: { allowEmpty: false, message: "is required" },
+    // lastName: false,
+    length: {
+      maximum: 10
+    }
+  },
+  profession: {
+    presence: { allowEmpty: false, message: "is required" }
+    // lastName: false,
+  },
+  city: {
+    presence: { allowEmpty: false, message: "is required" }
+    // lastName: false,
+  }
+};

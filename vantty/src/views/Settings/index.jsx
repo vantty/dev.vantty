@@ -80,6 +80,11 @@ const Settings = ({
       href: "/personal-info",
       icon: <PeopleIcon />
     },
+    {
+      title: "Biografy",
+      href: "/edit-profile",
+      icon: <ImageIcon />
+    },
 
     {
       title: "Portfolio",

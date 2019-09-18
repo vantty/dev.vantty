@@ -235,9 +235,11 @@ const AccountDetails = ({
                   value={formState.values.firstName || firstName}
                   onChange={handleChange}
                 />
-                {console.log("FIRST", firstName)}
-                {console.log("STATE", formState.values.firstName)}
               </Grid>
+              {/* {console.log("STATE", formState)}
+              {console.log("valid", formState.isValid)}
+              {console.log("STATE", formState.values.firstName)}
+              {console.log("DATA", firstName)} */}
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth

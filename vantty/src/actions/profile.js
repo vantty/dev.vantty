@@ -85,11 +85,11 @@ export const createProfile = (
     dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
 
     // if (!edit) {
-    //   history.push("/add-portfolio");
+    //   history.push("/settings");
     // }
 
     // if (edit) {
-    //   history.push("/add-portfolio");
+    //   history.push("/settings");
     // }
 
     const elasticConfig = {

@@ -249,7 +249,7 @@ export const updateInfo = (
     dispatch(setAlert(edit && "User Update", "success"));
 
     // if (edit) {
-    //   history.push("/dashboard");
+    //   history.push("/settings");
     // }
   } catch (err) {
     const errors = err.response.data.errors;
