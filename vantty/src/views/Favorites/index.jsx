@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import LinkMui from "@material-ui/core/Link";
 import {
   ReactiveBase,
   CategorySearch,
@@ -15,8 +17,11 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
+import Progress from "@material-ui/core/LinearProgress";
 
-const useStyles = makeStyles({
+const { ResultCardsWrapper } = ReactiveList;
+
+const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 600,
     maring: "50px"
@@ -24,22 +29,21 @@ const useStyles = makeStyles({
   media: {
     height: 140
   }
-});
+}));
 
 const Favorites = () => {
   const classes = useStyles();
   return (
-    <Container>
-      <ReactiveBase
-        app="vantty-database"
-        credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
-      >
-        <CategorySearch
-          componentId="searchbox"
-          dataField={["name.firstName", "name.lastName", "city", "profession"]}
-          placeholder="Search..."
-        />
-        {/* <SingleRange
+    <ReactiveBase
+      app="vantty-database"
+      credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
+    >
+      <CategorySearch
+        componentId="searchbox"
+        dataField={["name.firstName", "name.lastName", "city", "profession"]}
+        placeholder="Search..."
+      />
+      {/* <SingleRange
           componentId="ratingsfilter"
           title="Filter by ratings"
           dataField="rating"
@@ -53,51 +57,64 @@ const Favorites = () => {
           defaultValue="see all ratings"
         /> */}
 
-        <ReactiveList
-          componentId="result"
-          title="Results"
-          dataField={["name.firstName", "name.lastName", "city", "profession"]}
-          from={0}
-          size={4}
-          pagination={true}
-          react={{
-            and: ["searchbox"]
-          }}
-          render={({ data }) => (
-            <ReactiveList.ResultCardsWrapper>
+      <ReactiveList
+        componentId="result"
+        title="Results"
+        dataField="name.firstName"
+        size={12}
+        infiniteScroll={true}
+        showResultStats={false}
+        loader={<Progress />}
+        react={{
+          and: ["searchbox"]
+        }}
+        render={({ data }) => (
+          <Container>
+            <ResultCardsWrapper>
               {data.map(item => (
-                <ResultCard key={item._id}>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://bit.do/demoimg"
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {item.name.firstName}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {item.profession}
-                      <br />
-                      {item.city}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                  </CardActions>
-                </ResultCard>
+                <Fragment key={item._id}>
+                  {item.portfolioPictures.map(pic => (
+                    <Fragment key={pic.cloudId}>
+                      <ResultCard>
+                        <CardMedia
+                          className={classes.media}
+                          image={pic.original}
+                          title="Contemplative Reptile"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {item.name.firstName}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p"
+                          >
+                            {item.profession}
+                            <br />
+                            {item.city}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button
+                            size="small"
+                            color="primary"
+                            component={Link}
+                            to={`/profile/artist/${item.userId}`}
+                          >
+                            View
+                          </Button>
+                        </CardActions>
+                      </ResultCard>
+                    </Fragment>
+                  ))}
+                </Fragment>
               ))}
-            </ReactiveList.ResultCardsWrapper>
-          )}
-        />
-      </ReactiveBase>
-    </Container>
+            </ResultCardsWrapper>
+          </Container>
+        )}
+      />
+    </ReactiveBase>
   );
 };
 export default Favorites;
