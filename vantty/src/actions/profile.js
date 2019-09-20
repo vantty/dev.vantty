@@ -134,7 +134,18 @@ export const createMobileNumber = (
 };
 
 // Add Education
-export const addEducation = (formData, history) => async dispatch => {
+export const addCategories = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  let array = [];
+  for (const prop in formData) {
+    if (formData[prop] === true) {
+      array.push(prop);
+    }
+    console.log("ARRAYYYY", array);
+  }
   try {
     const config = {
       headers: {
@@ -142,16 +153,15 @@ export const addEducation = (formData, history) => async dispatch => {
       }
     };
 
-    const res = await server.put("/profile/education", formData, config);
+    const res = await server.put("/profile/categories", array, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert("Education Added", "success"));
-
-    history.push("/dashboard");
+    dispatch(setAlert("Categories Added", "success"));
+    edit && history.push("/settings");
   } catch (err) {
     const errors = err.response.data.errors;
 

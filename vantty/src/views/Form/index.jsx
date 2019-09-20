@@ -23,7 +23,8 @@ import {
   AddPortfolio,
   InfoContact,
   Price,
-  PersonalInfo
+  PersonalInfo,
+  Categories
 } from "./components";
 
 import { AppBarForm } from "../../components";
@@ -106,7 +107,7 @@ const Form = ({ profile, getCurrentProfile }) => {
         );
       case 3:
         return (
-          <AddPortfolio
+          <Categories
             step={activeStep}
             nextStep={nextStep}
             prevStep={prevStep}
@@ -114,9 +115,17 @@ const Form = ({ profile, getCurrentProfile }) => {
         );
       case 4:
         return (
-          <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+          <AddPortfolio
+            step={activeStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+          />
         );
       case 5:
+        return (
+          <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+        );
+      case 6:
         return (
           <InfoContact
             step={activeStep}

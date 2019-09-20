@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 import { getCurrentProfile, createProfile } from "../../../../actions/profile";
 
 //Components
-import { FormBottomNav, ImagesUploader } from "../../../../components";
+import { FormBottomNav } from "../../../../components";
 
 // Externals
 import PropTypes from "prop-types";

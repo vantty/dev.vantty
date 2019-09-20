@@ -56,6 +56,7 @@ const ProfileSchema = new mongoose.Schema({
       }
     }
   ],
+  categories: [String],
 
   portfolioPictures: [
     {

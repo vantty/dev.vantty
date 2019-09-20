@@ -29,8 +29,8 @@ exports.profileValidator = (req, res, next) => {
 };
 
 exports.profileValidatorEducation = (req, res, next) => {
-  req.check("school", "School is required").notEmpty();
-  req.check("degree", "Degree is required").notEmpty();
+  // req.check("school", "School is required").notEmpty();
+  // req.check("degree", "Degree is required").notEmpty();
   const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({ errors });

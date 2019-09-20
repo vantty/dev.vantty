@@ -165,15 +165,13 @@ exports.deleteUserAndReviews = async (req, res) => {
 };
 
 // Add Education
-exports.addEducation = async (req, res) => {
-  const { school, degree, description } = req.body;
-
-  const newEdu = { school, degree, description };
+exports.addCategories = async (req, res) => {
+  const category = req.body;
 
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
-    profile.education.unshift(newEdu);
+    profile.categories = category.slice(0);
 
     await profile.save();
 

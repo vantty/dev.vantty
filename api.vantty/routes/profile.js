@@ -14,7 +14,7 @@ const {
   allProfiles,
   profileById,
   deleteUserAndReviews,
-  addEducation,
+  addCategories,
   deleteEducation,
   addPortfolio,
   deletePicture,
@@ -46,7 +46,12 @@ router.delete("/", passportJWT, deleteUserAndReviews);
 // @route    PUT api/profile/education
 // @desc     Add profile education
 // @access   Private
-router.put("/education", passportJWT, profileValidatorEducation, addEducation);
+router.put(
+  "/categories",
+  passportJWT,
+  profileValidatorEducation,
+  addCategories
+);
 
 // @route    DELETE api/profile/education/:edu_id
 // @desc     Delete education from profile

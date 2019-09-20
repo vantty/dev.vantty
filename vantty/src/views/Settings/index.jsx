@@ -92,6 +92,11 @@ const Settings = ({
       icon: <ImageIcon />
     },
     {
+      title: "Categories",
+      href: "/categories",
+      icon: <ImageIcon />
+    },
+    {
       title: "Service",
       href: "/price",
       icon: <ImageIcon />
