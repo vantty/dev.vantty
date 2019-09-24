@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // Components
-import PortfolioPictures from "./Porfolio";
+import PortfolioPictures from "./components/Porfolio";
 
 // Actions
 import { uploadImages } from "../../actions/uploader";

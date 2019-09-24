@@ -266,12 +266,9 @@ export const updateInfo = (
 
 //delete user picture
 export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
-  console.log(dataBaseId, cloudId);
   try {
-    // const res = await server.post(`/auth/userPicture`, dataBaseId);
-    dispatch(
-      updateInfo({ id: dataBaseId, profilePicture: "" }, undefined, true)
-    );
+    const res = await server.post(`/auth/userPicture`, { dataBaseId });
+
     dispatch(deleteImages(cloudId));
 
     dispatch({

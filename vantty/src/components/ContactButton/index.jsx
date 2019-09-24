@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
-
+import { isMobile, isAndroid, isIOS } from "react-device-detect";
 import { getStrategyName } from "../../helpers";
 import { withTheme } from "@material-ui/styles";
 
@@ -56,22 +56,49 @@ const ContactButton = ({ profile: { mobileNumber, user, price } }) => {
                 <h2 className={classes.price}>CAD$ {price}</h2>
               </Grid>
               <Grid item>
+                {isIOS && (
+                  <a
+                    href={`sms:${mobileNumber}?body=Hello! ${getStrategyName(
+                      user
+                    )},I watched your profile in www.vantty.com,so I wanted to get an appoinment with you!`}
+                  >
+                    <Button className={classes.button} variant='contained'>
+                      Contact
+                    </Button>
+                  </a>
+                )}
+                {(isAndroid && (
+                  <a
+                    href={`sms:${mobileNumber}&body=Hello! ${getStrategyName(
+                      user
+                    )},I watched your profile in www.vantty.com,so I wanted to get an appoinment with you!`}
+                  >
+                    <Button className={classes.button} variant='contained'>
+                      Contact
+                    </Button>
+                  </a>
+                )) || (
+                  <a
+                    href={`sms:${mobileNumber}&body=Hello! ${getStrategyName(
+                      user
+                    )},I watched your profile in www.vantty.com,so I wanted to get an appoinment with you!`}
+                  >
+                    <Button className={classes.button} variant='contained'>
+                      Contact
+                    </Button>
+                  </a>
+                )}
+
                 {/* <a
                   target='#'
                   href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${getStrategyName(
                     user
                   )},%20I%20watched%20your%20profile%20in%20www.vantty.com,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
-                > */}
-                {/* Android
-                <a href="sms:1234?body=hi">Android</a>
-                IOS
-                <a href="sms:1234&body=hi">Ios</a> */}
-
-                <a href={`sms:${mobileNumber}&body=Hello world`}>
+                >
                   <Button className={classes.button} variant='contained'>
                     Contact
                   </Button>
-                </a>
+                </a> */}
               </Grid>
             </Grid>
           </Fragment>

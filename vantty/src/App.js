@@ -22,13 +22,17 @@ import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
 import Landing from "./views/Landing";
-import { InfoContact, Categories } from "./views/Form/components";
+import { InfoContact } from "./views/Form/components";
 import {
   EditProfile,
   EditPersonalInfo,
   EditMobile
 } from "./views/EditForm/components";
-import { EditPortfolio, EditPrice } from "./views/EditForm/components";
+import {
+  EditPortfolio,
+  EditPrice,
+  EditCategories
+} from "./views/EditForm/components";
 import Form from "./views/Form";
 
 // Actions
@@ -58,7 +62,6 @@ const App = () => {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Alert />
-
         <Router>
           <Fragment>
             <Route exact path='/' component={Landing} />
@@ -82,7 +85,11 @@ const App = () => {
               <Route exact path='/home' component={Home} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute exact path='/create-profile' component={Form} />
-              <PrivateRoute exact path='/categories' component={Categories} />
+              <PrivateRoute
+                exact
+                path='/categories'
+                component={EditCategories}
+              />
               <PrivateRoute
                 exact
                 path='/edit-profile'

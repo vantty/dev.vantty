@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddEducation = ({
+const AddCategories = ({
   addCategories,
   history,
   profile: { profile, loading },
@@ -79,22 +79,51 @@ const AddEducation = ({
 
   const onSubmit = async e => {
     e.preventDefault();
-    addCategories(state, history);
+    addCategories(state, history, stateHair, false);
     (await match.url) !== "/categories" && nextStep();
   };
 
   const [state, setState] = useState({
-    gilad: true,
-    jason: false,
-    antoine: false
+    Wedding: true,
+    Social: false,
+    Prom: false,
+    Fashion: false,
+    Special_Effects: false,
+    Photography: false
   });
+
+  const {
+    Wedding,
+    Social,
+    Prom,
+    Fashion,
+    Special_Effects,
+    Photography
+  } = state;
 
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
   };
 
-  const { gilad, jason, antoine } = state;
-  const error = [gilad, jason, antoine].filter(v => v).length !== 2;
+  const error =
+    [Wedding, Social, Prom, Fashion, Special_Effects, Photography].filter(
+      v => v
+    ).length < 1;
+
+  //Hair
+  const [stateHair, setStateHair] = useState({
+    Brides: false,
+    Peinados: true,
+    Cut: false
+  });
+
+  const { Brides, Peinados, Cut } = stateHair;
+  const errorHair = [Brides, Peinados, Cut].filter(v => v).length < 1;
+
+  const handleChangeHair = name => event => {
+    setStateHair({ ...stateHair, [name]: event.target.checked });
+  };
+
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
@@ -110,60 +139,90 @@ const AddEducation = ({
               define the final price with the customer
             </Typography>
             <br />
-            <br />
-            <br />
+
             <Fragment>
               <Grid
                 container
                 direction='row'
-                justify='center'
-                alignItems='center'
+                justify='space-evenly'
+                alignItems='baseline'
               >
-                <Grid item xs={8}>
-                  <form className='form'>
-                    <FormControl
-                      error={error}
-                      component='fieldset'
-                      className={classes.formControl}
-                    >
-                      <FormLabel component='legend'>
-                        Assign responsibility
-                      </FormLabel>
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={gilad}
-                              onChange={handleChange("gilad")}
-                              value='gilad'
-                            />
-                          }
-                          label='Gilad Gray'
-                        />
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={jason}
-                              onChange={handleChange("jason")}
-                              value='jason'
-                            />
-                          }
-                          label='Jason Killian'
-                        />
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={antoine}
-                              onChange={handleChange("antoine")}
-                              value='antoine'
-                            />
-                          }
-                          label='Antoine Llorca'
-                        />
-                      </FormGroup>
-                      <FormHelperText>Be careful</FormHelperText>
-                    </FormControl>
-                  </form>
+                <Grid item xs={5}>
+                  {/* <form className='form'> */}
+                  <Typography color='textSecondary' variant='body1'>
+                    Makeup
+                  </Typography>
+
+                  <FormControl
+                    error={error}
+                    component='fieldset'
+                    className={classes.formControl}
+                  >
+                    <FormLabel component='legend'>Select minimum one</FormLabel>
+
+                    <FormGroup>
+                      {Object.keys(state).map((data, index) => {
+                        return (
+                          <div key={data}>
+                            <Fragment>
+                              {console.log(profile.categories.makeup[index])}
+                              <FormControlLabel
+                                key={data}
+                                control={
+                                  <Checkbox
+                                    checked={
+                                      state[data] ||
+                                      profile.categories.makeup[index]
+                                    }
+                                    onChange={handleChange(data)}
+                                    value={toString(data)}
+                                  />
+                                }
+                                label={data}
+                              />
+                            </Fragment>
+                          </div>
+                        );
+                      })}
+                    </FormGroup>
+                    {/* <FormHelperText>Be careful</FormHelperText> */}
+                  </FormControl>
+                  {/* </form> */}
+                </Grid>
+                <Grid item xs={5}>
+                  <Typography color='textSecondary' variant='body1'>
+                    Hair
+                  </Typography>
+
+                  <FormControl
+                    error={errorHair}
+                    component='fieldset'
+                    className={classes.formControl}
+                  >
+                    <FormLabel component='legend'>Select minimum one</FormLabel>
+                    <FormGroup>
+                      {Object.keys(stateHair).map((data, index) => {
+                        return (
+                          <div key={data}>
+                            <Fragment>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    key={data}
+                                    checked={stateHair[data] === true && true}
+                                    onChange={handleChangeHair(data)}
+                                    value={toString(data)}
+                                  />
+                                }
+                                label={data}
+                              />
+                            </Fragment>
+                          </div>
+                        );
+                      })}
+                    </FormGroup>
+                    {/* <FormHelperText>Be careful</FormHelperText> */}
+                  </FormControl>
                 </Grid>
               </Grid>
             </Fragment>
@@ -191,7 +250,7 @@ const AddEducation = ({
                       <Button
                         style={{ backgroundColor: "#f5f5" }}
                         onClick={e => onSubmit(e)}
-                        // disabled={!price}
+                        disabled={error || errorHair}
                       >
                         {match.url === "/categories" ? "Update" : "next"}
                       </Button>
@@ -209,7 +268,7 @@ const AddEducation = ({
   );
 };
 
-AddEducation.propTypes = {
+AddCategories.propTypes = {
   addCategories: PropTypes.func.isRequired,
   className: PropTypes.string,
   // createProfile: PropTypes.func.isRequired,
@@ -223,4 +282,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addCategories, getCurrentProfile }
-)(withRouter(AddEducation));
+)(withRouter(AddCategories));

@@ -56,7 +56,7 @@ const ProfileSchema = new mongoose.Schema({
       }
     }
   ],
-  categories: [String],
+  categories: { makeup: [String], hair: [String] },
 
   portfolioPictures: [
     {
@@ -65,6 +65,9 @@ const ProfileSchema = new mongoose.Schema({
       },
       cloudId: {
         type: String
+      },
+      cloudId: {
+        type: [String]
       }
     }
   ],

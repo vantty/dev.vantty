@@ -138,7 +138,6 @@ generateEmailToken = user => {
 //Update Personal Info
 exports.updatePersonalInfo = async (req, res) => {
   const { firstName, lastName, email, id, profilePicture } = req.body;
-
   let data = await User.findById({ _id: id });
 
   // Build profile object
@@ -191,19 +190,14 @@ exports.addUserImage = async (req, res) => {
 
 // Delete ProfilePicture
 exports.deleteUserPicture = async (req, res) => {
-  console.log(req.body);
+  console.log(req);
   try {
-    // const user = await User.findOne({ user: req.user.id });
+    const user = await User.findById(req.body.dataBaseId);
 
-    // Get remove index
-    // const removeIndex = user.profilePicture
-    //   .map(item => item.id)
-    //   .indexOf(req.params.pic_id);
+    const strategy = user.method;
+    user[strategy].profilePicture = {};
 
-    // // user.profilePicture.splice(removeIndex, 1);
-    // user.profilePicture.shift();
-
-    // await user.save();
+    await user.save();
 
     res.json(user);
   } catch (err) {

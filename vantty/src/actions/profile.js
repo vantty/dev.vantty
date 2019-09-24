@@ -135,17 +135,28 @@ export const createMobileNumber = (
 
 // Add Education
 export const addCategories = (
-  formData,
+  state,
   history,
+  stateHair,
   edit = false
 ) => async dispatch => {
-  let array = [];
-  for (const prop in formData) {
-    if (formData[prop] === true) {
-      array.push(prop);
+  let categories = {};
+  let makeup = [];
+  let hair = [];
+
+  for (const prop in state) {
+    if (state[prop] === true) {
+      await makeup.push(prop);
     }
-    console.log("ARRAYYYY", array);
   }
+
+  for (const prop in stateHair) {
+    if (stateHair[prop] === true) {
+      await hair.push(prop);
+    }
+  }
+  categories = { makeup, hair };
+  console.log("CATEGORY", categories);
   try {
     const config = {
       headers: {
@@ -153,7 +164,7 @@ export const addCategories = (
       }
     };
 
-    const res = await server.put("/profile/categories", array, config);
+    const res = await server.put("/profile/categories", categories, config);
 
     dispatch({
       type: UPDATE_PROFILE,

@@ -167,11 +167,11 @@ exports.deleteUserAndReviews = async (req, res) => {
 // Add Education
 exports.addCategories = async (req, res) => {
   const category = req.body;
-
+  console.log(req.body);
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
-    profile.categories = category.slice(0);
+    profile.categories = category;
 
     await profile.save();
 
