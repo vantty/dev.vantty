@@ -11,6 +11,15 @@ import { getCurrentProfile, createProfile, loadToElastic } from "./profile";
 import { loadUser } from "./auth";
 import { elasticData } from "../helpers";
 
+// export const uploadTag = (tag, pictureId) => async dispatch => {
+//   try {
+//     const sendTags = { tag, pictureId };
+//     server.post("/profile/add-tags", sendTags);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 export const uploadImages = e => async dispatch => {
   const errs = [];
   const files = Array.from(e.target.files);
@@ -53,7 +62,8 @@ export const uploadImages = e => async dispatch => {
       for (let i = 0; i < images.length; i++) {
         const sendImage = {
           original: images[i].secure_url,
-          cloudId: images[i].public_id
+          cloudId: images[i].public_id,
+          tag: [""]
         };
         await server.put("/profile/portfolio", sendImage);
       }

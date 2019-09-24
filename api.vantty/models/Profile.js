@@ -64,6 +64,9 @@ const ProfileSchema = new mongoose.Schema({
       },
       cloudId: {
         type: String
+      },
+      tag: {
+        type: String
       }
     }
   ],

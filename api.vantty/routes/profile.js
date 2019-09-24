@@ -17,6 +17,7 @@ const {
   addEducation,
   deleteEducation,
   addPortfolio,
+  addPictureTags,
   deletePicture,
   addProfileImage,
   deleteProfilePicture,
@@ -57,6 +58,10 @@ router.delete("/education/:edu_id", passportJWT, deleteEducation);
 // @access   Private
 router.put("/portfolio", passportJWT, addPortfolio);
 
+// @route    PUT /profile/add-tags
+// @access   Private
+router.post("/add-tags", passportJWT, addPictureTags);
+
 // @route    DELETE /profile/portfolio/:pic_id
 // @access   Private
 router.delete("/portfolio/:pic_id", passportJWT, deletePicture);
@@ -69,6 +74,8 @@ router.put("/profile-image", passportJWT, addProfileImage);
 // @access   Private
 router.delete("/profilePicture/:pic_id", passportJWT, deleteProfilePicture);
 
+// @route    PUT /profile/elastic
+// @access   Private
 router.put("/elastic", passportJWT, loadToElastic);
 
 module.exports = router;

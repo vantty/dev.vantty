@@ -209,15 +209,44 @@ exports.deleteEducation = async (req, res) => {
 exports.addPortfolio = async (req, res) => {
   const { original, cloudId } = req.body;
   const newPicture = { original, cloudId };
+
   try {
     const profile = await Profile.findOne({ user: req.user.id });
     await profile.portfolioPictures.unshift(newPicture);
     await profile.save();
     res.json(profile);
-    // if (profile.portfolioPictures) res.send("Hello");
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+};
+
+exports.addPictureTags = async (req, res) => {
+  try {
+    const { tag, pictureId } = req.body;
+
+    const test = [
+      { _id: "5d893a8cc9788920b5473339", tag: tag },
+      { _id: "5d893a1448e1972064fc27e3", tag: tag },
+      { _id: "5d893088a7dcaa1d4a439300", tag: tag }
+    ];
+
+    const profile = await Profile.findOne({ user: req.user.id });
+    let pictures = profile.portfolioPictures;
+
+    const arr = Array.from(pictures);
+    const arr2 = Array.from(test);
+    for (const x of arr) {
+      for (const y of arr2) {
+        if (x._id == y._id) {
+          x.tag = y.tag;
+        }
+      }
+    }
+    console.log(profile);
+    res.json(profile);
+  } catch (error) {
+    console.log(error);
   }
 };
 

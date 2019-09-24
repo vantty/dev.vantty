@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 //Components
 import { deletePicture } from "../../../actions/profile";
+import Chips from "../../TagsChips";
 
 //Material-UI
 import CancelIcon from "@material-ui/icons/CancelRounded";
@@ -61,7 +62,7 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
   const pictures = () => (
     <div>
       <GridList>
-        <GridListTile key='Subheader' cols={2} style={{ height: "auto" }}>
+        <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
           {/* <ListSubheader component='div'>Portfolio</ListSubheader> */}
           <br />
         </GridListTile>
@@ -77,6 +78,7 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
               }}
               className={clsx(classes.image)}
             />
+            <Chips />
           </GridListTile>
         ))}
       </GridList>
