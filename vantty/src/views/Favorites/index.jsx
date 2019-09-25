@@ -54,7 +54,8 @@ const filterPicture = (portfolioPictures, values) => {
 
 const Favorites = () => {
   const classes = useStyles();
-  const [values, setValues] = useState([]);
+  const [values, setValues] = useState("");
+  const [valuesSearch, setValuesSearch] = useState("");
   return (
     <ReactiveBase
       app="vantty-database"
@@ -62,8 +63,10 @@ const Favorites = () => {
     >
       <DataSearch
         componentId="searchbox"
-        dataField={["portfolioPictures.tag"]}
+        dataField={["portfolioPictures.tag", "name.firstName"]}
         placeholder="Search..."
+        value={valuesSearch}
+        onChange={setValuesSearch}
       />
       {/* <SingleRange
         componentId="ratingsfilter"
@@ -117,44 +120,87 @@ const Favorites = () => {
                   <Fragment key={item._id}>
                     {item.portfolioPictures.map(pic => (
                       <Fragment key={pic.cloudId}>
-                        {filterPicture(item.portfolioPictures, values[0])}
-                        <ResultCard>
-                          <CardMedia
-                            className={classes.media}
-                            image={pic.original}
-                            title="Contemplative Reptile"
-                          />
-                          <CardContent>
-                            <Typography
-                              gutterBottom
-                              variant="h5"
-                              component="h2"
-                            >
-                              {item.name.firstName}
-                            </Typography>
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              component="p"
-                            >
-                              {item.profession}
-                              <br />
-                              {item.city}
-                              <br />
-                              {pic.tag}
-                            </Typography>
-                          </CardContent>
-                          <CardActions>
-                            <Button
-                              size="small"
-                              color="primary"
-                              component={Link}
-                              to={`/profile/artist/${item.userId}`}
-                            >
-                              View
-                            </Button>
-                          </CardActions>
-                        </ResultCard>
+                        {pic.tag == values ? (
+                          <Fragment>
+                            <ResultCard>
+                              <CardMedia
+                                className={classes.media}
+                                image={pic.original}
+                                title="Contemplative Reptile"
+                              />
+                              <CardContent>
+                                <Typography
+                                  gutterBottom
+                                  variant="h5"
+                                  component="h2"
+                                >
+                                  {item.name.firstName}
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  color="textSecondary"
+                                  component="p"
+                                >
+                                  {item.profession}
+                                  <br />
+                                  {item.city}
+                                  <br />
+                                  {pic.tag}
+                                </Typography>
+                              </CardContent>
+                              <CardActions>
+                                <Button
+                                  size="small"
+                                  color="primary"
+                                  component={Link}
+                                  to={`/profile/artist/${item.userId}`}
+                                >
+                                  View
+                                </Button>
+                              </CardActions>
+                            </ResultCard>
+                          </Fragment>
+                        ) : (
+                          <Fragment>
+                            <ResultCard>
+                              <CardMedia
+                                className={classes.media}
+                                image={pic.original}
+                                title="Contemplative Reptile"
+                              />
+                              <CardContent>
+                                <Typography
+                                  gutterBottom
+                                  variant="h5"
+                                  component="h2"
+                                >
+                                  {item.name.firstName}
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  color="textSecondary"
+                                  component="p"
+                                >
+                                  {item.profession}
+                                  <br />
+                                  {item.city}
+                                  <br />
+                                  {pic.tag}
+                                </Typography>
+                              </CardContent>
+                              <CardActions>
+                                <Button
+                                  size="small"
+                                  color="primary"
+                                  component={Link}
+                                  to={`/profile/artist/${item.userId}`}
+                                >
+                                  View
+                                </Button>
+                              </CardActions>
+                            </ResultCard>
+                          </Fragment>
+                        )}
                       </Fragment>
                     ))}
                   </Fragment>
