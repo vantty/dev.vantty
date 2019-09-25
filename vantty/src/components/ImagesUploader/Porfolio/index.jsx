@@ -78,7 +78,10 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
               }}
               className={clsx(classes.image)}
             />
-            <Chips />
+            <Chips
+              pictureId={picture._id}
+              numberOfPictures={portfolioPictures.length}
+            />
           </GridListTile>
         ))}
       </GridList>

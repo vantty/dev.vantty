@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import LinkMui from "@material-ui/core/Link";
 import {
@@ -6,7 +6,9 @@ import {
   CategorySearch,
   SingleRange,
   ReactiveList,
-  ResultCard
+  ResultCard,
+  DataSearch,
+  MultiDataList
 } from "@appbaseio/reactivesearch";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -31,87 +33,135 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const filterPicture = (portfolioPictures, values) => {
+  try {
+    // console.log("ENTER", portfolioPictures, values);
+    let auxObj = {};
+    let newPictureObj = [];
+
+    portfolioPictures.map(picture => {
+      if (picture.tag === values) {
+        auxObj = picture;
+        newPictureObj.push(auxObj);
+      }
+    });
+    console.log("EXIT", newPictureObj);
+    // return newPictureObj;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const Favorites = () => {
   const classes = useStyles();
+  const [values, setValues] = useState([]);
   return (
     <ReactiveBase
       app="vantty-database"
       credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
     >
-      <CategorySearch
+      <DataSearch
         componentId="searchbox"
-        dataField={["name.firstName", "name.lastName", "city", "profession"]}
+        dataField={["portfolioPictures.tag"]}
         placeholder="Search..."
       />
       {/* <SingleRange
-          componentId="ratingsfilter"
-          title="Filter by ratings"
-          dataField="rating"
-          data={[
-            { start: "0", end: "5", label: "see all ratings" },
-            { start: "4", end: "5", label: "4 stars and up" },
-            { start: "3", end: "5", label: "3 stars and up" },
-            { start: "2", end: "5", label: "2 stars and up" },
-            { start: "1", end: "5", label: "1 stars and up" }
-          ]}
-          defaultValue="see all ratings"
-        /> */}
-
+        componentId="ratingsfilter"
+        title="Filter by ratings"
+        dataField="price"
+        data={[
+          { start: "0", end: "400", label: "see all" },
+          { start: "0", end: "350", label: "Between 0-350" },
+          { start: "350", end: "400", label: "Between 350-400" }
+        ]}
+        defaultValue="see all"
+      /> */}
+      <MultiDataList
+        componentId="categoryFilter"
+        dataField="portfolioPictures.tag.keyword"
+        showSearch={false}
+        data={[
+          {
+            label: "Social",
+            value: "Social"
+          },
+          {
+            label: "Bridal",
+            value: "Bridal"
+          },
+          {
+            label: "Photography",
+            value: "Photography"
+          }
+        ]}
+        value={values}
+        onChange={setValues}
+        title="Category"
+      />
+      {/* {console.log(values)} */}
       <ReactiveList
         componentId="result"
         title="Results"
-        dataField="name.firstName"
         size={12}
         infiniteScroll={true}
         showResultStats={false}
-        loader={<Progress />}
+        // loader={<Progress />}
         react={{
-          and: ["searchbox"]
+          and: ["searchbox", "categoryFilter"]
         }}
         render={({ data }) => (
-          <Container>
-            <ResultCardsWrapper>
-              {data.map(item => (
-                <Fragment key={item._id}>
-                  {item.portfolioPictures.map(pic => (
-                    <Fragment key={pic.cloudId}>
-                      <ResultCard>
-                        <CardMedia
-                          className={classes.media}
-                          image={pic.original}
-                          title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {item.name.firstName}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                          >
-                            {item.profession}
-                            <br />
-                            {item.city}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <Button
-                            size="small"
-                            color="primary"
-                            component={Link}
-                            to={`/profile/artist/${item.userId}`}
-                          >
-                            View
-                          </Button>
-                        </CardActions>
-                      </ResultCard>
-                    </Fragment>
-                  ))}
-                </Fragment>
-              ))}
-            </ResultCardsWrapper>
-          </Container>
+          <Fragment>
+            <Container>
+              <ResultCardsWrapper>
+                {data.map(item => (
+                  <Fragment key={item._id}>
+                    {item.portfolioPictures.map(pic => (
+                      <Fragment key={pic.cloudId}>
+                        {filterPicture(item.portfolioPictures, values[0])}
+                        <ResultCard>
+                          <CardMedia
+                            className={classes.media}
+                            image={pic.original}
+                            title="Contemplative Reptile"
+                          />
+                          <CardContent>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="h2"
+                            >
+                              {item.name.firstName}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              color="textSecondary"
+                              component="p"
+                            >
+                              {item.profession}
+                              <br />
+                              {item.city}
+                              <br />
+                              {pic.tag}
+                            </Typography>
+                          </CardContent>
+                          <CardActions>
+                            <Button
+                              size="small"
+                              color="primary"
+                              component={Link}
+                              to={`/profile/artist/${item.userId}`}
+                            >
+                              View
+                            </Button>
+                          </CardActions>
+                        </ResultCard>
+                      </Fragment>
+                    ))}
+                  </Fragment>
+                ))}
+              </ResultCardsWrapper>
+            </Container>
+          </Fragment>
         )}
       />
     </ReactiveBase>

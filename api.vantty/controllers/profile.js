@@ -223,19 +223,13 @@ exports.addPortfolio = async (req, res) => {
 
 exports.addPictureTags = async (req, res) => {
   try {
-    const { tag, pictureId } = req.body;
-
-    const test = [
-      { _id: "5d893a8cc9788920b5473339", tag: tag },
-      { _id: "5d893a1448e1972064fc27e3", tag: tag },
-      { _id: "5d893088a7dcaa1d4a439300", tag: tag }
-    ];
+    const sendTags = req.body;
 
     const profile = await Profile.findOne({ user: req.user.id });
     let pictures = profile.portfolioPictures;
 
     const arr = Array.from(pictures);
-    const arr2 = Array.from(test);
+    const arr2 = Array.from(sendTags);
     for (const x of arr) {
       for (const y of arr2) {
         if (x._id == y._id) {
@@ -243,6 +237,7 @@ exports.addPictureTags = async (req, res) => {
         }
       }
     }
+    profile.save();
     console.log(profile);
     res.json(profile);
   } catch (error) {

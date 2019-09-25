@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const ProfileSchema = new mongoose.Schema({
   user: {
-    //firstName, lastName,
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
@@ -15,28 +14,23 @@ const ProfileSchema = new mongoose.Schema({
     }
   },
   reviewId: {
-    // unique review id,
     type: String
   },
   profilePicture: { type: String },
 
   bio: {
     type: String
-    // required: true
   },
   price: {
     type: Number
-    // required: true
   },
 
   profession: {
     type: [String]
-    // required: true
   },
 
   mobileNumber: {
     type: String
-    // required: true
   },
   instagramUsername: {
     type: String
@@ -45,18 +39,15 @@ const ProfileSchema = new mongoose.Schema({
     {
       school: {
         type: String
-        // required: true
       },
       degree: {
         type: String
-        // required: true
       },
       description: {
         type: String
       }
     }
   ],
-
   portfolioPictures: [
     {
       original: {
@@ -80,21 +71,8 @@ const ProfileSchema = new mongoose.Schema({
   },
   city: {
     type: [String]
-    // required: true
   },
   elasticId: { type: String, default: null },
-
-  // area: {
-  //   country: {
-  //     type: String
-  //   },
-  //   state: {
-  //     type: String
-  //   },
-  //   city: {
-  //     type: String
-  //   }
-  // },
   date: {
     type: Date,
     default: Date.now

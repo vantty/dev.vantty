@@ -37,6 +37,7 @@ import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
 import AvatarUploader from "../../../../components/AvatarUploader";
 import { positions } from "@material-ui/system";
+import { saveTag } from "../../../../actions/uploader";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -100,10 +101,10 @@ const AddPortfolio = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete='off' noValidate>
+            <form autoComplete="off" noValidate>
               <CardHeader
-                subheader='You decide how you want to be knowledges'
-                title='Portfolio & ps Image'
+                subheader="You decide how you want to be knowledges"
+                title="Portfolio & ps Image"
               />
               <Divider />
               <CardContent className={classes.content}>
@@ -116,7 +117,7 @@ const AddPortfolio = ({
               </CardContent>
               <Divider />
               <CardActions>
-                <LinkMui component={Link} to='/'>
+                <LinkMui component={Link} to="/">
                   learn how to build the best profile
                 </LinkMui>
               </CardActions>
@@ -137,16 +138,16 @@ const AddPortfolio = ({
                     <div>
                       {match.url === "/add-portfolio" ? (
                         <Fragment>
-                          <Button component={Link} to='/settings'>
+                          <Button component={Link} to="/settings">
                             Back
                           </Button>
                           <Button
                             component={Link}
-                            to='/settings'
+                            to="/settings"
                             style={{ backgroundColor: "#f5f5" }}
-                            disabled={true}
+                            disabled={false}
                           >
-                            Update1
+                            Update
                           </Button>
                         </Fragment>
                       ) : (
@@ -172,12 +173,12 @@ const AddPortfolio = ({
                     <div>
                       {match.url === "/add-portfolio" ? (
                         <Fragment>
-                          <Button component={Link} to='/settings'>
+                          <Button component={Link} to="/settings">
                             Back
                           </Button>
                           <Button
                             component={Link}
-                            to='/settings'
+                            to="/settings"
                             style={{ backgroundColor: "#f5f5" }}
                           >
                             Update
