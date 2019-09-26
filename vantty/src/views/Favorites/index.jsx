@@ -58,15 +58,15 @@ const Favorites = () => {
   const [valuesSearch, setValuesSearch] = useState("");
   return (
     <ReactiveBase
-      app="vantty-database"
-      credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
+      app='vantty-database'
+      credentials='fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666'
     >
       <DataSearch
-        componentId="searchbox"
-        dataField={["portfolioPictures.tag", "name.firstName"]}
-        placeholder="Search..."
-        value={valuesSearch}
-        onChange={setValuesSearch}
+        componentId='searchbox'
+        dataField='*'
+        placeholder='Search...'
+        // value={valuesSearch}
+        // onChange={setValuesSearch}
       />
       {/* <SingleRange
         componentId="ratingsfilter"
@@ -80,8 +80,8 @@ const Favorites = () => {
         defaultValue="see all"
       /> */}
       <MultiDataList
-        componentId="categoryFilter"
-        dataField="portfolioPictures.tag.keyword"
+        componentId='categoryFilter'
+        dataField='portfolioPictures.tag.keyword'
         showSearch={false}
         data={[
           {
@@ -99,12 +99,12 @@ const Favorites = () => {
         ]}
         value={values}
         onChange={setValues}
-        title="Category"
+        title='Category'
       />
-      {/* {console.log(values)} */}
+      {console.log(values)}
       <ReactiveList
-        componentId="result"
-        title="Results"
+        componentId='result'
+        title='Results'
         size={12}
         infiniteScroll={true}
         showResultStats={false}
@@ -120,26 +120,26 @@ const Favorites = () => {
                   <Fragment key={item._id}>
                     {item.portfolioPictures.map(pic => (
                       <Fragment key={pic.cloudId}>
-                        {pic.tag == values ? (
+                        {!values[0] ? (
                           <Fragment>
                             <ResultCard>
                               <CardMedia
                                 className={classes.media}
                                 image={pic.original}
-                                title="Contemplative Reptile"
+                                title='Contemplative Reptile'
                               />
                               <CardContent>
                                 <Typography
                                   gutterBottom
-                                  variant="h5"
-                                  component="h2"
+                                  variant='h5'
+                                  component='h2'
                                 >
                                   {item.name.firstName}
                                 </Typography>
                                 <Typography
-                                  variant="body2"
-                                  color="textSecondary"
-                                  component="p"
+                                  variant='body2'
+                                  color='textSecondary'
+                                  component='p'
                                 >
                                   {item.profession}
                                   <br />
@@ -150,8 +150,8 @@ const Favorites = () => {
                               </CardContent>
                               <CardActions>
                                 <Button
-                                  size="small"
-                                  color="primary"
+                                  size='small'
+                                  color='primary'
                                   component={Link}
                                   to={`/profile/artist/${item.userId}`}
                                 >
@@ -161,45 +161,48 @@ const Favorites = () => {
                             </ResultCard>
                           </Fragment>
                         ) : (
-                          <Fragment>
-                            <ResultCard>
-                              <CardMedia
-                                className={classes.media}
-                                image={pic.original}
-                                title="Contemplative Reptile"
-                              />
-                              <CardContent>
-                                <Typography
-                                  gutterBottom
-                                  variant="h5"
-                                  component="h2"
-                                >
-                                  {item.name.firstName}
-                                </Typography>
-                                <Typography
-                                  variant="body2"
-                                  color="textSecondary"
-                                  component="p"
-                                >
-                                  {item.profession}
-                                  <br />
-                                  {item.city}
-                                  <br />
-                                  {pic.tag}
-                                </Typography>
-                              </CardContent>
-                              <CardActions>
-                                <Button
-                                  size="small"
-                                  color="primary"
-                                  component={Link}
-                                  to={`/profile/artist/${item.userId}`}
-                                >
-                                  View
-                                </Button>
-                              </CardActions>
-                            </ResultCard>
-                          </Fragment>
+                          pic.tag === values[0] && (
+                            // values.filter(value => value === values) && (
+                            <Fragment>
+                              <ResultCard>
+                                <CardMedia
+                                  className={classes.media}
+                                  image={pic.original}
+                                  title='Contemplative Reptile'
+                                />
+                                <CardContent>
+                                  <Typography
+                                    gutterBottom
+                                    variant='h5'
+                                    component='h2'
+                                  >
+                                    {item.name.firstName}
+                                  </Typography>
+                                  <Typography
+                                    variant='body2'
+                                    color='textSecondary'
+                                    component='p'
+                                  >
+                                    {item.profession}
+                                    <br />
+                                    {item.city}
+                                    <br />
+                                    {pic.tag}
+                                  </Typography>
+                                </CardContent>
+                                <CardActions>
+                                  <Button
+                                    size='small'
+                                    color='primary'
+                                    component={Link}
+                                    to={`/profile/artist/${item.userId}`}
+                                  >
+                                    View
+                                  </Button>
+                                </CardActions>
+                              </ResultCard>
+                            </Fragment>
+                          )
                         )}
                       </Fragment>
                     ))}
