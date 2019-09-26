@@ -127,6 +127,11 @@ const Settings = ({
       title: "D == Dashboard",
       href: "/Dashboard",
       icon: <SettingsIcon />
+    },
+    {
+      title: "Logout",
+      href: "/Dashboard",
+      icon: <SettingsIcon />
     }
   ];
 

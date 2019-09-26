@@ -11,10 +11,12 @@ import {
   LOGOUT,
   CLEAR_PROFILE,
   INFO_UPDATE_SUCCESS,
-  INFO_UPDATE_FAIL
+  INFO_UPDATE_FAIL,
+  USER_LOCATION
 } from "./types";
 import { deleteImages } from "./uploader";
 import { getCurrentProfile } from "./profile";
+import Axios from "axios";
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -27,6 +29,7 @@ export const loadUser = () => async dispatch => {
       type: USER_LOADED,
       payload: res.data
     });
+    dispatch(getGeoInfo());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
@@ -285,4 +288,23 @@ export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
     });
     dispatch(setAlert("Update Fail", "error"));
   }
+};
+
+//Get Country
+export const getGeoInfo = () => async dispatch => {
+  Axios.get("https://ipapi.co/json/")
+    .then(response => {
+      var data = response.data;
+      const location = {
+        countryName: data.country_name,
+        countryCode: data.country_calling_code
+      };
+      dispatch({
+        type: USER_LOCATION,
+        payload: data.country_name
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };

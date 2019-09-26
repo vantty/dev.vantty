@@ -112,8 +112,8 @@ const AddCategories = ({
 
   //Hair
   const [stateHair, setStateHair] = useState({
-    Brides: false,
-    Peinados: true,
+    Brides: true,
+    Peinados: false,
     Cut: false
   });
 
@@ -170,10 +170,7 @@ const AddCategories = ({
                                 key={data}
                                 control={
                                   <Checkbox
-                                    checked={
-                                      state[data] ||
-                                      profile.categories.makeup[index]
-                                    }
+                                    checked={state[data] === true && true}
                                     onChange={handleChange(data)}
                                     value={toString(data)}
                                   />

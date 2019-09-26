@@ -120,7 +120,7 @@ const Profile = ({
             <BottomNavabar />
           ) : null
         ) : (
-          <ConctactButton profile={profile} />
+          <ConctactButton profile={profile} location={auth.currentLocation} />
         )}
       </div>
     </Fragment>
