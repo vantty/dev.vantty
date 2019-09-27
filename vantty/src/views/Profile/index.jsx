@@ -102,7 +102,13 @@ const Profile = ({
             <Fragment>
               <ProfileInfo profile={profile} auth={auth} />
               <br />
-              <ProfileCarousel profile={profile} />
+              {!isMobile ? (
+                <Container maxWidth='sm'>
+                  <ProfileCarousel profile={profile} />
+                </Container>
+              ) : (
+                <ProfileCarousel profile={profile} />
+              )}
               <br />
               <br />
               <ReviewCard profile={profile} />
