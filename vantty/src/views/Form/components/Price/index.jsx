@@ -118,17 +118,17 @@ const Price = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete='off' noValidate>
+            <form autoComplete="off" noValidate>
               <CardHeader
-                subheader='from what value do your services start'
-                title='Price'
+                subheader="from what value do your services start"
+                title="Price"
               />
               <Divider />
               <CardContent className={classes.content}>
                 <div>
                   <div>
                     <Container>
-                      <Typography color='textSecondary' variant='body1'>
+                      <Typography color="textSecondary" variant="body1">
                         This is the minimum price for which you provide a
                         service but you define the final price with the customer
                       </Typography>
@@ -138,19 +138,19 @@ const Price = ({
                       <Fragment>
                         <Grid
                           container
-                          direction='row'
-                          justify='center'
-                          alignItems='center'
+                          direction="row"
+                          justify="center"
+                          alignItems="center"
                         >
                           <Grid item xs={8}>
                             <PrettoSlider
                               defaultValue={60}
-                              valueLabelDisplay='on'
+                              valueLabelDisplay="on"
                               max={500}
                               step={10}
                               disabled={false}
                               value={price || 80}
-                              name='price'
+                              name="price"
                               // onChange={e => onChange(e)}
                               onChange={handleChange}
                               // handleDragStop={price}
@@ -160,7 +160,7 @@ const Price = ({
                             <Typography
                               // className={classes.locationText}
                               // color='textSecondary'
-                              variant='body1'
+                              variant="body1"
                             >
                               I provide a service minimum for{" "}
                               <strong>${price}</strong>
@@ -174,7 +174,7 @@ const Price = ({
               </CardContent>
               <Divider />
               <CardActions>
-                <LinkMui component={Link} to='/'>
+                <LinkMui component={Link} to="/">
                   learn how to build the best profile
                 </LinkMui>
               </CardActions>
@@ -185,7 +185,6 @@ const Price = ({
         </Card>
       </Fragment>
       <Fragment>
-        {console.log(step)}
         <FormBottomNav
           step={step}
           Children={
@@ -193,12 +192,12 @@ const Price = ({
               <div>
                 {match.url === "/price" ? (
                   <Fragment>
-                    <Button component={Link} to='/settings'>
+                    <Button component={Link} to="/settings">
                       Back
                     </Button>
                     <Button
                       component={Link}
-                      to='/settings'
+                      to="/settings"
                       style={{ backgroundColor: "#f5f5" }}
                       onClick={e => onSubmitPrice(e)}
                     >

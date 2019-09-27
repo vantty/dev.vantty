@@ -28,6 +28,11 @@ export const uploadTag = tagObj => async dispatch => {
     });
 
     server.post("/profile/add-tags", sendTags);
+
+    const res = await server.get("/profile/me");
+    const data = elasticData(res);
+    const { profileId, elasticId } = data;
+    loadToElastic(data, profileId, elasticId);
   } catch (error) {
     console.log(error);
   }

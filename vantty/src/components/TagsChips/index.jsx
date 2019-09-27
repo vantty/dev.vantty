@@ -7,6 +7,9 @@ import Paper from "@material-ui/core/Paper";
 import { uploadTag } from "../../actions/uploader";
 import Button from "@material-ui/core/Button";
 
+//Actions
+import { getCurrentProfile } from "../../actions/profile";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -24,6 +27,16 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: "red"
     }
   },
+  selectedGreen: {
+    margin: theme.spacing(0.5),
+    backgroundColor: "green",
+    "&:focus": {
+      backgroundColor: "green"
+    },
+    "&:hover": {
+      backgroundColor: "green"
+    }
+  },
   noSelected: {
     margin: theme.spacing(0.5),
     "&:hover": {
@@ -33,13 +46,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 let tagObj = {};
-const ChipsArray = ({ uploadTag, pictureId, numberOfPictures }) => {
-  const classes = useStyles();
+const ChipsArray = ({
+  uploadTag,
+  pictureId,
+  profile: { profile, loading },
+  getCurrentProfile,
+  tag
+}) => {
   const [select, setSelect] = useState({
-    Bridal: true,
+    Bridal: false,
     Social: false,
     Photography: false
   });
+
+  const classes = useStyles();
 
   const handleClick = chipClicked => e => {
     setSelect({
@@ -52,10 +72,9 @@ const ChipsArray = ({ uploadTag, pictureId, numberOfPictures }) => {
 
   tagObj[pictureId] = select;
 
-  // function onSubmit() {
-  // }
   uploadTag(tagObj);
 
+  console.log(tag);
   return (
     <Fragment>
       <div className={classes.root}>
@@ -68,8 +87,7 @@ const ChipsArray = ({ uploadTag, pictureId, numberOfPictures }) => {
               clickable={false}
               onClick={handleClick(data)}
               className={
-                (select[data] === true && classes.selected) ||
-                classes.noSelected
+                (select[data] == true && classes.selected) || classes.noSelected
               }
             />
           );
@@ -78,37 +96,20 @@ const ChipsArray = ({ uploadTag, pictureId, numberOfPictures }) => {
       {/* <Button onClick={onSubmit}>Send Tags</Button> */}
     </Fragment>
   );
-
-  // return (
-  //   <Paper className={classes.root}>
-  //     {categories.map(category => (
-  //       <Chip
-  //         key={category.key}
-  //         label={category.label}
-  //         onClick={handleClick(category.label)}
-  //         className={
-  //           (select === category.label && classes.selected) ||
-  //           classes.noSelected
-  //         }
-  //       />
-  //     ))}
-  //   </Paper>
-  // );
 };
 
 ChipsArray.propTypes = {
   uploadTag: PropTypes.func,
   pictureId: PropTypes.string,
-  numberOfPictures: PropTypes.number
+  numberOfPictures: PropTypes.number,
+  profile: PropTypes.object.isRequired
 };
 
-// const mapStateToProps = state => ({
-//   uploading: state.uploader.uploading,
-//   images: state.uploader.images,
-//   profile: state.profile
-// });
+const mapStateToProps = state => ({
+  profile: state.profile
+});
 
 export default connect(
-  null,
-  { uploadTag }
+  mapStateToProps,
+  { uploadTag, getCurrentProfile }
 )(ChipsArray);

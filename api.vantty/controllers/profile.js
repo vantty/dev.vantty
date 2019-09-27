@@ -238,7 +238,6 @@ exports.addPictureTags = async (req, res) => {
       }
     }
     profile.save();
-    console.log(profile);
     res.json(profile);
   } catch (error) {
     console.log(error);

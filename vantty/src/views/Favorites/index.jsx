@@ -8,7 +8,8 @@ import {
   ReactiveList,
   ResultCard,
   DataSearch,
-  MultiDataList
+  MultiDataList,
+  DynamicRangeSlider
 } from "@appbaseio/reactivesearch";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -33,55 +34,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const filterPicture = (portfolioPictures, values) => {
-  try {
-    // console.log("ENTER", portfolioPictures, values);
-    let auxObj = {};
-    let newPictureObj = [];
-
-    portfolioPictures.map(picture => {
-      if (picture.tag === values) {
-        auxObj = picture;
-        newPictureObj.push(auxObj);
-      }
-    });
-    console.log("EXIT", newPictureObj);
-    // return newPictureObj;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const Favorites = () => {
   const classes = useStyles();
   const [values, setValues] = useState("");
-  const [valuesSearch, setValuesSearch] = useState("");
+  // const [valuesSearch, setValuesSearch] = useState("");
   return (
     <ReactiveBase
-      app='vantty-database'
-      credentials='fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666'
+      app="vantty-database"
+      credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
     >
       <DataSearch
-        componentId='searchbox'
-        dataField='*'
-        placeholder='Search...'
+        componentId="searchbox"
+        dataField="*"
+        placeholder="Search..."
         // value={valuesSearch}
         // onChange={setValuesSearch}
       />
-      {/* <SingleRange
-        componentId="ratingsfilter"
-        title="Filter by ratings"
-        dataField="price"
-        data={[
-          { start: "0", end: "400", label: "see all" },
-          { start: "0", end: "350", label: "Between 0-350" },
-          { start: "350", end: "400", label: "Between 350-400" }
-        ]}
-        defaultValue="see all"
-      /> */}
       <MultiDataList
-        componentId='categoryFilter'
-        dataField='portfolioPictures.tag.keyword'
+        componentId="categoryFilter"
+        dataField="portfolioPictures.tag.keyword"
         showSearch={false}
         data={[
           {
@@ -99,18 +70,19 @@ const Favorites = () => {
         ]}
         value={values}
         onChange={setValues}
-        title='Category'
+        title="Category"
       />
-      {console.log(values)}
+
+      {/* {console.log("VALUES", values)} */}
       <ReactiveList
-        componentId='result'
-        title='Results'
+        componentId="result"
+        title="Results"
         size={12}
         infiniteScroll={true}
         showResultStats={false}
         // loader={<Progress />}
         react={{
-          and: ["searchbox", "categoryFilter"]
+          and: ["searchbox", "categoryFilter", "DynamicRangeSensor"]
         }}
         render={({ data }) => (
           <Fragment>
@@ -126,20 +98,20 @@ const Favorites = () => {
                               <CardMedia
                                 className={classes.media}
                                 image={pic.original}
-                                title='Contemplative Reptile'
+                                title="Contemplative Reptile"
                               />
                               <CardContent>
                                 <Typography
                                   gutterBottom
-                                  variant='h5'
-                                  component='h2'
+                                  variant="h5"
+                                  component="h2"
                                 >
                                   {item.name.firstName}
                                 </Typography>
                                 <Typography
-                                  variant='body2'
-                                  color='textSecondary'
-                                  component='p'
+                                  variant="body2"
+                                  color="textSecondary"
+                                  component="p"
                                 >
                                   {item.profession}
                                   <br />
@@ -150,8 +122,8 @@ const Favorites = () => {
                               </CardContent>
                               <CardActions>
                                 <Button
-                                  size='small'
-                                  color='primary'
+                                  size="small"
+                                  color="primary"
                                   component={Link}
                                   to={`/profile/artist/${item.userId}`}
                                 >
@@ -161,27 +133,26 @@ const Favorites = () => {
                             </ResultCard>
                           </Fragment>
                         ) : (
-                          pic.tag === values[0] && (
-                            // values.filter(value => value === values) && (
+                          values.indexOf(pic.tag) > -1 && (
                             <Fragment>
                               <ResultCard>
                                 <CardMedia
                                   className={classes.media}
                                   image={pic.original}
-                                  title='Contemplative Reptile'
+                                  title="Contemplative Reptile"
                                 />
                                 <CardContent>
                                   <Typography
                                     gutterBottom
-                                    variant='h5'
-                                    component='h2'
+                                    variant="h5"
+                                    component="h2"
                                   >
                                     {item.name.firstName}
                                   </Typography>
                                   <Typography
-                                    variant='body2'
-                                    color='textSecondary'
-                                    component='p'
+                                    variant="body2"
+                                    color="textSecondary"
+                                    component="p"
                                   >
                                     {item.profession}
                                     <br />
@@ -192,8 +163,8 @@ const Favorites = () => {
                                 </CardContent>
                                 <CardActions>
                                   <Button
-                                    size='small'
-                                    color='primary'
+                                    size="small"
+                                    color="primary"
                                     component={Link}
                                     to={`/profile/artist/${item.userId}`}
                                   >
