@@ -23,6 +23,7 @@ const ProfileInfo = ({
   auth,
   profile: {
     user,
+
     city,
     profilePicture,
     bio,
@@ -51,8 +52,8 @@ const ProfileInfo = ({
                 <Avatar src={profilePicture} className={classes.bigAvatar} />
               )
             ) : (
-              <Avatar className={classes.avatar} src={""}>
-                {user && getInitials(getStrategyName(user))}
+              <Avatar className={classes.bigAvatar} src={""}>
+                {user && getInitials(name.firstName)}
               </Avatar>
             )}
           </Grid>

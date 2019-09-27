@@ -135,8 +135,7 @@ const AddCategories = ({
           <Divider />
           <CardContent className={classes.content}>
             <Typography color='textSecondary' variant='body1'>
-              This is the minimum price for which you provide a service but you
-              define the final price with the customer
+              Select the categories
             </Typography>
             <br />
 
@@ -144,33 +143,41 @@ const AddCategories = ({
               <Grid
                 container
                 direction='row'
-                justify='space-evenly'
+                justify='flex-start'
                 alignItems='baseline'
               >
-                <Grid item xs={5}>
+                <Grid item xs={6}>
                   {/* <form className='form'> */}
-                  <Typography color='textSecondary' variant='body1'>
-                    Makeup
-                  </Typography>
 
                   <FormControl
                     error={error}
                     component='fieldset'
                     className={classes.formControl}
                   >
-                    <FormLabel component='legend'>Select minimum one</FormLabel>
+                    <Typography color='textSecondary' variant='body1'>
+                      Makeup
+                    </Typography>
+
+                    {error && (
+                      <FormLabel component='legend'>
+                        Select minimum one
+                      </FormLabel>
+                    )}
 
                     <FormGroup>
                       {Object.keys(state).map((data, index) => {
                         return (
                           <div key={data}>
                             <Fragment>
-                              {console.log(profile.categories.makeup[index])}
                               <FormControlLabel
                                 key={data}
                                 control={
                                   <Checkbox
                                     checked={state[data] === true && true}
+                                    // state[data](
+                                    //   profile &&
+                                    //     profile.categories.makeup[index]
+                                    // );
                                     onChange={handleChange(data)}
                                     value={toString(data)}
                                   />
@@ -186,17 +193,20 @@ const AddCategories = ({
                   </FormControl>
                   {/* </form> */}
                 </Grid>
-                <Grid item xs={5}>
-                  <Typography color='textSecondary' variant='body1'>
-                    Hair
-                  </Typography>
-
+                <Grid item xs={6}>
                   <FormControl
                     error={errorHair}
                     component='fieldset'
                     className={classes.formControl}
                   >
-                    <FormLabel component='legend'>Select minimum one</FormLabel>
+                    <Typography color='textSecondary' variant='body1'>
+                      Hair
+                    </Typography>
+                    {errorHair && (
+                      <FormLabel component='legend'>
+                        Select minimum one
+                      </FormLabel>
+                    )}
                     <FormGroup>
                       {Object.keys(stateHair).map((data, index) => {
                         return (
