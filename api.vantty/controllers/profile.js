@@ -164,20 +164,20 @@ exports.deleteUserAndReviews = async (req, res) => {
   }
 };
 
-// Add Education
+// Add Categories
 exports.addCategories = async (req, res) => {
-  const category = req.body;
-  console.log(req.body);
+  const make = req.body.makeup;
+  const hair = req.body.hair;
+
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
-    profile.categories = category;
+    profile.categories.makeup = await make.splice(0);
+    profile.categories.hair = await hair.slice(0);
 
     await profile.save();
-
-    res.json(profile);
+    await res.json(profile);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
