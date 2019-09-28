@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Headroom from "react-headroom";
 
 // Actions
 import { logout } from "../../actions/auth";
@@ -15,13 +14,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import LinkMui from "@material-ui/core/Link";
-import Container from "@material-ui/core/Container";
 import Progress from "@material-ui/core/LinearProgress";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
+
+// Assets
+import Logo from "../../assets/logos/logo.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -90,7 +90,7 @@ const HideOnScroll = props => {
   const { children, window } = props;
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
   return (
-    <Slide appear={false} direction='down' in={!trigger}>
+    <Slide appear={false} direction="down" in={!trigger}>
       {children}
     </Slide>
   );
@@ -105,25 +105,26 @@ const Navbar = props => {
       <HideOnScroll {...props}>
         <AppBar className={classes.root}>
           <Toolbar>
-            <Typography variant='h5' className={classes.title}>
-              <LinkMui underline='none' color='inherit' component={Link} to='/'>
+            <Typography variant="h5" className={classes.title}>
+              <LinkMui underline="none" color="inherit" component={Link} to="/">
                 {"Vantty"}
+                {/* <img src={Logo} alt="" /> */}
               </LinkMui>
             </Typography>
             {loading ? (
-              <Progress data-test='progress' />
+              <Progress data-test="progress" />
             ) : (
               <Fragment>
                 {!isAuthenticated ? (
                   <Fragment>
-                    <section data-test='noAuthButtons'>
+                    <section data-test="noAuthButtons">
                       <div className={classes.sectionDesktop}>
                         <div className={classes.search}>
                           <div className={classes.searchIcon}>
                             <SearchIcon />
                           </div>
                           <InputBase
-                            placeholder='Search…'
+                            placeholder="Search…"
                             classes={{
                               root: classes.inputRoot,
                               input: classes.inputInput
@@ -132,31 +133,31 @@ const Navbar = props => {
                           />
                         </div>
                         <Button
-                          variant='contained'
-                          color='secondary'
+                          variant="contained"
+                          color="secondary"
                           className={classes.button}
                           component={Link}
-                          to='/artists'
+                          to="/artists"
                         >
                           Artists
                         </Button>
                         <Button
-                          variant='contained'
-                          color='secondary'
+                          variant="contained"
+                          color="secondary"
                           className={classes.button}
-                          size='medium'
+                          size="medium"
                           component={Link}
-                          to='/login'
+                          to="/login"
                         >
                           Login
                         </Button>
                         <Button
-                          variant='contained'
-                          color='secondary'
+                          variant="contained"
+                          color="secondary"
                           className={classes.register}
-                          size='medium'
+                          size="medium"
                           component={Link}
-                          to='/register'
+                          to="/register"
                         >
                           Register
                         </Button>
@@ -165,14 +166,14 @@ const Navbar = props => {
                   </Fragment>
                 ) : (
                   <Fragment>
-                    <section data-test='authButtons'>
+                    <section data-test="authButtons">
                       <div className={classes.sectionDesktop}>
                         <div className={classes.search}>
                           <div className={classes.searchIcon}>
                             <SearchIcon />
                           </div>
                           <InputBase
-                            placeholder='Search…'
+                            placeholder="Search…"
                             classes={{
                               root: classes.inputRoot,
                               input: classes.inputInput
@@ -181,27 +182,27 @@ const Navbar = props => {
                           />
                         </div>
                         <Button
-                          color='inherit'
+                          color="inherit"
                           className={classes.button}
                           component={Link}
-                          to='/artists'
+                          to="/artists"
                         >
                           Artists
                         </Button>
                         <Button
-                          color='inherit'
+                          color="inherit"
                           className={classes.button}
                           component={Link}
-                          to='/dashboard'
+                          to="/dashboard"
                         >
                           Profile
                         </Button>
                         <Button
-                          data-test='logoutButton'
-                          color='inherit'
+                          data-test="logoutButton"
+                          color="inherit"
                           className={classes.button}
                           component={Link}
-                          to='/'
+                          to="/"
                           onClick={logout}
                         >
                           Logout

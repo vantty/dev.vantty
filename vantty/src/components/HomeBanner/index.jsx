@@ -18,9 +18,9 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: "cover",
     borderRadius: "0.6rem",
     backgroundColor: "rgba(0,0,0,.3)",
-    paddingTop: "80%",
+    paddingTop: "70%",
     [theme.breakpoints.down("sm")]: {
-      paddingTop: "100%"
+      paddingTop: "90%"
     }
   },
   banner: {
