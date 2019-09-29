@@ -91,6 +91,15 @@ const DashboardActions = () => {
       >
         Create Profile
       </Button>
+      <Button
+        variant='contained'
+        // color='secondary'
+        className={classes.button}
+        component={Link}
+        to='/user-list'
+      >
+        Real Dashboard
+      </Button>
     </Fragment>
   );
 };

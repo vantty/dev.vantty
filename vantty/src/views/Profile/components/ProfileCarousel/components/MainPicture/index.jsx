@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     float: "left",
     position: "relative",
     width: "100%",
-    paddingBottom: "100%",
+    paddingBottom: "70%",
     backgroundPosition: "center center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",

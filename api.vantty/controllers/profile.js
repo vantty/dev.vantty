@@ -40,11 +40,11 @@ exports.createANDupdate = async (req, res) => {
     city,
     price,
     firstName,
-    lastName
+    lastName,
+    verified
   } = req.body;
 
   // Build profile object
-
   var method = req.user.method;
 
   const profileFields = {};
@@ -65,6 +65,9 @@ exports.createANDupdate = async (req, res) => {
   }
   if (city) {
     profileFields.city = city;
+  }
+  if (verified) {
+    profileFields.verified = verified;
   }
 
   // if (profession) {

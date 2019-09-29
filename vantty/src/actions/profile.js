@@ -76,6 +76,7 @@ export const createProfile = (
         "Content-type": "application/json"
       }
     };
+    console.log(formData);
     const res = await server.post("/profile", formData, config);
     dispatch(getCurrentProfile());
     dispatch({

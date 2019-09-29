@@ -103,7 +103,7 @@ const Profile = ({
               <ProfileInfo profile={profile} auth={auth} />
               <br />
               {!isMobile ? (
-                <Container maxWidth='sm'>
+                <Container maxWidth='md'>
                   <ProfileCarousel profile={profile} />
                 </Container>
               ) : (

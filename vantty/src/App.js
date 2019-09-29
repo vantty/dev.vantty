@@ -22,6 +22,7 @@ import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
 import Landing from "./views/Landing";
+import UserList from "./views/UserList";
 import { InfoContact } from "./views/Form/components";
 import {
   EditProfile,
@@ -82,6 +83,7 @@ const App = () => {
               <Route exact path='/artists' component={Artists} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile/artist/:id' component={Profile} />
+              <Route exact path='/user-list' component={UserList} />
               <Route exact path='/home' component={Home} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute exact path='/create-profile' component={Form} />

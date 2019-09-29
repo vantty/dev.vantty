@@ -22,15 +22,7 @@ const useStyles = makeStyles({
     borderStyle: "solid"
   },
   frame: {
-    float: "left",
-    position: "relative",
-    width: "100%",
-    backgroundPosition: "center center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    borderRadius: "0.6rem",
-    borderColor: "white",
-    borderStyle: "solid"
+    width: "100%"
   }
 });
 
@@ -66,7 +58,7 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
   return (
     <Fragment>
       <Fragment>
-        <MainPicture picture={picture} tag={tag} />
+        <MainPicture picture={picture} />
         <Carousel
           responsive={responsive}
           // additionalTransfrom={0}
