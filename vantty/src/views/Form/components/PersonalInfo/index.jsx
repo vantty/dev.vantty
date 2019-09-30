@@ -67,7 +67,7 @@ const AccountDetails = ({
     email: "",
     id: "",
     password: "",
-    profilePicture: {}
+    profilePicture: ""
   });
 
   //errors

@@ -96,7 +96,7 @@ const DashboardActions = () => {
         // color='secondary'
         className={classes.button}
         component={Link}
-        to='/user-list'
+        to='/board'
       >
         Real Dashboard
       </Button>

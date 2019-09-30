@@ -6,7 +6,7 @@ import { withRouter, Link } from "react-router-dom";
 import { UsersToolbar, UsersTable } from "./components";
 
 import Progress from "@material-ui/core/LinearProgress";
-import { getProfiles } from "../../actions/profile";
+import { getProfiles } from "../../../actions/profile";
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(1)
@@ -16,10 +16,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserList = ({ getProfiles, profile: { profiles, loading } }) => {
+const Board = ({ getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
     getProfiles();
   }, []);
+
+  const [formData, setFormData] = useState({
+    verified: false
+  });
 
   const classes = useStyles();
   const data = profiles;
@@ -41,13 +45,12 @@ const UserList = ({ getProfiles, profile: { profiles, loading } }) => {
             )}
           </Fragment>
         )}
-        {/* {console.log(profiles)} */}
       </div>
     </div>
   );
 };
 
-UserList.propTypes = {
+Board.propTypes = {
   getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -59,4 +62,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getProfiles }
-)(UserList);
+)(Board);

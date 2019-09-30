@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import LinkMui from "@material-ui/core/Link";
 //Helpers
-import { getInitials } from "../../helpers";
+import { getInitials, isOwner } from "../../helpers";
 
 // Actions
 import { deleteComment } from "../../actions/review";
@@ -101,7 +101,7 @@ const ReviewItem = ({
                     >
                       {comment.text}
                     </Typography>
-                    {auth.user != null
+                    {/* {auth.user != null
                       ? !auth.loading &&
                         comment.user === auth.user._id && (
                           <Button
@@ -111,7 +111,15 @@ const ReviewItem = ({
                             Borrar
                           </Button>
                         )
-                      : null}
+                      : null} */}
+                    {isOwner(auth, comment.user) ? (
+                      <Button
+                        color='secondary'
+                        onClick={() => deleteComment(_id, comment._id)}
+                      >
+                        Delete
+                      </Button>
+                    ) : null}
                   </Fragment>
                 }
               />

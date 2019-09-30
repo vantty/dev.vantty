@@ -108,7 +108,10 @@ exports.commentReview = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
-
+    const user = await User.findById(req.user.id);
+    const Admin = await User.findById(req.user.id);
+    console.log(user);
+    console.log("Parama", req.params);
     // Pull out comment
     const comment = review.comments.find(
       comment => comment.id === req.params.comment_id
@@ -119,8 +122,10 @@ exports.deleteComment = async (req, res) => {
     }
 
     // Check user
-    if (comment.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: "User not authorized" });
+    if (user.role !== "Admin") {
+      if (comment.user.toString() !== req.user.id) {
+        return res.status(401).json({ msg: "User not authorized" });
+      }
     }
 
     // Get remove index

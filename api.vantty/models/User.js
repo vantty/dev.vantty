@@ -50,8 +50,13 @@ const userSchema = new Schema(
       firstName: { type: String },
       lastName: { type: String },
       email: { type: String, lowercase: true, unique: true, sparse: true }
+    },
+    role: {
+      type: String,
+      default: "Suscriber"
     }
   },
+
   { timestamps: true }
 );
 

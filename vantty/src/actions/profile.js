@@ -333,3 +333,32 @@ const deleteFromElastic = async elasticId => {
   };
   await elastic.delete(`/${elasticId}`, elasticConfig);
 };
+
+//Verified
+export const verifiedProfile = formData => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    console.log(formData);
+    const res = await server.post("/profile/verified", formData, config);
+
+    dispatch(getProfiles());
+    const data = elasticData(res);
+    const { profileId, elasticId } = data;
+    loadToElastic(data, profileId, elasticId);
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, "error"));
+      });
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};

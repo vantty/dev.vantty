@@ -22,7 +22,7 @@ import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
 import Landing from "./views/Landing";
-import UserList from "./views/UserList";
+
 import { InfoContact } from "./views/Form/components";
 import {
   EditProfile,
@@ -49,6 +49,9 @@ import "./assets/scss/index.scss";
 import { ThemeProvider } from "@material-ui/styles";
 import Settings from "./views/Settings";
 import { Alert } from "./components";
+import { Board } from "./views/Admin/";
+import AdminRoute from "./router/AdminRoute";
+import DashboardUser from "./views/DashboardUser";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -83,10 +86,15 @@ const App = () => {
               <Route exact path='/artists' component={Artists} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile/artist/:id' component={Profile} />
-              <Route exact path='/user-list' component={UserList} />
+              <AdminRoute exact path='/board' component={Board} />
               <Route exact path='/home' component={Home} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute exact path='/create-profile' component={Form} />
+              <PrivateRoute
+                exact
+                path='/dashboardUser'
+                component={DashboardUser}
+              />
               <PrivateRoute
                 exact
                 path='/categories'

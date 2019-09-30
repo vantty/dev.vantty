@@ -122,6 +122,12 @@ const profilePageStyle = {
     width: "200px",
     height: "200px",
     border: "1px solid blue"
+  },
+  verifiedIcon: {
+    color: "rgb(0, 223, 212)",
+
+    marginLeft: "0.3rem",
+    marginBottom: "-0.3rem"
   }
 };
 

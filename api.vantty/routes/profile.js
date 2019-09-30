@@ -20,7 +20,8 @@ const {
   deletePicture,
   addProfileImage,
   deleteProfilePicture,
-  loadToElastic
+  loadToElastic,
+  verifiedProfile
 } = require("../controllers/profile");
 
 // @desc     Get current users profile
@@ -73,6 +74,10 @@ router.put("/profile-image", passportJWT, addProfileImage);
 // @route    DELETE /profile/portfolio/:pic_id
 // @access   Private
 router.delete("/profilePicture/:pic_id", passportJWT, deleteProfilePicture);
+
+// @route    DELETE /profile/verified
+// @access   Private
+router.post("/verified", verifiedProfile);
 
 router.put("/elastic", passportJWT, loadToElastic);
 
