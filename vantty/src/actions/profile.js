@@ -13,7 +13,8 @@ import {
 } from "./types";
 
 // Get current users profile
-export const getCurrentProfile = () => async dispatch => {
+export const getCurrentProfile = (owner = true) => async dispatch => {
+  !owner && dispatch({ type: CLEAR_PROFILE });
   try {
     // dispatch({ type: GET_PROFILE });
     await dispatch(loadUser());

@@ -24,7 +24,9 @@ import {
   Grid,
   Button,
   TextField,
-  Avatar
+  Avatar,
+  Paper,
+  Typography
 } from "@material-ui/core";
 
 // Actions
@@ -280,25 +282,46 @@ const AccountDetails = ({
               </Grid>
             </Grid>
           </CardContent>
-          <Divider />
-          <CardActions>
-            <Grid
-              container
-              direction='row'
-              justify='flex-end'
-              alignItems='flex-start'
-            >
-              {match.url === "/dashboard" && (
-                <Button
-                  onClick={e => onSubmit(e)}
-                  style={{ backgroundColor: "#f5f5" }}
-                  disabled={!formState.isValid}
+          {match.url === "/dashboard" && (
+            <Fragment>
+              <Divider />
+
+              <CardActions>
+                <Grid
+                  container
+                  direction='row'
+                  justify='space-between'
+                  alignItems='flex-start'
                 >
-                  Update
-                </Button>
-              )}
-            </Grid>
-          </CardActions>
+                  <Grid>
+                    {/* {!profile && !profile.mobileNumber && ( */}
+                    {!profile || (profile && profile.mobileNumber == null) ? (
+                      <Button
+                        component={Link}
+                        size='small'
+                        style={{
+                          color: "rgb(0, 223, 212)"
+                        }}
+                        to={"/create-profile"}
+                      >
+                        Create Profile as Artist
+                      </Button>
+                    ) : null}
+                  </Grid>
+
+                  <Grid>
+                    <Button
+                      onClick={e => onSubmit(e)}
+                      style={{ backgroundColor: "#f5f5" }}
+                      disabled={!formState.isValid}
+                    >
+                      Update
+                    </Button>
+                  </Grid>
+                </Grid>
+              </CardActions>
+            </Fragment>
+          )}
 
           <Divider />
           {match.url !== "/dashboard" && (
@@ -308,10 +331,7 @@ const AccountDetails = ({
                 <div>
                   <div>
                     <Fragment>
-                      <Button
-                        component={Link}
-                        to={profile ? "/settings" : "/dashboard"}
-                      >
+                      <Button component={Link} to={"/dashboard"}>
                         Back
                       </Button>
                       <Button
@@ -329,6 +349,7 @@ const AccountDetails = ({
           )}
         </form>
       </Card>
+      <br />
     </Fragment>
   );
 };

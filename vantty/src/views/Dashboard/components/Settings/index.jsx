@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { isMobile } from "react-device-detect";
-import { pages } from "../../list";
+
 //Actions
 import { getProfileById, getCurrentProfile } from "../../../../actions/profile";
 import { loadUser } from "../../../../actions/auth";
@@ -50,13 +49,11 @@ const useStyles = makeStyles({
 });
 
 const Settings = ({
-  getProfileById,
   getCurrentProfile,
+  profile: { profile },
   loadUser,
-  profile: { profile, loading },
   auth: { user },
-  match,
-  history
+  pages
 }) => {
   const classes = useStyles();
   useEffect(() => {
@@ -66,7 +63,7 @@ const Settings = ({
 
   const sideList = side => (
     <div className={classes.list}>
-      <AppBarSettings id={user && user._id} />
+      <AppBarSettings id={user && user._id} profile={profile ? true : false} />
       <Container>
         <br />
         <List subheader={<li />}>
@@ -99,8 +96,7 @@ const Settings = ({
 };
 
 Settings.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  getProfileById: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

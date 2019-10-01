@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AppBarSettings = ({ id }) => {
+const AppBarSettings = ({ id, profile }) => {
   const classes = useStyles();
 
   return (
@@ -56,7 +56,7 @@ const AppBarSettings = ({ id }) => {
               underline='none'
               color='inherit'
               component={Link}
-              to={`/profile/artist/${id}`}
+              to={profile ? `/profile/artist/${id}` : "/favorites"}
             >
               <Container>
                 <IconButton className={classes.arrowBack}>

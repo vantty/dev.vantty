@@ -303,7 +303,7 @@ const EditProfile = ({
                   Children={
                     <div>
                       <div>
-                        <Button component={Link} to='/settings'>
+                        <Button component={Link} to='/dashboard'>
                           Back
                         </Button>
                         <Button

@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import PropTypes from "prop-types";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import LinkMui from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import {
-  Paper,
   ListSubheader,
   Container,
   Toolbar,
   Typography,
-  Grid
+  Grid,
+  Button
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import { pages } from "../../list";
 
 import { connect } from "react-redux";
 
 //Actions
 import { getProfileById, getCurrentProfile } from "../../../../actions/profile";
 import { loadUser } from "../../../../actions/auth";
+import { EditPersonalInfo } from "../../../EditForm/components";
 
 const drawerWidth = 240;
 
@@ -38,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
-      flexShrink: 0
+      flexShrink: 1
     }
   },
   appBar: {
@@ -47,12 +44,7 @@ const useStyles = makeStyles(theme => ({
       width: `calc(100% - ${drawerWidth}px)`
     }
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
-  },
+
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
@@ -61,22 +53,16 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3)
+  },
+  link: {
+    position: "right"
   }
 }));
 
 function DashDesktop(props) {
-  const {
-    container,
-    getProfileById,
-    getCurrentProfile,
-    loadUser,
-    profile: { profile, loading },
-    auth: { user },
-    match,
-    history
-  } = props;
+  const { pages, id, logout } = props;
   const classes = useStyles();
-  const theme = useTheme();
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const [component, setComponent] = useState(pages[0].component);
@@ -89,9 +75,6 @@ function DashDesktop(props) {
     getCurrentProfile();
     loadUser();
   }, []);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
 
   const drawer = (
     <div>
@@ -101,7 +84,7 @@ function DashDesktop(props) {
         <ListSubheader className={classes.title}>{"Profile"}</ListSubheader>
         {pages.map((page, index) => (
           <span key={page.title}>
-            {page.title === "**Change Password" && (
+            {page.title === "Change Password" && (
               <ListSubheader className={classes.title}>
                 {"Account"}
               </ListSubheader>
@@ -110,7 +93,10 @@ function DashDesktop(props) {
             <ListItem
               button
               key={page.title}
-              onClick={e => onSubmit(e, page.component)}
+              onClick={
+                e => onSubmit(e, page.component)
+                // page.title === "logout" && logout)
+              }
             >
               <ListItemIcon>{page.icon}</ListItemIcon>
               <ListItemText primary={page.title} />
@@ -118,7 +104,32 @@ function DashDesktop(props) {
             </ListItem>
           </span>
         ))}
+        <Fragment>
+          {/* <LinkMui
+            component={Link}
+            to={`/profile/artist/${id}`}
+            className={classes.link}
+          >
+            Visit my profile
+          </LinkMui> */}
+        </Fragment>
       </List>
+      {/* <Grid
+        container
+        direction='column'
+        justify='flex-end'
+        alignItems='stretch'
+      >
+        <Grid item>
+          <Button
+            component={Link}
+            style={{ backgroundColor: "rgb(0, 223, 212)" }}
+            to={"/create-profile"}
+          >
+            Create Profile as Artist
+          </Button>
+        </Grid>
+      </Grid> */}
     </div>
   );
 
@@ -144,7 +155,7 @@ function DashDesktop(props) {
               </Drawer>
             </Hidden>
           </Grid>
-          <Grid item md={8} sm={9} xl={12}>
+          <Grid item md={8} sm={12} xl={12}>
             {component}
           </Grid>
 
@@ -160,19 +171,14 @@ DashDesktop.propTypes = {
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
-  getProfileById: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+
+  profile: PropTypes.object,
   container: PropTypes.instanceOf(
     typeof Element === "undefined" ? Object : Element
   )
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth
-});
-
 export default connect(
-  mapStateToProps,
-  { getProfileById, getCurrentProfile, loadUser }
+  null,
+  { loadUser }
 )(DashDesktop);

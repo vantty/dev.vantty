@@ -32,6 +32,7 @@ import { makeStyles } from "@material-ui/styles";
 import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
+import { isMobile } from "react-device-detect";
 
 const PrettoSlider = withStyles({
   root: {
@@ -142,7 +143,7 @@ const Price = ({
                           justify='center'
                           alignItems='center'
                         >
-                          <Grid item xs={8}>
+                          <Grid item xs={isMobile ? 12 : 10}>
                             <PrettoSlider
                               defaultValue={60}
                               valueLabelDisplay='on'
@@ -163,7 +164,7 @@ const Price = ({
                               variant='body1'
                             >
                               I provide a service minimum for{" "}
-                              <strong>${price}</strong>
+                              <strong>${price || 80}</strong>
                             </Typography>
                           </Grid>
                         </Grid>
@@ -205,12 +206,12 @@ const Price = ({
                 <div>
                   {match.url === "/price" ? (
                     <Fragment>
-                      <Button component={Link} to='/settings'>
+                      <Button component={Link} to='/dashboard'>
                         Back
                       </Button>
                       <Button
                         component={Link}
-                        to='/settings'
+                        to='/dashboard'
                         style={{ backgroundColor: "#f5f5" }}
                         onClick={e => onSubmitPrice(e)}
                       >

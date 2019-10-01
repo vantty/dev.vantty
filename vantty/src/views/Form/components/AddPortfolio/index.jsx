@@ -151,12 +151,12 @@ const AddPortfolio = ({
                       <div>
                         {match.url === "/add-portfolio" ? (
                           <Fragment>
-                            <Button component={Link} to='/settings'>
+                            <Button component={Link} to='/dashboard'>
                               Back
                             </Button>
                             <Button
                               component={Link}
-                              to='/settings'
+                              to='/dashboard'
                               style={{ backgroundColor: "#f5f5" }}
                               disabled={true}
                             >
@@ -186,12 +186,12 @@ const AddPortfolio = ({
                       <div>
                         {match.url === "/add-portfolio" ? (
                           <Fragment>
-                            <Button component={Link} to='/settings'>
+                            <Button component={Link} to='/dashboard'>
                               Back
                             </Button>
                             <Button
                               component={Link}
-                              to='/settings'
+                              to='/dashboard'
                               style={{ backgroundColor: "#f5f5" }}
                             >
                               Update

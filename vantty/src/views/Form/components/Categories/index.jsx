@@ -267,7 +267,7 @@ const AddCategories = ({
                         {match.url !== "/categories" ? (
                           <Button onClick={back}>Back</Button>
                         ) : (
-                          <Button component={Link} to={"/settings"}>
+                          <Button component={Link} to={"/dashboard"}>
                             Back
                           </Button>
                         )}

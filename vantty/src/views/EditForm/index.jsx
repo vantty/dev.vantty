@@ -57,7 +57,7 @@ const EditForm = ({
       <div>
         <AppBarForm step={null} />
       </div>
-      {match.url === "/personal-info" ? (
+      {match.url === "/personal-info" || match.url === "/dashboard" ? (
         user ? (
           <Box pt={11} pb={11}>
             <div className={classes.root}>

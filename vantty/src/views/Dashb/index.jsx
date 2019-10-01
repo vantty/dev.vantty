@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Container, Paper } from "@material-ui/core";
 import { pages } from "./list";
+import { Price, AddPortfolio, Categories } from "../Form/components";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -77,11 +78,20 @@ export default function Dashb() {
               <Tab label={page.href} {...a11yProps(index)} />
             ))}
           </Tabs>
-          {pages.map((page, index) => (
+          {/* {pages.map((page, index) => (
             <TabPanel value={value} index={index}>
               {page.component}
             </TabPanel>
-          ))}
+          ))} */}
+          <TabPanel value={value} index={2}>
+            {<Categories />}
+          </TabPanel>
+          <TabPanel value={value} index={0}>
+            {<Price />}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            {<AddPortfolio />}
+          </TabPanel>
         </div>
       </Paper>
     </Container>

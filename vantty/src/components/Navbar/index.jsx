@@ -97,7 +97,7 @@ const HideOnScroll = props => {
 };
 
 const Navbar = props => {
-  const { isAuthenticated, loading, logout } = props;
+  const { isAuthenticated, loading, logout, user } = props;
   const classes = useStyles();
   return (
     <Fragment>
@@ -192,7 +192,8 @@ const Navbar = props => {
                           color='inherit'
                           className={classes.button}
                           component={Link}
-                          to='/dashboard'
+                          // to={`/dashboard/${user._id}`}
+                          to={`/dashboard`}
                         >
                           Profile
                         </Button>
@@ -232,7 +233,8 @@ HideOnScroll.propTypes = {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  loading: state.auth.loading
+  loading: state.auth.loading,
+  user: state.auth.user
 });
 
 export default connect(

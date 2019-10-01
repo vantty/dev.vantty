@@ -10,7 +10,7 @@ import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 import PropTypes from "prop-types";
 
 // import ReactPhoneInput from "react-phone-input-mui";
-import { TextField, withStyles } from "@material-ui/core";
+import { TextField, withStyles, Container } from "@material-ui/core";
 //npm package
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/dist/style.css";
@@ -197,12 +197,7 @@ const InfoContact = ({
             </Grid>
           </Fragment>
         </CardContent>
-        <Divider />
-        <CardActions>
-          <LinkMui component={Link} to='/'>
-            learn how to build the best profile
-          </LinkMui>
-        </CardActions>
+
         {/* </form> */}
       </Card>
       {match.url !== "/dashboard" && (
@@ -225,7 +220,7 @@ const InfoContact = ({
                   <div>
                     {match.url === "/mobile" ? (
                       <Fragment>
-                        <Button component={Link} to='/settings'>
+                        <Button component={Link} to='/dashboard'>
                           Back
                         </Button>
                       </Fragment>

@@ -14,9 +14,8 @@ import {
   EditPersonalInfo,
   EditCategories
 } from "../EditForm/components";
-import { PersonalInfo } from "../Form/components";
 
-export const pages = [
+export const pagesProfile = [
   {
     title: "Profile Image",
     href: "/personal-info",
@@ -56,43 +55,24 @@ export const pages = [
   },
 
   {
-    title: "**Change Password",
+    title: "Change Password",
     href: "/password",
     icon: <ImageIcon />,
     component: <EditProfile />
   },
-  {
-    title: "D == Create profile",
-    href: "/create-profile",
-    icon: <LockOpenIcon />
-  },
 
   {
-    title: "D == Main Page",
-    href: "/",
-    icon: <SettingsIcon />
-  },
-  {
-    title: "D == Dashboard",
-    href: "/Dashboard-admin",
-    icon: <SettingsIcon />
-  },
-  {
     title: "Logout",
-    href: "/Dashboard-admin",
-    icon: <SettingsIcon />
+    href: "/home",
+    icon: <ImageIcon />
   }
 ];
 
 export const pagesUser = [
   {
-    title: "Profile Image",
-    href: "/personal-info",
-    icon: <PeopleIcon />
-  },
-  {
     title: "Profile",
-    href: "/edit-profile",
-    icon: <LockOpenIcon />
+    href: "/personal-info",
+    icon: <PeopleIcon />,
+    component: <EditPersonalInfo />
   }
 ];
