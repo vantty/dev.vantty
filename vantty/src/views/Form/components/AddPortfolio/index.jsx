@@ -115,10 +115,23 @@ const AddPortfolio = ({
                 </div>
               </CardContent>
               <Divider />
-              <CardActions>
-                <LinkMui component={Link} to='/'>
-                  learn how to build the best profile
-                </LinkMui>
+              <CardActions className={classes.buttons}>
+                <Grid
+                  container
+                  direction='row'
+                  justify='flex-end'
+                  alignItems='flex-start'
+                >
+                  {match.url === "/dashboard" && (
+                    <Button
+                      style={{
+                        backgroundColor: "#f5f5"
+                      }}
+                    >
+                      Update
+                    </Button>
+                  )}
+                </Grid>
               </CardActions>
             </form>
           ) : (
@@ -128,78 +141,80 @@ const AddPortfolio = ({
       </Fragment>
       <Fragment>
         <div>
-          <div>
-            {profile && !loading && profile.portfolioPictures.length < 5 ? (
-              <FormBottomNav
-                step={step}
-                Children={
-                  <div>
+          {match.url !== "/dashboard" ? (
+            <div>
+              {profile && !loading && profile.portfolioPictures.length < 5 ? (
+                <FormBottomNav
+                  step={step}
+                  Children={
                     <div>
-                      {match.url === "/add-portfolio" ? (
-                        <Fragment>
-                          <Button component={Link} to='/settings'>
-                            Back
-                          </Button>
-                          <Button
-                            component={Link}
-                            to='/settings'
-                            style={{ backgroundColor: "#f5f5" }}
-                            disabled={true}
-                          >
-                            Update1
-                          </Button>
-                        </Fragment>
-                      ) : (
-                        <Fragment>
-                          <Button onClick={back}>Back</Button>
-                          <Button
-                            style={{ backgroundColor: "#f5f5" }}
-                            disabled={true}
-                          >
-                            Next
-                          </Button>
-                        </Fragment>
-                      )}
+                      <div>
+                        {match.url === "/add-portfolio" ? (
+                          <Fragment>
+                            <Button component={Link} to='/settings'>
+                              Back
+                            </Button>
+                            <Button
+                              component={Link}
+                              to='/settings'
+                              style={{ backgroundColor: "#f5f5" }}
+                              disabled={true}
+                            >
+                              Update1
+                            </Button>
+                          </Fragment>
+                        ) : (
+                          <Fragment>
+                            <Button onClick={back}>Back</Button>
+                            <Button
+                              style={{ backgroundColor: "#f5f5" }}
+                              disabled={true}
+                            >
+                              Next
+                            </Button>
+                          </Fragment>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                }
-              />
-            ) : (
-              <FormBottomNav
-                step={step}
-                Children={
-                  <div>
+                  }
+                />
+              ) : (
+                <FormBottomNav
+                  step={step}
+                  Children={
                     <div>
-                      {match.url === "/add-portfolio" ? (
-                        <Fragment>
-                          <Button component={Link} to='/settings'>
-                            Back
-                          </Button>
-                          <Button
-                            component={Link}
-                            to='/settings'
-                            style={{ backgroundColor: "#f5f5" }}
-                          >
-                            Update
-                          </Button>
-                        </Fragment>
-                      ) : (
-                        <Fragment>
-                          <Button onClick={back}>Back</Button>
-                          <Button
-                            style={{ backgroundColor: "#f5f5" }}
-                            onClick={continues}
-                          >
-                            Next
-                          </Button>
-                        </Fragment>
-                      )}
+                      <div>
+                        {match.url === "/add-portfolio" ? (
+                          <Fragment>
+                            <Button component={Link} to='/settings'>
+                              Back
+                            </Button>
+                            <Button
+                              component={Link}
+                              to='/settings'
+                              style={{ backgroundColor: "#f5f5" }}
+                            >
+                              Update
+                            </Button>
+                          </Fragment>
+                        ) : (
+                          <Fragment>
+                            <Button onClick={back}>Back</Button>
+                            <Button
+                              style={{ backgroundColor: "#f5f5" }}
+                              onClick={continues}
+                            >
+                              Next
+                            </Button>
+                          </Fragment>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                }
-              />
-            )}
-          </div>
+                  }
+                />
+              )}
+            </div>
+          ) : null}
         </div>
       </Fragment>
     </Fragment>

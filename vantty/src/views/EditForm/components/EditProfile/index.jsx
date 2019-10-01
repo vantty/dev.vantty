@@ -49,7 +49,8 @@ const EditProfile = ({
   createProfile,
   getCurrentProfile,
   history,
-  className
+  className,
+  match
 }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
@@ -274,36 +275,49 @@ const EditProfile = ({
                   </CardContent>
                   <Divider />
                   <CardActions className={classes.buttons}>
-                    <div>
-                      <div>
-                        <LinkMui component={Link} to='/'>
-                          learn how to build the best profile
-                        </LinkMui>
-                      </div>
-                    </div>
+                    <Grid
+                      container
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
+                    >
+                      {match.url === "/dashboard" && (
+                        <Button
+                          onClick={e => onSubmit(e)}
+                          style={{
+                            backgroundColor: "#f5f5"
+                          }}
+                          disabled={!formState.isValid}
+                        >
+                          Update
+                        </Button>
+                      )}
+                    </Grid>
                   </CardActions>
                   {/* </Grid> */}
                 </form>
               </Card>
-              <FormBottomNav
-                // step={"1"}
-                Children={
-                  <div>
+              {match.url !== "/dashboard" && (
+                <FormBottomNav
+                  // step={"1"}
+                  Children={
                     <div>
-                      <Button component={Link} to='/settings'>
-                        Back
-                      </Button>
-                      <Button
-                        style={{ backgroundColor: "#f5f5" }}
-                        onClick={e => onSubmit(e)}
-                        disabled={!formState.isValid}
-                      >
-                        Next
-                      </Button>
+                      <div>
+                        <Button component={Link} to='/settings'>
+                          Back
+                        </Button>
+                        <Button
+                          style={{ backgroundColor: "#f5f5" }}
+                          onClick={e => onSubmit(e)}
+                          disabled={!formState.isValid}
+                        >
+                          Next
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                }
-              />
+                  }
+                />
+              )}
             </Fragment>
           </Fragment>
         }

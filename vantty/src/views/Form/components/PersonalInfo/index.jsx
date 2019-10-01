@@ -148,7 +148,7 @@ const AccountDetails = ({
         true
       ));
 
-    (await match.url) !== "/personal-info" && nextStep();
+    (await match.url) === "/create-profile" && nextStep();
   };
   useEffect(() => {
     getCurrentProfile();
@@ -281,31 +281,52 @@ const AccountDetails = ({
             </Grid>
           </CardContent>
           <Divider />
+          <CardActions>
+            <Grid
+              container
+              direction='row'
+              justify='flex-end'
+              alignItems='flex-start'
+            >
+              {match.url === "/dashboard" && (
+                <Button
+                  onClick={e => onSubmit(e)}
+                  style={{ backgroundColor: "#f5f5" }}
+                  disabled={!formState.isValid}
+                >
+                  Update
+                </Button>
+              )}
+            </Grid>
+          </CardActions>
 
-          <FormBottomNav
-            step={step}
-            Children={
-              <div>
+          <Divider />
+          {match.url !== "/dashboard" && (
+            <FormBottomNav
+              step={step}
+              Children={
                 <div>
-                  <Fragment>
-                    <Button
-                      component={Link}
-                      to={profile ? "/settings" : "/dashboard"}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      onClick={e => onSubmit(e)}
-                      style={{ backgroundColor: "#f5f5" }}
-                      disabled={!formState.isValid}
-                    >
-                      {match.url === "/personal-info" ? "Update" : "Next"}
-                    </Button>
-                  </Fragment>
+                  <div>
+                    <Fragment>
+                      <Button
+                        component={Link}
+                        to={profile ? "/settings" : "/dashboard"}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        onClick={e => onSubmit(e)}
+                        style={{ backgroundColor: "#f5f5" }}
+                        disabled={!formState.isValid}
+                      >
+                        {match.url === "/personal-info" ? "Update" : "Next"}
+                      </Button>
+                    </Fragment>
+                  </div>
                 </div>
-              </div>
-            }
-          />
+              }
+            />
+          )}
         </form>
       </Card>
     </Fragment>

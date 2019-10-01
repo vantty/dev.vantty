@@ -4,29 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
-
+import { pages } from "../../list";
 //Actions
-import { getProfileById, getCurrentProfile } from "../../actions/profile";
-import { loadUser } from "../../actions/auth";
+import { getProfileById, getCurrentProfile } from "../../../../actions/profile";
+import { loadUser } from "../../../../actions/auth";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import MuiLink from "@material-ui/core/Link";
-import SettingsIcon from "@material-ui/icons/SettingsOutlined";
-import { Divider, Drawer, Container, ListSubheader } from "@material-ui/core";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import PeopleIcon from "@material-ui/icons/People";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import TextFieldsIcon from "@material-ui/icons/TextFields";
-import ImageIcon from "@material-ui/icons/Image";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
-import LockOpenIcon from "@material-ui/icons/LockOpen";
-import { SimpleAppBar } from "../../components";
+import { Divider, Drawer, Container, ListSubheader } from "@material-ui/core";
+
 import { AppBarSettings } from "./components";
 
 const useStyles = makeStyles({
@@ -74,79 +63,6 @@ const Settings = ({
     getCurrentProfile();
     loadUser();
   }, []);
-  const pages = [
-    {
-      title: "Profile Image",
-      href: "/personal-info",
-      icon: <PeopleIcon />
-    },
-    {
-      title: "Biografy",
-      href: "/edit-profile",
-      icon: <ImageIcon />
-    },
-
-    {
-      title: "Portfolio",
-      href: "/add-portfolio",
-      icon: <ImageIcon />
-    },
-    {
-      title: "Categories",
-      href: "/categories",
-      icon: <ImageIcon />
-    },
-    {
-      title: "Service",
-      href: "/price",
-      icon: <ImageIcon />
-    },
-    {
-      title: "Mobile",
-      href: "/mobile",
-      icon: <ShoppingBasketIcon />
-    },
-
-    {
-      title: "**Change Password",
-      href: "/password",
-      icon: <ImageIcon />
-    },
-    {
-      title: "D == Create profile",
-      href: "/create-profile",
-      icon: <LockOpenIcon />
-    },
-
-    {
-      title: "D == Main Page",
-      href: "/",
-      icon: <SettingsIcon />
-    },
-    {
-      title: "D == Dashboard",
-      href: "/Dashboard",
-      icon: <SettingsIcon />
-    },
-    {
-      title: "Logout",
-      href: "/Dashboard",
-      icon: <SettingsIcon />
-    }
-  ];
-
-  const pagesUser = [
-    {
-      title: "Profile Image",
-      href: "/personal-info",
-      icon: <PeopleIcon />
-    },
-    {
-      title: "Profile",
-      href: "/edit-profile",
-      icon: <LockOpenIcon />
-    }
-  ];
 
   const sideList = side => (
     <div className={classes.list}>

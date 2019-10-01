@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 // Components
-import Dashboard from "./components/dashboard/Dashboard";
 
 // import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
@@ -47,11 +46,15 @@ import "./assets/scss/index.scss";
 
 // Material-UI
 import { ThemeProvider } from "@material-ui/styles";
-import Settings from "./views/Settings";
+// import Settings from "./views/Settings";
 import { Alert } from "./components";
 import { Board } from "./views/Admin/";
 import AdminRoute from "./router/AdminRoute";
-import DashboardUser from "./views/DashboardUser";
+
+import DashboardAdmin from "./components/dashboard/DashboardAdmin";
+import Dashboard from "./views/Dashboard";
+import Dashb from "./views/Dashb";
+import { Settings } from "./views/Dashboard/components";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -88,13 +91,14 @@ const App = () => {
               <Route exact path='/profile/artist/:id' component={Profile} />
               <AdminRoute exact path='/board' component={Board} />
               <Route exact path='/home' component={Home} />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
-              <PrivateRoute exact path='/create-profile' component={Form} />
               <PrivateRoute
                 exact
-                path='/dashboardUser'
-                component={DashboardUser}
+                path='/dashboard-admin'
+                component={DashboardAdmin}
               />
+              <PrivateRoute exact path='/create-profile' component={Form} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute exact path='/table' component={Dashb} />
               <PrivateRoute
                 exact
                 path='/categories'

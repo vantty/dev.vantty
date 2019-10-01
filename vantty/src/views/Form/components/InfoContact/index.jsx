@@ -205,38 +205,42 @@ const InfoContact = ({
         </CardActions>
         {/* </form> */}
       </Card>
-      <FormBottomNav
-        step={step}
-        Children={
-          <div>
-            <div>
-              <Button onClick={back}>Back</Button>
-            </div>
-          </div>
-        }
-      />
-      <Fragment>
-        <FormBottomNav
-          step={step}
-          Children={
-            <div>
+      {match.url !== "/dashboard" && (
+        <div>
+          <FormBottomNav
+            step={step}
+            Children={
               <div>
-                {match.url === "/mobile" ? (
-                  <Fragment>
-                    <Button component={Link} to='/settings'>
-                      Back
-                    </Button>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Button onClick={back}>Back</Button>
-                  </Fragment>
-                )}
+                <div>
+                  <Button onClick={back}>Back</Button>
+                </div>
               </div>
-            </div>
-          }
-        />
-      </Fragment>
+            }
+          />
+          <Fragment>
+            <FormBottomNav
+              step={step}
+              Children={
+                <div>
+                  <div>
+                    {match.url === "/mobile" ? (
+                      <Fragment>
+                        <Button component={Link} to='/settings'>
+                          Back
+                        </Button>
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <Button onClick={back}>Back</Button>
+                      </Fragment>
+                    )}
+                  </div>
+                </div>
+              }
+            />
+          </Fragment>
+        </div>
+      )}
     </Fragment>
   );
 };

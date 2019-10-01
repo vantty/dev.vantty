@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
 // Components
 import Navbar from "../../components/Navbar";
-import SettingsDrawer from "../Settings";
+// import SettingsDrawer from "../Settings";
 // import SideBar from "../../layouts/Main/components/Sidebar";
 
 //Comonents

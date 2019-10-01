@@ -42,7 +42,7 @@ import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    // display: "flex"
   },
   formControl: {
     margin: theme.spacing(3)
@@ -133,7 +133,7 @@ const AddCategories = ({
             title='Categories'
           />
           <Divider />
-          <CardContent className={classes.content}>
+          <CardContent>
             <Typography color='textSecondary' variant='body1'>
               Select the categories
             </Typography>
@@ -143,10 +143,10 @@ const AddCategories = ({
               <Grid
                 container
                 direction='row'
-                justify='flex-start'
+                justify='center'
                 alignItems='baseline'
               >
-                <Grid item xs={6}>
+                <Grid item xs={6} xl={6} md={6} sm={6}>
                   {/* <form className='form'> */}
 
                   <FormControl
@@ -193,7 +193,7 @@ const AddCategories = ({
                   </FormControl>
                   {/* </form> */}
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} xl={6} md={6} sm={6}>
                   <FormControl
                     error={errorHair}
                     component='fieldset'
@@ -234,38 +234,56 @@ const AddCategories = ({
               </Grid>
             </Fragment>
           </CardContent>
-          <Divider />
-          <CardActions>
-            <LinkMui component={Link} to='/'>
-              learn how to build the best profile
-            </LinkMui>
-          </CardActions>
+          {match.url === "/dashboard" && (
+            <Fragment>
+              <Divider />
+
+              <CardActions>
+                <Grid
+                  container
+                  direction='row'
+                  justify='flex-end'
+                  alignItems='flex-start'
+                >
+                  <Button
+                    style={{ backgroundColor: "#f5f5" }}
+                    onClick={e => onSubmit(e)}
+                    disabled={error || errorHair}
+                  >
+                    Update
+                  </Button>
+                </Grid>
+              </CardActions>
+            </Fragment>
+          )}
           <Fragment>
-            <FormBottomNav
-              step={step}
-              Children={
-                <div>
+            {match.url !== "/dashboard" ? (
+              <FormBottomNav
+                step={step}
+                Children={
                   <div>
-                    <Fragment>
-                      {match.url !== "/categories" ? (
-                        <Button onClick={back}>Back</Button>
-                      ) : (
-                        <Button component={Link} to={"/settings"}>
-                          Back
+                    <div>
+                      <Fragment>
+                        {match.url !== "/categories" ? (
+                          <Button onClick={back}>Back</Button>
+                        ) : (
+                          <Button component={Link} to={"/settings"}>
+                            Back
+                          </Button>
+                        )}
+                        <Button
+                          style={{ backgroundColor: "#f5f5" }}
+                          onClick={e => onSubmit(e)}
+                          disabled={error || errorHair}
+                        >
+                          {match.url === "/categories" ? "Update" : "next"}
                         </Button>
-                      )}
-                      <Button
-                        style={{ backgroundColor: "#f5f5" }}
-                        onClick={e => onSubmit(e)}
-                        disabled={error || errorHair}
-                      >
-                        {match.url === "/categories" ? "Update" : "next"}
-                      </Button>
-                    </Fragment>
+                      </Fragment>
+                    </div>
                   </div>
-                </div>
-              }
-            />
+                }
+              />
+            ) : null}
           </Fragment>
         </form>
 

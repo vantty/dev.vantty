@@ -98,7 +98,16 @@ const DashboardActions = () => {
         component={Link}
         to='/board'
       >
-        Real Dashboard
+        Board
+      </Button>
+      <Button
+        variant='contained'
+        // color='secondary'
+        className={classes.button}
+        component={Link}
+        to='/dashboard'
+      >
+        Dashboard User
       </Button>
     </Fragment>
   );

@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
     // float: "left"
     // fontSize: "26px"
     // fontWeight: "ligther"
+    paddingLeft: "0" + "!important",
     marginBottom: "0.5rem"
   },
   appbar: {

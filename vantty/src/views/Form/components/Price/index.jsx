@@ -174,9 +174,21 @@ const Price = ({
               </CardContent>
               <Divider />
               <CardActions>
-                <LinkMui component={Link} to='/'>
-                  learn how to build the best profile
-                </LinkMui>
+                <Grid
+                  container
+                  direction='row'
+                  justify='flex-end'
+                  alignItems='flex-start'
+                >
+                  {match.url === "/dashboard" && (
+                    <Button
+                      style={{ backgroundColor: "#f5f5" }}
+                      onClick={e => onSubmitPrice(e)}
+                    >
+                      Update
+                    </Button>
+                  )}
+                </Grid>
               </CardActions>
             </form>
           ) : (
@@ -185,42 +197,43 @@ const Price = ({
         </Card>
       </Fragment>
       <Fragment>
-        {console.log(step)}
-        <FormBottomNav
-          step={step}
-          Children={
-            <div>
+        {match.url !== "/dashboard" ? (
+          <FormBottomNav
+            step={step}
+            Children={
               <div>
-                {match.url === "/price" ? (
-                  <Fragment>
-                    <Button component={Link} to='/settings'>
-                      Back
-                    </Button>
-                    <Button
-                      component={Link}
-                      to='/settings'
-                      style={{ backgroundColor: "#f5f5" }}
-                      onClick={e => onSubmitPrice(e)}
-                    >
-                      Update
-                    </Button>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Button onClick={back}>Back</Button>
-                    <Button
-                      style={{ backgroundColor: "#f5f5" }}
-                      onClick={e => onSubmit(e)}
-                      disabled={!price}
-                    >
-                      Next
-                    </Button>
-                  </Fragment>
-                )}
+                <div>
+                  {match.url === "/price" ? (
+                    <Fragment>
+                      <Button component={Link} to='/settings'>
+                        Back
+                      </Button>
+                      <Button
+                        component={Link}
+                        to='/settings'
+                        style={{ backgroundColor: "#f5f5" }}
+                        onClick={e => onSubmitPrice(e)}
+                      >
+                        Update
+                      </Button>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <Button onClick={back}>Back</Button>
+                      <Button
+                        style={{ backgroundColor: "#f5f5" }}
+                        onClick={e => onSubmit(e)}
+                        disabled={!price}
+                      >
+                        Next
+                      </Button>
+                    </Fragment>
+                  )}
+                </div>
               </div>
-            </div>
-          }
-        />
+            }
+          />
+        ) : null}
       </Fragment>
     </Fragment>
   );
