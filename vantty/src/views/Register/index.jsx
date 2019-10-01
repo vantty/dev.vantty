@@ -257,7 +257,7 @@ const Register = props => {
           <div className={classes.content}>
             <div className={classes.contentHeader}>
               <IconButton>
-                <Link component={RouterLink} to="/" variant="h6">
+                <Link component={RouterLink} to="/home" variant="h6">
                   <ArrowBackIcon style={{ color: "black" }} />
                 </Link>
               </IconButton>

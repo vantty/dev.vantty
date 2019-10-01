@@ -145,8 +145,10 @@ const Login = props => {
     isAuthenticated,
     googleLogin,
     facebookLogin,
-    changeNavbarValue
+    changeNavbarValue,
+    searchValue
   } = props;
+  console.log("SEARCH", searchValue);
 
   const classes = useStyles();
 
@@ -243,7 +245,7 @@ const Login = props => {
           <div className={classes.content}>
             <div className={classes.contentHeader}>
               <IconButton>
-                <Link component={RouterLink} to="/" variant="h6">
+                <Link component={RouterLink} to="/home" variant="h6">
                   <ArrowBackIcon style={{ color: "black" }} />
                 </Link>
               </IconButton>
@@ -377,11 +379,13 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
   googleLogin: PropTypes.func,
   facebookLogin: PropTypes.func,
-  changeNavbarValue: PropTypes.func
+  changeNavbarValue: PropTypes.func,
+  searchValue: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  searchValue: state.search.searchValue
 });
 
 export default connect(
