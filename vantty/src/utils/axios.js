@@ -11,7 +11,7 @@ export const elastic = axios.create({
   baseURL: "https://scalr.api.appbase.io/vantty-database/_doc/"
 });
 
-//Local
+// Local
 // export const server = axios.create({
 //   baseURL: "http://localhost:5000/api/"
 // });

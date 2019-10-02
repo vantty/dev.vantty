@@ -29,18 +29,19 @@ exports.sendEmail = async (req, res) => {
     });
 
     const emailToken = generateEmailToken(newUser);
-    const url = `http://localhost:3000/confirmation/${emailToken}`;
+    const url = `https://vantty.ca/confirmation/${emailToken}`;
+    // const url = `http://localhost:3000/confirmation/${emailToken}`;
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
-        user: "sebhernandezram@gmail.com",
-        pass: "S.Hernandez.R.20.G"
+        user: "vantty.makeup@gmail.com",
+        pass: "vantty@2019"
       }
     });
 
     const mailOptions = {
-      from: "sebhernandezram@gmail.com",
+      from: "vantty.makeup@gmail.com",
       to: `${email}`,
       subject: "Confirm Email",
       html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
