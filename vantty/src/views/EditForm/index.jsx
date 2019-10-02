@@ -15,6 +15,7 @@ import Progress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Container } from "@material-ui/core";
+import { Table } from "./components";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -45,7 +46,10 @@ const EditForm = ({
   auth: { user },
   getCurrentProfile,
   Children,
-  match
+  match,
+  page,
+  title,
+  index
 }) => {
   const classes = useStyles();
   useEffect(() => {
@@ -59,32 +63,47 @@ const EditForm = ({
       </div>
       {match.url === "/personal-info" || match.url === "/dashboard" ? (
         user ? (
-          <Box pt={11} pb={11}>
-            <div className={classes.root}>
-              <Grid container spacing={4}>
-                <Grid item lg={12} md={12} xl={12} xs={12}>
-                  <Container maxWidth='md'>
-                    <Fragment>{Children}</Fragment>
-                  </Container>
+          <Table page={page} title={title} index={index}>
+            <Box pt={11} pb={11}>
+              <div className={classes.root}>
+                <Grid container spacing={4}>
+                  <Grid item lg={12} md={12} xl={12} xs={12}>
+                    <Container maxWidth='md'>
+                      <Fragment>{Children}</Fragment>
+                    </Container>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </div>
-          </Box>
+              </div>
+            </Box>
+          </Table>
         ) : (
           <Progress />
         )
       ) : profile ? (
-        <Box pt={11} pb={11}>
-          <div className={classes.root}>
-            <Grid container spacing={4}>
-              <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
+        <Fragment>
+          <Box pt={11} pb={11}>
+            <div className={classes.root}>
+              <Grid
+                container
+                direction='row'
+                justify='center'
+                alignItems='center'
+              >
+                {/* <Grid container spacing={4}> */}
+                {/* <Container maxWidth='md'> */}
+                <Grid item lg={3} md={3} xl={3} xs={3}>
+                  <Table page={page} title={title} index={index} />
+                </Grid>
+
+                <Grid item lg={9} md={9} xl={9} xs={9}>
                   <Fragment>{Children}</Fragment>
-                </Container>
+                </Grid>
+                {/* </Container> */}
+                {/* </Grid> */}
               </Grid>
-            </Grid>
-          </div>
-        </Box>
+            </div>
+          </Box>
+        </Fragment>
       ) : (
         <Progress />
       )}
