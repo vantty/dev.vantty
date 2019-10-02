@@ -60,8 +60,7 @@ const HomeJumbotron = () => {
                 <Grid item xs={6}>
                   <div className={classes.quoteInner}>
                     <Typography className={classes.quoteText} variant="h1">
-                      Hella narwhal Cosby sweater McSweeney's, salvia kitsch
-                      before they sold out High Life.
+                      Get your dreamed look, done by the perfect artists
                     </Typography>
                     <div className={classes.person}>
                       <Typography className={classes.name} variant="body1">

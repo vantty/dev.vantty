@@ -6,6 +6,8 @@ import axios from "axios";
 
 // export const API_URL = "https://apivantty.now.sh/api";
 
+// export const CLIENT_URL = "https://vantty.ca/";
+
 //Local
 export const elastic = axios.create({
   baseURL: "https://scalr.api.appbase.io/vantty-database/_doc/"

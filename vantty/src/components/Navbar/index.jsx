@@ -26,7 +26,7 @@ import SearchBar from "../../views/Favorites/Components/SearchBar";
 
 // Assets
 import Logo from "../../assets/logos/logo.png";
-import theme from "../../assets/theme/theme.js";
+// import theme from "../../assets/theme/theme.js";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "none",
     transition: theme.transitions.create("backgroundColor"),
     "&:hover": {
-      backgroundColor: "rgb(19, 224, 216)",
+      backgroundColor: theme.palette.greenVantty,
       color: "rgb(255, 255, 255)"
     },
     paddingRight: theme.spacing(3),
