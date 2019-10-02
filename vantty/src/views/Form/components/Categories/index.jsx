@@ -80,7 +80,7 @@ const AddCategories = ({
   const onSubmit = async e => {
     e.preventDefault();
     addCategories(state, history, stateHair, false);
-    (await match.url) !== "/categories" && nextStep();
+    match.url === "/create-profile" && nextStep();
   };
 
   const [state, setState] = useState({

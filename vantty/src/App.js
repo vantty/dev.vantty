@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
+import Button from "@material-ui/core/Button";
 
 // Redux Store
 import store from "./store";
@@ -109,6 +110,7 @@ const App = () => {
                 path='/edit-profile'
                 component={EditProfile}
               />
+
               <PrivateRoute
                 exact
                 path='/personal-info'

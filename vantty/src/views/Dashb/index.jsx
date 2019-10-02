@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -8,6 +8,7 @@ import Box from "@material-ui/core/Box";
 import { Container, Paper } from "@material-ui/core";
 import { pages } from "./list";
 import { Price, AddPortfolio, Categories } from "../Form/components";
+import Navbar from "../../components/Navbar";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -63,37 +64,36 @@ export default function Dashb() {
   };
 
   return (
-    <Container maxWidth='md'>
-      <Paper className={classes.paper}>
-        <div className={classes.root}>
-          <Tabs
-            orientation='vertical'
-            variant='scrollable'
-            value={value}
-            onChange={handleChange}
-            aria-label='Vertical tabs example'
-            className={classes.tabs}
-          >
-            {pages.map((page, index) => (
-              <Tab label={page.href} {...a11yProps(index)} />
-            ))}
-          </Tabs>
-          {/* {pages.map((page, index) => (
-            <TabPanel value={value} index={index}>
-              {page.component}
+    <Fragment>
+      <Navbar />
+      <Container maxWidth='md'>
+        <Paper className={classes.paper}>
+          <div className={classes.root}>
+            <Tabs
+              orientation='vertical'
+              variant='scrollable'
+              value={value}
+              onChange={handleChange}
+              aria-label='Vertical tabs example'
+              className={classes.tabs}
+            >
+              {pages.map((page, index) => (
+                <Tab label={page.title} {...a11yProps(index)} />
+              ))}
+            </Tabs>
+
+            <TabPanel value={value} index={2}>
+              {<Categories />}
             </TabPanel>
-          ))} */}
-          <TabPanel value={value} index={2}>
-            {<Categories />}
-          </TabPanel>
-          <TabPanel value={value} index={0}>
-            {<Price />}
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {<AddPortfolio />}
-          </TabPanel>
-        </div>
-      </Paper>
-    </Container>
+            <TabPanel value={value} index={0}>
+              {<Price />}
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              {<AddPortfolio />}
+            </TabPanel>
+          </div>
+        </Paper>
+      </Container>
+    </Fragment>
   );
 }
