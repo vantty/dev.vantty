@@ -64,23 +64,23 @@ export const pages = [
     title: "D == Create profile",
     href: "/create-profile",
     icon: <LockOpenIcon />
-  },
-
-  {
-    title: "D == Main Page",
-    href: "/",
-    icon: <SettingsIcon />
-  },
-  {
-    title: "D == Dashboard",
-    href: "/Dashboard-admin",
-    icon: <SettingsIcon />
-  },
-  {
-    title: "Logout",
-    href: "/Dashboard-admin",
-    icon: <SettingsIcon />
   }
+
+  // {
+  //   title: "D == Main Page",
+  //   href: "/",
+  //   icon: <SettingsIcon />
+  // },
+  // {
+  //   title: "D == Dashboard",
+  //   href: "/Dashboard-admin",
+  //   icon: <SettingsIcon />
+  // },
+  // {
+  //   title: "Logout",
+  //   href: "/Dashboard-admin",
+  //   icon: <SettingsIcon />
+  // }
 ];
 
 export const pagesUser = [
