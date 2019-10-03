@@ -32,16 +32,25 @@ exports.sendEmail = async (req, res) => {
     const url = `https://vantty.ca/confirmation/${emailToken}`;
     // const url = `http://localhost:3000/confirmation/${emailToken}`;
 
+    let auth = {
+      type: "oauth2",
+      user: "julian.urrego.ar@gmail.com",
+      clientId:
+        "259457812212-sj1ga4eqacoqubksrl53e6pjgan5pp9o.apps.googleusercontent.com",
+      clientSecret: "4iNaE1fePXJr_qA5BwfvEnG3",
+      refreshToken: "1/uYHckZQWB7aIw0EjVi9W8CCjmxKBk2ZycI-rXit3S6k"
+    };
+
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: "vantty.makeup@gmail.com",
-        pass: "vantty@2019"
-      }
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 80,
+      secure: true,
+      auth: auth
     });
 
     const mailOptions = {
-      from: "vantty.makeup@gmail.com",
+      from: "julian.urrego.ar@gmail.com",
       to: `${email}`,
       subject: "Confirm Email",
       html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
