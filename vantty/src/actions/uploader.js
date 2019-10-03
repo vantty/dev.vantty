@@ -158,14 +158,13 @@ export const userImage = (e, id, profile) => async dispatch => {
         (await dispatch(
           createProfile({ profilePicture: sendImage.original }, undefined, true)
         ));
-
-      await dispatch(getCurrentProfile());
-
       await dispatch({
         type: IMAGES_UPLOAD_SUCCESS,
         payload: images
       });
+      await dispatch(getCurrentProfile());
     })
+
     .catch(error => {
       console.log(error);
       dispatch({ type: IMAGES_UPLOAD_FAIL });

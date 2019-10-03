@@ -76,6 +76,7 @@ export const createProfile = (
         "Content-type": "application/json"
       }
     };
+    console.log(formData);
     const res = await server.post("/profile", formData, config);
     dispatch(getCurrentProfile());
     dispatch({
@@ -134,7 +135,29 @@ export const createMobileNumber = (
 };
 
 // Add Education
-export const addEducation = (formData, history) => async dispatch => {
+export const addCategories = (
+  state,
+  history,
+  stateHair,
+  edit = false
+) => async dispatch => {
+  let categories = {};
+  let makeup = [];
+  let hair = [];
+
+  for (const prop in state) {
+    if (state[prop] === true) {
+      await makeup.push(prop);
+    }
+  }
+
+  for (const prop in stateHair) {
+    if (stateHair[prop] === true) {
+      await hair.push(prop);
+    }
+  }
+  categories = { makeup, hair };
+  console.log("CATEGORY", categories);
   try {
     const config = {
       headers: {
@@ -142,16 +165,15 @@ export const addEducation = (formData, history) => async dispatch => {
       }
     };
 
-    const res = await server.put("/profile/education", formData, config);
+    const res = await server.put("/profile/categories", categories, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert("Education Added", "success"));
-
-    history.push("/dashboard");
+    dispatch(setAlert("Categories Added", "success"));
+    edit && history.push("/settings");
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -189,7 +211,7 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = elastidId => async dispatch => {
   if (window.confirm("Are you sure?")) {
     try {
-      await deleteFromElastic(elastidId);
+      // await deleteFromElastic(elastidId);
       await server.delete("/profile");
 
       dispatch({ type: CLEAR_PROFILE });

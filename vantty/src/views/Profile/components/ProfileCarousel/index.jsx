@@ -1,10 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
 // import CardAction from "@material-ui/core/CardAction";
 import { CardAction } from "../../../../components";
+import { Link, Button, ButtonBase, IconButton } from "@material-ui/core";
+import MainPicture from "./components/MainPicture";
 
 const useStyles = makeStyles({
   image: {
@@ -18,25 +20,28 @@ const useStyles = makeStyles({
     borderRadius: "0.6rem",
     borderColor: "white",
     borderStyle: "solid"
+  },
+  frame: {
+    width: "100%"
   }
 });
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 4,
     slidesToSlide: 1, // optional, default to 1.
     paritialVisibilityGutter: 0
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 4,
     slidesToSlide: 1, // optional, default to 1.
     paritialVisibilityGutter: 20
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
+    items: 3,
     slidesToSlide: 1, // optional, default to 1.
     paritialVisibilityGutter: 20
   }
@@ -45,29 +50,42 @@ const responsive = {
 const Porfolio = ({ profile: { portfolioPictures } }) => {
   const classes = useStyles();
 
+  const [state, setState] = useState({
+    picture: portfolioPictures[0].original,
+    tag: portfolioPictures[0].tag
+  });
+  const { picture, tag } = state;
   return (
     <Fragment>
       <Fragment>
+        <MainPicture picture={picture} />
         <Carousel
           responsive={responsive}
-          additionalTransfrom={0}
+          // additionalTransfrom={0}
           arrows
           autoPlaySpeed={3000}
-          centerMode={false}
+          // centerMode={false}
           containerClass='container'
           dotListClass=''
-          draggable
+          // draggable
           focusOnSelect={false}
           infinite
           itemClass=''
           keyBoardControl
-          minimumTouchDrag={80}
+          minimumTouchDrag={90}
           partialVisbile='right'
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {portfolioPictures.map(image => (
-            <CardAction key={image._id}>
+            <Link
+              component='button'
+              onClick={() => {
+                setState({ picture: image.original, tag: image.tag });
+              }}
+              className={classes.frame}
+              key={image._id}
+            >
               <span
                 key={image._id}
                 style={{
@@ -75,7 +93,7 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
                 }}
                 className={classes.image}
               />
-            </CardAction>
+            </Link>
           ))}
         </Carousel>
       </Fragment>

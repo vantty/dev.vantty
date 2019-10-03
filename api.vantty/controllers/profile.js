@@ -40,11 +40,11 @@ exports.createANDupdate = async (req, res) => {
     city,
     price,
     firstName,
-    lastName
+    lastName,
+    verified
   } = req.body;
 
   // Build profile object
-
   var method = req.user.method;
 
   const profileFields = {};
@@ -65,6 +65,9 @@ exports.createANDupdate = async (req, res) => {
   }
   if (city) {
     profileFields.city = city;
+  }
+  if (verified) {
+    profileFields.verified = verified;
   }
 
   // if (profession) {
@@ -164,22 +167,20 @@ exports.deleteUserAndReviews = async (req, res) => {
   }
 };
 
-// Add Education
-exports.addEducation = async (req, res) => {
-  const { school, degree, description } = req.body;
-
-  const newEdu = { school, degree, description };
+// Add Categories
+exports.addCategories = async (req, res) => {
+  const make = req.body.makeup;
+  const hair = req.body.hair;
 
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
-    profile.education.unshift(newEdu);
+    profile.categories.makeup = await make.splice(0);
+    profile.categories.hair = await hair.slice(0);
 
     await profile.save();
-
-    res.json(profile);
+    await res.json(profile);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 };

@@ -39,6 +39,15 @@ const profilePageStyle = {
     textDecoration: "none",
     fontSize: "16px"
   },
+  subSubTitle: {
+    display: "inline-block",
+    position: "relative",
+    marginTop: "0px",
+    minHeight: "7px",
+    textDecoration: "none",
+    fontSize: "10px",
+    color: "#999"
+  },
   text: {
     display: "inline-block",
     position: "relative",

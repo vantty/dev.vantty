@@ -30,8 +30,9 @@ import {
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
 import { getCurrentProfile, createProfile } from "../../../../actions/profile";
-import { FormBottomNav, AvatarUploader, Alert } from "../../../../components";
+import { FormBottomNav, AvatarUploader } from "../../../../components";
 import { schemaErrors } from "../../../../helpers/errorsData";
+import Progress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -94,10 +95,6 @@ const AccountDetails = ({
   }, [loading, getCurrentProfile, loadUser]);
 
   const { firstName, lastName, email, profilePicture, id } = formData;
-
-  // const onChange = e => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
 
   useEffect(() => {
     const errors = validate(formState.values, schemaErrors);
@@ -191,7 +188,9 @@ const AccountDetails = ({
                 <Grid item>
                   <Grid item>
                     <div>
-                      {profilePicture.original ? (
+                      {uploading ? (
+                        <Progress />
+                      ) : profilePicture.original ? (
                         <Avatar
                           src={profilePicture.original}
                           className={classes.avatar}
@@ -201,15 +200,17 @@ const AccountDetails = ({
                           {getInitials(firstName)}
                         </Avatar>
                       )}
+                      <br />
+                      <Grid>
+                        <AvatarUploader
+                          profilePicture={profilePicture}
+                          id={id}
+                          onSubmit={onSubmit}
+                        />
+                      </Grid>
                     </div>
+
                     <br />
-                    <Grid>
-                      <AvatarUploader
-                        profilePicture={profilePicture}
-                        id={id}
-                        onSubmit={onSubmit}
-                      />
-                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
@@ -287,7 +288,10 @@ const AccountDetails = ({
               <div>
                 <div>
                   <Fragment>
-                    <Button component={Link} to='/settings'>
+                    <Button
+                      component={Link}
+                      to={profile ? "/settings" : "/dashboard"}
+                    >
                       Back
                     </Button>
                     <Button

@@ -102,7 +102,13 @@ const Profile = ({
             <Fragment>
               <ProfileInfo profile={profile} auth={auth} />
               <br />
-              <ProfileCarousel profile={profile} />
+              {!isMobile ? (
+                <Container maxWidth='md'>
+                  <ProfileCarousel profile={profile} />
+                </Container>
+              ) : (
+                <ProfileCarousel profile={profile} />
+              )}
               <br />
               <br />
               <ReviewCard profile={profile} />
@@ -120,7 +126,7 @@ const Profile = ({
             <BottomNavabar />
           ) : null
         ) : (
-          <ConctactButton profile={profile} />
+          <ConctactButton profile={profile} location={auth.currentLocation} />
         )}
       </div>
     </Fragment>

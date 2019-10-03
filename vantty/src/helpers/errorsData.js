@@ -27,7 +27,7 @@ export const schemaErrorsCreateProfile = {
     presence: { allowEmpty: false, message: "is required" },
     // lastName: false,
     length: {
-      maximum: 10
+      maximum: 300
     }
   },
   profession: {

@@ -56,6 +56,7 @@ const ProfileSchema = new mongoose.Schema({
       }
     }
   ],
+  categories: { makeup: [String], hair: [String] },
 
   portfolioPictures: [
     {
@@ -64,10 +65,13 @@ const ProfileSchema = new mongoose.Schema({
       },
       cloudId: {
         type: String
-      },
-      tag: {
-        type: String
       }
+      // tag: {
+      //   type: String
+      // },
+      // cloudId: {
+      //   type: [String]
+      // }
     }
   ],
   social: {
@@ -95,6 +99,10 @@ const ProfileSchema = new mongoose.Schema({
   //     type: String
   //   }
   // },
+  verified: {
+    type: Boolean,
+    default: false
+  },
   date: {
     type: Date,
     default: Date.now

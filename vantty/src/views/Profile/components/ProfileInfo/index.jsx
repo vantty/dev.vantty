@@ -21,7 +21,17 @@ import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
-  profile: { user, city, profilePicture, bio, profession, name, loading },
+  profile: {
+    user,
+
+    city,
+    profilePicture,
+    bio,
+    profession,
+    name,
+    categories,
+    loading
+  },
 
   classes,
   ...rest
@@ -42,8 +52,8 @@ const ProfileInfo = ({
                 <Avatar src={profilePicture} className={classes.bigAvatar} />
               )
             ) : (
-              <Avatar className={classes.avatar} src={""}>
-                {user && getInitials(getStrategyName(user))}
+              <Avatar className={classes.bigAvatar} src={""}>
+                {user && getInitials(name.firstName)}
               </Avatar>
             )}
           </Grid>
@@ -55,6 +65,10 @@ const ProfileInfo = ({
             <br />
 
             <h3 className={classes.subTitle}>{profession}</h3>
+            <br />
+            <h5 className={classes.subSubTitle}>
+              {categories.makeup.join(" | ")}
+            </h5>
             <br />
             <br />
             <h3 className={classes.description}>{bio}</h3>

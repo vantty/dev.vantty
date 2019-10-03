@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -13,7 +13,9 @@ import { deleteUserPicture } from "../../actions/auth";
 // Material-UI
 import Progress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
-import { Typography } from "@material-ui/core";
+import LinkMui from "@material-ui/core/Link";
+import { Typography, Avatar } from "@material-ui/core";
+import AvatarPro from "./components/AvatarPro";
 
 const AvatarUploader = ({
   userImage,
@@ -64,7 +66,7 @@ const AvatarUploader = ({
   const DeletePicture = () => {
     return (
       <Fragment>
-        <Button
+        {/* <Button
           size='small'
           component='label'
           color='primary'
@@ -73,17 +75,34 @@ const AvatarUploader = ({
           onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
         >
           Delete Picture
-        </Button>
+        </Button> */}
+        <LinkMui
+          style={{ marginRight: "1rem" }}
+          disabled={!profilePicture.original && true}
+          component='button'
+          variant='body2'
+          onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
+        >
+          Delete Picture
+        </LinkMui>
       </Fragment>
     );
   };
 
+  const loadImages = () => {
+    if (profile !== null) {
+      return <AvatarPro profilePicture={profilePicture} />;
+    }
+  };
+
   return (
     <Fragment>
-      {/* <DeletePicture /> */}
+      <DeletePicture />
       <UploadButton />
-      {uploading && <Progress />}
     </Fragment>
+    // <Fragment>
+    //   <UploadButton />
+    // </Fragment>
   );
 };
 

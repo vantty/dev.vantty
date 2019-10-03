@@ -8,8 +8,8 @@ const passport = require("passport"),
   googleID =
     "259457812212-sj1ga4eqacoqubksrl53e6pjgan5pp9o.apps.googleusercontent.com",
   googleSecret = "4iNaE1fePXJr_qA5BwfvEnG3",
-  facebookID = "2421393628186630",
-  facebookSecret = "7c443472ff35695412caf746aeb9f660",
+  facebookID = "619096385268555",
+  facebookSecret = "6e803fddc4394afd081a1fc8f384b59e",
   User = require("../models/User");
 
 // JWT Strategy

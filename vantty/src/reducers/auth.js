@@ -6,12 +6,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  ACCOUNT_DELETE
+  ACCOUNT_DELETE,
+  USER_LOCATION
 } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
+  currentLocation: "",
   loading: true,
   user: null
 };
@@ -25,6 +27,11 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: payload
+      };
+    case USER_LOCATION:
+      return {
+        ...state,
+        currentLocation: payload
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
