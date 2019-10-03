@@ -5,7 +5,7 @@ import { AddPortfolio } from "../../../Form/components";
 const EditPortfolio = () => {
   return (
     <Fragment>
-      <EditForm Children={<AddPortfolio />} />
+      <EditForm Children={<AddPortfolio />} index={2} />
     </Fragment>
   );
 };
