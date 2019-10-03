@@ -46,12 +46,12 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     backgroundColor: "inherit",
-    color: "#000",
+    color: theme.palette.greenVantty.tooDark,
     boxShadow: "none",
     transition: theme.transitions.create("backgroundColor"),
     "&:hover": {
-      backgroundColor: theme.palette.greenVantty,
-      color: "rgb(255, 255, 255)"
+      backgroundColor: theme.palette.greenVantty.main,
+      color: theme.palette.greenVantty.contrastText
     },
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
@@ -169,14 +169,10 @@ const Navbar = props => {
                       <Fragment>
                         <section data-test="noAuthButtons">
                           <div className={classes.sectionDesktop}>
-                            <div className={classes.search}>
+                            {/* <div className={classes.search}>
                               <div className={classes.searchIcon}>
                                 <SearchIcon />
                               </div>
-                              {/* <div>
-                                <SearchBar />
-                              </div> */}
-
                               <form onSubmit={handleSearch}>
                                 <InputBase
                                   onChange={handleChange}
@@ -188,8 +184,9 @@ const Navbar = props => {
                                   inputProps={{ "aria-label": "search" }}
                                 />
                               </form>
-                            </div>
+                            </div> */}
                             <Button
+                              size="large"
                               variant="contained"
                               color="secondary"
                               className={classes.button}
@@ -199,6 +196,7 @@ const Navbar = props => {
                               Artists
                             </Button>
                             <Button
+                              size="large"
                               variant="contained"
                               color="secondary"
                               className={classes.button}
@@ -209,6 +207,7 @@ const Navbar = props => {
                               Login
                             </Button>
                             <Button
+                              size="large"
                               variant="contained"
                               color="secondary"
                               className={classes.button}

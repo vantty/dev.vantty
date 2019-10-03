@@ -152,7 +152,14 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   signInButton: {
-    margin: theme.spacing(2, 0)
+    margin: theme.spacing(2, 0),
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
+  },
+  link: {
+    color: theme.palette.purpleVantty.main
   }
 }));
 
@@ -299,6 +306,7 @@ const Register = props => {
                       render={renderProps => (
                         <Button
                           fullWidth
+                          color="secondary"
                           size="large"
                           onClick={renderProps.onClick}
                           variant="contained"
@@ -401,7 +409,12 @@ const Register = props => {
                 </Button>
                 <Typography color="textSecondary" variant="body1">
                   Already have an account?{" "}
-                  <Link component={RouterLink} to="/login" variant="h6">
+                  <Link
+                    component={RouterLink}
+                    to="/login"
+                    variant="h6"
+                    className={classes.link}
+                  >
                     Login
                   </Link>
                 </Typography>
