@@ -36,6 +36,7 @@ import {
   Grid
 } from "@material-ui/core";
 import { schemaErrorsCreateProfile } from "../../../../helpers/errorsData";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -49,7 +50,8 @@ const EditProfile = ({
   createProfile,
   getCurrentProfile,
   history,
-  className
+  className,
+  match
 }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
@@ -149,10 +151,10 @@ const EditProfile = ({
               <Card className={clsx(classes.root, className)}>
                 <form autoComplete='off' noValidate>
                   <CardHeader
-                    subheader='The information can be edited'
-                    title='Profile'
+                    // subheader='The information can be edited'
+                    title='Bio'
                   />
-                  <Divider />
+                  {/* <Divider /> */}
                   <CardContent>
                     {/* <form autoComplete='off' noValidate> */}
                     <Grid container>
@@ -274,36 +276,49 @@ const EditProfile = ({
                   </CardContent>
                   <Divider />
                   <CardActions className={classes.buttons}>
-                    <div>
-                      <div>
-                        <LinkMui component={Link} to='/'>
-                          learn how to build the best profile
-                        </LinkMui>
-                      </div>
-                    </div>
+                    <Grid
+                      container
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
+                    >
+                      {match.url === "/edit-profile" && !isMobile && (
+                        <Button
+                          onClick={e => onSubmit(e)}
+                          style={{
+                            backgroundColor: "#f5f5"
+                          }}
+                          disabled={!formState.isValid}
+                        >
+                          Update
+                        </Button>
+                      )}
+                    </Grid>
                   </CardActions>
                   {/* </Grid> */}
                 </form>
               </Card>
-              <FormBottomNav
-                // step={"1"}
-                Children={
-                  <div>
+              {isMobile && match.url === "/edit-profile" && (
+                <FormBottomNav
+                  // step={"1"}
+                  Children={
                     <div>
-                      <Button component={Link} to='/settings'>
-                        Back
-                      </Button>
-                      <Button
-                        style={{ backgroundColor: "#f5f5" }}
-                        onClick={e => onSubmit(e)}
-                        disabled={!formState.isValid}
-                      >
-                        Next
-                      </Button>
+                      <div>
+                        <Button component={Link} to='/settings'>
+                          Back
+                        </Button>
+                        <Button
+                          style={{ backgroundColor: "#f5f5" }}
+                          onClick={e => onSubmit(e)}
+                          disabled={!formState.isValid}
+                        >
+                          Next
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                }
-              />
+                  }
+                />
+              )}
             </Fragment>
           </Fragment>
         }

@@ -91,7 +91,7 @@ const AvatarUploader = ({
 
   const loadImages = () => {
     if (profile !== null) {
-      return <AvatarPro profilePicture={profilePicture} />;
+      // return <AvatarPro profilePicture={profilePicture} />;
     }
   };
 
@@ -110,7 +110,7 @@ AvatarUploader.propTypes = {
   userImage: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
   images: PropTypes.array,
-  profilePicture: PropTypes.object,
+  // profilePicture: PropTypes.object,
   getCurrentProfile: PropTypes.func.isRequired,
   updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,

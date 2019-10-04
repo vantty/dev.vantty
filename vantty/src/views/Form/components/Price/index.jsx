@@ -8,6 +8,7 @@ import { getCurrentProfile, createProfile } from "../../../../actions/profile";
 
 //Components
 import { FormBottomNav } from "../../../../components";
+import { isMobile, isTablet, isBrowser } from "react-device-detect";
 
 // Externals
 import PropTypes from "prop-types";
@@ -120,10 +121,10 @@ const Price = ({
           {profile ? (
             <form autoComplete='off' noValidate>
               <CardHeader
-                subheader='from what value do your services start'
-                title='Price'
+                // subheader='from what value do your services start'
+                title='Service'
               />
-              <Divider />
+              {/* <Divider /> */}
               <CardContent className={classes.content}>
                 <div>
                   <div>
@@ -142,7 +143,7 @@ const Price = ({
                           justify='center'
                           alignItems='center'
                         >
-                          <Grid item xs={8}>
+                          <Grid item xs={isMobile ? 12 : 10}>
                             <PrettoSlider
                               defaultValue={60}
                               valueLabelDisplay='on'
@@ -163,7 +164,7 @@ const Price = ({
                               variant='body1'
                             >
                               I provide a service minimum for{" "}
-                              <strong>${price}</strong>
+                              <strong>${price || 80}</strong>
                             </Typography>
                           </Grid>
                         </Grid>
@@ -172,12 +173,26 @@ const Price = ({
                   </div>
                 </div>
               </CardContent>
-              <Divider />
-              <CardActions>
-                <LinkMui component={Link} to='/'>
-                  learn how to build the best profile
-                </LinkMui>
-              </CardActions>
+              {match.url === "/price" && !isMobile && (
+                <Fragment>
+                  <Divider />
+                  <CardActions>
+                    <Grid
+                      container
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
+                    >
+                      <Button
+                        style={{ backgroundColor: "#f5f5" }}
+                        onClick={e => onSubmitPrice(e)}
+                      >
+                        Update
+                      </Button>
+                    </Grid>
+                  </CardActions>
+                </Fragment>
+              )}
             </form>
           ) : (
             <Progress />
@@ -185,13 +200,50 @@ const Price = ({
         </Card>
       </Fragment>
       <Fragment>
-        {console.log(step)}
-        <FormBottomNav
-          step={step}
-          Children={
-            <div>
+        {match.url === "/create-profile" ? (
+          <FormBottomNav
+            step={step}
+            Children={
               <div>
-                {match.url === "/price" ? (
+                <div>
+                  {match.url === "/price" ? (
+                    <Fragment>
+                      <Button component={Link} to='/settings'>
+                        Back
+                      </Button>
+                      <Button
+                        component={Link}
+                        to='/settings'
+                        style={{ backgroundColor: "#f5f5" }}
+                        onClick={e => onSubmitPrice(e)}
+                      >
+                        Update
+                      </Button>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <Button onClick={back}>Back</Button>
+                      <Button
+                        style={{ backgroundColor: "#f5f5" }}
+                        onClick={e => onSubmit(e)}
+                        disabled={!price}
+                      >
+                        Next
+                      </Button>
+                    </Fragment>
+                  )}
+                </div>
+              </div>
+            }
+          />
+        ) : null}
+
+        {match.url === "/price" && isMobile ? (
+          <FormBottomNav
+            step={step}
+            Children={
+              <div>
+                <div>
                   <Fragment>
                     <Button component={Link} to='/settings'>
                       Back
@@ -205,22 +257,11 @@ const Price = ({
                       Update
                     </Button>
                   </Fragment>
-                ) : (
-                  <Fragment>
-                    <Button onClick={back}>Back</Button>
-                    <Button
-                      style={{ backgroundColor: "#f5f5" }}
-                      onClick={e => onSubmit(e)}
-                      disabled={!price}
-                    >
-                      Next
-                    </Button>
-                  </Fragment>
-                )}
+                </div>
               </div>
-            </div>
-          }
-        />
+            }
+          />
+        ) : null}
       </Fragment>
     </Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -10,20 +10,22 @@ import { getCurrentProfile } from "../../actions/profile";
 
 //Material-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Hidden } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Container } from "@material-ui/core";
+import { Table } from "./components";
+import { isOwner } from "../../helpers";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
   root: {
     width: "auto",
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(3),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
+      width: 800,
       marginLeft: "auto",
       marginRight: "auto"
     }
@@ -45,11 +47,24 @@ const EditForm = ({
   auth: { user },
   getCurrentProfile,
   Children,
-  match
+  match,
+  page,
+  title,
+  auth,
+  index
 }) => {
+  const [state, setState] = useState();
+
+  const shoot = (e, own) => (e, own) => {
+    e.preventDefault();
+    setState(own);
+    console.log(own);
+  };
+
   const classes = useStyles();
   useEffect(() => {
-    getCurrentProfile();
+    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
+    // getCurrentProfile();
   }, []);
   return (
     <Fragment>
@@ -61,11 +76,14 @@ const EditForm = ({
         user ? (
           <Box pt={11} pb={11}>
             <div className={classes.root}>
-              <Grid container spacing={4}>
-                <Grid item lg={12} md={12} xl={12} xs={12}>
-                  <Container maxWidth='md'>
-                    <Fragment>{Children}</Fragment>
-                  </Container>
+              <Grid container>
+                <Hidden xsDown>
+                  <Grid item lg={4} md={4} xs={4}>
+                    <Table page={page} title={title} match={match} />
+                  </Grid>
+                </Hidden>
+                <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
+                  <Fragment>{Children}</Fragment>
                 </Grid>
               </Grid>
             </div>
@@ -74,17 +92,24 @@ const EditForm = ({
           <Progress />
         )
       ) : profile ? (
-        <Box pt={11} pb={11}>
-          <div className={classes.root}>
-            <Grid container spacing={4}>
-              <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
-                  <Fragment>{Children}</Fragment>
-                </Container>
-              </Grid>
-            </Grid>
-          </div>
-        </Box>
+        <Fragment>
+          <Container maxWidth='md'>
+            <Box pt={11} pb={11}>
+              <div className={classes.root}>
+                <Grid container>
+                  <Hidden xsDown>
+                    <Grid item lg={4} md={4} xs={4}>
+                      <Table page={page} title={title} match={match} />
+                    </Grid>
+                  </Hidden>
+                  <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
+                    <Fragment>{Children}</Fragment>
+                  </Grid>
+                </Grid>
+              </div>
+            </Box>
+          </Container>
+        </Fragment>
       ) : (
         <Progress />
       )}

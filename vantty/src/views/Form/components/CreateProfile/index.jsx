@@ -132,8 +132,11 @@ const CreateProfile = ({
     <Fragment>
       <Card className={clsx(classes.root, className)}>
         {/* <form autoComplete='off' noValidate> */}
-        <CardHeader subheader='The information can be edited' title='Profile' />
-        <Divider />
+        <CardHeader
+          // subheader='The information can be edited'
+          title='Bio'
+        />
+        {/* <Divider /> */}
         <CardContent>
           <form autoComplete='off' noValidate>
             <Grid container>

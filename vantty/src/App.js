@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
+import Button from "@material-ui/core/Button";
 
 // Redux Store
 import store from "./store";
 
 // Components
-import Dashboard from "./components/dashboard/Dashboard";
 
 // import Alert from "./components/Alert";
 import ReviewForm from "./components/ReviewForm";
@@ -22,12 +22,14 @@ import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
 import Landing from "./views/Landing";
-import UserList from "./views/UserList";
+import DashboardAdmin from "./components/dashboard/DashboardAdmin";
+
 import { InfoContact } from "./views/Form/components";
 import {
   EditProfile,
   EditPersonalInfo,
-  EditMobile
+  EditMobile,
+  Table
 } from "./views/EditForm/components";
 import {
   EditPortfolio,
@@ -47,8 +49,10 @@ import "./assets/scss/index.scss";
 
 // Material-UI
 import { ThemeProvider } from "@material-ui/styles";
-import Settings from "./views/Settings";
+// import Settings from "./views/Settings";
 import { Alert } from "./components";
+import { Board } from "./views/Admin/";
+import AdminRoute from "./router/AdminRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -83,10 +87,15 @@ const App = () => {
               <Route exact path='/artists' component={Artists} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile/artist/:id' component={Profile} />
-              <Route exact path='/user-list' component={UserList} />
+              <AdminRoute exact path='/board' component={Board} />
               <Route exact path='/home' component={Home} />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute
+                exact
+                path='/dashboard-admin'
+                component={DashboardAdmin}
+              />
               <PrivateRoute exact path='/create-profile' component={Form} />
+              />
               <PrivateRoute
                 exact
                 path='/categories'
@@ -107,10 +116,9 @@ const App = () => {
                 path='/info-contact'
                 component={InfoContact}
               />
-              <PrivateRoute exact path='/settings' component={Settings} />
+              <PrivateRoute exact path='/settings' component={Table} />
               <PrivateRoute exact path='/mobile' component={EditMobile} />
               <PrivateRoute exact path='/price' component={EditPrice} />
-
               <PrivateRoute
                 exact
                 path='/add-portfolio'

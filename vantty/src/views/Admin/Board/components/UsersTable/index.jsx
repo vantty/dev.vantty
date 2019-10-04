@@ -23,8 +23,9 @@ import {
   IconButton
 } from "@material-ui/core";
 import Sms from "@material-ui/icons/SmsOutlined";
-import { getProfiles } from "../../../../actions/profile";
+import { getProfiles, verifiedProfile } from "../../../../../actions/profile";
 import { isIOS } from "react-device-detect";
+import { Verified as VerifiedIcon } from "../../../../../assets/icons";
 // import { getInitials } from "../../../../helpers/getInitials";
 
 const useStyles = makeStyles(theme => ({
@@ -56,11 +57,23 @@ const msg = (kindOfPhone, mobileNumber, name) => {
 const UsersTable = props => {
   const classes = useStyles();
 
-  const { className, profiles, ...rest } = props;
+  const {
+    className,
+    profiles,
+    history,
+    formData,
+    verifiedProfile,
+    ...rest
+  } = props;
 
   useEffect(() => {
     getProfiles();
   }, []);
+
+  const onSubmit = (e, value, id) => {
+    e.preventDefault();
+    verifiedProfile({ verified: value, id: id });
+  };
 
   const [users] = useState(profiles);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -117,10 +130,10 @@ const UsersTable = props => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                <TableCell padding='checkbox'>
                   <Checkbox
                     checked={selectedUsers.length === users.length}
-                    color="primary"
+                    color='primary'
                     indeterminate={
                       selectedUsers.length > 0 &&
                       selectedUsers.length < users.length
@@ -144,12 +157,12 @@ const UsersTable = props => {
                   key={user._id}
                   selected={selectedUsers.indexOf(user._id) !== -1}
                 >
-                  <TableCell padding="checkbox">
+                  <TableCell padding='checkbox'>
                     <Checkbox
                       checked={selectedUsers.indexOf(user._id) !== -1}
-                      color="primary"
+                      color='primary'
                       onChange={event => handleSelectOne(event, user._id)}
-                      value="true"
+                      value='true'
                     />
                   </TableCell>
                   <TableCell>
@@ -160,7 +173,7 @@ const UsersTable = props => {
                       >
                         {/* {getInitials(user.name)} */}
                       </Avatar>
-                      <Typography variant="body1">
+                      <Typography variant='body1'>
                         {user.name.firstName}
                       </Typography>
                     </div>
@@ -170,12 +183,12 @@ const UsersTable = props => {
                     {
                       <div>
                         <a
-                          target="#"
+                          target='#'
                           href={`https://api.whatsapp.com/send?phone=${user.mobileNumber}&text=Hola!`}
                         >
                           <IconButton
                             className={classes.button}
-                            aria-label="delete"
+                            aria-label='delete'
                             style={{ color: "#25D366" }}
                           >
                             <Sms />
@@ -203,7 +216,7 @@ const UsersTable = props => {
                     {
                       <Link
                         href={`http://localhost:3000/profile/artist/${user.user._id}`}
-                        target="_blank"
+                        target='_blank'
                       >
                         Profile
                       </Link>
@@ -212,19 +225,30 @@ const UsersTable = props => {
                   <TableCell>
                     {
                       <Button
-                        size="small"
-                        variant="contained"
-                        color="secondary"
+                        size='small'
+                        variant='contained'
+                        color='secondary'
+                        disabled={user.verified}
+                        onClick={e => onSubmit(e, true, user._id)}
                       >
                         Verify
                       </Button>
                     }
-                    {<Button size="small">Block</Button>}
+                    {
+                      <Button
+                        size='small'
+                        disabled={!user.verified}
+                        onClick={e => onSubmit(e, false, user._id)}
+                      >
+                        Block
+                      </Button>
+                    }
                   </TableCell>
                   <TableCell>{user.date},</TableCell>
-                  {/* <TableCell>
-                      {moment(user.createdAt).format("DD/MM/YYYY")}
-                    </TableCell> */}
+
+                  <TableCell>
+                    {moment(user.createdAt).format("DD/MM/YYYY")}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -234,7 +258,7 @@ const UsersTable = props => {
       </CardContent>
       <CardActions className={classes.actions}>
         <TablePagination
-          component="div"
+          component='div'
           count={users.length}
           onChangePage={handlePageChange}
           onChangeRowsPerPage={handleRowsPerPageChange}
@@ -257,7 +281,8 @@ UsersTable.propTypes = {
   getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   className: PropTypes.string,
-  profiles: PropTypes.array.isRequired
+  profiles: PropTypes.array.isRequired,
+  verifiedProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -266,94 +291,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfiles }
+  { getProfiles, verifiedProfile }
 )(UsersTable);
-
-// import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Table from "@material-ui/core/Table";
-// import TableBody from "@material-ui/core/TableBody";
-// import TableCell from "@material-ui/core/TableCell";
-// import TableHead from "@material-ui/core/TableHead";
-// import TableRow from "@material-ui/core/TableRow";
-// import Paper from "@material-ui/core/Paper";
-// import PropTypes from "prop-types";
-// import { Avatar, Typography, Checkbox } from "@material-ui/core";
-// import moment from "moment";
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     width: "100%",
-//     marginTop: theme.spacing(3),
-//     overflowX: "auto"
-//   },
-//   table: {
-//     minWidth: 650
-//   }
-// }));
-
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const UsersTable = ({ profiles }) => {
-//   const classes = useStyles();
-//   console.log(profiles);
-//   return (
-//     <Paper className={classes.root}>
-//       <Table className={classes.table}>
-//         <TableHead>
-//           <TableRow>
-//             <TableCell>Dessert (100g serving)</TableCell>
-//             <TableCell align='right'>Calories</TableCell>
-//             <TableCell align='right'>Fat&nbsp;(g)</TableCell>
-//             <TableCell align='right'>Carbs&nbsp;(g)</TableCell>
-//             <TableCell align='right'>Protein&nbsp;(g)</TableCell>
-//           </TableRow>
-//         </TableHead>
-
-//         <TableBody>
-//           {profiles.map(user => (
-//             <TableRow
-//               className={classes.tableRow}
-//               hover
-//               key={user._id}
-//               // selected={selectedUsers.indexOf(user._id) !== -1}
-//             >
-//               <TableCell padding='checkbox'>
-//                 <Checkbox
-//                   // checked={selectedUsers.indexOf(user._id) !== -1}
-//                   color='primary'
-//                   // onChange={event => handleSelectOne(event, user._id)}
-//                   value='true'
-//                 />
-//               </TableCell>
-//               <TableCell>
-//                 <div className={classes.nameContainer}>
-//                   <Avatar className={classes.avatar} src={user.profilePicture}>
-//                     {/* {getInitials(user.name)} */}
-//                   </Avatar>
-//                   <Typography variant='body1'>{user.name.firstName}</Typography>
-//                 </div>
-//               </TableCell>
-//               <TableCell>{user.email}</TableCell>
-//               <TableCell>{user.city},</TableCell>
-//               <TableCell>{user.phone}</TableCell>
-//               <TableCell>
-//                 {moment(user.createdAt).format("DD/MM/YYYY")}
-//               </TableCell>
-//             </TableRow>
-//           ))}
-//         </TableBody>
-//       </Table>
-//     </Paper>
-//   );
-// };
-
-// UsersTable.propTypes = {
-//   getProfiles: PropTypes.func.isRequired,
-//   profile: PropTypes.object.isRequired,
-//   className: PropTypes.string,
-//   profiles: PropTypes.array.isRequired
-// };
-
-// export default UsersTable;

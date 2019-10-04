@@ -124,7 +124,6 @@ const ContactButton = ({
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      {console.log(location)}
       {location === "Canada" && (
         <Grid container direction='row' justify='center' alignItems='center'>
           {isAndroid ? (

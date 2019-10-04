@@ -12,7 +12,9 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     top: "auto",
-    bottom: 0
+    bottom: 0,
+    // paddingRight: "3rem",
+    paddingBottom: "1rem"
   }
 }));
 

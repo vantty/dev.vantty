@@ -35,7 +35,8 @@ const ProfileSchema = new mongoose.Schema({
   },
 
   mobileNumber: {
-    type: String
+    type: String,
+    default: null
     // required: true
   },
   instagramUsername: {

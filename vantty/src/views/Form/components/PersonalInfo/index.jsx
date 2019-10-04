@@ -4,13 +4,8 @@ import { withRouter, Link } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import validate from "validate.js";
-
-import {
-  getStrategy,
-  getInitials,
-  getStrategyName,
-  fieldErrors
-} from "../../../../helpers";
+import { isMobile, isTablet, isBrowser } from "react-device-detect";
+import { getStrategy, getInitials, isOwner } from "../../../../helpers";
 import EditForm from "../../../EditForm";
 
 //Material Components
@@ -24,7 +19,9 @@ import {
   Grid,
   Button,
   TextField,
-  Avatar
+  Avatar,
+  Paper,
+  Typography
 } from "@material-ui/core";
 
 // Actions
@@ -67,7 +64,7 @@ const AccountDetails = ({
     email: "",
     id: "",
     password: "",
-    profilePicture: {}
+    profilePicture: ""
   });
 
   //errors
@@ -148,7 +145,7 @@ const AccountDetails = ({
         true
       ));
 
-    (await match.url) !== "/personal-info" && nextStep();
+    (await match.url) === "/create-profile" && nextStep();
   };
   useEffect(() => {
     getCurrentProfile();
@@ -173,10 +170,10 @@ const AccountDetails = ({
       <Card className={clsx(classes.root, className)}>
         <form autoComplete='off' noValidate>
           <CardHeader
-            subheader='The information can be edited'
+            // subheader='The information can be edited'
             title='Profile'
           />
-          <Divider />
+          {/* <Divider /> */}
           <CardContent>
             <Grid container spacing={3}>
               <Grid
@@ -280,34 +277,109 @@ const AccountDetails = ({
               </Grid>
             </Grid>
           </CardContent>
-          <Divider />
+          {match.url !== "/create-profile" && !isMobile && (
+            <Fragment>
+              <Divider />
 
-          <FormBottomNav
-            step={step}
-            Children={
-              <div>
-                <div>
-                  <Fragment>
-                    <Button
-                      component={Link}
-                      to={profile ? "/settings" : "/dashboard"}
-                    >
-                      Back
-                    </Button>
+              <CardActions>
+                <Grid
+                  container
+                  direction='row'
+                  justify='space-between'
+                  alignItems='flex-start'
+                >
+                  <Grid>
+                    {/* {!profile && !profile.mobileNumber && ( */}
+                    {profile && profile.mobileNumber === null && (
+                      <Button
+                        component={Link}
+                        size='small'
+                        style={{
+                          color: "rgb(0, 223, 212)"
+                        }}
+                        to={"/create-profile"}
+                      >
+                        Create Profile as Artist
+                      </Button>
+                    )}
+                    {!profile && (
+                      <Button
+                        component={Link}
+                        size='small'
+                        style={{
+                          color: "rgb(0, 223, 212)"
+                        }}
+                        to={"/create-profile"}
+                      >
+                        Create Profile as Artist
+                      </Button>
+                    )}
+                  </Grid>
+
+                  <Grid>
                     <Button
                       onClick={e => onSubmit(e)}
                       style={{ backgroundColor: "#f5f5" }}
                       disabled={!formState.isValid}
                     >
-                      {match.url === "/personal-info" ? "Update" : "Next"}
+                      Update
                     </Button>
-                  </Fragment>
+                  </Grid>
+                </Grid>
+              </CardActions>
+            </Fragment>
+          )}
+
+          <Divider />
+          {match.url === "/create-profile" && (
+            <FormBottomNav
+              step={step}
+              Children={
+                <div>
+                  <div>
+                    <Fragment>
+                      <Button component={Link} to={"/settings"}>
+                        Back
+                      </Button>
+                      <Button
+                        onClick={e => onSubmit(e)}
+                        style={{ backgroundColor: "#f5f5" }}
+                        disabled={!formState.isValid}
+                      >
+                        {match.url === "/personal-info" ? "Update" : "Next"}
+                      </Button>
+                    </Fragment>
+                  </div>
                 </div>
-              </div>
-            }
-          />
+              }
+            />
+          )}
+          {isMobile && (
+            <FormBottomNav
+              step={step}
+              Children={
+                <div>
+                  <div>
+                    <Fragment>
+                      <Button component={Link} to={"/settings"}>
+                        Back
+                      </Button>
+                      <Button
+                        onClick={e => onSubmit(e)}
+                        style={{ backgroundColor: "#f5f5" }}
+                        disabled={!formState.isValid}
+                      >
+                        {match.url === "/personal-info" ? "Update" : "Next"}
+                      </Button>
+                    </Fragment>
+                  </div>
+                </div>
+              }
+            />
+          )}
         </form>
       </Card>
+      <br />
     </Fragment>
   );
 };

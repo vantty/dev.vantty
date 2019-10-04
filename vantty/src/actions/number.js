@@ -33,7 +33,7 @@ export const verifyNumber = res => dispatch => {
         .then(res => {
           const numberVerified = res.data.phone.number;
           if (numberVerified !== "") {
-            window.location.href = "http://localhost:3000/dashboard";
+            window.location.href = "http://localhost:3000/personal-info";
           }
           dispatch(createMobileNumber({ mobileNumber: numberVerified }, true));
 

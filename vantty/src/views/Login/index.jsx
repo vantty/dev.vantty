@@ -216,7 +216,7 @@ const Login = props => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/settings' />;
   }
   return (
     <div className={classes.root}>

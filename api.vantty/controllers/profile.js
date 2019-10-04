@@ -16,7 +16,6 @@ exports.current = async (req, res) => {
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
     }
-    // console.log(profile);
     res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -89,7 +88,7 @@ exports.createANDupdate = async (req, res) => {
         { $set: profileFields },
         { new: true }
       );
-
+      console.log(profileFields.verified);
       return res.json(profile);
     }
     // Create review id
@@ -318,4 +317,18 @@ exports.loadToElastic = async (req, res) => {
     { new: true }
   );
   res.status(200).json(profile);
+};
+
+exports.verifiedProfile = async (req, res) => {
+  try {
+    const { id, verified } = req.body;
+    let profile = await Profile.findOneAndUpdate(
+      { _id: id },
+      { $set: { verified } },
+      { new: true }
+    );
+    res.status(200).json(profile);
+  } catch (err) {
+    res.send(err);
+  }
 };

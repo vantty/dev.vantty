@@ -5,7 +5,7 @@ import MuiLink from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { withRouter } from "react-router-dom";
 const useStyles = makeStyles(theme => ({
   buttonSetting: {
     float: "right"
@@ -40,25 +40,33 @@ const useStyles = makeStyles(theme => ({
 const SimpleAppBar = ({ history, path }) => {
   const classes = useStyles();
 
-  // const handleBack = () => {
-  //   history.goBack(-2);
-  // };
+  const handleBack = () => {
+    history.goBack(1);
+  };
 
   return (
     <div>
       <Fragment>
         <AppBar position='static' color='default' className={classes.appbar}>
           <Toolbar>
-            <MuiLink
-              underline='none'
-              color='inherit'
-              component={Link}
-              to={path}
-            >
-              <IconButton className={classes.arrowBack}>
-                <ArrowBackIcon />
-              </IconButton>
-            </MuiLink>
+            {path ? (
+              <MuiLink
+                underline='none'
+                color='inherit'
+                component={Link}
+                to={path}
+              >
+                <IconButton className={classes.arrowBack}>
+                  <ArrowBackIcon />
+                </IconButton>
+              </MuiLink>
+            ) : (
+              <MuiLink underline='none' color='inherit' onClick={handleBack}>
+                <IconButton className={classes.arrowBack}>
+                  <ArrowBackIcon />
+                </IconButton>
+              </MuiLink>
+            )}
           </Toolbar>
         </AppBar>
         <Divider />
@@ -67,4 +75,4 @@ const SimpleAppBar = ({ history, path }) => {
   );
 };
 
-export default SimpleAppBar;
+export default withRouter(SimpleAppBar);

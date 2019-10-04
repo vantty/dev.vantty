@@ -10,7 +10,7 @@ import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 import PropTypes from "prop-types";
 
 // import ReactPhoneInput from "react-phone-input-mui";
-import { TextField, withStyles } from "@material-ui/core";
+import { TextField, withStyles, Container } from "@material-ui/core";
 //npm package
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/dist/style.css";
@@ -40,6 +40,7 @@ import {
 import LinkMui from "@material-ui/core/Link";
 
 import clsx from "clsx";
+import { isMobile } from "react-device-detect";
 
 // Component styles
 
@@ -111,8 +112,11 @@ const InfoContact = ({
     <Fragment>
       <Card className={clsx(classes.root, className)}>
         {/* <form autoComplete='off' noValidate> */}
-        <CardHeader subheader='The information can be edited' title='Mobile' />
-        <Divider />
+        <CardHeader
+          // subheader='The information can be edited'
+          title='Mobile'
+        />
+        {/* <Divider /> */}
         <CardContent>
           <Fragment>
             <Grid
@@ -197,46 +201,39 @@ const InfoContact = ({
             </Grid>
           </Fragment>
         </CardContent>
-        <Divider />
-        <CardActions>
-          <LinkMui component={Link} to='/'>
-            learn how to build the best profile
-          </LinkMui>
-        </CardActions>
+
         {/* </form> */}
       </Card>
-      <FormBottomNav
-        step={step}
-        Children={
-          <div>
-            <div>
-              <Button onClick={back}>Back</Button>
-            </div>
-          </div>
-        }
-      />
-      <Fragment>
-        <FormBottomNav
-          step={step}
-          Children={
-            <div>
+      {match.url === "/create-profile" && (
+        <div>
+          <FormBottomNav
+            step={step}
+            Children={
               <div>
-                {match.url === "/mobile" ? (
-                  <Fragment>
-                    <Button component={Link} to='/settings'>
-                      Back
-                    </Button>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Button onClick={back}>Back</Button>
-                  </Fragment>
-                )}
+                <div>
+                  <Button onClick={back}>Back</Button>
+                </div>
               </div>
-            </div>
-          }
-        />
-      </Fragment>
+            }
+          />
+        </div>
+      )}
+      {match.url === "/mobile" && isMobile && (
+        <div>
+          <FormBottomNav
+            step={step}
+            Children={
+              <div>
+                <div>
+                  <Button component={Link} to='/settings'>
+                    Back
+                  </Button>
+                </div>
+              </div>
+            }
+          />
+        </div>
+      )}
     </Fragment>
   );
 };

@@ -9,6 +9,7 @@ const express = require("express"),
 // env
 const PORT = 5000,
   MONGODB_URI =
+    // "mongodb://localhost/vanttyMain";
     "mongodb+srv://vantty:vantty2019@vanttymain-biwfu.mongodb.net/test?retryWrites=true&w=majority";
 
 // Connect Database

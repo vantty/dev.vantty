@@ -11,7 +11,8 @@ export default res => {
     profilePicture,
     reviewId,
     user,
-    _id
+    _id,
+    verified
   } = res.data;
   let userId = "";
   if (user._id) {
@@ -32,7 +33,8 @@ export default res => {
     profilePicture,
     reviewId,
     userId,
-    profileId
+    profileId,
+    verified
   };
   return data;
 };

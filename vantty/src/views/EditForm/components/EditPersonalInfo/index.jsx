@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import EditForm from "../../../EditForm";
 import { PersonalInfo } from "../../../Form/components";
 
-const EditPortfolio = () => {
+const EditPersonalInfo = () => {
   return (
     <Fragment>
       <EditForm Children={<PersonalInfo />} />
@@ -10,4 +10,4 @@ const EditPortfolio = () => {
   );
 };
 
-export default EditPortfolio;
+export default EditPersonalInfo;

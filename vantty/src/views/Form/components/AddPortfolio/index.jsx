@@ -29,7 +29,8 @@ import {
   Grid,
   Button,
   Avatar,
-  Typography
+  Typography,
+  Hidden
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
@@ -37,6 +38,7 @@ import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
 import AvatarUploader from "../../../../components/AvatarUploader";
 import { positions } from "@material-ui/system";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -102,24 +104,18 @@ const AddPortfolio = ({
           {profile ? (
             <form autoComplete='off' noValidate>
               <CardHeader
-                subheader='You decide how you want to be knowledges'
-                title='Portfolio & ps Image'
+                // subheader='You decide how you want to be knowledges'
+                title='Portfolio'
               />
-              <Divider />
+              {/* <Divider /> */}
               <CardContent className={classes.content}>
-                <br />
-                <Divider />
-                <br />
                 <div>
                   <ImagesUploader />
                 </div>
               </CardContent>
+              <br />
+              <br />
               <Divider />
-              <CardActions>
-                <LinkMui component={Link} to='/'>
-                  learn how to build the best profile
-                </LinkMui>
-              </CardActions>
             </form>
           ) : (
             <Progress />
@@ -128,78 +124,60 @@ const AddPortfolio = ({
       </Fragment>
       <Fragment>
         <div>
+          {/* {match.url = "/add-portfolio" ? ( */}
           <div>
-            {profile && !loading && profile.portfolioPictures.length < 5 ? (
-              <FormBottomNav
-                step={step}
-                Children={
-                  <div>
+            <Fragment>
+              {match.url === "/create-profile" && (
+                <FormBottomNav
+                  step={step}
+                  Children={
                     <div>
-                      {match.url === "/add-portfolio" ? (
+                      <div>
                         <Fragment>
-                          <Button component={Link} to='/settings'>
-                            Back
-                          </Button>
-                          <Button
-                            component={Link}
-                            to='/settings'
-                            style={{ backgroundColor: "#f5f5" }}
-                            disabled={true}
-                          >
-                            Update1
-                          </Button>
+                          <Fragment>
+                            <Button onClick={back}>Back</Button>
+                            <Fragment>
+                              <Button
+                                style={{ backgroundColor: "#f5f5" }}
+                                disabled={
+                                  profile &&
+                                  !loading &&
+                                  profile.portfolioPictures.length < 5 &&
+                                  true
+                                }
+                                onClick={continues}
+                              >
+                                Next
+                              </Button>
+                            </Fragment>
+                          </Fragment>
                         </Fragment>
-                      ) : (
-                        <Fragment>
-                          <Button onClick={back}>Back</Button>
-                          <Button
-                            style={{ backgroundColor: "#f5f5" }}
-                            disabled={true}
-                          >
-                            Next
-                          </Button>
-                        </Fragment>
-                      )}
+                      </div>
                     </div>
-                  </div>
-                }
-              />
-            ) : (
-              <FormBottomNav
-                step={step}
-                Children={
-                  <div>
+                  }
+                />
+              )}
+              {match.url === "/add-portfolio" && isMobile && (
+                <FormBottomNav
+                  step={step}
+                  Children={
                     <div>
-                      {match.url === "/add-portfolio" ? (
+                      <div>
                         <Fragment>
-                          <Button component={Link} to='/settings'>
-                            Back
-                          </Button>
-                          <Button
-                            component={Link}
-                            to='/settings'
-                            style={{ backgroundColor: "#f5f5" }}
-                          >
-                            Update
-                          </Button>
+                          <Fragment>
+                            <Button component={Link} to='/settings'>
+                              Back
+                            </Button>
+                          </Fragment>
                         </Fragment>
-                      ) : (
-                        <Fragment>
-                          <Button onClick={back}>Back</Button>
-                          <Button
-                            style={{ backgroundColor: "#f5f5" }}
-                            onClick={continues}
-                          >
-                            Next
-                          </Button>
-                        </Fragment>
-                      )}
+                      </div>
                     </div>
-                  </div>
-                }
-              />
-            )}
+                  }
+                />
+              )}
+            </Fragment>
           </div>
+          {/* ) : null} */}
         </div>
       </Fragment>
     </Fragment>
