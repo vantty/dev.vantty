@@ -5,12 +5,7 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import validate from "validate.js";
 import { isMobile, isTablet, isBrowser } from "react-device-detect";
-import {
-  getStrategy,
-  getInitials,
-  getStrategyName,
-  fieldErrors
-} from "../../../../helpers";
+import { getStrategy, getInitials, isOwner } from "../../../../helpers";
 import EditForm from "../../../EditForm";
 
 //Material Components
@@ -295,7 +290,19 @@ const AccountDetails = ({
                 >
                   <Grid>
                     {/* {!profile && !profile.mobileNumber && ( */}
-                    {profile && profile.mobileNumber && (
+                    {profile && profile.mobileNumber === null && (
+                      <Button
+                        component={Link}
+                        size='small'
+                        style={{
+                          color: "rgb(0, 223, 212)"
+                        }}
+                        to={"/create-profile"}
+                      >
+                        Create Profile as Artist
+                      </Button>
+                    )}
+                    {!profile && (
                       <Button
                         component={Link}
                         size='small'

@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { Container } from "@material-ui/core";
 import { Table } from "./components";
+import { isOwner } from "../../helpers";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
+      width: 800,
       marginLeft: "auto",
       marginRight: "auto"
     }
@@ -49,11 +50,21 @@ const EditForm = ({
   match,
   page,
   title,
+  auth,
   index
 }) => {
+  const [state, setState] = useState();
+
+  const shoot = (e, own) => (e, own) => {
+    e.preventDefault();
+    setState(own);
+    console.log(own);
+  };
+
   const classes = useStyles();
   useEffect(() => {
-    getCurrentProfile();
+    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
+    // getCurrentProfile();
   }, []);
   return (
     <Fragment>

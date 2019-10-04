@@ -192,8 +192,8 @@ const Navbar = props => {
                           color='inherit'
                           className={classes.button}
                           component={Link}
-                          to={`/profile/artist/${user._id}`}
-                          // to={`/dashboard`}
+                          // to={`/profile/artist/${user._id}`}
+                          to={`/settings`}
                         >
                           Profile
                         </Button>

@@ -22,6 +22,7 @@ import Artists from "./views/Artists";
 import Profile from "./views/Profile";
 import Favorites from "./views/Favorites";
 import Landing from "./views/Landing";
+import DashboardAdmin from "./components/dashboard/DashboardAdmin";
 
 import { InfoContact } from "./views/Form/components";
 import {
@@ -52,11 +53,6 @@ import { ThemeProvider } from "@material-ui/styles";
 import { Alert } from "./components";
 import { Board } from "./views/Admin/";
 import AdminRoute from "./router/AdminRoute";
-
-import DashboardAdmin from "./components/dashboard/DashboardAdmin";
-import Dashboard from "./views/Dashboard";
-import Dashb from "./views/Dashb";
-import { Settings } from "./views/Dashboard/components";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -99,8 +95,7 @@ const App = () => {
                 component={DashboardAdmin}
               />
               <PrivateRoute exact path='/create-profile' component={Form} />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
-              <PrivateRoute exact path='/table' component={Dashb} />
+              />
               <PrivateRoute
                 exact
                 path='/categories'
@@ -111,7 +106,6 @@ const App = () => {
                 path='/edit-profile'
                 component={EditProfile}
               />
-
               <PrivateRoute
                 exact
                 path='/personal-info'
@@ -125,7 +119,6 @@ const App = () => {
               <PrivateRoute exact path='/settings' component={Table} />
               <PrivateRoute exact path='/mobile' component={EditMobile} />
               <PrivateRoute exact path='/price' component={EditPrice} />
-
               <PrivateRoute
                 exact
                 path='/add-portfolio'

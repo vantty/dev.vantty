@@ -1,19 +1,10 @@
 import React from "react";
 
-import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import PeopleIcon from "@material-ui/icons/People";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import ImageIcon from "@material-ui/icons/Image";
 
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import {
-  EditPortfolio,
-  EditProfile,
-  EditPrice,
-  EditMobile,
-  EditPersonalInfo,
-  EditCategories
-} from "../EditForm/components";
 
 export const pagesProfile = [
   {
@@ -52,12 +43,6 @@ export const pagesProfile = [
     title: "Change Password",
     href: "/password",
     icon: <ImageIcon />
-  },
-
-  {
-    title: "Logout",
-    href: "/home",
-    icon: <ImageIcon />
   }
 ];
 
@@ -66,5 +51,10 @@ export const pagesUser = [
     title: "Profile",
     href: "/personal-info",
     icon: <PeopleIcon />
+  },
+  {
+    title: "Change Password",
+    href: "/password",
+    icon: <ImageIcon />
   }
 ];
