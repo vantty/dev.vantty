@@ -67,11 +67,17 @@ const Table = ({
 
   return (
     <Fragment>
-      {!isMobile && <Redirect to='/personal-info' />}
+      {!isMobile && match.url === "/settings" && (
+        <Redirect to='/personal-info' />
+      )}
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
           history={history}
-          path={profile ? `/profile/artists/${profile.user._id}` : "/artists"}
+          path={
+            profile && profile.mobileNumber !== null
+              ? `/profile/artist/${profile.user._id}`
+              : "/artists"
+          }
         />
       </Hidden>
       <div className={classes.root}></div>
@@ -82,16 +88,16 @@ const Table = ({
           profile.mobileNumber !== null
             ? pagesProfile.map((page, ind) => (
                 <div key={page.title}>
-                  <Container maxWidth='sm'>
-                    <ListItemLink
-                      href={page.href}
-                      to={page.href}
-                      selected={page.href === match.url}
-                    >
-                      <ListItemText primary={page.title} />
-                    </ListItemLink>
-                    <Divider />
-                  </Container>
+                  {/* <Container maxWidth='sm'> */}
+                  <ListItemLink
+                    href={page.href}
+                    to={page.href}
+                    selected={page.href === match.url}
+                  >
+                    <ListItemText primary={page.title} />
+                  </ListItemLink>
+                  <Divider />
+                  {/* </Container> */}
                 </div>
               ))
             : pagesUser.map((page, ind) => (

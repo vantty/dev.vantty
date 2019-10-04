@@ -44,18 +44,18 @@ const Search = ({ searchValue }) => {
 
   return (
     <ReactiveBase
-      app="vantty-database"
-      credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
+      app='vantty-database'
+      credentials='fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666'
     >
       <DataSearch
-        componentId="searchbox"
-        dataField="*"
-        placeholder="Search..."
+        componentId='searchbox'
+        dataField='*'
+        placeholder='Search...'
         defaultValue={searchValue}
       />
       <MultiDataList
-        componentId="categoryFilter"
-        dataField="portfolioPictures.tag.keyword"
+        componentId='categoryFilter'
+        dataField='portfolioPictures.tag.keyword'
         showSearch={false}
         data={[
           {
@@ -73,12 +73,12 @@ const Search = ({ searchValue }) => {
         ]}
         value={values}
         onChange={setValues}
-        title="Category"
+        title='Category'
       />
       <ReactiveList
-        componentId="result"
-        dataField="*"
-        title="Results"
+        componentId='result'
+        dataField='*'
+        title='Results'
         size={12}
         infiniteScroll={true}
         showResultStats={false}
@@ -100,20 +100,20 @@ const Search = ({ searchValue }) => {
                               <CardMedia
                                 className={classes.media}
                                 image={pic.original}
-                                title="Contemplative Reptile"
+                                title='Contemplative Reptile'
                               />
                               <CardContent>
                                 <Typography
                                   gutterBottom
-                                  variant="h5"
-                                  component="h2"
+                                  variant='h5'
+                                  component='h2'
                                 >
                                   {item.name.firstName}
                                 </Typography>
                                 <Typography
-                                  variant="body2"
-                                  color="textSecondary"
-                                  component="p"
+                                  variant='body2'
+                                  color='textSecondary'
+                                  component='p'
                                 >
                                   {item.profession}
                                   <br />
@@ -124,8 +124,8 @@ const Search = ({ searchValue }) => {
                               </CardContent>
                               <CardActions>
                                 <Button
-                                  size="small"
-                                  color="primary"
+                                  size='small'
+                                  color='primary'
                                   component={Link}
                                   to={`/profile/artist/${item.userId}`}
                                 >
@@ -141,20 +141,20 @@ const Search = ({ searchValue }) => {
                                 <CardMedia
                                   className={classes.media}
                                   image={pic.original}
-                                  title="Contemplative Reptile"
+                                  title='Contemplative Reptile'
                                 />
                                 <CardContent>
                                   <Typography
                                     gutterBottom
-                                    variant="h5"
-                                    component="h2"
+                                    variant='h5'
+                                    component='h2'
                                   >
                                     {item.name.firstName}
                                   </Typography>
                                   <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    component="p"
+                                    variant='body2'
+                                    color='textSecondary'
+                                    component='p'
                                   >
                                     {item.profession}
                                     <br />
@@ -165,8 +165,8 @@ const Search = ({ searchValue }) => {
                                 </CardContent>
                                 <CardActions>
                                   <Button
-                                    size="small"
-                                    color="primary"
+                                    size='small'
+                                    color='primary'
                                     component={Link}
                                     to={`/profile/artist/${item.userId}`}
                                   >

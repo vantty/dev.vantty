@@ -66,13 +66,13 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
           autoPlaySpeed={3000}
           // centerMode={false}
           containerClass='container'
-          dotListClass=''
+          // dotListClass=''
           // draggable
           focusOnSelect={false}
           infinite
           itemClass=''
-          keyBoardControl
-          minimumTouchDrag={90}
+          // keyBoardControl
+          // minimumTouchDrag={9}
           partialVisbile='right'
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
