@@ -4,7 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import validate from "validate.js";
-
+import { isMobile, isTablet, isBrowser } from "react-device-detect";
 import {
   getStrategy,
   getInitials,
@@ -175,10 +175,10 @@ const AccountDetails = ({
       <Card className={clsx(classes.root, className)}>
         <form autoComplete='off' noValidate>
           <CardHeader
-            subheader='The information can be edited'
+            // subheader='The information can be edited'
             title='Profile'
           />
-          <Divider />
+          {/* <Divider /> */}
           <CardContent>
             <Grid container spacing={3}>
               <Grid
@@ -282,7 +282,7 @@ const AccountDetails = ({
               </Grid>
             </Grid>
           </CardContent>
-          {match.url === "/dashboard" && (
+          {match.url !== "/create-profile" && !isMobile && (
             <Fragment>
               <Divider />
 
@@ -295,7 +295,7 @@ const AccountDetails = ({
                 >
                   <Grid>
                     {/* {!profile && !profile.mobileNumber && ( */}
-                    {!profile || (profile && profile.mobileNumber == null) ? (
+                    {profile && profile.mobileNumber && (
                       <Button
                         component={Link}
                         size='small'
@@ -306,7 +306,7 @@ const AccountDetails = ({
                       >
                         Create Profile as Artist
                       </Button>
-                    ) : null}
+                    )}
                   </Grid>
 
                   <Grid>
@@ -324,14 +324,37 @@ const AccountDetails = ({
           )}
 
           <Divider />
-          {match.url !== "/dashboard" && (
+          {match.url === "/create-profile" && (
             <FormBottomNav
               step={step}
               Children={
                 <div>
                   <div>
                     <Fragment>
-                      <Button component={Link} to={"/dashboard"}>
+                      <Button component={Link} to={"/settings"}>
+                        Back
+                      </Button>
+                      <Button
+                        onClick={e => onSubmit(e)}
+                        style={{ backgroundColor: "#f5f5" }}
+                        disabled={!formState.isValid}
+                      >
+                        {match.url === "/personal-info" ? "Update" : "Next"}
+                      </Button>
+                    </Fragment>
+                  </div>
+                </div>
+              }
+            />
+          )}
+          {isMobile && (
+            <FormBottomNav
+              step={step}
+              Children={
+                <div>
+                  <div>
+                    <Fragment>
+                      <Button component={Link} to={"/settings"}>
                         Back
                       </Button>
                       <Button

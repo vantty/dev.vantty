@@ -40,6 +40,7 @@ import {
 import LinkMui from "@material-ui/core/Link";
 
 import clsx from "clsx";
+import { isMobile } from "react-device-detect";
 
 // Component styles
 
@@ -111,8 +112,11 @@ const InfoContact = ({
     <Fragment>
       <Card className={clsx(classes.root, className)}>
         {/* <form autoComplete='off' noValidate> */}
-        <CardHeader subheader='The information can be edited' title='Mobile' />
-        <Divider />
+        <CardHeader
+          // subheader='The information can be edited'
+          title='Mobile'
+        />
+        {/* <Divider /> */}
         <CardContent>
           <Fragment>
             <Grid
@@ -200,7 +204,7 @@ const InfoContact = ({
 
         {/* </form> */}
       </Card>
-      {match.url !== "/dashboard" && (
+      {match.url === "/create-profile" && (
         <div>
           <FormBottomNav
             step={step}
@@ -212,28 +216,22 @@ const InfoContact = ({
               </div>
             }
           />
-          <Fragment>
-            <FormBottomNav
-              step={step}
-              Children={
+        </div>
+      )}
+      {match.url === "/mobile" && isMobile && (
+        <div>
+          <FormBottomNav
+            step={step}
+            Children={
+              <div>
                 <div>
-                  <div>
-                    {match.url === "/mobile" ? (
-                      <Fragment>
-                        <Button component={Link} to='/dashboard'>
-                          Back
-                        </Button>
-                      </Fragment>
-                    ) : (
-                      <Fragment>
-                        <Button onClick={back}>Back</Button>
-                      </Fragment>
-                    )}
-                  </div>
+                  <Button component={Link} to='/settings'>
+                    Back
+                  </Button>
                 </div>
-              }
-            />
-          </Fragment>
+              </div>
+            }
+          />
         </div>
       )}
     </Fragment>

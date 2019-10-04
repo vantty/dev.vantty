@@ -19,46 +19,39 @@ export const pagesProfile = [
   {
     title: "Profile",
     href: "/personal-info",
-    icon: <PeopleIcon />,
-    component: <EditPersonalInfo />
+    icon: <PeopleIcon />
   },
   {
     title: "Biografy",
     href: "/edit-profile",
-    icon: <ImageIcon />,
-    component: <EditProfile />
+    icon: <ImageIcon />
   },
 
   {
     title: "Portfolio",
     href: "/add-portfolio",
-    icon: <PeopleIcon />,
-    component: <EditPortfolio />
+    icon: <PeopleIcon />
   },
   {
     title: "Categories",
     href: "/categories",
-    icon: <ImageIcon />,
-    component: <EditCategories />
+    icon: <ImageIcon />
   },
   {
     title: "Service",
     href: "/price",
-    icon: <ImageIcon />,
-    component: <EditPrice />
+    icon: <ImageIcon />
   },
   {
     title: "Mobile",
     href: "/mobile",
-    icon: <ShoppingBasketIcon />,
-    component: <EditMobile />
+    icon: <ShoppingBasketIcon />
   },
 
   {
     title: "Change Password",
     href: "/password",
-    icon: <ImageIcon />,
-    component: <EditProfile />
+    icon: <ImageIcon />
   },
 
   {
@@ -72,7 +65,6 @@ export const pagesUser = [
   {
     title: "Profile",
     href: "/personal-info",
-    icon: <PeopleIcon />,
-    component: <EditPersonalInfo />
+    icon: <PeopleIcon />
   }
 ];

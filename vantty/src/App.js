@@ -27,7 +27,8 @@ import { InfoContact } from "./views/Form/components";
 import {
   EditProfile,
   EditPersonalInfo,
-  EditMobile
+  EditMobile,
+  Table
 } from "./views/EditForm/components";
 import {
   EditPortfolio,
@@ -121,7 +122,7 @@ const App = () => {
                 path='/info-contact'
                 component={InfoContact}
               />
-              <PrivateRoute exact path='/settings' component={Settings} />
+              <PrivateRoute exact path='/settings' component={Table} />
               <PrivateRoute exact path='/mobile' component={EditMobile} />
               <PrivateRoute exact path='/price' component={EditPrice} />
 

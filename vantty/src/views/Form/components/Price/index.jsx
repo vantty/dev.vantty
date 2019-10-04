@@ -8,6 +8,7 @@ import { getCurrentProfile, createProfile } from "../../../../actions/profile";
 
 //Components
 import { FormBottomNav } from "../../../../components";
+import { isMobile, isTablet, isBrowser } from "react-device-detect";
 
 // Externals
 import PropTypes from "prop-types";
@@ -32,7 +33,6 @@ import { makeStyles } from "@material-ui/styles";
 import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
-import { isMobile } from "react-device-detect";
 
 const PrettoSlider = withStyles({
   root: {
@@ -121,10 +121,10 @@ const Price = ({
           {profile ? (
             <form autoComplete='off' noValidate>
               <CardHeader
-                subheader='from what value do your services start'
-                title='Price'
+                // subheader='from what value do your services start'
+                title='Service'
               />
-              <Divider />
+              {/* <Divider /> */}
               <CardContent className={classes.content}>
                 <div>
                   <div>
@@ -173,24 +173,26 @@ const Price = ({
                   </div>
                 </div>
               </CardContent>
-              <Divider />
-              <CardActions>
-                <Grid
-                  container
-                  direction='row'
-                  justify='flex-end'
-                  alignItems='flex-start'
-                >
-                  {match.url === "/dashboard" && (
-                    <Button
-                      style={{ backgroundColor: "#f5f5" }}
-                      onClick={e => onSubmitPrice(e)}
+              {match.url === "/price" && !isMobile && (
+                <Fragment>
+                  <Divider />
+                  <CardActions>
+                    <Grid
+                      container
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
                     >
-                      Update
-                    </Button>
-                  )}
-                </Grid>
-              </CardActions>
+                      <Button
+                        style={{ backgroundColor: "#f5f5" }}
+                        onClick={e => onSubmitPrice(e)}
+                      >
+                        Update
+                      </Button>
+                    </Grid>
+                  </CardActions>
+                </Fragment>
+              )}
             </form>
           ) : (
             <Progress />
@@ -198,7 +200,7 @@ const Price = ({
         </Card>
       </Fragment>
       <Fragment>
-        {match.url !== "/dashboard" ? (
+        {match.url === "/create-profile" ? (
           <FormBottomNav
             step={step}
             Children={
@@ -206,12 +208,12 @@ const Price = ({
                 <div>
                   {match.url === "/price" ? (
                     <Fragment>
-                      <Button component={Link} to='/dashboard'>
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button
                         component={Link}
-                        to='/dashboard'
+                        to='/settings'
                         style={{ backgroundColor: "#f5f5" }}
                         onClick={e => onSubmitPrice(e)}
                       >
@@ -230,6 +232,31 @@ const Price = ({
                       </Button>
                     </Fragment>
                   )}
+                </div>
+              </div>
+            }
+          />
+        ) : null}
+
+        {match.url === "/price" && isMobile ? (
+          <FormBottomNav
+            step={step}
+            Children={
+              <div>
+                <div>
+                  <Fragment>
+                    <Button component={Link} to='/settings'>
+                      Back
+                    </Button>
+                    <Button
+                      component={Link}
+                      to='/settings'
+                      style={{ backgroundColor: "#f5f5" }}
+                      onClick={e => onSubmitPrice(e)}
+                    >
+                      Update
+                    </Button>
+                  </Fragment>
                 </div>
               </div>
             }

@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 800,
+      width: 600,
       marginLeft: "auto",
       marginRight: "auto"
     }
@@ -64,24 +64,15 @@ const EditForm = ({
       {match.url === "/personal-info" ? (
         user ? (
           <Box pt={11} pb={11}>
-            {/* <div className={classes.root}>
-              <Grid container spacing={1}>
-                <Grid item lg={12} md={12} xl={12} xs={12}>
-                  <Container maxWidth='md'>
-                    <Fragment>{Children}</Fragment>
-                  </Container>
-                </Grid>
-              </Grid>
-            </div> */}
             <div className={classes.root}>
               <Grid container>
-                {/* <Grid container spacing={5}> */}
-                <Grid item lg={4} md={4} xs={4}>
-                  <Table page={page} title={title} match={match} />
-                </Grid>
-                <Grid item lg={8} md={8} xl={8} xs={8}>
+                <Hidden xsDown>
+                  <Grid item lg={4} md={4} xs={4}>
+                    <Table page={page} title={title} match={match} />
+                  </Grid>
+                </Hidden>
+                <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
                   <Fragment>{Children}</Fragment>
-                  {/* </Grid> */}
                 </Grid>
               </Grid>
             </div>
@@ -91,7 +82,7 @@ const EditForm = ({
         )
       ) : profile ? (
         <Fragment>
-          <Container>
+          <Container maxWidth='md'>
             <Box pt={11} pb={11}>
               <div className={classes.root}>
                 <Grid container>
@@ -100,7 +91,7 @@ const EditForm = ({
                       <Table page={page} title={title} match={match} />
                     </Grid>
                   </Hidden>
-                  <Grid item lg={8} md={8} xl={8} xs={12}>
+                  <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
                     <Fragment>{Children}</Fragment>
                   </Grid>
                 </Grid>

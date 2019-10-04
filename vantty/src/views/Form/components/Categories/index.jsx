@@ -39,6 +39,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -129,16 +130,11 @@ const AddCategories = ({
       <Card className={clsx(classes.root, className)}>
         <form autoComplete='off' noValidate>
           <CardHeader
-            subheader='from what value do your services start'
+            // subheader='from what value do your services start'
             title='Categories'
           />
-          <Divider />
+          {/* <Divider /> */}
           <CardContent>
-            <Typography color='textSecondary' variant='body1'>
-              Select the categories
-            </Typography>
-            <br />
-
             <Fragment>
               <Grid
                 container
@@ -234,7 +230,7 @@ const AddCategories = ({
               </Grid>
             </Fragment>
           </CardContent>
-          {match.url === "/dashboard" && (
+          {match.url === "/categories" && !isMobile && (
             <Fragment>
               <Divider />
 
@@ -257,20 +253,21 @@ const AddCategories = ({
             </Fragment>
           )}
           <Fragment>
-            {match.url !== "/dashboard" ? (
+            {match.url === "/create-profile" ? (
               <FormBottomNav
                 step={step}
                 Children={
                   <div>
                     <div>
                       <Fragment>
-                        {match.url !== "/categories" ? (
+                        {/* {match.url !== "/categories" ? (
                           <Button onClick={back}>Back</Button>
                         ) : (
                           <Button component={Link} to={"/dashboard"}>
                             Back
                           </Button>
-                        )}
+                        )} */}
+                        <Button onClick={back}>Back</Button>
                         <Button
                           style={{ backgroundColor: "#f5f5" }}
                           onClick={e => onSubmit(e)}
@@ -283,7 +280,31 @@ const AddCategories = ({
                   </div>
                 }
               />
-            ) : null}
+            ) : (
+              isMobile && (
+                <FormBottomNav
+                  step={step}
+                  Children={
+                    <div>
+                      <div>
+                        <Fragment>
+                          <Button component={Link} to={"/settings"}>
+                            Back
+                          </Button>
+                          <Button
+                            style={{ backgroundColor: "#f5f5" }}
+                            onClick={e => onSubmit(e)}
+                            disabled={error || errorHair}
+                          >
+                            Update
+                          </Button>
+                        </Fragment>
+                      </div>
+                    </div>
+                  }
+                />
+              )
+            )}
           </Fragment>
         </form>
 

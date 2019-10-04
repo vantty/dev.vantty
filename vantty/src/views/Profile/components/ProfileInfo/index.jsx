@@ -83,7 +83,7 @@ const ProfileInfo = ({
                     variant='contained'
                     color='primary'
                     className={classes.button}
-                    to='/dashboard'
+                    to={isMobile ? "/settings" : "/personal-info"}
                   >
                     settings
                   </Button>

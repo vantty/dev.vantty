@@ -36,6 +36,7 @@ import {
   Grid
 } from "@material-ui/core";
 import { schemaErrorsCreateProfile } from "../../../../helpers/errorsData";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -150,10 +151,10 @@ const EditProfile = ({
               <Card className={clsx(classes.root, className)}>
                 <form autoComplete='off' noValidate>
                   <CardHeader
-                    subheader='The information can be edited'
-                    title='Profile'
+                    // subheader='The information can be edited'
+                    title='Bio'
                   />
-                  <Divider />
+                  {/* <Divider /> */}
                   <CardContent>
                     {/* <form autoComplete='off' noValidate> */}
                     <Grid container>
@@ -281,7 +282,7 @@ const EditProfile = ({
                       justify='flex-end'
                       alignItems='flex-start'
                     >
-                      {match.url === "/dashboard" && (
+                      {match.url === "/edit-profile" && !isMobile && (
                         <Button
                           onClick={e => onSubmit(e)}
                           style={{
@@ -297,13 +298,13 @@ const EditProfile = ({
                   {/* </Grid> */}
                 </form>
               </Card>
-              {match.url !== "/dashboard" && (
+              {isMobile && match.url === "/edit-profile" && (
                 <FormBottomNav
                   // step={"1"}
                   Children={
                     <div>
                       <div>
-                        <Button component={Link} to='/dashboard'>
+                        <Button component={Link} to='/settings'>
                           Back
                         </Button>
                         <Button
