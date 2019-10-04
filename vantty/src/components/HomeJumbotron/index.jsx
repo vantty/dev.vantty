@@ -17,6 +17,8 @@ import Typography from "@material-ui/core/Typography";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,62 +45,19 @@ const useStyles = makeStyles(theme => ({
     flexBasis: "600px"
   },
   quoteText: {
-    // color: theme.palette.black,
-    // fontWeight: 300
+    marginBottom: "1rem"
   },
-  name: {
-    marginTop: theme.spacing(3),
-    color: theme.palette.black
-  },
-  bio: {
-    color: theme.palette.black
-  },
-  search: {
-    marginRight: theme.spacing(1),
-    color: "#000",
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
+  textField: {
     backgroundColor: "white",
-    // "&:hover": {
-    //   backgroundColor: fade(theme.palette.common.white, 0.25)
-    // },
-    marginLeft: 0,
-    width: "100px",
-    // [theme.breakpoints.up("sm")]: {
-    //   marginLeft: theme.spacing(1),
-    //   width: "auto"
-    // },
-    borderStyle: "solid",
-    borderColor: "#f0f0f0",
-    borderWidth: "1px"
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "white"
-  },
-  inputInput: {
-    color: "black",
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%"
-    // [theme.breakpoints.up("sm")]: {
-    //   width: 120,
-    //   "&:focus": {
-    //     width: 200
-    //   }
-    // }
+    borderRadius: "4px",
+    borderColor: "white",
+    "&:hover": {
+      borderColor: "white"
+    }
   }
 }));
 
-const HomeJumbotron = ({ searchValue, goSearch }) => {
+const HomeJumbotron = ({ searchValue }) => {
   const classes = useStyles();
 
   const [search, setSearch] = useState("");
@@ -120,37 +79,28 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
           <div className={classes.quote}>
             <Container>
               <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <div className={classes.quoteInner}>
                     <Typography className={classes.quoteText} variant="h1">
                       Get your dreamed look, done by the perfect artists
                     </Typography>
-                    {/* <div className={classes.search}>
-                      <div className={classes.searchIcon}>
-                        <SearchIcon />
-                      </div>
-                      <form onSubmit={handleSearch}> */}
-                    <Grid item xs={12}>
-                      <InputBase
+                    <form onSubmit={handleSearch}>
+                      <TextField
+                        id="outlined-simple-start-adornment"
                         onChange={handleChange}
-                        placeholder="Search…"
-                        classes={{
-                          root: classes.inputRoot,
-                          input: classes.inputInput
+                        fullWidth
+                        className={classes.textField}
+                        variant="outlined"
+                        placeholder="Search"
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <SearchIcon />
+                            </InputAdornment>
+                          )
                         }}
-                        inputProps={{ "aria-label": "search" }}
                       />
-                    </Grid>
-                    {/* </form>
-                    </div> */}
-                    <div className={classes.person}>
-                      <Typography className={classes.name} variant="body1">
-                        Takamaru Ayako
-                      </Typography>
-                      <Typography className={classes.bio} variant="body2">
-                        Manager at inVision
-                      </Typography>
-                    </div>
+                    </form>
                   </div>
                 </Grid>
               </Grid>

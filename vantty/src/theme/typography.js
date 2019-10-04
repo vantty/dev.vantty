@@ -71,7 +71,7 @@ export default {
   },
   button: {
     color: palette.text.primary,
-    fontSize: "14px"
+    fontSize: "16px"
   },
   caption: {
     color: palette.text.secondary,

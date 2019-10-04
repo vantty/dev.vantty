@@ -1,8 +1,5 @@
 import React from "react";
 
-// Assets
-import v1 from "../../assets/images/v1.jpg";
-
 // Material-UI
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
