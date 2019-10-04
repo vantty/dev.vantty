@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 import { Table } from "./components";
 import { isOwner } from "../../helpers";
+import { HomeFooter } from "../../components";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -86,6 +87,7 @@ const EditForm = ({
                   <Fragment>{Children}</Fragment>
                 </Grid>
               </Grid>
+              <HomeFooter />
             </div>
           </Box>
         ) : (
@@ -109,6 +111,7 @@ const EditForm = ({
               </div>
             </Box>
           </Container>
+          <HomeFooter />
         </Fragment>
       ) : (
         <Progress />

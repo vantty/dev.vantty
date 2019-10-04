@@ -98,7 +98,7 @@ const DashboardActions = () => {
         component={Link}
         to='/board'
       >
-        Board
+        Admin
       </Button>
       <Button
         variant='contained'
