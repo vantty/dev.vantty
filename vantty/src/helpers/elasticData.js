@@ -12,7 +12,9 @@ export default res => {
     reviewId,
     user,
     _id,
-    verified
+    verified,
+    price,
+    mobileNumber
   } = res.data;
   let userId = "";
   if (user._id) {
@@ -34,7 +36,9 @@ export default res => {
     reviewId,
     userId,
     profileId,
-    verified
+    verified,
+    price,
+    mobileNumber
   };
   return data;
 };

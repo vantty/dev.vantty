@@ -11,14 +11,32 @@ import { getCurrentProfile, createProfile, loadToElastic } from "./profile";
 import { loadUser } from "./auth";
 import { elasticData } from "../helpers";
 
-// export const uploadTag = (tag, pictureId) => async dispatch => {
-//   try {
-//     const sendTags = { tag, pictureId };
-//     server.post("/profile/add-tags", sendTags);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const uploadTag = tagObj => async dispatch => {
+  try {
+    let auxObj = {};
+    let sendTags = [];
+
+    const tagKeys = Object.keys(tagObj);
+
+    tagKeys.map(key => {
+      for (const prop in tagObj[key]) {
+        if (tagObj[key][prop] === true) {
+          auxObj = { _id: key, tag: prop };
+          sendTags.push(auxObj);
+        }
+      }
+    });
+
+    server.post("/profile/add-tags", sendTags);
+
+    const res = await server.get("/profile/me");
+    const data = elasticData(res);
+    const { profileId, elasticId } = data;
+    loadToElastic(data, profileId, elasticId);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const uploadImages = e => async dispatch => {
   const errs = [];

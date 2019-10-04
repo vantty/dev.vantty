@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+// Actions
+import { searchValue } from "../../actions/search";
 
 // Assets
 import top from "../../assets/images/top.jpg";
 
 // Material-UI
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Search";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { fade, makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,20 +45,33 @@ const useStyles = makeStyles(theme => ({
     flexBasis: "600px"
   },
   quoteText: {
-    color: theme.palette.black,
-    fontWeight: 300
+    marginBottom: "1rem"
   },
-  name: {
-    marginTop: theme.spacing(3),
-    color: theme.palette.black
-  },
-  bio: {
-    color: theme.palette.black
+  textField: {
+    backgroundColor: "white",
+    borderRadius: "4px",
+    borderColor: "white",
+    "&:hover": {
+      borderColor: "white"
+    }
   }
 }));
 
-const HomeJumbotron = () => {
+const HomeJumbotron = ({ searchValue }) => {
   const classes = useStyles();
+
+  const [search, setSearch] = useState("");
+
+  const handleChange = event => {
+    event.persist();
+    setSearch(event.target.value);
+  };
+
+  const handleSearch = async event => {
+    event.preventDefault();
+    searchValue(search);
+  };
+
   return (
     <div className={classes.root}>
       <Grid className={classes.grid} container>
@@ -57,20 +79,28 @@ const HomeJumbotron = () => {
           <div className={classes.quote}>
             <Container>
               <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <div className={classes.quoteInner}>
                     <Typography className={classes.quoteText} variant="h1">
-                      Hella narwhal Cosby sweater McSweeney's, salvia kitsch
-                      before they sold out High Life.
+                      Get your dreamed look, done by the perfect artists
                     </Typography>
-                    <div className={classes.person}>
-                      <Typography className={classes.name} variant="body1">
-                        Takamaru Ayako
-                      </Typography>
-                      <Typography className={classes.bio} variant="body2">
-                        Manager at inVision
-                      </Typography>
-                    </div>
+                    <form onSubmit={handleSearch}>
+                      <TextField
+                        id="outlined-simple-start-adornment"
+                        onChange={handleChange}
+                        fullWidth
+                        className={classes.textField}
+                        variant="outlined"
+                        placeholder="Search"
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <SearchIcon />
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                    </form>
                   </div>
                 </Grid>
               </Grid>
@@ -82,4 +112,16 @@ const HomeJumbotron = () => {
   );
 };
 
-export default HomeJumbotron;
+HomeJumbotron.propTypes = {
+  searchValue: PropTypes.func,
+  goSearch: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  goSearch: state.search.goSearch
+});
+
+export default connect(
+  mapStateToProps,
+  { searchValue }
+)(HomeJumbotron);

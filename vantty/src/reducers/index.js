@@ -6,6 +6,7 @@ import review from "./review";
 import navbar from "./navbar";
 import uploader from "./uploader";
 import number from "./number";
+import search from "./search";
 
 export default combineReducers({
   alert,
@@ -14,5 +15,6 @@ export default combineReducers({
   review,
   navbar,
   uploader,
-  number
+  number,
+  search
 });

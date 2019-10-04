@@ -125,6 +125,10 @@ export const createMobileNumber = (
 
     dispatch(setAlert(edit ? "Mobile Number Validated" : null, "success"));
     dispatch(setAlert(!edit ? "Mobile Number NO Validated" : null, "error"));
+
+    const data = elasticData(res);
+    const { profileId, elasticId } = data;
+    loadToElastic(data, profileId, elasticId);
   } catch (err) {
     console.log(err);
 

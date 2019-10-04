@@ -1,22 +1,35 @@
-import { colors } from '@material-ui/core';
+import { colors } from "@material-ui/core";
 
-const white = '#FFFFFF';
-const black = '#000000';
+const white = "#FFFFFF";
+const black = "#000000";
 
 export default {
   black,
   white,
+  greenVantty: {
+    contrastText: white,
+    tooDark: "rgb(38, 127, 122)",
+    dark: "rgb(5, 211, 195)",
+    main: "rgb(19, 224, 216)",
+    light: "rgb(172, 249, 238)"
+  },
+  purpleVantty: {
+    contrastText: white,
+    dark: "rgb(63, 45, 112)",
+    main: "rgb(90, 56, 152)",
+    light: "rgb(125, 97, 186)"
+  },
   primary: {
     contrastText: white,
     dark: colors.indigo[900],
-    main: colors.indigo[500],
-    light: colors.indigo[100]
+    main: colors.indigo[600],
+    light: colors.indigo[400]
   },
   secondary: {
     contrastText: white,
-    dark: colors.blue[900],
-    main: colors.blue['A400'],
-    light: colors.blue['A400']
+    dark: colors.red[900],
+    main: colors.red[600],
+    light: colors.red[400]
   },
   success: {
     contrastText: white,
@@ -43,12 +56,12 @@ export default {
     light: colors.red[400]
   },
   text: {
-    primary: colors.blueGrey[900],
+    primary: "rgb(47, 48, 51)",
     secondary: colors.blueGrey[600],
     link: colors.blue[600]
   },
   background: {
-    default: '#F4F6F8',
+    default: "#F4F6F8",
     paper: white
   },
   icon: colors.blueGrey[600],

@@ -1,8 +1,5 @@
 import React from "react";
 
-// Assets
-import v1 from "../../assets/images/v1.jpg";
-
 // Material-UI
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,9 +15,9 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: "cover",
     borderRadius: "0.6rem",
     backgroundColor: "rgba(0,0,0,.3)",
-    paddingTop: "80%",
+    paddingTop: "70%",
     [theme.breakpoints.down("sm")]: {
-      paddingTop: "100%"
+      paddingTop: "90%"
     }
   },
   banner: {

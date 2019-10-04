@@ -39,6 +39,7 @@ import Progress from "@material-ui/core/LinearProgress";
 import AvatarUploader from "../../../../components/AvatarUploader";
 import { positions } from "@material-ui/system";
 import { isMobile } from "react-device-detect";
+import { saveTag } from "../../../../actions/uploader";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -102,10 +103,10 @@ const AddPortfolio = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete='off' noValidate>
+            <form autoComplete="off" noValidate>
               <CardHeader
                 // subheader='You decide how you want to be knowledges'
-                title='Portfolio'
+                title="Portfolio"
               />
               {/* <Divider /> */}
               <CardContent className={classes.content}>
@@ -165,7 +166,7 @@ const AddPortfolio = ({
                       <div>
                         <Fragment>
                           <Fragment>
-                            <Button component={Link} to='/settings'>
+                            <Button component={Link} to="/settings">
                               Back
                             </Button>
                           </Fragment>

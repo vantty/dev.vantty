@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "rgba(0,0,0,.3)",
     borderColor: "white",
     borderStyle: "solid",
-    paddingTop: "95%",
+    paddingTop: "70%",
     [theme.breakpoints.down("sm")]: {
       paddingTop: "130%"
     }
