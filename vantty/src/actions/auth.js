@@ -29,7 +29,6 @@ export const loadUser = () => async dispatch => {
       type: USER_LOADED,
       payload: res.data
     });
-    // dispatch(getGeoInfo());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
