@@ -10,7 +10,7 @@ import { getCurrentProfile } from "../../actions/profile";
 
 //Material-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Box, Grid, Hidden } from "@material-ui/core";
+import { Box, Grid, Hidden, Divider } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -73,29 +73,9 @@ const EditForm = ({
       <div>
         <AppBarForm step={null} />
       </div>
-      {match.url === "/personal-info" ? (
-        user ? (
-          <Box pt={11} pb={11}>
-            <div className={classes.root}>
-              <Grid container>
-                <Hidden xsDown>
-                  <Grid item lg={4} md={4} xs={4}>
-                    <Table page={page} title={title} match={match} />
-                  </Grid>
-                </Hidden>
-                <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
-                  <Fragment>{Children}</Fragment>
-                </Grid>
-              </Grid>
-              <HomeFooter />
-            </div>
-          </Box>
-        ) : (
-          <Progress />
-        )
-      ) : profile ? (
-        <Fragment>
-          <Container maxWidth='md'>
+      <Fragment>
+        {match.url === "/personal-info" ? (
+          user ? (
             <Box pt={11} pb={11}>
               <div className={classes.root}>
                 <Grid container>
@@ -110,12 +90,35 @@ const EditForm = ({
                 </Grid>
               </div>
             </Box>
-          </Container>
-          <HomeFooter />
-        </Fragment>
-      ) : (
-        <Progress />
-      )}
+          ) : (
+            <Progress />
+          )
+        ) : profile ? (
+          <Fragment>
+            <Container maxWidth='md'>
+              <Box pt={11} pb={11}>
+                <div className={classes.root}>
+                  <Grid container>
+                    <Hidden xsDown>
+                      <Grid item lg={4} md={4} xs={4}>
+                        <Table page={page} title={title} match={match} />
+                      </Grid>
+                    </Hidden>
+                    <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
+                      <Fragment>{Children}</Fragment>
+                    </Grid>
+                  </Grid>
+                </div>
+              </Box>
+            </Container>
+          </Fragment>
+        ) : (
+          <Progress />
+        )}
+
+        <Divider />
+        <HomeFooter />
+      </Fragment>
     </Fragment>
   );
 };

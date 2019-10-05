@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2)
   },
   footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
+    // borderTop: `1px solid ${theme.palette.divider}`,
     marginTop: theme.spacing(2),
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),

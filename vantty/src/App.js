@@ -91,7 +91,7 @@ const App = () => {
               <Route exact path='/home' component={Home} />
               <PrivateRoute
                 exact
-                path='/dashboard-admin'
+                path='/dashboard'
                 component={DashboardAdmin}
               />
               <PrivateRoute exact path='/create-profile' component={Form} />

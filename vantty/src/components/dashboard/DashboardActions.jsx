@@ -105,9 +105,9 @@ const DashboardActions = () => {
         // color='secondary'
         className={classes.button}
         component={Link}
-        to='/dashboard'
+        to='/settings'
       >
-        Dashboard User
+        Settings
       </Button>
     </Fragment>
   );
