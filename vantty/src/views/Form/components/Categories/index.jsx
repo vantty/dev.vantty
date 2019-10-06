@@ -27,7 +27,8 @@ import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
 //Components
-import { FormBottomNav } from "../../../../components";
+import { FormBottomNav } from "../ComponentsForm";
+
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";

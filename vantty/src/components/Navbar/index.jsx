@@ -67,14 +67,21 @@ const HideOnScroll = props => {
   const { children, window } = props;
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear={false} direction='down' in={!trigger}>
       {children}
     </Slide>
   );
 };
 
 const Navbar = props => {
-  const { isAuthenticated, loading, logout, searchValue, goSearch } = props;
+  const {
+    isAuthenticated,
+    loading,
+    logout,
+    searchValue,
+    goSearch,
+    user
+  } = props;
 
   const [search, setSearch] = useState("");
 
@@ -93,52 +100,52 @@ const Navbar = props => {
   return (
     <Fragment>
       {goSearch ? (
-        <Redirect to="/favorites" />
+        <Redirect to='/favorites' />
       ) : (
         <Fragment>
           <CssBaseline />
           <HideOnScroll {...props}>
             <AppBar className={classes.root}>
               <Toolbar>
-                <Typography variant="h5" className={classes.title}>
+                <Typography variant='h5' className={classes.title}>
                   <LinkMui
-                    underline="none"
-                    color="inherit"
+                    underline='none'
+                    color='inherit'
                     component={Link}
-                    to="/home"
+                    to='/home'
                   >
-                    <img src={Logo} alt="" className={classes.logo} />
+                    <img src={Logo} alt='' className={classes.logo} />
                   </LinkMui>
                 </Typography>
                 {loading ? (
-                  <Progress data-test="progress" />
+                  <Progress data-test='progress' />
                 ) : (
                   <Fragment>
                     {!isAuthenticated ? (
                       <Fragment>
-                        <section data-test="noAuthButtons">
+                        <section data-test='noAuthButtons'>
                           <div className={classes.sectionDesktop}>
                             <Button
-                              size="large"
+                              size='large'
                               className={classes.button}
                               component={Link}
-                              to="/artists"
+                              to='/artists'
                             >
                               Artists
                             </Button>
                             <Button
-                              size="large"
+                              size='large'
                               className={classes.button}
                               component={Link}
-                              to="/login"
+                              to='/login'
                             >
                               Login
                             </Button>
                             <Button
-                              size="large"
+                              size='large'
                               className={classes.button}
                               component={Link}
-                              to="/register"
+                              to='/register'
                             >
                               Register
                             </Button>
@@ -147,9 +154,9 @@ const Navbar = props => {
                       </Fragment>
                     ) : (
                       <Fragment>
-                        <section data-test="authButtons">
+                        <section data-test='authButtons'>
                           <div className={classes.sectionDesktop}>
-                            <div className={classes.search}>
+                            {/* <div className={classes.search}>
                               <div className={classes.searchIcon}>
                                 <SearchIcon />
                               </div>
@@ -161,33 +168,43 @@ const Navbar = props => {
                                 }}
                                 inputProps={{ "aria-label": "search" }}
                               />
-                            </div>
+                            </div> */}
                             <Button
-                              color="inherit"
+                              color='inherit'
                               className={classes.button}
                               component={Link}
-                              to="/artists"
+                              to='/artists'
                             >
                               Artists
                             </Button>
                             <Button
-                              color="inherit"
+                              color='inherit'
                               className={classes.button}
                               component={Link}
-                              to="/settings"
+                              to='/settings'
                             >
                               Profile
                             </Button>
                             <Button
-                              data-test="logoutButton"
-                              color="inherit"
+                              data-test='logoutButton'
+                              color='inherit'
                               className={classes.button}
                               component={Link}
-                              to="/"
+                              to='/'
                               onClick={logout}
                             >
                               Logout
                             </Button>
+                            {user && user.role === "Admin" && (
+                              <Button
+                                color='inherit'
+                                className={classes.button}
+                                component={Link}
+                                to='/dashboard'
+                              >
+                                Admin
+                              </Button>
+                            )}
                           </div>
                         </section>
                       </Fragment>
@@ -208,7 +225,8 @@ Navbar.propTypes = {
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
   searchValue: PropTypes.func,
-  goSearch: PropTypes.bool
+  goSearch: PropTypes.bool,
+  user: PropTypes.object
 };
 
 HideOnScroll.propTypes = {
@@ -219,6 +237,7 @@ HideOnScroll.propTypes = {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
+  user: state.auth.user,
   goSearch: state.search.goSearch
 });
 

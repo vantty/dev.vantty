@@ -1,1 +1,12 @@
-export { default as Account } from "./Account";
+export { default as ReviewForm } from "./ReviewForm";
+export { default as Profile } from "./Profile";
+export { default as Landing } from "./Landing";
+export { default as Favorites } from "./Favorites";
+export { default as Board } from "./Admin/Board";
+export { default as Home } from "./Home";
+export { default as Register } from "./Register";
+export { default as Confirmation } from "./Confirmation";
+export { default as WaitForConfirmation } from "./WaitForConfirmation";
+export { default as Login } from "./Login";
+export { default as Form } from "./Form";
+export { default as Artists } from "./Artists";

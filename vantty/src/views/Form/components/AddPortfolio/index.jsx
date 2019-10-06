@@ -7,7 +7,8 @@ import { withRouter } from "react-router-dom";
 import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
 
 //Components
-import { FormBottomNav, ImagesUploader } from "../../../../components";
+import { ImagesUploader } from "../../../../components";
+import { FormBottomNav } from "../ComponentsForm";
 
 // Externals
 import PropTypes from "prop-types";
@@ -103,10 +104,10 @@ const AddPortfolio = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete="off" noValidate>
+            <form autoComplete='off' noValidate>
               <CardHeader
                 // subheader='You decide how you want to be knowledges'
-                title="Portfolio"
+                title='Portfolio'
               />
               {/* <Divider /> */}
               <CardContent className={classes.content}>
@@ -166,7 +167,7 @@ const AddPortfolio = ({
                       <div>
                         <Fragment>
                           <Fragment>
-                            <Button component={Link} to="/settings">
+                            <Button component={Link} to='/settings'>
                               Back
                             </Button>
                           </Fragment>

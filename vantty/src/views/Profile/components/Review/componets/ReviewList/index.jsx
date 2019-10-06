@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import LinkMui from "@material-ui/core/Link";
 //Helpers
-import { getInitials, isOwner } from "../../helpers";
+import { getInitials, isOwner } from "../../../../../../helpers";
 
 // Actions
-import { deleteComment } from "../../actions/review";
+import { deleteComment } from "../../../../../../actions/review";
 
 // Material-UI
 import ListItem from "@material-ui/core/ListItem";
@@ -134,26 +134,9 @@ const ReviewItem = ({
                 </div>
               </Fragment>
             </ListItem>
-
             <Divider variant='inset' component='li' />
           </Fragment>
         ))}
-
-        {/* Footer */}
-        <footer className={classes.footer}>
-          <Typography variant='h6' align='center' gutterBottom>
-            Footer
-          </Typography>
-          <Typography
-            variant='subtitle1'
-            align='center'
-            color='textSecondary'
-            component='p'
-          >
-            Something here to give the footer a purpose!
-          </Typography>
-        </footer>
-        {/* End footer */}
       </List>
     </Grid>
   );

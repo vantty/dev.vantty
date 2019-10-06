@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 // Components
-import ReviewList from "../ReviewList";
+import { ReviewList } from "./componets";
 
 // Actions
-import { getReview } from "../../actions/review";
+import { getReview } from "../../../../actions/review";
 
 // Material-UI
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -17,7 +17,7 @@ import styles from "./styles";
 import { Container } from "@material-ui/core";
 import { isMobile } from "react-device-detect";
 
-const ReviewCard = ({
+const Review = ({
   getReview,
   review: { review, loading },
   match,
@@ -39,7 +39,7 @@ const ReviewCard = ({
   );
 };
 
-ReviewCard.propTypes = {
+Review.propTypes = {
   getReview: PropTypes.func.isRequired,
   review: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -52,4 +52,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getReview }
-)(withStyles(styles)(ReviewCard));
+)(withStyles(styles)(Review));

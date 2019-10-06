@@ -4,15 +4,14 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 import Progress from "@material-ui/core/LinearProgress";
-import { getCurrentProfile, deleteAccount } from "../../actions/profile";
+import { getCurrentProfile, deleteAccount } from "../../../actions/profile";
 import DashboardActions from "./DashboardActions";
-import Education from "./Education";
-import Navbar from "../Navbar";
-import BottomNavabar from "../BottomNavbar";
+import Navbar from "../../../components/Navbar";
+import BottomNavabar from "../../../components/BottomNavbar";
 
 //Helpers
-import { getStrategyName } from "../../helpers";
-import { Header } from "..";
+import { getStrategyName } from "../../../helpers";
+import { Header } from "../../../components";
 //Material-ui
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";

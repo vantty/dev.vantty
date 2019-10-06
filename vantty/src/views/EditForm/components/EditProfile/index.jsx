@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 
 //Components
-import FormBottomNav from "../../../../components/ComponentsForm/FormBottomNav";
+import { FormBottomNav } from "../../../Form/components/ComponentsForm";
 
 //Materila-UI
 import Typography from "@material-ui/core/Typography";

@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import validate from "validate.js";
 
 //Components
-import { FormBottomNav } from "../../../../components";
+import { FormBottomNav } from "../ComponentsForm";
 
 // Material components
 import {

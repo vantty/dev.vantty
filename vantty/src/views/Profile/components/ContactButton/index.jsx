@@ -14,7 +14,7 @@ import {
   isSafari,
   isChrome
 } from "react-device-detect";
-import { getStrategyName } from "../../helpers";
+import { getStrategyName } from "../../../../helpers";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -25,7 +25,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
-import { getGeoInfo } from "../../actions/auth";
+import { getGeoInfo } from "../../../../actions/auth";
 
 const useStyles = makeStyles({
   root: {

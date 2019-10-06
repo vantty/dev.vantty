@@ -17,9 +17,9 @@ import "react-phone-input-2/dist/style.css";
 import { Animated } from "react-animated-css";
 
 //Components
-import NumberValidation from "../../../../components/NumberValidation";
+import { NumberValidation } from "./components";
 
-import { FormBottomNav } from "../../../../components";
+import { FormBottomNav } from "../ComponentsForm";
 
 // Material helpers
 import { makeStyles } from "@material-ui/styles";

@@ -27,7 +27,9 @@ import {
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
 import { getCurrentProfile, createProfile } from "../../../../actions/profile";
-import { FormBottomNav, AvatarUploader } from "../../../../components";
+import { AvatarUploader } from "../../../../components";
+import { FormBottomNav } from "../ComponentsForm";
+
 import { schemaErrors } from "../../../../helpers/errorsData";
 import Progress from "@material-ui/core/LinearProgress";
 

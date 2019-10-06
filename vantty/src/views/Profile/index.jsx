@@ -11,7 +11,8 @@ import Navbar from "../../components/Navbar";
 //Comonents
 import ConctactButton from "../../components/ContactButton";
 import BottomNavabar from "../../components/BottomNavbar";
-import { ReviewCard, Header } from "../../components/";
+import { Header } from "../../components/";
+import { Review } from "./components";
 
 //Components inside
 import { ProfileCarousel, ProfileInfo } from "./components";
@@ -111,7 +112,7 @@ const Profile = ({
               )}
               <br />
               <br />
-              <ReviewCard profile={profile} />
+              <Review profile={profile} />
             </Fragment>
           </Container>
         </Fragment>

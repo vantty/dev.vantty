@@ -27,7 +27,7 @@ import {
   Categories
 } from "./components";
 
-import { AppBarForm } from "../../components";
+import { AppBarForm } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "../../components/Alert";

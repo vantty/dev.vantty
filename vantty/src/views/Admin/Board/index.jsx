@@ -1,69 +1,3 @@
-// import React, { useState, useEffect, Fragment } from "react";
-// import { makeStyles } from "@material-ui/styles";
-// import { connect } from "react-redux";
-// import PropTypes from "prop-types";
-// import { withRouter, Link } from "react-router-dom";
-// import { UsersToolbar, UsersTable } from "./components";
-
-// import Progress from "@material-ui/core/LinearProgress";
-// import { getProfiles } from "../../../actions/profile";
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     padding: theme.spacing(1)
-//   },
-//   content: {
-//     marginTop: theme.spacing(1)
-//   }
-// }));
-
-// const Board = ({ getProfiles, profile: { profiles, loading } }) => {
-//   useEffect(() => {
-//     getProfiles();
-//   }, []);
-
-//   const [formData, setFormData] = useState({
-//     verified: false
-//   });
-
-//   const classes = useStyles();
-//   const data = profiles;
-
-//   // const [users] = useState(data);
-
-//   return (
-//     <div className={classes.root}>
-//       {/* <UsersToolbar /> */}
-//       <div className={classes.content}>
-//         {loading ? (
-//           <Progress />
-//         ) : (
-//           <Fragment>
-//             {profiles.length > 0 ? (
-//               <UsersTable profiles={data} />
-//             ) : (
-//               <Progress />
-//             )}
-//           </Fragment>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// Board.propTypes = {
-//   getProfiles: PropTypes.func.isRequired,
-//   profile: PropTypes.object.isRequired
-// };
-
-// const mapStateToProps = state => ({
-//   profile: state.profile
-// });
-
-// export default connect(
-//   mapStateToProps,
-//   { getProfiles }
-// )(Board);
-
 import React, { useEffect, useState, Fragment } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -84,13 +18,14 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { connect } from "react-redux";
-import { getProfiles } from "../../../actions/profile";
+import { getProfiles, getCurrentProfile } from "../../../actions/profile";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import { UsersToolbar, UsersTable, TotalUsers } from "./components";
+import { UsersToolbar, UsersTable, TotalUsers, Links } from "./components";
 
 import Progress from "@material-ui/core/LinearProgress";
 import { mainListItems, secondaryListItems } from "../listItems";
+import { loadUser } from "../../../actions/auth";
 // import Chart from "./Chart";
 // import Deposits from "./Deposits";
 // import Orders from "./Orders";
@@ -177,9 +112,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Board = ({ getProfiles, profile: { profiles, loading } }) => {
+const Board = ({
+  getProfiles,
+  getCurrentProfile,
+  loadUser,
+  profile: { profiles, loading }
+}) => {
   useEffect(() => {
     getProfiles();
+    loadUser();
+    getCurrentProfile();
   }, []);
 
   const [formData, setFormData] = useState({
@@ -265,7 +207,7 @@ const Board = ({ getProfiles, profile: { profiles, loading } }) => {
                     {/* Chart */}
                     <Grid item xs={12} md={8} lg={9}>
                       <Paper className={fixedHeightPaper}>
-                        {/* <Chart /> */}
+                        <Links />
                       </Paper>
                     </Grid>
                     {/* Recent Deposits */}
@@ -295,13 +237,15 @@ const Board = ({ getProfiles, profile: { profiles, loading } }) => {
 
 Board.propTypes = {
   getProfiles: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,
-  { getProfiles }
+  { getProfiles, getCurrentProfile, loadUser }
 )(Board);

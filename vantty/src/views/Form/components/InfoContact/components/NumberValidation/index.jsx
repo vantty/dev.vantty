@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import AccountKit from "react-facebook-account-kit";
 
 // Actions
-import { verifyNumber } from "../../actions/number";
+import { verifyNumber } from "../../../../../../actions/number";
 import { Button, makeStyles } from "@material-ui/core";
 
 const appId = "619096385268555";

@@ -3,7 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 //Components
-import AppBarForm from "../../components/ComponentsForm/AppBar";
+import AppBarForm from "../Form/components/ComponentsForm/AppBar";
 
 //actions
 import { getCurrentProfile } from "../../actions/profile";
@@ -70,9 +70,7 @@ const EditForm = ({
   return (
     <Fragment>
       <CssBaseline />
-      <div>
-        <AppBarForm step={null} />
-      </div>
+      <div>{/* <AppBarForm step={null} /> */}</div>
       <Fragment>
         {match.url === "/personal-info" ? (
           user ? (
@@ -115,9 +113,6 @@ const EditForm = ({
         ) : (
           <Progress />
         )}
-
-        <Divider />
-        <HomeFooter />
       </Fragment>
     </Fragment>
   );
