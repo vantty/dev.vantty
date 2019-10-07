@@ -1,4 +1,4 @@
-import { SEARCH_SUCCESS } from "../actions/types";
+import { SEARCH_SUCCESS, CLEAR_SEARCH } from "../actions/types";
 
 const initialState = {
   searchValue: "",
@@ -13,6 +13,12 @@ export default function(state = initialState, action) {
         ...state,
         searchValue: payload,
         goSearch: true
+      };
+    case CLEAR_SEARCH:
+      return {
+        ...state,
+        searchValue: "",
+        goSearch: false
       };
     default:
       return state;

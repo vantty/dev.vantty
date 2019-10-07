@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -8,8 +8,7 @@ import { logout } from "../../actions/auth";
 import { searchValue } from "../../actions/search";
 
 // Material-UI
-// import { ThemeProvider } from "@material-ui/styles";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -22,11 +21,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 
-import SearchBar from "../../views/Favorites/Components/SearchBar";
-
 // Assets
 import Logo from "../../assets/logos/logo.png";
-// import theme from "../../assets/theme/theme.js";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     height: "100%",
-    width: "8.5rem",
+    width: "7rem",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(2)
@@ -74,148 +70,104 @@ const HideOnScroll = props => {
 };
 
 const Navbar = props => {
-  const {
-    isAuthenticated,
-    loading,
-    logout,
-    searchValue,
-    goSearch,
-    user
-  } = props;
-
-  const [search, setSearch] = useState("");
-
-  const handleChange = event => {
-    event.persist();
-    setSearch(event.target.value);
-  };
-
-  const handleSearch = async event => {
-    event.preventDefault();
-    searchValue(search);
-  };
+  const { isAuthenticated, loading, logout, searchValue, user } = props;
 
   const classes = useStyles();
 
   return (
     <Fragment>
-      {goSearch ? (
-        <Redirect to='/favorites' />
-      ) : (
-        <Fragment>
-          <CssBaseline />
-          <HideOnScroll {...props}>
-            <AppBar className={classes.root}>
-              <Toolbar>
-                <Typography variant='h5' className={classes.title}>
-                  <LinkMui
-                    underline='none'
-                    color='inherit'
-                    component={Link}
-                    to='/home'
-                  >
-                    <img src={Logo} alt='' className={classes.logo} />
-                  </LinkMui>
-                </Typography>
-                {loading ? (
-                  <Progress data-test='progress' />
+      <CssBaseline />
+      <HideOnScroll {...props}>
+        <AppBar className={classes.root}>
+          <Toolbar>
+            <Typography variant='h5' className={classes.title}>
+              <LinkMui
+                underline='none'
+                color='inherit'
+                component={Link}
+                to='/home'
+              >
+                <img src={Logo} alt='' className={classes.logo} />
+              </LinkMui>
+            </Typography>
+            {loading ? (
+              <Progress data-test='progress' />
+            ) : (
+              <Fragment>
+                {!isAuthenticated ? (
+                  <Fragment>
+                    <section data-test='noAuthButtons'>
+                      <div className={classes.sectionDesktop}>
+                        <Button
+                          className={classes.button}
+                          component={Link}
+                          to='/artists'
+                        >
+                          Artists
+                        </Button>
+                        <Button
+                          className={classes.button}
+                          component={Link}
+                          to='/login'
+                        >
+                          Login
+                        </Button>
+                        <Button
+                          className={classes.button}
+                          component={Link}
+                          to='/register'
+                        >
+                          Register
+                        </Button>
+                      </div>
+                    </section>
+                  </Fragment>
                 ) : (
                   <Fragment>
-                    {!isAuthenticated ? (
-                      <Fragment>
-                        <section data-test='noAuthButtons'>
-                          <div className={classes.sectionDesktop}>
-                            <Button
-                              size='large'
-                              className={classes.button}
-                              component={Link}
-                              to='/artists'
-                            >
-                              Artists
-                            </Button>
-                            <Button
-                              size='large'
-                              className={classes.button}
-                              component={Link}
-                              to='/login'
-                            >
-                              Login
-                            </Button>
-                            <Button
-                              size='large'
-                              className={classes.button}
-                              component={Link}
-                              to='/register'
-                            >
-                              Register
-                            </Button>
-                          </div>
-                        </section>
-                      </Fragment>
-                    ) : (
-                      <Fragment>
-                        <section data-test='authButtons'>
-                          <div className={classes.sectionDesktop}>
-                            {/* <div className={classes.search}>
-                              <div className={classes.searchIcon}>
-                                <SearchIcon />
-                              </div>
-                              <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                  root: classes.inputRoot,
-                                  input: classes.inputInput
-                                }}
-                                inputProps={{ "aria-label": "search" }}
-                              />
-                            </div> */}
-                            <Button
-                              color='inherit'
-                              className={classes.button}
-                              component={Link}
-                              to='/artists'
-                            >
-                              Artists
-                            </Button>
-                            <Button
-                              color='inherit'
-                              className={classes.button}
-                              component={Link}
-                              to='/settings'
-                            >
-                              Profile
-                            </Button>
-                            <Button
-                              data-test='logoutButton'
-                              color='inherit'
-                              className={classes.button}
-                              component={Link}
-                              to='/'
-                              onClick={logout}
-                            >
-                              Logout
-                            </Button>
-                            {user && user.role === "Admin" && (
-                              <Button
-                                color='inherit'
-                                className={classes.button}
-                                component={Link}
-                                to='/dashboard'
-                              >
-                                Admin
-                              </Button>
-                            )}
-                          </div>
-                        </section>
-                      </Fragment>
-                    )}
+                    <section data-test='authButtons'>
+                      <div className={classes.sectionDesktop}>
+                        <Button
+                          className={classes.button}
+                          component={Link}
+                          to='/artists'
+                        >
+                          Artists
+                        </Button>
+                        <Button
+                          className={classes.button}
+                          component={Link}
+                          to='/settings'
+                        >
+                          Profile
+                        </Button>
+                        <Button
+                          data-test='logoutButton'
+                          className={classes.button}
+                          component={Link}
+                          to='/'
+                          onClick={logout}
+                        >
+                          Logout
+                        </Button>
+                        {user && user.role === "Admin" && (
+                          <Button
+                            color='inherit'
+                            className={classes.button}
+                            component={Link}
+                            to='/dashboard'
+                          >
+                            Admin
+                          </Button>
+                        )}
+                      </div>
+                    </section>
                   </Fragment>
                 )}
-              </Toolbar>
-            </AppBar>
-          </HideOnScroll>
-        </Fragment>
-      )}
+              </Fragment>
+            )}
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
     </Fragment>
   );
 };
@@ -224,8 +176,6 @@ Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
-  searchValue: PropTypes.func,
-  goSearch: PropTypes.bool,
   user: PropTypes.object
 };
 
@@ -237,11 +187,10 @@ HideOnScroll.propTypes = {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
-  user: state.auth.user,
-  goSearch: state.search.goSearch
+  user: state.auth.user
 });
 
 export default connect(
   mapStateToProps,
-  { logout, searchValue }
+  { logout }
 )(Navbar);

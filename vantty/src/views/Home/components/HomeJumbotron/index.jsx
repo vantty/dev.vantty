@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -14,7 +15,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -53,11 +54,28 @@ const useStyles = makeStyles(theme => ({
     borderColor: "white",
     "&:hover": {
       borderColor: "white"
+    },
+    "& label.Mui-focused": {
+      color: "white"
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "white"
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "white"
+      },
+      "&:hover fieldset": {
+        borderColor: "white"
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "white"
+      }
     }
   }
 }));
 
-const HomeJumbotron = ({ searchValue }) => {
+const HomeJumbotron = ({ searchValue, goSearch }) => {
   const classes = useStyles();
 
   const [search, setSearch] = useState("");
@@ -72,43 +90,86 @@ const HomeJumbotron = ({ searchValue }) => {
     searchValue(search);
   };
 
+  if (goSearch) {
+    return <Redirect push to='/favorites' />;
+  }
+
+  const CssTextField = withStyles({
+    root: {
+      "& label.Mui-focused": {
+        color: "white"
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "white"
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "white"
+        },
+        "&:hover fieldset": {
+          borderColor: "white"
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "white"
+        }
+      }
+    }
+  })(TextField);
+
   return (
-    <div className={classes.root}>
-      <Grid className={classes.grid} container>
-        <Grid className={classes.quoteContainer} item sm={12}>
-          <div className={classes.quote}>
-            <Container>
-              <Grid container>
-                <Grid item xs={12} sm={6}>
-                  <div className={classes.quoteInner}>
-                    <Typography className={classes.quoteText} variant='h1'>
-                      Get your dreamed look, done by the perfect artists
-                    </Typography>
-                    <form onSubmit={handleSearch}>
-                      <TextField
-                        id='outlined-simple-start-adornment'
-                        onChange={handleChange}
-                        fullWidth
-                        className={classes.textField}
-                        variant='outlined'
-                        placeholder='Search'
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position='start'>
-                              <SearchIcon />
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                    </form>
-                  </div>
+    <Fragment>
+      <div className={classes.root}>
+        <Grid className={classes.grid} container>
+          <Grid className={classes.quoteContainer} item sm={12}>
+            <div className={classes.quote}>
+              <Container>
+                <Grid container>
+                  <Grid item xs={12} sm={6}>
+                    <div className={classes.quoteInner}>
+                      <Typography className={classes.quoteText} variant='h1'>
+                        Get your dreamed look, done by the perfect artists
+                      </Typography>
+                      <form onSubmit={handleSearch}>
+                        <TextField
+                          id='outlined-simple-start-adornment'
+                          onChange={handleChange}
+                          fullWidth
+                          className={classes.textField}
+                          variant='outlined'
+                          placeholder='Search'
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position='start'>
+                                <SearchIcon />
+                              </InputAdornment>
+                            )
+                          }}
+                        />
+                        {/* <CssTextField
+                          id="outlined-simple-start-adornment"
+                          onChange={handleChange}
+                          fullWidth
+                          className={classes.textField}
+                          variant="outlined"
+                          placeholder="Search"
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <SearchIcon />
+                              </InputAdornment>
+                            )
+                          }}
+                        /> */}
+                      </form>
+                    </div>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Container>
-          </div>
+              </Container>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </Fragment>
   );
 };
 
