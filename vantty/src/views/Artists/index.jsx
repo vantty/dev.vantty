@@ -7,7 +7,6 @@ import { isMobile } from "react-device-detect";
 
 // Components
 import ProfileCard from "../../components/ProfileCard";
-import Navbar from "../../components/Navbar";
 
 // Actions
 import { getProfiles } from "../../actions/profile";

@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // Actions
-import { logout } from "../../actions/auth";
-import { searchValue } from "../../actions/search";
+import { logout } from "../../../../actions/auth";
+import { searchValue } from "../../../../actions/search";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,7 +22,7 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 
 // Assets
-import Logo from "../../assets/logos/logo.png";
+import Logo from "../../../../assets/logos/logo.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -70,7 +70,14 @@ const HideOnScroll = props => {
 };
 
 const Navbar = props => {
-  const { isAuthenticated, loading, logout, searchValue, user } = props;
+  const {
+    isAuthenticated,
+    loading,
+    logout,
+    searchValue,
+    user,
+    profile: { profile }
+  } = props;
 
   const classes = useStyles();
 
@@ -129,18 +136,22 @@ const Navbar = props => {
                         <Button
                           className={classes.button}
                           component={Link}
-                          to='/artists'
+                          to='/favorites'
                         >
                           Artists
                         </Button>
                         <Button
                           className={classes.button}
                           component={Link}
-                          to='/settings'
+                          to={
+                            profile
+                              ? `/profile/artist/${profile.user._id}`
+                              : "/settings"
+                          }
                         >
                           Profile
                         </Button>
-                        <Button
+                        {/* <Button
                           data-test='logoutButton'
                           className={classes.button}
                           component={Link}
@@ -148,7 +159,7 @@ const Navbar = props => {
                           onClick={logout}
                         >
                           Logout
-                        </Button>
+                        </Button> */}
                         {user && user.role === "Admin" && (
                           <Button
                             color='inherit'
@@ -176,7 +187,8 @@ Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  profile: PropTypes.object.isRequired
 };
 
 HideOnScroll.propTypes = {
@@ -187,7 +199,8 @@ HideOnScroll.propTypes = {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
-  user: state.auth.user
+  user: state.auth.user,
+  profile: state.profile
 });
 
 export default connect(

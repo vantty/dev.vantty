@@ -55,54 +55,52 @@ const BottomNavbar = props => {
   return (
     <Fragment>
       <Fragment>
-        <HideOnScroll {...props}>
-          <BottomNavigation
-            value={navbarValue}
-            className={classes.root}
-            showLabels
-          >
+        {/* <HideOnScroll {...props}> */}
+        <BottomNavigation
+          value={navbarValue}
+          className={classes.root}
+          showLabels
+        >
+          <BottomNavigationAction
+            label='Home'
+            value='home'
+            component={Link}
+            to='/'
+            icon={<HomeIcon />}
+          />
+          <BottomNavigationAction
+            label='Search'
+            value='artists'
+            component={Link}
+            to='/favorites'
+            icon={<SearchIcon />}
+          />
+          <BottomNavigationAction
+            label='Favorites'
+            value='favorites'
+            component={Link}
+            to='/favorites'
+            icon={<FavoriteIcon />}
+          />
+          {!loading && !isAuthenticated ? (
             <BottomNavigationAction
-              label='Home'
-              value='home'
+              label='Register'
+              value='register'
               component={Link}
-              to='/'
-              icon={<HomeIcon />}
+              to='/register'
+              icon={<AccountIcon />}
             />
+          ) : (
             <BottomNavigationAction
-              label='Search'
-              value='artists'
+              label='Profile'
+              value='profile'
               component={Link}
-              to='/artists'
-              icon={<SearchIcon />}
+              to={profile ? `/profile/artist/${profile.user._id}` : "/settings"}
+              icon={<AccountIcon />}
             />
-            <BottomNavigationAction
-              label='Favorites'
-              value='favorites'
-              component={Link}
-              to='/favorites'
-              icon={<FavoriteIcon />}
-            />
-            {!loading && !isAuthenticated ? (
-              <BottomNavigationAction
-                label='Register'
-                value='register'
-                component={Link}
-                to='/register'
-                icon={<AccountIcon />}
-              />
-            ) : (
-              <BottomNavigationAction
-                label='Profile'
-                value='profile'
-                component={Link}
-                to={
-                  profile ? `/profile/artist/${profile.user._id}` : "/settings"
-                }
-                icon={<AccountIcon />}
-              />
-            )}
-          </BottomNavigation>
-        </HideOnScroll>
+          )}
+        </BottomNavigation>
+        {/* </HideOnScroll> */}
       </Fragment>
     </Fragment>
   );

@@ -8,7 +8,6 @@ export { default as StatusBullet } from "./StatusBullet";
 export { default as CardAction } from "./CardAction";
 
 export { default as HomeFooter } from "./HomeFooter";
-export { default as Navbar } from "./Navbar";
 
 export { default as FrameForm } from "./FrameForm";
 export { default as SimpleAppBar } from "./SimpleAppBar";

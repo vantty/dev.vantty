@@ -145,21 +145,6 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
                             )
                           }}
                         />
-                        {/* <CssTextField
-                          id="outlined-simple-start-adornment"
-                          onChange={handleChange}
-                          fullWidth
-                          className={classes.textField}
-                          variant="outlined"
-                          placeholder="Search"
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <SearchIcon />
-                              </InputAdornment>
-                            )
-                          }}
-                        /> */}
                       </form>
                     </div>
                   </Grid>
