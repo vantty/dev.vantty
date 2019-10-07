@@ -37,7 +37,7 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
-import AvatarUploader from "../../../../components/AvatarUploader";
+
 import { positions } from "@material-ui/system";
 import { isMobile } from "react-device-detect";
 import { saveTag } from "../../../../actions/uploader";

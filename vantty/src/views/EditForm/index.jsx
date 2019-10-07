@@ -18,6 +18,7 @@ import { Container } from "@material-ui/core";
 import { Table } from "./components";
 import { isOwner } from "../../helpers";
 import { HomeFooter } from "../../components";
+import { isMobile } from "react-device-detect";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -70,7 +71,7 @@ const EditForm = ({
   return (
     <Fragment>
       <CssBaseline />
-      <div>{/* <AppBarForm step={null} /> */}</div>
+      <div> {isMobile && <AppBarForm step={null} />}</div>
       <Fragment>
         {match.url === "/personal-info" ? (
           user ? (

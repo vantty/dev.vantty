@@ -23,9 +23,10 @@ export default function TotalUsers() {
       <Typography component='p' variant='h4'>
         2,024.000
       </Typography>
-      <Typography color='textSecondary' className={classes.depositContext}>
-        on 15 March, 2019
-      </Typography>
+      <Typography
+        color='textSecondary'
+        className={classes.depositContext}
+      ></Typography>
       <div>
         <Link color='primary' href='/dashboard'>
           View balance

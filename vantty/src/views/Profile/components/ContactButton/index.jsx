@@ -35,7 +35,8 @@ const useStyles = makeStyles({
     overflow: "hidden",
     position: "fixed",
     bottom: 0,
-    border: "grey"
+    border: "grey",
+    marginBottom: "1remknm  "
   },
   button: {
     marginTop: "0.5rem",
@@ -175,8 +176,11 @@ const ContactButton = ({
       )}
     </div>
   );
+
+  const geo = navigator.geolocation;
   return (
     <Fragment>
+      {console.log(geo)}
       <div className={classes.root}>
         <Container maxWidth='md'>
           <Fragment>

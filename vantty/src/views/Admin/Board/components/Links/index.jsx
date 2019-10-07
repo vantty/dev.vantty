@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     display: "none"
   }
 }));
-export default function Links() {
+export default function Links({ id }) {
   const classes = useStyles();
   return (
     <Fragment>
@@ -115,6 +115,15 @@ export default function Links() {
                 className={classes.link}
               >
                 /settings
+              </LinkMui>
+            </Typography>
+            <Typography>
+              <LinkMui
+                component={Link}
+                to={`profile/artist/${id}`}
+                className={classes.link}
+              >
+                /profile
               </LinkMui>
             </Typography>
           </Grid>

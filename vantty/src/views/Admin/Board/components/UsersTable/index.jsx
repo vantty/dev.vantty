@@ -23,13 +23,26 @@ import {
   IconButton
 } from "@material-ui/core";
 import Sms from "@material-ui/icons/SmsOutlined";
-import { getProfiles, verifiedProfile } from "../../../../../actions/profile";
+import {
+  getProfiles,
+  verifiedProfile,
+  deleteAccount
+} from "../../../../../actions/profile";
 import { isIOS } from "react-device-detect";
 import { Verified as VerifiedIcon } from "../../../../../assets/icons";
 // import { getInitials } from "../../../../helpers/getInitials";
 
 const useStyles = makeStyles(theme => ({
-  root: { width: "100%", marginTop: theme.spacing(1), overflowX: "auto" },
+  root: {
+    width: "100%",
+    marginTop: theme.spacing(),
+    overflowX: "auto",
+    textAlign: "center" + "!important",
+    padding: "0px" + "!important"
+  },
+  tableCell: {
+    padding: "0px" + "!important"
+  },
   content: {
     padding: 0
   },
@@ -62,6 +75,7 @@ const UsersTable = props => {
     profiles,
     history,
     formData,
+    deleteAccount,
     verifiedProfile,
     ...rest
   } = props;
@@ -73,12 +87,15 @@ const UsersTable = props => {
   const onSubmit = (e, value, id) => {
     e.preventDefault();
     verifiedProfile({ verified: value, id: id });
+    setVerifyButton(value);
   };
 
   const [users] = useState(profiles);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
+  const [verifyButton, setVerifyButton] = useState();
+  const disableButton = users.map(user => user.verified);
 
   const handleSelectAll = event => {
     const { users } = props;
@@ -147,12 +164,13 @@ const UsersTable = props => {
                 <TableCell>Profile Link</TableCell>
                 <TableCell>Verify</TableCell>
                 <TableCell>Date</TableCell>
+                <TableCell>Delete Account</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {users.slice(0, rowsPerPage).map(user => (
                 <TableRow
-                  className={classes.tableRow}
+                  className={classes.tableCell}
                   hover
                   key={user._id}
                   selected={selectedUsers.indexOf(user._id) !== -1}
@@ -165,7 +183,7 @@ const UsersTable = props => {
                       value='true'
                     />
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     <div className={classes.nameContainer}>
                       <Avatar
                         className={classes.avatar}
@@ -179,7 +197,7 @@ const UsersTable = props => {
                     </div>
                   </TableCell>
                   <TableCell>{user.city}</TableCell>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     {
                       <div>
                         <a
@@ -212,7 +230,7 @@ const UsersTable = props => {
                       </div>
                     }
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     {
                       <Link
                         href={`http://localhost:3000/profile/artist/${user.user._id}`}
@@ -222,13 +240,13 @@ const UsersTable = props => {
                       </Link>
                     }
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     {
                       <Button
                         size='small'
                         variant='contained'
                         color='secondary'
-                        disabled={user.verified}
+                        disabled={user.verified || verifyButton}
                         onClick={e => onSubmit(e, true, user._id)}
                       >
                         Verify
@@ -237,7 +255,7 @@ const UsersTable = props => {
                     {
                       <Button
                         size='small'
-                        disabled={!user.verified}
+                        // disabled={disableButton}
                         onClick={e => onSubmit(e, false, user._id)}
                       >
                         Block
@@ -249,6 +267,19 @@ const UsersTable = props => {
                   {/* <TableCell>
                     {moment(user.createdAt).format("DD/MM/YYYY")}
                   </TableCell> */}
+                  <TableCell>
+                    {
+                      <Button
+                        size='small'
+                        // variant='contained'
+                        color='secondary'
+                        // disabled={verifyButton}
+                        onClick={() => deleteAccount(user.elasticId)}
+                      >
+                        Delete
+                      </Button>
+                    }
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -18,7 +18,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { connect } from "react-redux";
-import { getProfiles, getCurrentProfile } from "../../../actions/profile";
+import {
+  getProfiles,
+  getCurrentProfile,
+  deleteAccount
+} from "../../../actions/profile";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { UsersToolbar, UsersTable, TotalUsers, Links } from "./components";
@@ -116,7 +120,7 @@ const Board = ({
   getProfiles,
   getCurrentProfile,
   loadUser,
-  profile: { profiles, loading }
+  profile: { profiles, loading, profile }
 }) => {
   useEffect(() => {
     getProfiles();
@@ -207,7 +211,7 @@ const Board = ({
                     {/* Chart */}
                     <Grid item xs={12} md={8} lg={9}>
                       <Paper className={fixedHeightPaper}>
-                        <Links />
+                        <Links id={profile && profile.user._id} />
                       </Paper>
                     </Grid>
                     {/* Recent Deposits */}
@@ -219,7 +223,12 @@ const Board = ({
                     {/* Recent Orders */}
                     <Grid item xs={12}>
                       {/* <Paper className={classes.paper}> */}
-                      {<UsersTable profiles={data} />}
+                      {
+                        <UsersTable
+                          profiles={data}
+                          deleteAccount={deleteAccount}
+                        />
+                      }
                       {/* </Paper> */}
                     </Grid>
                   </Grid>

@@ -5,10 +5,13 @@ import PropTypes from "prop-types";
 // Components
 
 // Actions
-import { userImage } from "../../actions/uploader";
-import { getCurrentProfile } from "../../actions/profile";
-import { loadUser, updateInfo } from "../../actions/auth";
-import { deleteUserPicture } from "../../actions/auth";
+import { userImage } from "../../../../../../actions/uploader";
+import { getCurrentProfile } from "../../../../../../actions/profile";
+import {
+  loadUser,
+  updateInfo,
+  deleteUserPicture
+} from "../../../../../../actions/auth";
 
 // Material-UI
 import Progress from "@material-ui/core/LinearProgress";
@@ -91,18 +94,24 @@ const AvatarUploader = ({
 
   const loadImages = () => {
     if (profile !== null) {
-      // return <AvatarPro profilePicture={profilePicture} />;
+      return <AvatarPro profilePicture={profilePicture} />;
     }
   };
 
+  // return (
+  //   <Fragment>
+  //     <DeletePicture />
+  //     <UploadButton />
+  //   </Fragment>
+  //   // <Fragment>
+  //   //   <UploadButton />
+  //   // </Fragment>
+  // );
   return (
-    <Fragment>
+    <div>
       <DeletePicture />
       <UploadButton />
-    </Fragment>
-    // <Fragment>
-    //   <UploadButton />
-    // </Fragment>
+    </div>
   );
 };
 

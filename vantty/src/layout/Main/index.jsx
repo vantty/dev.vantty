@@ -6,10 +6,12 @@ import { useMediaQuery } from "@material-ui/core";
 
 import { Footer } from "./components";
 import { Navbar } from "../../components";
+import { isMobile } from "react-device-detect";
+import BottomNavbar from "../../components/BottomNavbar";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: 26,
+    // paddingTop: 26,
     height: "100%",
     [theme.breakpoints.up("sm")]: {
       paddingTop: 64
@@ -24,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Main = props => {
-  const { children } = props;
+  const { children, match } = props;
 
   const classes = useStyles();
   const theme = useTheme();
@@ -42,7 +44,7 @@ const Main = props => {
       {/* <Topbar onSidebarOpen={handleSidebarOpen} /> */}
 
       <main className={classes.content}>
-        <Navbar />
+        {!isMobile ? <Navbar /> : <BottomNavbar />}
         {children}
         <Footer />
       </main>

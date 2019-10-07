@@ -27,7 +27,7 @@ import {
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
 import { getCurrentProfile, createProfile } from "../../../../actions/profile";
-import { AvatarUploader } from "../../../../components";
+import { AvatarUploader } from "./components";
 import { FormBottomNav } from "../ComponentsForm";
 
 import { schemaErrors } from "../../../../helpers/errorsData";
@@ -80,7 +80,6 @@ const AccountDetails = ({
   useEffect(() => {
     getCurrentProfile();
     loadUser();
-
     const strategy = getStrategy(user);
     setFormData({
       firstName: loading || !strategy ? "" : strategy.firstName,
@@ -149,9 +148,9 @@ const AccountDetails = ({
 
     (await match.url) === "/create-profile" && nextStep();
   };
-  useEffect(() => {
-    getCurrentProfile();
-  }, []);
+  // useEffect(() => {
+  //   getCurrentProfile();
+  // }, []);
 
   const continues = e => {
     e.preventDefault();
@@ -167,6 +166,12 @@ const AccountDetails = ({
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
 
+  // const [picture, setPicture] = useState();
+  // const picturePro = () => {
+  //   useEffect(() => {
+  //     setPicture(profile && profile.profilePicture);
+  //   }, []);
+  // };
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
@@ -200,6 +205,7 @@ const AccountDetails = ({
                         </Avatar>
                       )}
                       <br />
+                      {/* <Avatar src={picture} className={classes.avatar} /> */}
                       <Grid>
                         <AvatarUploader
                           profilePicture={profilePicture}
@@ -208,7 +214,7 @@ const AccountDetails = ({
                         />
                       </Grid>
                     </div>
-
+                    {/* {console.log(picture)} */}
                     <br />
                   </Grid>
                 </Grid>

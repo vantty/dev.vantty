@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import { Fragment } from "react";
-import { Divider } from "@material-ui/core";
+import { Divider, Hidden } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -103,9 +103,10 @@ export default function HomeFooter() {
 
   return (
     <Fragment>
-      <Divider />
-      <Container maxWidth='md' component='footer' className={classes.footer}>
-        {/* <Grid container spacing={1} justify='space-evenly'>
+      <Hidden smDown>
+        <Divider />
+        <Container maxWidth='md' component='footer' className={classes.footer}>
+          {/* <Grid container spacing={1} justify='space-evenly'>
         <Grid container direction='row' justify='center' alignItems='center'>
           {footers.map(footer => (
             <Grid item xs={4} sm={3} key={footer.title}>
@@ -128,24 +129,25 @@ export default function HomeFooter() {
           <Copyright />
         </Box> */}
 
-        {/* <Grid container spacing={1} justify='space-evenly'> */}
-        <Grid container direction='row' justify='center' alignItems='center'>
-          {/* <Grid item xs={12} sm={12}> */}
-          {newFooters.map(item => (
-            // <Grid item xs={1} sm={2} key={item}>
-            <span className={classes.element}>
-              <Link href='#' variant='subtitle1' color='textSecondary'>
-                {item}{" "}
-              </Link>
-            </span>
-            // </Grid>
-          ))}
-          {/* </Grid> */}
-        </Grid>
-        <Box mt={3}>
-          <Copyright />
-        </Box>
-      </Container>
+          {/* <Grid container spacing={1} justify='space-evenly'> */}
+          <Grid container direction='row' justify='center' alignItems='center'>
+            {/* <Grid item xs={12} sm={12}> */}
+            {newFooters.map(item => (
+              // <Grid item xs={1} sm={2} key={item}>
+              <span className={classes.element}>
+                <Link href='#' variant='subtitle1' color='textSecondary'>
+                  {item}{" "}
+                </Link>
+              </span>
+              // </Grid>
+            ))}
+            {/* </Grid> */}
+          </Grid>
+          <Box mt={3}>
+            <Copyright />
+          </Box>
+        </Container>
+      </Hidden>
     </Fragment>
   );
 }

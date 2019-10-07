@@ -16,6 +16,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import AccountIcon from "@material-ui/icons/AccountCircle";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
+import { getCurrentProfile } from "../../actions/profile";
 
 const useStyles = makeStyles({
   root: {
@@ -39,6 +40,7 @@ function HideOnScroll({ children, window }) {
 const BottomNavabar = props => {
   const {
     auth: { isAuthenticated, loading },
+    profile: { profile },
     navbarValue
   } = props;
 
@@ -93,7 +95,9 @@ const BottomNavabar = props => {
                 label='Profile'
                 value='profile'
                 component={Link}
-                to='/settings'
+                to={
+                  profile ? `/profile/artist/${profile.user._id}` : "/settings"
+                }
                 icon={<AccountIcon />}
               />
             )}
@@ -107,15 +111,18 @@ const BottomNavabar = props => {
 BottomNavabar.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  navbarValue: PropTypes.string.isRequired
+  profile: PropTypes.object.isRequired,
+  navbarValue: PropTypes.string.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  navbarValue: state.navbar.navbarValue
+  navbarValue: state.navbar.navbarValue,
+  profile: state.profile
 });
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { logout, getCurrentProfile }
 )(BottomNavabar);

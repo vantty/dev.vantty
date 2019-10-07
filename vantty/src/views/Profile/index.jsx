@@ -9,13 +9,13 @@ import Navbar from "../../components/Navbar";
 // import SideBar from "../../layouts/Main/components/Sidebar";
 
 //Comonents
-import ConctactButton from "../../components/ContactButton";
+
 import BottomNavabar from "../../components/BottomNavbar";
 import { Header } from "../../components/";
 import { Review } from "./components";
 
 //Components inside
-import { ProfileCarousel, ProfileInfo } from "./components";
+import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";
@@ -98,7 +98,7 @@ const Profile = ({
               <SimpleAppBar path={"/artists"} />
             </Fragment>
           )}
-          <Header />
+          {/* <Header /> */}
           <Container maxWidth='md'>
             <Fragment>
               <ProfileInfo profile={profile} auth={auth} />
@@ -127,7 +127,7 @@ const Profile = ({
             <BottomNavabar />
           ) : null
         ) : (
-          <ConctactButton profile={profile} location={auth.currentLocation} />
+          <ContactButton profile={profile} location={auth.currentLocation} />
         )}
       </div>
     </Fragment>
