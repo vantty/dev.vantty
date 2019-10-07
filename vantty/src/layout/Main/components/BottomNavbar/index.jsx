@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // Actions
-import { logout } from "../../actions/auth";
+import { logout } from "../../../../actions/auth";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,7 +16,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import AccountIcon from "@material-ui/icons/AccountCircle";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
-import { getCurrentProfile } from "../../actions/profile";
+import { getCurrentProfile } from "../../../../actions/profile";
 
 const useStyles = makeStyles({
   root: {
@@ -37,7 +37,7 @@ function HideOnScroll({ children, window }) {
   );
 }
 
-const BottomNavabar = props => {
+const BottomNavbar = props => {
   const {
     auth: { isAuthenticated, loading },
     profile: { profile },
@@ -108,7 +108,7 @@ const BottomNavabar = props => {
   );
 };
 
-BottomNavabar.propTypes = {
+BottomNavbar.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
@@ -125,4 +125,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logout, getCurrentProfile }
-)(BottomNavabar);
+)(BottomNavbar);

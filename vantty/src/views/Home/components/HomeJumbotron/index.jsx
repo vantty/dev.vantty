@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 // Actions
-import { searchValue } from "../../actions/search";
+import { searchValue } from "../../../../actions/search";
 
 // Assets
-import top from "../../assets/images/top.jpg";
+import top from "../../../../assets/images/top.jpg";
 
 // Material-UI
 import InputBase from "@material-ui/core/InputBase";
@@ -81,20 +81,20 @@ const HomeJumbotron = ({ searchValue }) => {
               <Grid container>
                 <Grid item xs={12} sm={6}>
                   <div className={classes.quoteInner}>
-                    <Typography className={classes.quoteText} variant="h1">
+                    <Typography className={classes.quoteText} variant='h1'>
                       Get your dreamed look, done by the perfect artists
                     </Typography>
                     <form onSubmit={handleSearch}>
                       <TextField
-                        id="outlined-simple-start-adornment"
+                        id='outlined-simple-start-adornment'
                         onChange={handleChange}
                         fullWidth
                         className={classes.textField}
-                        variant="outlined"
-                        placeholder="Search"
+                        variant='outlined'
+                        placeholder='Search'
                         InputProps={{
                           startAdornment: (
-                            <InputAdornment position="start">
+                            <InputAdornment position='start'>
                               <SearchIcon />
                             </InputAdornment>
                           )

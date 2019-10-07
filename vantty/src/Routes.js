@@ -43,19 +43,22 @@ const Routes = () => {
   return (
     <Switch>
       {/* <Redirect exact from='/' to='/dashboard' /> */}
-      <Route exact path='/home' component={Home} />
       <Route exact path='/register' component={Register} />
       <Route exact path='/confirmation/:token' component={Confirmation} />
       <Route exact path='/confirmation' component={WaitForConfirmation} />
       <Route exact path='/login' component={Login} />
-      <Route exact path='/home' component={Home} />
       {/* ADMIN */}
       <PrivateRoute exact path='/dashboard' component={Board} />
-      <AdminRoute exact path='/board' component={Board} />
       <PrivateRoute exact path='/create-profile' component={Form} />
       />
       {/*  */}
       <RouteWithLayout component={Landing} exact layout={MainLayout} path='/' />
+      <RouteWithLayout
+        component={Home}
+        exact
+        layout={MainLayout}
+        path='/home'
+      />
       <RouteWithLayout
         component={Artists}
         exact

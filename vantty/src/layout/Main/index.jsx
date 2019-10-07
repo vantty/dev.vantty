@@ -4,10 +4,9 @@ import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/styles";
 import { useMediaQuery } from "@material-ui/core";
 
-import { Footer } from "./components";
+import { Footer, BottomNavbar } from "./components";
 import { Navbar } from "../../components";
 import { isMobile } from "react-device-detect";
-import BottomNavbar from "../../components/BottomNavbar";
 
 const useStyles = makeStyles(theme => ({
   root: {

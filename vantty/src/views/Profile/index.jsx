@@ -10,7 +10,6 @@ import Navbar from "../../components/Navbar";
 
 //Comonents
 
-import BottomNavabar from "../../components/BottomNavbar";
 import { Header } from "../../components/";
 import { Review } from "./components";
 
@@ -86,7 +85,7 @@ const Profile = ({
 
   return (
     <Fragment>
-      {!isMobile && <Navbar />}
+      {/* {!isMobile && <Navbar />} */}
       <CssBaseline />
       {profile === null || loading ? (
         <Progress />
@@ -124,7 +123,7 @@ const Profile = ({
           auth.loading === false &&
           auth.user._id === profile.user._id) ? (
           isMobile ? (
-            <BottomNavabar />
+            "<BottomNavabar />"
           ) : null
         ) : (
           <ContactButton profile={profile} location={auth.currentLocation} />

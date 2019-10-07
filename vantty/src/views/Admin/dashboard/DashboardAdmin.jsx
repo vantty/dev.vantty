@@ -6,8 +6,6 @@ import { isMobile } from "react-device-detect";
 import Progress from "@material-ui/core/LinearProgress";
 import { getCurrentProfile, deleteAccount } from "../../../actions/profile";
 import DashboardActions from "./DashboardActions";
-import Navbar from "../../../components/Navbar";
-import BottomNavabar from "../../../components/BottomNavbar";
 
 //Helpers
 import { getStrategyName } from "../../../helpers";
@@ -45,7 +43,6 @@ const DashboardAdmin = ({
     <Progress />
   ) : (
     <Fragment>
-      {!isMobile ? <Navbar /> : <BottomNavabar />}
       <Header />
       <Container>
         <CssBaseline />

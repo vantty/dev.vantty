@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import { isMobile } from "react-device-detect";
 
 // Components
-import Navbar from "../../components/Navbar";
-import BottomNavabar from "../../components/BottomNavbar";
-import HomeJumbotron from "../../components/HomeJumbotron";
-import HomeGrid from "../../components/HomeGrid";
-import HomeCarousel from "../../components/HomeCarousel";
-import HomeBanner from "../../components/HomeBanner";
-import HomeFooter from "../../components/HomeFooter";
+
+import {
+  HomeFooter,
+  HomeBanner,
+  HomeCarousel,
+  HomeGrid,
+  HomeJumbotron
+} from "./components";
 
 // Actions
 import { changeNavbarValue } from "../../actions/navbar";
@@ -29,7 +30,7 @@ const Home = ({ changeNavbarValue }) => {
   return (
     <Fragment>
       <CssBaseline />
-      {isMobile ? <BottomNavabar /> : <Navbar />}
+      {/* {isMobile ? <BottomNavabar /> : <Navbar />} */}
       <HomeJumbotron />
       <HomeGrid
         title={homeSeed.firstGrid.title}
@@ -50,7 +51,6 @@ const Home = ({ changeNavbarValue }) => {
         images={homeSeed.thirdGrid.images}
       />
       <HomeBanner image={homeSeed.secondBanner.image} />
-      <HomeFooter />
     </Fragment>
   );
 };

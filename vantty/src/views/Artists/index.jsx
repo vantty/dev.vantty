@@ -8,7 +8,6 @@ import { isMobile } from "react-device-detect";
 // Components
 import ProfileCard from "../../components/ProfileCard";
 import Navbar from "../../components/Navbar";
-import BottomNavabar from "../../components/BottomNavbar";
 
 // Actions
 import { getProfiles } from "../../actions/profile";
@@ -68,7 +67,6 @@ const Artists = ({
 
   return (
     <Fragment>
-      {!isMobile ? <Navbar /> : <BottomNavabar />}
       <Header />
       <Fragment>
         {loading ? (

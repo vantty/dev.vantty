@@ -1,8 +1,8 @@
 import React from "react";
 
 // Assets
-import v1 from "../../assets/images/v1.jpg";
-import v2 from "../../assets/images/v2.jpg";
+
+import v2 from "../../../../assets/images/v2.jpg";
 
 // Material-UI
 import Card from "@material-ui/core/Card";
@@ -78,12 +78,12 @@ const HomeGrid = ({ title, images }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
-      <Container className={classes.cardGrid} maxWidth="md">
+      <Container className={classes.cardGrid} maxWidth='md'>
         <Grid
           container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
+          direction='row'
+          justify='space-between'
+          alignItems='center'
           className={classes.blockTitle}
         >
           <Grid item>
@@ -101,11 +101,11 @@ const HomeGrid = ({ title, images }) => {
                   key={image.photo}
                   className={classes.cardMedia}
                   image={`${image.photo}`}
-                  title="Image title"
+                  title='Image title'
                 />
                 <CardContent className={classes.cardContent}>
                   <Toolbar className={classes.cardTitle}>
-                    <Avatar alt="" src={v2} className={classes.avatar} />
+                    <Avatar alt='' src={v2} className={classes.avatar} />
                     <Typography
                       key={index}
                       gutterBottom
