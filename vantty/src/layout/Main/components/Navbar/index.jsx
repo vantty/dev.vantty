@@ -137,21 +137,27 @@ const Navbar = props => {
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/favorites'
+                        to='/artists'
                       >
                         Artists
                       </Button>
-                      <Button
-                        className={classes.button}
-                        component={Link}
-                        to={
-                          profile
-                            ? `/profile/artist/${profile.user._id}`
-                            : "/settings"
-                        }
-                      >
-                        Profile
-                      </Button>
+                      {profile ? (
+                        <Button
+                          className={classes.button}
+                          component={Link}
+                          to={`/profile/artist/${profile.user._id}`}
+                        >
+                          Profile
+                        </Button>
+                      ) : (
+                        <Button
+                          className={classes.button}
+                          component={Link}
+                          to={"/settings"}
+                        >
+                          Profile
+                        </Button>
+                      )}
                       {/* <Button
                           data-test='logoutButton'
                           className={classes.button}

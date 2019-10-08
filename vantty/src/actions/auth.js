@@ -224,9 +224,12 @@ export const googleLogin = data => async dispatch => {
 };
 
 // Logout
-export const logout = () => dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
-  dispatch({ type: LOGOUT });
+export const logout = () => async dispatch => {
+  await dispatch({ type: CLEAR_PROFILE });
+  await dispatch({ type: LOGOUT });
+  if (true) {
+    window.location.href = "http://localhost:3000/";
+  }
 };
 
 //Update Personal Info

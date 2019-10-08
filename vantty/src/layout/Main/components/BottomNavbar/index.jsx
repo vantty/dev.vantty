@@ -17,6 +17,7 @@ import AccountIcon from "@material-ui/icons/AccountCircle";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import { getCurrentProfile } from "../../../../actions/profile";
+import { CssBaseline } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -54,6 +55,7 @@ const BottomNavbar = props => {
 
   return (
     <Fragment>
+      <CssBaseline />
       <Fragment>
         {/* <HideOnScroll {...props}> */}
         <BottomNavigation
@@ -72,16 +74,16 @@ const BottomNavbar = props => {
             label='Search'
             value='artists'
             component={Link}
-            to='/favorites'
+            to='/artists'
             icon={<SearchIcon />}
           />
-          <BottomNavigationAction
+          {/* <BottomNavigationAction
             label='Favorites'
             value='favorites'
             component={Link}
             to='/favorites'
             icon={<FavoriteIcon />}
-          />
+          /> */}
           {!loading && !isAuthenticated ? (
             <BottomNavigationAction
               label='Register'

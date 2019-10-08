@@ -48,7 +48,7 @@ const Routes = () => {
       <Route exact path='/confirmation' component={WaitForConfirmation} />
       <Route exact path='/login' component={Login} />
       {/* ADMIN */}
-      <PrivateRoute exact path='/dashboard' component={Board} />
+      <AdminRoute exact path='/dashboard' component={Board} />
       <PrivateRoute exact path='/create-profile' component={Form} />
       />
       {/*  */}
@@ -65,12 +65,12 @@ const Routes = () => {
         layout={MainLayout}
         path='/artists'
       />
-      <RouteWithLayout
+      {/* <RouteWithLayout
         component={Favorites}
         exact
         layout={MainLayout}
         path='/favorites'
-      />
+      /> */}
       {/* PROFILE */}
       <RouteWithLayout
         component={Profile}
