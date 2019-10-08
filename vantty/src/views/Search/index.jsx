@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -29,8 +29,11 @@ import { RenderArtist } from "./Components";
 import { Header } from "../../components";
 import { isMobile } from "react-device-detect";
 import { AppBar } from "./Components";
-const { ResultCardsWrapper } = ReactiveList;
 
+// Actions
+import { changeNavbarValue } from "../../actions/navbar";
+
+const { ResultCardsWrapper } = ReactiveList;
 const useStyles = makeStyles(theme => ({
   // card: {
   //   maxWidth: 600,
@@ -83,7 +86,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Search = ({ searchValue, clearSearch }) => {
+const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
+  useEffect(() => {
+    changeNavbarValue("search");
+  }, []);
   const classes = useStyles();
   const [values, setValues] = useState("");
 
@@ -222,42 +228,45 @@ const Search = ({ searchValue, clearSearch }) => {
                             ) : (
                               values.indexOf(pic.tag) > -1 && (
                                 <Fragment>
-                                  <ResultCard>
-                                    <CardMedia
-                                      className={classes.media}
-                                      image={pic.original}
-                                      title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                      <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h2"
-                                      >
-                                        {item.name.firstName}
-                                      </Typography>
-                                      <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        component="p"
-                                      >
-                                        {item.profession}
-                                        <br />
-                                        {item.city}
-                                        <br />
-                                        {pic.tag}
-                                      </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                      <Button
-                                        size="small"
-                                        color="primary"
-                                        component={Link}
-                                        to={`/profile/artist/${item.userId}`}
-                                      >
-                                        View
-                                      </Button>
-                                    </CardActions>
+                                  <ResultCard className={classes.resultCard}>
+                                    <Fragment>
+                                      <Card className={classes.card}>
+                                        <CardActionArea>
+                                          <LinkMui
+                                            component={Link}
+                                            to={`/profile/artist/${item.userId}`}
+                                          >
+                                            <CardMedia
+                                              key={pic.original}
+                                              className={classes.cardMedia}
+                                              image={pic.original}
+                                              title="Image title"
+                                            />
+                                          </LinkMui>
+                                        </CardActionArea>
+                                        <CardContent
+                                          className={classes.cardContent}
+                                        >
+                                          <Toolbar
+                                            className={classes.cardTitle}
+                                          >
+                                            <Avatar
+                                              alt=""
+                                              src={item.profilePicture}
+                                              className={classes.avatar}
+                                            />
+                                            <Typography
+                                              key={pic.original}
+                                              gutterBottom
+                                              className={classes.name}
+                                            >
+                                              {"by "}
+                                              {item.name.firstName}
+                                            </Typography>
+                                          </Toolbar>
+                                        </CardContent>
+                                      </Card>
+                                    </Fragment>
                                   </ResultCard>
                                 </Fragment>
                               )
@@ -281,7 +290,8 @@ const Search = ({ searchValue, clearSearch }) => {
 
 Search.propTypes = {
   searchValue: PropTypes.string,
-  clearSearch: PropTypes.func
+  clearSearch: PropTypes.func,
+  changeNavbarValue: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -290,5 +300,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { clearSearch }
+  { changeNavbarValue, clearSearch }
 )(Search);

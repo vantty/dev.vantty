@@ -74,7 +74,6 @@ const ChipsArray = ({
 
   uploadTag(tagObj);
 
-  console.log(tag);
   return (
     <Fragment>
       <div className={classes.root}>

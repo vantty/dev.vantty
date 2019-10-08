@@ -130,7 +130,7 @@ const Profile = ({
 
   return (
     <React.Fragment>
-      <Container maxWidth='md'>
+      <Container maxWidth="md">
         <main>
           <Grid container spacing={1} className={classes.mainGrid}>
             {/* Main content */}
@@ -142,7 +142,7 @@ const Profile = ({
                 <Fragment>
                   {isMobile && (
                     <Fragment>
-                      <SimpleAppBar path={"/artists"} />
+                      <SimpleAppBar path={"/search"} />
                     </Fragment>
                   )}
                   <Grid item xs={12} md={8}>
@@ -152,7 +152,7 @@ const Profile = ({
                       <ProfileInfo profile={profile} auth={auth} />
                       <br />
                       {!isMobile ? (
-                        <Container maxWidth='md'>
+                        <Container maxWidth="md">
                           <ProfileCarousel profile={profile} />
                         </Container>
                       ) : (
@@ -183,8 +183,7 @@ const Profile = ({
             auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id) ? (
-            isMobile ? // <BottomNavabar />
-            null : null
+            isMobile ? null : null // <BottomNavabar />
           ) : (
             <ContactButton profile={profile} location={auth.currentLocation} />
           )}
