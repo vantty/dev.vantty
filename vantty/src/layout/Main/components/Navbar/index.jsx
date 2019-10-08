@@ -23,6 +23,7 @@ import Slide from "@material-ui/core/Slide";
 
 // Assets
 import Logo from "../../../../assets/logos/logo.png";
+import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -84,74 +85,74 @@ const Navbar = props => {
   return (
     <Fragment>
       <CssBaseline />
-      <HideOnScroll {...props}>
-        <AppBar className={classes.root}>
-          <Toolbar>
-            <Typography variant='h5' className={classes.title}>
-              <LinkMui
-                underline='none'
-                color='inherit'
-                component={Link}
-                to='/home'
-              >
-                <img src={Logo} alt='' className={classes.logo} />
-              </LinkMui>
-            </Typography>
-            {loading ? (
-              <Progress data-test='progress' />
-            ) : (
-              <Fragment>
-                {!isAuthenticated ? (
-                  <Fragment>
-                    <section data-test='noAuthButtons'>
-                      <div className={classes.sectionDesktop}>
-                        <Button
-                          className={classes.button}
-                          component={Link}
-                          to='/artists'
-                        >
-                          Artists
-                        </Button>
-                        <Button
-                          className={classes.button}
-                          component={Link}
-                          to='/login'
-                        >
-                          Login
-                        </Button>
-                        <Button
-                          className={classes.button}
-                          component={Link}
-                          to='/register'
-                        >
-                          Register
-                        </Button>
-                      </div>
-                    </section>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <section data-test='authButtons'>
-                      <div className={classes.sectionDesktop}>
-                        <Button
-                          className={classes.button}
-                          component={Link}
-                          to='/favorites'
-                        >
-                          Artists
-                        </Button>
-                        <Button
-                          className={classes.button}
-                          component={Link}
-                          to={
-                            profile
-                              ? `/profile/artist/${profile.user._id}`
-                              : "/settings"
-                          }
-                        >
-                          Profile
-                        </Button>
-                        {/* <Button
+      {/* <HideOnScroll {...props}> */}
+      <AppBar className={classes.root}>
+        <Toolbar>
+          <Typography variant='h5' className={classes.title}>
+            <LinkMui
+              underline='none'
+              color='inherit'
+              component={Link}
+              to='/home'
+            >
+              <img src={Logo} alt='' className={classes.logo} />
+            </LinkMui>
+          </Typography>
+          {loading ? (
+            <Progress data-test='progress' />
+          ) : (
+            <Fragment>
+              {!isAuthenticated ? (
+                <Fragment>
+                  <section data-test='noAuthButtons'>
+                    <div className={classes.sectionDesktop}>
+                      <Button
+                        className={classes.button}
+                        component={Link}
+                        to='/artists'
+                      >
+                        Artists
+                      </Button>
+                      <Button
+                        className={classes.button}
+                        component={Link}
+                        to='/login'
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        className={classes.button}
+                        component={Link}
+                        to='/register'
+                      >
+                        Register
+                      </Button>
+                    </div>
+                  </section>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <section data-test='authButtons'>
+                    <div className={classes.sectionDesktop}>
+                      <Button
+                        className={classes.button}
+                        component={Link}
+                        to='/favorites'
+                      >
+                        Artists
+                      </Button>
+                      <Button
+                        className={classes.button}
+                        component={Link}
+                        to={
+                          profile
+                            ? `/profile/artist/${profile.user._id}`
+                            : "/settings"
+                        }
+                      >
+                        Profile
+                      </Button>
+                      {/* <Button
                           data-test='logoutButton'
                           className={classes.button}
                           component={Link}
@@ -160,25 +161,27 @@ const Navbar = props => {
                         >
                           Logout
                         </Button> */}
-                        {user && user.role === "Admin" && (
-                          <Button
-                            color='inherit'
-                            className={classes.button}
-                            component={Link}
-                            to='/dashboard'
-                          >
-                            Admin
-                          </Button>
-                        )}
-                      </div>
-                    </section>
-                  </Fragment>
-                )}
-              </Fragment>
-            )}
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
+                      {user && user.role === "Admin" && (
+                        <Button
+                          color='inherit'
+                          className={classes.button}
+                          component={Link}
+                          to='/dashboard'
+                        >
+                          Admin
+                        </Button>
+                      )}
+                    </div>
+                  </section>
+                </Fragment>
+              )}
+            </Fragment>
+          )}
+        </Toolbar>
+        <Divider />
+      </AppBar>
+
+      {/* </HideOnScroll> */}
     </Fragment>
   );
 };

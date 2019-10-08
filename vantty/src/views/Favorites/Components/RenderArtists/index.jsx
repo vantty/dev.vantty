@@ -14,6 +14,8 @@ import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Divider from "@material-ui/core/Divider";
+import LinkMui from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   blockTitle: {
@@ -88,16 +90,23 @@ const Artists = ({ data, values }) => {
             <Grid container spacing={2}>
               {item.portfolioPictures.map(pic => (
                 <Fragment key={pic.cloudId}>
-                  {!values[0] ? (
+                  {!values[0] && (
                     <Fragment>
                       <Grid item key={pic.original} xs={6} md={4}>
                         <Card className={classes.card}>
+                          {/* <LinkMui
+                            component={Link}
+                            to={`/profile/artist/${item._id}`}
+                          > */}
+
                           <CardMedia
                             key={pic.orignal}
                             className={classes.cardMedia}
                             image={`${pic.original}`}
                             title='Image title'
                           />
+                          {/* </LinkMui> */}
+
                           <CardContent className={classes.cardContent}>
                             <Toolbar className={classes.cardTitle}>
                               <Avatar
@@ -139,32 +148,6 @@ const Artists = ({ data, values }) => {
                         </Card>
                       </Grid>
                     </Fragment>
-                  ) : (
-                    values.indexOf(pic.tag) > -1 && (
-                      <Fragment>
-                        <CardMedia
-                          className={classes.media}
-                          image={pic.original}
-                          title='Contemplative Reptile'
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                            {item.name.firstName}
-                          </Typography>
-                          <Typography
-                            variant='body2'
-                            color='textSecondary'
-                            component='p'
-                          >
-                            {item.profession}
-                            <br />
-                            {item.city}
-                            <br />
-                            {pic.tag}
-                          </Typography>
-                        </CardContent>
-                      </Fragment>
-                    )
                   )}
                 </Fragment>
               ))}
