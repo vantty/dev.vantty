@@ -20,7 +20,6 @@ import {
 import {
   Profile,
   Landing,
-  Favorites,
   Home,
   Register,
   WaitForConfirmation,
@@ -28,7 +27,7 @@ import {
   ReviewForm,
   Login,
   Form,
-  Artists,
+  Search,
   Board
 } from "./views";
 
@@ -46,7 +45,7 @@ const Routes = () => {
       <Route exact path="/confirmation/:token" component={Confirmation} />
       <Route exact path="/confirmation" component={WaitForConfirmation} />
       {/* ADMIN */}
-      <PrivateRoute exact path="/dashboard" component={Board} />
+      <AdminRoute exact path="/dashboard" component={Board} />
       <PrivateRoute exact path="/create-profile" component={Form} />
       />
       {/*  */}
@@ -72,13 +71,7 @@ const Routes = () => {
       />
       <RouteWithLayout component={Home} exact layout={MainLayout} path="/" />
       <RouteWithLayout
-        component={Artists}
-        exact
-        layout={MainLayout}
-        path="/artists"
-      />
-      <RouteWithLayout
-        component={Favorites}
+        component={Search}
         exact
         layout={MainLayout}
         path="/search"

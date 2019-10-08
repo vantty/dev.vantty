@@ -1,17 +1,27 @@
 import React, { Fragment, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import { makeStyles } from "@material-ui/core/styles";
+
+import SearchIcon from "@material-ui/icons/Search";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Hidden from "@material-ui/core/Hidden";
+
+import Divider from "@material-ui/core/Divider";
+
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
-import { Link } from "react-router-dom";
 // Components
-import Navbar from "../../components/Navbar";
-// import SettingsDrawer from "../Settings";
-// import SideBar from "../../layouts/Main/components/Sidebar";
-
-//Comonents
 
 import { Header } from "../../components/";
-import { Review } from "./components";
+import { Review, Slider } from "./components";
 
 //Components inside
 import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
@@ -20,7 +30,6 @@ import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
 import { getProfileById } from "../../actions/profile";
 
 // Material-UI
-import { makeStyles } from "@material-ui/core/styles";
 import {
   CssBaseline,
   Container,
@@ -29,6 +38,7 @@ import {
   IconButton,
   Button
 } from "@material-ui/core";
+import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
 // import ArrowBack from "../../components/ArrowBack";
 import MuiLink from "@material-ui/core/Link";
@@ -37,32 +47,67 @@ import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { SimpleAppBar } from "../../components";
 
 const useStyles = makeStyles(theme => ({
-  buttonSetting: {
-    float: "right"
+  toolbar: {
+    borderBottom: `1px solid ${theme.palette.divider}`
   },
-  input: {
-    display: "none"
+  toolbarTitle: {
+    flex: 1
   },
-  settings: {
-    float: "right",
-    fontSize: "26px"
-    // fontWeight: "ligther",
-    // marginTop: "1rem"
+  toolbarSecondary: {
+    justifyContent: "space-between",
+    overflowX: "auto"
+  },
+  toolbarLink: {
+    padding: theme.spacing(1),
+    flexShrink: 0
   },
 
-  arrowBack: {
-    float: "left",
-    fontSize: "26px",
-    fontWeight: "ligther",
-    marginTop: "1rem"
+  overlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    backgroundColor: "rgba(0,0,0,.3)"
   },
-  appbar: {
-    // background: "transparent",
-    boxShadow: "none",
-    paddingRight: "-35%"
+  mainFeaturedPostContent: {
+    position: "relative",
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(6),
+      paddingRight: 0
+    }
   },
-  toolbar: {
-    flexGrow: 1
+
+  card: {
+    display: "flex"
+  },
+  cardDetails: {
+    flex: 1
+  },
+  cardMedia: {
+    width: 160
+  },
+  markdown: {
+    ...theme.typography.body2,
+    padding: theme.spacing(3, 0)
+  },
+  sidebarAboutBox: {
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.white
+  },
+  sidebarSection: {
+    marginTop: theme.spacing(3)
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    marginTop: theme.spacing(8),
+    padding: theme.spacing(6, 0)
+  },
+  sticky: {
+    position: "-webkit-sticky" /* Safari */,
+    position: "sticky",
+    top: "0"
   }
 }));
 
@@ -84,52 +129,68 @@ const Profile = ({
   const classes = useStyles();
 
   return (
-    <Fragment>
-      {/* {!isMobile && <Navbar />} */}
-      <CssBaseline />
-      {profile === null || loading ? (
-        <Progress />
-      ) : (
-        // <div>
-        <Fragment>
-          {isMobile && (
+    <React.Fragment>
+      <Container maxWidth='md'>
+        <main>
+          <Grid container spacing={1} className={classes.mainGrid}>
+            {/* Main content */}
             <Fragment>
-              <SimpleAppBar path={"/artists"} />
-            </Fragment>
-          )}
-          {/* <Header /> */}
-          <Container maxWidth='md'>
-            <Fragment>
-              <ProfileInfo profile={profile} auth={auth} />
-              <br />
-              {!isMobile ? (
-                <Container maxWidth='md'>
-                  <ProfileCarousel profile={profile} />
-                </Container>
+              <CssBaseline />
+              {profile === null || loading ? (
+                <Progress />
               ) : (
-                <ProfileCarousel profile={profile} />
+                <Fragment>
+                  {isMobile && (
+                    <Fragment>
+                      <SimpleAppBar path={"/artists"} />
+                    </Fragment>
+                  )}
+                  <Grid item xs={12} md={8}>
+                    <Header />
+                    {/* <Container maxWidth='md'> */}
+                    <Fragment>
+                      <ProfileInfo profile={profile} auth={auth} />
+                      <br />
+                      {!isMobile ? (
+                        <Container maxWidth='md'>
+                          <ProfileCarousel profile={profile} />
+                        </Container>
+                      ) : (
+                        <ProfileCarousel profile={profile} />
+                      )}
+                      <br />
+                      <br />
+                      <Review profile={profile} />
+                    </Fragment>
+                    {/* </Container> */}
+                  </Grid>
+                  <Hidden smDown>
+                    <Grid item xs={12} md={4}>
+                      <div className={classes.sticky}>
+                        <Slider profile={profile} />
+                      </div>
+                    </Grid>
+                  </Hidden>
+                </Fragment>
               )}
-              <br />
-              <br />
-              <Review profile={profile} />
             </Fragment>
-          </Container>
-        </Fragment>
-      )}
-      <div>
-        {profile === null ||
-        (!loading &&
-          auth.isAuthenticated &&
-          auth.loading === false &&
-          auth.user._id === profile.user._id) ? (
-          isMobile ? (
-            "<BottomNavabar />"
-          ) : null
-        ) : (
-          <ContactButton profile={profile} location={auth.currentLocation} />
-        )}
-      </div>
-    </Fragment>
+            {/* End main content */}
+          </Grid>
+        </main>
+        <div>
+          {profile === null ||
+          (!loading &&
+            auth.isAuthenticated &&
+            auth.loading === false &&
+            auth.user._id === profile.user._id) ? (
+            isMobile ? // <BottomNavabar />
+            null : null
+          ) : (
+            <ContactButton profile={profile} location={auth.currentLocation} />
+          )}
+        </div>
+      </Container>
+    </React.Fragment>
   );
 };
 

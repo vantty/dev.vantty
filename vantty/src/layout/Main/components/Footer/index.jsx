@@ -52,15 +52,12 @@ const useStyles = makeStyles(theme => ({
   cardHeader: {
     backgroundColor: theme.palette.grey[200]
   },
-  cardPricing: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "baseline",
-    marginBottom: theme.spacing(2)
+  div: {
+    marginTop: theme.spacing(5)
   },
   footer: {
     // borderTop: `1px solid ${theme.palette.divider}`,
-    // marginTop: theme.spacing(2),
+    marginTop: theme.spacing(2),
     paddingTop: theme.spacing(1),
     // paddingBottom: theme.spacing(2),
     [theme.breakpoints.up("sm")]: {
@@ -103,7 +100,8 @@ export default function HomeFooter() {
 
   return (
     <Fragment>
-      <Hidden smDown>
+      {/* <Hidden smDown> */}
+      <div className={classes.div}>
         <Divider />
         <Container maxWidth='md' component='footer' className={classes.footer}>
           {/* <Grid container spacing={1} justify='space-evenly'>
@@ -147,7 +145,8 @@ export default function HomeFooter() {
             <Copyright />
           </Box>
         </Container>
-      </Hidden>
+      </div>
+      {/* </Hidden> */}
     </Fragment>
   );
 }

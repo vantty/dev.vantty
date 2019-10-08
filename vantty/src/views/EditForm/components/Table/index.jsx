@@ -5,7 +5,13 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { Container, Paper, ListSubheader, Hidden } from "@material-ui/core";
+import {
+  Container,
+  Paper,
+  ListSubheader,
+  Hidden,
+  Button
+} from "@material-ui/core";
 import { pagesProfile, pagesUser } from "../../list";
 import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
 //actions
@@ -57,6 +63,7 @@ const Table = ({
 
   useEffect(() => {
     // profile &&
+    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
     getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
     loadUser();
   }, [getCurrentProfile]);
@@ -115,9 +122,11 @@ const Table = ({
                 </div>
               ))}
           {/* <Container maxWidth='sm'> */}
+
           <ListItem button onClick={logout}>
             <ListItemText primary={"Logout"} />
           </ListItem>
+
           <Divider />
           {/* </Container> */}
         </List>

@@ -12,11 +12,11 @@ import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import AccountIcon from "@material-ui/icons/AccountCircle";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import { getCurrentProfile } from "../../../../actions/profile";
+import { CssBaseline } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -29,15 +29,6 @@ const useStyles = makeStyles({
   }
 });
 
-function HideOnScroll({ children, window }) {
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
-  return (
-    <Slide appear={false} direction="up" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
 const BottomNavbar = props => {
   const {
     auth: { isAuthenticated, loading },
@@ -45,18 +36,12 @@ const BottomNavbar = props => {
     navbarValue
   } = props;
 
-  HideOnScroll.propTypes = {
-    children: PropTypes.node.isRequired,
-    window: PropTypes.func,
-    location: PropTypes.object
-  };
-
   const classes = useStyles();
 
   return (
     <Fragment>
+      <CssBaseline />
       <Fragment>
-        {/* <HideOnScroll {...props}> */}
         <BottomNavigation
           value={navbarValue}
           className={classes.root}
@@ -76,13 +61,6 @@ const BottomNavbar = props => {
             to="/search"
             icon={<SearchIcon />}
           />
-          {/* <BottomNavigationAction
-            label="Favorites"
-            value="favorites"
-            component={Link}
-            to="/favorites"
-            icon={<FavoriteIcon />}
-          /> */}
           {!loading && !isAuthenticated ? (
             <BottomNavigationAction
               label="Register"
@@ -101,7 +79,6 @@ const BottomNavbar = props => {
             />
           )}
         </BottomNavigation>
-        {/* </HideOnScroll> */}
       </Fragment>
     </Fragment>
   );

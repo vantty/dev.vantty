@@ -11,7 +11,7 @@ const Confirmation = ({ match, confirmEmail, register, isAuthenticated }) => {
   confirmEmail(match.params.token);
 
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to='/' />;
   }
 
   return <Progress />;

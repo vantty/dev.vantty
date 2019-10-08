@@ -91,7 +91,7 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
   };
 
   if (goSearch) {
-    return <Redirect push to='/favorites' />;
+    return <Redirect push to="/search" />;
   }
 
   const CssTextField = withStyles({
@@ -126,26 +126,11 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
                 <Grid container>
                   <Grid item xs={12} sm={6}>
                     <div className={classes.quoteInner}>
-                      <Typography className={classes.quoteText} variant='h1'>
+                      <Typography className={classes.quoteText} variant="h1">
                         Get your dreamed look, done by the perfect artists
                       </Typography>
                       <form onSubmit={handleSearch}>
                         <TextField
-                          id='outlined-simple-start-adornment'
-                          onChange={handleChange}
-                          fullWidth
-                          className={classes.textField}
-                          variant='outlined'
-                          placeholder='Search'
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position='start'>
-                                <SearchIcon />
-                              </InputAdornment>
-                            )
-                          }}
-                        />
-                        {/* <CssTextField
                           id="outlined-simple-start-adornment"
                           onChange={handleChange}
                           fullWidth
@@ -159,7 +144,7 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
                               </InputAdornment>
                             )
                           }}
-                        /> */}
+                        />
                       </form>
                     </div>
                   </Grid>

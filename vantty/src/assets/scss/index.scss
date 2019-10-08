@@ -27,3 +27,22 @@ a {
 .css-12nu9md {
   display: none !important;
 }
+
+.css-106d0ed {
+  box-shadow: none !important;
+  background-color: red;
+}
+
+@media (max-width: 420px) {
+  css-106d0ed {
+    box-shadow: none;
+    background-color: red;
+    border: 1px solid #eee;
+  }
+}
+
+@media (max-width: 420px) {
+  a .makeStyles-resultCard-26 .css-106d0ed .e1cc0ogo1 {
+    box-shadow: none !important;
+  }
+}
