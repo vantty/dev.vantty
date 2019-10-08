@@ -43,103 +43,115 @@ const Routes = () => {
   return (
     <Switch>
       {/* <Redirect exact from='/' to='/dashboard' /> */}
-      <Route exact path='/register' component={Register} />
-      <Route exact path='/confirmation/:token' component={Confirmation} />
-      <Route exact path='/confirmation' component={WaitForConfirmation} />
-      <Route exact path='/login' component={Login} />
+      <Route exact path="/confirmation/:token" component={Confirmation} />
+      <Route exact path="/confirmation" component={WaitForConfirmation} />
       {/* ADMIN */}
-      <PrivateRoute exact path='/dashboard' component={Board} />
-      <PrivateRoute exact path='/create-profile' component={Form} />
+      <PrivateRoute exact path="/dashboard" component={Board} />
+      <PrivateRoute exact path="/create-profile" component={Form} />
       />
       {/*  */}
-      <RouteWithLayout component={Landing} exact layout={MainLayout} path='/' />
+      {/* <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} /> */}
       <RouteWithLayout
-        component={Home}
+        component={Register}
         exact
         layout={MainLayout}
-        path='/home'
+        path="/register"
       />
+      <RouteWithLayout
+        component={Login}
+        exact
+        layout={MainLayout}
+        path="/login"
+      />
+      <RouteWithLayout
+        component={Landing}
+        exact
+        layout={MainLayout}
+        path="/landing"
+      />
+      <RouteWithLayout component={Home} exact layout={MainLayout} path="/" />
       <RouteWithLayout
         component={Artists}
         exact
         layout={MainLayout}
-        path='/artists'
+        path="/artists"
       />
       <RouteWithLayout
         component={Favorites}
         exact
         layout={MainLayout}
-        path='/favorites'
+        path="/search"
       />
       {/* PROFILE */}
       <RouteWithLayout
         component={Profile}
         exact
         layout={MainLayout}
-        path='/profile/artist/:id'
+        path="/profile/artist/:id"
       />
       {/* GENERAL */}
       <RoutePrivateWithLayout
         component={Terms}
         exact
         layout={MainLayout}
-        path='/terms-of-service'
+        path="/terms-of-service"
       />
       {/* EDIT FORM */}
       <RoutePrivateWithLayout
         component={EditPersonalInfo}
         exact
         layout={MainLayout}
-        path='/personal-info'
+        path="/personal-info"
       />
       <RoutePrivateWithLayout
         component={EditProfile}
         exact
         layout={MainLayout}
-        path='/edit-profile'
+        path="/edit-profile"
       />
       <RoutePrivateWithLayout
         component={InfoContact}
         exact
         layout={MainLayout}
-        path='/info-contact'
+        path="/info-contact"
       />
       <RoutePrivateWithLayout
         component={EditPortfolio}
         exact
         layout={MainLayout}
-        path='/add-portfolio'
+        path="/add-portfolio"
       />
       <RoutePrivateWithLayout
         component={Table}
         exact
         layout={MainLayout}
-        path='/settings'
+        path="/settings"
       />
       <RoutePrivateWithLayout
         component={EditMobile}
         exact
         layout={MainLayout}
-        path='/mobile'
+        path="/mobile"
       />
       <RoutePrivateWithLayout
         component={EditPrice}
         exact
         layout={MainLayout}
-        path='/price'
+        path="/price"
       />
       <RoutePrivateWithLayout
         component={EditCategories}
         exact
         layout={MainLayout}
-        path='/categories'
+        path="/categories"
       />
       {/* REVIEW */}
       <RoutePrivateWithLayout
         component={ReviewForm}
         exact
         layout={MainLayout}
-        path='/profile/artist/:userId/:reviewId'
+        path="/profile/artist/:userId/:reviewId"
       />
     </Switch>
   );

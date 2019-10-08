@@ -155,7 +155,6 @@ const Login = props => {
     changeNavbarValue,
     searchValue
   } = props;
-  console.log("SEARCH", searchValue);
 
   const classes = useStyles();
 

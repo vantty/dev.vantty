@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles(theme => ({
+  pageBlock: {
+    backgroundColor: "#FEFEFE"
+  },
   bannerImage: {
     position: "relative",
     width: "100%",
@@ -21,8 +24,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   banner: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(10)
   },
   quoteInner: {
     textAlign: "center",
@@ -44,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 const HomeBanner = ({ image }) => {
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.pageBlock}>
       <Container maxWidth="md" className={classes.banner}>
         <div
           style={{

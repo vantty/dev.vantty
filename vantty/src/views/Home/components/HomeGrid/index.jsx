@@ -32,18 +32,18 @@ const useStyles = makeStyles(theme => ({
     display: "inline-block"
   },
   pageBlock: {
-    backgroundColor: "#FAFAFA"
+    backgroundColor: "#FFF"
   },
   cardGrid: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(10)
   },
   card: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
     borderRadius: "0.6rem",
-    backgroundColor: "#FAFAFA",
+    backgroundColor: "#FFF",
     boxShadow: "none"
   },
   cardMedia: {
@@ -78,12 +78,12 @@ const HomeGrid = ({ title, images }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
-      <Container className={classes.cardGrid} maxWidth='md'>
+      <Container className={classes.cardGrid} maxWidth="md">
         <Grid
           container
-          direction='row'
-          justify='space-between'
-          alignItems='center'
+          direction="row"
+          justify="space-between"
+          alignItems="center"
           className={classes.blockTitle}
         >
           <Grid item>
@@ -101,11 +101,11 @@ const HomeGrid = ({ title, images }) => {
                   key={image.photo}
                   className={classes.cardMedia}
                   image={`${image.photo}`}
-                  title='Image title'
+                  title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
                   <Toolbar className={classes.cardTitle}>
-                    <Avatar alt='' src={v2} className={classes.avatar} />
+                    <Avatar alt="" src={v2} className={classes.avatar} />
                     <Typography
                       key={index}
                       gutterBottom

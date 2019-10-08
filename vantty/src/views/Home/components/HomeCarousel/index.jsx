@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "10px",
     paddingRight: "10px"
   },
+  pageBlock: {
+    backgroundColor: "#FEFEFE"
+  },
   title: {
     fontSize: "22px",
     display: "inline-block"
@@ -42,8 +45,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   carousel: {
-    paddingBottom: theme.spacing(4),
-    paddingTop: theme.spacing(4)
+    paddingBottom: theme.spacing(10),
+    paddingTop: theme.spacing(10)
   }
 }));
 
@@ -68,13 +71,13 @@ const responsive = {
 const HomeCarousel = ({ title, artist, images }) => {
   const classes = useStyles();
   return (
-    <div>
-      <Container maxWidth='md' className={classes.carousel}>
+    <div className={classes.pageBlock}>
+      <Container maxWidth="md" className={classes.carousel}>
         <Grid
           container
-          direction='row'
-          justify='space-between'
-          alignItems='center'
+          direction="row"
+          justify="space-between"
+          alignItems="center"
           className={classes.blockTitle}
         >
           <Grid item>
@@ -90,15 +93,15 @@ const HomeCarousel = ({ title, artist, images }) => {
           arrows
           autoPlaySpeed={3000}
           centerMode={false}
-          containerClass='container'
-          dotListClass=''
+          containerClass="container"
+          dotListClass=""
           draggable
           focusOnSelect={false}
           infinite
-          itemClass=''
+          itemClass=""
           keyBoardControl
           minimumTouchDrag={80}
-          partialVisbile='right'
+          partialVisbile="right"
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
