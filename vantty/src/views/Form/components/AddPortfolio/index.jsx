@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
 
 //Components
-import { ImagesUploader } from "../../../../components";
+import { ImagesUploader } from "./components";
 import { FormBottomNav } from "../ComponentsForm";
 
 // Externals

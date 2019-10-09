@@ -26,8 +26,8 @@ export const uploadTag = tagObj => async dispatch => {
         }
       }
     });
-
-    server.post("/profile/add-tags", sendTags);
+    console.log(sendTags);
+    server.post("/profile/add-tags", [tagObj]);
 
     const res = await server.get("/profile/me");
     const data = elasticData(res);

@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // Components
-import PortfolioPictures from "./Porfolio";
+import { PortfolioPictures } from "./components";
 
 // Actions
-import { uploadImages } from "../../actions/uploader";
-import { getCurrentProfile } from "../../actions/profile";
+import { uploadImages } from "../../../../../../actions/uploader";
+import { getCurrentProfile } from "../../../../../../actions/profile";
 
 // Material-UI
 import Progress from "@material-ui/core/LinearProgress";
@@ -32,12 +32,12 @@ const ImagesUploader = ({
   const UploadButton = () => {
     return (
       <Fragment>
-        <Button variant="contained" component="label" color="primary">
+        <Button variant='contained' component='label' color='primary'>
           Upload File
           <input
             style={{ display: "none" }}
-            type="file"
-            name="file"
+            type='file'
+            name='file'
             multiple
             onChange={onChange}
           />

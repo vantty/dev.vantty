@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 //Components
-import { deletePicture } from "../../../../actions/profile";
+import { deletePicture } from "../../../../../../../../actions/profile";
 
 //Material-UI
 import CancelIcon from "@material-ui/icons/CancelRounded";
@@ -119,7 +119,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Porfolio = ({ portfolioPictures, deletePicture }) => {
+const PorfolioSinChips = ({ portfolioPictures, deletePicture }) => {
   const classes = useStyles();
 
   const pictures = () => (
@@ -160,7 +160,7 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
   return <Fragment>{pictures()}</Fragment>;
 };
 
-Porfolio.propTypes = {
+PorfolioSinChips.propTypes = {
   portfolioPictures: PropTypes.array.isRequired,
   deletePicture: PropTypes.func.isRequired
 };
@@ -168,4 +168,4 @@ Porfolio.propTypes = {
 export default connect(
   null,
   { deletePicture }
-)(Porfolio);
+)(PorfolioSinChips);
