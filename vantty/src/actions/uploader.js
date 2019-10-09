@@ -13,21 +13,21 @@ import { elasticData } from "../helpers";
 
 export const uploadTag = tagObj => async dispatch => {
   try {
-    let auxObj = {};
-    let sendTags = [];
+    // let auxObj = {};
+    // let sendTags = [];
 
-    const tagKeys = Object.keys(tagObj);
+    // const tagKeys = Object.keys(tagObj);
 
-    tagKeys.map(key => {
-      for (const prop in tagObj[key]) {
-        if (tagObj[key][prop] === true) {
-          auxObj = { _id: key, tag: prop };
-          sendTags.push(auxObj);
-        }
-      }
-    });
-    console.log(sendTags);
-    server.post("/profile/add-tags", [tagObj]);
+    // tagKeys.map(key => {
+    //   for (const prop in tagObj[key]) {
+    //     if (tagObj[key][prop] === true) {
+    //       auxObj = { _id: key, tag: prop };
+    //       sendTags.push(auxObj);
+    //     }
+    //   }
+    // });
+
+    await server.post("/profile/add-tags", [tagObj]);
 
     const res = await server.get("/profile/me");
     const data = elasticData(res);

@@ -224,7 +224,6 @@ exports.addPortfolio = async (req, res) => {
 exports.addPictureTags = async (req, res) => {
   try {
     const sendTags = req.body;
-
     const profile = await Profile.findOne({ user: req.user.id });
     let pictures = profile.portfolioPictures;
 

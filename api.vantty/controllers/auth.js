@@ -47,7 +47,24 @@ exports.sendEmail = async (req, res) => {
       html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
     };
 
-    transporter.sendMail(mailOptions, (err, data) => {
+    let message = {
+      from: "vantty.makeup@gmail.com",
+      to: `${email}`,
+      subject: "Confirm Email",
+      text: "Confirm Email",
+      html: `<!doctype html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+        </head>
+        <body>
+          <a href="${url}">Click Here</a>
+          <img src="https://res.cloudinary.com/vantty/image/upload/v1570640743/tguwr0ujboc8fbrlb8oz.jpg"/>
+        </body>
+      </html>`
+    };
+
+    transporter.sendMail(message, (err, data) => {
       if (err) {
         console.log(err);
       } else {

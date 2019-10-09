@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => ({
 
 const SelectTags = ({ _id, uploadTag }) => {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
+  const [tag, setTag] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
   const handleChange = event => {
-    setAge(event.target.value);
+    setTag(event.target.value);
   };
 
   const handleClose = () => {
@@ -37,20 +37,19 @@ const SelectTags = ({ _id, uploadTag }) => {
     setOpen(true);
   };
 
-  const onSubmit = (e, age, _id) => {
+  const onSubmit = (e, tag, _id) => {
     e.preventDefault();
-    uploadTag({ _id: _id, tag: age });
+    uploadTag({ _id: _id, tag: tag });
   };
-  console.log(_id, age);
   return (
-    <form autoComplete='off' submit>
+    <form autoComplete="off" submit>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor='demo-controlled-open-select'>Tag</InputLabel>
+        <InputLabel htmlFor="demo-controlled-open-select">Tag</InputLabel>
         <Select
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
+          value={tag}
           onChange={handleChange}
         >
           {/* <MenuItem value={tag}>
@@ -59,10 +58,10 @@ const SelectTags = ({ _id, uploadTag }) => {
 
           {/* <MenuItem value={tag}>{tag}</MenuItem> */}
           <MenuItem value={"Social"}>Social</MenuItem>
-          <MenuItem value={"Boda"}>Boda</MenuItem>
-          <MenuItem value={"Body Painting"}>Body Painting</MenuItem>
+          <MenuItem value={"Bridal"}>Bridal</MenuItem>
+          <MenuItem value={"Photography"}>Photography</MenuItem>
         </Select>
-        <Button onClick={e => onSubmit(e, age, _id)}>Send Tags</Button>
+        <Button onClick={e => onSubmit(e, tag, _id)}>Send Tags</Button>
       </FormControl>
     </form>
   );

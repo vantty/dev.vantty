@@ -31,10 +31,9 @@ export default function CollapsedBreadcrumbs({ tag }) {
 
   return (
     <Paper elevation={0} className={classes.paper}>
-      <Breadcrumbs maxItems={2} aria-label='breadcrumb'>
+      <Breadcrumbs maxItems={2} aria-label="breadcrumb">
         {tag}
-
-        <Typography color='textPrimary'>Belts</Typography>
+        <Typography color="textPrimary">Belts</Typography>
       </Breadcrumbs>
     </Paper>
   );
