@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Slider({ profile }) {
+export default function Slider({ profile, disabled }) {
   const classes = useStyles();
 
   return (
@@ -72,8 +72,10 @@ export default function Slider({ profile }) {
             <Button
               className={classes.button}
               //   className={classes.buttonDrawer}
+              disabled={disabled}
               variant='contained'
             >
+              {console.log(disabled)}
               Contact Whatsapp
             </Button>
           </a>

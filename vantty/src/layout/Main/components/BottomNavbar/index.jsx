@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 
 const BottomNavbar = props => {
   const {
-    auth: { isAuthenticated, loading },
+    auth: { isAuthenticated, loading, user },
     profile: { profile },
     navbarValue
   } = props;
@@ -48,33 +48,33 @@ const BottomNavbar = props => {
           showLabels
         >
           <BottomNavigationAction
-            label="Home"
-            value="home"
+            label='Home'
+            value='home'
             component={Link}
-            to="/"
+            to='/'
             icon={<HomeIcon />}
           />
           <BottomNavigationAction
-            label="Search"
-            value="search"
+            label='Search'
+            value='search'
             component={Link}
-            to="/search"
+            to='/search'
             icon={<SearchIcon />}
           />
           {!loading && !isAuthenticated ? (
             <BottomNavigationAction
-              label="Register"
-              value="register"
+              label='Register'
+              value='register'
               component={Link}
-              to="/register"
+              to='/register'
               icon={<AccountIcon />}
             />
           ) : (
             <BottomNavigationAction
-              label="Profile"
-              value="profile"
+              label='Profile'
+              value='profile'
               component={Link}
-              to={profile ? `/profile/artist/${profile.user._id}` : "/settings"}
+              to={profile ? `/profile/artist/${user && user._id}` : "/settings"}
               icon={<AccountIcon />}
             />
           )}

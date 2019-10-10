@@ -15,10 +15,15 @@ import Progress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Container } from "@material-ui/core";
-import { Table } from "./components";
+import {
+  SettSettingsProfile,
+  SettingsProfile,
+  SettingsUser
+} from "./components";
 import { isOwner } from "../../helpers";
 import { HomeFooter } from "../../components";
 import { isMobile } from "react-device-detect";
+import Settings from "../../views/Settings";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -69,48 +74,88 @@ const EditForm = ({
     // getCurrentProfile();
   }, []);
   return (
+    // <Fragment>
+    //   <CssBaseline />
+    //   <div> {isMobile && <AppBarForm step={null} />}</div>
+    //   <Fragment>
+    //     {match.url === "/personal-info" ? (
+    //       user ? (
+    //         <Box pt={11} pb={11}>
+    //           <div className={classes.root}>
+    //             <Grid container>
+    //               <Hidden xsDown>
+    //                 <Grid item lg={4} md={4} xs={4}>
+    //                   {profile && profile.mobileNumber !== null ? (
+    //                     <SettingsProfile
+    //                       page={page}
+    //                       title={title}
+    //                       match={match}
+    //                     />
+    //                   ) : (
+    //                     <SettingsUser page={page} title={title} match={match} />
+    //                   )}
+    //                 </Grid>
+    //               </Hidden>
+    //               <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
+    //                 <Fragment>{Children}</Fragment>
+    //               </Grid>
+    //             </Grid>
+    //           </div>
+    //         </Box>
+    //       ) : (
+    //         <Progress />
+    //       )
+    //     ) : profile ? (
+    //       <Fragment>
+    //         <Container maxWidth='md'>
+    //           <Box pt={11} pb={11}>
+    //             <div className={classes.root}>
+    //               <Grid container>
+    //                 <Hidden xsDown>
+    //                   <Grid item lg={4} md={4} xs={4}>
+    //                     <SettingsProfile
+    //                       page={page}
+    //                       title={title}
+    //                       match={match}
+    //                     />
+    //                   </Grid>
+    //                 </Hidden>
+    //                 <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
+    //                   <Fragment>{Children}</Fragment>
+    //                 </Grid>
+    //               </Grid>
+    //             </div>
+    //           </Box>
+    //         </Container>
+    //       </Fragment>
+    //     ) : (
+    //       <Progress />
+    //     )}
+    //   </Fragment>
+    // </Fragment>
+
+    // ffsdcxxvc
     <Fragment>
       <CssBaseline />
       <div> {isMobile && <AppBarForm step={null} />}</div>
       <Fragment>
-        {match.url === "/personal-info" ? (
-          user ? (
-            <Box pt={11} pb={11}>
-              <div className={classes.root}>
-                <Grid container>
-                  <Hidden xsDown>
-                    <Grid item lg={4} md={4} xs={4}>
-                      <Table page={page} title={title} match={match} />
-                    </Grid>
-                  </Hidden>
-                  <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
-                    <Fragment>{Children}</Fragment>
+        {user ? (
+          <Box pt={11} pb={11}>
+            <div className={classes.root}>
+              <Grid container>
+                <Hidden xsDown>
+                  <Grid item lg={4} md={4} xs={4}>
+                    <Container maxWidth='md'>
+                      <Settings match={match} />
+                    </Container>
                   </Grid>
+                </Hidden>
+                <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
+                  <Fragment>{Children}</Fragment>
                 </Grid>
-              </div>
-            </Box>
-          ) : (
-            <Progress />
-          )
-        ) : profile ? (
-          <Fragment>
-            <Container maxWidth='md'>
-              <Box pt={11} pb={11}>
-                <div className={classes.root}>
-                  <Grid container>
-                    <Hidden xsDown>
-                      <Grid item lg={4} md={4} xs={4}>
-                        <Table page={page} title={title} match={match} />
-                      </Grid>
-                    </Hidden>
-                    <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
-                      <Fragment>{Children}</Fragment>
-                    </Grid>
-                  </Grid>
-                </div>
-              </Box>
-            </Container>
-          </Fragment>
+              </Grid>
+            </div>
+          </Box>
         ) : (
           <Progress />
         )}

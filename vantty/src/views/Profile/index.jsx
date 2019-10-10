@@ -45,6 +45,8 @@ import MuiLink from "@material-ui/core/Link";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { SimpleAppBar } from "../../components";
+import { BottomNavbar } from "../../layout/Main/components";
+import { isOwner } from "../../helpers";
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -119,9 +121,8 @@ const Profile = ({
   history
 }) => {
   useEffect(() => {
-    getProfileById(auth, match.params.id);
+    getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
-
   const handleBack = () => {
     history.goBack();
   };
@@ -129,8 +130,8 @@ const Profile = ({
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      <Container maxWidth="md">
+    <Fragment>
+      <Container maxWidth='md'>
         <main>
           <Grid container spacing={1} className={classes.mainGrid}>
             {/* Main content */}
@@ -152,7 +153,7 @@ const Profile = ({
                       <ProfileInfo profile={profile} auth={auth} />
                       <br />
                       {!isMobile ? (
-                        <Container maxWidth="md">
+                        <Container maxWidth='md'>
                           <ProfileCarousel profile={profile} />
                         </Container>
                       ) : (
@@ -165,31 +166,47 @@ const Profile = ({
                     {/* </Container> */}
                   </Grid>
                   <Hidden smDown>
-                    <Grid item xs={12} md={4}>
+                    <Grid item md={4}>
                       <div className={classes.sticky}>
-                        <Slider profile={profile} />
+                        <Slider
+                          profile={profile}
+                          disabled={auth.user._id === profile.user._id}
+                        />
                       </div>
                     </Grid>
                   </Hidden>
+                  <div>
+                    {profile === null ||
+                      (!loading &&
+                      auth.isAuthenticated &&
+                      auth.loading === false &&
+                      auth.user._id === profile.user._id
+                        ? null
+                        : null)}
+                  </div>
                 </Fragment>
               )}
             </Fragment>
             {/* End main content */}
           </Grid>
         </main>
-        <div>
-          {profile === null ||
-          (!loading &&
-            auth.isAuthenticated &&
-            auth.loading === false &&
-            auth.user._id === profile.user._id) ? (
-            isMobile ? null : null // <BottomNavabar />
-          ) : (
-            <ContactButton profile={profile} location={auth.currentLocation} />
-          )}
-        </div>
       </Container>
-    </React.Fragment>
+      <div>
+        {profile === null ||
+        (!loading &&
+          auth.isAuthenticated &&
+          auth.loading === false &&
+          auth.user._id === profile.user._id) ? (
+          isMobile ? (
+            <BottomNavbar />
+          ) : null
+        ) : (
+          isMobile && (
+            <ContactButton profile={profile} location={auth.currentLocation} />
+          )
+        )}
+      </div>
+    </Fragment>
   );
 };
 
