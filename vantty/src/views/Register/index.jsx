@@ -418,6 +418,38 @@ const Register = props => {
                   Register now
                 </Button>
                 <Typography color="textSecondary" variant="body1">
+                  By clicking Register Now, you agree to our{" "}
+                  <Link
+                    component={RouterLink}
+                    to="/terms"
+                    variant="h6"
+                    className={classes.link}
+                  >
+                    Terms
+                  </Link>
+                  ,{" "}
+                  <Link
+                    component={RouterLink}
+                    to="/data-policy"
+                    variant="h6"
+                    className={classes.link}
+                  >
+                    Data Policy
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    component={RouterLink}
+                    to="/cookies-policy"
+                    variant="h6"
+                    className={classes.link}
+                  >
+                    Cookies Policy
+                  </Link>
+                  . You may receive notifications from us and can opt out any
+                  time.
+                </Typography>
+                <br />
+                <Typography color="textSecondary" variant="body1">
                   Already have an account?{" "}
                   <Link
                     component={RouterLink}

@@ -354,6 +354,14 @@ const Login = props => {
                     )
                   }}
                 />
+                <Link
+                  component={RouterLink}
+                  to="/forgot-password"
+                  variant="h6"
+                  className={classes.link}
+                >
+                  Forgot password?
+                </Link>
                 <Button
                   className={classes.signInButton}
                   color="primary"
