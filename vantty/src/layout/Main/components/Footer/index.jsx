@@ -72,29 +72,27 @@ const useStyles = makeStyles(theme => ({
 
 const footers = [
   {
-    title: "Company",
-    description: ["Team", "Contact us"]
-  },
-
-  {
-    title: "Artists",
-    description: ["Artists", "Another resource"]
+    title: "Team",
+    Link: "/"
   },
   {
-    title: "Legal",
-    description: ["Privacy policy", "Terms of use"],
-    link: []
+    title: "Contact Us",
+    Link: "/"
+  },
+  {
+    title: "Terms of use",
+    Link: "/terms-of-service/"
+  },
+  {
+    title: "Privacy policy",
+    Link: "/privacy-policy"
+  },
+  {
+    title: "Team",
+    Link: "/"
   }
 ];
 
-const newFooters = [
-  "Team",
-  "Contact us",
-  "Artists",
-  "Another resource",
-  "Privacy policy",
-  "Terms of use"
-];
 export default function HomeFooter() {
   const classes = useStyles();
 
@@ -130,11 +128,15 @@ export default function HomeFooter() {
           {/* <Grid container spacing={1} justify='space-evenly'> */}
           <Grid container direction='row' justify='center' alignItems='center'>
             {/* <Grid item xs={12} sm={12}> */}
-            {newFooters.map(item => (
+            {footers.map(item => (
               // <Grid item xs={1} sm={2} key={item}>
               <span className={classes.element}>
-                <Link href='#' variant='subtitle1' color='textSecondary'>
-                  {item}{" "}
+                <Link
+                  href={item.Link}
+                  variant='subtitle1'
+                  color='textSecondary'
+                >
+                  {item.title}{" "}
                 </Link>
               </span>
               // </Grid>

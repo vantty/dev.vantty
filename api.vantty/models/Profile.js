@@ -30,8 +30,8 @@ const ProfileSchema = new mongoose.Schema({
   },
 
   mobileNumber: {
-    type: String,
-    default: null
+    type: String
+    // default: null
     // required: true
   },
   instagramUsername: {

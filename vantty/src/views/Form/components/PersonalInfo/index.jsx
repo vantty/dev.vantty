@@ -298,7 +298,7 @@ const AccountDetails = ({
                 >
                   <Grid>
                     {/* {!profile && !profile.mobileNumber && ( */}
-                    {profile && profile.mobileNumber === null && (
+                    {profile && !profile.mobileNumber && (
                       <Button
                         component={Link}
                         size='small'

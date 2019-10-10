@@ -117,12 +117,11 @@ export const createMobileNumber = (
       }
     };
     const res = await server.post("/profile", formData, config);
-
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
-
+    console.log(res.data);
     dispatch(setAlert(edit ? "Mobile Number Validated" : null, "success"));
     dispatch(setAlert(!edit ? "Mobile Number NO Validated" : null, "error"));
 

@@ -62,10 +62,10 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
   const pictures = () => (
     <div>
       <GridList>
-        <GridListTile key='Subheader' cols={2} style={{ height: "auto" }}>
-          {/* <ListSubheader component='div'>Portfolio</ListSubheader> */}
-          <br />
-        </GridListTile>
+        {/* <GridListTile key='Subheader' cols={2} style={{ height: "auto" }}> */}
+        {/* <ListSubheader component='div'>Portfolio</ListSubheader> */}
+        <br />
+        {/* </GridListTile> */}
         {portfolioPictures.map(picture => (
           <GridListTile key={picture._id} style={{ height: "auto" }}>
             <span onClick={() => deletePicture(picture._id, picture.cloudId)}>

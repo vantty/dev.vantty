@@ -8,8 +8,12 @@ const passport = require("passport"),
   googleID =
     "259457812212-sj1ga4eqacoqubksrl53e6pjgan5pp9o.apps.googleusercontent.com",
   googleSecret = "4iNaE1fePXJr_qA5BwfvEnG3",
+  //vantty.ca
   facebookID = "619096385268555",
   facebookSecret = "6e803fddc4394afd081a1fc8f384b59e",
+  //vantty.com
+  // facebookID = "1699234460121053",
+  // facebookSecret = "f0d7b41aa80f652c51d02bfd265936de",
   User = require("../models/User");
 
 // JWT Strategy

@@ -8,9 +8,14 @@ import axios from "axios";
 import crypto from "crypto";
 import { server } from "../utils/axios";
 import { createProfile, createMobileNumber } from "./profile";
+//vantty.ca
 const appId = "619096385268555";
 const appSecret = "736811c32359eacd02377d882ee49d04";
-const csfr = "f20825edcc1a0ef2e4a546155119c52c";
+
+//vantty.com
+// const appId = "1699234460121053";
+// const appSecret = "f0d7b41aa80f652c51d02bfd265936de";
+// const csfr = "f20825edcc1a0ef2e4a546155119c52c";
 const version = "v1.0";
 
 export const verifyNumber = res => dispatch => {
