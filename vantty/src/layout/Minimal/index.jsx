@@ -36,8 +36,8 @@ const Minimal = props => {
   return (
     <div
       className={clsx({
-        [classes.root]: true,
-        [classes.shiftContent]: isDesktop
+        [classes.root]: true
+        // [classes.shiftContent]: isDesktop
       })}
     >
       {/* <Topbar onSidebarOpen={handleSidebarOpen} /> */}

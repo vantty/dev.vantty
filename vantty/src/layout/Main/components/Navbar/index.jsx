@@ -134,7 +134,7 @@ const Navbar = props => {
                         <Button
                           className={classes.button}
                           component={Link}
-                          to={`/profile/artist/${user._id}`}
+                          to={`/profile/artist/${user && user._id}`}
                         >
                           Profile
                         </Button>

@@ -117,6 +117,7 @@ const Profile = ({
   getProfileById,
   profile: { profile, loading },
   auth,
+  auth: { user },
   match,
   history
 }) => {
@@ -170,7 +171,7 @@ const Profile = ({
                       <div className={classes.sticky}>
                         <Slider
                           profile={profile}
-                          disabled={auth.user._id === profile.user._id}
+                          disabled={user && user._id === profile.user._id}
                         />
                       </div>
                     </Grid>
