@@ -80,12 +80,12 @@ const footers = [
     Link: "/"
   },
   {
-    title: "Terms of use",
+    title: "Terms of Use",
     Link: "/terms-of-service/"
   },
   {
-    title: "Privacy policy",
-    Link: "/privacy-policy"
+    title: "Data Policy",
+    Link: "/data-policy"
   },
   {
     title: "Team",

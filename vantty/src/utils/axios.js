@@ -9,6 +9,7 @@ export const elastic = axios.create({
 // export const server = axios.create({
 //   baseURL: "https://apivantty.now.sh/api/"
 // });
+// export const API_URL = "https://apivantty.now.sh/api";
 
 // export const API_URL = "https://apivantty.now.sh/api";
 
