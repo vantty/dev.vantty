@@ -19,7 +19,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 // Components
-
+import { useWait, Waiter } from "react-wait";
 import { Header } from "../../components/";
 import { Review, Slider } from "./components";
 
@@ -28,7 +28,7 @@ import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 // Material-UI
 import {
   CssBaseline,
@@ -110,6 +110,9 @@ const useStyles = makeStyles(theme => ({
     position: "-webkit-sticky" /* Safari */,
     position: "sticky",
     top: "0"
+  },
+  progress: {
+    margin: "1rem"
   }
 }));
 
@@ -129,84 +132,80 @@ const Profile = ({
   };
 
   const classes = useStyles();
-
+  const { Wait } = useWait();
   return (
     <Fragment>
-      <Container maxWidth='md'>
-        <main>
-          <Grid container spacing={1} className={classes.mainGrid}>
-            {/* Main content */}
-            <Fragment>
-              <CssBaseline />
-              {profile === null || loading ? (
-                <Progress />
-              ) : (
-                <Fragment>
-                  {isMobile && (
-                    <Fragment>
-                      <SimpleAppBar path={"/search"} />
-                    </Fragment>
-                  )}
-                  <Grid item xs={12} md={8}>
-                    <Header />
-                    {/* <Container maxWidth='md'> */}
-                    <Fragment>
-                      <ProfileInfo profile={profile} auth={auth} />
-                      <br />
-                      {!isMobile ? (
-                        <Container maxWidth='md'>
-                          <ProfileCarousel profile={profile} />
-                        </Container>
-                      ) : (
+      {!profile ? (
+        <Progress className={classes.progress} />
+      ) : (
+        <Fragment>
+          <Container maxWidth='md'>
+            {/* <main> */}
+            <Grid container spacing={1} className={classes.mainGrid}>
+              {/* Main content */}
+              <Fragment>
+                {/* <Wait on='sidebar' fallback={<Progress />}> */}
+                <CssBaseline />
+                {profile === null || loading ? (
+                  <Progress />
+                ) : (
+                  <Fragment>
+                    {isMobile && (
+                      <Fragment>
+                        <SimpleAppBar path={"/search"} />
+                      </Fragment>
+                    )}
+                    <Grid item xs={12} md={8}>
+                      <Header />
+
+                      <Fragment>
+                        <ProfileInfo profile={profile} auth={auth} />
+                        <br />
+
                         <ProfileCarousel profile={profile} />
-                      )}
-                      <br />
-                      <br />
-                      <Review profile={profile} />
-                    </Fragment>
-                    {/* </Container> */}
-                  </Grid>
-                  <Hidden smDown>
-                    <Grid item md={4}>
-                      <div className={classes.sticky}>
-                        <Slider
-                          profile={profile}
-                          disabled={user && user._id === profile.user._id}
-                        />
-                      </div>
+
+                        <br />
+                        <br />
+                        <Review profile={profile} />
+                      </Fragment>
                     </Grid>
-                  </Hidden>
-                  <div>
-                    {profile === null ||
-                      (!loading &&
-                      auth.isAuthenticated &&
-                      auth.loading === false &&
-                      auth.user._id === profile.user._id
-                        ? null
-                        : null)}
-                  </div>
-                </Fragment>
-              )}
-            </Fragment>
-            {/* End main content */}
-          </Grid>
-        </main>
-      </Container>
-      <div>
-        {profile === null ||
-        (!loading &&
-          auth.isAuthenticated &&
-          auth.loading === false &&
-          auth.user._id === profile.user._id) ? (
-          isMobile ? (
-            <BottomNavbar />
-          ) : null
-        ) : (
-          isMobile && (
-            <ContactButton profile={profile} location={auth.currentLocation} />
-          )
-        )}
-      </div>
+                    <Hidden smDown>
+                      <Grid item md={4}>
+                        <div className={classes.sticky}>
+                          <Slider
+                            profile={profile}
+                            disabled={user && user._id === profile.user._id}
+                          />
+                        </div>
+                      </Grid>
+                    </Hidden>
+                  </Fragment>
+                )}
+              </Fragment>
+              {/* End main content */}
+            </Grid>
+            {/* </main> */}
+          </Container>
+          <div>
+            {profile === null ||
+            (!loading &&
+              auth.isAuthenticated &&
+              auth.loading === false &&
+              auth.user._id === profile.user._id) ? (
+              isMobile ? (
+                <BottomNavbar />
+              ) : null
+            ) : (
+              isMobile && (
+                <ContactButton
+                  profile={profile}
+                  location={auth.currentLocation}
+                />
+              )
+            )}
+          </div>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
