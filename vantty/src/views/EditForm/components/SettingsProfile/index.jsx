@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Table = ({
+const SettingsProfile = ({
   match,
   getCurrentProfile,
   profile: { profile, loading },
@@ -64,7 +64,7 @@ const Table = ({
   useEffect(() => {
     // profile &&
     getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
-    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
+
     loadUser();
   }, [getCurrentProfile]);
 
@@ -77,50 +77,34 @@ const Table = ({
       {!isMobile && match.url === "/settings" && (
         <Redirect to='/personal-info' />
       )}
+
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
           history={history}
           path={
             profile && profile.mobileNumber !== null
               ? `/profile/artist/${profile.user._id}`
-              : "/artists"
+              : "/search"
           }
         />
       </Hidden>
       <div className={classes.root}></div>
       <Container maxWidth='md'>
         <List component='nav' className={classes.root}>
-          {profile &&
-          isOwner(auth, profile.user._id) &&
-          profile.mobileNumber !== null
-            ? pagesProfile.map((page, ind) => (
-                <div key={page.title}>
-                  {/* <Container maxWidth='sm'> */}
-                  <ListItemLink
-                    href={page.href}
-                    to={page.href}
-                    selected={page.href === match.url}
-                  >
-                    <ListItemText primary={page.title} />
-                  </ListItemLink>
-                  <Divider />
-                  {/* </Container> */}
-                </div>
-              ))
-            : pagesUser.map((page, ind) => (
-                <div key={page.title}>
-                  {/* <Container maxWidth='sm'> */}
-                  <ListItemLink
-                    href={page.href}
-                    to={page.href}
-                    selected={page.href === match.url}
-                  >
-                    <ListItemText primary={page.title} />
-                  </ListItemLink>
-                  <Divider />
-                  {/* </Container> */}
-                </div>
-              ))}
+          {pagesProfile.map((page, ind) => (
+            <div key={page.title}>
+              {/* <Container maxWidth='sm'> */}
+              <ListItemLink
+                href={page.href}
+                to={page.href}
+                selected={page.href === match.url}
+              >
+                <ListItemText primary={page.title} />
+              </ListItemLink>
+              <Divider />
+              {/* </Container> */}
+            </div>
+          ))}
           {/* <Container maxWidth='sm'> */}
 
           <ListItem button onClick={logout}>
@@ -135,8 +119,71 @@ const Table = ({
     </Fragment>
   );
 };
+//   return (
+//     <Fragment>
+//       {!isMobile && match.url === "/settings" && (
+//         <Redirect to='/personal-info' />
+//       )}
+//       <Hidden only={["md", "lg", "xl"]}>
+//         <SimpleAppBar
+//           history={history}
+//           path={
+//             profile && profile.mobileNumber !== null
+//               ? `/profile/artist/${profile.user._id}`
+//               : "/artists"
+//           }
+//         />
+//       </Hidden>
+//       <div className={classes.root}></div>
+//       <Container maxWidth='md'>
+//         <List component='nav' className={classes.root}>
+//           {profile &&
+//           isOwner(auth, profile.user._id) &&
+//           profile.mobileNumber !== null
+//             ? pagesProfile.map((page, ind) => (
+//                 <div key={page.title}>
+//                   {/* <Container maxWidth='sm'> */}
+//                   <ListItemLink
+//                     href={page.href}
+//                     to={page.href}
+//                     selected={page.href === match.url}
+//                   >
+//                     <ListItemText primary={page.title} />
+//                   </ListItemLink>
+//                   <Divider />
+//                   {/* </Container> */}
+//                 </div>
+//               ))
+//             : pagesUser.map((page, ind) => (
+//                 <div key={page.title}>
+//                   {/* <Container maxWidth='sm'> */}
+//                   <ListItemLink
+//                     href={page.href}
+//                     to={page.href}
+//                     selected={page.href === match.url}
+//                   >
+//                     <ListItemText primary={page.title} />
+//                   </ListItemLink>
+//                   <Divider />
+//                   {/* </Container> */}
+//                 </div>
+//               ))}
+//           {/* <Container maxWidth='sm'> */}
 
-Table.propTypes = {
+//           <ListItem button onClick={logout}>
+//             <ListItemText primary={"Logout"} />
+//           </ListItem>
+
+//           <Divider />
+//           {/* </Container> */}
+//         </List>
+//       </Container>
+//       {/* </Hidden> */}
+//     </Fragment>
+//   );
+// };
+
+SettingsProfile.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
@@ -152,7 +199,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getProfileById, getCurrentProfile, loadUser, logout }
-)(Table);
+)(SettingsProfile);
 
 // {profile &&
 //   isOwner(auth, profile.user._id) &&

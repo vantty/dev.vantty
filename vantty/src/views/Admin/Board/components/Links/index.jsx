@@ -20,9 +20,9 @@ export default function Links({ id }) {
       <Fragment>
         <Grid
           container
-          direction="column"
-          justify="space-between"
-          alignItems="flex-start"
+          direction='column'
+          justify='space-between'
+          alignItems='flex-start'
         >
           <Grid item md={6}>
             <Typography>Form</Typography>
@@ -87,7 +87,7 @@ export default function Links({ id }) {
             <Typography>Site</Typography>
             <Typography>
               <LinkMui component={Link} to={"/"} className={classes.link}>
-                /home
+                /
               </LinkMui>
             </Typography>
             <Typography>

@@ -50,7 +50,7 @@ export const getProfiles = () => async dispatch => {
 };
 
 // Get profile by ID
-export const getProfileById = (auth, userId) => async dispatch => {
+export const getProfileById = userId => async dispatch => {
   try {
     const res = await server.get(`/profile/artist/${userId}`);
     dispatch({
@@ -162,7 +162,7 @@ export const addCategories = (
     }
   }
   categories = { makeup, hair };
-  console.log("CATEGORY", categories);
+
   try {
     const config = {
       headers: {

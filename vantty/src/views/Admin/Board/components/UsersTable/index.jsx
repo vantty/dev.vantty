@@ -80,14 +80,15 @@ const UsersTable = props => {
     ...rest
   } = props;
 
+  var disableButton = "";
   useEffect(() => {
     getProfiles();
   }, []);
-
   const onSubmit = (e, value, id) => {
     e.preventDefault();
     verifiedProfile({ verified: value, id: id });
     setVerifyButton(value);
+    var disableButton = value;
   };
 
   const [users] = useState(profiles);
@@ -95,8 +96,10 @@ const UsersTable = props => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [verifyButton, setVerifyButton] = useState();
-  const disableButton = users.map(user => user.verified);
+  // const disableButton = users.map(user => user.verified);
+  console.log(verifyButton);
 
+  //Selects
   const handleSelectAll = event => {
     const { users } = props;
 
@@ -129,6 +132,7 @@ const UsersTable = props => {
     }
 
     setSelectedUsers(newSelectedUsers);
+    console.log(newSelectedUsers);
   };
 
   const handlePageChange = (event, page) => {
@@ -168,7 +172,8 @@ const UsersTable = props => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.slice(0, rowsPerPage).map(user => (
+              {/* {users.slice(0, rowsPerPage) */}
+              {users.map(user => (
                 <TableRow
                   className={classes.tableCell}
                   hover
@@ -246,7 +251,8 @@ const UsersTable = props => {
                         size='small'
                         variant='contained'
                         color='secondary'
-                        disabled={user.verified || verifyButton}
+                        // onChange={event => handleSelectOne(event, user._id)}
+                        disabled={verifyButton}
                         onClick={e => onSubmit(e, true, user._id)}
                       >
                         Verify
@@ -255,7 +261,7 @@ const UsersTable = props => {
                     {
                       <Button
                         size='small'
-                        // disabled={disableButton}
+                        disabled={disableButton}
                         onClick={e => onSubmit(e, false, user._id)}
                       >
                         Block
@@ -322,5 +328,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfiles, verifiedProfile }
+  { getProfiles, verifiedProfile, deleteAccount }
 )(UsersTable);

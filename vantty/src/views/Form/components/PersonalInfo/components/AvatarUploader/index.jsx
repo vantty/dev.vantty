@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 
 // Actions
 import { userImage } from "../../../../../../actions/uploader";
-import { getCurrentProfile } from "../../../../../../actions/profile";
 import {
   loadUser,
   updateInfo,
@@ -35,11 +34,6 @@ const AvatarUploader = ({
   id,
   ...rest
 }) => {
-  useEffect(() => {
-    loadUser();
-    getCurrentProfile();
-  }, []);
-
   const onChange = e => {
     userImage(e, id, profile);
   };
@@ -120,7 +114,6 @@ AvatarUploader.propTypes = {
   uploading: PropTypes.bool.isRequired,
   images: PropTypes.array,
   // profilePicture: PropTypes.object,
-  getCurrentProfile: PropTypes.func.isRequired,
   updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   deleteUserPicture: PropTypes.func.isRequired,
@@ -136,5 +129,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { userImage, getCurrentProfile, deleteUserPicture, loadUser, updateInfo }
+  { userImage, deleteUserPicture, loadUser, updateInfo }
 )(AvatarUploader);
