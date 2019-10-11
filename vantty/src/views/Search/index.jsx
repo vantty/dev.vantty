@@ -86,6 +86,35 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+//Generate a complete picture object
+const shuffle = data => {
+  let arrTotal = [];
+  let id = data.map(user => {
+    user.portfolioPictures.map(pic => {
+      pic.userId = user.userId;
+      pic.name = user.name.firstName;
+      pic.verified = user.verified;
+      arrTotal.push(pic);
+    });
+  });
+
+  var ctr = arrTotal.length,
+    temp,
+    index;
+
+  while (ctr > 0) {
+    // Pick a random index
+    index = Math.floor(Math.random() * ctr);
+    // Decrease ctr by 1
+    ctr--;
+    // And swap the last element with it
+    temp = arrTotal[ctr];
+    arrTotal[ctr] = arrTotal[index];
+    arrTotal[index] = temp;
+  }
+  return arrTotal;
+};
+
 const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
   useEffect(() => {
     changeNavbarValue("search");
@@ -180,23 +209,60 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               render={({ data }) => (
                 <Fragment>
                   <ResultCardsWrapper>
-                    {data.map(item => (
-                      <Fragment key={item._id}>
-                        {item.portfolioPictures.map(pic => (
-                          <Fragment key={pic.cloudId}>
-                            {!values[0] ? (
+                    <Fragment>
+                      {shuffle(data).map(pic => (
+                        <Fragment key={pic.cloudId}>
+                          {!values[0] && pic.verified ? (
+                            <Fragment>
+                              <ResultCard className={classes.resultCard}>
+                                <Fragment>
+                                  <Card className={classes.card}>
+                                    <CardActionArea>
+                                      <a
+                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
+                                        target='_blank'
+                                      >
+                                        <CardMedia
+                                          key={pic.original}
+                                          className={classes.cardMedia}
+                                          image={pic.original}
+                                          title='Image title'
+                                        />
+                                      </a>
+                                    </CardActionArea>
+                                    <CardContent
+                                      className={classes.cardContent}
+                                    >
+                                      <Toolbar className={classes.cardTitle}>
+                                        <Avatar
+                                          alt=''
+                                          src={pic.profilePicture}
+                                          className={classes.avatar}
+                                        />
+                                        <Typography
+                                          key={pic.original}
+                                          gutterBottom
+                                          className={classes.name}
+                                        >
+                                          {"by "}
+                                          {pic.name}
+                                        </Typography>
+                                      </Toolbar>
+                                    </CardContent>
+                                  </Card>
+                                </Fragment>
+                              </ResultCard>
+                            </Fragment>
+                          ) : (
+                            values.indexOf(pic.tag) > -1 && (
                               <Fragment>
                                 <ResultCard className={classes.resultCard}>
                                   <Fragment>
                                     <Card className={classes.card}>
                                       <CardActionArea>
-                                        {/* <LinkMui
-                                          component={Link}
-                                          to={`/profile/artist/${item.userId}`}
-                                        > */}
                                         <a
-                                          href={`http://localhost:3000/profile/artist/${item.userId}`}
-                                          // target='_blank'
+                                          href={`http://localhost:3000/profile/artist/${pic.userId}`}
+                                          target='_blank'
                                         >
                                           <CardMedia
                                             key={pic.original}
@@ -205,7 +271,6 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             title='Image title'
                                           />
                                         </a>
-                                        {/* </LinkMui> */}
                                       </CardActionArea>
                                       <CardContent
                                         className={classes.cardContent}
@@ -213,7 +278,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                         <Toolbar className={classes.cardTitle}>
                                           <Avatar
                                             alt=''
-                                            src={item.profilePicture}
+                                            src={pic.profilePicture}
                                             className={classes.avatar}
                                           />
                                           <Typography
@@ -222,7 +287,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             className={classes.name}
                                           >
                                             {"by "}
-                                            {item.name.firstName}
+                                            {pic.name}
                                           </Typography>
                                         </Toolbar>
                                       </CardContent>
@@ -230,58 +295,12 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                   </Fragment>
                                 </ResultCard>
                               </Fragment>
-                            ) : (
-                              values.indexOf(pic.tag) > -1 && (
-                                <Fragment>
-                                  <ResultCard className={classes.resultCard}>
-                                    <Fragment>
-                                      <Card className={classes.card}>
-                                        <CardActionArea>
-                                          <LinkMui
-                                            component={Link}
-                                            to={`/profile/artist/${item.userId}`}
-                                          >
-                                            <CardMedia
-                                              key={pic.original}
-                                              className={classes.cardMedia}
-                                              image={pic.original}
-                                              title='Image title'
-                                            />
-                                          </LinkMui>
-                                        </CardActionArea>
-                                        <CardContent
-                                          className={classes.cardContent}
-                                        >
-                                          <Toolbar
-                                            className={classes.cardTitle}
-                                          >
-                                            <Avatar
-                                              alt=''
-                                              src={item.profilePicture}
-                                              className={classes.avatar}
-                                            />
-                                            <Typography
-                                              key={pic.original}
-                                              gutterBottom
-                                              className={classes.name}
-                                            >
-                                              {"by "}
-                                              {item.name.firstName}
-                                            </Typography>
-                                          </Toolbar>
-                                        </CardContent>
-                                      </Card>
-                                    </Fragment>
-                                  </ResultCard>
-                                </Fragment>
-                              )
-                            )}
-                          </Fragment>
-                        ))}
-                      </Fragment>
-                    ))}
+                            )
+                          )}
+                        </Fragment>
+                      ))}
+                    </Fragment>
                   </ResultCardsWrapper>
-                  {/* </Container> */}
                 </Fragment>
               )}
             />
