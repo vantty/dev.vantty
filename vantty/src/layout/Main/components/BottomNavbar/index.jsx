@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import clsx from "clsx";
 
 // Actions
 import { logout } from "../../../../actions/auth";
@@ -19,7 +20,7 @@ import { getCurrentProfile } from "../../../../actions/profile";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { CssBaseline } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     overflow: "hidden",
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
     zIndex: 10,
     borderTopWidth: "5px"
   }
-});
+}));
 
 const BottomNavbar = props => {
   const {
@@ -49,31 +50,32 @@ const BottomNavbar = props => {
           showLabels
         >
           <BottomNavigationAction
-            label='Home'
-            value='home'
+            label="Home"
+            value="home"
             component={Link}
-            to='/'
+            to="/"
             icon={<HomeIcon />}
           />
           <BottomNavigationAction
-            label='Search'
-            value='search'
+            label="Search"
+            value="search"
             component={Link}
-            to='/search'
+            to="/search"
             icon={<SearchIcon />}
           />
-          {!loading && !isAuthenticated ? (
+          {!isAuthenticated ? (
             <BottomNavigationAction
-              label='Register'
-              value='register'
+              label="Join Now"
+              value="register"
               component={Link}
-              to='/register'
+              to="/register"
               icon={<AccountIcon />}
             />
           ) : (
             <BottomNavigationAction
-              label='Profile'
-              value='profile'
+              label="Profile"
+              value="profile"
+              className={classes.selected}
               component={Link}
               to={profile ? `/profile/artist/${user && user._id}` : "/settings"}
               icon={<AccountIcon />}
@@ -81,10 +83,10 @@ const BottomNavbar = props => {
           )}
           {user && user.role === "Admin" && (
             <BottomNavigationAction
-              label='Admin'
-              value='admin'
+              label="Admin"
+              value="admin"
               component={Link}
-              to='/dashboard'
+              to="/dashboard"
               icon={<LocationOnIcon />}
             />
           )}

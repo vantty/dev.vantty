@@ -1,21 +1,24 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 
 // Assets
-
 import v2 from "../../../../assets/images/v2.jpg";
 
 // Material-UI
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Container,
+  Avatar,
+  Typography,
+  Toolbar,
+  Divider,
+  Link
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import Toolbar from "@material-ui/core/Toolbar";
-import Divider from "@material-ui/core/Divider";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   blockTitle: {
@@ -71,6 +74,9 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     paddingLeft: "0.5rem",
     fontSize: "12px"
+  },
+  link: {
+    color: theme.palette.purpleVantty.main
   }
 }));
 
@@ -90,7 +96,14 @@ const HomeGrid = ({ title, images }) => {
             <Typography className={classes.title}>{title}</Typography>
           </Grid>
           <Grid item>
-            <Typography className={classes.seeAll}>See All</Typography>
+            <Link
+              component={RouterLink}
+              to="/search"
+              variant="h6"
+              className={classes.link}
+            >
+              <Typography className={classes.seeAll}>See All</Typography>
+            </Link>
           </Grid>
         </Grid>
         <Grid container spacing={2}>

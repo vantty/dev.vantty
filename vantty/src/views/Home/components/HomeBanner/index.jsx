@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // Material-UI
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   pageBlock: {
@@ -29,11 +31,13 @@ const useStyles = makeStyles(theme => ({
   },
   quoteInner: {
     textAlign: "center",
-    flexBasis: "600px"
+    flexBasis: "600px",
+    paddingBottom: theme.spacing(8)
   },
   quoteText: {
     color: theme.palette.white,
-    fontWeight: 300
+    fontWeight: 300,
+    paddingBottom: theme.spacing(1)
   },
   name: {
     marginTop: theme.spacing(3),
@@ -41,10 +45,16 @@ const useStyles = makeStyles(theme => ({
   },
   bio: {
     color: theme.palette.white
+  },
+  button: {
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
   }
 }));
 
-const HomeBanner = ({ image }) => {
+const HomeBanner = ({ image, text }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
@@ -57,17 +67,17 @@ const HomeBanner = ({ image }) => {
         >
           <div className={classes.quoteInner}>
             <Typography className={classes.quoteText} variant="h1">
-              Hella narwhal Cosby sweater McSweeney's, salvia kitsch before they
-              sold out High Life.
+              {text}
             </Typography>
-            <div className={classes.person}>
-              <Typography className={classes.name} variant="body1">
-                Takamaru Ayako
-              </Typography>
-              <Typography className={classes.bio} variant="body2">
-                Manager at inVision
-              </Typography>
-            </div>
+            <Button
+              component={Link}
+              to="/register"
+              color="primary"
+              variant="contained"
+              className={classes.button}
+            >
+              JOIN NOW
+            </Button>
           </div>
         </div>
       </Container>

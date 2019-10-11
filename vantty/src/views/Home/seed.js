@@ -74,9 +74,11 @@ export const homeSeed = {
     images: featuredArtistImages
   },
   firstBanner: {
-    image: banner1Image
+    image: banner1Image,
+    text: "Find the best beauty in your area and change your look!"
   },
   secondBanner: {
-    image: banner2Image
+    image: banner2Image,
+    text: "Get more clients and grow your own brand as an Artist!"
   }
 };

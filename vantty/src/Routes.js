@@ -50,18 +50,8 @@ const Routes = () => {
       {/*  */}
       {/* <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} /> */}
-      <RouteWithLayout
-        component={Register}
-        exact
-        layout={MainLayout}
-        path="/register"
-      />
-      <RouteWithLayout
-        component={Login}
-        exact
-        layout={MainLayout}
-        path="/login"
-      />
+      <Route component={Register} exact path="/register" />
+      <Route component={Login} exact path="/login" />
       <RouteWithLayout
         component={Landing}
         exact

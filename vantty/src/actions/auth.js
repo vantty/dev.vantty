@@ -105,13 +105,6 @@ export const login = ({ email, password }) => async dispatch => {
         "error"
       )
     );
-    // const errors = err.response.data.errors;
-    // console.log(errors);
-    // if (errors) {
-    //   errors.forEach(error => {
-    //     dispatch(setAlert(error.msg, "error"));
-    //   });
-    // }
     dispatch({
       type: LOGIN_FAIL
     });
@@ -202,7 +195,6 @@ export const googleLogin = data => async dispatch => {
     headers: { "Content-Type": "application/json" }
   };
   const body = JSON.stringify({ access_token: data });
-
   try {
     const res = await server.post("/auth/google", body, config);
     dispatch({
@@ -250,12 +242,7 @@ export const updateInfo = (
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
-
     dispatch(setAlert(edit && "User Update", "success"));
-
-    // if (edit) {
-    //   history.push("/settings");
-    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -270,20 +257,16 @@ export const updateInfo = (
   }
 };
 
-//delete user picture
+// Delete User Picture
 export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
   try {
     const res = await server.post(`/auth/userPicture`, { dataBaseId });
-
     dispatch(deleteImages(cloudId));
-
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
-
     dispatch(getCurrentProfile());
     await dispatch(loadUser());
-
     dispatch(setAlert("Picture Removed", "success"));
   } catch (err) {
     dispatch({
@@ -293,7 +276,7 @@ export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
   }
 };
 
-//Get Country
+// Get Country
 export const getGeoInfo = () => async dispatch => {
   Axios.get("https://ipapi.co/json/")
     .then(response => {

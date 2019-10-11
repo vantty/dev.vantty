@@ -1,12 +1,9 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { isMobile } from "react-device-detect";
 
 // Components
-
 import {
-  HomeFooter,
   HomeBanner,
   HomeCarousel,
   HomeGrid,
@@ -26,11 +23,9 @@ const Home = ({ changeNavbarValue }) => {
   useEffect(() => {
     changeNavbarValue("home");
   }, []);
-
   return (
     <Fragment>
       <CssBaseline />
-      {/* {isMobile ? <BottomNavabar /> : <Navbar />} */}
       <HomeJumbotron />
       <HomeGrid
         title={homeSeed.firstGrid.title}
@@ -45,12 +40,18 @@ const Home = ({ changeNavbarValue }) => {
         title={homeSeed.secondGrid.title}
         images={homeSeed.secondGrid.images}
       />
-      <HomeBanner image={homeSeed.firstBanner.image} />
+      <HomeBanner
+        image={homeSeed.firstBanner.image}
+        text={homeSeed.firstBanner.text}
+      />
       <HomeGrid
         title={homeSeed.thirdGrid.title}
         images={homeSeed.thirdGrid.images}
       />
-      <HomeBanner image={homeSeed.secondBanner.image} />
+      <HomeBanner
+        image={homeSeed.secondBanner.image}
+        text={homeSeed.secondBanner.text}
+      />
     </Fragment>
   );
 };

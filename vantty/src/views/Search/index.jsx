@@ -35,13 +35,6 @@ import { changeNavbarValue } from "../../actions/navbar";
 
 const { ResultCardsWrapper } = ReactiveList;
 const useStyles = makeStyles(theme => ({
-  // card: {
-  //   maxWidth: 600,
-  //   marging: "50px"
-  // },
-  // media: {
-  //   height: 140
-  // },
   resultCard: {
     boxShadow: "none" + "!important",
     border: "none" + "!important"
@@ -124,8 +117,8 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
 
   return (
     <ReactiveBase
-      app='vantty-database'
-      credentials='fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666'
+      app="vantty-database"
+      credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
     >
       <Header />
       {isMobile && (
@@ -133,40 +126,36 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
           children={
             <DataSearch
               onChange={clearSearch}
-              componentId='searchbox'
-              dataField='*'
-              placeholder='Search...'
+              componentId="searchbox"
+              dataField="*"
+              placeholder="Search..."
               defaultValue={searchValue}
             />
           }
         />
       )}
-      <Container maxWidth='lg'>
-        {/* <div style={{ display: "flex", flexDirection: "row" }}>
-          <div
-            style={{ display: "flex", flexDirection: "column", width: "40%" }}
-          > */}
+      <Container maxWidth="lg">
         <Grid
           container
-          direction='row'
-          justify='center'
-          alignItems='flex-start'
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
         >
           <Hidden xsDown>
             <Grid item lg={4} className={classes.filters}>
               <DataSearch
                 onChange={clearSearch}
-                componentId='searchbox'
-                dataField='*'
-                placeholder='Search...'
+                componentId="searchbox"
+                dataField="*"
+                placeholder="Search..."
                 defaultValue={searchValue}
               />
 
               <br />
 
               <MultiDataList
-                componentId='categoryFilter'
-                dataField='portfolioPictures.tag.keyword'
+                componentId="categoryFilter"
+                dataField="portfolioPictures.tag.keyword"
                 showSearch={false}
                 data={[
                   {
@@ -182,9 +171,10 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                     value: "Photography"
                   }
                 ]}
+                defaultValue={["Bridal"]}
                 value={values}
                 onChange={setValues}
-                title='Category'
+                title="Category"
               />
             </Grid>
           </Hidden>
@@ -192,9 +182,9 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
           <Grid item lg={8} xs={12}>
             {/* </div> */}
             <ReactiveList
-              componentId='result'
-              dataField='*'
-              title='Results'
+              componentId="result"
+              dataField="*"
+              title="Results"
               size={12}
               infiniteScroll={true}
               showResultStats={false}
@@ -225,7 +215,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                           key={pic.original}
                                           className={classes.cardMedia}
                                           image={pic.original}
-                                          title='Image title'
+                                          title="Image title"
                                         />
                                       </a>
                                     </CardActionArea>
@@ -234,7 +224,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                     >
                                       <Toolbar className={classes.cardTitle}>
                                         <Avatar
-                                          alt=''
+                                          alt=""
                                           src={pic.profilePicture}
                                           className={classes.avatar}
                                         />
@@ -266,7 +256,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             key={pic.original}
                                             className={classes.cardMedia}
                                             image={pic.original}
-                                            title='Image title'
+                                            title="Image title"
                                           />
                                         </a>
                                       </CardActionArea>
@@ -275,7 +265,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                       >
                                         <Toolbar className={classes.cardTitle}>
                                           <Avatar
-                                            alt=''
+                                            alt=""
                                             src={pic.profilePicture}
                                             className={classes.avatar}
                                           />
