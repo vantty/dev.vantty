@@ -25,6 +25,7 @@ import FacebookAuth from "react-facebook-login/dist/facebook-login-render-props"
 import GoogleAuth from "react-google-login";
 import { login, googleLogin, facebookLogin } from "../../actions/auth";
 import { changeNavbarValue } from "../../actions/navbar";
+import { Alert } from "../../components";
 
 const schema = {
   email: {
@@ -228,6 +229,7 @@ const Login = props => {
   }
   return (
     <div className={classes.root}>
+      <Alert />
       <Grid className={classes.grid} container>
         <Grid className={classes.quoteContainer} item lg={6}>
           <div className={classes.quote}>

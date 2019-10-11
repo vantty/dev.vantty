@@ -16,6 +16,7 @@ import AccountIcon from "@material-ui/icons/AccountCircle";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import { getCurrentProfile } from "../../../../actions/profile";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { CssBaseline } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -76,6 +77,15 @@ const BottomNavbar = props => {
               component={Link}
               to={profile ? `/profile/artist/${user && user._id}` : "/settings"}
               icon={<AccountIcon />}
+            />
+          )}
+          {user && user.role === "Admin" && (
+            <BottomNavigationAction
+              label='Admin'
+              value='admin'
+              component={Link}
+              to='/dashboard'
+              icon={<LocationOnIcon />}
             />
           )}
         </BottomNavigation>

@@ -29,6 +29,7 @@ import {
   facebookRegister
 } from "../../actions/auth";
 import { changeNavbarValue } from "../../actions/navbar";
+import { Alert } from "../../components";
 
 const schema = {
   firstName: {
@@ -251,6 +252,7 @@ const Register = props => {
 
   return (
     <div className={classes.root}>
+      <Alert />
       <Grid className={classes.grid} container>
         <Grid className={classes.quoteContainer} item lg={6}>
           <div className={classes.quote}>

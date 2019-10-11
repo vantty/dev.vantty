@@ -34,7 +34,6 @@ const App = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Alert />
         <Router>
           <Fragment>
             <Routes />

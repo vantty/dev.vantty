@@ -22,7 +22,7 @@ const AdminRoute = ({
       isAuthenticated && !loading && user.role === "Admin" ? (
         <Component {...props} />
       ) : (
-        <CircularProgress color='secondary' /> && <Redirect to='/home' />
+        <CircularProgress color='secondary' /> && <Redirect to='/' />
       )
     }
   />

@@ -12,7 +12,7 @@ function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
       {"Copyright © "}
-      <Link color='inherit' href='https://vantty.com/'>
+      <Link color='inherit' href='https://vantty.ca/'>
         Vantty
       </Link>{" "}
       {new Date().getFullYear()}
@@ -86,10 +86,6 @@ const footers = [
   {
     title: "Data Policy",
     Link: "/data-policy"
-  },
-  {
-    title: "Team",
-    Link: "/"
   }
 ];
 

@@ -5,7 +5,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
 //actions
 import { connect } from "react-redux";
@@ -21,7 +21,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import { isOwner } from "../../../../helpers";
 import { isMobile } from "react-device-detect";
-
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -29,14 +29,24 @@ const useStyles = makeStyles(theme => ({
     float: "left",
     width: "100%",
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    fontSize: "20px"
   },
   tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
+    borderRight: `4px solid ${theme.palette.divider}`,
     marginRight: "3rem" + "!important",
     float: "left",
     minWidth: "130px",
-    maxWidth: "130px"
+    maxWidth: "130px",
+    color: theme.palette.common.black
+  },
+  title: {
+    color: theme.palette.text.primary
+  },
+  arrow: {
+    marginLeft: "7px",
+    color: theme.palette.text.primary,
+    fontSize: "18px"
   }
 }));
 
@@ -49,19 +59,33 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
 
   return (
     <Fragment>
-      <div className={classes.root}></div>
-      <List component='nav' className={classes.root}>
+      <List component='nav'>
         {pagesProfile.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
             <Container maxWidth='md'>
-              <ListItemLink
-                href={page.href}
-                to={page.href}
-                selected={page.href === match.url}
+              <Grid
+                container
+                direction='row'
+                justify='space-between'
+                alignItems='center'
               >
-                <ListItemText primary={page.title} />
-              </ListItemLink>
+                <Grid item>
+                  <ListItemLink
+                    href={page.href}
+                    to={page.href}
+                    selected={page.href === match.url}
+                  >
+                    {/* <ListItemText primary={page.title} className={classes.title} /> */}
+                    <Typography variant='h5' gutterBottom>
+                      {page.title}
+                    </Typography>
+                  </ListItemLink>
+                </Grid>
+                <Grid item>
+                  <ArrowForwardIosIcon className={classes.arrow} />
+                </Grid>
+              </Grid>
             </Container>
             <Divider />
             {/* </Container> */}
@@ -70,7 +94,9 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
         {/* <Container maxWidth='sm'> */}
         <Container maxWidth='md'>
           <ListItem button onClick={logout}>
-            <ListItemText primary={"Logout"} />
+            <Typography variant='h5' gutterBottom>
+              Logout
+            </Typography>
           </ListItem>
         </Container>
         <Divider />

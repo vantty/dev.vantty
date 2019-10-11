@@ -166,7 +166,8 @@ const Board = ({
             <MenuIcon />
           </IconButton>
           <Typography
-            component='h1'
+            component={Link}
+            to={"/"}
             variant='h6'
             color='inherit'
             noWrap

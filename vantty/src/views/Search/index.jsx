@@ -219,8 +219,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                   <Card className={classes.card}>
                                     <CardActionArea>
                                       <a
-                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
-                                        target='_blank'
+                                        href={`https://vantty.ca/profile/artist/${pic.userId}`}
                                       >
                                         <CardMedia
                                           key={pic.original}
@@ -261,8 +260,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                     <Card className={classes.card}>
                                       <CardActionArea>
                                         <a
-                                          href={`http://localhost:3000/profile/artist/${pic.userId}`}
-                                          target='_blank'
+                                          href={`https://vantty.ca/profile/artist/${pic.userId}`}
                                         >
                                           <CardMedia
                                             key={pic.original}

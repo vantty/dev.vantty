@@ -21,7 +21,7 @@ import {
   SettingsUser
 } from "./components";
 import { isOwner } from "../../helpers";
-import { HomeFooter } from "../../components";
+import { HomeFooter, Alert } from "../../components";
 import { isMobile } from "react-device-detect";
 import Settings from "../../views/Settings";
 
@@ -139,6 +139,9 @@ const EditForm = ({
       <CssBaseline />
       <div> {isMobile && <AppBarForm step={null} />}</div>
       <Fragment>
+        <Fragment>
+          <Alert />
+        </Fragment>
         {user ? (
           <Box pt={11} pb={11}>
             <div className={classes.root}>

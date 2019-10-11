@@ -56,7 +56,7 @@ export default {
     light: colors.red[400]
   },
   text: {
-    primary: "rgb(47, 48, 51)",
+    primary: "rgb(128,128,128)",
     secondary: colors.blueGrey[600],
     link: colors.blue[600]
   },
