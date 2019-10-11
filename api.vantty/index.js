@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express"),
   mongoose = require("mongoose"),
   expressValidator = require("express-validator"),
@@ -6,16 +7,10 @@ const express = require("express"),
   formData = require("express-form-data"),
   app = express();
 
-// env
-const PORT = 5000,
-  MONGODB_URI =
-    // "mongodb://localhost/vanttyMain";
-    "mongodb+srv://vantty:vantty2019@vanttymain-biwfu.mongodb.net/test?retryWrites=true&w=majority";
-
 // Connect Database
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGODB_URI, {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false
@@ -44,18 +39,8 @@ var corsOptions = {
 app.use(morgan("dev"));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
-// app.use(express.urlencoded());
-// app.use(express.multipart());
 app.use(cors(corsOptions));
 app.use(formData.parse());
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
 
 // Routes
 app.use("/api/users", require("./routes/users"));
@@ -65,6 +50,6 @@ app.use("/api/review", require("./routes/review"));
 app.use("/api/images", require("./routes/images"));
 
 // Connect Server
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}`);
 });

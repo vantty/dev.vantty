@@ -1,8 +1,5 @@
 const JWT = require("jsonwebtoken"),
-  JWT_SECRET = "vanttymakeup",
-  EMAIL_SECRET = "emailsecret",
   User = require("../models/User"),
-  Profile = require("../models/Profile"),
   nodemailer = require("nodemailer");
 const { getStrategy } = require("../helpers");
 
@@ -78,7 +75,10 @@ exports.sendEmail = async (req, res) => {
 
 exports.confirmEmail = async (req, res) => {
   try {
-    const tokenVerified = JWT.verify(req.params.token, EMAIL_SECRET);
+    const tokenVerified = JWT.verify(
+      req.params.token,
+      process.env.EMAIL_SECRET
+    );
     const id = tokenVerified.user;
     let user = await User.findOneAndUpdate(
       { _id: id },
@@ -93,7 +93,10 @@ exports.confirmEmail = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const tokenVerified = JWT.verify(req.params.token, EMAIL_SECRET);
+    const tokenVerified = JWT.verify(
+      req.params.token,
+      process.env.EMAIL_SECRET
+    );
     const id = tokenVerified.user;
     const user = await User.findOne({ _id: id });
     if (!user.confirmed) {
@@ -144,13 +147,15 @@ generateToken = user => {
       iat: Math.floor(Date.now() / 1000), // current time
       exp: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60 // current time + 1yr
     },
-    JWT_SECRET
+    process.env.JWT_SECRET
   );
 };
 
 // Email Token Generator
 generateEmailToken = user => {
-  return JWT.sign({ user: user.id }, EMAIL_SECRET, { expiresIn: "1d" });
+  return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
+    expiresIn: "1d"
+  });
 };
 
 //Update Personal Info
@@ -192,14 +197,10 @@ exports.addUserImage = async (req, res) => {
 
   try {
     const user = await User.findById(id);
-
     const strategy = user.method;
     user[strategy].profilePicture = newPicture;
-
     await user.save();
     res.json(user);
-
-    // if (user.portfolioPictures) res.send("Hello");
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

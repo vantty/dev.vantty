@@ -1,14 +1,13 @@
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
-  cloud_name: "vantty",
-  api_key: "649734415391172",
-  api_secret: "rI4jV_piPjs1uJ_Z73DWgLYhbyk"
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 exports.addImages = (req, res) => {
   const values = Object.values(req.files);
-  const tags = ["one", "two"];
   const promises = values.map(image =>
     cloudinary.v2.uploader.upload(image.path)
   );
@@ -21,7 +20,6 @@ exports.addImages = (req, res) => {
 
 exports.deleteImages = (req, res) => {
   const id = Object.values(req.body);
-  console.log(req.body);
   cloudinary.v2.uploader
     .destroy(id)
     .then(results => {

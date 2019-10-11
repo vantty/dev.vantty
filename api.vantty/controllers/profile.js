@@ -1,7 +1,6 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Review = require("../models/Review");
-// const Strategy = require("../helpers/getStrategy");
 
 // Current User
 exports.current = async (req, res) => {
@@ -68,10 +67,6 @@ exports.createANDupdate = async (req, res) => {
   if (verified) {
     profileFields.verified = verified;
   }
-
-  // if (profession) {
-  //   profileFields.profession = profession.split(",").map(pro => pro.trim());
-  // }
 
   // Build social object
   profileFields.social = {};
