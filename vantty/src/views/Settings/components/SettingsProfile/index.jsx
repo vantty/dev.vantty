@@ -1,27 +1,19 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
 import { Container, Grid } from "@material-ui/core";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
 //actions
 import { connect } from "react-redux";
 
-import { loadUser, logout } from "../../../../actions/auth";
+import { logout } from "../../../../actions/auth";
 
-// import Navbar from "../../components/Navbar";
-import LinkMui from "@material-ui/core/Link";
-import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { isOwner } from "../../../../helpers";
-import { isMobile } from "react-device-detect";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -59,16 +51,16 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
 
   return (
     <Fragment>
-      <List component='nav'>
+      <List component="nav">
         {pagesProfile.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
-            <Container maxWidth='md'>
+            <Container maxWidth="md">
               <Grid
                 container
-                direction='row'
-                justify='space-between'
-                alignItems='center'
+                direction="row"
+                justify="space-between"
+                alignItems="center"
               >
                 <Grid item>
                   <ListItemLink
@@ -77,7 +69,7 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
                     selected={page.href === match.url}
                   >
                     {/* <ListItemText primary={page.title} className={classes.title} /> */}
-                    <Typography variant='h5' gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       {page.title}
                     </Typography>
                   </ListItemLink>
@@ -92,9 +84,9 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
           </div>
         ))}
         {/* <Container maxWidth='sm'> */}
-        <Container maxWidth='md'>
+        <Container maxWidth="md">
           <ListItem button onClick={logout}>
-            <Typography variant='h5' gutterBottom>
+            <Typography variant="h5" gutterBottom>
               Logout
             </Typography>
           </ListItem>

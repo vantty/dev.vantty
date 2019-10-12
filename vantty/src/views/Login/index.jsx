@@ -153,8 +153,7 @@ const Login = props => {
     isAuthenticated,
     googleLogin,
     facebookLogin,
-    changeNavbarValue,
-    searchValue
+    changeNavbarValue
   } = props;
 
   const classes = useStyles();
@@ -401,13 +400,11 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
   googleLogin: PropTypes.func,
   facebookLogin: PropTypes.func,
-  changeNavbarValue: PropTypes.func,
-  searchValue: PropTypes.string
+  changeNavbarValue: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  searchValue: state.search.searchValue
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(

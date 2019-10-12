@@ -1,19 +1,17 @@
-import React, { Fragment, useEffect } from "react";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
+import React from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Progress from "@material-ui/core/LinearProgress";
 
 // Actions
-import { confirmEmail, register } from "../../actions/auth";
+import { confirmEmail } from "../../actions/auth";
 
-const Confirmation = ({ match, confirmEmail, register, isAuthenticated }) => {
+const Confirmation = ({ match, confirmEmail, isAuthenticated }) => {
   confirmEmail(match.params.token);
-
   if (isAuthenticated) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
-
   return <Progress />;
 };
 
@@ -29,5 +27,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { confirmEmail, register }
+  { confirmEmail }
 )(Confirmation);

@@ -2,12 +2,13 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import clsx from "clsx";
 
 //Actions
 import { addCategories } from "../../../../actions/profile";
 import { getCurrentProfile } from "../../../../actions/profile";
-//Materila-UI
 
+//Material-UI
 import {
   Card,
   CardHeader,
@@ -15,17 +16,8 @@ import {
   CardActions,
   Divider,
   Grid,
-  Button,
-  Avatar,
-  Typography,
-  Slider,
-  Container
+  Typography
 } from "@material-ui/core";
-import clsx from "clsx";
-// import { makeStyles } from "@material-ui/styles";
-import LinkMui from "@material-ui/core/Link";
-import Progress from "@material-ui/core/LinearProgress";
-import { withStyles } from "@material-ui/core/styles";
 //Components
 import { FormBottomNav } from "../ComponentsForm";
 
@@ -33,13 +25,9 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
-
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
 import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(theme => ({
@@ -129,34 +117,34 @@ const AddCategories = ({
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
-        <form autoComplete='off' noValidate>
+        <form autoComplete="off" noValidate>
           <CardHeader
             // subheader='from what value do your services start'
-            title='Categories'
+            title="Categories"
           />
           {/* <Divider /> */}
           <CardContent>
             <Fragment>
               <Grid
                 container
-                direction='row'
-                justify='center'
-                alignItems='baseline'
+                direction="row"
+                justify="center"
+                alignItems="baseline"
               >
                 <Grid item xs={6} xl={6} md={6} sm={6}>
                   {/* <form className='form'> */}
 
                   <FormControl
                     error={error}
-                    component='fieldset'
+                    component="fieldset"
                     className={classes.formControl}
                   >
-                    <Typography color='textSecondary' variant='body1'>
+                    <Typography color="textSecondary" variant="body1">
                       Makeup
                     </Typography>
 
                     {error && (
-                      <FormLabel component='legend'>
+                      <FormLabel component="legend">
                         Select minimum one
                       </FormLabel>
                     )}
@@ -193,14 +181,14 @@ const AddCategories = ({
                 <Grid item xs={6} xl={6} md={6} sm={6}>
                   <FormControl
                     error={errorHair}
-                    component='fieldset'
+                    component="fieldset"
                     className={classes.formControl}
                   >
-                    <Typography color='textSecondary' variant='body1'>
+                    <Typography color="textSecondary" variant="body1">
                       Hair
                     </Typography>
                     {errorHair && (
-                      <FormLabel component='legend'>
+                      <FormLabel component="legend">
                         Select minimum one
                       </FormLabel>
                     )}
@@ -238,9 +226,9 @@ const AddCategories = ({
               <CardActions>
                 <Grid
                   container
-                  direction='row'
-                  justify='flex-end'
-                  alignItems='flex-start'
+                  direction="row"
+                  justify="flex-end"
+                  alignItems="flex-start"
                 >
                   <Button
                     style={{ backgroundColor: "#f5f5" }}

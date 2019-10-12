@@ -2,20 +2,13 @@ import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import Rating from "material-ui-rating";
 
 // Actions
 import { addComment } from "../../actions/review";
 
-//Compornents
-
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-
-import { Box, Container } from "@material-ui/core";
 
 import {
   Card,
@@ -24,9 +17,7 @@ import {
   CardActions,
   Divider,
   Grid,
-  Button,
-  Avatar,
-  Typography
+  Button
 } from "@material-ui/core";
 import clsx from "clsx";
 import { Rating } from "@material-ui/lab";
@@ -106,14 +97,14 @@ const ReviewForm = ({ addComment, match, className, history }) => {
           <Fragment>
             <Card className={clsx(classes.root, className)}>
               <CardHeader
-                subheader='You commet is like you give us 1000 aplausos'
-                title='Commet'
+                subheader="You commet is like you give us 1000 aplausos"
+                title="Commet"
               />
               <Divider />
               {/* <Grid container direction='row'> */}
               <CardContent className={classes.content}>
                 <form
-                  className='form'
+                  className="form"
                   // onSubmit={e => {
                   //   e.preventDefault();
                   //   addComment(match.params.reviewId, { text, rating });
@@ -125,15 +116,15 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                   <Fragment>
                     <Grid
                       container
-                      direction='column'
-                      justify='flex-end'
-                      alignItems='stretch'
+                      direction="column"
+                      justify="flex-end"
+                      alignItems="stretch"
                     >
                       <Grid item xs={12} sm={12} md={12}>
                         <Rating
-                          size='large'
+                          size="large"
                           precision={0.5}
-                          name='half-rating'
+                          name="half-rating"
                           value={rating}
                           onChange={(event, newValue) => {
                             setRating(newValue);
@@ -143,16 +134,16 @@ const ReviewForm = ({ addComment, match, className, history }) => {
 
                       <Grid item xs={12} sm={12} md={12}>
                         <TextField
-                          id='text'
-                          name='text'
-                          label='Write the best comment'
+                          id="text"
+                          name="text"
+                          label="Write the best comment"
                           fullWidth
                           value={text}
-                          variant='outlined'
+                          variant="outlined"
                           multiline
-                          rows='4'
-                          margin='normal'
-                          autoComplete='fname'
+                          rows="4"
+                          margin="normal"
+                          autoComplete="fname"
                           onChange={e => setText(e.target.value)}
                         />
                       </Grid>
@@ -165,14 +156,14 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                     <CardActions>
                       <Grid
                         container
-                        direction='row'
-                        justify='flex-end'
-                        alignItems='center'
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="center"
                         spacing={3}
                       >
                         <Grid item>
                           <LinkMui
-                            variant='body2'
+                            variant="body2"
                             component={Link}
                             to={`/profile/artist/${match.params.userId}`}
                           >
@@ -181,10 +172,10 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                         </Grid>
                         <Grid item>
                           <Button
-                            type='submit'
+                            type="submit"
                             fullWidth
-                            variant='contained'
-                            color='primary'
+                            variant="contained"
+                            color="primary"
                             onChange={() => handleBack()}
                           >
                             Submit

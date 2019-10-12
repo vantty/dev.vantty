@@ -1,12 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 //Components
-import {
-  deletePicture,
-  getCurrentProfile
-} from "../../../../../../../../actions/profile";
+import { deletePicture } from "../../../../../../../../actions/profile";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";

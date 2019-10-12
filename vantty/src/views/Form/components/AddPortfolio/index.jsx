@@ -2,6 +2,8 @@ import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { isMobile } from "react-device-detect";
 
 //Actions
 import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
@@ -10,53 +12,22 @@ import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
 import { ImagesUploader } from "./components";
 import { FormBottomNav } from "../ComponentsForm";
 
-// Externals
-import PropTypes from "prop-types";
-
-//helpers
-import { getInitials, getStrategyName } from "../../../../helpers";
-
-//Icon
-import AddPhotoIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
-
-// Material components
-
+// Material-UI
 import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
   Divider,
-  Grid,
-  Button,
-  Avatar,
-  Typography,
-  Hidden
+  Button
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
-
-import { positions } from "@material-ui/system";
-import { isMobile } from "react-device-detect";
-import { saveTag } from "../../../../actions/uploader";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
-
-  // content: {
-  //   marginRight: theme.spacing(2),
-  //   marginLeft: theme.spacing(2),
-  //   padding: theme.spacing(2),
-  //   [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-  //     marginRight: theme.spacing(10),
-  //     marginLeft: theme.spacing(10),
-  //     padding: theme.spacing(3)
-  //   }
-  // },
   buttonUpload: {
     textAlign: "center"
   },
@@ -73,7 +44,6 @@ const useStyles = makeStyles(theme => ({
 
 const AddPortfolio = ({
   profile: { profile, loading },
-  // formData,
   handleChange,
   nextStep,
   prevStep,
@@ -97,19 +67,14 @@ const AddPortfolio = ({
     prevStep();
   };
 
-  // const rootClassName = classNames(classes.root, className);
   const classes = useStyles();
   return (
     <Fragment>
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete='off' noValidate>
-              <CardHeader
-                // subheader='You decide how you want to be knowledges'
-                title='Portfolio'
-              />
-              {/* <Divider /> */}
+            <form autoComplete="off" noValidate>
+              <CardHeader title="Portfolio" />
               <CardContent className={classes.content}>
                 <div>
                   <ImagesUploader />
@@ -126,7 +91,6 @@ const AddPortfolio = ({
       </Fragment>
       <Fragment>
         <div>
-          {/* {match.url = "/add-portfolio" ? ( */}
           <div>
             <Fragment>
               {match.url === "/create-profile" && (
@@ -167,7 +131,7 @@ const AddPortfolio = ({
                       <div>
                         <Fragment>
                           <Fragment>
-                            <Button component={Link} to='/settings'>
+                            <Button component={Link} to="/settings">
                               Back
                             </Button>
                           </Fragment>
@@ -179,7 +143,6 @@ const AddPortfolio = ({
               )}
             </Fragment>
           </div>
-          {/* ) : null} */}
         </div>
       </Fragment>
     </Fragment>

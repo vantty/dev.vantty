@@ -1,8 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
-// Components
 
 // Actions
 import { userImage } from "../../../../../../actions/uploader";
@@ -13,10 +11,8 @@ import {
 } from "../../../../../../actions/auth";
 
 // Material-UI
-import Progress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import LinkMui from "@material-ui/core/Link";
-import { Typography, Avatar } from "@material-ui/core";
 import AvatarPro from "./components/AvatarPro";
 
 const AvatarUploader = ({
@@ -42,16 +38,16 @@ const AvatarUploader = ({
     return (
       <Fragment>
         <Button
-          component='label'
-          size='small'
-          variant='outlined'
-          color='primary'
+          component="label"
+          size="small"
+          variant="outlined"
+          color="primary"
         >
           Upload File
           <input
             style={{ display: "none" }}
-            type='file'
-            name='file'
+            type="file"
+            name="file"
             multiple
             onChange={onChange}
           />
@@ -63,21 +59,11 @@ const AvatarUploader = ({
   const DeletePicture = () => {
     return (
       <Fragment>
-        {/* <Button
-          size='small'
-          component='label'
-          color='primary'
-          disabled={!profilePicture.original && true}
-          // onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
-          onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
-        >
-          Delete Picture
-        </Button> */}
         <LinkMui
           style={{ marginRight: "1rem" }}
           disabled={!profilePicture.original && true}
-          component='button'
-          variant='body2'
+          component="button"
+          variant="body2"
           onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
         >
           Delete Picture
@@ -92,15 +78,6 @@ const AvatarUploader = ({
     }
   };
 
-  // return (
-  //   <Fragment>
-  //     <DeletePicture />
-  //     <UploadButton />
-  //   </Fragment>
-  //   // <Fragment>
-  //   //   <UploadButton />
-  //   // </Fragment>
-  // );
   return (
     <div>
       <DeletePicture />
@@ -113,7 +90,6 @@ AvatarUploader.propTypes = {
   userImage: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
   images: PropTypes.array,
-  // profilePicture: PropTypes.object,
   updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   deleteUserPicture: PropTypes.func.isRequired,

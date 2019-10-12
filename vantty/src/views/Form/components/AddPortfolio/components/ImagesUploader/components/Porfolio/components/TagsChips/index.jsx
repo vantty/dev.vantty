@@ -1,10 +1,8 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 
 //Actions
 import { uploadTag } from "../../../../../../../../../../actions/uploader";
@@ -61,14 +59,14 @@ const ChipsArray = ({
 
   const classes = useStyles();
 
-  const handleClick = chipClicked => e => {
-    setSelect({
-      Bridal: false,
-      Social: false,
-      Photography: false,
-      [chipClicked]: true
-    });
-  };
+  // const handleClick = chipClicked => e => {
+  //   setSelect({
+  //     Bridal: false,
+  //     Social: false,
+  //     Photography: false,
+  //     [chipClicked]: true
+  //   });
+  // };
 
   tagObj[pictureId] = select;
 

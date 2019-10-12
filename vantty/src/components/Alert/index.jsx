@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import clsx from "clsx";
@@ -11,7 +11,7 @@ import { amber, green } from "@material-ui/core/colors";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import WarningIcon from "@material-ui/icons/Warning";
 import { makeStyles } from "@material-ui/core/styles";
-import { Slide, Button, IconButton } from "@material-ui/core";
+import { Slide } from "@material-ui/core";
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -46,7 +46,7 @@ const useStyles1 = makeStyles(theme => ({
   }
 }));
 function TransitionLeft(props) {
-  return <Slide {...props} direction='left' />;
+  return <Slide {...props} direction="left" />;
 }
 const Snackbar = ({ className, message, variant }) => {
   const classes = useStyles1();
