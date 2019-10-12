@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //Helpers
-import { getStrategyName, getInitials, isOwner } from "../../../../helpers";
+import { getInitials, isOwner } from "../../../../helpers";
 
 // Material-UI
 import VerifiedIcon from "@material-ui/icons/VerifiedUserRounded";
@@ -12,11 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Divider from "@material-ui/core/Divider";
-import CircularProgress from "@material-ui/core/CircularProgress";
 // Styles
 import styles from "./styles";
 import { isMobile } from "react-device-detect";
-// import AvatarUploader from "../../../../components/AvatarUploader";
 
 const ProfileInfo = ({
   auth,
@@ -43,7 +41,7 @@ const ProfileInfo = ({
             <CircularProgress className={classes.progress} />
           ) : ( */}
           <Fragment>
-            <Grid container justify='center' alignItems='center'>
+            <Grid container justify="center" alignItems="center">
               {profilePicture ? (
                 isMobile ? (
                   <Avatar src={profilePicture} className={classes.bigAvatar} />
@@ -83,8 +81,8 @@ const ProfileInfo = ({
                     user._id === auth.user._id && (
                       <Button
                         component={Link}
-                        variant='contained'
-                        color='primary'
+                        variant="contained"
+                        color="primary"
                         className={classes.button}
                         to={isMobile ? "/settings" : "/personal-info"}
                       >
@@ -99,7 +97,7 @@ const ProfileInfo = ({
           {/* )} */}
         </div>
 
-        <Divider variant='middle' />
+        <Divider variant="middle" />
       </div>
     </div>
   );
@@ -112,28 +110,3 @@ ProfileInfo.propTypes = {
 };
 
 export default withStyles(styles)(ProfileInfo);
-
-{
-  /* <Toolbar>
-                <Typography
-                  type='title'
-                  color='inherit'
-                  style={{
-                    borderRight: "0.1em solid black",
-                    padding: "0.5em",
-                    display: "block"
-                  }}
-                >
-                  trew rew
-                </Typography>
-
-                <Typography
-                  type='title'
-                  color='inherit'
-                  style={{ padding: "0.5em" }}
-                >
-                  <Star style={{ color: "#fdd835" }} />
-                  hello
-                </Typography>
-              </Toolbar> */
-}

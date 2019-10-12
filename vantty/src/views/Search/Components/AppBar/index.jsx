@@ -1,22 +1,16 @@
-import React, { useState, Children } from "react";
+import React, { useState } from "react";
+
+// Components
+import { Modal } from "./components";
+
+// Material-UI
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { Modal } from "./components";
-import { InputAdornment, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -83,7 +77,7 @@ const useStyles = makeStyles(theme => ({
 export default function SearchAppBar({ children }) {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => () => {
     setOpen(true);
@@ -95,17 +89,17 @@ export default function SearchAppBar({ children }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position='static'>
+      <AppBar position="static">
         <Toolbar>
           <IconButton
-            edge='start'
+            edge="start"
             className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
+            color="inherit"
+            aria-label="open drawer"
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant='h6' noWrap>
+          <Typography className={classes.title} variant="h6" noWrap>
             Vantty
           </Typography>
           <div>{children}</div>
@@ -114,11 +108,10 @@ export default function SearchAppBar({ children }) {
 
           <div className={classes.sectionMobile}>
             <IconButton
-              aria-label='show more'
-              //   aria-controls={mobileMenuId}
-              aria-haspopup='true'
+              aria-label="show more"
+              aria-haspopup="true"
               onClick={handleClickOpen("paper")}
-              color='inherit'
+              color="inherit"
             >
               <FilterListIcon />
             </IconButton>

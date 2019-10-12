@@ -13,10 +13,8 @@ import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 import { FormBottomNav } from "../../../Form/components/ComponentsForm";
 
 //Materila-UI
-import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import LinkMui from "@material-ui/core/Link";
 import EditForm from "../../../EditForm";
 
 import {
@@ -102,7 +100,7 @@ const EditProfile = ({
     });
   }, [loading, getCurrentProfile]);
 
-  const { bio, instagramUsername, profession, city } = formData;
+  const { instagramUsername, city } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -149,10 +147,10 @@ const EditProfile = ({
           <Fragment>
             <Fragment>
               <Card className={clsx(classes.root, className)}>
-                <form autoComplete='off' noValidate>
+                <form autoComplete="off" noValidate>
                   <CardHeader
                     // subheader='The information can be edited'
-                    title='Bio'
+                    title="Bio"
                   />
                   {/* <Divider /> */}
                   <CardContent>
@@ -160,11 +158,11 @@ const EditProfile = ({
                     <Grid container>
                       <Grid item md={12} xs={12}>
                         <FormControl
-                          variant='outlined'
-                          margin='dense'
+                          variant="outlined"
+                          margin="dense"
                           fullWidth
                         >
-                          <InputLabel ref={inputLabel} htmlFor='profession'>
+                          <InputLabel ref={inputLabel} htmlFor="profession">
                             Profesion
                           </InputLabel>
                           <Select
@@ -176,14 +174,14 @@ const EditProfile = ({
                               ""
                             }
                             onChange={handleChange}
-                            id='profession'
-                            name='profession'
-                            label='profession'
+                            id="profession"
+                            name="profession"
+                            label="profession"
                             input={
                               <OutlinedInput
                                 labelWidth={labelWidth}
-                                name='Profession'
-                                id='profession'
+                                name="Profession"
+                                id="profession"
                               />
                             }
                           >
@@ -207,14 +205,14 @@ const EditProfile = ({
                         <Grid item xs={12}>
                           <TextField
                             required
-                            variant='outlined'
-                            id='bio'
-                            name='bio'
-                            label='bio'
-                            margin='normal'
+                            variant="outlined"
+                            id="bio"
+                            name="bio"
+                            label="bio"
+                            margin="normal"
                             onChange={handleChange}
                             multiline
-                            rows='6'
+                            rows="6"
                             fullWidth
                             value={formState.values.bio || formData.bio || ""}
                             error={hasError("bio")}
@@ -227,25 +225,25 @@ const EditProfile = ({
                       <Grid item md={12} xs={12}>
                         {/* <div className={classes.field}> */}
                         <FormControl
-                          variant='outlined'
-                          margin='dense'
+                          variant="outlined"
+                          margin="dense"
                           fullWidth
                         >
-                          <InputLabel ref={inputLabel} htmlFor='city'>
+                          <InputLabel ref={inputLabel} htmlFor="city">
                             City
                           </InputLabel>
                           <Select
                             select
-                            id='city'
-                            name='city'
+                            id="city"
+                            name="city"
                             value={city}
-                            label='city'
+                            label="city"
                             onChange={e => onChange(e)}
                             input={
                               <OutlinedInput
                                 labelWidth={labelWidth}
-                                name='city'
-                                id='city'
+                                name="city"
+                                id="city"
                               />
                             }
                           >
@@ -260,10 +258,10 @@ const EditProfile = ({
                         <Grid item md={12} xs={12}>
                           <TextField
                             fullWidth
-                            margin='dense'
-                            variant='outlined'
-                            id='instagramUsername'
-                            name='instagramUsername'
+                            margin="dense"
+                            variant="outlined"
+                            id="instagramUsername"
+                            name="instagramUsername"
                             label={`@Username`}
                             value={instagramUsername}
                             onChange={e => onChange(e)}
@@ -278,9 +276,9 @@ const EditProfile = ({
                   <CardActions className={classes.buttons}>
                     <Grid
                       container
-                      direction='row'
-                      justify='flex-end'
-                      alignItems='flex-start'
+                      direction="row"
+                      justify="flex-end"
+                      alignItems="flex-start"
                     >
                       {match.url === "/edit-profile" && !isMobile && (
                         <Button
@@ -304,7 +302,7 @@ const EditProfile = ({
                   Children={
                     <div>
                       <div>
-                        <Button component={Link} to='/settings'>
+                        <Button component={Link} to="/settings">
                           Back
                         </Button>
                         <Button

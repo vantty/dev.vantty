@@ -9,8 +9,6 @@ import { deletePicture } from "../../../../../../../../actions/profile";
 import CancelIcon from "@material-ui/icons/CancelRounded";
 import { makeStyles } from "@material-ui/styles";
 import {
-  GridListTile,
-  GridList,
   Grid,
   Card,
   CardMedia,
@@ -135,12 +133,12 @@ const PorfolioSinChips = ({ portfolioPictures, deletePicture }) => {
                 key={image.original}
                 className={classes.cardMedia}
                 image={`${image.original}`}
-                title='Image title'
+                title="Image title"
               />
               <CardContent className={classes.cardContent}>
                 <Toolbar className={classes.cardTitle}>
                   <Avatar
-                    alt=''
+                    alt=""
                     src={image.original}
                     className={classes.avatar}
                   />

@@ -1,25 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
-import {
-  Container,
-  Paper,
-  ListSubheader,
-  Hidden,
-  Button
-} from "@material-ui/core";
-import { pagesProfile, pagesUser } from "../../list";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
+import { Container, Hidden } from "@material-ui/core";
+import { pagesUser } from "../../list";
+import { Redirect, Link } from "react-router-dom";
 //actions
 import { connect } from "react-redux";
 import { getProfileById, getCurrentProfile } from "../../../../actions/profile";
 import { loadUser, logout } from "../../../../actions/auth";
 
-// import Navbar from "../../components/Navbar";
-import LinkMui from "@material-ui/core/Link";
-import { Link } from "react-router-dom";
-import { minWidth } from "@material-ui/system";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -72,7 +62,7 @@ const SettingsUser = ({
   return (
     <Fragment>
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
@@ -85,8 +75,8 @@ const SettingsUser = ({
         />
       </Hidden>
       <div className={classes.root}></div>
-      <Container maxWidth='md'>
-        <List component='nav' className={classes.root}>
+      <Container maxWidth="md">
+        <List component="nav" className={classes.root}>
           {pagesUser.map((page, ind) => (
             <div key={page.title}>
               {/* <Container maxWidth='sm'> */}

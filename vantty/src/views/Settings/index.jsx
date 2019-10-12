@@ -1,24 +1,24 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import { Hidden, Button, Container } from "@material-ui/core";
-import { pagesProfile, pagesUser } from "./list";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
-//actions
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
+
+// Actions
 import { getProfileById, getCurrentProfile } from "../../actions/profile";
 import { loadUser, logout } from "../../actions/auth";
 
-// import Navbar from "../../components/Navbar";
-import { Link } from "react-router-dom";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
+// Helpers
 import { isOwner } from "../../helpers";
-import { isMobile } from "react-device-detect";
+import { pagesProfile, pagesUser } from "./list";
+
+// Components
 import { SimpleAppBar } from "../../components";
 import { SettingsProfile, SettingsUser } from "./components";
+
+// Material-UI
+import { makeStyles } from "@material-ui/core/styles";
+import { Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,18 +51,15 @@ const Settings = ({
   const classes = useStyles();
 
   useEffect(() => {
-    // profile &&
     getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
-
     loadUser();
   }, [getCurrentProfile]);
 
   return (
     <Fragment>
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
-
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
           history={history}
@@ -73,7 +70,6 @@ const Settings = ({
           }
         />
       </Hidden>
-
       {profile && profile.mobileNumber ? (
         <SettingsProfile match={match} pagesProfile={pagesProfile} />
       ) : (

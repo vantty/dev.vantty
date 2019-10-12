@@ -2,28 +2,21 @@ import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/dist/style.css";
+import clsx from "clsx";
+import { isMobile } from "react-device-detect";
 
 // Actions
 import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 
-// Externals
-import PropTypes from "prop-types";
-
-// import ReactPhoneInput from "react-phone-input-mui";
-import { TextField, withStyles, Container } from "@material-ui/core";
-//npm package
-import ReactPhoneInput from "react-phone-input-2";
-import "react-phone-input-2/dist/style.css";
-import { Animated } from "react-animated-css";
-
-//Components
+// Components
 import { NumberValidation } from "./components";
-
 import { FormBottomNav } from "../ComponentsForm";
 
 // Material helpers
 import { makeStyles } from "@material-ui/styles";
-import { spacing } from "@material-ui/system";
 
 //Material Compoments
 import {
@@ -33,16 +26,8 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
-  Divider,
   Box
 } from "@material-ui/core";
-import LinkMui from "@material-ui/core/Link";
-
-import clsx from "clsx";
-import { isMobile } from "react-device-detect";
-
-// Component styles
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -114,16 +99,16 @@ const InfoContact = ({
         {/* <form autoComplete='off' noValidate> */}
         <CardHeader
           // subheader='The information can be edited'
-          title='Mobile'
+          title="Mobile"
         />
         {/* <Divider /> */}
         <CardContent>
           <Fragment>
             <Grid
               container
-              direction='row'
-              justify='center'
-              alignItems='center'
+              direction="row"
+              justify="center"
+              alignItems="center"
             >
               <Grid
                 item
@@ -131,15 +116,15 @@ const InfoContact = ({
                 sm={12}
                 md={12}
                 container
-                direction='row'
-                justify='center'
-                alignItems='center'
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
                 <Box>
                   <Typography
-                    component='h5'
-                    variant='h6'
-                    align='center'
+                    component="h5"
+                    variant="h6"
+                    align="center"
                     className={classes.typography}
                   >
                     This number will be where your clients could contact with
@@ -157,7 +142,7 @@ const InfoContact = ({
                       }}
                     >
                       <ReactPhoneInput
-                        defaultCountry='us'
+                        defaultCountry="us"
                         onlyCountries={["co", "us", "ca"]}
                         masks={{
                           co: "+.. (...) ...-..-..",
@@ -185,9 +170,9 @@ const InfoContact = ({
                     sm={12}
                     md={12}
                     container
-                    direction='row'
-                    justify='center'
-                    alignItems='center'
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
                   >
                     <NumberValidation
                       phone={phone}
@@ -225,7 +210,7 @@ const InfoContact = ({
             Children={
               <div>
                 <div>
-                  <Button component={Link} to='/settings'>
+                  <Button component={Link} to="/settings">
                     Back
                   </Button>
                 </div>

@@ -1,35 +1,27 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import {
-  Container,
-  Paper,
-  ListSubheader,
-  Hidden,
-  Button
-} from "@material-ui/core";
-import { pagesProfile, pagesUser } from "../../list";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
-//actions
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
+
+// Components
+import { SimpleAppBar } from "../../../../components";
+
+// Actions
 import { getProfileById, getCurrentProfile } from "../../../../actions/profile";
 import { loadUser, logout } from "../../../../actions/auth";
 
-// import Navbar from "../../components/Navbar";
-import LinkMui from "@material-ui/core/Link";
-import { Link } from "react-router-dom";
-import { minWidth } from "@material-ui/system";
+// Helpers
+import { isOwner } from "../../../../helpers";
+import { pagesProfile } from "../../list";
+
+// Material-UI
+import { makeStyles } from "@material-ui/core/styles";
+import { Container, Hidden } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { isOwner } from "../../../../helpers";
-import { isMobile } from "react-device-detect";
-import { SimpleAppBar } from "../../../../components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,7 +67,7 @@ const SettingsProfile = ({
   return (
     <Fragment>
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
 
       <Hidden only={["md", "lg", "xl"]}>
@@ -89,8 +81,8 @@ const SettingsProfile = ({
         />
       </Hidden>
       <div className={classes.root}></div>
-      <Container maxWidth='md'>
-        <List component='nav' className={classes.root}>
+      <Container maxWidth="md">
+        <List component="nav" className={classes.root}>
           {pagesProfile.map((page, ind) => (
             <div key={page.title}>
               {/* <Container maxWidth='sm'> */}

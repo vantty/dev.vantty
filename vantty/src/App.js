@@ -16,9 +16,6 @@ import "./assets/scss/index.scss";
 // Material-UI
 import { ThemeProvider } from "@material-ui/styles";
 
-//component
-import { Alert } from "./components";
-
 //Routes
 import Routes from "./Routes";
 

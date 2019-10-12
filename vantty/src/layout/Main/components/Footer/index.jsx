@@ -1,18 +1,19 @@
-import React from "react";
+import React, { Fragment } from "react";
+
+// Material-UI
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import { Fragment } from "react";
-import { Divider, Hidden } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 
 function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
+    <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color='inherit' href='https://vantty.ca/'>
+      <Link color="inherit" href="https://vantty.ca/">
         Vantty
       </Link>{" "}
       {new Date().getFullYear()}
@@ -56,10 +57,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(5)
   },
   footer: {
-    // borderTop: `1px solid ${theme.palette.divider}`,
     marginTop: theme.spacing(2),
     paddingTop: theme.spacing(1),
-    // paddingBottom: theme.spacing(2),
     [theme.breakpoints.up("sm")]: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(4)
@@ -89,62 +88,32 @@ const footers = [
   }
 ];
 
-export default function HomeFooter() {
+export default function Footer() {
   const classes = useStyles();
 
   return (
     <Fragment>
-      {/* <Hidden smDown> */}
       <div className={classes.div}>
         <Divider />
-        <Container maxWidth='md' component='footer' className={classes.footer}>
-          {/* <Grid container spacing={1} justify='space-evenly'>
-        <Grid container direction='row' justify='center' alignItems='center'>
-          {footers.map(footer => (
-            <Grid item xs={4} sm={3} key={footer.title}>
-              <Typography variant='h6' color='textPrimary' gutterBottom>
-                {footer.title}
-              </Typography>
-              <ul>
-              {footer.description.map(item => (
-                <li key={item}>
-                <Link href='#' variant='subtitle1' color='textSecondary'>
-                  {item}{" "}
-                </Link>
-                </li>
-              ))}
-              </ul>
-            </Grid>
-          ))}
-        </Grid>
-        <Box mt={5}>
-          <Copyright />
-        </Box> */}
-
-          {/* <Grid container spacing={1} justify='space-evenly'> */}
-          <Grid container direction='row' justify='center' alignItems='center'>
-            {/* <Grid item xs={12} sm={12}> */}
+        <Container maxWidth="md" component="footer" className={classes.footer}>
+          <Grid container direction="row" justify="center" alignItems="center">
             {footers.map(item => (
-              // <Grid item xs={1} sm={2} key={item}>
-              <span className={classes.element}>
+              <span className={classes.element} key={item.title}>
                 <Link
                   href={item.Link}
-                  variant='subtitle1'
-                  color='textSecondary'
+                  variant="subtitle1"
+                  color="textSecondary"
                 >
                   {item.title}{" "}
                 </Link>
               </span>
-              // </Grid>
             ))}
-            {/* </Grid> */}
           </Grid>
           <Box mt={3}>
             <Copyright />
           </Box>
         </Container>
       </div>
-      {/* </Hidden> */}
     </Fragment>
   );
 }
