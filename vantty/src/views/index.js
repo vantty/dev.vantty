@@ -9,5 +9,4 @@ export { default as Confirmation } from "./Confirmation";
 export { default as WaitForConfirmation } from "./WaitForConfirmation";
 export { default as Login } from "./Login";
 export { default as Form } from "./Form";
-export { default as OldArtists } from "./OldArtists";
 export { default as Settings } from "./Settings";

@@ -10,7 +10,7 @@ import AccountKit from "react-facebook-account-kit";
 import { verifyNumber } from "../../../../../../actions/number";
 import { Button, makeStyles } from "@material-ui/core";
 
-const appId = "619096385268555";
+const appId = process.env.REACT_APP_FACEBOOK_ID;
 const csfr = "f20825edcc1a0ef2e4a546155119c52c";
 const version = "v1.0";
 

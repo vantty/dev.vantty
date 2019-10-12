@@ -269,10 +269,7 @@ const Login = props => {
                 <Grid className={classes.socialButtons} container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <FacebookAuth
-                      //vannty.ca
-                      appId='619096385268555'
-                      //vannty.com
-                      // appId='1699234460121053'
+                      appId={process.env.REACT_APP_FACEBOOK_ID}
                       fields='name,email,picture'
                       callback={responseFacebook}
                       render={renderProps => (
@@ -291,7 +288,7 @@ const Login = props => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <GoogleAuth
-                      clientId='259457812212-sj1ga4eqacoqubksrl53e6pjgan5pp9o.apps.googleusercontent.com'
+                      clientId={process.env.REACT_APP_GOOGLE_ID}
                       buttonText='Google'
                       onSuccess={responseGoogle}
                       onFailure={responseGoogle}

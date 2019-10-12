@@ -1,0 +1,15 @@
+{
+  "build": {
+    "env": {
+      "REACT_APP_NOW_BASE_URL": "@now-base-url",
+      "REACT_APP_NOW_API_URL": "@now-api-url",
+      "REACT_APP_ELASTIC_BASE_URL": "@elastic",
+      "REACT_APP_FACEBOOK_ID": "@facebook-id",
+      "REACT_APP_FACEBOOK_APP": "@facebook-app",
+      "REACT_APP_ELASTIC_TOKEN": "@elastic-token",
+      "REACT_APP_APPBASE_INDEX": "@appbase-index",
+      "REACT_APP_APPBASE_CREDENTIALS": "@appbase-credentials",
+      "REACT_APP_GOOGLE_ID": "@google-id"
+    }
+  }
+}

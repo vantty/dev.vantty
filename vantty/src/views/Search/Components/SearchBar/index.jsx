@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 const handleSearch = async event => {
   event.preventDefault();
   console.log("SEARCH");
-  return <Redirect to="/login" />;
+  return <Redirect to='/login' />;
 };
 
 const Search = () => {
@@ -23,14 +23,14 @@ const Search = () => {
   const [values, setValues] = useState("");
   return (
     <ReactiveBase
-      app="vantty-database"
-      credentials="fMzMk5aCe:360198cd-be1d-4776-b637-b46194703666"
+      app={process.env.REACT_APP_APPBASE_INDEX}
+      credentials={process.env.REACT_APP_APPBASE_CREDENTIALS}
     >
       <form onSubmit={handleSearch}>
         <DataSearch
-          componentId="searchbox"
-          dataField="*"
-          placeholder="Search..."
+          componentId='searchbox'
+          dataField='*'
+          placeholder='Search...'
         />
       </form>
     </ReactiveBase>

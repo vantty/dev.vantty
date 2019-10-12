@@ -313,8 +313,7 @@ export const loadToElastic = async (data, profileId, elasticId) => {
   const elasticConfig = {
     headers: {
       "Content-type": "application/json",
-      Authorization:
-        "Basic NzQ5MzJ3WlZGOjQxOGE1Y2I1LTczYjQtNDVkMi05ZGUzLTdjMjBkM2NiY2JlMA=="
+      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
     }
   };
   if (!elasticId) {
@@ -331,8 +330,7 @@ const deleteFromElastic = async elasticId => {
   const elasticConfig = {
     headers: {
       "Content-type": "application/json",
-      Authorization:
-        "Basic NzQ5MzJ3WlZGOjQxOGE1Y2I1LTczYjQtNDVkMi05ZGUzLTdjMjBkM2NiY2JlMA=="
+      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
     }
   };
   await elastic.delete(`/${elasticId}`, elasticConfig);

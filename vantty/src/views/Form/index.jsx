@@ -4,14 +4,12 @@ import { withRouter } from "react-router-dom";
 // Externals
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import validate from "validate.js";
 
 // Actions
 import { getCurrentProfile, createProfile } from "../../actions/profile";
 
 // Material helpers
 import { Container } from "@material-ui/core";
-import { spacing } from "@material-ui/system";
 
 // Material components
 import { Grid, Box } from "@material-ui/core";
@@ -30,7 +28,6 @@ import {
 import { AppBarForm } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Alert from "../../components/Alert";
 
 // Component styles
 const useStyles = makeStyles(theme => ({

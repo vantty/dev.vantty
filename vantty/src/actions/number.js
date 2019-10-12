@@ -9,8 +9,8 @@ import crypto from "crypto";
 import { server } from "../utils/axios";
 import { createProfile, createMobileNumber } from "./profile";
 //vantty.ca
-const appId = "619096385268555";
-const appSecret = "736811c32359eacd02377d882ee49d04";
+const appId = process.env.REACT_APP_FACEBOOK_ID;
+const appSecret = process.env.REACT_APP_FACEBOOK_APP;
 
 //vantty.com
 // const appId = "1699234460121053";

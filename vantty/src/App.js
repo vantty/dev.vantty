@@ -26,6 +26,9 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());

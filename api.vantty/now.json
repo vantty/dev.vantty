@@ -6,5 +6,18 @@
       "use": "@now/node-server"
     }
   ],
+  "env": {
+    "PORT": "@port",
+    "JWT_SECRET": "@jwt-secret",
+    "GOOGLE_ID": "@google-id",
+    "GOOGLE_SECRET": "@google-secret",
+    "MONGODB_URI": "@my-mongodb-uri",
+    "FACEBOOK_ID": "@facebook-id",
+    "FACEBOOK_SECRET": "@facebook-secret",
+    "EMAIL_SECRET": "@email-secret",
+    "CLOUDINARY_CLOUD_NAME": "@cloudinary-cloud-name",
+    "CLOUDINARY_API_KEY": "@cloudinary-api-key",
+    "CLOUDINARY_API_SECRET": "@cloudinary-api-secret"
+  },
   "routes": [{ "src": "/api/.*", "dest": "/index.js" }]
 }

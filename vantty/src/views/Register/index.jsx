@@ -247,11 +247,11 @@ const Register = props => {
   };
 
   if (isAuthenticated) {
-    return <Redirect push to="/" />;
+    return <Redirect push to='/' />;
   }
 
   if (sendConfirmation) {
-    return <Redirect push to="/confirmation" />;
+    return <Redirect push to='/confirmation' />;
   }
 
   return (
@@ -261,15 +261,15 @@ const Register = props => {
         <Grid className={classes.quoteContainer} item lg={6}>
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
-              <Typography className={classes.quoteText} variant="h1">
+              <Typography className={classes.quoteText} variant='h1'>
                 Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
                 they sold out High Life.
               </Typography>
               <div className={classes.person}>
-                <Typography className={classes.name} variant="body1">
+                <Typography className={classes.name} variant='body1'>
                   Takamaru Ayako
                 </Typography>
-                <Typography className={classes.bio} variant="body2">
+                <Typography className={classes.bio} variant='body2'>
                   Manager at inVision
                 </Typography>
               </div>
@@ -280,34 +280,34 @@ const Register = props => {
           <div className={classes.content}>
             <div className={classes.contentHeader}>
               <IconButton>
-                <Link component={RouterLink} to="/" variant="h6">
+                <Link component={RouterLink} to='/' variant='h6'>
                   <ArrowBackIcon style={{ color: "black" }} />
                 </Link>
               </IconButton>
             </div>
             <div className={classes.contentBody}>
               <form className={classes.form} onSubmit={handleRegister}>
-                <Typography className={classes.title} variant="h2">
+                <Typography className={classes.title} variant='h2'>
                   Create a new account
                 </Typography>
-                <Typography color="textSecondary" gutterBottom>
+                <Typography color='textSecondary' gutterBottom>
                   with social media
                 </Typography>
                 <Grid className={classes.socialButtons} container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <FacebookAuth
                       // vantty.ca
-                      appId="619096385268555"
+                      appId={process.env.REACT_APP_FACEBOOK_ID}
                       //vantty.com
                       // appId='1699234460121053'
-                      fields="name,email,picture"
+                      fields='name,email,picture'
                       callback={responseFacebook}
                       render={renderProps => (
                         <Button
                           fullWidth
-                          color="primary"
-                          variant="contained"
-                          size="large"
+                          color='primary'
+                          variant='contained'
+                          size='large'
                           onClick={renderProps.onClick}
                         >
                           <FacebookIcon className={classes.socialIcon} />
@@ -318,17 +318,17 @@ const Register = props => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <GoogleAuth
-                      clientId="259457812212-sj1ga4eqacoqubksrl53e6pjgan5pp9o.apps.googleusercontent.com"
-                      buttonText="Google"
+                      clientId={process.env.REACT_APP_GOOGLE_ID}
+                      buttonText='Google'
                       onSuccess={responseGoogle}
                       onFailure={responseGoogle}
                       render={renderProps => (
                         <Button
                           fullWidth
-                          color="secondary"
-                          size="large"
+                          color='secondary'
+                          size='large'
                           onClick={renderProps.onClick}
-                          variant="contained"
+                          variant='contained'
                         >
                           <GoogleIcon className={classes.socialIcon} />
                           Google
@@ -338,10 +338,10 @@ const Register = props => {
                   </Grid>
                 </Grid>
                 <Typography
-                  align="center"
+                  align='center'
                   className={classes.sugestion}
-                  color="textSecondary"
-                  variant="body1"
+                  color='textSecondary'
+                  variant='body1'
                 >
                   or with email address
                 </Typography>
@@ -352,12 +352,12 @@ const Register = props => {
                   helperText={
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
-                  label="First name"
-                  name="firstName"
+                  label='First name'
+                  name='firstName'
                   onChange={handleChange}
-                  type="text"
+                  type='text'
                   value={formState.values.firstName || ""}
-                  variant="outlined"
+                  variant='outlined'
                 />
                 <TextField
                   className={classes.textField}
@@ -366,12 +366,12 @@ const Register = props => {
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
                   }
-                  label="Last name"
-                  name="lastName"
+                  label='Last name'
+                  name='lastName'
                   onChange={handleChange}
-                  type="text"
+                  type='text'
                   value={formState.values.lastName || ""}
-                  variant="outlined"
+                  variant='outlined'
                 />
 
                 <TextField
@@ -381,12 +381,12 @@ const Register = props => {
                   helperText={
                     hasError("email") ? formState.errors.email[0] : null
                   }
-                  label="Email address"
-                  name="email"
+                  label='Email address'
+                  name='email'
                   onChange={handleChange}
-                  type="text"
+                  type='text'
                   value={formState.values.email || ""}
-                  variant="outlined"
+                  variant='outlined'
                 />
                 <TextField
                   className={classes.textField}
@@ -395,18 +395,18 @@ const Register = props => {
                   helperText={
                     hasError("password") ? formState.errors.password[0] : null
                   }
-                  label="Password"
-                  name="password"
+                  label='Password'
+                  name='password'
                   onChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   value={formState.values.password || ""}
-                  variant="outlined"
+                  variant='outlined'
                   InputProps={{
                     endAdornment: (
-                      <InputAdornment position="end">
+                      <InputAdornment position='end'>
                         <IconButton
-                          edge="end"
-                          aria-label="Toggle password visibility"
+                          edge='end'
+                          aria-label='Toggle password visibility'
                           onClick={handleClickShowPassword}
                         >
                           {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -417,21 +417,21 @@ const Register = props => {
                 />
                 <Button
                   className={classes.signInButton}
-                  color="primary"
+                  color='primary'
                   disabled={!formState.isValid}
                   fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
+                  size='large'
+                  type='submit'
+                  variant='contained'
                 >
                   Register now
                 </Button>
-                <Typography color="textSecondary" variant="body1">
+                <Typography color='textSecondary' variant='body1'>
                   By clicking Register Now, you agree to our{" "}
                   <Link
                     component={RouterLink}
-                    to="/terms-of-service"
-                    variant="h6"
+                    to='/terms-of-service'
+                    variant='h6'
                     className={classes.link}
                   >
                     Terms
@@ -439,8 +439,8 @@ const Register = props => {
                   ,{" "}
                   <Link
                     component={RouterLink}
-                    to="/data-policy"
-                    variant="h6"
+                    to='/data-policy'
+                    variant='h6'
                     className={classes.link}
                   >
                     Data Policy
@@ -449,12 +449,12 @@ const Register = props => {
                   can opt out any time.
                 </Typography>
                 <br />
-                <Typography color="textSecondary" variant="body1">
+                <Typography color='textSecondary' variant='body1'>
                   Already have an account?{" "}
                   <Link
                     component={RouterLink}
-                    to="/login"
-                    variant="h6"
+                    to='/login'
+                    variant='h6'
                     className={classes.link}
                   >
                     Login
