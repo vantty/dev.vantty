@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
       display: "block"
     }
   },
+  appbar: {
+    backgroundColor: theme.palette.greenVantty.main
+  },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -89,17 +92,17 @@ export default function SearchAppBar({ children }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position='static' className={classes.appbar}>
         <Toolbar>
           <IconButton
-            edge="start"
+            edge='start'
             className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant='h6' noWrap>
             Vantty
           </Typography>
           <div>{children}</div>
@@ -108,10 +111,10 @@ export default function SearchAppBar({ children }) {
 
           <div className={classes.sectionMobile}>
             <IconButton
-              aria-label="show more"
-              aria-haspopup="true"
+              aria-label='show more'
+              aria-haspopup='true'
               onClick={handleClickOpen("paper")}
-              color="inherit"
+              color='inherit'
             >
               <FilterListIcon />
             </IconButton>

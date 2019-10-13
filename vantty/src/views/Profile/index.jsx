@@ -135,6 +135,11 @@ const Profile = ({
   const { Wait } = useWait();
   return (
     <Fragment>
+      {isMobile && (
+        <Fragment>
+          <SimpleAppBar path={"/search"} />
+        </Fragment>
+      )}
       {!profile ? (
         <Progress className={classes.progress} />
       ) : (
@@ -150,11 +155,6 @@ const Profile = ({
                   <Progress />
                 ) : (
                   <Fragment>
-                    {isMobile && (
-                      <Fragment>
-                        <SimpleAppBar path={"/search"} />
-                      </Fragment>
-                    )}
                     <Grid item xs={12} md={8}>
                       <Header />
 

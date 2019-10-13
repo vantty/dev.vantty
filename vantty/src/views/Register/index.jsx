@@ -296,10 +296,7 @@ const Register = props => {
                 <Grid className={classes.socialButtons} container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <FacebookAuth
-                      // vantty.ca
                       appId={process.env.REACT_APP_FACEBOOK_ID}
-                      //vantty.com
-                      // appId='1699234460121053'
                       fields='name,email,picture'
                       callback={responseFacebook}
                       render={renderProps => (

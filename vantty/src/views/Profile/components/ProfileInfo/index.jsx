@@ -41,7 +41,7 @@ const ProfileInfo = ({
             <CircularProgress className={classes.progress} />
           ) : ( */}
           <Fragment>
-            <Grid container justify="center" alignItems="center">
+            <Grid container justify='center' alignItems='center'>
               {profilePicture ? (
                 isMobile ? (
                   <Avatar src={profilePicture} className={classes.bigAvatar} />
@@ -81,12 +81,13 @@ const ProfileInfo = ({
                     user._id === auth.user._id && (
                       <Button
                         component={Link}
-                        variant="contained"
-                        color="primary"
+                        variant='contained'
+                        color='primary'
+                        size='small'
                         className={classes.button}
                         to={isMobile ? "/settings" : "/personal-info"}
                       >
-                        settings
+                        update
                       </Button>
                     )}
                 </Fragment>
@@ -97,7 +98,7 @@ const ProfileInfo = ({
           {/* )} */}
         </div>
 
-        <Divider variant="middle" />
+        <Divider variant='middle' />
       </div>
     </div>
   );

@@ -6,17 +6,13 @@ import {
 
 import axios from "axios";
 import crypto from "crypto";
-import { server } from "../utils/axios";
-import { createProfile, createMobileNumber } from "./profile";
+
+import { createMobileNumber } from "./profile";
 //vantty.ca
 const appId = process.env.REACT_APP_FACEBOOK_ID;
 const appSecret = process.env.REACT_APP_FACEBOOK_APP;
 
-//vantty.com
-// const appId = "1699234460121053";
-// const appSecret = "f0d7b41aa80f652c51d02bfd265936de";
-// const csfr = "f20825edcc1a0ef2e4a546155119c52c";
-const version = "v1.0";
+const version = "v1.1";
 
 export const verifyNumber = res => dispatch => {
   const auth_code = res.code;
@@ -38,7 +34,7 @@ export const verifyNumber = res => dispatch => {
         .then(res => {
           const numberVerified = res.data.phone.number;
           if (numberVerified !== "") {
-            window.location.href = "http://localhost:3000/personal-info";
+            window.location.href = "https://vantty.ca/personal-info";
           }
           dispatch(createMobileNumber({ mobileNumber: numberVerified }, true));
 

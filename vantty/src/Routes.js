@@ -37,109 +37,110 @@ import {
 import PrivateRoute from "./router/PrivateRoute";
 import AdminRoute from "./router/AdminRoute";
 import { InfoContact } from "./views/Form/components";
+import { SettingsGeneral } from "./views/Settings/components";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/confirmation/:token" component={Confirmation} />
-      <Route exact path="/confirmation" component={WaitForConfirmation} />
+      <Route exact path='/confirmation/:token' component={Confirmation} />
+      <Route exact path='/confirmation' component={WaitForConfirmation} />
       {/* ADMIN */}
-      <AdminRoute exact path="/dashboard" component={Board} />
-      <PrivateRoute exact path="/create-profile" component={Form} />
+      <AdminRoute exact path='/dashboard' component={Board} />
+      <PrivateRoute exact path='/create-profile' component={Form} />
       />
       {/*  */}
       {/* <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} /> */}
-      <Route component={Register} exact path="/register" />
-      <Route component={Login} exact path="/login" />
+      <Route component={Register} exact path='/register' />
+      <Route component={Login} exact path='/login' />
       <RouteWithLayout
         component={Landing}
         exact
         layout={MainLayout}
-        path="/landing"
+        path='/landing'
       />
-      <RouteWithLayout component={Home} exact layout={MainLayout} path="/" />
+      <RouteWithLayout component={Home} exact layout={MainLayout} path='/' />
       <RouteWithLayout
         component={Search}
         exact
         layout={MainLayout}
-        path="/search"
+        path='/search'
       />
       {/* PROFILE */}
       <RouteWithLayout
         component={Profile}
         exact
         layout={MinimalLayout}
-        path="/profile/artist/:id"
+        path='/profile/artist/:id'
       />
       {/* GENERAL */}
       <RouteWithLayout
         layout={MainLayout}
         component={Terms}
         exact
-        path="/terms-of-service"
+        path='/terms-of-service'
       />
       <RouteWithLayout
         layout={MainLayout}
         component={Policy}
         exact
-        path="/data-policy"
+        path='/data-policy'
       />
       {/* EDIT FORM */}
       <RoutePrivateWithLayout
         component={EditPersonalInfo}
         exact
         layout={MainLayout}
-        path="/personal-info"
+        path='/personal-info'
       />
       <RoutePrivateWithLayout
         component={EditProfile}
         exact
         layout={MainLayout}
-        path="/edit-profile"
+        path='/edit-profile'
       />
       <RoutePrivateWithLayout
         component={InfoContact}
         exact
         layout={MainLayout}
-        path="/info-contact"
+        path='/info-contact'
       />
       <RoutePrivateWithLayout
         component={EditPortfolio}
         exact
         layout={MainLayout}
-        path="/add-portfolio"
+        path='/add-portfolio'
       />
-      <RoutePrivateWithLayout
-        component={Settings}
+      <PrivateRoute component={Settings} exact path='/settings' />
+      <PrivateRoute
+        component={SettingsGeneral}
         exact
-        layout={MainLayout}
-        path="/settings"
+        path='/settings/general'
       />
       <RoutePrivateWithLayout
         component={EditMobile}
         exact
         layout={MainLayout}
-        path="/mobile"
+        path='/mobile'
       />
       <RoutePrivateWithLayout
         component={EditPrice}
         exact
         layout={MainLayout}
-        path="/price"
+        path='/price'
       />
       <RoutePrivateWithLayout
         component={EditCategories}
         exact
         layout={MainLayout}
-        path="/categories"
+        path='/categories'
       />
       {/* REVIEW */}
       <RoutePrivateWithLayout
         component={ReviewForm}
         exact
         layout={MainLayout}
-        path="/profile/artist/:userId/:reviewId"
+        path='/profile/artist/:userId/:reviewId'
       />
     </Switch>
   );

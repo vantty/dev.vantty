@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, ListItemText } from "@material-ui/core";
 //actions
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import { logout } from "../../../../actions/auth";
 
@@ -51,44 +52,71 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
 
   return (
     <Fragment>
-      <List component="nav">
+      <div className={classes.root}></div>
+      <List component='nav' className={classes.root}>
         {pagesProfile.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
-            <Container maxWidth="md">
+            <Container maxWidth='md'>
               <Grid
                 container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
+                direction='row'
+                justify='space-between'
+                alignItems='center'
               >
-                <Grid item>
+                <Grid item xs={10} md={12} lg={12} xl={12}>
                   <ListItemLink
                     href={page.href}
                     to={page.href}
                     selected={page.href === match.url}
                   >
-                    {/* <ListItemText primary={page.title} className={classes.title} /> */}
-                    <Typography variant="h5" gutterBottom>
-                      {page.title}
-                    </Typography>
+                    <ListItemText
+                      primary={page.title}
+                      // className={classes.title}
+                    >
+                      {/* <Typography variant='h5'>{page.title}</Typography> */}
+                    </ListItemText>
                   </ListItemLink>
                 </Grid>
-                <Grid item>
-                  <ArrowForwardIosIcon className={classes.arrow} />
+                <Grid item xs={2}>
+                  {isMobile && (
+                    <ArrowForwardIosIcon className={classes.arrow} />
+                  )}
                 </Grid>
               </Grid>
+              <Divider />
             </Container>
-            <Divider />
             {/* </Container> */}
           </div>
         ))}
         {/* <Container maxWidth='sm'> */}
-        <Container maxWidth="md">
+        <Container maxWidth='md'>
+          {isMobile && (
+            <Grid
+              container
+              direction='row'
+              justify='space-between'
+              alignItems='center'
+            >
+              <Grid item xs={10} md={12} lg={12} xl={12}>
+                <ListItemLink
+                  href={"settings/general"}
+                  to={"/settings/general"}
+                >
+                  <ListItemText
+                    primary={"General"}
+                    // className={classes.title}
+                  />
+                </ListItemLink>
+              </Grid>
+
+              <Grid item xs={2}>
+                <ArrowForwardIosIcon className={classes.arrow} />
+              </Grid>
+            </Grid>
+          )}
           <ListItem button onClick={logout}>
-            <Typography variant="h5" gutterBottom>
-              Logout
-            </Typography>
+            <ListItemText primary={"Logout"} />
           </ListItem>
         </Container>
         <Divider />

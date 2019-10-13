@@ -42,10 +42,10 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
   return (
     <Fragment>
       <div className={classes.root}></div>
-      <List component="nav" className={classes.root}>
+      <List component='nav' className={classes.root}>
         {pagesProfile.map((page, ind) => (
           <div key={page.title}>
-            <Container maxWidth="md">
+            <Container maxWidth='md'>
               <ListItemLink
                 href={page.href}
                 to={page.href}
@@ -57,7 +57,7 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
             <Divider />
           </div>
         ))}
-        <Container maxWidth="md">
+        <Container maxWidth='md'>
           <ListItem button onClick={logout}>
             <ListItemText primary={"Logout"} />
           </ListItem>

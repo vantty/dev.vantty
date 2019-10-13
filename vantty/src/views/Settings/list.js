@@ -37,24 +37,28 @@ export const pagesProfile = [
     title: "Mobile",
     href: "/mobile",
     icon: <ShoppingBasketIcon />
-  },
-
-  {
-    title: "Change Password",
-    href: "/password",
-    icon: <ImageIcon />
   }
 ];
 
 export const pagesUser = [
   {
     title: "Profile",
-    href: "/personal-info",
-    icon: <PeopleIcon />
-  },
+    href: "/personal-info"
+  }
+];
+
+export const pagesGeneral = [
   {
     title: "Change Password",
-    href: "/password",
-    icon: <ImageIcon />
+    href: "/password"
+  },
+  {
+    title: "Terms",
+    href: "/terms-of-service"
+  },
+
+  {
+    title: "Data Policy",
+    href: "/data-policy"
   }
 ];

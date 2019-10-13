@@ -32,12 +32,7 @@ const SimpleAppBar = ({ step, page }) => {
       <AppBar position='fixed' className={classes.appBar}>
         <Toolbar>
           <Container maxWidth='md'>
-            <MuiLink
-              underline='none'
-              color='inherit'
-              component={Link}
-              to={"/home"}
-            >
+            <MuiLink underline='none' color='inherit' component={Link} to={"/"}>
               <Typography
                 variant='h6'
                 color='inherit'
