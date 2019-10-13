@@ -37,7 +37,7 @@ const ReviewItem = ({
     <Grid>
       <Grid
         container
-        direction='row'
+        direction='column'
         justify='space-between'
         alignItems='stretch'
       >
@@ -74,9 +74,13 @@ const ReviewItem = ({
             <ListItem key={comment._id} alignItems='flex-start'>
               <ListItemAvatar>
                 {comment.profilePicture ? (
-                  <Avatar alt='' src={comment.profilePicture} />
+                  <Avatar
+                    alt=''
+                    src={comment.profilePicture}
+                    className={classes.avatarReviewList}
+                  />
                 ) : (
-                  <Avatar alt='' src={""}>
+                  <Avatar alt='' src={""} className={classes.avatarReviewList}>
                     {getInitials(comment.name)}
                   </Avatar>
                 )}
@@ -114,7 +118,7 @@ const ReviewItem = ({
                       : null} */}
                     {isOwner(auth, comment.user) ? (
                       <Button
-                        color='secondary'
+                        variant='body1'
                         onClick={() => deleteComment(_id, comment._id)}
                       >
                         Delete

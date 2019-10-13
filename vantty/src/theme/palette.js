@@ -64,6 +64,9 @@ export default {
     default: "#F4F6F8",
     paper: white
   },
+  whatsApp: {
+    primary: "#25D366"
+  },
   icon: colors.blueGrey[600],
   divider: colors.grey[200]
 };

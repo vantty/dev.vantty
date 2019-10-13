@@ -53,8 +53,8 @@ const SettingsGeneral = ({ match, history }) => {
       <SimpleAppBar history={history} path={"/settings"} />
       {isMobile && (
         <Fragment>
-          <div className={classes.root}></div>
-          <List component='nav' className={classes.root}>
+          {/* <div className={classes.root}></div> */}
+          <List component='nav'>
             {pagesGeneral.map((page, ind) => (
               <div key={page.title}>
                 {/* <Container maxWidth='sm'> */}
@@ -65,7 +65,7 @@ const SettingsGeneral = ({ match, history }) => {
                     justify='space-between'
                     alignItems='center'
                   >
-                    <Grid item xs={10} md={12} lg={12} xl={12}>
+                    <Grid item xs={11} md={12} lg={12} xl={12}>
                       <ListItemLink
                         href={page.href}
                         to={page.href}
@@ -79,7 +79,7 @@ const SettingsGeneral = ({ match, history }) => {
                         </ListItemText>
                       </ListItemLink>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={1}>
                       <ArrowForwardIosIcon className={classes.arrow} />
                     </Grid>
                   </Grid>

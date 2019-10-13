@@ -50,43 +50,47 @@ const BottomNavbar = props => {
           showLabels
         >
           <BottomNavigationAction
-            label="Home"
-            value="home"
+            label='Home'
+            value='home'
             component={Link}
-            to="/"
+            to='/'
             icon={<HomeIcon />}
           />
           <BottomNavigationAction
-            label="Search"
-            value="search"
+            label='Search'
+            value='search'
             component={Link}
-            to="/search"
+            to='/search'
             icon={<SearchIcon />}
           />
           {!isAuthenticated ? (
             <BottomNavigationAction
-              label="Join Now"
-              value="register"
+              label='Join Now'
+              value='register'
               component={Link}
-              to="/register"
+              to='/register'
               icon={<AccountIcon />}
             />
           ) : (
             <BottomNavigationAction
-              label="Profile"
-              value="profile"
+              label='Profile'
+              value='profile'
               className={classes.selected}
               component={Link}
-              to={profile ? `/profile/artist/${user && user._id}` : "/settings"}
+              to={
+                profile && profile.mobileNumber
+                  ? `/profile/artist/${user && user._id}`
+                  : "/settings"
+              }
               icon={<AccountIcon />}
             />
           )}
           {user && user.role === "Admin" && (
             <BottomNavigationAction
-              label="Admin"
-              value="admin"
+              label='Admin'
+              value='admin'
               component={Link}
-              to="/dashboard"
+              to='/dashboard'
               icon={<LocationOnIcon />}
             />
           )}

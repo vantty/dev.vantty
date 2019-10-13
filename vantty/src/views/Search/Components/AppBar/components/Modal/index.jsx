@@ -6,7 +6,7 @@
 // import DialogContentText from "@material-ui/core/DialogContentText";
 // import DialogTitle from "@material-ui/core/DialogTitle";
 
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -20,10 +20,18 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-
+import {
+  ReactiveBase,
+  DataSearch,
+  MultiDataList
+} from "@appbaseio/reactivesearch";
 const useStyles = makeStyles(theme => ({
   appBar: {
-    position: "relative"
+    position: "relative",
+    backgroundColor: theme.palette.purpleVantty.light
+  },
+  categories: {
+    margin: "1rem"
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -34,8 +42,10 @@ const useStyles = makeStyles(theme => ({
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
-export default function Modal({ open, close }) {
+export default function Modal({ open, close, modal }) {
   const classes = useStyles();
+
+  const [values, setValues] = useState("");
   return (
     <div>
       <Dialog
@@ -54,26 +64,21 @@ export default function Modal({ open, close }) {
             >
               <CloseIcon />
             </IconButton>
-            <Typography variant='h6' className={classes.title}>
+            {/* <Typography variant='h6' className={classes.title}>
               Sound
-            </Typography>
+            </Typography> */}
             <Button color='inherit' onClick={close}>
-              save
+              Apply
             </Button>
           </Toolbar>
         </AppBar>
-        <List>
-          <ListItem button>
-            <ListItemText primary='Phone ringtone' secondary='Titania' />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary='Default notification ringtone'
-              secondary='Tethys'
-            />
-          </ListItem>
-        </List>
+
+        <ReactiveBase
+          app={process.env.REACT_APP_APPBASE_INDEX}
+          credentials={process.env.REACT_APP_APPBASE_CREDENTIALS}
+        >
+          <form className={classes.categories}>{modal}</form>
+        </ReactiveBase>
       </Dialog>
     </div>
   );

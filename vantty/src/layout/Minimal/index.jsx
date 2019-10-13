@@ -36,6 +36,7 @@ const Minimal = props => {
       <main className={classes.content}>
         {!isMobile && <Navbar />}
         {children}
+        {!isMobile && <Footer />}
       </main>
     </div>
   );

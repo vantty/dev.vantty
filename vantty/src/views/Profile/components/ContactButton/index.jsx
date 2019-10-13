@@ -20,7 +20,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     backgroundColor: "#FAFAFA",
@@ -35,11 +35,15 @@ const useStyles = makeStyles({
     marginBottom: "0.5rem",
     width: "10rem",
     float: "right",
-    backgroundColor: "rgb(90, 40, 146)",
+    backgroundColor: theme.palette.whatsApp.primary,
     color: "white"
   },
   price: {
-    color: "rgb(90, 40, 146)"
+    color: theme.palette.purpleVantty.light,
+    fontSize: "20px"
+  },
+  infoPrice: {
+    fontSize: "10px"
   },
   list: {
     width: 250
@@ -56,8 +60,11 @@ const useStyles = makeStyles({
     float: "right",
     backgroundColor: "rgb(0, 223, 212)",
     color: "white"
+  },
+  wtsp: {
+    backgroundColor: theme.palette.whatsApp.primary
   }
-});
+}));
 
 const ContactButton = ({
   profile: { mobileNumber, user, price },
@@ -82,7 +89,7 @@ const ContactButton = ({
   const sideList = side => (
     <div
       className={classes.list}
-      role="presentation"
+      role='presentation'
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
@@ -110,37 +117,33 @@ const ContactButton = ({
   const fullList = side => (
     <div
       className={classes.fullList}
-      role="presentation"
+      role='presentation'
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
       {location === "Canada" && (
-        <Grid container direction="row" justify="center" alignItems="center">
+        <Grid container direction='row' justify='center' alignItems='center'>
           {isAndroid ? (
             <a href={msg(isIOS ? "?" : "&")}>
-              <Button className={classes.buttonDrawer} variant="contained">
+              <Button className={classes.buttonDrawer} variant='contained'>
                 SMS
               </Button>
             </a>
           ) : (
             <a href={msg("&")}>
-              <Button className={classes.buttonDrawer} variant="contained">
+              <Button className={classes.buttonDrawer} variant='contained'>
                 SMS
               </Button>
             </a>
           )}
 
           <a
-            target="#"
+            target='#'
             href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${getStrategyName(
               user
             )},%20I%20watched%20your%20profile%20in%20www.vantty.com,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
           >
-            <Button
-              style={{ backgroundColor: "#25D366" }}
-              className={classes.buttonDrawer}
-              variant="contained"
-            >
+            <Button classes={classes.wtsp} variant='contained'>
               Whatsapp
             </Button>
           </a>
@@ -149,7 +152,7 @@ const ContactButton = ({
 
       {true === "Colombia" && (
         <a
-          target="#"
+          target='#'
           href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${getStrategyName(
             user
           )},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
@@ -157,7 +160,7 @@ const ContactButton = ({
           <Button
             style={{ backgroundColor: "#25D366" }}
             className={classes.buttonDrawer}
-            variant="contained"
+            variant='contained'
           >
             Whatsapp
           </Button>
@@ -169,35 +172,46 @@ const ContactButton = ({
   const geo = navigator.geolocation;
   return (
     <Fragment>
-      {console.log(geo)}
       <div className={classes.root}>
-        <Container maxWidth="md">
+        <Container maxWidth='md'>
           <Fragment>
             <Grid
               container
-              direction="row"
-              justify="space-around"
-              alignItems="center"
+              direction='row'
+              justify='space-around'
+              alignItems='center'
             >
               <Grid item>
-                <h4 className={classes.price}>CAD$ {price}</h4>
+                <h4 className={classes.price}>
+                  ${price} <span className={classes.infoPrice}>/cad start</span>
+                </h4>
               </Grid>
               <Grid item>
-                <Button
+                {/* <Button
                   onClick={toggleDrawer("bottom", true)}
                   className={classes.button}
-                  variant="contained"
+                  variant='contained'
                 >
                   Contact
-                </Button>
+                </Button> */}
+                <a
+                  target='#'
+                  href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${getStrategyName(
+                    user
+                  )},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
+                >
+                  <Button className={classes.button} variant='contained'>
+                    Whatsapp
+                  </Button>
+                </a>
 
-                <Drawer
-                  anchor="bottom"
+                {/* <Drawer
+                  anchor='bottom'
                   open={state.bottom}
                   onClose={toggleDrawer("bottom", false)}
                 >
                   {fullList("bottom")}
-                </Drawer>
+                </Drawer> */}
               </Grid>
             </Grid>
           </Fragment>

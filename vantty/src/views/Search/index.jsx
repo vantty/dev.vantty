@@ -132,6 +132,30 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               defaultValue={searchValue}
             />
           }
+          modal={
+            <MultiDataList
+              componentId='categoryFilter'
+              dataField='portfolioPictures.tag.keyword'
+              showSearch={false}
+              data={[
+                {
+                  label: "Social",
+                  value: "Social"
+                },
+                {
+                  label: "Bridal",
+                  value: "Bridal"
+                },
+                {
+                  label: "Photography",
+                  value: "Photography"
+                }
+              ]}
+              value={values}
+              onChange={setValues}
+              title='Category'
+            />
+          }
         />
       )}
       <Container maxWidth='lg'>
@@ -207,6 +231,12 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                 <Fragment>
                                   <Card className={classes.card}>
                                     <CardActionArea>
+                                      {/* <a
+                                        href={`https://${process.env.REACT_APP_PATH}/profile/artist/${pic.userId}`}
+                                      > */}
+                                      {/* <a
+                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
+                                      > */}
                                       <a
                                         href={`https://vantty.ca/profile/artist/${pic.userId}`}
                                       >

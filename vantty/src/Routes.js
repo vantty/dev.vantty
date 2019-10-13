@@ -90,7 +90,7 @@ const Routes = () => {
       <RoutePrivateWithLayout
         component={EditPersonalInfo}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/personal-info'
       />
       <RoutePrivateWithLayout
@@ -102,13 +102,13 @@ const Routes = () => {
       <RoutePrivateWithLayout
         component={InfoContact}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/info-contact'
       />
       <RoutePrivateWithLayout
         component={EditPortfolio}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/add-portfolio'
       />
       <PrivateRoute component={Settings} exact path='/settings' />
@@ -120,26 +120,26 @@ const Routes = () => {
       <RoutePrivateWithLayout
         component={EditMobile}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/mobile'
       />
       <RoutePrivateWithLayout
         component={EditPrice}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/price'
       />
       <RoutePrivateWithLayout
         component={EditCategories}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/categories'
       />
       {/* REVIEW */}
       <RoutePrivateWithLayout
         component={ReviewForm}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/profile/artist/:userId/:reviewId'
       />
     </Switch>

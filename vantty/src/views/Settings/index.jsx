@@ -58,13 +58,13 @@ const Settings = ({
   return (
     <Fragment>
       {!isMobile && match.url === "/settings" && (
-        <Redirect to="/personal-info" />
+        <Redirect to='/personal-info' />
       )}
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
           history={history}
           path={
-            profile && profile.mobileNumber !== null
+            profile && profile.mobileNumber
               ? `/profile/artist/${profile.user._id}`
               : "/search"
           }

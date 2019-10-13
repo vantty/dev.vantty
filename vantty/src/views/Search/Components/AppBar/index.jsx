@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 // Components
 import { Modal } from "./components";
-
+// import vantty from "../../../../assets/logos/vantty.png";
+import vantty from "../../../../assets/logos/9.png";
 // Material-UI
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -27,6 +29,12 @@ const useStyles = makeStyles(theme => ({
   },
   appbar: {
     backgroundColor: theme.palette.greenVantty.main
+  },
+
+  avatar: {
+    width: 60,
+    height: 60,
+    marginRight: "1rem"
   },
   search: {
     position: "relative",
@@ -77,7 +85,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SearchAppBar({ children }) {
+export default function SearchAppBar({ children, modal }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -94,14 +102,7 @@ export default function SearchAppBar({ children }) {
     <div className={classes.grow}>
       <AppBar position='static' className={classes.appbar}>
         <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
-          >
-            <MenuIcon />
-          </IconButton>
+          <img src={vantty} className={classes.avatar} />
           <Typography className={classes.title} variant='h6' noWrap>
             Vantty
           </Typography>
@@ -122,7 +123,7 @@ export default function SearchAppBar({ children }) {
         </Toolbar>
       </AppBar>
 
-      {open && <Modal open={open} close={handleClose} />}
+      {open && <Modal open={open} close={handleClose} modal={modal} />}
     </div>
   );
 }
