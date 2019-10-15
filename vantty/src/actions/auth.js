@@ -220,8 +220,8 @@ export const logout = () => async dispatch => {
   await dispatch({ type: CLEAR_PROFILE });
   await dispatch({ type: LOGOUT });
   if (true) {
-    // window.location.href = "http://localhost:3000/";
-    window.location.href = "https://vantty.ca/";
+    window.location.href = "http://localhost:3000/";
+    // window.location.href = "https://vantty.ca/" || "https://www.vantty.ca/";
   }
 };
 
@@ -277,20 +277,20 @@ export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
 };
 
 // Get Country
-export const getGeoInfo = () => async dispatch => {
-  Axios.get("https://ipapi.co/json/")
-    .then(response => {
-      var data = response.data;
-      const location = {
-        countryName: data.country_name,
-        countryCode: data.country_calling_code
-      };
-      dispatch({
-        type: USER_LOCATION,
-        payload: data.country_name
-      });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
+// export const getGeoInfo = () => async dispatch => {
+//   Axios.get("https://ipapi.co/json/")
+//     .then(response => {
+//       var data = response.data;
+//       const location = {
+//         countryName: data.country_name,
+//         countryCode: data.country_calling_code
+//       };
+//       dispatch({
+//         type: USER_LOCATION,
+//         payload: data.country_name
+//       });
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// };

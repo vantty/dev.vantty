@@ -111,8 +111,7 @@ exports.deleteComment = async (req, res) => {
     const review = await Review.findById(req.params.id);
     const user = await User.findById(req.user.id);
     const Admin = await User.findById(req.user.id);
-    console.log(user);
-    console.log("Parama", req.params);
+
     // Pull out comment
     const comment = review.comments.find(
       comment => comment.id === req.params.comment_id

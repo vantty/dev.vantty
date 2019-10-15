@@ -32,6 +32,7 @@ import { AppBar } from "./Components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 // Actions
 import { changeNavbarValue } from "../../actions/navbar";
+import { invalid } from "moment";
 
 const { ResultCardsWrapper } = ReactiveList;
 const useStyles = makeStyles(theme => ({
@@ -156,6 +157,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               title='Category'
             />
           }
+          invisible={values}
         />
       )}
       <Container maxWidth='lg'>
@@ -166,7 +168,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
           alignItems='flex-start'
         >
           <Hidden xsDown>
-            <Grid item lg={4} className={classes.filters}>
+            <Grid item lg={4} md={4} className={classes.filters}>
               <DataSearch
                 onChange={clearSearch}
                 componentId='searchbox'
@@ -202,7 +204,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             </Grid>
           </Hidden>
 
-          <Grid item lg={8} xs={12}>
+          <Grid item lg={8} xs={12} md={8}>
             {/* </div> */}
             <ReactiveList
               componentId='result'

@@ -34,7 +34,8 @@ export const verifyNumber = res => dispatch => {
         .then(res => {
           const numberVerified = res.data.phone.number;
           if (numberVerified !== "") {
-            window.location.href = "https://vantty.ca/personal-info";
+            window.location.href =
+              "https://vantty.ca/" || "https://www.vantty.ca/";
           }
           dispatch(createMobileNumber({ mobileNumber: numberVerified }, true));
 

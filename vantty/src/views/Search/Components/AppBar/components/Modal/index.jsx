@@ -25,6 +25,7 @@ import {
   DataSearch,
   MultiDataList
 } from "@appbaseio/reactivesearch";
+import { Badge } from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative",
@@ -67,9 +68,9 @@ export default function Modal({ open, close, modal }) {
             {/* <Typography variant='h6' className={classes.title}>
               Sound
             </Typography> */}
-            <Button color='inherit' onClick={close}>
+            {/* <Button color='inherit' onClick={close}>
               Apply
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
 

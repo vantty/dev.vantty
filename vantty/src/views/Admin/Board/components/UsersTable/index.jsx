@@ -238,7 +238,7 @@ const UsersTable = props => {
                   <TableCell className={classes.tableCell}>
                     {
                       <Link
-                        href={`http://localhost:3000/profile/artist/${user.user._id}`}
+                        // href={`http://vantty.ca/profile/artist/${user.user._id}`}
                         target='_blank'
                       >
                         Profile

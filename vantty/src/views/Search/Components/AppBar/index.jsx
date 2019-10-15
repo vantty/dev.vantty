@@ -12,7 +12,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Badge } from "@material-ui/core";
+import { isBoolean } from "util";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -85,7 +86,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SearchAppBar({ children, modal }) {
+export default function SearchAppBar({ children, modal, invisible }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -117,7 +118,15 @@ export default function SearchAppBar({ children, modal }) {
               onClick={handleClickOpen("paper")}
               color='inherit'
             >
-              <FilterListIcon />
+              <Badge
+                color='secondary'
+                // badgeContent={}
+                variant='dot'
+                invisible={!invisible[0]}
+                className={classes.margin}
+              >
+                <FilterListIcon />
+              </Badge>
             </IconButton>
           </div>
         </Toolbar>

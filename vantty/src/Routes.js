@@ -30,7 +30,8 @@ import {
   Form,
   Search,
   Board,
-  Settings
+  Settings,
+  NotFound
 } from "./views";
 
 //Routes
@@ -142,6 +143,7 @@ const Routes = () => {
         layout={MinimalLayout}
         path='/profile/artist/:userId/:reviewId'
       />
+      <RouteWithLayout layout={MainLayout} component={NotFound} />
     </Switch>
   );
 };

@@ -4,7 +4,11 @@ const express = require("express"),
   passportJWT = passport.authenticate("jwt", { session: false }),
   passportLocal = passport.authenticate("local", { session: false }),
   passportGoogle = passport.authenticate("googleToken", { session: false }),
-  passportFacebook = passport.authenticate("facebookToken", { session: false }),
+  passportFacebook = passport.authenticate("facebookToken", {
+    session: false
+    // successRedirect: "https://www.vantty.ca",
+    // failureRedirect: "https://www.vantty.ca/login"
+  }),
   {
     auth,
     register,

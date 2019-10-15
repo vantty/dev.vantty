@@ -37,7 +37,7 @@ const ReviewItem = ({
     <Grid>
       <Grid
         container
-        direction='column'
+        direction='row'
         justify='space-between'
         alignItems='stretch'
       >
@@ -66,7 +66,6 @@ const ReviewItem = ({
 
       <br />
       <Divider variant='middle' />
-      <br />
 
       <List>
         {comments.map(comment => (
@@ -117,12 +116,14 @@ const ReviewItem = ({
                         )
                       : null} */}
                     {isOwner(auth, comment.user) ? (
-                      <Button
-                        variant='body1'
+                      <LinkMui
+                        component='button'
+                        variant='body2'
+                        className={classes.deleteReview}
                         onClick={() => deleteComment(_id, comment._id)}
                       >
-                        Delete
-                      </Button>
+                        Delete Comment
+                      </LinkMui>
                     ) : null}
                   </Fragment>
                 }

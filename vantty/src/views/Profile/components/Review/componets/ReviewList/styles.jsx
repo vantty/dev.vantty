@@ -4,6 +4,9 @@ const profilePageStyle = {
     width: 30,
     height: 30
   },
+  deleteReview: {
+    color: "red"
+  },
   button: {
     margin: 10
   },
