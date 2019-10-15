@@ -99,16 +99,16 @@ const InfoContact = ({
         {/* <form autoComplete='off' noValidate> */}
         <CardHeader
           // subheader='The information can be edited'
-          title="Mobile"
+          title='Mobile'
         />
         {/* <Divider /> */}
         <CardContent>
           <Fragment>
             <Grid
               container
-              direction="row"
-              justify="center"
-              alignItems="center"
+              direction='row'
+              justify='center'
+              alignItems='center'
             >
               <Grid
                 item
@@ -116,15 +116,15 @@ const InfoContact = ({
                 sm={12}
                 md={12}
                 container
-                direction="row"
-                justify="center"
-                alignItems="center"
+                direction='row'
+                justify='center'
+                alignItems='center'
               >
                 <Box>
                   <Typography
-                    component="h5"
-                    variant="h6"
-                    align="center"
+                    component='h5'
+                    variant='h6'
+                    align='center'
                     className={classes.typography}
                   >
                     This number will be where your clients could contact with
@@ -142,7 +142,7 @@ const InfoContact = ({
                       }}
                     >
                       <ReactPhoneInput
-                        defaultCountry="us"
+                        defaultCountry='us'
                         onlyCountries={["co", "us", "ca"]}
                         masks={{
                           co: "+.. (...) ...-..-..",
@@ -170,14 +170,15 @@ const InfoContact = ({
                     sm={12}
                     md={12}
                     container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
+                    direction='row'
+                    justify='center'
+                    alignItems='center'
                   >
                     <NumberValidation
                       phone={phone}
                       countryCode={countryCode}
                       history={history}
+                      id={profile && profile.user._id}
                     />
                   </Grid>
                   <br />
@@ -210,7 +211,7 @@ const InfoContact = ({
             Children={
               <div>
                 <div>
-                  <Button component={Link} to="/settings">
+                  <Button component={Link} to='/settings'>
                     Back
                   </Button>
                 </div>
