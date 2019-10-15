@@ -30,35 +30,20 @@ exports.sendEmail = async (req, res) => {
     // const url = `http://localhost:3000/confirmation/${emailToken}`;
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.mailgun.org",
+      port: 465,
+      secure: true,
       auth: {
-        user: "vantty.makeup@gmail.com",
-        pass: "vantty@2019"
+        user: "postmaster@sandboxa9491416275e4cca8486201f758ee732.mailgun.org",
+        pass: "fb08b4c23904fff810684931ac5b0e3d-9c988ee3-9b553ed6"
       }
     });
 
-    const mailOptions = {
-      from: "vantty.makeup@gmail.com",
-      to: `${email}`,
-      subject: "Confirm Email",
-      html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
-    };
-
     let message = {
-      from: "vantty.makeup@gmail.com",
+      from: "admin@vantty.com",
       to: `${email}`,
-      subject: "Confirm Email",
-      text: "Confirm Email",
-      html: `<!doctype html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-        </head>
-        <body>
-          <a href="${url}">Click Here</a>
-          <img src="https://res.cloudinary.com/vantty/image/upload/v1570640743/tguwr0ujboc8fbrlb8oz.jpg"/>
-        </body>
-      </html>`
+      subject: "Email Confirmation",
+      html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
     };
 
     transporter.sendMail(message, (err, data) => {
