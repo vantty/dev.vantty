@@ -262,7 +262,7 @@ const UsersTable = props => {
                       <Button
                         size='small'
                         disabled={disableButton}
-                        onClick={e => onSubmit(e, false, user._id)}
+                        onClick={e => onSubmit(e, false, selectedUsers)}
                       >
                         Block
                       </Button>

@@ -26,8 +26,8 @@ exports.sendEmail = async (req, res) => {
     });
 
     const emailToken = generateEmailToken(newUser);
-    // const url = `https://vantty.ca/confirmation/${emailToken}`;
-    const url = `http://localhost:3000/confirmation/${emailToken}`;
+    const url = `https://vantty.ca/confirmation/${emailToken}`;
+    // const url = `http://localhost:3000/confirmation/${emailToken}`;
 
     const transporter = nodemailer.createTransport({
       service: "gmail",

@@ -6,8 +6,6 @@ const express = require("express"),
   passportGoogle = passport.authenticate("googleToken", { session: false }),
   passportFacebook = passport.authenticate("facebookToken", {
     session: false
-    // successRedirect: "https://www.vantty.ca",
-    // failureRedirect: "https://www.vantty.ca/login"
   }),
   {
     auth,

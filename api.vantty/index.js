@@ -25,10 +25,9 @@ connectDB();
 
 // CORS config
 var whitelist = [
-  // "https://vantty.ca",
-  // "https://www.vantty.ca",
-  // "https://apivantty.now.sh",
-  "http://localhost:3000"
+  "https://vantty.ca",
+  "https://www.vantty.ca"
+  // "http://localhost:3000"
 ];
 var corsOptions = {
   origin: function(origin, callback) {
@@ -44,8 +43,8 @@ var corsOptions = {
 app.use(morgan("dev"));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
-// app.use(cors(corsOptions));
-app.use(cors("*"));
+app.use(cors(corsOptions));
+// app.use(cors("*"));
 app.use(formData.parse());
 
 // Routes

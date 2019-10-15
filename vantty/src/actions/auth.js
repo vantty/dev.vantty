@@ -220,8 +220,8 @@ export const logout = () => async dispatch => {
   await dispatch({ type: CLEAR_PROFILE });
   await dispatch({ type: LOGOUT });
   if (true) {
-    window.location.href = "http://localhost:3000/";
-    // window.location.href = "https://vantty.ca/" || "https://www.vantty.ca/";
+    // window.location.href = "http://localhost:3000/";
+    window.location.href = "https://vantty.ca/";
   }
 };
 
