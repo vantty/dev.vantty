@@ -4,11 +4,10 @@ import { withRouter, Link } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import validate from "validate.js";
-import { isMobile, isTablet, isBrowser } from "react-device-detect";
-import { getStrategy, getInitials, isOwner } from "../../../../helpers";
-import EditForm from "../../../EditForm";
+import { isMobile } from "react-device-detect";
+import { getStrategy, getInitials } from "../../../../helpers";
 
-//Material Components
+//Material-UI
 import { makeStyles } from "@material-ui/styles";
 import {
   Card,
@@ -19,10 +18,9 @@ import {
   Grid,
   Button,
   TextField,
-  Avatar,
-  Paper,
-  Typography
+  Avatar
 } from "@material-ui/core";
+import Progress from "@material-ui/core/LinearProgress";
 
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
@@ -30,8 +28,8 @@ import { getCurrentProfile, createProfile } from "../../../../actions/profile";
 import { AvatarUploader } from "./components";
 import { FormBottomNav } from "../ComponentsForm";
 
+// Helpers
 import { schemaErrors } from "../../../../helpers/errorsData";
-import Progress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -175,19 +173,19 @@ const AccountDetails = ({
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
-        <form autoComplete='off' noValidate>
+        <form autoComplete="off" noValidate>
           <CardHeader
             // subheader='The information can be edited'
-            title='Profile'
+            title="Profile"
           />
           {/* <Divider /> */}
           <CardContent>
             <Grid container spacing={3}>
               <Grid
                 container
-                direction='row'
-                justify='center'
-                alignItems='center'
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
                 <Grid item>
                   <Grid item>
@@ -230,14 +228,14 @@ const AccountDetails = ({
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
                   fullWidth
-                  label='First name'
-                  margin='dense'
-                  name='firstName'
+                  label="First name"
+                  margin="dense"
+                  name="firstName"
                   required
-                  type='text'
-                  variant='outlined'
-                  id='firstName'
-                  autoComplete='fname'
+                  type="text"
+                  variant="outlined"
+                  id="firstName"
+                  autoComplete="fname"
                   value={formState.values.firstName || firstName}
                   onChange={handleChange}
                 />
@@ -249,12 +247,12 @@ const AccountDetails = ({
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
-                  label='Last name'
-                  margin='dense'
-                  name='lastName'
+                  label="Last name"
+                  margin="dense"
+                  name="lastName"
                   required
-                  variant='outlined'
-                  id='lastName'
+                  variant="outlined"
+                  id="lastName"
                   error={hasError("lastName")}
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
@@ -267,13 +265,13 @@ const AccountDetails = ({
               <Grid item md={12} xs={12}>
                 <TextField
                   fullWidth
-                  label='Email Address'
-                  margin='dense'
-                  name='email'
+                  label="Email Address"
+                  margin="dense"
+                  name="email"
                   required
-                  variant='outlined'
-                  id='local.email'
-                  autoComplete='email'
+                  variant="outlined"
+                  id="local.email"
+                  autoComplete="email"
                   error={hasError("email")}
                   helperText={
                     hasError("email") ? formState.errors.email[0] : null
@@ -292,16 +290,16 @@ const AccountDetails = ({
               <CardActions>
                 <Grid
                   container
-                  direction='row'
-                  justify='space-between'
-                  alignItems='flex-start'
+                  direction="row"
+                  justify="space-between"
+                  alignItems="flex-start"
                 >
                   <Grid>
                     {/* {!profile && !profile.mobileNumber && ( */}
                     {profile && !profile.mobileNumber && (
                       <Button
                         component={Link}
-                        size='small'
+                        size="small"
                         style={{
                           color: "rgb(0, 223, 212)"
                         }}
@@ -313,7 +311,7 @@ const AccountDetails = ({
                     {!profile && (
                       <Button
                         component={Link}
-                        size='small'
+                        size="small"
                         style={{
                           color: "rgb(0, 223, 212)"
                         }}

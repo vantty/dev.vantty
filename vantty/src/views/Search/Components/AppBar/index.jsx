@@ -10,9 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import MenuIcon from "@material-ui/icons/Menu";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -100,10 +98,10 @@ export default function SearchAppBar({ children, modal }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position='static' className={classes.appbar}>
+      <AppBar position="static" className={classes.appbar}>
         <Toolbar>
-          <img src={vantty} className={classes.avatar} />
-          <Typography className={classes.title} variant='h6' noWrap>
+          <img src={vantty} className={classes.avatar} alt="" />
+          <Typography className={classes.title} variant="h6" noWrap>
             Vantty
           </Typography>
           <div>{children}</div>
@@ -112,10 +110,10 @@ export default function SearchAppBar({ children, modal }) {
 
           <div className={classes.sectionMobile}>
             <IconButton
-              aria-label='show more'
-              aria-haspopup='true'
+              aria-label="show more"
+              aria-haspopup="true"
               onClick={handleClickOpen("paper")}
-              color='inherit'
+              color="inherit"
             >
               <FilterListIcon />
             </IconButton>

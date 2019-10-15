@@ -18,7 +18,7 @@ const Landing = () => {
       <ProductValues />
       <ProductCategories />
       <ProductHowItWorks />
-      {/* <ProductCTA /> */}
+      <ProductCTA />
       <ProductSmokingHero />
       <AppFooter />
     </Fragment>

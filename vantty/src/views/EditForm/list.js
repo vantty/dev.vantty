@@ -4,8 +4,6 @@ import PeopleIcon from "@material-ui/icons/People";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import ImageIcon from "@material-ui/icons/Image";
 
-import LockOpenIcon from "@material-ui/icons/LockOpen";
-
 export const pagesProfile = [
   {
     title: "Profile",

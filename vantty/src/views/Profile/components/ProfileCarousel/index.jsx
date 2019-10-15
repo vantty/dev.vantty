@@ -3,9 +3,7 @@ import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
-// import CardAction from "@material-ui/core/CardAction";
-import { CardAction } from "../../../../components";
-import { Link, Button, ButtonBase, IconButton } from "@material-ui/core";
+import { Link } from "@material-ui/core";
 import MainPicture from "./components/MainPicture";
 
 const useStyles = makeStyles({
@@ -65,21 +63,21 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
           arrows
           autoPlaySpeed={3000}
           // centerMode={false}
-          containerClass='container'
+          containerClass="container"
           // dotListClass=''
           // draggable
           focusOnSelect={false}
           infinite
-          itemClass=''
+          itemClass=""
           // keyBoardControl
           // minimumTouchDrag={9}
-          partialVisbile='right'
+          partialVisbile="right"
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {portfolioPictures.map(image => (
             <Link
-              component='button'
+              component="button"
               onClick={() => {
                 setState({ picture: image.original, tag: image.tag });
               }}

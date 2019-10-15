@@ -3,7 +3,6 @@ import { AppBar, Toolbar, IconButton, Divider } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MuiLink from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
-import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
 const useStyles = makeStyles(theme => ({
@@ -47,12 +46,12 @@ const SimpleAppBar = ({ history, path }) => {
   return (
     <div>
       <Fragment>
-        <AppBar position='static' color='default' className={classes.appbar}>
+        <AppBar position="static" color="default" className={classes.appbar}>
           <Toolbar>
             {path ? (
               <MuiLink
-                underline='none'
-                color='inherit'
+                underline="none"
+                color="inherit"
                 component={Link}
                 to={path}
               >
@@ -61,7 +60,7 @@ const SimpleAppBar = ({ history, path }) => {
                 </IconButton>
               </MuiLink>
             ) : (
-              <MuiLink underline='none' color='inherit' onClick={handleBack}>
+              <MuiLink underline="none" color="inherit" onClick={handleBack}>
                 <IconButton className={classes.arrowBack}>
                   <ArrowBackIcon />
                 </IconButton>

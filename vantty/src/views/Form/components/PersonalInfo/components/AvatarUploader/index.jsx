@@ -72,11 +72,11 @@ const AvatarUploader = ({
     );
   };
 
-  const loadImages = () => {
-    if (profile !== null) {
-      return <AvatarPro profilePicture={profilePicture} />;
-    }
-  };
+  // const loadImages = () => {
+  //   if (profile !== null) {
+  //     return <AvatarPro profilePicture={profilePicture} />;
+  //   }
+  // };
 
   return (
     <div>
