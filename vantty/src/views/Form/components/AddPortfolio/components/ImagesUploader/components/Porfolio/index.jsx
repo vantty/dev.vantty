@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 //Components
 import { deletePicture } from "../../../../../../../../actions/profile";
-import { Chips, Select, Tags } from "./components";
+import { Select } from "./components";
 
 //Material-UI
 import CancelIcon from "@material-ui/icons/CancelRounded";
@@ -80,7 +80,7 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
             {/* <Chips pictureId={picture._id} tag={picture.tag} /> */}
             {picture.tag === undefined && <Select _id={picture._id} />}
             {/* <Select tag={picture.tag} /> */}
-            <Typography color='textPrimary' variant='h6' component='h3'>
+            <Typography color="textPrimary" variant="h6" component="h3">
               {picture.tag}
             </Typography>
             <br />

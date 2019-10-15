@@ -10,7 +10,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import MenuIcon from "@material-ui/icons/Menu";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { Avatar, Badge } from "@material-ui/core";
 import { isBoolean } from "util";
@@ -103,7 +102,7 @@ export default function SearchAppBar({ children, modal, invisible }) {
     <div className={classes.grow}>
       <AppBar position='static' className={classes.appbar}>
         <Toolbar>
-          <img src={vantty} className={classes.avatar} />
+          <img src={vantty} className={classes.avatar} alt='' />
           <Typography className={classes.title} variant='h6' noWrap>
             Vantty
           </Typography>
