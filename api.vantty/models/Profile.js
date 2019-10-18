@@ -60,9 +60,8 @@ const ProfileSchema = new mongoose.Schema({
       cloudId: {
         type: String
       },
-      tag: {
-        type: String
-      }
+      tag: { type: String },
+      elasticId: { type: String, default: null }
     }
   ],
   social: {
@@ -76,7 +75,7 @@ const ProfileSchema = new mongoose.Schema({
   city: {
     type: [String]
   },
-  elasticId: { type: String, default: null },
+  // elasticId: { type: String, default: null },
 
   // area: {
   //   country: {

@@ -17,26 +17,25 @@ import { SimpleAppBar } from "../../components";
 import { SettingsProfile, SettingsUser } from "./components";
 
 // Material-UI
-import { makeStyles } from "@material-ui/core/styles";
 import { Hidden } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    position: "sticky",
-    float: "left",
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
-    marginRight: "3rem" + "!important",
-    float: "left",
-    minWidth: "130px",
-    maxWidth: "130px"
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     flexGrow: 1,
+//     position: "sticky",
+//     float: "left",
+//     width: "100%",
+//     maxWidth: 360,
+//     backgroundColor: theme.palette.background.paper
+//   },
+//   tabs: {
+//     borderRight: `1px solid ${theme.palette.divider}`,
+//     marginRight: "3rem" + "!important",
+//     float: "left",
+//     minWidth: "130px",
+//     maxWidth: "130px"
+//   }
+// }));
 
 const Settings = ({
   match,
@@ -48,7 +47,7 @@ const Settings = ({
   history,
   getProfileById
 }) => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   useEffect(() => {
     getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);

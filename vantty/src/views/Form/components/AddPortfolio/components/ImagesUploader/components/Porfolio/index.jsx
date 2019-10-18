@@ -68,7 +68,11 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
         {/* </GridListTile> */}
         {portfolioPictures.map(picture => (
           <GridListTile key={picture._id} style={{ height: "auto" }}>
-            <span onClick={() => deletePicture(picture._id, picture.cloudId)}>
+            <span
+              onClick={() =>
+                deletePicture(picture._id, picture.cloudId, picture.elasticId)
+              }
+            >
               <CancelIcon />
             </span>
             <span

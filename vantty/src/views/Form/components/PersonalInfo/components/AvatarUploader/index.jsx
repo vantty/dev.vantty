@@ -13,7 +13,6 @@ import {
 // Material-UI
 import Button from "@material-ui/core/Button";
 import LinkMui from "@material-ui/core/Link";
-import AvatarPro from "./components/AvatarPro";
 
 const AvatarUploader = ({
   userImage,

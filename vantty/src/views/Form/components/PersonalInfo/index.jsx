@@ -124,10 +124,10 @@ const AccountDetails = ({
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const {
-    isValid,
-    values: {}
-  } = formState;
+  // const {
+  //   isValid,
+  //   values: {}
+  // } = formState;
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -150,15 +150,15 @@ const AccountDetails = ({
   //   getCurrentProfile();
   // }, []);
 
-  const continues = e => {
-    e.preventDefault();
-    nextStep();
-  };
+  // const continues = e => {
+  //   e.preventDefault();
+  //   nextStep();
+  // };
 
-  const back = e => {
-    e.preventDefault();
-    prevStep();
-  };
+  // const back = e => {
+  //   e.preventDefault();
+  //   prevStep();
+  // };
 
   //errors
   const hasError = field =>

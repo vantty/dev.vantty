@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { withStyles, createStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import { ButtonBase } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 export const styles = theme => ({
   /* Styles applied to the root element. */

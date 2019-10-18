@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 
 // Material-UI
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { isMobile } from "react-device-detect";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -24,8 +24,7 @@ import {
   deleteAccount
 } from "../../../actions/profile";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
-import { UsersToolbar, UsersTable, TotalUsers, Links } from "./components";
+import { UsersTable, TotalUsers, Links } from "./components";
 
 import Progress from "@material-ui/core/LinearProgress";
 import { mainListItems, secondaryListItems } from "../listItems";
@@ -128,9 +127,9 @@ const Board = ({
     getCurrentProfile();
   }, []);
 
-  const [formData, setFormData] = useState({
-    verified: false
-  });
+  // const [formData, setFormData] = useState({
+  //   verified: false
+  // });
 
   const data = profiles;
 

@@ -83,7 +83,6 @@ exports.createANDupdate = async (req, res) => {
         { $set: profileFields },
         { new: true }
       );
-      console.log(profileFields.verified);
       return res.json(profile);
     }
     // Create review id
@@ -298,12 +297,22 @@ exports.deleteProfilePicture = async (req, res) => {
 };
 
 exports.loadToElastic = async (req, res) => {
-  const { profileId, elasticId } = req.body;
-  let profile = await Profile.findOneAndUpdate(
-    { _id: profileId },
-    { $set: { elasticId: elasticId } },
-    { new: true }
-  );
+  const { allElasticId, profileId } = req.body;
+
+  let profile = await Profile.findById({ _id: profileId });
+  let pictures = profile.portfolioPictures;
+
+  const arr = Array.from(pictures);
+  const arr2 = Array.from(allElasticId);
+  for (const x of arr) {
+    for (const y of arr2) {
+      if (x._id == y._id) {
+        x.elasticId = y.elasticId;
+        x.tag = y.tag;
+      }
+    }
+  }
+  profile.save();
   res.status(200).json(profile);
 };
 

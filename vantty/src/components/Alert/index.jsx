@@ -11,7 +11,6 @@ import { amber, green } from "@material-ui/core/colors";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import WarningIcon from "@material-ui/icons/Warning";
 import { makeStyles } from "@material-ui/core/styles";
-import { Slide } from "@material-ui/core";
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -45,9 +44,11 @@ const useStyles1 = makeStyles(theme => ({
     alignItems: "center"
   }
 }));
-function TransitionLeft(props) {
-  return <Slide {...props} direction="left" />;
-}
+
+// function TransitionLeft(props) {
+//   return <Slide {...props} direction="left" />;
+// }
+
 const Snackbar = ({ className, message, variant }) => {
   const classes = useStyles1();
   const Icon = variantIcon[variant];

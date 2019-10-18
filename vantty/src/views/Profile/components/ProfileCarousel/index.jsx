@@ -52,7 +52,7 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
     picture: portfolioPictures[0].original,
     tag: portfolioPictures[0].tag
   });
-  const { picture, tag } = state;
+  const { picture } = state;
   return (
     <Fragment>
       <Fragment>

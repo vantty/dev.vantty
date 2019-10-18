@@ -57,10 +57,10 @@ const AddCategories = ({
     getCurrentProfile();
   }, []);
 
-  const continues = e => {
-    e.preventDefault();
-    nextStep();
-  };
+  // const continues = e => {
+  //   e.preventDefault();
+  //   nextStep();
+  // };
 
   const back = e => {
     e.preventDefault();

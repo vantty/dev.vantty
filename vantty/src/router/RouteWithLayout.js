@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { Route } from "react-router-dom";
 
 const RouteWithLayout = props => {
   const { layout: Layout, component: Component, ...rest } = props;

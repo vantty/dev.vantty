@@ -82,10 +82,10 @@ const InfoContact = ({
     });
   }
 
-  const continues = e => {
-    e.preventDefault();
-    nextStep();
-  };
+  // const continues = e => {
+  //   e.preventDefault();
+  //   nextStep();
+  // };
 
   const back = e => {
     e.preventDefault();

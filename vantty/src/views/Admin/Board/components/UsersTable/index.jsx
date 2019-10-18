@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import moment from "moment";
 import { connect } from "react-redux";
 // import PerfectScrollbar from "react-perfect-scrollbar";
 import { makeStyles } from "@material-ui/styles";
@@ -29,7 +28,7 @@ import {
   deleteAccount
 } from "../../../../../actions/profile";
 import { isIOS } from "react-device-detect";
-import { Verified as VerifiedIcon } from "../../../../../assets/icons";
+// import { Verified as VerifiedIcon } from "../../../../../assets/icons";
 // import { getInitials } from "../../../../helpers/getInitials";
 
 const useStyles = makeStyles(theme => ({
@@ -37,11 +36,11 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     marginTop: theme.spacing(),
     overflowX: "auto",
-    textAlign: "center" + "!important",
-    padding: "0px" + "!important"
+    textAlign: `center !important`,
+    padding: `0 !important`
   },
   tableCell: {
-    padding: "0px" + "!important"
+    padding: `0 !important`
   },
   content: {
     padding: 0
@@ -88,7 +87,7 @@ const UsersTable = props => {
     e.preventDefault();
     verifiedProfile({ verified: value, id: id });
     setVerifyButton(value);
-    var disableButton = value;
+    // var disableButton = value;
   };
 
   const [users] = useState(profiles);
@@ -151,10 +150,10 @@ const UsersTable = props => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding='checkbox'>
+                <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedUsers.length === users.length}
-                    color='primary'
+                    color="primary"
                     indeterminate={
                       selectedUsers.length > 0 &&
                       selectedUsers.length < users.length
@@ -180,12 +179,12 @@ const UsersTable = props => {
                   key={user._id}
                   selected={selectedUsers.indexOf(user._id) !== -1}
                 >
-                  <TableCell padding='checkbox'>
+                  <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedUsers.indexOf(user._id) !== -1}
-                      color='primary'
+                      color="primary"
                       onChange={event => handleSelectOne(event, user._id)}
-                      value='true'
+                      value="true"
                     />
                   </TableCell>
                   <TableCell className={classes.tableCell}>
@@ -196,7 +195,7 @@ const UsersTable = props => {
                       >
                         {/* {getInitials(user.name)} */}
                       </Avatar>
-                      <Typography variant='body1'>
+                      <Typography variant="body1">
                         {user.name.firstName}
                       </Typography>
                     </div>
@@ -206,12 +205,12 @@ const UsersTable = props => {
                     {
                       <div>
                         <a
-                          target='#'
+                          target="#"
                           href={`https://api.whatsapp.com/send?phone=${user.mobileNumber}&text=Hola!`}
                         >
                           <IconButton
                             className={classes.button}
-                            aria-label='delete'
+                            aria-label="delete"
                             style={{ color: "#25D366" }}
                           >
                             <Sms />
@@ -239,7 +238,7 @@ const UsersTable = props => {
                     {
                       <Link
                         // href={`http://vantty.ca/profile/artist/${user.user._id}`}
-                        target='_blank'
+                        target="_blank"
                       >
                         Profile
                       </Link>
@@ -248,9 +247,9 @@ const UsersTable = props => {
                   <TableCell className={classes.tableCell}>
                     {
                       <Button
-                        size='small'
-                        variant='contained'
-                        color='secondary'
+                        size="small"
+                        variant="contained"
+                        color="secondary"
                         // onChange={event => handleSelectOne(event, user._id)}
                         disabled={verifyButton}
                         onClick={e => onSubmit(e, true, user._id)}
@@ -260,7 +259,7 @@ const UsersTable = props => {
                     }
                     {
                       <Button
-                        size='small'
+                        size="small"
                         disabled={disableButton}
                         onClick={e => onSubmit(e, false, selectedUsers)}
                       >
@@ -276,9 +275,9 @@ const UsersTable = props => {
                   <TableCell>
                     {
                       <Button
-                        size='small'
+                        size="small"
                         // variant='contained'
-                        color='secondary'
+                        color="secondary"
                         // disabled={verifyButton}
                         onClick={() => deleteAccount(user.elasticId)}
                       >
@@ -295,7 +294,7 @@ const UsersTable = props => {
       </CardContent>
       <CardActions className={classes.actions}>
         <TablePagination
-          component='div'
+          component="div"
           count={users.length}
           onChangePage={handlePageChange}
           onChangeRowsPerPage={handleRowsPerPageChange}

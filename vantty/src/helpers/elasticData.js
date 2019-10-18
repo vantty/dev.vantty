@@ -1,20 +1,11 @@
 export default res => {
   const {
-    bio,
-    city,
-    education,
-    elasticId,
-    instagramUsername,
     name,
     portfolioPictures,
-    profession,
     profilePicture,
-    reviewId,
     user,
-    _id,
     verified,
-    price,
-    mobileNumber
+    price
   } = res.data;
   let userId = "";
   if (user._id) {
@@ -22,23 +13,16 @@ export default res => {
   } else {
     userId = user;
   }
-  const profileId = _id;
-  const data = {
-    bio,
-    city,
-    education,
-    elasticId,
-    instagramUsername,
-    name,
-    portfolioPictures,
-    profession,
-    profilePicture,
-    reviewId,
-    userId,
-    profileId,
-    verified,
-    price,
-    mobileNumber
-  };
+
+  portfolioPictures.map(pic => {
+    pic.picId = pic._id;
+    pic.userId = userId;
+    pic.verified = verified;
+    pic.profilePicture = profilePicture;
+    pic.name = name;
+    pic.price = price;
+    delete pic._id;
+  });
+  const data = portfolioPictures;
   return data;
 };
