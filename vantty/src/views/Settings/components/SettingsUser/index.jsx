@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SettingsProfile = ({ match, logout, pagesProfile }) => {
+const SettingsProfile = ({ match, logout, pages }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -43,7 +43,7 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
     <Fragment>
       <div className={classes.root}></div>
       <List component='nav' className={classes.root}>
-        {pagesProfile.map((page, ind) => (
+        {pages.map((page, ind) => (
           <div key={page.title}>
             <Container maxWidth='md'>
               <ListItemLink

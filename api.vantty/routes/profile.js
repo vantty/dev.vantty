@@ -22,7 +22,8 @@ const {
   addProfileImage,
   deleteProfilePicture,
   loadToElastic,
-  verifiedProfile
+  verifiedProfile,
+  deleteProfileAndUserDashboard
 } = require("../controllers/profile");
 
 // @desc     Get current users profile
@@ -86,5 +87,13 @@ router.post("/verified", verifiedProfile);
 // @route    PUT /profile/elastic
 // @access   Private
 router.put("/elastic", passportJWT, loadToElastic);
+
+// @route    DELETE /profile/profile-user-dashboard
+// @access   Private
+router.delete(
+  "/profile-user-dashboard",
+  passportJWT,
+  deleteProfileAndUserDashboard
+);
 
 module.exports = router;

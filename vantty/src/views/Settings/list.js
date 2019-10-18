@@ -46,10 +46,6 @@ export const pagesUser = [
   {
     title: "Become to an Artist",
     href: "/create-profile"
-  },
-  {
-    title: "General",
-    href: "/settings/general"
   }
 ];
 

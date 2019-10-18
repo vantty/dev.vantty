@@ -26,10 +26,11 @@ import Sms from "@material-ui/icons/SmsOutlined";
 import {
   getProfiles,
   verifiedProfile,
-  deleteAccount
+  deleteProfileAndUserDashboard
 } from "../../../../../actions/profile";
 import { isIOS } from "react-device-detect";
 import { Verified as VerifiedIcon } from "../../../../../assets/icons";
+
 // import { getInitials } from "../../../../helpers/getInitials";
 
 const useStyles = makeStyles(theme => ({
@@ -75,20 +76,25 @@ const UsersTable = props => {
     profiles,
     history,
     formData,
-    deleteAccount,
+    deleteProfileAndUserDashboard,
+    getProfiles,
     verifiedProfile,
     ...rest
   } = props;
 
-  var disableButton = "";
   useEffect(() => {
-    getProfiles();
+    // getProfiles();
   }, []);
+
   const onSubmit = (e, value, id) => {
     e.preventDefault();
     verifiedProfile({ verified: value, id: id });
     setVerifyButton(value);
-    var disableButton = value;
+  };
+
+  const deleteUsers = (e, elasticId, id) => {
+    e.preventDefault();
+    deleteProfileAndUserDashboard({ elasticId, id });
   };
 
   const [users] = useState(profiles);
@@ -97,7 +103,6 @@ const UsersTable = props => {
   const [page, setPage] = useState(0);
   const [verifyButton, setVerifyButton] = useState();
   // const disableButton = users.map(user => user.verified);
-  console.log(verifyButton);
 
   //Selects
   const handleSelectAll = event => {
@@ -132,7 +137,6 @@ const UsersTable = props => {
     }
 
     setSelectedUsers(newSelectedUsers);
-    console.log(newSelectedUsers);
   };
 
   const handlePageChange = (event, page) => {
@@ -238,7 +242,7 @@ const UsersTable = props => {
                   <TableCell className={classes.tableCell}>
                     {
                       <Link
-                        // href={`http://vantty.ca/profile/artist/${user.user._id}`}
+                        href={`${process.env.REACT_APP_PATH}/profile/artist/${user.user._id}`}
                         target='_blank'
                       >
                         Profile
@@ -252,7 +256,8 @@ const UsersTable = props => {
                         variant='contained'
                         color='secondary'
                         // onChange={event => handleSelectOne(event, user._id)}
-                        disabled={verifyButton}
+
+                        disabled={user.verified}
                         onClick={e => onSubmit(e, true, user._id)}
                       >
                         Verify
@@ -261,8 +266,8 @@ const UsersTable = props => {
                     {
                       <Button
                         size='small'
-                        disabled={disableButton}
-                        onClick={e => onSubmit(e, false, selectedUsers)}
+                        disabled={false}
+                        onClick={e => onSubmit(e, false, user._id)}
                       >
                         Block
                       </Button>
@@ -280,7 +285,7 @@ const UsersTable = props => {
                         // variant='contained'
                         color='secondary'
                         // disabled={verifyButton}
-                        onClick={() => deleteAccount(user.elasticId)}
+                        onClick={e => deleteUsers(e, user.elasticId, user._id)}
                       >
                         Delete
                       </Button>
@@ -328,5 +333,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfiles, verifiedProfile, deleteAccount }
+  { verifiedProfile, deleteProfileAndUserDashboard, getProfiles }
 )(UsersTable);

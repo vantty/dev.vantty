@@ -19,7 +19,7 @@ import { SettingsProfile, SettingsUser } from "./components";
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
 import { Hidden } from "@material-ui/core";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -60,6 +60,7 @@ const Settings = ({
       {!isMobile && match.url === "/settings" && (
         <Redirect to='/personal-info' />
       )}
+
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
           history={history}
@@ -70,10 +71,10 @@ const Settings = ({
           }
         />
       </Hidden>
-      {profile && profile.mobileNumber ? (
+      {!profile && profile.mobileNumber ? (
         <SettingsProfile match={match} pagesProfile={pagesProfile} />
       ) : (
-        <SettingsUser match={match} pagesProfile={pagesUser} />
+        <SettingsUser match={match} pages={pagesUser} />
       )}
     </Fragment>
   );

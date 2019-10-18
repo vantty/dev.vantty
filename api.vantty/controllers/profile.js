@@ -320,3 +320,21 @@ exports.verifiedProfile = async (req, res) => {
     res.send(err);
   }
 };
+
+// DELETE profile and User Dashboard
+exports.deleteProfileAndUserDashboard = async (req, res) => {
+  console.log(req);
+  try {
+    // Remove user review
+    await Review.deleteMany({ user: req.body.id });
+    // Remove profile
+    await Profile.findOneAndRemove({ user: req.body.id });
+    // Remove user
+    await User.findOneAndRemove({ _id: req.body.id });
+
+    res.json({ msg: "User deleted" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error 1");
+  }
+};
