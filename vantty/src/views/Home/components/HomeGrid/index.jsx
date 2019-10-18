@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link as RouterLink, withRouter } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 // Assets
 import v2 from "../../../../assets/images/v2.jpg";
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
   cardTitle: {
     padding: 0,
     paddingLeft: "0.6rem",
-    minHeight: "0px" + "!important",
+    minHeight: 0 + "!important",
     marginTop: "0.5rem"
   },
   avatar: {

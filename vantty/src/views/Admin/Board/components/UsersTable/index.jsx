@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import moment from "moment";
 import { connect } from "react-redux";
 // import PerfectScrollbar from "react-perfect-scrollbar";
 import { makeStyles } from "@material-ui/styles";
@@ -29,20 +28,17 @@ import {
   deleteProfileAndUserDashboard
 } from "../../../../../actions/profile";
 import { isIOS } from "react-device-detect";
-import { Verified as VerifiedIcon } from "../../../../../assets/icons";
-
-// import { getInitials } from "../../../../helpers/getInitials";
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     marginTop: theme.spacing(),
     overflowX: "auto",
-    textAlign: "center" + "!important",
-    padding: "0px" + "!important"
+    textAlign: `center !important`,
+    padding: `0 !important`
   },
   tableCell: {
-    padding: "0px" + "!important"
+    padding: `0 !important`
   },
   content: {
     padding: 0

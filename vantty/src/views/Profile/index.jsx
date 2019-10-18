@@ -1,25 +1,13 @@
 import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-
-import SearchIcon from "@material-ui/icons/Search";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Hidden from "@material-ui/core/Hidden";
-
-import Divider from "@material-ui/core/Divider";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 // Components
-import { useWait, Waiter } from "react-wait";
 import { Header } from "../../components/";
 import { Review, Slider } from "./components";
 
@@ -28,25 +16,11 @@ import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";
-import CircularProgress from "@material-ui/core/CircularProgress";
 // Material-UI
-import {
-  CssBaseline,
-  Container,
-  Toolbar,
-  AppBar,
-  IconButton,
-  Button
-} from "@material-ui/core";
-import LinkMui from "@material-ui/core/Link";
+import {CssBaseline,Container} from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
-// import ArrowBack from "../../components/ArrowBack";
-import MuiLink from "@material-ui/core/Link";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { SimpleAppBar } from "../../components";
 import { BottomNavbar } from "../../layout/Main/components";
-import { isOwner } from "../../helpers";
 
 const useStyles = makeStyles(theme => ({
   mainGrid: {
@@ -76,12 +50,13 @@ const Profile = ({
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
-  const handleBack = () => {
-    history.goBack();
-  };
+
+  // const handleBack = () => {
+  //   history.goBack();
+  // };
 
   const classes = useStyles();
-  const { Wait } = useWait();
+  
   return (
     <Fragment>
       {isMobile && (

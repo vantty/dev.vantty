@@ -16,11 +16,10 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Star from "@material-ui/icons/StarRateOutlined";
-import { Chip, Grid, Container } from "@material-ui/core";
+import { Chip, Grid } from "@material-ui/core";
 import List from "@material-ui/core/List";
 
 // Styles

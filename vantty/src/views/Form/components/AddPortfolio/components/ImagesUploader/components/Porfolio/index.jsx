@@ -68,7 +68,12 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
         {/* </GridListTile> */}
         {portfolioPictures.map(picture => (
           <GridListTile key={picture._id} style={{ height: "auto" }}>
-            <span onClick={() => deletePicture(picture._id, picture.cloudId)}>
+            <span
+              onClick={() =>
+                deletePicture(picture._id, picture.cloudId, picture.elasticId)
+              }
+            >
+              {console.log(picture)}
               <CancelIcon />
             </span>
             <span
@@ -80,7 +85,7 @@ const Porfolio = ({ portfolioPictures, deletePicture }) => {
             {/* <Chips pictureId={picture._id} tag={picture.tag} /> */}
             {picture.tag === undefined && <Select _id={picture._id} />}
             {/* <Select tag={picture.tag} /> */}
-            <Typography color="textPrimary" variant="h6" component="h3">
+            <Typography color='textPrimary' variant='h6' component='h3'>
               {picture.tag}
             </Typography>
             <br />

@@ -1,5 +1,4 @@
 import React from "react";
-import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
 //Components
 import ProgressBarForm from "../ProgressBar";

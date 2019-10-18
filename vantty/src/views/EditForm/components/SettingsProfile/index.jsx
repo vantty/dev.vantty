@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
-    marginRight: "3rem" + "!important",
+    marginRight: `3rem !important`,
     float: "left",
     minWidth: "130px",
     maxWidth: "130px"

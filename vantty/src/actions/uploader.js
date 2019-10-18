@@ -7,7 +7,12 @@ import {
 } from "./types";
 
 import { server, API_URL } from "../utils/axios";
-import { getCurrentProfile, createProfile, loadToElastic } from "./profile";
+import {
+  getCurrentProfile,
+  createProfile,
+  loadToElastic,
+  tagsToElastic
+} from "./profile";
 import { loadUser } from "./auth";
 import { elasticData } from "../helpers";
 
@@ -31,8 +36,7 @@ export const uploadTag = tagObj => async dispatch => {
 
     const res = await server.get("/profile/me");
     const data = elasticData(res);
-    const { profileId, elasticId } = data;
-    loadToElastic(data, profileId, elasticId);
+    tagsToElastic(data);
   } catch (error) {
     console.log(error);
   }
@@ -95,8 +99,8 @@ export const uploadImages = e => async dispatch => {
 
       const resProfile = await server.get("/profile/me");
       const data = elasticData(resProfile);
-      const { profileId, elasticId } = data;
-      loadToElastic(data, profileId, elasticId);
+      const { profileId } = data[0];
+      loadToElastic(data, profileId);
     })
     .catch(error => {
       console.log(error);

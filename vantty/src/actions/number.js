@@ -1,9 +1,4 @@
-import {
-  NUMBER_VERIFY_SUCCESS,
-  NUMBER_VERIFY_FAIL,
-  GET_PROFILE
-} from "./types";
-import { server, elastic } from "../utils/axios";
+import { NUMBER_VERIFY_SUCCESS, NUMBER_VERIFY_FAIL } from "./types";
 import axios from "axios";
 import crypto from "crypto";
 
@@ -12,7 +7,7 @@ import { createMobileNumber } from "./profile";
 const appId = process.env.REACT_APP_FACEBOOK_ID;
 const appSecret = process.env.REACT_APP_FACEBOOK_APP;
 
-const version = "v1.1";
+// const version = "v1.1";
 
 const redirect = (numberVerified, id) => {
   if (numberVerified !== "") {
@@ -22,7 +17,8 @@ const redirect = (numberVerified, id) => {
 
 export const verifyNumber = (res, id) => async dispatch => {
   const auth_code = res.code;
-  const getAccessToken = axios
+  // Get Access Token
+  axios
     .get(
       `https://graph.accountkit.com/v1.1/access_token?grant_type=authorization_code&code=${auth_code}&access_token=AA|${appId}|${appSecret}`
     )
@@ -33,7 +29,8 @@ export const verifyNumber = (res, id) => async dispatch => {
         .update(access_token)
         .digest("hex");
 
-      const getNumber = axios
+      // GetNumber
+      axios
         .get(
           `https://graph.accountkit.com/v1.1/me/?access_token=${access_token}&appsecret_proof=${appsecret_proof}`
         )

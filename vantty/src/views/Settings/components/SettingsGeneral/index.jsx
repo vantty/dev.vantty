@@ -1,10 +1,5 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
-// Actions
-import { connect } from "react-redux";
-import { logout } from "../../../../actions/auth";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -29,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
-    marginRight: "3rem" + "!important",
+    marginRight: `3rem !important`,
     float: "left",
     minWidth: "130px",
     maxWidth: "130px"
@@ -54,16 +49,16 @@ const SettingsGeneral = ({ match, history }) => {
       {isMobile && (
         <Fragment>
           {/* <div className={classes.root}></div> */}
-          <List component='nav'>
+          <List component="nav">
             {pagesGeneral.map((page, ind) => (
               <div key={page.title}>
                 {/* <Container maxWidth='sm'> */}
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Grid
                     container
-                    direction='row'
-                    justify='space-between'
-                    alignItems='center'
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
                   >
                     <Grid item xs={11} md={12} lg={12} xl={12}>
                       <ListItemLink

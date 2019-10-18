@@ -2,7 +2,6 @@ import { server, elastic } from "../utils/axios";
 import setAlert from "./alert";
 import { loadUser } from "./auth";
 import { deleteImages } from "./uploader";
-import { elasticData } from "../helpers";
 import {
   GET_PROFILE,
   GET_PROFILES,
@@ -77,7 +76,6 @@ export const createProfile = (
         "Content-type": "application/json"
       }
     };
-    console.log(formData);
     const res = await server.post("/profile", formData, config);
     dispatch(getCurrentProfile());
     dispatch({
@@ -87,9 +85,9 @@ export const createProfile = (
 
     dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
 
-    const data = elasticData(res);
-    const { profileId, elasticId } = data;
-    loadToElastic(data, profileId, elasticId);
+    // const data = elasticData(res);
+    // const { profileId, elasticId } = data;
+    // loadToElastic(data, profileId, elasticId);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -109,7 +107,6 @@ export const createMobileNumber = (
   formData,
   edit = false
 ) => async dispatch => {
-  console.log(formData);
   try {
     const config = {
       headers: {
@@ -121,13 +118,13 @@ export const createMobileNumber = (
       type: GET_PROFILE,
       payload: res.data
     });
-    console.log(res.data);
+
     dispatch(setAlert(edit ? "Mobile Number Validated" : null, "success"));
     dispatch(setAlert(!edit ? "Mobile Number NO Validated" : null, "error"));
 
-    const data = elasticData(res);
-    const { profileId, elasticId } = data;
-    loadToElastic(data, profileId, elasticId);
+    // const data = elasticData(res);
+    // const { profileId, elasticId } = data;
+    // loadToElastic(data, profileId, elasticId);
   } catch (err) {
     console.log(err);
 
@@ -267,11 +264,16 @@ export const addPortfolio = (formData, history) => async dispatch => {
 };
 
 // Delete picture
-export const deletePicture = (dataBaseId, cloudId) => async dispatch => {
+export const deletePicture = (
+  dataBaseId,
+  cloudId,
+  elasticId
+) => async dispatch => {
+  console.log(elasticId);
   try {
+    await deleteFromElastic(elasticId);
     const res = await server.delete(`/profile/portfolio/${dataBaseId}`);
-
-    dispatch(deleteImages(cloudId));
+    await dispatch(deleteImages(cloudId));
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -309,33 +311,6 @@ export const deleteProfilePicture = (dataBaseId, cloudId) => async dispatch => {
   }
 };
 
-export const loadToElastic = async (data, profileId, elasticId) => {
-  const elasticConfig = {
-    headers: {
-      "Content-type": "application/json",
-      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
-    }
-  };
-  if (!elasticId) {
-    const esRes = await elastic.post("/", data, elasticConfig);
-    elasticId = await esRes.data._id;
-    const body = { elasticId, profileId };
-    await server.put("/profile/elastic", body);
-  } else {
-    await elastic.put(`/${elasticId}`, data, elasticConfig);
-  }
-};
-
-const deleteFromElastic = async elasticId => {
-  const elasticConfig = {
-    headers: {
-      "Content-type": "application/json",
-      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
-    }
-  };
-  await elastic.delete(`/${elasticId}`, elasticConfig);
-};
-
 //Verified
 export const verifiedProfile = formData => async dispatch => {
   try {
@@ -344,13 +319,12 @@ export const verifiedProfile = formData => async dispatch => {
         "Content-type": "application/json"
       }
     };
-    console.log(formData);
-    const res = await server.post("/profile/verified", formData, config);
+    await server.post("/profile/verified", formData, config);
 
     dispatch(getProfiles());
-    const data = elasticData(res);
-    const { profileId, elasticId } = data;
-    loadToElastic(data, profileId, elasticId);
+    // const data = elasticData(res);
+    // const { profileId, elasticId } = data;
+    // loadToElastic(data, profileId, elasticId);
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -369,7 +343,6 @@ export const verifiedProfile = formData => async dispatch => {
 export const deleteProfileAndUserDashboard = ({
   formData
 }) => async dispatch => {
-  console.log(formData);
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -394,4 +367,66 @@ export const deleteProfileAndUserDashboard = ({
       });
     }
   }
+};
+export const loadToElastic = async (data, profileId) => {
+  const elasticConfig = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+    }
+  };
+
+  let allElasticId = [];
+  for (let i = 0; i < data.length; i++) {
+    const datum = data[i];
+    if (datum.elasticId == null) {
+      const esRes = await elastic.post("/", datum, elasticConfig);
+      const elasticId = await esRes.data._id;
+      await allElasticId.push({
+        _id: datum.picId,
+        elasticId: elasticId,
+        tag: datum.tag
+      });
+      const body = { allElasticId, profileId };
+      await server.put("/profile/elastic", body);
+    }
+  }
+
+  // if (!elasticId) {
+  //   data.map(async datum => {
+  //     const esRes = await elastic.post("/", datum, elasticConfig);
+  //     console.log(esRes);
+  //     picId = await esRes.data.picId;
+  //     const body = { picId };
+  //     await server.put("/profile/elastic", body);
+  //   });
+  // } else {
+  //   data.map(async datum => {
+  //     console.log(datum);
+  //     await elastic.put(`/${elasticId}`, datum, elasticConfig);
+  //   });
+  // }
+};
+
+export const tagsToElastic = async data => {
+  const elasticConfig = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+    }
+  };
+  for (let i = 0; i < data.length; i++) {
+    const datum = data[i];
+    elastic.put(`/${datum.elasticId}`, datum, elasticConfig);
+  }
+};
+
+const deleteFromElastic = async elasticId => {
+  const elasticConfig = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+    }
+  };
+  await elastic.delete(`/${elasticId}`, elasticConfig);
 };

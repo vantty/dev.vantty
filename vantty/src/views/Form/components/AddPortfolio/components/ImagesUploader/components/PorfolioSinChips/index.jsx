@@ -17,7 +17,6 @@ import {
   Avatar,
   Typography
 } from "@material-ui/core";
-import clsx from "clsx";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -101,7 +100,7 @@ const useStyles = makeStyles(theme => ({
   cardTitle: {
     padding: 0,
     paddingLeft: "0.6rem",
-    minHeight: "0px" + "!important",
+    minHeight: 0 + "!important",
     marginTop: "0.5rem"
   },
   avatar: {

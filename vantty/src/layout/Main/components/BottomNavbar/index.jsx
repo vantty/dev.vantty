@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import clsx from "clsx";
 
 // Actions
 import { logout } from "../../../../actions/auth";
@@ -14,8 +13,6 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountIcon from "@material-ui/icons/AccountCircle";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Slide from "@material-ui/core/Slide";
 import { getCurrentProfile } from "../../../../actions/profile";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { CssBaseline } from "@material-ui/core";
@@ -33,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 const BottomNavbar = props => {
   const {
-    auth: { isAuthenticated, loading, user },
+    auth: { isAuthenticated, user },
     profile: { profile },
     navbarValue
   } = props;

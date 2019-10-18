@@ -11,12 +11,10 @@ import {
   LOGOUT,
   CLEAR_PROFILE,
   INFO_UPDATE_SUCCESS,
-  INFO_UPDATE_FAIL,
-  USER_LOCATION
+  INFO_UPDATE_FAIL
 } from "./types";
 import { deleteImages } from "./uploader";
 import { getCurrentProfile } from "./profile";
-import Axios from "axios";
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -237,7 +235,7 @@ export const updateInfo = (
         "Content-type": "application/json"
       }
     };
-    const res = await server.post("/auth/update-info", formData, config);
+    await server.post("/auth/update-info", formData, config);
     await dispatch(loadUser());
     dispatch({
       type: INFO_UPDATE_SUCCESS
@@ -260,7 +258,7 @@ export const updateInfo = (
 // Delete User Picture
 export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
   try {
-    const res = await server.post(`/auth/userPicture`, { dataBaseId });
+    await server.post(`/auth/userPicture`, { dataBaseId });
     dispatch(deleteImages(cloudId));
     dispatch({
       type: INFO_UPDATE_SUCCESS

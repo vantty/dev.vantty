@@ -1,6 +1,5 @@
-import React, { useEffect, Fragment, useState } from "react";
-import { withRouter, Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React, { useEffect, Fragment } from "react";
+import { withRouter} from "react-router-dom";
 import { connect } from "react-redux";
 //Components
 import AppBarForm from "../Form/components/ComponentsForm/AppBar";
@@ -10,18 +9,18 @@ import { getCurrentProfile } from "../../actions/profile";
 
 //Material-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Box, Grid, Hidden, Divider } from "@material-ui/core";
+import { Box, Grid, Hidden } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Container } from "@material-ui/core";
-import {
-  SettSettingsProfile,
-  SettingsProfile,
-  SettingsUser
-} from "./components";
+// import {
+//   SettSettingsProfile,
+//   SettingsProfile,
+//   SettingsUser
+// } from "./components";
 import { isOwner } from "../../helpers";
-import { HomeFooter, Alert } from "../../components";
+import {  Alert } from "../../components";
 import { isMobile } from "react-device-detect";
 import Settings from "../../views/Settings";
 
@@ -60,13 +59,14 @@ const EditForm = ({
   auth,
   index
 }) => {
-  const [state, setState] = useState();
 
-  const shoot = (e, own) => (e, own) => {
-    e.preventDefault();
-    setState(own);
-    console.log(own);
-  };
+  // const [state, setState] = useState();
+
+  // const shoot = (e, own) => (e, own) => {
+  //   e.preventDefault();
+  //   setState(own);
+  //   console.log(own);
+  // };
 
   const classes = useStyles();
   useEffect(() => {

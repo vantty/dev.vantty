@@ -11,8 +11,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { Avatar, Badge } from "@material-ui/core";
-import { isBoolean } from "util";
+import { Badge } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -100,10 +99,10 @@ export default function SearchAppBar({ children, modal, invisible }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position='static' className={classes.appbar}>
+      <AppBar position="static" className={classes.appbar}>
         <Toolbar>
-          <img src={vantty} className={classes.avatar} alt='' />
-          <Typography className={classes.title} variant='h6' noWrap>
+          <img src={vantty} className={classes.avatar} alt="" />
+          <Typography className={classes.title} variant="h6" noWrap>
             Vantty
           </Typography>
           <div>{children}</div>
@@ -112,15 +111,15 @@ export default function SearchAppBar({ children, modal, invisible }) {
 
           <div className={classes.sectionMobile}>
             <IconButton
-              aria-label='show more'
-              aria-haspopup='true'
+              aria-label="show more"
+              aria-haspopup="true"
               onClick={handleClickOpen("paper")}
-              color='inherit'
+              color="inherit"
             >
               <Badge
-                color='secondary'
+                color="secondary"
                 // badgeContent={}
-                variant='dot'
+                variant="dot"
                 invisible={!invisible[0]}
                 className={classes.margin}
               >

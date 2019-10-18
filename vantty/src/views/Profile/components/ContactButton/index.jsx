@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { isAndroid, isIOS } from "react-device-detect";
 
 // Helpers
 import { getStrategyName } from "../../../../helpers";
@@ -11,14 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,115 +62,117 @@ const ContactButton = ({
   location
 }) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    bottom: false
-  });
 
-  const toggleDrawer = (side, open) => event => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
+  // const [state, setState] = React.useState({
+  //   bottom: false
+  // });
 
-    setState({ ...state, [side]: open });
-  };
+  // const toggleDrawer = (side, open) => event => {
+  //   if (
+  //     event.type === "keydown" &&
+  //     (event.key === "Tab" || event.key === "Shift")
+  //   ) {
+  //     return;
+  //   }
 
-  const sideList = side => (
-    <div
-      className={classes.list}
-      role='presentation'
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </div>
-  );
+  //   setState({ ...state, [side]: open });
+  // };
 
-  const msg = kindOfPhone => {
-    let text = `sms:${mobileNumber}${kindOfPhone}body=Hello! ${getStrategyName(
-      user
-    )},I watched your profile in www.vantty.com,so I wanted to get an appoinment with you!`;
-    return text;
-  };
+  // const msg = kindOfPhone => {
+  //   let text = `sms:${mobileNumber}${kindOfPhone}body=Hello! ${getStrategyName(
+  //     user
+  //   )},I watched your profile in www.vantty.com,so I wanted to get an appoinment with you!`;
+  //   return text;
+  // };
 
-  const fullList = side => (
-    <div
-      className={classes.fullList}
-      role='presentation'
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      {location === "Canada" && (
-        <Grid container direction='row' justify='center' alignItems='center'>
-          {isAndroid ? (
-            <a href={msg(isIOS ? "?" : "&")}>
-              <Button className={classes.buttonDrawer} variant='contained'>
-                SMS
-              </Button>
-            </a>
-          ) : (
-            <a href={msg("&")}>
-              <Button className={classes.buttonDrawer} variant='contained'>
-                SMS
-              </Button>
-            </a>
-          )}
+  // const sideList = side => (
+  //   <div
+  //     className={classes.list}
+  //     role="presentation"
+  //     onClick={toggleDrawer(side, false)}
+  //     onKeyDown={toggleDrawer(side, false)}
+  //   >
+  //     <List>
+  //       {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+  //         <ListItem button key={text}>
+  //           <ListItemIcon>
+  //             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+  //           </ListItemIcon>
+  //           <ListItemText primary={text} />
+  //         </ListItem>
+  //       ))}
+  //     </List>
+  //     <Divider />
+  //   </div>
+  // );
 
-          <a
-            target='#'
-            href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${getStrategyName(
-              user
-            )},%20I%20watched%20your%20profile%20in%20www.vantty.com,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
-          >
-            <Button classes={classes.wtsp} variant='contained'>
-              Whatsapp
-            </Button>
-          </a>
-        </Grid>
-      )}
+  // const fullList = side => (
+  //   <div
+  //     className={classes.fullList}
+  //     role="presentation"
+  //     onClick={toggleDrawer(side, false)}
+  //     onKeyDown={toggleDrawer(side, false)}
+  //   >
+  //     {location === "Canada" && (
+  //       <Grid container direction="row" justify="center" alignItems="center">
+  //         {isAndroid ? (
+  //           <a href={msg(isIOS ? "?" : "&")}>
+  //             <Button className={classes.buttonDrawer} variant="contained">
+  //               SMS
+  //             </Button>
+  //           </a>
+  //         ) : (
+  //           <a href={msg("&")}>
+  //             <Button className={classes.buttonDrawer} variant="contained">
+  //               SMS
+  //             </Button>
+  //           </a>
+  //         )}
 
-      {true === "Colombia" && (
-        <a
-          target='#'
-          href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${getStrategyName(
-            user
-          )},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
-        >
-          <Button
-            style={{ backgroundColor: "#25D366" }}
-            className={classes.buttonDrawer}
-            variant='contained'
-          >
-            Whatsapp
-          </Button>
-        </a>
-      )}
-    </div>
-  );
+  //         <a
+  //           target="#"
+  //           href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${getStrategyName(
+  //             user
+  //           )},%20I%20watched%20your%20profile%20in%20www.vantty.com,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
+  //         >
+  //           <Button classes={classes.wtsp} variant="contained">
+  //             Whatsapp
+  //           </Button>
+  //         </a>
+  //       </Grid>
+  //     )}
 
-  const geo = navigator.geolocation;
+  //     {true === "Colombia" && (
+  //       <a
+  //         target="#"
+  //         href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${getStrategyName(
+  //           user
+  //         )},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
+  //       >
+  //         <Button
+  //           style={{ backgroundColor: "#25D366" }}
+  //           className={classes.buttonDrawer}
+  //           variant="contained"
+  //         >
+  //           Whatsapp
+  //         </Button>
+  //       </a>
+  //     )}
+  //   </div>
+  // );
+
+  // const geo = navigator.geolocation;
+
   return (
     <Fragment>
       <div className={classes.root}>
-        <Container maxWidth='md'>
+        <Container maxWidth="md">
           <Fragment>
             <Grid
               container
-              direction='row'
-              justify='space-around'
-              alignItems='center'
+              direction="row"
+              justify="space-around"
+              alignItems="center"
             >
               <Grid item>
                 <h4 className={classes.price}>
@@ -195,12 +188,12 @@ const ContactButton = ({
                   Contact
                 </Button> */}
                 <a
-                  target='#'
+                  target="#"
                   href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${getStrategyName(
                     user
                   )},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
                 >
-                  <Button className={classes.button} variant='contained'>
+                  <Button className={classes.button} variant="contained">
                     Whatsapp
                   </Button>
                 </a>

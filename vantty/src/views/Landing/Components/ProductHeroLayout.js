@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import productHeroArrowDown from "../../../assets/themes/onepirate/productHeroArrowDown.png";
 import Arrow from "@material-ui/icons/ArrowDownward";
 
 const styles = theme => ({
@@ -51,7 +49,7 @@ const styles = theme => ({
 });
 
 function ProductHeroLayout(props) {
-  const { backgroundClassName, children, classes } = props;
+  const { children, classes } = props;
 
   return (
     <section className={classes.root}>

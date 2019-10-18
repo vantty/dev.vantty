@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 // Material helpers
 import { Container } from "@material-ui/core";
-import { spacing } from "@material-ui/system";
 
 // Material components
 import { Grid, Box } from "@material-ui/core";
