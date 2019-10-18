@@ -26,7 +26,13 @@ const useStyles = makeStyles({
   }
 });
 
-const NumberValidation = ({ verifyNumber, phone, countryCode, history }) => {
+const NumberValidation = ({
+  verifyNumber,
+  phone,
+  countryCode,
+  history,
+  id
+}) => {
   const classes = useStyles();
   return (
     <AccountKit
@@ -36,7 +42,7 @@ const NumberValidation = ({ verifyNumber, phone, countryCode, history }) => {
       countryCode={`+${countryCode}`} // eg. +60
       phoneNumber={phone.slice(countryCode.length)} // eg. 12345678
       emailAddress={""} // eg. me@site.com
-      onResponse={res => verifyNumber(res)}
+      onResponse={res => verifyNumber(res, id)}
     >
       {p => (
         <Button
