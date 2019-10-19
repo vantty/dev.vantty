@@ -16,6 +16,9 @@ const ProfileSchema = new mongoose.Schema({
   reviewId: {
     type: String
   },
+  imagesId: {
+    type: String
+  },
   profilePicture: { type: String },
 
   bio: {

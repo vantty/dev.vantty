@@ -265,14 +265,18 @@ export const addPortfolio = (formData, history) => async dispatch => {
 
 // Delete picture
 export const deletePicture = (
-  dataBaseId,
+  modelImagesId, // model pictures' id
+  dataBaseId, // picture's id
   cloudId,
   elasticId
 ) => async dispatch => {
-  console.log(elasticId);
+  console.log("ACTION", elasticId);
   try {
     await deleteFromElastic(elasticId);
-    const res = await server.delete(`/profile/portfolio/${dataBaseId}`);
+    // const res = await server.delete(`/profile/portfolio/${dataBaseId}`);
+    const res = await server.delete(
+      `/images/user-pictures/${modelImagesId}/${dataBaseId}`
+    );
     await dispatch(deleteImages(cloudId));
 
     dispatch({
@@ -368,7 +372,9 @@ export const deleteProfileAndUserDashboard = ({
     }
   }
 };
-export const loadToElastic = async (data, profileId) => {
+
+//Upload data to elastic
+export const loadToElastic = async (data, imagesId) => {
   const elasticConfig = {
     headers: {
       "Content-type": "application/json",
@@ -382,12 +388,14 @@ export const loadToElastic = async (data, profileId) => {
     if (datum.elasticId == null) {
       const esRes = await elastic.post("/", datum, elasticConfig);
       const elasticId = await esRes.data._id;
+      console.log(elasticId);
       await allElasticId.push({
-        _id: datum.picId,
+        _id: datum.pictureId,
         elasticId: elasticId,
         tag: datum.tag
       });
-      const body = { allElasticId, profileId };
+
+      const body = { allElasticId, imagesId };
       await server.put("/profile/elastic", body);
     }
   }

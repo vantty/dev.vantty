@@ -13,6 +13,17 @@ import {
 // Material-UI
 import Button from "@material-ui/core/Button";
 import LinkMui from "@material-ui/core/Link";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Avatar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(theme => ({
+  avatar: {
+    display: "inline-block",
+    width: 30,
+    height: 30
+  }
+}));
 
 const AvatarUploader = ({
   userImage,
@@ -25,10 +36,11 @@ const AvatarUploader = ({
   deleteUserPicture,
   profile: { profile },
   profilePicture,
-  onSubmit,
   id,
+  classes,
   ...rest
 }) => {
+  // const classes = useStyles();
   const onChange = e => {
     userImage(e, id, profile);
   };
@@ -37,16 +49,16 @@ const AvatarUploader = ({
     return (
       <Fragment>
         <Button
-          component="label"
-          size="small"
-          variant="outlined"
-          color="primary"
+          component='label'
+          size='small'
+          variant='outlined'
+          color='primary'
         >
           Upload File
           <input
             style={{ display: "none" }}
-            type="file"
-            name="file"
+            type='file'
+            name='file'
             multiple
             onChange={onChange}
           />
@@ -61,8 +73,8 @@ const AvatarUploader = ({
         <LinkMui
           style={{ marginRight: "1rem" }}
           disabled={!profilePicture.original && true}
-          component="button"
-          variant="body2"
+          component='button'
+          variant='body2'
           onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
         >
           Delete Picture
@@ -71,17 +83,26 @@ const AvatarUploader = ({
     );
   };
 
-  // const loadImages = () => {
-  //   if (profile !== null) {
-  //     return <AvatarPro profilePicture={profilePicture} />;
-  //   }
-  // };
+  const loadImages = () => {
+    if (profile !== null) {
+      // return <AvatarPro profilePicture={profilePicture} />;
+      return <Avatar src={profilePicture.original} className={classes} />;
+    }
+  };
 
   return (
-    <div>
-      <DeletePicture />
+    <Fragment>
+      {uploading ? (
+        <Fragment>
+          <CircularProgress />
+        </Fragment>
+      ) : (
+        <Fragment>{/* <Fragment>{loadImages()}</Fragment> */}</Fragment>
+      )}
+      <br />
+      <Fragment>{DeletePicture()}</Fragment>
       <UploadButton />
-    </div>
+    </Fragment>
   );
 };
 

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { PortfolioPictures } from "./components";
 
 // Actions
-import { uploadImages } from "../../../../../../actions/uploader";
+import { uploadImages, getImages } from "../../../../../../actions/uploader";
 import { getCurrentProfile } from "../../../../../../actions/profile";
 
 // Material-UI
@@ -17,12 +17,15 @@ import { Typography } from "@material-ui/core";
 const ImagesUploader = ({
   uploadImages,
   uploading,
-  images,
+  getImages,
+  uploader: { images },
+  // images,
   getCurrentProfile,
   profile: { profile }
 }) => {
   useEffect(() => {
     getCurrentProfile();
+    getImages();
   }, []);
 
   const onChange = e => {
@@ -32,12 +35,12 @@ const ImagesUploader = ({
   const UploadButton = () => {
     return (
       <Fragment>
-        <Button variant="contained" component="label" color="primary">
+        <Button variant='contained' component='label' color='primary'>
           Upload File
           <input
             style={{ display: "none" }}
-            type="file"
-            name="file"
+            type='file'
+            name='file'
             multiple
             onChange={onChange}
           />
@@ -49,13 +52,16 @@ const ImagesUploader = ({
   const loadImages = () => {
     if (profile !== null) {
       return (
-        <PortfolioPictures portfolioPictures={profile.portfolioPictures} />
+        <PortfolioPictures
+          portfolioPictures={images}
+          modelImagesId={profile.imagesId}
+        />
       );
     }
   };
 
-  const loadMessage = () => {
-    if (profile !== null && profile.portfolioPictures.length < 5) {
+  const loadMessage = images => {
+    if (profile !== null && images && images.length < 5) {
       return <Typography pt={5}>You need at least 5 pictures</Typography>;
     }
   };
@@ -63,13 +69,14 @@ const ImagesUploader = ({
   return (
     <Fragment>
       <UploadButton />
-      {uploading ? (
+      {uploading || !profile ? (
         <Fragment>
           <Progress />
         </Fragment>
       ) : (
         <Fragment>
-          {loadMessage()} {loadImages()}
+          {/* {loadMessage()} */}
+          {loadImages()}
         </Fragment>
       )}
     </Fragment>
@@ -78,19 +85,20 @@ const ImagesUploader = ({
 
 ImagesUploader.propTypes = {
   uploadImages: PropTypes.func.isRequired,
+  uploader: PropTypes.object,
   uploading: PropTypes.bool.isRequired,
-  images: PropTypes.array,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  getImages: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   uploading: state.uploader.uploading,
-  images: state.uploader.images,
-  profile: state.profile
+  profile: state.profile,
+  uploader: state.uploader
 });
 
 export default connect(
   mapStateToProps,
-  { uploadImages, getCurrentProfile }
+  { uploadImages, getCurrentProfile, getImages }
 )(ImagesUploader);

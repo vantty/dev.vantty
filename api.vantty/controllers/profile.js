@@ -1,6 +1,7 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Review = require("../models/Review");
+const Image = require("../models/Image");
 
 // Current User
 exports.current = async (req, res) => {
@@ -95,6 +96,17 @@ exports.createANDupdate = async (req, res) => {
     });
     const reviewArtist = await newReview.save();
     profileFields.reviewId = newReview.id;
+
+    // Create images id
+    const newImages = new Image({
+      user: req.user.id,
+      name:
+        req.user.local.firstName ||
+        req.user.google.firstName ||
+        req.user.facebook.firstName
+    });
+    const imagesArtist = await newImages.save();
+    profileFields.imagesId = newImages.id;
 
     // Create
     profile = new Profile(profileFields);
@@ -297,10 +309,10 @@ exports.deleteProfilePicture = async (req, res) => {
 };
 
 exports.loadToElastic = async (req, res) => {
-  const { allElasticId, profileId } = req.body;
+  const { allElasticId, imagesId } = req.body;
 
-  let profile = await Profile.findById({ _id: profileId });
-  let pictures = profile.portfolioPictures;
+  let images = await Image.findById({ _id: imagesId });
+  let pictures = images.pictures;
 
   const arr = Array.from(pictures);
   const arr2 = Array.from(allElasticId);
@@ -312,8 +324,8 @@ exports.loadToElastic = async (req, res) => {
       }
     }
   }
-  profile.save();
-  res.status(200).json(profile);
+  images.save();
+  res.status(200).json(images);
 };
 
 exports.verifiedProfile = async (req, res) => {

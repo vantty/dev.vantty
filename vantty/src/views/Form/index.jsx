@@ -28,6 +28,7 @@ import {
 import { AppBarForm } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
+import { getImages } from "../../actions/uploader";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -53,7 +54,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Form = ({ profile, getCurrentProfile }) => {
+const Form = ({
+  profile,
+  getCurrentProfile,
+
+  uploader: { images }
+}) => {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = useState(1);
@@ -164,12 +170,14 @@ const Form = ({ profile, getCurrentProfile }) => {
 Form.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired
+  createProfile: PropTypes.func.isRequired,
+  uploader: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  uploader: state.uploader
 });
 
 export default connect(

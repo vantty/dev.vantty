@@ -17,10 +17,11 @@ import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
 // Actions
 import { getProfileById } from "../../actions/profile";
 // Material-UI
-import {CssBaseline,Container} from "@material-ui/core";
+import { CssBaseline, Container } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 import { SimpleAppBar } from "../../components";
 import { BottomNavbar } from "../../layout/Main/components";
+import { getImages } from "../../actions/uploader";
 
 const useStyles = makeStyles(theme => ({
   mainGrid: {
@@ -42,6 +43,8 @@ const useStyles = makeStyles(theme => ({
 const Profile = ({
   getProfileById,
   profile: { profile, loading },
+  uploader: { images },
+  getImages,
   auth,
   auth: { user },
   match,
@@ -49,6 +52,7 @@ const Profile = ({
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
+    getImages();
   }, [getProfileById, match.params.id]);
 
   // const handleBack = () => {
@@ -56,7 +60,7 @@ const Profile = ({
   // };
 
   const classes = useStyles();
-  
+
   return (
     <Fragment>
       {isMobile && (
@@ -86,7 +90,7 @@ const Profile = ({
                         <ProfileInfo profile={profile} auth={auth} />
                         <br />
 
-                        <ProfileCarousel profile={profile} />
+                        <ProfileCarousel profile={profile} images={images} />
 
                         <br />
                         <br />
@@ -139,16 +143,18 @@ Profile.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   navbar: PropTypes.object.isRequired,
-  history: PropTypes.object
+  history: PropTypes.object,
+  uploader: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
-  navbar: state.navbar
+  navbar: state.navbar,
+  uploader: state.uploader
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileById }
+  { getProfileById, getImages }
 )(Profile);

@@ -45,12 +45,12 @@ const responsive = {
   }
 };
 
-const Porfolio = ({ profile: { portfolioPictures } }) => {
+const Porfolio = ({ profile: { portfolioPictures }, images }) => {
+  console.log("carousel", images);
   const classes = useStyles();
-
   const [state, setState] = useState({
-    picture: portfolioPictures[0].original,
-    tag: portfolioPictures[0].tag
+    // picture: images[0].original
+    // tag: images && images[0].tag
   });
   const { picture } = state;
   return (
@@ -63,36 +63,37 @@ const Porfolio = ({ profile: { portfolioPictures } }) => {
           arrows
           autoPlaySpeed={3000}
           // centerMode={false}
-          containerClass="container"
+          containerClass='container'
           // dotListClass=''
           // draggable
           focusOnSelect={false}
           infinite
-          itemClass=""
+          itemClass=''
           // keyBoardControl
           // minimumTouchDrag={9}
-          partialVisbile="right"
+          partialVisbile='right'
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
-          {portfolioPictures.map(image => (
-            <Link
-              component="button"
-              onClick={() => {
-                setState({ picture: image.original, tag: image.tag });
-              }}
-              className={classes.frame}
-              key={image._id}
-            >
-              <span
-                key={image._id}
-                style={{
-                  backgroundImage: `url(${image.original})`
+          {images &&
+            images.map(image => (
+              <Link
+                component='button'
+                onClick={() => {
+                  setState({ picture: image.original, tag: image.tag });
                 }}
-                className={classes.image}
-              />
-            </Link>
-          ))}
+                className={classes.frame}
+                key={image._id}
+              >
+                <span
+                  key={image._id}
+                  style={{
+                    backgroundImage: `url(${image.original})`
+                  }}
+                  className={classes.image}
+                />
+              </Link>
+            ))}
         </Carousel>
       </Fragment>
     </Fragment>

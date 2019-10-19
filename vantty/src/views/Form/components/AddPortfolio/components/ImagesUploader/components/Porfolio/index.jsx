@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 //Components
-import { deletePicture } from "../../../../../../../../actions/profile";
+import { deletePicture } from "../../../../../../../../actions/uploader";
 import { Select } from "./components";
 
 //Material-UI
@@ -42,64 +42,56 @@ const useStyles = makeStyles(theme => ({
     // height: "340px"
     // overflow: "hidden"
   }
-  // imgFullHeight: {
-  //   height: "100%",
-  //   transform: "translateX(-50%)",
-  //   position: "relative",
-  //   left: "50%"
-  // },
-  // imgFullWidth: {
-  //   width: "100%",
-  //   position: "relative",
-  //   transform: "translateY(-50%)",
-  //   top: "50%"
-  // }
 }));
 
-const Porfolio = ({ portfolioPictures, deletePicture }) => {
+const Porfolio = ({ portfolioPictures, deletePicture, modelImagesId }) => {
   const classes = useStyles();
 
   const pictures = () => (
-    <div>
-      <GridList>
-        {/* <GridListTile key='Subheader' cols={2} style={{ height: "auto" }}> */}
-        {/* <ListSubheader component='div'>Portfolio</ListSubheader> */}
-        <br />
-        {/* </GridListTile> */}
-        {portfolioPictures.map(picture => (
-          <GridListTile key={picture._id} style={{ height: "auto" }}>
-            <span
-              onClick={() =>
-                deletePicture(picture._id, picture.cloudId, picture.elasticId)
-              }
-            >
-              {console.log(picture)}
-              <CancelIcon />
-            </span>
-            <span
-              style={{
-                backgroundImage: `url(${picture.original})`
-              }}
-              className={clsx(classes.image)}
-            />
-            {/* <Chips pictureId={picture._id} tag={picture.tag} /> */}
-            {picture.tag === undefined && <Select _id={picture._id} />}
-            {/* <Select tag={picture.tag} /> */}
-            <Typography color='textPrimary' variant='h6' component='h3'>
-              {picture.tag}
-            </Typography>
-            <br />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
+    <Fragment>
+      <div>
+        <GridList>
+          <br />
+
+          {portfolioPictures &&
+            portfolioPictures.map(picture => (
+              <GridListTile key={picture._id} style={{ height: "auto" }}>
+                <span
+                  onClick={() =>
+                    deletePicture(
+                      modelImagesId,
+                      picture._id,
+                      picture.cloudId,
+                      picture.elasticId
+                    )
+                  }
+                >
+                  <CancelIcon />
+                </span>
+                <span
+                  style={{
+                    backgroundImage: `url(${picture.original})`
+                  }}
+                  className={clsx(classes.image)}
+                />
+                {/* {picture.tag === undefined && <Select _id={picture._id} />} */}
+                {/* <Select tag={picture.tag} /> */}
+                <Typography color='textPrimary' variant='h6' component='h3'>
+                  {picture.tag}
+                </Typography>
+                <br />
+              </GridListTile>
+            ))}
+        </GridList>
+      </div>
+    </Fragment>
   );
 
   return <Fragment>{pictures()}</Fragment>;
 };
 
 Porfolio.propTypes = {
-  portfolioPictures: PropTypes.array.isRequired,
+  portfolioPictures: PropTypes.array,
   deletePicture: PropTypes.func.isRequired
 };
 

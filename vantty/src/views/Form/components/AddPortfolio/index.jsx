@@ -23,6 +23,7 @@ import {
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
+import { getImages } from "../../../../actions/uploader";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,11 +51,14 @@ const AddPortfolio = ({
   step,
   match,
   getCurrentProfile,
+  uploader: { image },
+  getImages,
   className,
   ...rest
 }) => {
   useEffect(() => {
     getCurrentProfile();
+    getImages();
   }, []);
 
   const continues = e => {
@@ -73,8 +77,8 @@ const AddPortfolio = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete="off" noValidate>
-              <CardHeader title="Portfolio" />
+            <form autoComplete='off' noValidate>
+              <CardHeader title='Portfolio' />
               <CardContent className={classes.content}>
                 <div>
                   <ImagesUploader />
@@ -108,7 +112,8 @@ const AddPortfolio = ({
                                 disabled={
                                   profile &&
                                   !loading &&
-                                  profile.portfolioPictures.length < 5 &&
+                                  image &&
+                                  image.length < 5 &&
                                   true
                                 }
                                 onClick={continues}
@@ -131,7 +136,7 @@ const AddPortfolio = ({
                       <div>
                         <Fragment>
                           <Fragment>
-                            <Button component={Link} to="/settings">
+                            <Button component={Link} to='/settings'>
                               Back
                             </Button>
                           </Fragment>
@@ -157,10 +162,11 @@ AddPortfolio.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  uploader: state.uploader
 });
 
 export default connect(
   mapStateToProps,
-  { addPortfolio, getCurrentProfile }
+  { addPortfolio, getCurrentProfile, getImages }
 )(withRouter(AddPortfolio));

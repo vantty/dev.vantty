@@ -3,10 +3,11 @@ import {
   IMAGES_UPLOAD_FAIL,
   IMAGES_UPLOADING,
   IMAGES_DELETE_SUCCESS,
-  IMAGES_DELETE_FAIL
+  IMAGES_DELETE_FAIL,
+  GET_IMAGES
 } from "./types";
 
-import { server, API_URL } from "../utils/axios";
+import { server, API_URL, elastic } from "../utils/axios";
 import {
   getCurrentProfile,
   createProfile,
@@ -15,6 +16,26 @@ import {
 } from "./profile";
 import { loadUser } from "./auth";
 import { elasticData } from "../helpers";
+import setAlert from "./alert";
+
+// Get Model Image
+export const getImages = imagesId => async dispatch => {
+  try {
+    // await dispatch(loadUser());
+    const res = await server.get(`/images`);
+    // const res = await server.get(`/images/${imagesId}`);
+    console.log(res);
+    dispatch({
+      type: GET_IMAGES,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: IMAGES_UPLOAD_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
 
 export const uploadTag = tagObj => async dispatch => {
   try {
@@ -87,20 +108,22 @@ export const uploadImages = e => async dispatch => {
           cloudId: images[i].public_id,
           tag: [""]
         };
-        await server.put("/profile/portfolio", sendImage);
+        await server.put("/images/portfolio", sendImage);
       }
 
       await dispatch({
-        type: IMAGES_UPLOAD_SUCCESS,
-        payload: images
+        type: IMAGES_UPLOAD_SUCCESS
+        // payload: images
       });
       await dispatch(loadUser());
       await dispatch(getCurrentProfile());
 
+      const resImages = await server.get("/images");
       const resProfile = await server.get("/profile/me");
-      const data = elasticData(resProfile);
+      const data = elasticData(resImages.data, resProfile); // helpers
       const { profileId } = data[0];
-      loadToElastic(data, profileId);
+      await loadToElastic(data, resProfile.data.imagesId); //ACTION
+      await dispatch(getImages());
     })
     .catch(error => {
       console.log(error);
@@ -116,10 +139,10 @@ export const deleteImages = id => async dispatch => {
       method: "POST",
       body: formData
     });
-    const resProfile = await server.get("/profile/me");
-    const data = elasticData(resProfile);
-    const { profileId, elasticId } = data;
-    loadToElastic(data, profileId, elasticId);
+    // const resImages = await server.get("/profile/me");
+    // const data = elasticData(resImages);
+    // const { profileId, elasticId } = data;
+    // loadToElastic(data, profileId, elasticId);
     dispatch({ type: IMAGES_DELETE_SUCCESS });
   } catch (err) {
     dispatch({ type: IMAGES_DELETE_FAIL });
@@ -153,7 +176,6 @@ export const userImage = (e, id, profile) => async dispatch => {
     }
 
     formData.append(i, file);
-    console.log("formadata", file);
   });
 
   if (errs.length) {
@@ -162,7 +184,6 @@ export const userImage = (e, id, profile) => async dispatch => {
   }
 
   dispatch({ type: IMAGES_UPLOADING });
-
   server
     .post("/images/add", formData)
     .then(async res => {
@@ -175,20 +196,58 @@ export const userImage = (e, id, profile) => async dispatch => {
         };
         await server.put("/auth/user-image", sendImage);
       }
-      await dispatch(loadUser());
+
       profile &&
         (await dispatch(
           createProfile({ profilePicture: sendImage.original }, undefined, true)
         ));
       await dispatch({
-        type: IMAGES_UPLOAD_SUCCESS,
-        payload: images
+        type: IMAGES_UPLOAD_SUCCESS
       });
-      await dispatch(getCurrentProfile());
     })
 
     .catch(error => {
       console.log(error);
       dispatch({ type: IMAGES_UPLOAD_FAIL });
     });
+};
+
+// Delete picture
+export const deletePicture = (
+  modelImagesId, // model pictures' id
+  dataBaseId, // picture's id
+  cloudId,
+  elasticId
+) => async dispatch => {
+  try {
+    await deleteFromElastic(elasticId);
+    // const res = await server.delete(`/profile/portfolio/${dataBaseId}`);
+    const res = await server.delete(
+      `/images/user-pictures/${modelImagesId}/${dataBaseId}`
+    );
+
+    await dispatch(deleteImages(cloudId));
+
+    dispatch({
+      type: IMAGES_DELETE_SUCCESS,
+      payload: res.data
+    });
+
+    dispatch(setAlert("Picture Removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: IMAGES_UPLOAD_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+const deleteFromElastic = async elasticId => {
+  const elasticConfig = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+    }
+  };
+  await elastic.delete(`/${elasticId}`, elasticConfig);
 };
