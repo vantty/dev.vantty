@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -10,39 +10,49 @@ import {
   deleteUserPicture
 } from "../../../../../../actions/auth";
 
+import { getCurrentProfile } from "../../../../../../actions/profile";
 // Material-UI
 import Button from "@material-ui/core/Button";
 import LinkMui from "@material-ui/core/Link";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { getInitials, getStrategy } from "../../../../../../helpers";
 
 const useStyles = makeStyles(theme => ({
   avatar: {
-    display: "inline-block",
-    width: 30,
-    height: 30
+    margin: "auto",
+    height: 90,
+    width: 90
+  },
+  progress: {
+    margin: "2rem"
+  },
+  delete: {
+    marginRight: "1rem"
   }
 }));
 
 const AvatarUploader = ({
   userImage,
   uploading,
-  images,
   getCurrentProfile,
   updateInfo,
   history,
   loadUser,
   deleteUserPicture,
   profile: { profile },
-  profilePicture,
-  id,
-  classes,
+  auth: { user },
   ...rest
 }) => {
-  // const classes = useStyles();
+  const classes = useStyles();
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   const onChange = e => {
-    userImage(e, id, profile);
+    userImage(e, user._id, profile);
   };
 
   const UploadButton = () => {
@@ -66,16 +76,22 @@ const AvatarUploader = ({
       </Fragment>
     );
   };
+  const method = getStrategy(user);
 
   const DeletePicture = () => {
     return (
       <Fragment>
         <LinkMui
-          style={{ marginRight: "1rem" }}
-          disabled={!profilePicture.original && true}
+          className={classes.delete}
+          // disabled={!method.profilePicture.original && true}
           component='button'
           variant='body2'
-          onClick={() => deleteUserPicture(id, profilePicture.cloudId)}
+          onClick={() =>
+            deleteUserPicture(
+              user._id,
+              user && method.profilePicture && method.profilePicture.cloudId
+            )
+          }
         >
           Delete Picture
         </LinkMui>
@@ -84,33 +100,49 @@ const AvatarUploader = ({
   };
 
   const loadImages = () => {
-    if (profile !== null) {
-      // return <AvatarPro profilePicture={profilePicture} />;
-      return <Avatar src={profilePicture.original} className={classes} />;
+    if (user && method.profilePicture && method.profilePicture.original) {
+      return (
+        <Fragment>
+          <Avatar
+            src={method.profilePicture.original}
+            className={classes.avatar}
+          />
+        </Fragment>
+      );
+    } else {
+      return (
+        <Fragment>
+          <Avatar className={classes.avatar}>
+            {getInitials(method.firstName)}
+          </Avatar>
+        </Fragment>
+      );
     }
   };
 
   return (
-    <Fragment>
+    <div>
       {uploading ? (
         <Fragment>
-          <CircularProgress />
+          <span className={classes.progress}>
+            <CircularProgress />
+          </span>
         </Fragment>
       ) : (
-        <Fragment>{/* <Fragment>{loadImages()}</Fragment> */}</Fragment>
+        <Fragment>{<Fragment>{loadImages()}</Fragment>}</Fragment>
       )}
       <br />
-      <Fragment>{DeletePicture()}</Fragment>
+      {/* <Fragment>{DeletePicture()}</Fragment> */}
       <UploadButton />
-    </Fragment>
+    </div>
   );
 };
 
 AvatarUploader.propTypes = {
   userImage: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired,
-  images: PropTypes.array,
   updateInfo: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   deleteUserPicture: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
@@ -118,12 +150,11 @@ AvatarUploader.propTypes = {
 
 const mapStateToProps = state => ({
   uploading: state.uploader.uploading,
-  images: state.uploader.images,
   profile: state.profile,
   auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { userImage, deleteUserPicture, loadUser, updateInfo }
+  { userImage, deleteUserPicture, loadUser, updateInfo, getCurrentProfile }
 )(AvatarUploader);

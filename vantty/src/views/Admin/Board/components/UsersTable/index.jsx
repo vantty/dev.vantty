@@ -81,13 +81,11 @@ const UsersTable = props => {
   useEffect(() => {
     // getProfiles();
   }, []);
-
   const onSubmit = (e, value, id) => {
     e.preventDefault();
     verifiedProfile({ verified: value, id: id });
-    setVerifyButton(value);
+    setVerifyButton({ ...verifyButton, [id]: value });
   };
-
   const deleteUsers = (e, elasticId, id) => {
     e.preventDefault();
     deleteProfileAndUserDashboard({ elasticId, id });
@@ -97,8 +95,9 @@ const UsersTable = props => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
-  const [verifyButton, setVerifyButton] = useState();
-  // const disableButton = users.map(user => user.verified);
+  const [verifyButton, setVerifyButton] = useState({
+    verifyButton
+  });
 
   //Selects
   const handleSelectAll = event => {
@@ -238,7 +237,10 @@ const UsersTable = props => {
                   <TableCell className={classes.tableCell}>
                     {
                       <Link
-                        href={`${process.env.REACT_APP_PATH}/profile/artist/${user.user._id}`}
+                        //   href={`${process.env.REACT_APP_PATH}/profile/artist/${user.user._id}`}
+                        //   target='_blank'
+                        // >
+                        href={`https://vantty.ca/profile/artist/${user.user._id}`}
                         target='_blank'
                       >
                         Profile
@@ -252,8 +254,14 @@ const UsersTable = props => {
                         variant='contained'
                         color='secondary'
                         // onChange={event => handleSelectOne(event, user._id)}
-
-                        disabled={user.verified}
+                        // onChange={event =>
+                        //   handleSelectVerified(event, user._id)
+                        // }
+                        disabled={
+                          verifyButton[user._id] !== undefined
+                            ? verifyButton[user._id]
+                            : user.verified
+                        }
                         onClick={e => onSubmit(e, true, user._id)}
                       >
                         Verify
@@ -268,6 +276,7 @@ const UsersTable = props => {
                         Block
                       </Button>
                     }
+                    {console.log(user.verified)}
                   </TableCell>
                   <TableCell>{user.date},</TableCell>
 

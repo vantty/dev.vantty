@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SelectTags = ({ _id, uploadTag }) => {
+const SelectTags = ({ _id, uploadTag, elasticId }) => {
   const classes = useStyles();
   const [tag, setTag] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -39,12 +39,12 @@ const SelectTags = ({ _id, uploadTag }) => {
 
   const onSubmit = (e, tag, _id) => {
     e.preventDefault();
-    uploadTag({ _id: _id, tag: tag });
+    uploadTag({ _id: _id, tag: tag }, elasticId);
   };
   return (
-    <form autoComplete="off" submit>
+    <form autoComplete='off' submit>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="demo-controlled-open-select">Tag</InputLabel>
+        <InputLabel htmlFor='demo-controlled-open-select'>Tag</InputLabel>
         <Select
           open={open}
           onClose={handleClose}

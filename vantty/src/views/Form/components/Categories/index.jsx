@@ -117,34 +117,34 @@ const AddCategories = ({
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
-        <form autoComplete="off" noValidate>
+        <form autoComplete='off' noValidate>
           <CardHeader
             // subheader='from what value do your services start'
-            title="Categories"
+            title='Categories'
           />
           {/* <Divider /> */}
           <CardContent>
             <Fragment>
               <Grid
                 container
-                direction="row"
-                justify="center"
-                alignItems="baseline"
+                direction='row'
+                justify='center'
+                alignItems='baseline'
               >
                 <Grid item xs={6} xl={6} md={6} sm={6}>
                   {/* <form className='form'> */}
 
                   <FormControl
                     error={error}
-                    component="fieldset"
+                    component='fieldset'
                     className={classes.formControl}
                   >
-                    <Typography color="textSecondary" variant="body1">
+                    <Typography color='textSecondary' variant='body1'>
                       Makeup
                     </Typography>
 
                     {error && (
-                      <FormLabel component="legend">
+                      <FormLabel component='legend'>
                         Select minimum one
                       </FormLabel>
                     )}
@@ -181,14 +181,14 @@ const AddCategories = ({
                 <Grid item xs={6} xl={6} md={6} sm={6}>
                   <FormControl
                     error={errorHair}
-                    component="fieldset"
+                    component='fieldset'
                     className={classes.formControl}
                   >
-                    <Typography color="textSecondary" variant="body1">
+                    <Typography color='textSecondary' variant='body1'>
                       Hair
                     </Typography>
                     {errorHair && (
-                      <FormLabel component="legend">
+                      <FormLabel component='legend'>
                         Select minimum one
                       </FormLabel>
                     )}
@@ -226,9 +226,9 @@ const AddCategories = ({
               <CardActions>
                 <Grid
                   container
-                  direction="row"
-                  justify="flex-end"
-                  alignItems="flex-start"
+                  direction='row'
+                  justify='flex-end'
+                  alignItems='flex-start'
                 >
                   <Button
                     style={{ backgroundColor: "#f5f5" }}

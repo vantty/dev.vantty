@@ -5,7 +5,7 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import validate from "validate.js";
 import { isMobile } from "react-device-detect";
-import { getStrategy, getInitials } from "../../../../helpers";
+import { getStrategy } from "../../../../helpers";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
@@ -17,10 +17,8 @@ import {
   Divider,
   Grid,
   Button,
-  TextField,
-  Avatar
+  TextField
 } from "@material-ui/core";
-import Progress from "@material-ui/core/LinearProgress";
 
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
@@ -32,12 +30,7 @@ import { FormBottomNav } from "../ComponentsForm";
 import { schemaErrors } from "../../../../helpers/errorsData";
 
 const useStyles = makeStyles(() => ({
-  root: {},
-  avatar: {
-    margin: "auto",
-    height: 90,
-    width: 90
-  }
+  root: {}
 }));
 
 const AccountDetails = ({
@@ -90,7 +83,7 @@ const AccountDetails = ({
     });
   }, [loading, getCurrentProfile, loadUser]);
 
-  const { firstName, lastName, email, profilePicture, id } = formData;
+  const { firstName, lastName, email, id } = formData;
 
   useEffect(() => {
     const errors = validate(formState.values, schemaErrors);
@@ -124,13 +117,9 @@ const AccountDetails = ({
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  // const {
-  //   isValid,
-  //   values: {}
-  // } = formState;
-
   const onSubmit = async e => {
     e.preventDefault();
+    console.log(formData);
     await updateInfo(formData, history, true);
     profile &&
       (await createProfile(
@@ -163,13 +152,6 @@ const AccountDetails = ({
   //errors
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
-
-  // const [picture, setPicture] = useState();
-  // const picturePro = () => {
-  //   useEffect(() => {
-  //     setPicture(profile && profile.profilePicture);
-  //   }, []);
-  // };
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
@@ -190,34 +172,11 @@ const AccountDetails = ({
                 <Grid item>
                   <Grid item>
                     <div>
-                      {uploading ? (
-                        <Progress />
-                      ) : profilePicture.original ? (
-                        <Avatar
-                          src={profilePicture.original}
-                          className={classes.avatar}
-                        />
-                      ) : (
-                        // <AvatarUploader
-                        //   profilePicture={profilePicture}
-                        //   id={id}
-                        //   classes={classes.avatar}
-                        // />
-                        <Avatar className={classes.avatar}>
-                          {getInitials(firstName)}
-                        </Avatar>
-                      )}
-
-                      {/* <Avatar src={picture} className={classes.avatar} /> */}
                       <Grid>
-                        <AvatarUploader
-                          profilePicture={profilePicture}
-                          id={id}
-                          classes={classes.avatar}
-                        />
+                        <AvatarUploader />
                       </Grid>
                     </div>
-                    {/* {console.log(picture)} */}
+
                     <br />
                   </Grid>
                 </Grid>
@@ -226,7 +185,6 @@ const AccountDetails = ({
               <Divider />
               <br />
               <Grid item md={6} xs={12}>
-                {/* {fieldErrors()} */}
                 <TextField
                   error={hasError("firstName")}
                   helperText={

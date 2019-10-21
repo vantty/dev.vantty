@@ -106,11 +106,6 @@ const CreateProfile = ({
     onChange(event);
   };
 
-  // const {
-  //   values: { bio, profession, city, instagramUsername }
-  // } = formState;
-
-  // const { values } = formData;
   //errors
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
@@ -134,11 +129,11 @@ const CreateProfile = ({
         {/* <form autoComplete='off' noValidate> */}
         <CardHeader
           // subheader='The information can be edited'
-          title="Bio"
+          title='Bio'
         />
         {/* <Divider /> */}
         <CardContent>
-          <form autoComplete="off" noValidate>
+          <form autoComplete='off' noValidate>
             <Grid container>
               {/* <Grid
               container
@@ -147,8 +142,8 @@ const CreateProfile = ({
               alignItems='center'
             > */}
               <Grid item md={12} xs={12}>
-                <FormControl variant="outlined" margin="dense" fullWidth>
-                  <InputLabel ref={inputLabel} htmlFor="filled-age-simple">
+                <FormControl variant='outlined' margin='dense' fullWidth>
+                  <InputLabel ref={inputLabel} htmlFor='filled-age-simple'>
                     Profesion
                   </InputLabel>
                   <Select
@@ -158,14 +153,14 @@ const CreateProfile = ({
                       formState.values.profession || formData.profession || ""
                     }
                     onChange={handleChange}
-                    id="profession"
-                    name="profession"
-                    label="profession"
+                    id='profession'
+                    name='profession'
+                    label='profession'
                     input={
                       <OutlinedInput
                         labelWidth={labelWidth}
-                        name="Profession"
-                        id="filled-age-simple"
+                        name='Profession'
+                        id='filled-age-simple'
                       />
                     }
                   >
@@ -183,38 +178,38 @@ const CreateProfile = ({
                 <TextField
                   error={hasError("bio")}
                   helperText={hasError("bio") ? formState.errors.bio[0] : null}
-                  margin="dense"
-                  id="bio"
-                  name="bio"
-                  label="Bio"
-                  autoComplete="fname"
+                  margin='dense'
+                  id='bio'
+                  name='bio'
+                  label='Bio'
+                  autoComplete='fname'
                   required
-                  type="text"
+                  type='text'
                   value={formState.values.bio || formData.bio || ""}
-                  variant="outlined"
+                  variant='outlined'
                   multiline
-                  rows="6"
+                  rows='6'
                   fullWidth
                   onChange={handleChange}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
                 {/* <div className={classes.field}> */}
-                <FormControl variant="outlined" margin="dense" fullWidth>
-                  <InputLabel htmlFor="filled-city-simple">City</InputLabel>
+                <FormControl variant='outlined' margin='dense' fullWidth>
+                  <InputLabel htmlFor='filled-city-simple'>City</InputLabel>
                   <Select
                     select
                     error={hasError("city")}
                     value={formState.values.city || formData.city || ""}
                     onChange={handleChange}
-                    id="city"
-                    name="city"
-                    label="city"
+                    id='city'
+                    name='city'
+                    label='city'
                     input={
                       <OutlinedInput
                         labelWidth={labelWidth}
-                        name="City"
-                        id="filled-city-simple"
+                        name='City'
+                        id='filled-city-simple'
                       />
                     }
                   >
@@ -229,10 +224,10 @@ const CreateProfile = ({
                 <Grid item md={12} xs={12}>
                   <TextField
                     fullWidth
-                    margin="dense"
-                    variant="outlined"
-                    id="instagramUsername"
-                    name="instagramUsername"
+                    margin='dense'
+                    variant='outlined'
+                    id='instagramUsername'
+                    name='instagramUsername'
                     label={`@Username`}
                     value={formData.instagramUsername}
                     onChange={e => handleChange(e)}
@@ -248,7 +243,7 @@ const CreateProfile = ({
         <CardActions className={classes.buttons}>
           <div>
             <div>
-              <LinkMui component={Link} to="/">
+              <LinkMui component={Link} to='/'>
                 learn how to build the best profile
               </LinkMui>
             </div>

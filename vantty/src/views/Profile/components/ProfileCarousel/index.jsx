@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     backgroundPosition: "center center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    borderRadius: "0.6rem",
+    borderRadius: "0.1rem",
     borderColor: "white",
     borderStyle: "solid"
   },
@@ -45,13 +45,13 @@ const responsive = {
   }
 };
 
-const Porfolio = ({ profile: { portfolioPictures }, images }) => {
-  console.log("carousel", images);
+const Porfolio = ({ images }) => {
   const classes = useStyles();
   const [state, setState] = useState({
-    // picture: images[0].original
-    // tag: images && images[0].tag
+    picture: images[0].original,
+    tag: images[0].tag
   });
+
   const { picture } = state;
   return (
     <Fragment>
@@ -69,40 +69,37 @@ const Porfolio = ({ profile: { portfolioPictures }, images }) => {
           focusOnSelect={false}
           infinite
           itemClass=''
-          // keyBoardControl
-          // minimumTouchDrag={9}
+          keyBoardControl
+          minimumTouchDrag={4}
           partialVisbile='right'
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
-          {images &&
-            images.map(image => (
-              <Link
-                component='button'
-                onClick={() => {
-                  setState({ picture: image.original, tag: image.tag });
-                }}
-                className={classes.frame}
+          {images.map(image => (
+            <Link
+              component='button'
+              onClick={() => {
+                setState({ picture: image.original, tag: image.tag });
+              }}
+              // onChange={() => {
+              //   setState({ picture: image.original, tag: image.tag });
+              // }}
+              className={classes.frame}
+              key={image._id}
+            >
+              <span
                 key={image._id}
-              >
-                <span
-                  key={image._id}
-                  style={{
-                    backgroundImage: `url(${image.original})`
-                  }}
-                  className={classes.image}
-                />
-              </Link>
-            ))}
+                style={{
+                  backgroundImage: `url(${image.original})`
+                }}
+                className={classes.image}
+              />
+            </Link>
+          ))}
         </Carousel>
       </Fragment>
     </Fragment>
   );
 };
-
-// Porfolio.propTypes = {
-//   portfolioPictures: PropTypes.object,
-//   profile: PropTypes.object.isRequired
-// };
 
 export default Porfolio;

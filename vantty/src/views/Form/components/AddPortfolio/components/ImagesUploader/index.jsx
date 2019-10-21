@@ -75,7 +75,7 @@ const ImagesUploader = ({
         </Fragment>
       ) : (
         <Fragment>
-          {/* {loadMessage()} */}
+          {loadMessage()}
           {loadImages()}
         </Fragment>
       )}

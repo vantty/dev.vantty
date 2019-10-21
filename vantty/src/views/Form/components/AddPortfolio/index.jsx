@@ -28,18 +28,6 @@ import { getImages } from "../../../../actions/uploader";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
-  },
-  buttonUpload: {
-    textAlign: "center"
-  },
-  name: {
-    textAlign: "center",
-    paddingBottom: "0.5rem"
-  },
-  avatar: {
-    margin: "auto",
-    height: 90,
-    width: 90
   }
 }));
 
@@ -146,6 +134,21 @@ const AddPortfolio = ({
                   }
                 />
               )}
+
+              {/* <FormBottomNav
+                step={step}
+                Children={
+                  <div>
+                    <div>
+                      <Fragment>
+                        <Fragment>
+                          <Button onClick>UPDATE</Button>
+                        </Fragment>
+                      </Fragment>
+                    </div>
+                  </div>
+                }
+              /> */}
             </Fragment>
           </div>
         </div>

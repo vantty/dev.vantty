@@ -70,35 +70,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-//Generate a complete picture object
-// const shuffle = data => {
-//   let arrTotal = [];
-//   let id = data.map(user => {
-//     user.portfolioPictures.map(pic => {
-//       pic.userId = user.userId;
-//       pic.name = user.name.firstName;
-//       pic.verified = user.verified;
-//       arrTotal.push(pic);
-//     });
-//   });
-
-//   var ctr = arrTotal.length,
-//     temp,
-//     index;
-
-//   while (ctr > 0) {
-//     // Pick a random index
-//     index = Math.floor(Math.random() * ctr);
-//     // Decrease ctr by 1
-//     ctr--;
-//     // And swap the last element with it
-//     temp = arrTotal[ctr];
-//     arrTotal[ctr] = arrTotal[index];
-//     arrTotal[index] = temp;
-//   }
-//   return arrTotal;
-// };
-
 const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
   useEffect(() => {
     changeNavbarValue("search");
@@ -117,16 +88,16 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
           children={
             <DataSearch
               onChange={clearSearch}
-              componentId="searchbox"
-              dataField="*"
-              placeholder="Search..."
+              componentId='searchbox'
+              dataField='*'
+              placeholder='Search...'
               defaultValue={searchValue}
             />
           }
           modal={
             <MultiDataList
-              componentId="categoryFilter"
-              dataField="portfolioPictures.tag.keyword"
+              componentId='categoryFilter'
+              dataField='tag.keyword'
               showSearch={false}
               data={[
                 {
@@ -144,32 +115,32 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               ]}
               value={values}
               onChange={setValues}
-              title="Category"
+              title='Category'
             />
           }
           invisible={values}
         />
       )}
-      <Container maxWidth="lg">
+      <Container maxWidth='lg'>
         <Grid
           container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
+          direction='row'
+          justify='center'
+          alignItems='flex-start'
         >
           <Hidden xsDown>
             <Grid item lg={4} md={4} className={classes.filters}>
               <DataSearch
                 onChange={clearSearch}
-                componentId="searchbox"
-                dataField="*"
-                placeholder="Search..."
+                componentId='searchbox'
+                dataField='*'
+                placeholder='Search...'
                 defaultValue={searchValue}
               />
               <br />
               <MultiDataList
-                componentId="categoryFilter"
-                dataField="portfolioPictures.tag.keyword"
+                componentId='categoryFilter'
+                dataField='tag.keyword'
                 showSearch={false}
                 data={[
                   {
@@ -187,16 +158,16 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                 ]}
                 value={values}
                 onChange={setValues}
-                title="Category"
+                title='Category'
               />
             </Grid>
           </Hidden>
           <Grid item lg={8} xs={12} md={8}>
             {/* </div> */}
             <ReactiveList
-              componentId="result"
-              dataField="*"
-              title="Results"
+              componentId='result'
+              dataField='*'
+              title='Results'
               size={12}
               infiniteScroll={true}
               showResultStats={false}
@@ -223,11 +194,14 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                       <a
                                         href={`https://vantty.ca/profile/artist/${pic.userId}`}
                                       >
+                                        {/* <a
+                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
+                                      > */}
                                         <CardMedia
                                           key={pic.original}
                                           className={classes.cardMedia}
                                           image={pic.original}
-                                          title="Image title"
+                                          title='Image title'
                                         />
                                       </a>
                                     </CardActionArea>
@@ -236,7 +210,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                     >
                                       <Toolbar className={classes.cardTitle}>
                                         <Avatar
-                                          alt=""
+                                          alt=''
                                           src={pic.profilePicture}
                                           className={classes.avatar}
                                         />
@@ -246,8 +220,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                           className={classes.name}
                                         >
                                           {"by "}
-                                          {pic.name.firstName}{" "}
-                                          {pic.name.lastName}
+                                          {pic.name.firstName}
                                         </Typography>
                                       </Toolbar>
                                     </CardContent>
@@ -269,7 +242,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             key={pic.original}
                                             className={classes.cardMedia}
                                             image={pic.original}
-                                            title="Image title"
+                                            title='Image title'
                                           />
                                         </a>
                                       </CardActionArea>
@@ -278,7 +251,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                       >
                                         <Toolbar className={classes.cardTitle}>
                                           <Avatar
-                                            alt=""
+                                            alt=''
                                             src={pic.profilePicture}
                                             className={classes.avatar}
                                           />

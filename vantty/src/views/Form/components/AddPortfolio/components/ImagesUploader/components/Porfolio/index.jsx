@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 const Porfolio = ({ portfolioPictures, deletePicture, modelImagesId }) => {
   const classes = useStyles();
 
-  const pictures = () => (
+  return (
     <Fragment>
       <div>
         <GridList>
@@ -74,7 +74,9 @@ const Porfolio = ({ portfolioPictures, deletePicture, modelImagesId }) => {
                   }}
                   className={clsx(classes.image)}
                 />
-                {/* {picture.tag === undefined && <Select _id={picture._id} />} */}
+                {picture.tag === undefined && (
+                  <Select _id={picture._id} elasticId={picture.elasticId} />
+                )}
                 {/* <Select tag={picture.tag} /> */}
                 <Typography color='textPrimary' variant='h6' component='h3'>
                   {picture.tag}
@@ -86,8 +88,6 @@ const Porfolio = ({ portfolioPictures, deletePicture, modelImagesId }) => {
       </div>
     </Fragment>
   );
-
-  return <Fragment>{pictures()}</Fragment>;
 };
 
 Porfolio.propTypes = {

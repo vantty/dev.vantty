@@ -118,17 +118,17 @@ const Price = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete="off" noValidate>
+            <form autoComplete='off' noValidate>
               <CardHeader
                 // subheader='from what value do your services start'
-                title="Service"
+                title='Service'
               />
               {/* <Divider /> */}
               <CardContent className={classes.content}>
                 <div>
                   <div>
                     <Container>
-                      <Typography color="textSecondary" variant="body1">
+                      <Typography color='textSecondary' variant='body1'>
                         This is the minimum price for which you provide a
                         service but you define the final price with the customer
                       </Typography>
@@ -138,19 +138,19 @@ const Price = ({
                       <Fragment>
                         <Grid
                           container
-                          direction="row"
-                          justify="center"
-                          alignItems="center"
+                          direction='row'
+                          justify='center'
+                          alignItems='center'
                         >
-                          <Grid item xs={isMobile ? 12 : 10}>
+                          <Grid item xs={isMobile ? 12 : 11}>
                             <PrettoSlider
                               defaultValue={60}
-                              valueLabelDisplay="on"
+                              valueLabelDisplay='on'
                               max={500}
                               step={10}
                               disabled={false}
                               value={price || 80}
-                              name="price"
+                              name='price'
                               // onChange={e => onChange(e)}
                               onChange={handleChange}
                               // handleDragStop={price}
@@ -160,7 +160,7 @@ const Price = ({
                             <Typography
                               // className={classes.locationText}
                               // color='textSecondary'
-                              variant="body1"
+                              variant='body1'
                             >
                               I provide a service minimum for{" "}
                               <strong>${price || 80}</strong>
@@ -178,9 +178,9 @@ const Price = ({
                   <CardActions>
                     <Grid
                       container
-                      direction="row"
-                      justify="flex-end"
-                      alignItems="flex-start"
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
                     >
                       <Button
                         style={{ backgroundColor: "#f5f5" }}
@@ -207,12 +207,12 @@ const Price = ({
                 <div>
                   {match.url === "/price" ? (
                     <Fragment>
-                      <Button component={Link} to="/settings">
+                      <Button component={Link} to='/settings'>
                         Back
                       </Button>
                       <Button
                         component={Link}
-                        to="/settings"
+                        to='/settings'
                         style={{ backgroundColor: "#f5f5" }}
                         onClick={e => onSubmitPrice(e)}
                       >
@@ -244,12 +244,12 @@ const Price = ({
               <div>
                 <div>
                   <Fragment>
-                    <Button component={Link} to="/settings">
+                    <Button component={Link} to='/settings'>
                       Back
                     </Button>
                     <Button
                       component={Link}
-                      to="/settings"
+                      to='/settings'
                       style={{ backgroundColor: "#f5f5" }}
                       onClick={e => onSubmitPrice(e)}
                     >

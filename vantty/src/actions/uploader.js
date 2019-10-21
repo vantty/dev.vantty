@@ -11,20 +11,18 @@ import { server, API_URL, elastic } from "../utils/axios";
 import {
   getCurrentProfile,
   createProfile,
-  loadToElastic,
-  tagsToElastic
+  loadToElastic
+  // tagsToElastic
 } from "./profile";
 import { loadUser } from "./auth";
 import { elasticData } from "../helpers";
 import setAlert from "./alert";
 
 // Get Model Image
-export const getImages = imagesId => async dispatch => {
+export const getImages = () => async dispatch => {
   try {
-    // await dispatch(loadUser());
     const res = await server.get(`/images`);
-    // const res = await server.get(`/images/${imagesId}`);
-    console.log(res);
+
     dispatch({
       type: GET_IMAGES,
       payload: res.data
@@ -37,27 +35,33 @@ export const getImages = imagesId => async dispatch => {
   }
 };
 
-export const uploadTag = tagObj => async dispatch => {
+// Get Images By ID
+export const getImagesById = imagesId => async dispatch => {
   try {
-    // let auxObj = {};
-    // let sendTags = [];
+    const res = await server.get(`/images/${imagesId}`);
+    dispatch({
+      type: GET_IMAGES,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: IMAGES_UPLOAD_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+export const uploadTag = (tagObj, elasticId) => async dispatch => {
+  try {
+    await server.post("/images/add-tags", [tagObj]);
 
-    // const tagKeys = Object.keys(tagObj);
-
-    // tagKeys.map(key => {
-    //   for (const prop in tagObj[key]) {
-    //     if (tagObj[key][prop] === true) {
-    //       auxObj = { _id: key, tag: prop };
-    //       sendTags.push(auxObj);
-    //     }
-    //   }
-    // });
-
-    await server.post("/profile/add-tags", [tagObj]);
-
-    const res = await server.get("/profile/me");
-    const data = elasticData(res);
-    tagsToElastic(data);
+    const elasticConfig = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+      }
+    };
+    const datum = { doc: { tag: tagObj.tag } };
+    await elastic.post(`/${elasticId}/_update`, datum, elasticConfig);
   } catch (error) {
     console.log(error);
   }
@@ -151,7 +155,6 @@ export const deleteImages = id => async dispatch => {
 
 //Profile Picture
 export const userImage = (e, id, profile) => async dispatch => {
-  console.log(e.target.files);
   const errs = [];
   const files = Array.from(e.target.files);
 
@@ -204,6 +207,7 @@ export const userImage = (e, id, profile) => async dispatch => {
       await dispatch({
         type: IMAGES_UPLOAD_SUCCESS
       });
+      dispatch(getCurrentProfile());
     })
 
     .catch(error => {

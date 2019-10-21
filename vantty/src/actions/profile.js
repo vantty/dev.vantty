@@ -326,9 +326,22 @@ export const verifiedProfile = formData => async dispatch => {
     await server.post("/profile/verified", formData, config);
 
     dispatch(getProfiles());
-    // const data = elasticData(res);
-    // const { profileId, elasticId } = data;
-    // loadToElastic(data, profileId, elasticId);
+    const resImages = await server.get("/images");
+
+    const elasticConfig = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+      }
+    };
+    for (let i = 0; i < resImages.data.length; i++) {
+      const datum = { doc: { verified: formData.verified } };
+      await elastic.post(
+        `/${resImages.data[i].elasticId}/_update`,
+        datum,
+        elasticConfig
+      );
+    }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -388,7 +401,7 @@ export const loadToElastic = async (data, imagesId) => {
     if (datum.elasticId == null) {
       const esRes = await elastic.post("/", datum, elasticConfig);
       const elasticId = await esRes.data._id;
-      console.log(elasticId);
+
       await allElasticId.push({
         _id: datum.pictureId,
         elasticId: elasticId,

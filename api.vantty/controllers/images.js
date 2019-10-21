@@ -30,13 +30,13 @@ exports.current = async (req, res) => {
 // @desc     Get images by ID
 exports.imagesById = async (req, res) => {
   try {
-    const images = await Image.findById(req.params.id);
+    const images = await Image.findOne({ user: req.params.id });
 
     if (!images) {
       return res.status(404).json({ msg: "Images not found" });
     }
 
-    res.json(images);
+    res.json(images.pictures);
   } catch (err) {
     console.error(err.message);
     if (err.kind === "ObjectId") {
@@ -111,5 +111,29 @@ exports.deleteImageMongo = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+};
+
+exports.addPictureTags = async (req, res) => {
+  try {
+    const sendTags = req.body;
+    const profile = await Profile.findOne({ user: req.user.id });
+    const images = await Image.findById(profile.imagesId);
+
+    let pictures = images.pictures;
+
+    const arr = Array.from(pictures);
+    const arr2 = Array.from(sendTags);
+    for (const x of arr) {
+      for (const y of arr2) {
+        if (x._id == y._id) {
+          x.tag = y.tag;
+        }
+      }
+    }
+    images.save();
+    res.json(images);
+  } catch (error) {
+    console.log(error);
   }
 };

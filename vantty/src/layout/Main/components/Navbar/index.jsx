@@ -57,7 +57,7 @@ const HideOnScroll = props => {
   const { children, window } = props;
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear={false} direction='down' in={!trigger}>
       {children}
     </Slide>
   );
@@ -78,37 +78,37 @@ const Navbar = props => {
       <CssBaseline />
       <AppBar className={classes.root}>
         <Toolbar>
-          <Typography variant="h5" className={classes.title}>
-            <LinkMui underline="none" color="inherit" component={Link} to="/">
-              <img src={Logo} alt="" className={classes.logo} />
+          <Typography variant='h5' className={classes.title}>
+            <LinkMui underline='none' color='inherit' component={Link} to='/'>
+              <img src={Logo} alt='' className={classes.logo} />
             </LinkMui>
           </Typography>
           {loading ? (
-            <Progress data-test="progress" />
+            <Progress data-test='progress' />
           ) : (
             <Fragment>
               {!isAuthenticated ? (
                 <Fragment>
-                  <section data-test="noAuthButtons">
+                  <section data-test='noAuthButtons'>
                     <div className={classes.sectionDesktop}>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to="/search"
+                        to='/search'
                       >
                         Artists
                       </Button>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to="/login"
+                        to='/login'
                       >
                         Login
                       </Button>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to="/register"
+                        to='/register'
                       >
                         Register
                       </Button>
@@ -117,23 +117,25 @@ const Navbar = props => {
                 </Fragment>
               ) : (
                 <Fragment>
-                  <section data-test="authButtons">
+                  <section data-test='authButtons'>
                     <div className={classes.sectionDesktop}>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to="/search"
+                        to='/search'
                       >
                         Artists
                       </Button>
-                      {profile && profile.mobileNumber ? (
-                        <Button
-                          className={classes.button}
-                          component={Link}
-                          to={`/profile/artist/${user && user._id}`}
-                        >
-                          Profile
-                        </Button>
+                      {profile ? (
+                        profile.mobileNumber && (
+                          <a
+                            href={`${
+                              process.env.REACT_APP_PATH
+                            }/profile/artist/${user && user._id}`}
+                          >
+                            <Button className={classes.button}>Profile</Button>
+                          </a>
+                        )
                       ) : (
                         <Button
                           className={classes.button}
@@ -145,10 +147,10 @@ const Navbar = props => {
                       )}
                       {user && user.role === "Admin" && (
                         <Button
-                          color="inherit"
+                          color='inherit'
                           className={classes.button}
                           component={Link}
-                          to="/dashboard"
+                          to='/dashboard'
                         >
                           Admin
                         </Button>

@@ -78,14 +78,15 @@ const ProfileInfo = ({
               <Grid>
                 <Fragment>
                   {isOwner(auth, user._id) === true &&
-                    user._id === auth.user._id && (
+                    user._id === auth.user._id &&
+                    !isMobile && (
                       <Button
                         component={Link}
                         variant='contained'
                         color='primary'
                         size='small'
                         className={classes.button}
-                        to={isMobile ? "/settings" : "/personal-info"}
+                        to={"/personal-info"}
                       >
                         update
                       </Button>

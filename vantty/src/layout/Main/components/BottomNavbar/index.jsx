@@ -16,7 +16,8 @@ import AccountIcon from "@material-ui/icons/AccountCircle";
 import { getCurrentProfile } from "../../../../actions/profile";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { CssBaseline } from "@material-ui/core";
-
+import Avatar from "@material-ui/core/Avatar";
+import { getStrategy, getInitials } from "../../../../helpers";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -25,6 +26,14 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     zIndex: 10,
     borderTopWidth: "5px"
+  },
+  avatar: {
+    margin: 3,
+    width: 22,
+    height: 20
+  },
+  select: {
+    margin: 0
   }
 }));
 
@@ -34,6 +43,8 @@ const BottomNavbar = props => {
     profile: { profile },
     navbarValue
   } = props;
+
+  const method = getStrategy(user);
 
   const classes = useStyles();
 
@@ -75,11 +86,31 @@ const BottomNavbar = props => {
               className={classes.selected}
               component={Link}
               to={
-                profile && profile.mobileNumber
-                  ? `/profile/artist/${user && user._id}`
+                profile
+                  ? profile.mobileNumber
+                    ? `/profile/artist/${user && user._id}`
+                    : "/settings"
                   : "/settings"
               }
-              icon={<AccountIcon />}
+              icon={
+                user ? (
+                  method.profilePicture.original ? (
+                    <Avatar
+                      alt=''
+                      src={method.profilePicture.original}
+                      className={classes.avatar}
+                    />
+                  ) : (
+                    <Avatar className={classes.bigAvatar} src={""}>
+                      {user && getInitials(method.firstName)}
+                    </Avatar>
+                  )
+                ) : (
+                  <Avatar className={classes.bigAvatar} src={""}>
+                    {user && getInitials(method.firstName)}
+                  </Avatar>
+                )
+              }
             />
           )}
           {user && user.role === "Admin" && (

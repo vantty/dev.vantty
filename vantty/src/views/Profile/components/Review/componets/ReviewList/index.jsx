@@ -83,47 +83,52 @@ const ReviewItem = ({
                   </Avatar>
                 )}
               </ListItemAvatar>
+
               <ListItemText
-                primary={comment.name}
+                primary={comment.subject}
                 secondary={
                   <Fragment>
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      className={classes.date}
-                      color='textPrimary'
-                    >
-                      <Moment format='YYYY/MM/DD'>{date}</Moment>{" "}
-                    </Typography>
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      className={classes.messageReview}
-                      color='textPrimary'
-                    >
-                      {comment.text}
-                    </Typography>
-                    {/* {auth.user != null
-                      ? !auth.loading &&
-                        comment.user === auth.user._id && (
-                          <Button
-                            color='secondary'
+                    <Fragment>
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        className={classes.inline}
+                        color='textPrimary'
+                      >
+                        {comment.name}
+                      </Typography>
+                      {`  — ${comment.text}`}
+
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        className={classes.messageReview}
+                        color='textPrimary'
+                      >
+                        <Moment format='YYYY/MM/DD' className={classes.date}>
+                          {date}
+                        </Moment>
+                      </Typography>
+                    </Fragment>
+                    <Fragment>
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        className={classes.messageReview}
+                        color='textPrimary'
+                      >
+                        {isOwner(auth, comment.user) ? (
+                          <LinkMui
+                            component='button'
+                            variant='body2'
+                            className={classes.deleteReview}
                             onClick={() => deleteComment(_id, comment._id)}
                           >
-                            Borrar
-                          </Button>
-                        )
-                      : null} */}
-                    {isOwner(auth, comment.user) ? (
-                      <LinkMui
-                        component='button'
-                        variant='body2'
-                        className={classes.deleteReview}
-                        onClick={() => deleteComment(_id, comment._id)}
-                      >
-                        Delete Comment
-                      </LinkMui>
-                    ) : null}
+                            Delete Comment
+                          </LinkMui>
+                        ) : null}
+                      </Typography>
+                    </Fragment>
                   </Fragment>
                 }
               />

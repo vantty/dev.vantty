@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     float: "left",
     position: "relative",
     width: "100%",
-    paddingBottom: "70%",
+    paddingBottom: "90%",
     backgroundPosition: "center center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",

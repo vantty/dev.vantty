@@ -21,7 +21,8 @@ import { CssBaseline, Container } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
 import { SimpleAppBar } from "../../components";
 import { BottomNavbar } from "../../layout/Main/components";
-import { getImages } from "../../actions/uploader";
+import { getImagesById } from "../../actions/uploader";
+import { isOwner } from "../../helpers";
 
 const useStyles = makeStyles(theme => ({
   mainGrid: {
@@ -44,7 +45,7 @@ const Profile = ({
   getProfileById,
   profile: { profile, loading },
   uploader: { images },
-  getImages,
+  getImagesById,
   auth,
   auth: { user },
   match,
@@ -52,7 +53,7 @@ const Profile = ({
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
-    getImages();
+    getImagesById(match.params.id);
   }, [getProfileById, match.params.id]);
 
   // const handleBack = () => {
@@ -65,10 +66,19 @@ const Profile = ({
     <Fragment>
       {isMobile && (
         <Fragment>
-          <SimpleAppBar path={"/search"} />
+          <SimpleAppBar
+            path={"/search"}
+            owner={
+              isOwner(auth, user && user._id) === true &&
+              profile &&
+              profile.user._id === auth.user._id &&
+              isMobile &&
+              "/settings"
+            }
+          />
         </Fragment>
       )}
-      {!profile ? (
+      {!profile && !images ? (
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
@@ -83,14 +93,17 @@ const Profile = ({
                   <Progress />
                 ) : (
                   <Fragment>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={8} sm={10}>
                       <Header />
 
                       <Fragment>
                         <ProfileInfo profile={profile} auth={auth} />
                         <br />
-
-                        <ProfileCarousel profile={profile} images={images} />
+                        {images ? (
+                          <ProfileCarousel profile={profile} images={images} />
+                        ) : (
+                          <Progress className={classes.progress} />
+                        )}
 
                         <br />
                         <br />
@@ -140,6 +153,7 @@ const Profile = ({
 
 Profile.propTypes = {
   getProfileById: PropTypes.func.isRequired,
+  getImagesById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   navbar: PropTypes.object.isRequired,
@@ -156,5 +170,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfileById, getImages }
+  { getProfileById, getImagesById }
 )(Profile);

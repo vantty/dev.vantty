@@ -8,7 +8,8 @@ const express = require("express"),
     addPortfolio,
     imagesById,
     current,
-    deleteImageMongo
+    deleteImageMongo,
+    addPictureTags
   } = require("../controllers/images"),
   router = express.Router();
 
@@ -20,6 +21,8 @@ router.get("/:id", imagesById);
 router.delete("/user-pictures/:id/:image_id", passportJWT, deleteImageMongo);
 
 router.get("/", passportJWT, current);
+
+router.post("/add-tags", passportJWT, addPictureTags);
 
 router.put("/portfolio", passportJWT, addPortfolio);
 
