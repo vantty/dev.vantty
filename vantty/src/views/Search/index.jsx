@@ -185,7 +185,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                     <Fragment>
                       {data.map(pic => (
                         <Fragment key={pic.cloudId}>
-                          {!values[0] && !pic.verified ? (
+                          {pic.verified ? (
                             <Fragment>
                               <ResultCard className={classes.resultCard}>
                                 <Fragment>
@@ -261,8 +261,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             className={classes.name}
                                           >
                                             {"by "}
-                                            {pic.name.firstName}{" "}
-                                            {pic.name.lastName}
+                                            {pic.name.firstName}
                                           </Typography>
                                         </Toolbar>
                                       </CardContent>

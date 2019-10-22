@@ -129,9 +129,8 @@ const Navbar = props => {
                       {profile ? (
                         profile.mobileNumber && (
                           <a
-                            href={`${
-                              process.env.REACT_APP_PATH
-                            }/profile/artist/${user && user._id}`}
+                            href={`https://www.vantty.ca/profile/artist/${user &&
+                              user._id}`}
                           >
                             <Button className={classes.button}>Profile</Button>
                           </a>

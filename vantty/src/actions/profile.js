@@ -326,7 +326,7 @@ export const verifiedProfile = formData => async dispatch => {
     await server.post("/profile/verified", formData, config);
 
     dispatch(getProfiles());
-    const resImages = await server.get("/images");
+    const resImages = await server.get(`/images/${formData.id}`);
 
     const elasticConfig = {
       headers: {
@@ -334,10 +334,10 @@ export const verifiedProfile = formData => async dispatch => {
         Authorization: process.env.REACT_APP_ELASTIC_TOKEN
       }
     };
-    for (let i = 0; i < resImages.data.length; i++) {
+    for (let i = 0; i < resImages.length; i++) {
       const datum = { doc: { verified: formData.verified } };
       await elastic.post(
-        `/${resImages.data[i].elasticId}/_update`,
+        `/${resImages[i].elasticId}/_update`,
         datum,
         elasticConfig
       );
