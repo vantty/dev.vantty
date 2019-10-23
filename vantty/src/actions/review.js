@@ -20,6 +20,7 @@ export const getReview = reviewId => async dispatch => {
 
 // Add comment
 export const addComment = (reviewId, formData) => async dispatch => {
+  console.log(formData);
   const config = {
     headers: {
       "Content-Type": "application/json"

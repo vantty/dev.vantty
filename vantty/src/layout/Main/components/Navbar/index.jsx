@@ -57,7 +57,8 @@ const HideOnScroll = props => {
   const { children, window } = props;
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
   return (
-    <Slide appear={false} direction='down' in={!trigger}>
+    // <Slide appear={false} direction='down' in={!trigger}>
+    <Slide appear={false} direction='down'>
       {children}
     </Slide>
   );
@@ -129,7 +130,9 @@ const Navbar = props => {
                       {profile ? (
                         profile.mobileNumber && (
                           <a
-                            href={`https://www.vantty.ca/profile/artist/${user &&
+                            // href={`https://www.vantty.ca/profile/artist/${user &&
+                            //   user._id}`}
+                            href={`http://localhost:3000/profile/artist/${user &&
                               user._id}`}
                           >
                             <Button className={classes.button}>Profile</Button>

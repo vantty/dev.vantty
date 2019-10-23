@@ -89,6 +89,7 @@ exports.commentReview = async (req, res) => {
     const newComment = {
       rating: req.body.rating,
       text: req.body.text,
+      subject: req.body.subject,
       name: user[method].firstName,
       profilePicture: user[method].profilePicture.original,
       user: req.user.id

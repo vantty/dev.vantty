@@ -270,7 +270,6 @@ export const deletePicture = (
   cloudId,
   elasticId
 ) => async dispatch => {
-  console.log("ACTION", elasticId);
   try {
     await deleteFromElastic(elasticId);
     // const res = await server.delete(`/profile/portfolio/${dataBaseId}`);
@@ -325,19 +324,19 @@ export const verifiedProfile = formData => async dispatch => {
     };
     await server.post("/profile/verified", formData, config);
 
-    dispatch(getProfiles());
     const resImages = await server.get(`/images/${formData.id}`);
-
     const elasticConfig = {
       headers: {
         "Content-type": "application/json",
         Authorization: process.env.REACT_APP_ELASTIC_TOKEN
       }
     };
-    for (let i = 0; i < resImages.length; i++) {
+    const pictures = resImages.data;
+
+    for (let i = 0; i < pictures.length; i++) {
       const datum = { doc: { verified: formData.verified } };
       await elastic.post(
-        `/${resImages[i].elasticId}/_update`,
+        `/${pictures[i].elasticId}/_update`,
         datum,
         elasticConfig
       );

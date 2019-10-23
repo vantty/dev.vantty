@@ -331,8 +331,9 @@ exports.loadToElastic = async (req, res) => {
 exports.verifiedProfile = async (req, res) => {
   try {
     const { id, verified } = req.body;
+    const profileId = await Profile.findOne({ user: id });
     let profile = await Profile.findOneAndUpdate(
-      { _id: id },
+      { _id: profileId.id },
       { $set: { verified } },
       { new: true }
     );

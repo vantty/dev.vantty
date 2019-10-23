@@ -89,7 +89,7 @@ const Profile = ({
               <Fragment>
                 {/* <Wait on='sidebar' fallback={<Progress />}> */}
                 <CssBaseline />
-                {profile === null || loading ? (
+                {profile === null || loading || !images ? (
                   <Progress />
                 ) : (
                   <Fragment>
@@ -99,11 +99,12 @@ const Profile = ({
                       <Fragment>
                         <ProfileInfo profile={profile} auth={auth} />
                         <br />
-                        {images ? (
+                        {/* {images ? (
                           <ProfileCarousel profile={profile} images={images} />
                         ) : (
                           <Progress className={classes.progress} />
-                        )}
+                        )} */}
+                        <ProfileCarousel profile={profile} images={images} />
 
                         <br />
                         <br />

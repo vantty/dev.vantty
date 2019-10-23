@@ -83,6 +83,7 @@ const UsersTable = props => {
   }, []);
   const onSubmit = (e, value, id) => {
     e.preventDefault();
+
     verifiedProfile({ verified: value, id: id });
     setVerifyButton({ ...verifyButton, [id]: value });
   };
@@ -258,20 +259,21 @@ const UsersTable = props => {
                         //   handleSelectVerified(event, user._id)
                         // }
                         disabled={
-                          verifyButton[user._id] !== undefined
-                            ? verifyButton[user._id]
+                          verifyButton[user.user._id] !== undefined
+                            ? verifyButton[user.user._id]
                             : user.verified
                         }
-                        onClick={e => onSubmit(e, true, user._id)}
+                        onClick={e => onSubmit(e, true, user.user._id)}
                       >
                         Verify
                       </Button>
                     }
+
                     {
                       <Button
                         size='small'
                         disabled={false}
-                        onClick={e => onSubmit(e, false, user._id)}
+                        onClick={e => onSubmit(e, false, user.user._id)}
                       >
                         Block
                       </Button>

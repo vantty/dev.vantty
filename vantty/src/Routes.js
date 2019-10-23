@@ -96,7 +96,7 @@ const Routes = () => {
       <RoutePrivateWithLayout
         component={EditProfile}
         exact
-        layout={MainLayout}
+        layout={MinimalLayout}
         path='/edit-profile'
       />
       <RoutePrivateWithLayout

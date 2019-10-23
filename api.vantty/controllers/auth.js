@@ -34,13 +34,13 @@ exports.sendEmail = async (req, res) => {
       port: 465,
       secure: true,
       auth: {
-        user: "postmaster@sandboxa9491416275e4cca8486201f758ee732.mailgun.org",
-        pass: "fb08b4c23904fff810684931ac5b0e3d-9c988ee3-9b553ed6"
+        user: "postmaster@mg.vantty.ca",
+        pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
       }
     });
 
     let message = {
-      from: "admin@vantty.com",
+      from: "admin@vantty.ca",
       to: `${email}`,
       subject: "Email Confirmation",
       html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`

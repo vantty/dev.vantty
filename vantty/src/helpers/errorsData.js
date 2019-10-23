@@ -25,17 +25,29 @@ export const schemaErrors = {
 export const schemaErrorsCreateProfile = {
   bio: {
     presence: { allowEmpty: false, message: "is required" },
-    // lastName: false,
     length: {
       maximum: 300
     }
   },
   profession: {
     presence: { allowEmpty: false, message: "is required" }
-    // lastName: false,
   },
   city: {
     presence: { allowEmpty: false, message: "is required" }
-    // lastName: false,
+  }
+};
+
+export const schemaErrorsReview = {
+  subject: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 20
+    }
+  },
+  text: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 200
+    }
   }
 };

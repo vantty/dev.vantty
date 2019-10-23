@@ -40,33 +40,33 @@ const ProfileSchema = new mongoose.Schema({
   instagramUsername: {
     type: String
   },
-  education: [
-    {
-      school: {
-        type: String
-      },
-      degree: {
-        type: String
-      },
-      description: {
-        type: String
-      }
-    }
-  ],
+  // education: [
+  //   {
+  //     school: {
+  //       type: String
+  //     },
+  //     degree: {
+  //       type: String
+  //     },
+  //     description: {
+  //       type: String
+  //     }
+  //   }
+  // ],
   categories: { makeup: [String], hair: [String] },
 
-  portfolioPictures: [
-    {
-      original: {
-        type: String
-      },
-      cloudId: {
-        type: String
-      },
-      tag: { type: String },
-      elasticId: { type: String, default: null }
-    }
-  ],
+  // portfolioPictures: [
+  //   {
+  //     original: {
+  //       type: String
+  //     },
+  //     cloudId: {
+  //       type: String
+  //     },
+  //     tag: { type: String },
+  //     elasticId: { type: String, default: null }
+  //   }
+  // ],
   social: {
     youtube: {
       type: String
@@ -78,19 +78,7 @@ const ProfileSchema = new mongoose.Schema({
   city: {
     type: [String]
   },
-  // elasticId: { type: String, default: null },
 
-  // area: {
-  //   country: {
-  //     type: String
-  //   },
-  //   state: {
-  //     type: String
-  //   },
-  //   city: {
-  //     type: String
-  //   }
-  // },
   verified: {
     type: Boolean,
     default: false

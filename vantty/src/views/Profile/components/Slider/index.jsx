@@ -73,7 +73,6 @@ export default function Slider({ profile, disabled }) {
               disabled={disabled}
               variant='contained'
             >
-              {console.log(disabled)}
               Contact Whatsapp
             </Button>
           </a>

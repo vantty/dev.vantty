@@ -31,6 +31,8 @@ const Review = ({
   ) : (
     <Fragment>
       <ReviewList review={review} />
+      <br />
+      <br />
     </Fragment>
   );
 };

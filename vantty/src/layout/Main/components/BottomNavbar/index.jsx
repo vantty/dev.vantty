@@ -94,19 +94,19 @@ const BottomNavbar = props => {
               }
               icon={
                 user ? (
-                  method.profilePicture.original ? (
+                  method.profilePicture && method.profilePicture.original ? (
                     <Avatar
                       alt=''
                       src={method.profilePicture.original}
                       className={classes.avatar}
                     />
                   ) : (
-                    <Avatar className={classes.bigAvatar} src={""}>
+                    <Avatar className={classes.avatar} src={""}>
                       {user && getInitials(method.firstName)}
                     </Avatar>
                   )
                 ) : (
-                  <Avatar className={classes.bigAvatar} src={""}>
+                  <Avatar className={classes.avatar} src={""}>
                     {user && getInitials(method.firstName)}
                   </Avatar>
                 )

@@ -18,6 +18,9 @@ const ReviewSchema = new Schema({
       rating: {
         type: Number
       },
+      subject: {
+        type: String
+      },
       text: {
         type: String
       },

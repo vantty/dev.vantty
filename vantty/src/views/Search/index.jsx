@@ -185,18 +185,18 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                     <Fragment>
                       {data.map(pic => (
                         <Fragment key={pic.cloudId}>
-                          {pic.verified ? (
+                          {!values[0] && pic.verified ? (
                             <Fragment>
                               <ResultCard className={classes.resultCard}>
                                 <Fragment>
                                   <Card className={classes.card}>
                                     <CardActionArea>
-                                      <a
+                                      {/* <a
                                         href={`https://vantty.ca/profile/artist/${pic.userId}`}
-                                      >
-                                        {/* <a
-                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
                                       > */}
+                                      <a
+                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
+                                      >
                                         <CardMedia
                                           key={pic.original}
                                           className={classes.cardMedia}

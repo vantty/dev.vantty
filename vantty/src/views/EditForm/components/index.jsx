@@ -4,5 +4,3 @@ export { default as EditPrice } from "./EditPrice";
 export { default as EditMobile } from "./EditMobile";
 export { default as EditPersonalInfo } from "./EditPersonalInfo";
 export { default as EditCategories } from "./EditCategories";
-export { default as SettingsProfile } from "./SettingsProfile";
-export { default as SettingsUser } from "./SettingsUser";

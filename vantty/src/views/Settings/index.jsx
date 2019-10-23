@@ -18,6 +18,7 @@ import { SettingsProfile, SettingsUser } from "./components";
 
 // Material-UI
 import { Hidden } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Settings = ({
   match,
@@ -50,7 +51,7 @@ const Settings = ({
           }
         />
       </Hidden>
-      {profile ? (
+      {/* {profile ? (
         profile.mobileNumber ? (
           <SettingsProfile match={match} pagesProfile={pagesProfile} />
         ) : (
@@ -58,7 +59,17 @@ const Settings = ({
         )
       ) : (
         <SettingsUser match={match} pages={pagesUser} />
+      )} */}
+
+      {profile && !profile.mobileNumber && (
+        <SettingsUser match={match} pages={pagesUser} />
       )}
+
+      {profile && profile.mobileNumber && (
+        <SettingsProfile match={match} pagesProfile={pagesProfile} />
+      )}
+
+      {!profile && <SettingsUser match={match} pages={pagesUser} />}
     </Fragment>
   );
 };

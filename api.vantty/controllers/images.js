@@ -35,7 +35,6 @@ exports.imagesById = async (req, res) => {
     if (!images) {
       return res.status(404).json({ msg: "Images not found" });
     }
-
     res.json(images.pictures);
   } catch (err) {
     console.error(err.message);

@@ -119,7 +119,7 @@ const AccountDetails = ({
 
   const onSubmit = async e => {
     e.preventDefault();
-    console.log(formData);
+
     await updateInfo(formData, history, true);
     profile &&
       (await createProfile(
