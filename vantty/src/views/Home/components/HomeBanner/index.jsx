@@ -58,7 +58,7 @@ const HomeBanner = ({ image, text }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
-      <Container maxWidth="md" className={classes.banner}>
+      <Container maxWidth='md' className={classes.banner}>
         <div
           style={{
             backgroundImage: `url(${image})`
@@ -66,14 +66,14 @@ const HomeBanner = ({ image, text }) => {
           className={classes.bannerImage}
         >
           <div className={classes.quoteInner}>
-            <Typography className={classes.quoteText} variant="h1">
+            <Typography className={classes.quoteText} variant='h1'>
               {text}
             </Typography>
             <Button
               component={Link}
-              to="/register"
-              color="primary"
-              variant="contained"
+              to='/register'
+              color='primary'
+              variant='contained'
               className={classes.button}
             >
               JOIN NOW

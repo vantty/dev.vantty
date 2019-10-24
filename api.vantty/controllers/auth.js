@@ -46,13 +46,13 @@ exports.sendEmail = async (req, res) => {
       html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
     };
 
-    transporter.sendMail(message, (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Email sent");
-      }
-    });
+    // transporter.sendMail(message, (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     console.log("Email sent");
+    //   }
+    // });
   } catch (error) {
     res.status(500).send("Server error");
   }

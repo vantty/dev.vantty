@@ -28,8 +28,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   logo: {
-    height: "100%",
-    width: "7rem",
+    height: "80%",
+    width: "5rem",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(2)

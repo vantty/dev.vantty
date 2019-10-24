@@ -72,12 +72,12 @@ const HomeCarousel = ({ title, artist, images }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
-      <Container maxWidth="md" className={classes.carousel}>
+      <Container maxWidth='md' className={classes.carousel}>
         <Grid
           container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
+          direction='row'
+          justify='space-between'
+          alignItems='center'
           className={classes.blockTitle}
         >
           <Grid item>
@@ -93,15 +93,15 @@ const HomeCarousel = ({ title, artist, images }) => {
           arrows
           autoPlaySpeed={3000}
           centerMode={false}
-          containerClass="container"
-          dotListClass=""
+          containerClass='container'
+          dotListClass=''
           draggable
           focusOnSelect={false}
           infinite
-          itemClass=""
+          itemClass=''
           keyBoardControl
           minimumTouchDrag={80}
-          partialVisbile="right"
+          partialVisbile='right'
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >

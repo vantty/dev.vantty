@@ -16,7 +16,8 @@ import {
   Typography,
   Toolbar,
   Divider,
-  Link
+  Link,
+  CardActionArea
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -84,12 +85,12 @@ const HomeGrid = ({ title, images }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
-      <Container className={classes.cardGrid} maxWidth="md">
+      <Container className={classes.cardGrid} maxWidth='md'>
         <Grid
           container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
+          direction='row'
+          justify='space-between'
+          alignItems='center'
           className={classes.blockTitle}
         >
           <Grid item>
@@ -98,8 +99,8 @@ const HomeGrid = ({ title, images }) => {
           <Grid item>
             <Link
               component={RouterLink}
-              to="/search"
-              variant="h6"
+              to='/search'
+              variant='h6'
               className={classes.link}
             >
               <Typography className={classes.seeAll}>See All</Typography>
@@ -110,15 +111,19 @@ const HomeGrid = ({ title, images }) => {
           {images.map((image, index) => (
             <Grid item key={index} xs={6} md={4}>
               <Card className={classes.card}>
-                <CardMedia
-                  key={image.photo}
-                  className={classes.cardMedia}
-                  image={`${image.photo}`}
-                  title="Image title"
-                />
+                <CardActionArea>
+                  <a href={`http://localhost:3000/profile/artist/${image.id}`}>
+                    <CardMedia
+                      key={image.photo}
+                      className={classes.cardMedia}
+                      image={`${image.photo}`}
+                      title='Image title'
+                    />
+                  </a>
+                </CardActionArea>
                 <CardContent className={classes.cardContent}>
                   <Toolbar className={classes.cardTitle}>
-                    <Avatar alt="" src={v2} className={classes.avatar} />
+                    <Avatar alt='' src={v2} className={classes.avatar} />
                     <Typography
                       key={index}
                       gutterBottom
