@@ -133,7 +133,6 @@ export const uploadImages = e => async dispatch => {
       const resImages = await server.get("/images");
       const resProfile = await server.get("/profile/me");
       const data = elasticData(resImages.data, resProfile); // helpers
-      const { profileId } = data[0];
       await loadToElastic(data, resProfile.data.imagesId); //ACTION
       await dispatch(getImages());
     })

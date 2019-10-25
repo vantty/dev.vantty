@@ -13,7 +13,6 @@ import {
 import { getCurrentProfile } from "../../../../../../actions/profile";
 // Material-UI
 import Button from "@material-ui/core/Button";
-import LinkMui from "@material-ui/core/Link";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -59,16 +58,16 @@ const AvatarUploader = ({
     return (
       <Fragment>
         <Button
-          component='label'
-          size='small'
-          variant='outlined'
-          color='primary'
+          component="label"
+          size="small"
+          variant="outlined"
+          color="primary"
         >
           Upload File
           <input
             style={{ display: "none" }}
-            type='file'
-            name='file'
+            type="file"
+            name="file"
             multiple
             onChange={onChange}
           />
@@ -78,26 +77,26 @@ const AvatarUploader = ({
   };
   const method = getStrategy(user);
 
-  const DeletePicture = () => {
-    return (
-      <Fragment>
-        <LinkMui
-          className={classes.delete}
-          // disabled={!method.profilePicture.original && true}
-          component='button'
-          variant='body2'
-          onClick={() =>
-            deleteUserPicture(
-              user._id,
-              user && method.profilePicture && method.profilePicture.cloudId
-            )
-          }
-        >
-          Delete Picture
-        </LinkMui>
-      </Fragment>
-    );
-  };
+  // const DeletePicture = () => {
+  //   return (
+  //     <Fragment>
+  //       <LinkMui
+  //         className={classes.delete}
+  //         // disabled={!method.profilePicture.original && true}
+  //         component='button'
+  //         variant='body2'
+  //         onClick={() =>
+  //           deleteUserPicture(
+  //             user._id,
+  //             user && method.profilePicture && method.profilePicture.cloudId
+  //           )
+  //         }
+  //       >
+  //         Delete Picture
+  //       </LinkMui>
+  //     </Fragment>
+  //   );
+  // };
 
   const loadImages = () => {
     if (user && method.profilePicture && method.profilePicture.original) {

@@ -22,10 +22,12 @@ import {
   Landing,
   Home,
   Register,
+  RegisterWithEmail,
   WaitForConfirmation,
   Confirmation,
   ReviewForm,
   Login,
+  LoginWithEmail,
   Form,
   Search,
   Board,
@@ -42,62 +44,64 @@ import { SettingsGeneral } from "./views/Settings/components";
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path='/confirmation/:token' component={Confirmation} />
-      <Route exact path='/confirmation' component={WaitForConfirmation} />
+      <Route exact path="/confirmation/:token" component={Confirmation} />
+      <Route exact path="/confirmation" component={WaitForConfirmation} />
       {/* ADMIN */}
-      <AdminRoute exact path='/dashboard' component={Board} />
-      <PrivateRoute exact path='/create-profile' component={Form} />
+      <AdminRoute exact path="/dashboard" component={Board} />
+      <PrivateRoute exact path="/create-profile" component={Form} />
       />
       {/*  */}
       {/* <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} /> */}
-      <Route component={Register} exact path='/register' />
-      <Route component={Login} exact path='/login' />
+      <Route component={Register} exact path="/register" />
+      <Route component={RegisterWithEmail} exact path="/register-email" />
+      <Route component={Login} exact path="/login" />
+      <Route component={LoginWithEmail} exact path="/login-email" />
       <RouteWithLayout
         component={Landing}
         exact
         layout={MainLayout}
-        path='/landing'
+        path="/landing"
       />
-      <RouteWithLayout component={Home} exact layout={MainLayout} path='/' />
+      <RouteWithLayout component={Home} exact layout={MainLayout} path="/" />
       <RouteWithLayout
         component={Search}
         exact
         layout={MainLayout}
-        path='/search'
+        path="/search"
       />
       {/* PROFILE */}
       <RouteWithLayout
         component={Profile}
         exact
         layout={MinimalLayout}
-        path='/profile/artist/:id'
+        path="/profile/artist/:id"
       />
       {/* GENERAL */}
       <RouteWithLayout
         layout={MainLayout}
         component={Terms}
         exact
-        path='/terms-of-service'
+        path="/terms-of-service"
       />
       <RouteWithLayout
         layout={MainLayout}
         component={Policy}
         exact
-        path='/data-policy'
+        path="/data-policy"
       />
       {/* EDIT FORM */}
       <RoutePrivateWithLayout
         component={EditPersonalInfo}
         exact
         layout={MinimalLayout}
-        path='/personal-info'
+        path="/personal-info"
       />
       <RoutePrivateWithLayout
         component={EditProfile}
         exact
         layout={MinimalLayout}
-        path='/edit-profile'
+        path="/edit-profile"
       />
       <RoutePrivateWithLayout
         component={Validation}
@@ -109,44 +113,44 @@ const Routes = () => {
         component={InfoContact}
         exact
         layout={MinimalLayout}
-        path='/info-contact'
+        path="/info-contact"
       />
       <RoutePrivateWithLayout
         component={EditPortfolio}
         exact
         layout={MinimalLayout}
-        path='/add-portfolio'
+        path="/add-portfolio"
       />
-      <PrivateRoute component={Settings} exact path='/settings' />
+      <PrivateRoute component={Settings} exact path="/settings" />
       <PrivateRoute
         component={SettingsGeneral}
         exact
-        path='/settings/general'
+        path="/settings/general"
       />
       <RoutePrivateWithLayout
         component={EditMobile}
         exact
         layout={MinimalLayout}
-        path='/mobile'
+        path="/mobile"
       />
       <RoutePrivateWithLayout
         component={EditPrice}
         exact
         layout={MinimalLayout}
-        path='/price'
+        path="/price"
       />
       <RoutePrivateWithLayout
         component={EditCategories}
         exact
         layout={MinimalLayout}
-        path='/categories'
+        path="/categories"
       />
       {/* REVIEW */}
       <RoutePrivateWithLayout
         component={ReviewForm}
         exact
         layout={MinimalLayout}
-        path='/profile/artist/:userId/:reviewId'
+        path="/profile/artist/:userId/:reviewId"
       />
       <RouteWithLayout layout={MainLayout} component={NotFound} />
     </Switch>
