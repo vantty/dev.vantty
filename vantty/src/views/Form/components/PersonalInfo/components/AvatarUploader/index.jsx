@@ -113,7 +113,7 @@ const AvatarUploader = ({
       return (
         <Fragment>
           <Avatar className={classes.avatar}>
-            {getInitials(method.firstName)}
+            {getInitials(method && method.firstName)}
           </Avatar>
         </Fragment>
       );

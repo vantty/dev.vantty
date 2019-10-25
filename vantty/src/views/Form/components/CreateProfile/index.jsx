@@ -185,6 +185,7 @@ const CreateProfile = ({
                   autoComplete='fname'
                   required
                   type='text'
+                  placeholder='initial'
                   value={formState.values.bio || formData.bio || ""}
                   variant='outlined'
                   multiline

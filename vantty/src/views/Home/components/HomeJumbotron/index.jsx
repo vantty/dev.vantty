@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { searchValue } from "../../../../actions/search";
 
 // Assets
-import top from "../../../../assets/images/top.jpg";
+// import top from "../../../../assets/images/top.jpg";
 
 // Material-UI
 import SearchIcon from "@material-ui/icons/Search";
@@ -17,6 +17,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
+
+const top =
+  "https://res.cloudinary.com/vantty/image/upload/v1571950819/seed/tcsdqqbip3si1anndljy.jpg";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +46,8 @@ const useStyles = makeStyles(theme => ({
     flexBasis: "600px"
   },
   quoteText: {
-    marginBottom: "1rem"
+    marginBottom: "1rem",
+    color: "white"
   },
   textField: {
     backgroundColor: "white",
@@ -88,7 +92,7 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
   };
 
   if (goSearch) {
-    return <Redirect push to="/search" />;
+    return <Redirect push to='/search' />;
   }
 
   return (
@@ -97,24 +101,24 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
         <Grid className={classes.grid} container>
           <Grid className={classes.quoteContainer} item sm={12}>
             <div className={classes.quote}>
-              <Container>
+              <Container maxWidth='xl'>
                 <Grid container>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={5}>
                     <div className={classes.quoteInner}>
-                      <Typography className={classes.quoteText} variant="h1">
+                      <Typography className={classes.quoteText} variant='h1'>
                         Get your dreamed look, done by the perfect artists
                       </Typography>
                       <form onSubmit={handleSearch}>
                         <TextField
-                          id="outlined-simple-start-adornment"
+                          id='outlined-simple-start-adornment'
                           onChange={handleChange}
                           fullWidth
                           className={classes.textField}
-                          variant="outlined"
-                          placeholder="Search"
+                          variant='outlined'
+                          placeholder='Search'
                           InputProps={{
                             startAdornment: (
-                              <InputAdornment position="start">
+                              <InputAdornment position='start'>
                                 <SearchIcon />
                               </InputAdornment>
                             )

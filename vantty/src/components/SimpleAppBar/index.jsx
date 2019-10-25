@@ -47,7 +47,7 @@ const SimpleAppBar = ({ history, path, owner }) => {
   const classes = useStyles();
 
   const handleBack = () => {
-    history.goBack(1);
+    history.goBack();
   };
 
   return (
@@ -66,8 +66,9 @@ const SimpleAppBar = ({ history, path, owner }) => {
                   <MuiLink
                     underline='none'
                     color='inherit'
-                    component={Link}
-                    to={path}
+                    // component={Link}
+                    onClick={handleBack}
+                    // to={handleBack}
                   >
                     <IconButton className={classes.arrowBack}>
                       <ArrowBackIcon />

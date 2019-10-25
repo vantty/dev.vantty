@@ -53,6 +53,15 @@ export default function Links({ id }) {
               </LinkMui>
             </Typography>
             <Typography>
+              <LinkMui
+                component={Link}
+                to={"/validation"}
+                className={classes.link}
+              >
+                /validation
+              </LinkMui>
+            </Typography>
+            <Typography>
               <LinkMui component={Link} to={"/price"} className={classes.link}>
                 /price
               </LinkMui>

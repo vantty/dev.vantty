@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -20,13 +20,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SelectTags = ({ _id, uploadTag, elasticId }) => {
+const SelectTags = ({ _id, uploadTag, elasticId, tags, onChangeTags }) => {
   const classes = useStyles();
   const [tag, setTag] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
   const handleChange = event => {
     setTag(event.target.value);
+    onChangeTags(event, elasticId);
   };
 
   const handleClose = () => {
@@ -42,7 +43,8 @@ const SelectTags = ({ _id, uploadTag, elasticId }) => {
     uploadTag({ _id: _id, tag: tag }, elasticId);
   };
   return (
-    <form autoComplete='off' submit>
+    // <form autoComplete='off'>
+    <div>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor='demo-controlled-open-select'>Tag</InputLabel>
         <Select
@@ -51,19 +53,23 @@ const SelectTags = ({ _id, uploadTag, elasticId }) => {
           onOpen={handleOpen}
           value={tag}
           onChange={handleChange}
+          name={_id}
+          elastic={elasticId}
         >
           {/* <MenuItem value={tag}>
             <em>{tag}</em>
           </MenuItem> */}
 
           {/* <MenuItem value={tag}>{tag}</MenuItem> */}
-          <MenuItem value={"Social"}>Social</MenuItem>
-          <MenuItem value={"Bridal"}>Bridal</MenuItem>
-          <MenuItem value={"Photography"}>Photography</MenuItem>
+          <MenuItem value={"social"}>Social</MenuItem>
+          <MenuItem value={"bridal"}>Bridal</MenuItem>
+          <MenuItem value={"photography"}>Photography</MenuItem>
         </Select>
-        <Button onClick={e => onSubmit(e, tag, _id)}>Send Tags</Button>
+        {/* <Button onClick={e => onSubmit(e, tag, _id)}>Send Tags</Button> */}
       </FormControl>
-    </form>
+    </div>
+
+    // </form>
   );
 };
 

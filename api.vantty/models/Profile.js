@@ -19,6 +19,15 @@ const ProfileSchema = new mongoose.Schema({
   imagesId: {
     type: String
   },
+  gender: {
+    type: String
+  },
+  qualified: {
+    type: String
+  },
+  englishLevel: {
+    type: String
+  },
   profilePicture: { type: String },
 
   bio: {

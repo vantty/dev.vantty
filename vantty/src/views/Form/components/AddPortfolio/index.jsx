@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -23,7 +23,7 @@ import {
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
-import { getImages } from "../../../../actions/uploader";
+import { getImages, uploadTag } from "../../../../actions/uploader";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +39,8 @@ const AddPortfolio = ({
   step,
   match,
   getCurrentProfile,
-  uploader: { image },
+  uploader: { images },
+  uploadTag,
   getImages,
   className,
   ...rest
@@ -47,12 +48,25 @@ const AddPortfolio = ({
   useEffect(() => {
     getCurrentProfile();
     getImages();
+    setTags({});
   }, []);
-
-  const continues = e => {
+  const [tags, setTags] = useState({});
+  const continues = async (e, id, tag) => {
     e.preventDefault();
-    nextStep();
+    await uploadTag(tags);
+    await nextStep();
   };
+  const onChangeTags = (e, elastic, _id, checkpoint = true) =>
+    checkpoint
+      ? setTags({
+          ...tags,
+          [e.target.name]: {
+            tag: e.target.value,
+            _id: e.target.name,
+            elastic: elastic
+          }
+        })
+      : delete tags[_id];
 
   const back = e => {
     e.preventDefault();
@@ -69,7 +83,7 @@ const AddPortfolio = ({
               <CardHeader title='Portfolio' />
               <CardContent className={classes.content}>
                 <div>
-                  <ImagesUploader />
+                  <ImagesUploader tags={tags} onChangeTags={onChangeTags} />
                 </div>
               </CardContent>
               <br />
@@ -98,14 +112,56 @@ const AddPortfolio = ({
                               <Button
                                 style={{ backgroundColor: "#f5f5" }}
                                 disabled={
-                                  profile &&
-                                  !loading &&
-                                  image &&
-                                  image.length < 5 &&
-                                  true
+                                  images && images.length < 5 && true
+
+                                  // profile && !loading && images
+                                  //   ? images.length >= 5
+                                  //     ? Object.keys(tags).length ===
+                                  //       images.length
+                                  //       ? false
+                                  //       : true
+                                  //     : true
+                                  //   : false
+
+                                  // profile &&
+                                  // !loading &&
+                                  // images &&
+                                  // (images.map(img => img.tag)).length &&
+                                  // false
+
+                                  // profile &&
+                                  // !loading &&
+                                  // images &&
+                                  // images
+                                  //   .map(img => img.tag)
+                                  //   .splice(undefined) === images.length &&
+                                  // false
+                                  //     images.length &&
+                                  // (images &&
+                                  //   Object.keys(tags).length !==
+                                  //     images.length &&
+                                  //   false)
+                                  // profile &&
+                                  // !loading &&
+                                  // images &&
+                                  // images.length < 5 &&
+                                  // true &&
+                                  // profile &&
+                                  // !loading &&
+                                  // Object.keys(tags).length < 1 &&
+                                  // true
                                 }
                                 onClick={continues}
                               >
+                                {console.log("TAGS", Object.keys(tags))}
+                                {console.log("IMA", images && images.length)}
+                                {console.log(
+                                  "MAP",
+                                  images &&
+                                    images
+                                      .map(img => img.tag)
+                                      .map(undef => undef)
+                                )}
                                 Next
                               </Button>
                             </Fragment>
@@ -171,5 +227,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addPortfolio, getCurrentProfile, getImages }
+  { addPortfolio, getCurrentProfile, getImages, uploadTag }
 )(withRouter(AddPortfolio));

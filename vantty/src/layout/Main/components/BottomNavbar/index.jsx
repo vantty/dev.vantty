@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     margin: 3,
     width: 22,
-    height: 20
+    height: 20,
+    fontSize: "4px"
   },
   select: {
     margin: 0

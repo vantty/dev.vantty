@@ -52,16 +52,24 @@ export const getImagesById = imagesId => async dispatch => {
 };
 export const uploadTag = (tagObj, elasticId) => async dispatch => {
   try {
-    await server.post("/images/add-tags", [tagObj]);
+    const keys = Object.keys(tagObj);
+    for (const y of keys) {
+      for (const x of [tagObj[y]]) {
+        var newObjTag = { _id: x._id, tag: x.tag };
 
-    const elasticConfig = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+        await server.post("/images/add-tags", [newObjTag]);
+
+        //elastic Tags
+        const elasticConfig = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+          }
+        };
+        const datum = { doc: { tag: x.tag } };
+        await elastic.post(`/${x.elastic}/_update`, datum, elasticConfig);
       }
-    };
-    const datum = { doc: { tag: tagObj.tag } };
-    await elastic.post(`/${elasticId}/_update`, datum, elasticConfig);
+    }
   } catch (error) {
     console.log(error);
   }

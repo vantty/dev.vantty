@@ -38,9 +38,12 @@ exports.createANDupdate = async (req, res) => {
     state,
     city,
     price,
+    qualified,
+    gender,
     firstName,
     lastName,
-    verified
+    verified,
+    englishLevel
   } = req.body;
 
   // Build profile object
@@ -61,6 +64,15 @@ exports.createANDupdate = async (req, res) => {
   if (instagramUsername) profileFields.instagramUsername = instagramUsername;
   if (profession) {
     profileFields.profession = profession;
+  }
+  if (qualified) {
+    profileFields.qualified = qualified;
+  }
+  if (gender) {
+    profileFields.gender = gender;
+  }
+  if (englishLevel) {
+    profileFields.englishLevel = englishLevel;
   }
   if (city) {
     profileFields.city = city;

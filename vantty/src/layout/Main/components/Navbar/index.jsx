@@ -128,15 +128,23 @@ const Navbar = props => {
                         Artists
                       </Button>
                       {profile ? (
-                        profile.mobileNumber && (
+                        profile.mobileNumber ? (
                           <a
-                            // href={`https://www.vantty.ca/profile/artist/${user &&
-                            //   user._id}`}
-                            href={`http://localhost:3000/profile/artist/${user &&
+                            href={`https://www.vantty.ca/profile/artist/${user &&
                               user._id}`}
+                            // href={`http://localhost:3000/profile/artist/${user &&
+                            //   user._id}`}
                           >
                             <Button className={classes.button}>Profile</Button>
                           </a>
+                        ) : (
+                          <Button
+                            className={classes.button}
+                            component={Link}
+                            to={"/settings"}
+                          >
+                            Profile
+                          </Button>
                         )
                       ) : (
                         <Button

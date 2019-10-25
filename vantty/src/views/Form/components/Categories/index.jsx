@@ -201,7 +201,8 @@ const AddCategories = ({
                                 control={
                                   <Checkbox
                                     key={data}
-                                    checked={stateHair[data] === true && true}
+                                    // checked={"" || stateHair[data] === true && true}
+                                    checked={"" || stateHair[data] === true}
                                     onChange={handleChangeHair(data)}
                                     value={toString(data)}
                                   />

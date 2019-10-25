@@ -271,6 +271,7 @@ const Login = props => {
                       appId={process.env.REACT_APP_FACEBOOK_ID}
                       fields='name,email,picture'
                       callback={responseFacebook}
+                      isMobile={false}
                       render={renderProps => (
                         <Button
                           fullWidth

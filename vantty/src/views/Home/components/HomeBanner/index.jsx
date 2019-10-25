@@ -20,9 +20,9 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: "cover",
     borderRadius: "0.6rem",
     backgroundColor: "rgba(0,0,0,.3)",
-    paddingTop: "70%",
+    paddingTop: "20%",
     [theme.breakpoints.down("sm")]: {
-      paddingTop: "90%"
+      paddingTop: "20%"
     }
   },
   banner: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(8)
   },
   quoteText: {
-    color: theme.palette.white,
+    // color: theme.palette.white,
     fontWeight: 300,
     paddingBottom: theme.spacing(1)
   },

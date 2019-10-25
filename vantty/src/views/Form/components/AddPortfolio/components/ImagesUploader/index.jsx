@@ -21,7 +21,9 @@ const ImagesUploader = ({
   uploader: { images },
   // images,
   getCurrentProfile,
-  profile: { profile }
+  profile: { profile },
+  tags,
+  onChangeTags
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -55,6 +57,8 @@ const ImagesUploader = ({
         <PortfolioPictures
           portfolioPictures={images}
           modelImagesId={profile.imagesId}
+          tags={tags}
+          onChangeTags={onChangeTags}
         />
       );
     }

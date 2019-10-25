@@ -22,7 +22,8 @@ import {
   InfoContact,
   Price,
   PersonalInfo,
-  Categories
+  Categories,
+  Validation
 } from "./components";
 
 import { AppBarForm } from "./components/ComponentsForm";
@@ -54,12 +55,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Form = ({
-  profile,
-  getCurrentProfile,
-
-  uploader: { images }
-}) => {
+const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = useState(1);
@@ -73,7 +69,10 @@ const Form = ({
     country: "",
     mobileNumber: "",
     instagramUsername: "",
-    user: ""
+    user: "",
+    qualified: "",
+    gender: "",
+    english: ""
   });
 
   useEffect(() => {
@@ -110,15 +109,18 @@ const Form = ({
         );
       case 3:
         return (
-          <Categories
+          <Validation
+            formData={formData}
             step={activeStep}
             nextStep={nextStep}
+            getCurrentProfile={getCurrentProfile}
             prevStep={prevStep}
+            onChange={onChange}
           />
         );
       case 4:
         return (
-          <AddPortfolio
+          <Categories
             step={activeStep}
             nextStep={nextStep}
             prevStep={prevStep}
@@ -126,9 +128,17 @@ const Form = ({
         );
       case 5:
         return (
-          <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+          <AddPortfolio
+            step={activeStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+          />
         );
       case 6:
+        return (
+          <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+        );
+      case 7:
         return (
           <InfoContact
             step={activeStep}

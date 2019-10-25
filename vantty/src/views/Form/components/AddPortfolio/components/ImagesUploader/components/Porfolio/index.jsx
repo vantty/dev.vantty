@@ -44,8 +44,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Porfolio = ({ portfolioPictures, deletePicture, modelImagesId }) => {
+const Porfolio = ({
+  portfolioPictures,
+  deletePicture,
+  modelImagesId,
+  tags,
+  onChangeTags
+}) => {
   const classes = useStyles();
+
+  const send = async (e, modelImagesId, _id, cloudId, elasticId) => {
+    e.preventDefault();
+    deletePicture(modelImagesId, _id, cloudId, elasticId);
+    // onChangeTags(e, elasticId, _id, false);
+  };
 
   return (
     <Fragment>
@@ -57,8 +69,9 @@ const Porfolio = ({ portfolioPictures, deletePicture, modelImagesId }) => {
             portfolioPictures.map(picture => (
               <GridListTile key={picture._id} style={{ height: "auto" }}>
                 <span
-                  onClick={() =>
-                    deletePicture(
+                  onClick={e =>
+                    send(
+                      e,
                       modelImagesId,
                       picture._id,
                       picture.cloudId,
@@ -74,9 +87,16 @@ const Porfolio = ({ portfolioPictures, deletePicture, modelImagesId }) => {
                   }}
                   className={clsx(classes.image)}
                 />
+
                 {picture.tag === undefined && (
-                  <Select _id={picture._id} elasticId={picture.elasticId} />
+                  <Select
+                    _id={picture._id}
+                    elasticId={picture.elasticId}
+                    tags={tags}
+                    onChangeTags={onChangeTags}
+                  />
                 )}
+
                 {/* <Select tag={picture.tag} /> */}
                 <Typography color='textPrimary' variant='h6' component='h3'>
                   {picture.tag}

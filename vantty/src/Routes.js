@@ -36,7 +36,7 @@ import {
 //Routes
 import PrivateRoute from "./router/PrivateRoute";
 import AdminRoute from "./router/AdminRoute";
-import { InfoContact } from "./views/Form/components";
+import { InfoContact, Validation } from "./views/Form/components";
 import { SettingsGeneral } from "./views/Settings/components";
 
 const Routes = () => {
@@ -98,6 +98,12 @@ const Routes = () => {
         exact
         layout={MinimalLayout}
         path='/edit-profile'
+      />
+      <RoutePrivateWithLayout
+        component={Validation}
+        exact
+        layout={MinimalLayout}
+        path='/validation'
       />
       <RoutePrivateWithLayout
         component={InfoContact}

@@ -26,12 +26,13 @@ export default function ProgressBarForm({ value }) {
   const classes = useStyles();
 
   const progress = {
-    1: 15,
-    2: 30,
-    3: 45,
-    4: 66,
-    5: 89,
-    6: 95
+    1: 14.2,
+    2: 28.4,
+    3: 42.6,
+    4: 55.8,
+    5: 70,
+    6: 84.2,
+    7: 98.6
   };
 
   return (

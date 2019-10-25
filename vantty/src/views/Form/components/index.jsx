@@ -5,3 +5,4 @@ export { default as Price } from "./Price";
 export { default as PersonalInfo } from "./PersonalInfo";
 export { default as Categories } from "./Categories";
 export { default as Education } from "./Education";
+export { default as Validation } from "./Validation";
