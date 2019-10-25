@@ -28,7 +28,6 @@ import {
 import { AppBarForm } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { getImages } from "../../actions/uploader";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -151,7 +150,7 @@ const Form = ({
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Fragment>
                     <Fragment>{getStepContent(activeStep)}</Fragment>
                   </Fragment>

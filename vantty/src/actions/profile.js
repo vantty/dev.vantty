@@ -359,11 +359,11 @@ export const verifiedProfile = formData => async dispatch => {
 export const deleteProfileAndUserDashboard = ({
   formData
 }) => async dispatch => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   }
+  // };
 
   if (window.confirm("Are you sure?")) {
     try {

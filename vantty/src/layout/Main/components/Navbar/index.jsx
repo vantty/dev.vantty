@@ -12,8 +12,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import LinkMui from "@material-ui/core/Link";
 import Progress from "@material-ui/core/LinearProgress";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Slide from "@material-ui/core/Slide";
 import Divider from "@material-ui/core/Divider";
 
 // Assets
@@ -53,16 +51,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HideOnScroll = props => {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
-  return (
-    // <Slide appear={false} direction='down' in={!trigger}>
-    <Slide appear={false} direction='down'>
-      {children}
-    </Slide>
-  );
-};
+// const HideOnScroll = props => {
+//   const { children, window } = props;
+//   const trigger = useScrollTrigger({ target: window ? window() : undefined });
+//   return (
+//     // <Slide appear={false} direction='down' in={!trigger}>
+//     <Slide appear={false} direction='down'>
+//       {children}
+//     </Slide>
+//   );
+// };
 
 const Navbar = props => {
   const {
@@ -79,37 +77,37 @@ const Navbar = props => {
       <CssBaseline />
       <AppBar className={classes.root}>
         <Toolbar>
-          <Typography variant='h5' className={classes.title}>
-            <LinkMui underline='none' color='inherit' component={Link} to='/'>
-              <img src={Logo} alt='' className={classes.logo} />
+          <Typography variant="h5" className={classes.title}>
+            <LinkMui underline="none" color="inherit" component={Link} to="/">
+              <img src={Logo} alt="" className={classes.logo} />
             </LinkMui>
           </Typography>
           {loading ? (
-            <Progress data-test='progress' />
+            <Progress data-test="progress" />
           ) : (
             <Fragment>
               {!isAuthenticated ? (
                 <Fragment>
-                  <section data-test='noAuthButtons'>
+                  <section data-test="noAuthButtons">
                     <div className={classes.sectionDesktop}>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/search'
+                        to="/search"
                       >
                         Artists
                       </Button>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/login'
+                        to="/login"
                       >
                         Login
                       </Button>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/register'
+                        to="/register"
                       >
                         Register
                       </Button>
@@ -118,12 +116,12 @@ const Navbar = props => {
                 </Fragment>
               ) : (
                 <Fragment>
-                  <section data-test='authButtons'>
+                  <section data-test="authButtons">
                     <div className={classes.sectionDesktop}>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/search'
+                        to="/search"
                       >
                         Artists
                       </Button>
@@ -149,10 +147,10 @@ const Navbar = props => {
                       )}
                       {user && user.role === "Admin" && (
                         <Button
-                          color='inherit'
+                          color="inherit"
                           className={classes.button}
                           component={Link}
-                          to='/dashboard'
+                          to="/dashboard"
                         >
                           Admin
                         </Button>
@@ -177,10 +175,10 @@ Navbar.propTypes = {
   profile: PropTypes.object.isRequired
 };
 
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  window: PropTypes.func
-};
+// HideOnScroll.propTypes = {
+//   children: PropTypes.element.isRequired,
+//   window: PropTypes.func
+// };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,

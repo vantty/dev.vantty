@@ -18,7 +18,6 @@ import { SettingsProfile, SettingsUser } from "./components";
 
 // Material-UI
 import { Hidden } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Settings = ({
   match,
@@ -38,7 +37,7 @@ const Settings = ({
   return (
     <Fragment>
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
 
       <Hidden only={["md", "lg", "xl"]}>
