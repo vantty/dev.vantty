@@ -66,9 +66,9 @@ const SimpleAppBar = ({ history, path, owner }) => {
                   <MuiLink
                     underline='none'
                     color='inherit'
-                    // component={Link}
-                    onClick={handleBack}
-                    // to={handleBack}
+                    component={Link}
+                    // onClick={handleBack}
+                    to={path}
                   >
                     <IconButton className={classes.arrowBack}>
                       <ArrowBackIcon />

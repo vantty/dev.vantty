@@ -67,8 +67,8 @@ const Profile = ({
       {isMobile && (
         <Fragment>
           <SimpleAppBar
-            // path={"/search"}
-            path={history}
+            path={"/search"}
+            // path={history}
             owner={
               isOwner(auth, user && user._id) === true &&
               profile &&

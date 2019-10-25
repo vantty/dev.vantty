@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     margin: 3,
     width: 22,
     height: 20,
-    fontSize: "4px"
+    fontSize: "11px"
   },
   select: {
     margin: 0
