@@ -36,10 +36,8 @@ export const verifyNumber = (res, id) => async dispatch => {
         )
         .then(async res => {
           const numberVerified = res.data.phone.number;
-
-          await dispatch(
-            createMobileNumber({ mobileNumber: numberVerified }, true)
-          );
+          var number = numberVerified.substr(1);
+          await dispatch(createMobileNumber({ mobileNumber: number }, true));
 
           await dispatch({
             type: NUMBER_VERIFY_SUCCESS,

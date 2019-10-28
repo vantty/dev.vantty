@@ -39,43 +39,47 @@ const AvatarUploader = ({
   updateInfo,
   history,
   loadUser,
+  formData,
   deleteUserPicture,
   profile: { profile },
   auth: { user },
   ...rest
 }) => {
   const classes = useStyles();
+  const method = getStrategy(user);
 
   useEffect(() => {
     loadUser();
   }, []);
 
-  const onChange = e => {
-    userImage(e, user._id, profile);
+  const onChange = async e => {
+    e.preventDefault();
+    await userImage(e, user._id, profile, method.profilePicture.cloudId);
   };
 
   const UploadButton = () => {
     return (
       <Fragment>
         <Button
-          component="label"
-          size="small"
-          variant="outlined"
-          color="primary"
+          component='label'
+          size='small'
+          variant='outlined'
+          color='primary'
         >
-          Upload File
+          Upload Picture
           <input
             style={{ display: "none" }}
-            type="file"
-            name="file"
+            type='file'
+            name='file'
             multiple
             onChange={onChange}
+            // value={user && method.profilePicture}
           />
         </Button>
       </Fragment>
     );
   };
-  const method = getStrategy(user);
+  // const method = getStrategy(user);
 
   // const DeletePicture = () => {
   //   return (

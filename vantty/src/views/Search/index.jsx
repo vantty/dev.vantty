@@ -191,12 +191,12 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                 <Fragment>
                                   <Card className={classes.card}>
                                     <CardActionArea>
-                                      {/* <a
-                                        href={`https://vantty.ca/profile/artist/${pic.userId}`}
-                                      > */}
                                       <a
-                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
+                                        href={`https://vantty.ca/profile/artist/${pic.userId}`}
                                       >
+                                        {/* <a
+                                        href={`http://localhost:3000/profile/artist/${pic.userId}`}
+                                      > */}
                                         <CardMedia
                                           key={pic.original}
                                           className={classes.cardMedia}

@@ -10,6 +10,7 @@ export default {
     // lineHeight: "40px"
   },
   h2: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "29px",
@@ -17,6 +18,7 @@ export default {
     lineHeight: "32px"
   },
   h3: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "24px",
@@ -24,6 +26,7 @@ export default {
     lineHeight: "28px"
   },
   h4: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "20px",
@@ -31,6 +34,7 @@ export default {
     lineHeight: "24px"
   },
   h5: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "16px",
@@ -38,6 +42,7 @@ export default {
     lineHeight: "20px"
   },
   h6: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "14px",

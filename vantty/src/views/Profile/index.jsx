@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 // Components
 import { Header } from "../../components/";
-import { Review, Slider } from "./components";
+import { Review, Slider, MessageVerified } from "./components";
 
 //Components inside
 import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 
   sticky: {
     position: "-webkit-sticky" /* Safari */,
-    position: "sticky",
+    position: "sticky", //it must keep here
     top: "0"
   },
   progress: {
@@ -94,6 +94,13 @@ const Profile = ({
                   <Progress />
                 ) : (
                   <Fragment>
+                    {isOwner(auth, user && user._id) === true &&
+                      profile &&
+                      profile.user._id === auth.user._id &&
+                      profile.mobileNumber &&
+                      !profile.verified && (
+                        <MessageVerified profile={profile} />
+                      )}
                     <Grid item xs={12} md={8} sm={10}>
                       <Header />
 
@@ -117,7 +124,9 @@ const Profile = ({
                         <div className={classes.sticky}>
                           <Slider
                             profile={profile}
+                            verified={profile.verified}
                             disabled={user && user._id === profile.user._id}
+                            user={user}
                           />
                         </div>
                       </Grid>

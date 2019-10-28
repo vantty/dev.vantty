@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -29,16 +29,19 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.white
+    backgroundColor: "white"
   },
   button: {
     // backgroundColor: theme.palette.greenVantty.main,
     color: "white",
     backgroundColor: "#25D366"
+  },
+  infoPrice: {
+    fontSize: "10px"
   }
 }));
 
-export default function Slider({ profile, disabled }) {
+export default function Slider({ profile, disabled, verified, user }) {
   const classes = useStyles();
 
   return (
@@ -49,34 +52,39 @@ export default function Slider({ profile, disabled }) {
           <Grid item xs>
             <Typography gutterBottom variant='h5'>
               ${profile.price}
+              <span className={classes.infoPrice}> /cad</span>
             </Typography>
           </Grid>
         </Grid>
         <Typography color='primary' variant='body1'>
           Starting Cost
         </Typography>
-        {/* </div> */}
-        <br />
-        <Divider variant='middle' />
 
-        <div className={classes.section3}>
-          {/* <Button variant='contained' size='large' className={classes.button}>
-            Contact
-          </Button> */}
-          <a
-            target='#'
-            href={`https://api.whatsapp.com/send?phone=${profile.mobileNumber}&text=Hola!%20${profile.name.firstName},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
-          >
-            <Button
-              className={classes.button}
-              //   className={classes.buttonDrawer}
-              disabled={disabled}
-              variant='contained'
-            >
-              Contact Whatsapp
-            </Button>
-          </a>
-        </div>
+        {!disabled && (
+          <Fragment>
+            <br />
+            <Divider variant='middle' />
+
+            <div className={classes.section3}>
+              <Button
+                className={classes.button}
+                disabled={!verified}
+                variant='contained'
+              >
+                <Fragment>
+                  {user && (
+                    <a
+                      target='#'
+                      href={`https://api.whatsapp.com/send?phone=${profile.mobileNumber}&text=Hola!%20${profile.name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
+                    >
+                      Contactar whatsapp
+                    </a>
+                  )}
+                </Fragment>
+              </Button>
+            </div>
+          </Fragment>
+        )}
       </Paper>
     </div>
   );

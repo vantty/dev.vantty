@@ -224,11 +224,7 @@ export const logout = () => async dispatch => {
 };
 
 //Update Personal Info
-export const updateInfo = (
-  formData,
-  history,
-  edit = false
-) => async dispatch => {
+export const updateInfo = (formData, edit = false) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -236,7 +232,7 @@ export const updateInfo = (
       }
     };
     await server.post("/auth/update-info", formData, config);
-    await dispatch(loadUser());
+    // await dispatch(loadUser());
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });

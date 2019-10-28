@@ -37,8 +37,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import LinkMui from "@material-ui/core/Link";
 
 // Component styles
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {},
+  button: {
+    backgroundColor: theme.palette.greenVantty.light
+  },
   buttons: {
     textAlign: "right"
   }
@@ -170,7 +173,7 @@ const CreateProfile = ({
                     </MenuItem>
                     <MenuItem value={"Hair Stylist"}>Hair Stylist</MenuItem>
                   </Select>
-                  <FormHelperText>Give us your profession</FormHelperText>
+                  <FormHelperText>Tell us your profession</FormHelperText>
                 </FormControl>
               </Grid>
               <br /> <br />
@@ -259,7 +262,7 @@ const CreateProfile = ({
             <div>
               <Button onClick={back}>Back</Button>
               <Button
-                style={{ backgroundColor: "#f5f5" }}
+                className={classes.button}
                 onClick={e => onSubmit(e)}
                 disabled={!formState.isValid}
               >

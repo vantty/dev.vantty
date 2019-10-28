@@ -1,4 +1,4 @@
-const profilePageStyle = {
+const profilePageStyle = theme => ({
   profile: {
     textAlign: "center"
   },
@@ -73,7 +73,8 @@ const profilePageStyle = {
   },
   button: {
     margin: 10,
-    backgroundColor: "rgb(120, 40, 146)"
+    color: theme.palette.vantty
+    // backgroundColor: "rgb(120, 40, 146)"
   },
   input: {
     display: "none"
@@ -125,10 +126,10 @@ const profilePageStyle = {
   },
   verifiedIcon: {
     color: "rgb(0, 223, 212)",
-
     marginLeft: "0.3rem",
-    marginBottom: "-0.3rem"
+    marginBottom: "-0.3rem",
+    width: "1rem"
   }
-};
+});
 
 export default profilePageStyle;
