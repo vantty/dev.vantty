@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
     color: "black",
     boxShadow: "none",
     backgroundColor: theme.palette.greenVantty.light,
-
     "&:hover": {
       color: "black",
       backgroundColor: theme.palette.greenVantty.light

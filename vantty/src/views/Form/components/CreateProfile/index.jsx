@@ -40,7 +40,14 @@ import LinkMui from "@material-ui/core/Link";
 const useStyles = makeStyles(theme => ({
   root: {},
   button: {
-    backgroundColor: theme.palette.greenVantty.light
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   },
   buttons: {
     textAlign: "right"

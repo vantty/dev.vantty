@@ -207,7 +207,7 @@ export const userImage = (e, id, profile, cloudId) => async dispatch => {
         };
         await server.put("/auth/user-image", sendImage);
 
-        await dispatch(deleteImages(cloudId));
+        cloudId && (await dispatch(deleteImages(cloudId)));
       }
       profile &&
         (await dispatch(
@@ -216,7 +216,7 @@ export const userImage = (e, id, profile, cloudId) => async dispatch => {
       await dispatch({
         type: IMAGES_UPLOAD_SUCCESS
       });
-      // await dispatch(loadUser());
+      await dispatch(loadUser());
       // await dispatch(getCurrentProfile());
     })
 

@@ -32,7 +32,14 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   button: {
-    backgroundColor: theme.palette.greenVantty.light
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   }
 }));
 

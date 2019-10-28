@@ -32,7 +32,14 @@ import { schemaErrors } from "../../../../helpers/errorsData";
 const useStyles = makeStyles(theme => ({
   root: {},
   button: {
-    backgroundColor: theme.palette.greenVantty.light
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   }
 }));
 

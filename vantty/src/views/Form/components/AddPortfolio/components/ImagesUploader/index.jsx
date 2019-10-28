@@ -27,7 +27,14 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center"
   },
   button: {
-    backgroundColor: theme.palette.greenVantty.light
+    float: "right",
+    color: "black",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.light,
+    "&:hover": {
+      color: "black",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   },
   message: {
     marginBottom: "1rem",

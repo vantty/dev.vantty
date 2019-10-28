@@ -36,7 +36,14 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3)
   },
   button: {
-    backgroundColor: theme.palette.greenVantty.light
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   },
   checked: {
     color: theme.palette.purpleVantty.light,

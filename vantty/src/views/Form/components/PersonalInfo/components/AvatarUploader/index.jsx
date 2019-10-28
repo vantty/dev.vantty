@@ -54,7 +54,12 @@ const AvatarUploader = ({
 
   const onChange = async e => {
     e.preventDefault();
-    await userImage(e, user._id, profile, method.profilePicture.cloudId);
+    await userImage(
+      e,
+      user._id,
+      profile,
+      method.profilePicture ? method.profilePicture.cloudId : false
+    );
   };
 
   const UploadButton = () => {

@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 260,
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
     marginTop: "5.5rem",
     position: "absolute"
   },
@@ -28,14 +28,30 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 1, 1)
   },
   paper: {
-    padding: theme.spacing(2),
-    backgroundColor: "white"
+    padding: theme.spacing(2)
+    // backgroundColor: "white"
   },
   button: {
-    // backgroundColor: theme.palette.greenVantty.main,
     color: "white",
-    backgroundColor: "#25D366"
+    backgroundColor: theme.palette.whatsApp.primary,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.whatsApp.primary
+    }
   },
+  // button: {
+  //   marginTop: "0.5rem",
+  //   marginBottom: "0.5rem",
+  //   width: "10rem",
+  //   float: "right",
+  //   color: "white",
+  //   boxShadow: "none",
+  //   backgroundColor: theme.palette.whatsApp.primary,
+  //   "&:hover": {
+  //     color: "white",
+  //     backgroundColor: theme.palette.whatsApp.primary
+  //   }
+  // },
   infoPrice: {
     fontSize: "10px"
   }
@@ -72,14 +88,13 @@ export default function Slider({ profile, disabled, verified, user }) {
                 variant='contained'
               >
                 <Fragment>
-                  {user && (
-                    <a
-                      target='#'
-                      href={`https://api.whatsapp.com/send?phone=${profile.mobileNumber}&text=Hola!%20${profile.name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
-                    >
-                      Contactar whatsapp
-                    </a>
-                  )}
+                  <a
+                    className={classes.button}
+                    target='#'
+                    href={`https://api.whatsapp.com/send?phone=${profile.mobileNumber}&text=Hola!%20${profile.name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
+                  >
+                    Whatsapp Contact
+                  </a>
                 </Fragment>
               </Button>
             </div>

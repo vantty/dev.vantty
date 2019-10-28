@@ -86,7 +86,7 @@ const useStyles2 = makeStyles(theme => ({
   root: {
     // [theme.breakpoints.down("md")]: {
     borderRadius: 4,
-    marginTop: "6rem",
+    marginTop: "2rem",
     marginLeft: "0.5rem",
     minWidth: "10rem",
     maxWidth: "10rem",
