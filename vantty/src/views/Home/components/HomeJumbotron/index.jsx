@@ -7,9 +7,6 @@ import { isMobile } from "react-device-detect";
 // Actions
 import { searchValue } from "../../../../actions/search";
 
-// Assets
-// import top from "../../../../assets/images/top.jpg";
-
 // Material-UI
 import SearchIcon from "@material-ui/icons/Search";
 import Grid from "@material-ui/core/Grid";
@@ -23,7 +20,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
 const JumbotronBackground =
-  "https://res.cloudinary.com/vantty/image/upload/v1571950819/seed/tcsdqqbip3si1anndljy.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/v1572391341/seed/ha8bgdvtvdaekxhabqja.jpg";
 
 const Logo =
   "https://res.cloudinary.com/vantty/image/upload/v1572304171/seed/pms9bvmck4uygtqs0ljz.png";

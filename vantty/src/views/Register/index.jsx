@@ -24,6 +24,9 @@ import { changeNavbarValue } from "../../actions/navbar";
 // Components
 import { Alert } from "../../components";
 
+const LoginPhoto =
+  "https://res.cloudinary.com/vantty/image/upload/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
+
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.default,
@@ -43,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url(${photo})`,
+    backgroundImage: `url(${LoginPhoto})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center"
@@ -53,8 +56,7 @@ const useStyles = makeStyles(theme => ({
     flexBasis: "600px"
   },
   quoteText: {
-    color: theme.palette.white,
-    fontWeight: 300
+    color: theme.palette.white
   },
   name: {
     marginTop: theme.spacing(3),
@@ -131,11 +133,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.purpleVantty.main
   },
   withEmail: {
-    backgroundColor: theme.palette.greenVantty.main,
+    color: theme.palette.greenVantty.main,
     "&:hover": {
-      backgroundColor: theme.palette.greenVantty.dark
-    },
-    textTransform: "initial"
+      color: theme.palette.greenVantty.dark
+    }
+  },
+  withEmailGrid: {
+    marginTop: theme.spacing(1)
   }
 }));
 
@@ -186,17 +190,10 @@ const Register = props => {
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
               <Typography className={classes.quoteText} variant="h1">
-                Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
-                they sold out High Life.
+                {
+                  "Find the best Beauty Artist in your area and change your look."
+                }
               </Typography>
-              <div className={classes.person}>
-                <Typography className={classes.name} variant="body1">
-                  Takamaru Ayako
-                </Typography>
-                <Typography className={classes.bio} variant="body2">
-                  Manager at inVision
-                </Typography>
-              </div>
             </div>
           </div>
         </Grid>
@@ -258,18 +255,15 @@ const Register = props => {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <Button
-                      fullWidth
-                      size="large"
+                  <Grid item xs={12} className={classes.withEmailGrid}>
+                    <Link
                       component={RouterLink}
                       to="/register-email"
-                      color="primary"
-                      variant="contained"
                       className={classes.withEmail}
+                      variant="h5"
                     >
                       Or with your email address
-                    </Button>
+                    </Link>
                   </Grid>
                   <Grid item xs={12}>
                     <Typography color="textSecondary" variant="body1">

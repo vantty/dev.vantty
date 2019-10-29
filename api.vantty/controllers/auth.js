@@ -1,7 +1,7 @@
 const JWT = require("jsonwebtoken"),
   User = require("../models/User"),
-  nodemailer = require("nodemailer");
-const { getStrategy } = require("../helpers");
+  nodemailer = require("nodemailer"),
+  hbs = require("nodemailer-express-handlebars");
 
 exports.auth = async (req, res) => {
   try {
@@ -26,10 +26,10 @@ exports.sendEmail = async (req, res) => {
     });
 
     const emailToken = generateEmailToken(newUser);
-    const url = `https://vantty.ca/confirmation/${emailToken}`;
-    // const url = `http://localhost:3000/confirmation/${emailToken}`;
+    // const url = `https://vantty.ca/confirmation/${emailToken}`;
+    const url = `http://localhost:3000/confirmation/${emailToken}`;
 
-    const transporter = nodemailer.createTransport({
+    let transporter = nodemailer.createTransport({
       host: "smtp.mailgun.org",
       port: 465,
       secure: true,
@@ -39,21 +39,39 @@ exports.sendEmail = async (req, res) => {
       }
     });
 
+    const handlebarOptions = {
+      viewEngine: {
+        extName: ".hbs",
+        partialsDir: "./views",
+        layoutsDir: "./views",
+        defaultLayout: "index.hbs"
+      },
+      viewPath: "./views",
+      extName: ".hbs"
+    };
+
+    transporter.use("compile", hbs(handlebarOptions));
+
     let message = {
       from: "admin@vantty.ca",
       to: `${email}`,
       subject: "Email Confirmation",
-      html: `Welcome to Vantty, ${firstName}! Please click this link to confirm your email: <a href="${url}">Click Here</a>`
+      template: "index",
+      context: {
+        firstName: `${firstName}`,
+        url: `${url}`
+      }
     };
 
-    // transporter.sendMail(message, (err, data) => {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     console.log("Email sent");
-    //   }
-    // });
+    transporter.sendMail(message, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Email sent");
+      }
+    });
   } catch (error) {
+    console.log(error);
     res.status(500).send("Server error");
   }
 };

@@ -15,7 +15,6 @@ import {
   Facebook as FacebookIcon,
   Google as GoogleIcon
 } from "../../assets/icons";
-import photo from "../../assets/images/login.jpg";
 
 // Actions
 import { login, googleLogin, facebookLogin } from "../../actions/auth";
@@ -23,6 +22,12 @@ import { changeNavbarValue } from "../../actions/navbar";
 
 // Components
 import { Alert } from "../../components";
+
+const LoginPhoto =
+  "https://res.cloudinary.com/vantty/image/upload/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
+
+// const Logo =
+//   "https://res.cloudinary.com/vantty/image/upload/v1572304171/seed/pms9bvmck4uygtqs0ljz.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url(${photo})`,
+    backgroundImage: `url(${LoginPhoto})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center"
@@ -53,8 +58,8 @@ const useStyles = makeStyles(theme => ({
     flexBasis: "600px"
   },
   quoteText: {
-    color: theme.palette.white,
-    fontWeight: 300
+    color: theme.palette.white
+    // textShadow: "0 0 1.5px #000"
   },
   name: {
     marginTop: theme.spacing(3),
@@ -79,9 +84,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("sm")]: {
       paddingLeft: theme.spacing(1)
     }
-  },
-  logoImage: {
-    marginLeft: theme.spacing(4)
   },
   contentBody: {
     flexGrow: 1,
@@ -127,11 +129,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.purpleVantty.main
   },
   withEmail: {
-    backgroundColor: theme.palette.greenVantty.main,
+    color: theme.palette.greenVantty.main,
     "&:hover": {
-      backgroundColor: theme.palette.greenVantty.dark
-    },
-    textTransform: "initial"
+      color: theme.palette.greenVantty.dark
+    }
+  },
+  withEmailGrid: {
+    marginTop: theme.spacing(1)
   }
 }));
 
@@ -168,17 +172,11 @@ const Login = props => {
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
               <Typography className={classes.quoteText} variant="h1">
-                Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
-                they sold out High Life.
+                {
+                  "Find the best Beauty Artist in your area and change your look."
+                }
               </Typography>
-              <div className={classes.person}>
-                <Typography className={classes.name} variant="body1">
-                  Takamaru Ayako
-                </Typography>
-                <Typography className={classes.bio} variant="body2">
-                  Manager at inVision
-                </Typography>
-              </div>
+              {/* <img src={Logo} alt="" className={classes.logo} /> */}
             </div>
           </div>
         </Grid>
@@ -240,18 +238,15 @@ const Login = props => {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <Button
-                      fullWidth
-                      size="large"
+                  <Grid item xs={12} className={classes.withEmailGrid}>
+                    <Link
                       component={RouterLink}
                       to="/login-email"
-                      color="primary"
-                      variant="contained"
                       className={classes.withEmail}
+                      variant="h5"
                     >
                       Or with your email address
-                    </Button>
+                    </Link>
                   </Grid>
                   <Grid item xs={12}>
                     <Typography color="textSecondary" variant="body1">

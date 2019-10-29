@@ -29,6 +29,9 @@ import { changeNavbarValue } from "../../actions/navbar";
 // Components
 import { Alert } from "../../components";
 
+const LoginPhoto =
+  "https://res.cloudinary.com/vantty/image/upload/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
+
 const schema = {
   email: {
     presence: { allowEmpty: false, message: "is required" },
@@ -74,8 +77,7 @@ const useStyles = makeStyles(theme => ({
     flexBasis: "600px"
   },
   quoteText: {
-    color: theme.palette.white,
-    fontWeight: 300
+    color: theme.palette.white
   },
   name: {
     marginTop: theme.spacing(3),
@@ -222,17 +224,10 @@ const Login = props => {
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
               <Typography className={classes.quoteText} variant="h1">
-                Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
-                they sold out High Life.
+                {
+                  "Find the best Beauty Artist in your area and change your look."
+                }
               </Typography>
-              <div className={classes.person}>
-                <Typography className={classes.name} variant="body1">
-                  Takamaru Ayako
-                </Typography>
-                <Typography className={classes.bio} variant="body2">
-                  Manager at inVision
-                </Typography>
-              </div>
             </div>
           </div>
         </Grid>
