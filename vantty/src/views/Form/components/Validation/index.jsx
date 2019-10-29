@@ -1,11 +1,8 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import validate from "validate.js";
-import { isMobile } from "react-device-detect";
-import { getStrategy } from "../../../../helpers";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
@@ -13,34 +10,36 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
   Divider,
   Grid,
-  Button,
-  TextField,
-  Typography
+  Button
 } from "@material-ui/core";
 
 // Actions
-import { updateInfo, loadUser } from "../../../../actions/auth";
-import { getCurrentProfile, createProfile } from "../../../../actions/profile";
+import { createProfile } from "../../../../actions/profile";
 // import { AvatarUploader } from "./components";
 import { FormBottomNav } from "../ComponentsForm";
 
 // Helpers
-import {
-  schemaErrors,
-  schemaErrorsCreateProfile
-} from "../../../../helpers/errorsData";
+
 import { Gender, Qualified, EnglishLevel } from "./components";
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles(theme => ({
+  root: {},
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
+  }
 }));
 
 const Validation = ({
   createProfile,
-  getCurrentProfile,
   history,
   nextStep,
   formData,
@@ -59,53 +58,13 @@ const Validation = ({
     nextStep();
   };
 
-  //errors
-  const [formState, setFormState] = useState({
-    isValid: false,
-    values: {},
-    touched: {},
-    errors: {}
-  });
-
-  useEffect(() => {
-    const errors = validate(formState.values, schemaErrorsCreateProfile);
-    setFormState(formState => ({
-      ...formState,
-      values: formData,
-      isValid: errors ? false : true,
-      errors: errors || {}
-    }));
-  }, [formState.values]);
-
   const classes = useStyles();
 
   //Errors
   const handleChange = async event => {
     event.persist();
-
-    setFormState(formState => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        [event.target.name]:
-          event.target.type === "checkbox"
-            ? event.target.checked
-            : event.target.value
-      },
-
-      touched: {
-        ...formState.touched,
-        [event.target.name]: true
-      }
-    }));
     onChange(event);
   };
-
-  //errors
-  const hasError = field =>
-    formState.touched[field] && formState.errors[field] ? true : false;
-
-  ////////////
 
   const back = e => {
     e.preventDefault();
@@ -135,27 +94,6 @@ const Validation = ({
           </CardContent>
 
           <Divider />
-          {/* {match.url === "/create-profile" && (
-            <FormBottomNav
-              step={step}
-              Children={
-                <div>
-                  <div>
-                    <Fragment>
-                      <Button onClick={back}>Back</Button>
-                      <Button
-                        onClick={e => onSubmit(e)}
-                        style={{ backgroundColor: "#f5f5" }}
-                        disabled={!formState.isValid}
-                      >
-                        Next
-                      </Button>
-                    </Fragment>
-                  </div>
-                </div>
-              }
-            />
-          )} */}
 
           <FormBottomNav
             step={step}
@@ -166,7 +104,7 @@ const Validation = ({
                     <Button onClick={back}>Back</Button>
                     <Button
                       onClick={e => onSubmit(e)}
-                      style={{ backgroundColor: "#f5f5" }}
+                      className={classes.button}
                       disabled={
                         !formData.gender ||
                         !formData.qualified ||
@@ -189,20 +127,15 @@ const Validation = ({
 
 Validation.propTypes = {
   className: PropTypes.string,
-  updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired,
-  uploading: PropTypes.bool.isRequired
+  createProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth,
-  uploading: state.uploader.uploading
+  profile: state.profile
 });
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, updateInfo, createProfile, loadUser }
+  { createProfile }
 )(withRouter(Validation));

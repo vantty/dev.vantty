@@ -14,8 +14,36 @@ import Progress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  div: {
+    marginBottom: "1rem",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  button: {
+    float: "right",
+    color: "black",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.light,
+    "&:hover": {
+      color: "black",
+      backgroundColor: theme.palette.greenVantty.light
+    }
+  },
+  message: {
+    marginBottom: "1rem",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
   waitMessage: {
     paddingTop: theme.spacing(1)
   }
@@ -32,6 +60,7 @@ const ImagesUploader = ({
   tags,
   onChangeTags
 }) => {
+  const classes = useStyles();
   useEffect(() => {
     getCurrentProfile();
     getImages();
@@ -41,19 +70,38 @@ const ImagesUploader = ({
     uploadImages(e);
   };
 
+  const loadMessage = () => {
+    // const classesMsg = useStyles();
+    if (profile !== null && images && images.length < 5) {
+      return (
+        <Typography variant="h5">
+          You need at least 5 pictures and each one of them must have a tag.
+        </Typography>
+      );
+    }
+  };
+
   const UploadButton = () => {
     return (
       <Fragment>
-        <Button variant="contained" component="label" color="primary">
-          Upload File
-          <input
-            style={{ display: "none" }}
-            type="file"
-            name="file"
-            multiple
-            onChange={onChange}
-          />
-        </Button>
+        <div className={classes.div}>
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            startIcon={<CloudUploadIcon />}
+            component="label"
+          >
+            Upload Picture
+            <input
+              style={{ display: "none" }}
+              type="file"
+              name="file"
+              multiple
+              onChange={onChange}
+            />
+          </Button>
+        </div>
       </Fragment>
     );
   };
@@ -71,13 +119,6 @@ const ImagesUploader = ({
     }
   };
 
-  const loadMessage = images => {
-    if (profile !== null && images && images.length < 5) {
-      return <Typography pt={5}>You need at least 5 pictures</Typography>;
-    }
-  };
-
-  const classes = useStyles();
   return (
     <Fragment>
       <UploadButton />
@@ -91,6 +132,7 @@ const ImagesUploader = ({
       ) : (
         <Fragment>
           {loadMessage()}
+          {/* <LoadMessage /> */}
           {loadImages()}
         </Fragment>
       )}

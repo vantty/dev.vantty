@@ -18,7 +18,9 @@ import {
   CardHeader,
   CardContent,
   Divider,
-  Button
+  Button,
+  CardActions,
+  Grid
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
@@ -30,6 +32,16 @@ import { getImages, uploadTag } from "../../../../actions/uploader";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
+  },
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   }
 }));
 
@@ -75,6 +87,10 @@ const AddPortfolio = ({
     prevStep();
   };
 
+  const submit = async (e, id, tag) => {
+    e.preventDefault();
+    await uploadTag(tags);
+  };
   const classes = useStyles();
   return (
     <Fragment>
@@ -95,6 +111,25 @@ const AddPortfolio = ({
           ) : (
             <Progress />
           )}
+
+          {match.url === "/add-portfolio" && !isMobile && (
+            <Fragment>
+              <Divider />
+
+              <CardActions>
+                <Grid
+                  container
+                  direction='row'
+                  justify='flex-end'
+                  alignItems='flex-start'
+                >
+                  <Button className={classes.button} onClick={e => submit(e)}>
+                    Update
+                  </Button>
+                </Grid>
+              </CardActions>
+            </Fragment>
+          )}
         </Card>
       </Fragment>
       <Fragment>
@@ -112,7 +147,7 @@ const AddPortfolio = ({
                             <Button onClick={back}>Back</Button>
                             <Fragment>
                               <Button
-                                style={{ backgroundColor: "#f5f5" }}
+                                className={classes.button}
                                 disabled={
                                   images && images.length < 5 && true
 
@@ -155,15 +190,6 @@ const AddPortfolio = ({
                                 }
                                 onClick={continues}
                               >
-                                {console.log("TAGS", Object.keys(tags))}
-                                {console.log("IMA", images && images.length)}
-                                {console.log(
-                                  "MAP",
-                                  images &&
-                                    images
-                                      .map(img => img.tag)
-                                      .map(undef => undef)
-                                )}
                                 Next
                               </Button>
                             </Fragment>
@@ -184,6 +210,12 @@ const AddPortfolio = ({
                           <Fragment>
                             <Button component={Link} to="/settings">
                               Back
+                            </Button>
+                            <Button
+                              className={classes.button}
+                              onClick={e => submit(e)}
+                            >
+                              Update
                             </Button>
                           </Fragment>
                         </Fragment>

@@ -96,9 +96,7 @@ const UsersTable = props => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
-  const [verifyButton, setVerifyButton] = useState({
-    verifyButton
-  });
+  const [verifyButton, setVerifyButton] = useState({});
 
   //Selects
   const handleSelectAll = event => {

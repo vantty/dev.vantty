@@ -36,10 +36,20 @@ import {
 import { schemaErrorsCreateProfile } from "../../../../helpers/errorsData";
 import { isMobile } from "react-device-detect";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   buttons: {
     textAlign: "right"
+  },
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   }
 }));
 
@@ -147,10 +157,10 @@ const EditProfile = ({
           <Fragment>
             <Fragment>
               <Card className={clsx(classes.root, className)}>
-                <form autoComplete="off" noValidate>
+                <form autoComplete='off' noValidate>
                   <CardHeader
                     // subheader='The information can be edited'
-                    title="Bio"
+                    title='Bio'
                   />
                   {/* <Divider /> */}
                   <CardContent>
@@ -158,11 +168,11 @@ const EditProfile = ({
                     <Grid container>
                       <Grid item md={12} xs={12}>
                         <FormControl
-                          variant="outlined"
-                          margin="dense"
+                          variant='outlined'
+                          margin='dense'
                           fullWidth
                         >
-                          <InputLabel ref={inputLabel} htmlFor="profession">
+                          <InputLabel ref={inputLabel} htmlFor='profession'>
                             Profesion
                           </InputLabel>
                           <Select
@@ -174,14 +184,14 @@ const EditProfile = ({
                               ""
                             }
                             onChange={handleChange}
-                            id="profession"
-                            name="profession"
-                            label="profession"
+                            id='profession'
+                            name='profession'
+                            label='profession'
                             input={
                               <OutlinedInput
                                 labelWidth={labelWidth}
-                                name="Profession"
-                                id="profession"
+                                name='Profession'
+                                id='profession'
                               />
                             }
                           >
@@ -196,7 +206,7 @@ const EditProfile = ({
                             </MenuItem>
                           </Select>
                           <FormHelperText>
-                            Give us your profession
+                            Tell us your profession
                           </FormHelperText>
                         </FormControl>
                       </Grid>
@@ -205,14 +215,14 @@ const EditProfile = ({
                         <Grid item xs={12}>
                           <TextField
                             required
-                            variant="outlined"
-                            id="bio"
-                            name="bio"
-                            label="bio"
-                            margin="normal"
+                            variant='outlined'
+                            id='bio'
+                            name='bio'
+                            label='bio'
+                            margin='normal'
                             onChange={handleChange}
                             multiline
-                            rows="6"
+                            rows='6'
                             fullWidth
                             value={formState.values.bio || formData.bio || ""}
                             error={hasError("bio")}
@@ -225,25 +235,25 @@ const EditProfile = ({
                       <Grid item md={12} xs={12}>
                         {/* <div className={classes.field}> */}
                         <FormControl
-                          variant="outlined"
-                          margin="dense"
+                          variant='outlined'
+                          margin='dense'
                           fullWidth
                         >
-                          <InputLabel ref={inputLabel} htmlFor="city">
+                          <InputLabel ref={inputLabel} htmlFor='city'>
                             City
                           </InputLabel>
                           <Select
                             select
-                            id="city"
-                            name="city"
+                            id='city'
+                            name='city'
                             value={city}
-                            label="city"
+                            label='city'
                             onChange={e => onChange(e)}
                             input={
                               <OutlinedInput
                                 labelWidth={labelWidth}
-                                name="city"
-                                id="city"
+                                name='city'
+                                id='city'
                               />
                             }
                           >
@@ -258,10 +268,10 @@ const EditProfile = ({
                         <Grid item md={12} xs={12}>
                           <TextField
                             fullWidth
-                            margin="dense"
-                            variant="outlined"
-                            id="instagramUsername"
-                            name="instagramUsername"
+                            margin='dense'
+                            variant='outlined'
+                            id='instagramUsername'
+                            name='instagramUsername'
                             label={`@Username`}
                             value={instagramUsername}
                             onChange={e => onChange(e)}
@@ -276,16 +286,14 @@ const EditProfile = ({
                   <CardActions className={classes.buttons}>
                     <Grid
                       container
-                      direction="row"
-                      justify="flex-end"
-                      alignItems="flex-start"
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
                     >
                       {match.url === "/edit-profile" && !isMobile && (
                         <Button
                           onClick={e => onSubmit(e)}
-                          style={{
-                            backgroundColor: "#f5f5"
-                          }}
+                          className={classes.button}
                           disabled={!formState.isValid}
                         >
                           Update
@@ -302,11 +310,11 @@ const EditProfile = ({
                   Children={
                     <div>
                       <div>
-                        <Button component={Link} to="/settings">
+                        <Button component={Link} to='/settings'>
                           Back
                         </Button>
                         <Button
-                          style={{ backgroundColor: "#f5f5" }}
+                          className={classes.button}
                           onClick={e => onSubmit(e)}
                           disabled={!formState.isValid}
                         >

@@ -5,10 +5,10 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
+
 import { Grid, Typography } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     "&:hover": {
       backgroundColor: "transparent"
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     backgroundImage:
       "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
     "$root.Mui-focusVisible &": {
-      outline: "2px auto rgba(19,124,189,.6)",
+      outline: "2px auto" + theme.palette.greenVantty.main,
       outlineOffset: 2
     },
     "input:hover ~ &": {
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     }
   },
   checkedIcon: {
-    backgroundColor: "#137cbd",
+    backgroundColor: theme.palette.greenVantty.main,
     backgroundImage:
       "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
     "&:before": {
@@ -50,10 +50,10 @@ const useStyles = makeStyles({
       content: '""'
     },
     "input:hover ~ &": {
-      backgroundColor: "#106ba3"
+      backgroundColor: theme.palette.greenVantty.light
     }
   }
-});
+}));
 
 // Inspired by blueprintjs
 function StyledRadio(props) {

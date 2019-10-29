@@ -37,9 +37,6 @@ const ProfileInfo = ({
     <div>
       <div>
         <div className={classes.profile}>
-          {/* {!profile ? (
-            <CircularProgress className={classes.progress} />
-          ) : ( */}
           <Fragment>
             <Grid container justify='center' alignItems='center'>
               {profilePicture ? (
@@ -58,13 +55,16 @@ const ProfileInfo = ({
             <div>
               <h1 className={classes.name}>
                 {`${name.firstName} ${name.lastName}`}
+                {verified && (
+                  <span>
+                    {<VerifiedIcon className={classes.verifiedIcon} />}
+                  </span>
+                )}
               </h1>
               <br />
 
               <h3 className={classes.subTitle}>{profession}</h3>
-              {verified && (
-                <span>{<VerifiedIcon className={classes.verifiedIcon} />}</span>
-              )}
+
               <br />
               <h5 className={classes.subSubTitle}>
                 {categories.makeup.join(" | ")}
@@ -82,8 +82,7 @@ const ProfileInfo = ({
                     !isMobile && (
                       <Button
                         component={Link}
-                        variant='contained'
-                        color='primary'
+                        variant='outlined'
                         size='small'
                         className={classes.button}
                         to={"/personal-info"}

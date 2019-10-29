@@ -14,17 +14,17 @@ const appId = process.env.REACT_APP_FACEBOOK_ID;
 const csfr = "f20825edcc1a0ef2e4a546155119c52c";
 const version = "v1.0";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   button: {
     color: "black",
     boxShadow: "none",
-    backgroundColor: "rgb(245, 0, 87)",
-
+    backgroundColor: theme.palette.greenVantty.light,
     "&:hover": {
-      color: "rgb(255, 255, 255)"
+      color: "black",
+      backgroundColor: theme.palette.greenVantty.light
     }
   }
-});
+}));
 
 const NumberValidation = ({
   verifyNumber,
@@ -47,7 +47,6 @@ const NumberValidation = ({
       {p => (
         <Button
           variant='contained'
-          style={{ backgroundColor: "#f5f4" }}
           className={classes.button}
           to='/artists'
           {...p}

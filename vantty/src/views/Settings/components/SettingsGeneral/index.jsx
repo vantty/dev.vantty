@@ -12,6 +12,9 @@ import { pagesGeneral } from "../../list";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { isMobile } from "react-device-detect";
 import { SimpleAppBar } from "../../../../components";
+import PropTypes from "prop-types";
+import { logout } from "../../../../actions/auth";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SettingsGeneral = ({ match, history }) => {
+const SettingsGeneral = ({ match, history, logout }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -49,16 +52,16 @@ const SettingsGeneral = ({ match, history }) => {
       {isMobile && (
         <Fragment>
           {/* <div className={classes.root}></div> */}
-          <List component="nav">
+          <List component='nav'>
             {pagesGeneral.map((page, ind) => (
               <div key={page.title}>
                 {/* <Container maxWidth='sm'> */}
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Grid
                     container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
+                    direction='row'
+                    justify='space-between'
+                    alignItems='center'
                   >
                     <Grid item xs={11} md={12} lg={12} xl={12}>
                       <ListItemLink
@@ -83,6 +86,11 @@ const SettingsGeneral = ({ match, history }) => {
                 {/* </Container> */}
               </div>
             ))}
+            <Container maxWidth='md'>
+              <ListItem button onClick={logout}>
+                <ListItemText primary={"Logout"} />
+              </ListItem>
+            </Container>
           </List>
         </Fragment>
       )}
@@ -90,4 +98,11 @@ const SettingsGeneral = ({ match, history }) => {
   );
 };
 
-export default SettingsGeneral;
+SettingsGeneral.propTypes = {
+  logout: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { logout }
+)(SettingsGeneral);

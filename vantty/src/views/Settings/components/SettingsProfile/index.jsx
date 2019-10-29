@@ -51,16 +51,16 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
 
   return (
     <Fragment>
-      <List component="nav">
+      <List component='nav'>
         {pagesProfile.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
-            <Container maxWidth="md">
+            <Container maxWidth='md'>
               <Grid
                 container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
+                direction='row'
+                justify='space-between'
+                alignItems='center'
               >
                 <Grid item xs={11} md={12} lg={12} xl={12}>
                   <ListItemLink
@@ -88,21 +88,18 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
           </div>
         ))}
         {/* <Container maxWidth='sm'> */}
-        <Container maxWidth="md">
+        <Container maxWidth='md'>
           {isMobile && (
             <Grid
               container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
+              direction='row'
+              justify='space-between'
+              alignItems='center'
             >
               <Grid item xs={11} md={12} lg={12} xl={12}>
-                <ListItemLink
-                  href={"settings/general"}
-                  to={"/settings/general"}
-                >
+                <ListItemLink to={"/settings/account"}>
                   <ListItemText
-                    primary={"General"}
+                    primary={"Account"}
                     // className={classes.title}
                   />
                 </ListItemLink>
@@ -113,9 +110,11 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
               </Grid>
             </Grid>
           )}
-          <ListItem button onClick={logout}>
-            <ListItemText primary={"Logout"} />
-          </ListItem>
+          {!isMobile && (
+            <ListItem button onClick={logout}>
+              <ListItemText primary={"Logout"} />
+            </ListItem>
+          )}
         </Container>
         <Divider />
         {/* </Container> */}
@@ -126,7 +125,7 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
 };
 
 SettingsProfile.propTypes = {
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func
 };
 
 export default connect(

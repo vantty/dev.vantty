@@ -50,7 +50,7 @@ export const getImagesById = imagesId => async dispatch => {
     });
   }
 };
-export const uploadTag = (tagObj, elasticId) => async dispatch => {
+export const uploadTag = tagObj => async dispatch => {
   try {
     const keys = Object.keys(tagObj);
     for (const y of keys) {
@@ -68,6 +68,7 @@ export const uploadTag = (tagObj, elasticId) => async dispatch => {
         };
         const datum = { doc: { tag: x.tag } };
         await elastic.post(`/${x.elastic}/_update`, datum, elasticConfig);
+        await dispatch(getImages());
       }
     }
   } catch (error) {
@@ -161,7 +162,7 @@ export const deleteImages = id => async dispatch => {
 };
 
 //Profile Picture
-export const userImage = (e, id, profile) => async dispatch => {
+export const userImage = (e, id, profile, cloudId) => async dispatch => {
   const errs = [];
   const files = Array.from(e.target.files);
 
@@ -205,8 +206,9 @@ export const userImage = (e, id, profile) => async dispatch => {
           id: id
         };
         await server.put("/auth/user-image", sendImage);
-      }
 
+        cloudId && (await dispatch(deleteImages(cloudId)));
+      }
       profile &&
         (await dispatch(
           createProfile({ profilePicture: sendImage.original }, undefined, true)
@@ -214,7 +216,8 @@ export const userImage = (e, id, profile) => async dispatch => {
       await dispatch({
         type: IMAGES_UPLOAD_SUCCESS
       });
-      dispatch(getCurrentProfile());
+      await dispatch(loadUser());
+      // await dispatch(getCurrentProfile());
     })
 
     .catch(error => {
@@ -261,4 +264,23 @@ const deleteFromElastic = async elasticId => {
     }
   };
   await elastic.delete(`/${elasticId}`, elasticConfig);
+};
+
+export const updateAndCreateElastic = (
+  ealsticId,
+  field,
+  value
+) => async dispatch => {
+  try {
+    const elasticConfig = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+      }
+    };
+    const datum = { doc: { [field]: value } };
+    await elastic.post(`/${ealsticId}/_update`, datum, elasticConfig);
+  } catch (error) {
+    console.log(error);
+  }
 };

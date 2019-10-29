@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import MuiLink from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
-
+import vantty from "../../../../../assets/logos/9.png";
 const useStyles = makeStyles(theme => ({
   typography: {
     color: "#000000"
@@ -21,6 +21,15 @@ const useStyles = makeStyles(theme => ({
   },
   grow: {
     flexGrow: 1
+  },
+  logo: {
+    width: "1rem",
+    height: "1rem"
+  },
+  avatar: {
+    width: 70,
+    height: 70,
+    marginRight: "1rem"
   }
 }));
 
@@ -36,10 +45,11 @@ const SimpleAppBar = ({ step, page }) => {
                 variant='h6'
                 color='inherit'
                 noWrap
-                className={classes.typography}
+                // className={classes.typography}
+                classes={classes.logo}
                 type='title'
               >
-                Vantty
+                <img src={vantty} className={classes.avatar} alt='' />
               </Typography>
             </MuiLink>
           </Container>

@@ -7,11 +7,16 @@ import { deletePicture } from "../../../../../../../../actions/uploader";
 import { Select } from "./components";
 
 //Material-UI
-import CancelIcon from "@material-ui/icons/CancelRounded";
-import { makeStyles } from "@material-ui/styles";
-import { GridListTile, GridList, Typography } from "@material-ui/core";
-import clsx from "clsx";
 
+import { makeStyles } from "@material-ui/styles";
+import {
+  GridListTile,
+  GridList,
+  GridListTileBar,
+  IconButton
+} from "@material-ui/core";
+import clsx from "clsx";
+import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -41,6 +46,15 @@ const useStyles = makeStyles(theme => ({
     display: "block" // In case it's not rendered with a div.
     // height: "340px"
     // overflow: "hidden"
+  },
+  list: {
+    height: "2.5rem",
+    width: "98%",
+    borderBottomLeftRadius: "10px",
+    borderBottomRightRadius: "10px"
+  },
+  icon: {
+    color: "red"
   }
 }));
 
@@ -56,7 +70,7 @@ const Porfolio = ({
   const send = async (e, modelImagesId, _id, cloudId, elasticId) => {
     e.preventDefault();
     deletePicture(modelImagesId, _id, cloudId, elasticId);
-    // onChangeTags(e, elasticId, _id, false);
+    onChangeTags(e, elasticId, _id, false);
   };
 
   return (
@@ -68,7 +82,7 @@ const Porfolio = ({
           {portfolioPictures &&
             portfolioPictures.map(picture => (
               <GridListTile key={picture._id} style={{ height: "auto" }}>
-                <span
+                {/* <span
                   onClick={e =>
                     send(
                       e,
@@ -80,14 +94,37 @@ const Porfolio = ({
                   }
                 >
                   <CancelIcon />
-                </span>
+                  <DeleteForeverOutlinedIcon />
+                </span> */}
                 <span
                   style={{
                     backgroundImage: `url(${picture.original})`
                   }}
                   className={clsx(classes.image)}
                 />
-
+                {picture.tag && (
+                  <GridListTileBar
+                    title={picture.tag}
+                    className={clsx(classes.list)}
+                    actionIcon={
+                      <IconButton
+                        aria-label={`info about `}
+                        className={classes.icon}
+                        onClick={e =>
+                          send(
+                            e,
+                            modelImagesId,
+                            picture._id,
+                            picture.cloudId,
+                            picture.elasticId
+                          )
+                        }
+                      >
+                        <DeleteForeverOutlinedIcon />
+                      </IconButton>
+                    }
+                  />
+                )}
                 {picture.tag === undefined && (
                   <Select
                     _id={picture._id}
@@ -97,10 +134,6 @@ const Porfolio = ({
                   />
                 )}
 
-                {/* <Select tag={picture.tag} /> */}
-                <Typography color='textPrimary' variant='h6' component='h3'>
-                  {picture.tag}
-                </Typography>
                 <br />
               </GridListTile>
             ))}
@@ -119,3 +152,4 @@ export default connect(
   null,
   { deletePicture }
 )(Porfolio);
+//

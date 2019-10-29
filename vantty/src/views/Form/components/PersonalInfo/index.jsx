@@ -29,8 +29,18 @@ import { FormBottomNav } from "../ComponentsForm";
 // Helpers
 import { schemaErrors } from "../../../../helpers/errorsData";
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles(theme => ({
+  root: {},
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
+  }
 }));
 
 const AccountDetails = ({
@@ -120,7 +130,8 @@ const AccountDetails = ({
   const onSubmit = async e => {
     e.preventDefault();
 
-    await updateInfo(formData, history, true);
+    await updateInfo(formData, true);
+
     profile &&
       (await createProfile(
         {
@@ -155,25 +166,25 @@ const AccountDetails = ({
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
-        <form autoComplete="off" noValidate>
+        <form autoComplete='off' noValidate>
           <CardHeader
             // subheader='The information can be edited'
-            title="Profile"
+            title='Profile'
           />
           {/* <Divider /> */}
           <CardContent>
             <Grid container spacing={3}>
               <Grid
                 container
-                direction="row"
-                justify="center"
-                alignItems="center"
+                direction='row'
+                justify='center'
+                alignItems='center'
               >
                 <Grid item>
                   <Grid item>
                     <div>
                       <Grid>
-                        <AvatarUploader />
+                        <AvatarUploader formData={formData} />
                       </Grid>
                     </div>
 
@@ -191,14 +202,14 @@ const AccountDetails = ({
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
                   fullWidth
-                  label="First name"
-                  margin="dense"
-                  name="firstName"
+                  label='First name'
+                  margin='dense'
+                  name='firstName'
                   required
-                  type="text"
-                  variant="outlined"
-                  id="firstName"
-                  autoComplete="fname"
+                  type='text'
+                  variant='outlined'
+                  id='firstName'
+                  autoComplete='fname'
                   value={formState.values.firstName || firstName}
                   onChange={handleChange}
                 />
@@ -207,12 +218,12 @@ const AccountDetails = ({
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
-                  label="Last name"
-                  margin="dense"
-                  name="lastName"
+                  label='Last name'
+                  margin='dense'
+                  name='lastName'
                   required
-                  variant="outlined"
-                  id="lastName"
+                  variant='outlined'
+                  id='lastName'
                   error={hasError("lastName")}
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
@@ -221,16 +232,16 @@ const AccountDetails = ({
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item md={12} xs={12}>
+              {/* <Grid item md={12} xs={12}>
                 <TextField
                   fullWidth
-                  label="Email Address"
-                  margin="dense"
-                  name="email"
+                  label='Email Address'
+                  margin='dense'
+                  name='email'
                   required
-                  variant="outlined"
-                  id="local.email"
-                  autoComplete="email"
+                  variant='outlined'
+                  id='local.email'
+                  autoComplete='email'
                   error={hasError("email")}
                   helperText={
                     hasError("email") ? formState.errors.email[0] : null
@@ -238,7 +249,7 @@ const AccountDetails = ({
                   value={formState.values.email || email}
                   onChange={handleChange}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
           </CardContent>
           {match.url !== "/create-profile" && !isMobile && (
@@ -248,19 +259,17 @@ const AccountDetails = ({
               <CardActions>
                 <Grid
                   container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="flex-start"
+                  direction='row'
+                  justify='space-between'
+                  alignItems='flex-start'
                 >
                   <Grid>
                     {/* {!profile && !profile.mobileNumber && ( */}
                     {profile && !profile.mobileNumber && (
                       <Button
                         component={Link}
-                        size="small"
-                        style={{
-                          color: "rgb(0, 223, 212)"
-                        }}
+                        size='small'
+                        className={classes.button}
                         to={"/create-profile"}
                       >
                         Create Profile as Artist
@@ -269,10 +278,8 @@ const AccountDetails = ({
                     {!profile && (
                       <Button
                         component={Link}
-                        size="small"
-                        style={{
-                          color: "rgb(0, 223, 212)"
-                        }}
+                        size='small'
+                        className={classes.button}
                         to={"/create-profile"}
                       >
                         Create Profile as Artist
@@ -283,7 +290,7 @@ const AccountDetails = ({
                   <Grid>
                     <Button
                       onClick={e => onSubmit(e)}
-                      style={{ backgroundColor: "#f5f5" }}
+                      className={classes.button}
                       disabled={!formState.isValid}
                     >
                       Update
@@ -307,7 +314,7 @@ const AccountDetails = ({
                       </Button>
                       <Button
                         onClick={e => onSubmit(e)}
-                        style={{ backgroundColor: "#f5f5" }}
+                        className={classes.button}
                         disabled={!formState.isValid}
                       >
                         {match.url === "/personal-info" ? "Update" : "Next"}
@@ -330,7 +337,7 @@ const AccountDetails = ({
                       </Button>
                       <Button
                         onClick={e => onSubmit(e)}
-                        style={{ backgroundColor: "#f5f5" }}
+                        className={classes.button}
                         disabled={!formState.isValid}
                       >
                         {match.url === "/personal-info" ? "Update" : "Next"}

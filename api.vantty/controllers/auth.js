@@ -146,8 +146,8 @@ generateEmailToken = user => {
 //Update Personal Info
 exports.updatePersonalInfo = async (req, res) => {
   const { firstName, lastName, email, id, profilePicture } = req.body;
-  let data = await User.findById({ _id: id });
-
+  let data = await User.findById({ _id: req.user._id });
+  console.log(data);
   // Build profile object
   const strategy = data.method;
   const userFields = {};
@@ -160,11 +160,12 @@ exports.updatePersonalInfo = async (req, res) => {
   if (lastName) userFields[strategy].lastName = lastName;
   if (email) userFields[strategy].email = email;
 
-  if (profilePicture) userFields[strategy].profilePicture = profilePicture;
+  if (profilePicture)
+    userFields[strategy].profilePicture = data[strategy].profilePicture;
 
   try {
     let user = await User.findOneAndUpdate(
-      { _id: id },
+      { _id: req.user._id },
       { $set: userFields },
       { new: true }
     );

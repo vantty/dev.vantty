@@ -31,11 +31,25 @@ import Button from "@material-ui/core/Button";
 import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    // display: "flex"
-  },
+  root: {},
   formControl: {
     margin: theme.spacing(3)
+  },
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
+  },
+  checked: {
+    color: theme.palette.greenVantty.main,
+    "&$checked": {
+      color: theme.palette.greenVantty.main
+    }
   }
 }));
 
@@ -158,6 +172,7 @@ const AddCategories = ({
                                 key={data}
                                 control={
                                   <Checkbox
+                                    className={classes.checked}
                                     checked={state[data] === true && true}
                                     // state[data](
                                     //   profile &&
@@ -201,6 +216,7 @@ const AddCategories = ({
                                 control={
                                   <Checkbox
                                     key={data}
+                                    className={classes.checked}
                                     // checked={"" || stateHair[data] === true && true}
                                     checked={"" || stateHair[data] === true}
                                     onChange={handleChangeHair(data)}
@@ -232,7 +248,7 @@ const AddCategories = ({
                   alignItems='flex-start'
                 >
                   <Button
-                    style={{ backgroundColor: "#f5f5" }}
+                    className={classes.button}
                     onClick={e => onSubmit(e)}
                     disabled={error || errorHair}
                   >
@@ -259,7 +275,7 @@ const AddCategories = ({
                         )} */}
                         <Button onClick={back}>Back</Button>
                         <Button
-                          style={{ backgroundColor: "#f5f5" }}
+                          className={classes.button}
                           onClick={e => onSubmit(e)}
                           disabled={error || errorHair}
                         >
@@ -282,7 +298,7 @@ const AddCategories = ({
                             Back
                           </Button>
                           <Button
-                            style={{ backgroundColor: "#f5f5" }}
+                            className={classes.button}
                             onClick={e => onSubmit(e)}
                             disabled={error || errorHair}
                           >

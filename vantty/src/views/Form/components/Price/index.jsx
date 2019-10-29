@@ -33,9 +33,9 @@ import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
 
-const PrettoSlider = withStyles({
+const PrettoSlider = withStyles(theme => ({
   root: {
-    color: "#52af77",
+    color: theme.palette.purpleVantty.light,
     height: 8
   },
   thumb: {
@@ -61,10 +61,20 @@ const PrettoSlider = withStyles({
     height: 8,
     borderRadius: 4
   }
-})(Slider);
+}))(Slider);
 
 const useStyles = makeStyles(theme => ({
-  root: {}
+  root: {},
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
+  }
 }));
 
 const Price = ({
@@ -121,7 +131,7 @@ const Price = ({
             <form autoComplete='off' noValidate>
               <CardHeader
                 // subheader='from what value do your services start'
-                title='Service'
+                title='Price'
               />
               {/* <Divider /> */}
               <CardContent className={classes.content}>
@@ -183,7 +193,7 @@ const Price = ({
                       alignItems='flex-start'
                     >
                       <Button
-                        style={{ backgroundColor: "#f5f5" }}
+                        className={classes.button}
                         onClick={e => onSubmitPrice(e)}
                       >
                         Update
@@ -213,7 +223,7 @@ const Price = ({
                       <Button
                         component={Link}
                         to='/settings'
-                        style={{ backgroundColor: "#f5f5" }}
+                        className={classes.button}
                         onClick={e => onSubmitPrice(e)}
                       >
                         Update
@@ -223,7 +233,7 @@ const Price = ({
                     <Fragment>
                       <Button onClick={back}>Back</Button>
                       <Button
-                        style={{ backgroundColor: "#f5f5" }}
+                        className={classes.button}
                         onClick={e => onSubmit(e)}
                         disabled={!price}
                       >
@@ -250,7 +260,7 @@ const Price = ({
                     <Button
                       component={Link}
                       to='/settings'
-                      style={{ backgroundColor: "#f5f5" }}
+                      className={classes.button}
                       onClick={e => onSubmitPrice(e)}
                     >
                       Update
