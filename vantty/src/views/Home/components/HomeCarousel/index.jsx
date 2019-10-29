@@ -1,32 +1,34 @@
 import React from "react";
-
-// Assets
-// import v1 from "../../../../assets/images/v1.jpg";
+import { Link as RouterLink } from "react-router-dom";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 // Material-UI
-import Container from "@material-ui/core/Container";
-import "react-multi-carousel/lib/styles.css";
-import Carousel from "react-multi-carousel";
+import { Container, Grid, Typography, Link, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import ArrowRight from "@material-ui/icons/ArrowForwardIos";
 
 const useStyles = makeStyles(theme => ({
   blockTitle: {
-    paddingBottom: "3px",
-    paddingLeft: "10px",
-    paddingRight: "10px"
+    paddingBottom: theme.spacing(2)
   },
   pageBlock: {
-    backgroundColor: "#FEFEFE"
+    backgroundColor: "#F9F9F9"
   },
   title: {
-    fontSize: "22px",
     display: "inline-block"
   },
+  seeAllTitle: {
+    marginTop: theme.spacing(2)
+  },
   seeAll: {
-    fontSize: "22px",
+    color: theme.palette.greenVantty.dark,
+    display: "inline-block"
+  },
+  arrow: {
+    paddingTop: "5px",
+    fontSize: "16px",
+    color: theme.palette.greenVantty.dark,
     display: "inline-block"
   },
   image: {
@@ -39,14 +41,18 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "rgba(0,0,0,.3)",
     borderColor: "white",
     borderStyle: "solid",
-    paddingTop: "70%",
+    paddingTop: "60%",
     [theme.breakpoints.down("sm")]: {
       paddingTop: "130%"
     }
   },
   carousel: {
-    paddingBottom: theme.spacing(10),
-    paddingTop: theme.spacing(10)
+    paddingBottom: theme.spacing(6),
+    paddingTop: theme.spacing(6),
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4)
+    }
   }
 }));
 
@@ -72,19 +78,19 @@ const HomeCarousel = ({ title, artist, images }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
-      <Container maxWidth='md' className={classes.carousel}>
+      <Container maxWidth="md" className={classes.carousel}>
+        <Typography className={classes.title} variant="h4">
+          {title}
+        </Typography>
         <Grid
           container
-          direction='row'
-          justify='space-between'
-          alignItems='center'
+          direction="row"
+          justify="space-between"
+          alignItems="center"
           className={classes.blockTitle}
         >
           <Grid item>
-            <Typography className={classes.title}>{title}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography className={classes.seeAll}>{artist}</Typography>
+            <Typography variant="h2">{artist}</Typography>
           </Grid>
         </Grid>
         <Carousel
@@ -93,15 +99,15 @@ const HomeCarousel = ({ title, artist, images }) => {
           arrows
           autoPlaySpeed={3000}
           centerMode={false}
-          containerClass='container'
-          dotListClass=''
+          containerClass="container"
+          dotListClass=""
           draggable
           focusOnSelect={false}
           infinite
-          itemClass=''
+          itemClass=""
           keyBoardControl
           minimumTouchDrag={80}
-          partialVisbile='right'
+          partialVisbile="right"
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
@@ -113,6 +119,29 @@ const HomeCarousel = ({ title, artist, images }) => {
             />
           ))}
         </Carousel>
+        <Link
+          component={RouterLink}
+          to="/search"
+          variant="h6"
+          className={classes.link}
+        >
+          <Grid
+            container
+            direction="row"
+            justify="initial"
+            alignItems="center"
+            className={classes.seeAllTitle}
+          >
+            <Grid item>
+              <Typography className={classes.seeAll} variant="h5">
+                {"See her amazing work!"}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <ArrowRight className={classes.arrow} />
+            </Grid>
+          </Grid>
+        </Link>
       </Container>
       <Divider />
     </div>

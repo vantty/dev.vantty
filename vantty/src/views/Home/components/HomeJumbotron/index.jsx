@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 // Actions
 import { searchValue } from "../../../../actions/search";
@@ -17,9 +18,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
-const top =
+const JumbotronBackground =
   "https://res.cloudinary.com/vantty/image/upload/v1571950819/seed/tcsdqqbip3si1anndljy.jpg";
+
+const Logo =
+  "https://res.cloudinary.com/vantty/image/upload/v1572304171/seed/pms9bvmck4uygtqs0ljz.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,23 +36,34 @@ const useStyles = makeStyles(theme => ({
   grid: {
     height: "100%"
   },
+  logo: {
+    // height: "80%",
+    position: "absolute",
+    width: "5rem",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(2)
+  },
   quoteContainer: {},
   quote: {
+    zIndex: "10",
     backgroundColor: theme.palette.neutral,
     height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url(${top})`,
+    backgroundImage: `url(${JumbotronBackground})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center"
   },
   quoteInner: {
+    marginLeft: theme.spacing(2),
     textAlign: "center",
     flexBasis: "600px"
   },
   quoteText: {
+    textAlign: "left",
     marginBottom: "1rem",
     color: "white"
   },
@@ -92,33 +110,35 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
   };
 
   if (goSearch) {
-    return <Redirect push to='/search' />;
+    return <Redirect push to="/search" />;
   }
 
   return (
     <Fragment>
+      <CssBaseline />
       <div className={classes.root}>
         <Grid className={classes.grid} container>
           <Grid className={classes.quoteContainer} item sm={12}>
+            {isMobile && <img src={Logo} alt="" className={classes.logo} />}
             <div className={classes.quote}>
-              <Container maxWidth='xl'>
+              <Container maxWidth="xl">
                 <Grid container>
-                  <Grid item xs={12} sm={5}>
+                  <Grid item xs={12} sm={4}>
                     <div className={classes.quoteInner}>
-                      <Typography className={classes.quoteText} variant='h1'>
+                      <Typography className={classes.quoteText} variant="h1">
                         Get your dreamed look, done by the perfect artists
                       </Typography>
                       <form onSubmit={handleSearch}>
                         <TextField
-                          id='outlined-simple-start-adornment'
+                          id="outlined-simple-start-adornment"
                           onChange={handleChange}
                           fullWidth
                           className={classes.textField}
-                          variant='outlined'
-                          placeholder='Search'
+                          variant="outlined"
+                          placeholder="Search"
                           InputProps={{
                             startAdornment: (
-                              <InputAdornment position='start'>
+                              <InputAdornment position="start">
                                 <SearchIcon />
                               </InputAdornment>
                             )

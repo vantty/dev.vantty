@@ -29,6 +29,7 @@ const Home = ({ changeNavbarValue }) => {
       <HomeJumbotron />
       <HomeGrid
         title={homeSeed.firstGrid.title}
+        subtitle={homeSeed.firstGrid.subtitle}
         images={homeSeed.firstGrid.images}
       />
       <HomeCarousel
@@ -38,19 +39,23 @@ const Home = ({ changeNavbarValue }) => {
       />
       <HomeGrid
         title={homeSeed.secondGrid.title}
+        subtitle={homeSeed.secondGrid.subtitle}
         images={homeSeed.secondGrid.images}
       />
       <HomeBanner
         image={homeSeed.firstBanner.image}
         text={homeSeed.firstBanner.text}
+        buttonText={homeSeed.firstBanner.buttonText}
       />
       <HomeGrid
         title={homeSeed.thirdGrid.title}
+        subtitle={homeSeed.thirdGrid.subtitle}
         images={homeSeed.thirdGrid.images}
       />
       <HomeBanner
         image={homeSeed.secondBanner.image}
         text={homeSeed.secondBanner.text}
+        buttonText={homeSeed.secondBanner.buttonText}
       />
     </Fragment>
   );

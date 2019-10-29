@@ -13,6 +13,13 @@ import { getCurrentProfile } from "../../../../../../actions/profile";
 import Progress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(theme => ({
+  waitMessage: {
+    paddingTop: theme.spacing(1)
+  }
+}));
 
 const ImagesUploader = ({
   uploadImages,
@@ -37,12 +44,12 @@ const ImagesUploader = ({
   const UploadButton = () => {
     return (
       <Fragment>
-        <Button variant='contained' component='label' color='primary'>
+        <Button variant="contained" component="label" color="primary">
           Upload File
           <input
             style={{ display: "none" }}
-            type='file'
-            name='file'
+            type="file"
+            name="file"
             multiple
             onChange={onChange}
           />
@@ -70,12 +77,16 @@ const ImagesUploader = ({
     }
   };
 
+  const classes = useStyles();
   return (
     <Fragment>
       <UploadButton />
       {uploading || !profile ? (
         <Fragment>
           <Progress />
+          <Typography variant="h5" className={classes.waitMessage}>
+            {"This may take a while. Please wait..."}
+          </Typography>
         </Fragment>
       ) : (
         <Fragment>

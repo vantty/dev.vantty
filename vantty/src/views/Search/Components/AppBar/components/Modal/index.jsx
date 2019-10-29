@@ -1,17 +1,20 @@
-import React from "react";
+import React, { forwardRef } from "react";
+
+// material-UI
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
+import CloseIcon from "@material-ui/icons/Close";
+import ArrowUp from "@material-ui/icons/KeyboardArrowUp";
 
 import { ReactiveBase } from "@appbaseio/reactivesearch";
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative",
-    backgroundColor: theme.palette.purpleVantty.light
+    backgroundColor: theme.palette.greenVantty.dark
   },
   categories: {
     margin: "1rem"
@@ -19,11 +22,17 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1
+  },
+  arrowUp: {
+    fontSize: "40px"
+  },
+  icon: {
+    padding: 0
   }
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />;
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} timeout={400} />;
 });
 export default function Modal({ open, close, modal }) {
   const classes = useStyles();
@@ -38,16 +47,14 @@ export default function Modal({ open, close, modal }) {
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
-              edge='start'
-              color='inherit'
+              edge="end"
+              color="inherit"
               onClick={close}
-              aria-label='close'
+              aria-label="close"
+              className={classes.icon}
             >
-              <CloseIcon />
+              <ArrowUp className={classes.arrowUp} />
             </IconButton>
-            {/* <Typography variant='h6' className={classes.title}>
-              Sound
-            </Typography> */}
             {/* <Button color='inherit' onClick={close}>
             <Button color="inherit" onClick={close}>
               Apply

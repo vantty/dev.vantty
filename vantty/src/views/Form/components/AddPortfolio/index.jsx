@@ -23,6 +23,8 @@ import {
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
+import { Typography } from "@material-ui/core";
+
 import { getImages, uploadTag } from "../../../../actions/uploader";
 
 const useStyles = makeStyles(theme => ({
@@ -79,8 +81,8 @@ const AddPortfolio = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete='off' noValidate>
-              <CardHeader title='Portfolio' />
+            <form autoComplete="off" noValidate>
+              <CardHeader title="Portfolio" />
               <CardContent className={classes.content}>
                 <div>
                   <ImagesUploader tags={tags} onChangeTags={onChangeTags} />
@@ -180,7 +182,7 @@ const AddPortfolio = ({
                       <div>
                         <Fragment>
                           <Fragment>
-                            <Button component={Link} to='/settings'>
+                            <Button component={Link} to="/settings">
                               Back
                             </Button>
                           </Fragment>

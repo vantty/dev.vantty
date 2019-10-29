@@ -17,72 +17,29 @@ const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
   },
-  menuButton: {
-    marginRight: theme.spacing(2)
+  appBar: {
+    backgroundColor: "white",
+    position: "relative"
   },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
-  },
-  appbar: {
-    backgroundColor: theme.palette.greenVantty.main
-  },
-
-  avatar: {
-    width: 60,
-    height: 60,
-    marginRight: "1rem"
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto"
-    }
-  },
-  searchIcon: {
-    width: theme.spacing(7),
+  logo: {
     height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: 200
-    }
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+    width: 50,
+    marginRight: "1rem"
   },
   sectionMobile: {
     display: "flex",
     [theme.breakpoints.up("md")]: {
       display: "none"
     }
+  },
+  filterIcon: {
+    color: theme.palette.greenVantty.dark,
+    fontSize: "2rem"
   }
 }));
+
+const Logo =
+  "https://res.cloudinary.com/vantty/image/upload/v1572320098/seed/zfu1flvxyt4yscytta7g.png";
 
 export default function SearchAppBar({ children, modal, invisible }) {
   const classes = useStyles();
@@ -99,16 +56,10 @@ export default function SearchAppBar({ children, modal, invisible }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.appbar}>
+      <AppBar className={classes.appBar}>
         <Toolbar>
-          <img src={vantty} className={classes.avatar} alt="" />
-          <Typography className={classes.title} variant="h6" noWrap>
-            Vantty
-          </Typography>
+          <img src={Logo} className={classes.logo} alt="" />
           <div>{children}</div>
-
-          <div className={classes.grow} />
-
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -116,20 +67,13 @@ export default function SearchAppBar({ children, modal, invisible }) {
               onClick={handleClickOpen("paper")}
               color="inherit"
             >
-              <Badge
-                color="secondary"
-                // badgeContent={}
-                variant="dot"
-                invisible={!invisible[0]}
-                className={classes.margin}
-              >
-                <FilterListIcon />
+              <Badge color="secondary" variant="dot" invisible={!invisible[0]}>
+                <FilterListIcon className={classes.filterIcon} />
               </Badge>
             </IconButton>
           </div>
         </Toolbar>
       </AppBar>
-
       {open && <Modal open={open} close={handleClose} modal={modal} />}
     </div>
   );

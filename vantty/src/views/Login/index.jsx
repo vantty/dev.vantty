@@ -131,7 +131,7 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: theme.palette.greenVantty.dark
     },
-    textTransform: "capitalize"
+    textTransform: "initial"
   }
 }));
 

@@ -273,7 +273,7 @@ const Register = props => {
                   Create a new account
                 </Typography>
                 <Typography color="textSecondary" gutterBottom>
-                  with email address
+                  with your email address
                 </Typography>
                 <TextField
                   className={classes.textField}

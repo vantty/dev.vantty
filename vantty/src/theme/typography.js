@@ -5,18 +5,20 @@ export default {
     fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 900,
-    fontSize: "35px"
-    // letterSpacing: "-0.24px",
-    // lineHeight: "40px"
+    fontSize: "35px",
+    letterSpacing: "-0.24px",
+    lineHeight: "40px"
   },
   h2: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
-    fontWeight: 500,
+    fontWeight: 700,
     fontSize: "29px",
     letterSpacing: "-0.24px",
     lineHeight: "32px"
   },
   h3: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "24px",
@@ -24,6 +26,7 @@ export default {
     lineHeight: "28px"
   },
   h4: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "20px",
@@ -31,6 +34,7 @@ export default {
     lineHeight: "24px"
   },
   h5: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "16px",
@@ -38,6 +42,7 @@ export default {
     lineHeight: "20px"
   },
   h6: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
     fontSize: "14px",
@@ -45,12 +50,14 @@ export default {
     lineHeight: "20px"
   },
   subtitle1: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontSize: "16px",
     letterSpacing: "-0.05px",
     lineHeight: "25px"
   },
   subtitle2: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.secondary,
     fontWeight: 400,
     fontSize: "14px",
@@ -58,18 +65,21 @@ export default {
     lineHeight: "21px"
   },
   body1: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontSize: "14px",
     letterSpacing: "-0.05px",
     lineHeight: "21px"
   },
   body2: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.secondary,
     fontSize: "12px",
     letterSpacing: "-0.04px",
     lineHeight: "18px"
   },
   button: {
+    fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontSize: "16px"
   },

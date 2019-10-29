@@ -35,6 +35,11 @@ const useStyles = makeStyles(theme => ({
       listStyle: "none"
     }
   },
+  root: {
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: theme.spacing(8)
+    }
+  },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`
   },
@@ -52,9 +57,6 @@ const useStyles = makeStyles(theme => ({
   },
   cardHeader: {
     backgroundColor: theme.palette.grey[200]
-  },
-  div: {
-    marginTop: theme.spacing(5)
   },
   footer: {
     marginTop: theme.spacing(2),
@@ -93,7 +95,7 @@ export default function Footer() {
 
   return (
     <Fragment>
-      <div className={classes.div}>
+      <div className={classes.root}>
         <Divider />
         <Container maxWidth="md" component="footer" className={classes.footer}>
           <Grid container direction="row" justify="center" alignItems="center">
@@ -109,10 +111,11 @@ export default function Footer() {
               </span>
             ))}
           </Grid>
-          <Box mt={3}>
+          <Box mt={3} mb={2}>
             <Copyright />
           </Box>
         </Container>
+        <Divider />
       </div>
     </Fragment>
   );

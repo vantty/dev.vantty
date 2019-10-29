@@ -20,27 +20,39 @@ import {
   CardActionArea
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import ArrowRight from "@material-ui/icons/ArrowForwardIos";
 
 const useStyles = makeStyles(theme => ({
   blockTitle: {
-    paddingBottom: "6px",
-    paddingLeft: "10px",
+    paddingBottom: theme.spacing(2),
     paddingRight: "10px"
   },
   title: {
-    fontSize: "22px",
     display: "inline-block"
   },
+  seeAllTitle: {
+    marginTop: theme.spacing(2)
+  },
   seeAll: {
-    fontSize: "22px",
+    color: theme.palette.greenVantty.dark,
+    display: "inline-block"
+  },
+  arrow: {
+    paddingTop: "5px",
+    fontSize: "16px",
+    color: theme.palette.greenVantty.dark,
     display: "inline-block"
   },
   pageBlock: {
     backgroundColor: "#FFF"
   },
   cardGrid: {
-    paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(10)
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4)
+    }
   },
   card: {
     height: "100%",
@@ -75,36 +87,26 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     paddingLeft: "0.5rem",
     fontSize: "12px"
-  },
-  link: {
-    color: theme.palette.purpleVantty.main
   }
 }));
 
-const HomeGrid = ({ title, images }) => {
+const HomeGrid = ({ title, subtitle, images }) => {
   const classes = useStyles();
   return (
     <div className={classes.pageBlock}>
-      <Container className={classes.cardGrid} maxWidth='md'>
+      <Container className={classes.cardGrid} maxWidth="md">
+        <Typography variant="h2">{title}</Typography>
         <Grid
           container
-          direction='row'
-          justify='space-between'
-          alignItems='center'
+          direction="row"
+          justify="space-between"
+          alignItems="center"
           className={classes.blockTitle}
         >
           <Grid item>
-            <Typography className={classes.title}>{title}</Typography>
-          </Grid>
-          <Grid item>
-            <Link
-              component={RouterLink}
-              to='/search'
-              variant='h6'
-              className={classes.link}
-            >
-              <Typography className={classes.seeAll}>See All</Typography>
-            </Link>
+            <Typography className={classes.title} variant="h4">
+              {subtitle}
+            </Typography>
           </Grid>
         </Grid>
         <Grid container spacing={2}>
@@ -117,13 +119,12 @@ const HomeGrid = ({ title, images }) => {
                       key={image.photo}
                       className={classes.cardMedia}
                       image={`${image.photo}`}
-                      title='Image title'
                     />
                   </a>
                 </CardActionArea>
                 <CardContent className={classes.cardContent}>
                   <Toolbar className={classes.cardTitle}>
-                    <Avatar alt='' src={v2} className={classes.avatar} />
+                    <Avatar alt="" src={v2} className={classes.avatar} />
                     <Typography
                       key={index}
                       gutterBottom
@@ -138,6 +139,29 @@ const HomeGrid = ({ title, images }) => {
             </Grid>
           ))}
         </Grid>
+        <Link
+          component={RouterLink}
+          to="/search"
+          variant="h6"
+          className={classes.link}
+        >
+          <Grid
+            container
+            direction="row"
+            justify="initial"
+            alignItems="center"
+            className={classes.seeAllTitle}
+          >
+            <Grid item>
+              <Typography className={classes.seeAll} variant="h5">
+                See All
+              </Typography>
+            </Grid>
+            <Grid item>
+              <ArrowRight className={classes.arrow} />
+            </Grid>
+          </Grid>
+        </Link>
       </Container>
       <Divider />
     </div>
