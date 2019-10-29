@@ -24,8 +24,18 @@ import { FormBottomNav } from "../ComponentsForm";
 
 import { Gender, Qualified, EnglishLevel } from "./components";
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles(theme => ({
+  root: {},
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
+  }
 }));
 
 const Validation = ({
@@ -94,7 +104,7 @@ const Validation = ({
                     <Button onClick={back}>Back</Button>
                     <Button
                       onClick={e => onSubmit(e)}
-                      style={{ backgroundColor: "#f5f5" }}
+                      className={classes.button}
                       disabled={
                         !formData.gender ||
                         !formData.qualified ||

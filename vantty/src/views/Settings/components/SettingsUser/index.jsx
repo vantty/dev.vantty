@@ -10,6 +10,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import { isMobile } from "react-device-detect";
+import { logout } from "../../../../actions/auth";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SettingsProfile = ({ match, pages }) => {
+const SettingsProfile = ({ match, pages, logout }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -60,6 +62,11 @@ const SettingsProfile = ({ match, pages }) => {
               <ListItemText primary={"Becamo to an Artists"} />
             </ListItemLink>
           )}
+          {!isMobile && (
+            <ListItem button onClick={logout}>
+              <ListItemText primary={"Logout"} />
+            </ListItem>
+          )}
           <ListItemLink to={"/settings/account"}>
             <ListItemText primary={"Account"} />
           </ListItemLink>
@@ -74,4 +81,7 @@ SettingsProfile.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-export default SettingsProfile;
+export default connect(
+  null,
+  { logout }
+)(SettingsProfile);

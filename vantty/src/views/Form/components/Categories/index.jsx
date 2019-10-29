@@ -46,9 +46,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   checked: {
-    color: theme.palette.purpleVantty.light,
+    color: theme.palette.greenVantty.main,
     "&$checked": {
-      color: theme.palette.purpleVantty.light
+      color: theme.palette.greenVantty.main
     }
   }
 }));

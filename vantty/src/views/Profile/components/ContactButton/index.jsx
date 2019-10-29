@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   price: {
     color: theme.palette.purpleVantty.light,
-    fontSize: "20px"
+    fontSize: "22px"
   },
   infoPrice: {
     fontSize: "10px"
@@ -195,7 +195,7 @@ const ContactButton = ({
                 </Button> */}
                 <a
                   target='#'
-                  href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
+                  href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appointment%20with%20you!`}
                 >
                   <Button className={classes.button} variant='contained'>
                     Whatsapp

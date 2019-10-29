@@ -91,7 +91,7 @@ export default function Slider({ profile, disabled, verified, user }) {
                   <a
                     className={classes.button}
                     target='#'
-                    href={`https://api.whatsapp.com/send?phone=${profile.mobileNumber}&text=Hola!%20${profile.name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
+                    href={`https://api.whatsapp.com/send?phone=${profile.mobileNumber}&text=Hello!%20${profile.name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appointment%20with%20you!`}
                   >
                     Whatsapp Contact
                   </a>
