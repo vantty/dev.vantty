@@ -93,7 +93,7 @@ const AccountDetails = ({
     });
   }, [loading, getCurrentProfile, loadUser]);
 
-  const { firstName, lastName, email } = formData;
+  const { firstName, lastName } = formData;
 
   useEffect(() => {
     const errors = validate(formState.values, schemaErrors);
@@ -166,19 +166,19 @@ const AccountDetails = ({
   return (
     <Fragment>
       <Card className={clsx(classes.root, className)}>
-        <form autoComplete='off' noValidate>
+        <form autoComplete="off" noValidate>
           <CardHeader
             // subheader='The information can be edited'
-            title='Profile'
+            title="Profile"
           />
           {/* <Divider /> */}
           <CardContent>
             <Grid container spacing={3}>
               <Grid
                 container
-                direction='row'
-                justify='center'
-                alignItems='center'
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
                 <Grid item>
                   <Grid item>
@@ -202,14 +202,14 @@ const AccountDetails = ({
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
                   fullWidth
-                  label='First name'
-                  margin='dense'
-                  name='firstName'
+                  label="First name"
+                  margin="dense"
+                  name="firstName"
                   required
-                  type='text'
-                  variant='outlined'
-                  id='firstName'
-                  autoComplete='fname'
+                  type="text"
+                  variant="outlined"
+                  id="firstName"
+                  autoComplete="fname"
                   value={formState.values.firstName || firstName}
                   onChange={handleChange}
                 />
@@ -218,12 +218,12 @@ const AccountDetails = ({
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
-                  label='Last name'
-                  margin='dense'
-                  name='lastName'
+                  label="Last name"
+                  margin="dense"
+                  name="lastName"
                   required
-                  variant='outlined'
-                  id='lastName'
+                  variant="outlined"
+                  id="lastName"
                   error={hasError("lastName")}
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
@@ -259,16 +259,16 @@ const AccountDetails = ({
               <CardActions>
                 <Grid
                   container
-                  direction='row'
-                  justify='space-between'
-                  alignItems='flex-start'
+                  direction="row"
+                  justify="space-between"
+                  alignItems="flex-start"
                 >
                   <Grid>
                     {/* {!profile && !profile.mobileNumber && ( */}
                     {profile && !profile.mobileNumber && (
                       <Button
                         component={Link}
-                        size='small'
+                        size="small"
                         className={classes.button}
                         to={"/create-profile"}
                       >
@@ -278,7 +278,7 @@ const AccountDetails = ({
                     {!profile && (
                       <Button
                         component={Link}
-                        size='small'
+                        size="small"
                         className={classes.button}
                         to={"/create-profile"}
                       >

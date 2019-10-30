@@ -25,7 +25,6 @@ import {
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
-import { Typography } from "@material-ui/core";
 
 import { getImages, uploadTag } from "../../../../actions/uploader";
 

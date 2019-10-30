@@ -30,7 +30,6 @@ const useStyles = makeStyles(theme => ({
       marginBottom: theme.spacing(7)
     }
   },
-
   sticky: {
     position: "-webkit-sticky" /* Safari */,
     position: "sticky", //it must keep here
@@ -83,7 +82,7 @@ const Profile = ({
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          <Container maxWidth='md'>
+          <Container maxWidth="md">
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}

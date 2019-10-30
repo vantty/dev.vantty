@@ -24,8 +24,114 @@ exports.sendEmail = async (req, res) => {
       method: "local",
       local: { firstName, lastName, email, password }
     });
+    composeEmail(newUser);
+    res.status(200).json(newUser);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+};
 
-    const emailToken = generateEmailToken(newUser);
+exports.resendEmail = async (req, res) => {
+  try {
+    const { email } = req.body.local;
+    const user = await User.findOne({ "local.email": email });
+    composeEmail(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.confirmEmail = async (req, res) => {
+  try {
+    const tokenVerified = JWT.verify(
+      req.params.token,
+      process.env.EMAIL_SECRET
+    );
+    const id = tokenVerified.user;
+    let user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: { confirmed: true } },
+      { new: true }
+    );
+    res.status(200).json(user);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+exports.register = async (req, res) => {
+  try {
+    const tokenVerified = JWT.verify(
+      req.params.token,
+      process.env.EMAIL_SECRET
+    );
+    const id = tokenVerified.user;
+    const user = await User.findOne({ _id: id });
+    // if (!user.confirmed) {
+    //   return res
+    //     .status(403)
+    //     .json({ errors: [{ msg: "Please validate your email" }] });
+    // }
+    const token = generateToken(user);
+    res.status(200).json({ token });
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    if (!req.user.confirmed) {
+      return res
+        .status(403)
+        .json({ errors: [{ msg: "Please validate your email" }] });
+    }
+    const token = generateToken(req.user);
+    res.status(200).json({ token });
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
+};
+
+exports.google = async (req, res) => {
+  try {
+    const token = generateToken(req.user);
+    res.status(200).json({ token });
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
+};
+
+exports.facebook = async (req, res) => {
+  try {
+    const token = generateToken(req.user);
+    res.status(200).json({ token });
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
+};
+
+// Login Token Generator
+generateToken = user => {
+  return JWT.sign(
+    {
+      iss: "vantty",
+      sub: user.id,
+      iat: Math.floor(Date.now() / 1000), // current time
+      exp: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60 // current time + 1yr
+    },
+    process.env.JWT_SECRET
+  );
+};
+
+// Compose and send email
+composeEmail = user => {
+  try {
+    const { firstName, email } = user.local;
+
+    const emailToken = generateEmailToken(user);
     // const url = `https://vantty.ca/confirmation/${emailToken}`;
     const url = `http://localhost:3000/confirmation/${emailToken}`;
 
@@ -74,84 +180,6 @@ exports.sendEmail = async (req, res) => {
     console.log(error);
     res.status(500).send("Server error");
   }
-};
-
-exports.confirmEmail = async (req, res) => {
-  try {
-    const tokenVerified = JWT.verify(
-      req.params.token,
-      process.env.EMAIL_SECRET
-    );
-    const id = tokenVerified.user;
-    let user = await User.findOneAndUpdate(
-      { _id: id },
-      { $set: { confirmed: true } },
-      { new: true }
-    );
-    res.status(200).json(user);
-  } catch (err) {
-    res.send(err);
-  }
-};
-
-exports.register = async (req, res) => {
-  try {
-    const tokenVerified = JWT.verify(
-      req.params.token,
-      process.env.EMAIL_SECRET
-    );
-    const id = tokenVerified.user;
-    const user = await User.findOne({ _id: id });
-    if (!user.confirmed) {
-      return res
-        .status(403)
-        .json({ errors: [{ msg: "Please validate your email" }] });
-    }
-    const token = generateToken(user);
-    res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
-  }
-};
-
-exports.login = async (req, res) => {
-  try {
-    const token = generateToken(req.user);
-    res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
-  }
-};
-
-exports.google = async (req, res) => {
-  try {
-    const token = generateToken(req.user);
-    res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
-  }
-};
-
-exports.facebook = async (req, res) => {
-  try {
-    const token = generateToken(req.user);
-    res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
-  }
-};
-
-// Login Token Generator
-generateToken = user => {
-  return JWT.sign(
-    {
-      iss: "vantty",
-      sub: user.id,
-      iat: Math.floor(Date.now() / 1000), // current time
-      exp: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60 // current time + 1yr
-    },
-    process.env.JWT_SECRET
-  );
 };
 
 // Email Token Generator

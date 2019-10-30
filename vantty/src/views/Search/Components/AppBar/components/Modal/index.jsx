@@ -7,7 +7,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
-import CloseIcon from "@material-ui/icons/Close";
 import ArrowUp from "@material-ui/icons/KeyboardArrowUp";
 
 import { ReactiveBase } from "@appbaseio/reactivesearch";

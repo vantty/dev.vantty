@@ -15,6 +15,7 @@ const express = require("express"),
     facebook,
     updatePersonalInfo,
     sendEmail,
+    resendEmail,
     confirmEmail,
     addUserImage,
     deleteUserPicture
@@ -24,6 +25,7 @@ const express = require("express"),
 
 router.get("/", passportJWT, auth);
 router.post("/register", validator, sendEmail);
+router.post("/resend", resendEmail);
 router.post("/login", passportLocal, login);
 router.post("/google", passportGoogle, google);
 router.post("/facebook", passportFacebook, facebook);

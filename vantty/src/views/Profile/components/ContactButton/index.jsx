@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // Helpers
-import { getStrategyName } from "../../../../helpers";
+// import { getStrategyName } from "../../../../helpers";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -172,13 +172,13 @@ const ContactButton = ({
   return (
     <Fragment>
       <div className={classes.root}>
-        <Container maxWidth='md'>
+        <Container maxWidth="md">
           <Fragment>
             <Grid
               container
-              direction='row'
-              justify='space-around'
-              alignItems='center'
+              direction="row"
+              justify="space-around"
+              alignItems="center"
             >
               <Grid item>
                 <h4 className={classes.price}>
@@ -194,10 +194,10 @@ const ContactButton = ({
                   Contact
                 </Button> */}
                 <a
-                  target='#'
+                  target="#"
                   href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appointment%20with%20you!`}
                 >
-                  <Button className={classes.button} variant='contained'>
+                  <Button className={classes.button} variant="contained">
                     Whatsapp
                   </Button>
                 </a>

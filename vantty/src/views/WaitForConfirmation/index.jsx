@@ -1,9 +1,13 @@
 import React from "react";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 // Material-UI
 import { CssBaseline, Typography, Container, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+// Actions
+import { resendEmail } from "../../actions/auth";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -28,8 +32,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WaitForConfirmation = () => {
+const WaitForConfirmation = ({ resendEmail, user }) => {
   const classes = useStyles();
+
+  const handleClick = () => {
+    resendEmail(user);
+  };
 
   return (
     <Container component="main" maxWidth="sm">
@@ -44,8 +52,7 @@ const WaitForConfirmation = () => {
           email, please click the link below.
         </Typography>
         <Button
-          component={RouterLink}
-          to="/register"
+          onClick={handleClick}
           color="primary"
           variant="contained"
           className={classes.button}
@@ -57,4 +64,15 @@ const WaitForConfirmation = () => {
   );
 };
 
-export default WaitForConfirmation;
+WaitForConfirmation.propTypes = {
+  user: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
+
+export default connect(
+  mapStateToProps,
+  { resendEmail }
+)(WaitForConfirmation);

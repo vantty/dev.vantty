@@ -11,7 +11,8 @@ import {
   LOGOUT,
   CLEAR_PROFILE,
   INFO_UPDATE_SUCCESS,
-  INFO_UPDATE_FAIL
+  INFO_UPDATE_FAIL,
+  SAVE_CONFIRMATION_EMAIL
 } from "./types";
 import { deleteImages } from "./uploader";
 import { getCurrentProfile } from "./profile";
@@ -40,12 +41,27 @@ export const sendEmail = ({
   email,
   password
 }) => async dispatch => {
-  const config = {
-    headers: { "Content-Type": "application/json" }
-  };
-  const body = JSON.stringify({ firstName, lastName, email, password });
   try {
-    await server.post("/auth/register", body, config);
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    const body = JSON.stringify({ firstName, lastName, email, password });
+    const res = await server.post("/auth/register", body, config);
+    dispatch({
+      type: SAVE_CONFIRMATION_EMAIL,
+      payload: res.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const resendEmail = user => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    await server.post("/auth/resend", user, config);
   } catch (error) {
     console.log(error);
   }
@@ -99,7 +115,7 @@ export const login = ({ email, password }) => async dispatch => {
   } catch (err) {
     dispatch(
       setAlert(
-        "Invalid Credentials. Please check your email and password",
+        "Invalid Credentials; please check your email and password. If everything looks fine, maybe you haven't confirmed your email",
         "error"
       )
     );

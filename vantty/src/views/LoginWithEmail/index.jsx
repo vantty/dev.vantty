@@ -19,9 +19,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-// Assets
-import photo from "../../assets/images/login.jpg";
-
 // Actions
 import { login } from "../../actions/auth";
 import { changeNavbarValue } from "../../actions/navbar";
@@ -67,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url(${photo})`,
+    backgroundImage: `url(${LoginPhoto})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center"

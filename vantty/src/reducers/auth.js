@@ -7,7 +7,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETE,
-  USER_LOCATION
+  USER_LOCATION,
+  SAVE_CONFIRMATION_EMAIL
 } from "../actions/types";
 
 const initialState = {
@@ -54,6 +55,11 @@ export default function(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
+      };
+    case SAVE_CONFIRMATION_EMAIL:
+      return {
+        ...state,
+        user: payload
       };
     default:
       return state;

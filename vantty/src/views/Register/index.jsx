@@ -15,7 +15,6 @@ import {
   Facebook as FacebookIcon,
   Google as GoogleIcon
 } from "../../assets/icons";
-import photo from "../../assets/images/login.jpg";
 
 // Actions
 import { googleRegister, facebookRegister } from "../../actions/auth";

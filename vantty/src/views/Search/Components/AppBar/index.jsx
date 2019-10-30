@@ -2,14 +2,12 @@ import React, { useState } from "react";
 
 // Components
 import { Modal } from "./components";
-// import vantty from "../../../../assets/logos/vantty.png";
-import vantty from "../../../../assets/logos/9.png";
+
 // Material-UI
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { Badge } from "@material-ui/core";
 

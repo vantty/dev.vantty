@@ -16,8 +16,6 @@ import Container from "@material-ui/core/Container";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 
 const JumbotronBackground =
   "https://res.cloudinary.com/vantty/image/upload/v1572391341/seed/ha8bgdvtvdaekxhabqja.jpg";
