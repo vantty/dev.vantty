@@ -69,11 +69,6 @@ exports.register = async (req, res) => {
     );
     const id = tokenVerified.user;
     const user = await User.findOne({ _id: id });
-    // if (!user.confirmed) {
-    //   return res
-    //     .status(403)
-    //     .json({ errors: [{ msg: "Please validate your email" }] });
-    // }
     const token = generateToken(user);
     res.status(200).json({ token });
   } catch (err) {
@@ -132,16 +127,16 @@ composeEmail = user => {
     const { firstName, email } = user.local;
 
     const emailToken = generateEmailToken(user);
-    // const url = `https://vantty.ca/confirmation/${emailToken}`;
     const url = `http://localhost:3000/confirmation/${emailToken}`;
+    // const url = `${process.env.CONFIRMATION_URL}/${emailToken}`;
 
     let transporter = nodemailer.createTransport({
       host: "smtp.mailgun.org",
       port: 465,
       secure: true,
       auth: {
-        user: "postmaster@mg.vantty.ca",
-        pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
+        user: process.env.MAILGUN_USER,
+        pass: process.env.MAILGUN_PASS
       }
     });
 

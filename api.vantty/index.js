@@ -27,7 +27,7 @@ connectDB();
 // CORS config
 var whitelist = [
   "https://vantty.ca",
-  "https://www.vantty.ca",
+  "https://www.vantty.ca"
   "http://localhost:3000"
 ];
 var corsOptions = {

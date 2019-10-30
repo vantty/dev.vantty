@@ -17,7 +17,10 @@
     "EMAIL_SECRET": "@email-secret",
     "CLOUDINARY_CLOUD_NAME": "@cloudinary-cloud-name",
     "CLOUDINARY_API_KEY": "@cloudinary-api-key",
-    "CLOUDINARY_API_SECRET": "@cloudinary-api-secret"
+    "CLOUDINARY_API_SECRET": "@cloudinary-api-secret",
+    "CONFIRMATION_URL": "@confirmation-uri",
+    "MAILGUN_USER": "@mailgun-user",
+    "MAILGUN_PASS": "@mailgun-pass"
   },
   "routes": [{ "src": "/api/.*", "dest": "/index.js" }]
 }
