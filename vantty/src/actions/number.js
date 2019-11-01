@@ -3,6 +3,9 @@ import axios from "axios";
 import crypto from "crypto";
 
 import { createMobileNumber } from "./profile";
+
+import { updateInfo } from "./auth";
+import { server } from "../utils/axios";
 //vantty.ca
 const appId = process.env.REACT_APP_FACEBOOK_ID;
 const appSecret = process.env.REACT_APP_FACEBOOK_APP;
@@ -38,7 +41,18 @@ export const verifyNumber = (res, id) => async dispatch => {
           const numberVerified = res.data.phone.number;
           var number = numberVerified.substr(1);
           await dispatch(createMobileNumber({ mobileNumber: number }, true));
+          const config = {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          };
 
+          await server.post(
+            "/auth/is-profile",
+            { id: id, profile: true },
+            true,
+            config
+          );
           await dispatch({
             type: NUMBER_VERIFY_SUCCESS,
             payload: numberVerified

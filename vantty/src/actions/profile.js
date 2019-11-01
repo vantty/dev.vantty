@@ -1,7 +1,7 @@
 import { server, elastic } from "../utils/axios";
 import setAlert from "./alert";
 import { loadUser } from "./auth";
-import { deleteImages } from "./uploader";
+import { deleteImages, getImagesById } from "./uploader";
 import {
   GET_PROFILE,
   GET_PROFILES,
@@ -51,6 +51,9 @@ export const getProfiles = () => async dispatch => {
 // Get profile by ID
 export const getProfileById = userId => async dispatch => {
   try {
+    await dispatch({
+      type: CLEAR_PROFILE
+    });
     const res = await server.get(`/profile/artist/${userId}`);
     dispatch({
       type: GET_PROFILE,
@@ -325,6 +328,8 @@ export const verifiedProfile = formData => async dispatch => {
     await server.post("/profile/verified", formData, config);
 
     const resImages = await server.get(`/images/${formData.id}`);
+
+    console.log(formData);
     const elasticConfig = {
       headers: {
         "Content-type": "application/json",

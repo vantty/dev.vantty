@@ -54,7 +54,8 @@ const userSchema = new Schema(
     role: {
       type: String,
       default: "Suscriber"
-    }
+    },
+    profile: { type: Boolean, default: false }
   },
 
   { timestamps: true }

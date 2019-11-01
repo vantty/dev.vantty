@@ -6,6 +6,12 @@ import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import { Paper } from "@material-ui/core";
 
+//Google Analytics
+import ReactGA from "react-ga";
+ReactGA.initialize("UA-108639612-1");
+ReactGA.pageview(window.location.pathname + window.location.search);
+const ga = ReactGA;
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -92,6 +98,13 @@ export default function Slider({ profile, disabled, verified, user }) {
                     className={classes.button}
                     target='#'
                     href={`https://api.whatsapp.com/send?phone=${profile.mobileNumber}&text=Hello!%20${profile.name.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.ca,%20so%20I%20wanted%20to%20get%20an%20appointment%20with%20you!`}
+                    onclick={ReactGA.event(
+                      "send",
+                      "event",
+                      "Contacto profesional",
+                      "Click en boton WhatsApp",
+                      "NTZ Natalia Zuluaga - ID 517"
+                    )}
                   >
                     Whatsapp Contact
                   </a>

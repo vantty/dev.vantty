@@ -78,60 +78,60 @@ const Profile = ({
           />
         </Fragment>
       )}
-      {!profile && !images ? (
+      {(!profile && !images) || profile === null || loading || !images ? (
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          <Container maxWidth="md">
+          <Container maxWidth='md'>
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}
               <Fragment>
                 {/* <Wait on='sidebar' fallback={<Progress />}> */}
                 <CssBaseline />
-                {profile === null || loading || !images ? (
-                  <Progress />
-                ) : (
-                  <Fragment>
-                    {isOwner(auth, user && user._id) === true &&
-                      profile &&
-                      profile.user._id === auth.user._id &&
-                      profile.mobileNumber &&
-                      !profile.verified && (
-                        <MessageVerified profile={profile} />
-                      )}
-                    <Grid item xs={12} md={8} sm={10}>
-                      <Header />
+                {/* {profile === null || loading || !images ? ( */}
+                {/* <Progress />) : ( */}
+                <Fragment>
+                  {isOwner(auth, user && user._id) === true &&
+                    profile &&
+                    profile.user._id === auth.user._id &&
+                    profile.mobileNumber &&
+                    !profile.verified && <MessageVerified profile={profile} />}
+                  <Grid item xs={12} md={8} sm={10}>
+                    <Header />
 
-                      <Fragment>
-                        <ProfileInfo profile={profile} auth={auth} />
-                        <br />
-                        {/* {images ? (
-                          <ProfileCarousel profile={profile} images={images} />
-                        ) : (
-                          <Progress className={classes.progress} />
-                        )} */}
+                    <Fragment>
+                      <ProfileInfo profile={profile} auth={auth} />
+                      <br />
+                      {/* {images ? (
                         <ProfileCarousel profile={profile} images={images} />
+                      ) : (
+                        <Progress className={classes.progress} />
+                      )} */}
+                      <ProfileCarousel
+                        // profile={profile}
+                        images={images}
+                      />
 
-                        <br />
-                        <br />
-                        <Review profile={profile} />
-                      </Fragment>
+                      <br />
+                      <br />
+                      <Review profile={profile} />
+                    </Fragment>
+                  </Grid>
+                  <Hidden smDown>
+                    <Grid item md={4}>
+                      <div className={classes.sticky}>
+                        <Slider
+                          profile={profile}
+                          verified={profile.verified}
+                          disabled={user && user._id === profile.user._id}
+                          user={user}
+                        />
+                      </div>
                     </Grid>
-                    <Hidden smDown>
-                      <Grid item md={4}>
-                        <div className={classes.sticky}>
-                          <Slider
-                            profile={profile}
-                            verified={profile.verified}
-                            disabled={user && user._id === profile.user._id}
-                            user={user}
-                          />
-                        </div>
-                      </Grid>
-                    </Hidden>
-                  </Fragment>
-                )}
+                  </Hidden>
+                </Fragment>
+                {/* )} */}
               </Fragment>
               {/* End main content */}
             </Grid>

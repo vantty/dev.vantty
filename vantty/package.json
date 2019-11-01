@@ -27,6 +27,7 @@
     "react-dom": "^16.8.1",
     "react-facebook-account-kit": "^0.1.5",
     "react-facebook-login": "^4.1.1",
+    "react-ga": "^2.7.0",
     "react-google-login": "^5.0.5",
     "react-headroom": "^2.2.8",
     "react-markdown": "^4.2.2",

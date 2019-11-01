@@ -186,23 +186,24 @@ generateEmailToken = user => {
 
 //Update Personal Info
 exports.updatePersonalInfo = async (req, res) => {
-  const { firstName, lastName, email, id, profilePicture } = req.body;
-  let data = await User.findById({ _id: req.user._id });
-  console.log(data);
+  const { firstName, lastName, email, id, profilePicture, profile } = req.body;
+  let user = await User.findById({ _id: req.user._id });
+
   // Build profile object
-  const strategy = data.method;
+  const strategy = user.method;
   const userFields = {};
   userFields.method = strategy;
   userFields[strategy] = {};
   //General
-  userFields[strategy].id = data[strategy].id;
-  userFields[strategy].password = data[strategy].password;
+  userFields[strategy].id = user[strategy].id;
+  userFields[strategy].password = user[strategy].password;
   if (firstName) userFields[strategy].firstName = firstName;
   if (lastName) userFields[strategy].lastName = lastName;
   if (email) userFields[strategy].email = email;
+  // if (profile) userFields.profile = profile;
 
   if (profilePicture)
-    userFields[strategy].profilePicture = data[strategy].profilePicture;
+    userFields[strategy].profilePicture = user[strategy].profilePicture;
 
   try {
     let user = await User.findOneAndUpdate(
@@ -210,7 +211,6 @@ exports.updatePersonalInfo = async (req, res) => {
       { $set: userFields },
       { new: true }
     );
-
     return res.json(user);
   } catch (err) {
     res.status(500).send("Server Error");
@@ -249,6 +249,21 @@ exports.deleteUserPicture = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+};
+
+exports.isProfile = async (req, res) => {
+  try {
+    const { id, profile } = req.body;
+    // const profileId = await Profile.findOne({ user: req.user.id });
+    let user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: { profile } },
+      { new: true }
+    );
+    res.status(200).json(user);
+  } catch (err) {
+    res.send(err);
   }
 };
 
