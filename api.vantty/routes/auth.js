@@ -11,6 +11,8 @@ const express = require("express"),
     auth,
     register,
     login,
+    forgot,
+    reset,
     google,
     facebook,
     updatePersonalInfo,
@@ -27,6 +29,8 @@ router.get("/", passportJWT, auth);
 router.post("/register", validator, sendEmail);
 router.post("/resend", resendEmail);
 router.post("/login", passportLocal, login);
+router.post("/forgot", forgot);
+router.post("/reset", reset);
 router.post("/google", passportGoogle, google);
 router.post("/facebook", passportFacebook, facebook);
 router.post("/update-info", passportJWT, updatePersonalInfo);

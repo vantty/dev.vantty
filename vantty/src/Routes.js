@@ -25,6 +25,7 @@ import {
   RegisterWithEmail,
   WaitForConfirmation,
   Confirmation,
+  ResetPassword,
   ReviewForm,
   Login,
   LoginWithEmail,
@@ -32,6 +33,7 @@ import {
   Search,
   Board,
   Settings,
+  ForgotPassword,
   NotFound
 } from "./views";
 
@@ -51,12 +53,22 @@ const Routes = () => {
       <PrivateRoute exact path="/create-profile" component={Form} />
       />
       {/*  */}
-      {/* <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} /> */}
       <Route component={Register} exact path="/register" />
       <Route component={RegisterWithEmail} exact path="/register-email" />
       <Route component={Login} exact path="/login" />
       <Route component={LoginWithEmail} exact path="/login-email" />
+      <RouteWithLayout
+        component={ForgotPassword}
+        exact
+        layout={MainLayout}
+        path="/forgot"
+      />
+      <RouteWithLayout
+        component={ResetPassword}
+        exact
+        layout={MainLayout}
+        path="/reset/:token"
+      />
       <RouteWithLayout
         component={WaitForConfirmation}
         exact

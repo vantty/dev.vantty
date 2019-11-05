@@ -47,7 +47,7 @@ const SelectTags = ({ _id, uploadTag, elasticId, tags, onChangeTags }) => {
     // <form autoComplete='off'>
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor='demo-controlled-open-select'>Tag</InputLabel>
+        <InputLabel htmlFor="demo-controlled-open-select">Tag</InputLabel>
         <Select
           className={classes.Select}
           open={open}
@@ -63,9 +63,9 @@ const SelectTags = ({ _id, uploadTag, elasticId, tags, onChangeTags }) => {
           </MenuItem> */}
 
           {/* <MenuItem value={tag}>{tag}</MenuItem> */}
-          <MenuItem value={"social"}>Social</MenuItem>
-          <MenuItem value={"bridal"}>Bridal</MenuItem>
-          <MenuItem value={"photography"}>Photography</MenuItem>
+          <MenuItem value={"Bridal"}>Bridal</MenuItem>
+          <MenuItem value={"Social"}>Social</MenuItem>
+          <MenuItem value={"Photography"}>Photography</MenuItem>
         </Select>
         {/* <Button onClick={e => onSubmit(e, tag, _id)}>Send Tags</Button> */}
       </FormControl>

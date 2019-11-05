@@ -17,6 +17,8 @@ import {
 import { deleteImages } from "./uploader";
 import { getCurrentProfile } from "./profile";
 
+const log = console.log;
+
 // Load User
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
@@ -107,6 +109,7 @@ export const login = ({ email, password }) => async dispatch => {
   const body = JSON.stringify({ email, password });
   try {
     const res = await server.post("/auth/login", body, config);
+    log(res);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -122,6 +125,50 @@ export const login = ({ email, password }) => async dispatch => {
     dispatch({
       type: LOGIN_FAIL
     });
+  }
+};
+
+// Forgot Password
+export const forgot = email => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    await server.post("/auth/forgot", email, config);
+    await dispatch(
+      setAlert(
+        "An email has been sent with instructions to reset your password",
+        "success"
+      )
+    );
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, "error"));
+      });
+    }
+  }
+};
+
+// Reset Password
+export const reset = (token, password) => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    const body = { token, password };
+    await server.post("/auth/reset", body, config);
+    await dispatch(
+      setAlert("Your password has been successfully changed", "success")
+    );
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, "error"));
+      });
+    }
   }
 };
 

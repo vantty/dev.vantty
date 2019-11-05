@@ -1,7 +1,11 @@
 const JWT = require("jsonwebtoken"),
   User = require("../models/User"),
   nodemailer = require("nodemailer"),
-  hbs = require("nodemailer-express-handlebars");
+  hbs = require("nodemailer-express-handlebars"),
+  async = require("async"),
+  crypto = require("crypto"),
+  bcrypt = require("bcryptjs"),
+  log = console.log;
 
 exports.auth = async (req, res) => {
   try {
@@ -24,7 +28,11 @@ exports.sendEmail = async (req, res) => {
       method: "local",
       local: { firstName, lastName, email, password }
     });
-    composeEmail(newUser);
+    const emailToken = generateEmailToken(newUser);
+    const subject = "Email Confirmation";
+    const url = `${req.headers.origin}/confirmation/${emailToken}`;
+    const html = `Hi ${firstName}, welcome to Vantty! Please confirm your email address by clicking this link: <a href=${url}><strong>Click Here.</strong></a>`;
+    composeEmail(email, subject, html);
     res.status(200).json(newUser);
   } catch (error) {
     console.log(error);
@@ -36,7 +44,12 @@ exports.resendEmail = async (req, res) => {
   try {
     const { email } = req.body.local;
     const user = await User.findOne({ "local.email": email });
-    composeEmail(user);
+    const emailToken = generateEmailToken(user);
+    const subject = "Email Confirmation";
+    const url = `${req.headers.origin}/confirmation/${emailToken}`;
+    const { firstName } = user.local;
+    const html = `Hi ${firstName}, welcome to Vantty! Please confirm your email address by clicking this link: <a href=${url}><strong>Click Here.</strong></a>`;
+    composeEmail(email, subject, html);
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
@@ -90,6 +103,80 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.forgot = (req, res, next) => {
+  async.waterfall(
+    [
+      done => {
+        crypto.randomBytes(20, (err, buf) => {
+          let token = buf.toString("hex");
+          done(err, token);
+        });
+      },
+      (token, done) => {
+        User.findOne({ "local.email": req.body.email }, (err, user) => {
+          if (!user) {
+            return res
+              .status(403)
+              .json({ errors: [{ msg: "No account with that email exists" }] });
+          }
+          user.local.resetPasswordToken = token;
+          user.local.resetPasswordExpires = Date.now() + 3600 * 1000; // 1h
+          user.save(err => {
+            done(err, token, user);
+          });
+        });
+      },
+      (token, user, done) => {
+        const subject = "Reset Password";
+        const url = `${req.headers.origin}/reset/${token}`;
+        const { firstName, email } = user.local;
+        const html = `Hi ${firstName}. Please click this link to reset your password: <a href=${url}><strong>Click Here.</strong></a>`;
+        composeEmail(email, subject, html);
+        done();
+        return res.status(200).json(user);
+      }
+    ],
+    err => {
+      if (err) return next(err);
+    }
+  );
+};
+
+exports.reset = async (req, res, next) => {
+  const { token, password } = req.body;
+  async.waterfall(
+    [
+      done => {
+        User.findOne(
+          {
+            "local.resetPasswordToken": token,
+            "local.resetPasswordExpires": { $gt: Date.now() }
+          },
+          async (err, user) => {
+            if (!user) {
+              return res.status(403).json({
+                errors: [
+                  { msg: "Password reset token is invalid or has expired" }
+                ]
+              });
+            }
+            user.local.password = password;
+            user.local.resetPasswordToken = undefined;
+            user.local.resetPasswordExpires = undefined;
+            user.save(err => {
+              done(err, user);
+            });
+            return res.status(200).json(user);
+          }
+        );
+      }
+    ],
+    err => {
+      if (err) return next(err);
+    }
+  );
+};
+
 exports.google = async (req, res) => {
   try {
     const token = generateToken(req.user);
@@ -121,47 +208,31 @@ generateToken = user => {
   );
 };
 
+// Email Token Generator
+generateEmailToken = user => {
+  return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
+    expiresIn: "1d"
+  });
+};
+
 // Compose and send email
-composeEmail = user => {
+composeEmail = (email, subject, html) => {
   try {
-    const { firstName, email } = user.local;
-
-    const emailToken = generateEmailToken(user);
-    const url = `http://localhost:3000/confirmation/${emailToken}`;
-    // const url = `${process.env.CONFIRMATION_URL}/${emailToken}`;
-
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
       host: "smtp.mailgun.org",
       port: 465,
       secure: true,
       auth: {
-        user: process.env.MAILGUN_USER,
-        pass: process.env.MAILGUN_PASS
+        user: "postmaster@mg.vantty.ca",
+        pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
       }
     });
-
-    const handlebarOptions = {
-      viewEngine: {
-        extName: ".hbs",
-        partialsDir: "./views",
-        layoutsDir: "./views",
-        defaultLayout: "index.hbs"
-      },
-      viewPath: "./views",
-      extName: ".hbs"
-    };
-
-    transporter.use("compile", hbs(handlebarOptions));
 
     let message = {
       from: "admin@vantty.ca",
       to: `${email}`,
-      subject: "Email Confirmation",
-      template: "index",
-      context: {
-        firstName: `${firstName}`,
-        url: `${url}`
-      }
+      subject: subject,
+      html: html
     };
 
     transporter.sendMail(message, (err, data) => {
@@ -175,13 +246,6 @@ composeEmail = user => {
     console.log(error);
     res.status(500).send("Server error");
   }
-};
-
-// Email Token Generator
-generateEmailToken = user => {
-  return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
-    expiresIn: "1d"
-  });
 };
 
 //Update Personal Info

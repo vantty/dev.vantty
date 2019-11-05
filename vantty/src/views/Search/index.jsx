@@ -181,6 +181,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               }}
               render={({ data }) => (
                 <Fragment>
+                  {console.log(values)}
                   <ResultCardsWrapper>
                     <Fragment>
                       {data.map(pic => (

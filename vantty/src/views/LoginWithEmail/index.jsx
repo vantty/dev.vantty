@@ -288,7 +288,7 @@ const Login = props => {
                 />
                 <Link
                   component={RouterLink}
-                  to="/forgot-password"
+                  to="/forgot"
                   variant="h6"
                   className={classes.link}
                 >
