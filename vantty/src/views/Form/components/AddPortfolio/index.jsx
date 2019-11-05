@@ -96,8 +96,8 @@ const AddPortfolio = ({
       <Fragment>
         <Card className={clsx(classes.root, className)}>
           {profile ? (
-            <form autoComplete="off" noValidate>
-              <CardHeader title="Portfolio" />
+            <form autoComplete='off' noValidate>
+              <CardHeader title='Portfolio' />
               <CardContent className={classes.content}>
                 <div>
                   <ImagesUploader tags={tags} onChangeTags={onChangeTags} />
@@ -207,7 +207,7 @@ const AddPortfolio = ({
                       <div>
                         <Fragment>
                           <Fragment>
-                            <Button component={Link} to="/settings">
+                            <Button component={Link} to='/settings'>
                               Back
                             </Button>
                             <Button

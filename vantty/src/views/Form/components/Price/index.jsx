@@ -33,6 +33,8 @@ import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
 
+import { Services, StartService } from "./components";
+
 const PrettoSlider = withStyles(theme => ({
   root: {
     color: theme.palette.purpleVantty.light,
@@ -135,52 +137,8 @@ const Price = ({
               />
               {/* <Divider /> */}
               <CardContent className={classes.content}>
-                <div>
-                  <div>
-                    <Container>
-                      <Typography color='textSecondary' variant='body1'>
-                        This is the minimum price for which you provide a
-                        service but you define the final price with the customer
-                      </Typography>
-                      <br />
-                      <br />
-                      <br />
-                      <Fragment>
-                        <Grid
-                          container
-                          direction='row'
-                          justify='center'
-                          alignItems='center'
-                        >
-                          <Grid item xs={isMobile ? 12 : 11}>
-                            <PrettoSlider
-                              defaultValue={60}
-                              valueLabelDisplay='on'
-                              max={500}
-                              step={10}
-                              disabled={false}
-                              value={price || 80}
-                              name='price'
-                              // onChange={e => onChange(e)}
-                              onChange={handleChange}
-                              // handleDragStop={price}
-                            />
-                            <br />
-                            <br />
-                            <Typography
-                              // className={classes.locationText}
-                              // color='textSecondary'
-                              variant='body1'
-                            >
-                              I provide a service minimum for{" "}
-                              <strong>${price || 80}</strong>
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Fragment>
-                    </Container>
-                  </div>
-                </div>
+                {/* <StartService price={price} handleChange={handleChange} /> */}
+                <Services />
               </CardContent>
               {match.url === "/price" && !isMobile && (
                 <Fragment>
