@@ -25,13 +25,14 @@ const Settings = ({
   profile: { profile, loading },
   loadUser,
   logout,
+  auth: { user },
   auth,
   history,
   getProfileById
 }) => {
   useEffect(() => {
-    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
     loadUser();
+    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
   }, [getCurrentProfile]);
 
   return (
@@ -44,36 +45,16 @@ const Settings = ({
         <SimpleAppBar
           history={history}
           path={
-            profile && profile.mobileNumber
+            user && user.profile && profile
               ? `/profile/artist/${profile.user._id}`
               : "/search"
           }
         />
       </Hidden>
-      {/* {profile ? (
-        profile.mobileNumber ? (
-          <SettingsProfile match={match} pagesProfile={pagesProfile} />
-        ) : (
-          <SettingsUser match={match} pages={pagesUser} />
-        )
+      {user && user.profile ? (
+        <SettingsProfile match={match} pagesProfile={pagesProfile} />
       ) : (
         <SettingsUser match={match} pages={pagesUser} />
-      )} */}
-
-      {profile && !profile.mobileNumber && (
-        <SettingsUser match={match} pages={pagesUser} logout={logout} />
-      )}
-
-      {profile && profile.mobileNumber && (
-        <SettingsProfile
-          match={match}
-          pagesProfile={pagesProfile}
-          logout={logout}
-        />
-      )}
-
-      {!profile && (
-        <SettingsUser match={match} pages={pagesUser} logout={logout} />
       )}
     </Fragment>
   );
@@ -83,6 +64,7 @@ Settings.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
+  user: PropTypes.object,
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };

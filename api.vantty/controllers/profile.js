@@ -2,6 +2,7 @@ const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
+const Book = require("../models/Book");
 
 // Current User
 exports.current = async (req, res) => {
@@ -119,6 +120,17 @@ exports.createANDupdate = async (req, res) => {
     });
     const imagesArtist = await newImages.save();
     profileFields.imagesId = newImages.id;
+
+    // Create Book id
+    const newBook = new Book({
+      user: req.user.id,
+      name:
+        req.user.local.firstName ||
+        req.user.google.firstName ||
+        req.user.facebook.firstName
+    });
+    const bookArtists = await newBook.save();
+    profileFields.bookId = newBook.id;
 
     // Create
     profile = new Profile(profileFields);

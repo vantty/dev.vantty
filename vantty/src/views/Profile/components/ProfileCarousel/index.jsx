@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import "react-multi-carousel/lib/styles.css";
@@ -57,6 +57,7 @@ const Porfolio = ({ images }) => {
     <Fragment>
       <Fragment>
         <MainPicture picture={picture} />
+
         {/* <List images={images} /> */}
 
         <Carousel
@@ -65,21 +66,22 @@ const Porfolio = ({ images }) => {
           arrows
           // autoPlaySpeed={3000}
           // centerMode={false}
-          containerClass="container"
+          containerClass='container'
           // dotListClass=''
           draggable
           // focusOnSelect={false}
           infinite
-          itemClass=""
+          itemClass=''
           keyBoardControl
           minimumTouchDrag={2}
-          partialVisbile="right"
+          partialVisbile='right'
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {images.map(image => (
             <Link
-              component="button"
+              component='button'
+              onChange={e => setState({ picture: image.original })}
               onClick={() => {
                 setState({ picture: image.original, tag: image.tag });
               }}

@@ -19,6 +19,9 @@ const ProfileSchema = new mongoose.Schema({
   imagesId: {
     type: String
   },
+  bookId: {
+    type: String
+  },
   gender: {
     type: String
   },

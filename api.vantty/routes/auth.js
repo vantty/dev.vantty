@@ -20,7 +20,8 @@ const express = require("express"),
     resendEmail,
     confirmEmail,
     addUserImage,
-    deleteUserPicture
+    deleteUserPicture,
+    isProfile
   } = require("../controllers/auth"),
   { validator } = require("../helpers"),
   router = express.Router();
@@ -43,5 +44,5 @@ router.put("/user-image", addUserImage);
 // @route    DELETE /profile/portfolio/:pic_id
 // @access   Private
 router.post("/userPicture", passportJWT, deleteUserPicture);
-
+router.post("/is-profile", isProfile);
 module.exports = router;

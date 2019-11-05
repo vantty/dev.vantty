@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from "react";
-import { withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 //Components
 import AppBarForm from "../Form/components/ComponentsForm/AppBar";
@@ -20,7 +20,7 @@ import { Container } from "@material-ui/core";
 //   SettingsUser
 // } from "./components";
 import { isOwner } from "../../helpers";
-import {  Alert } from "../../components";
+import { Alert } from "../../components";
 import { isMobile } from "react-device-detect";
 import Settings from "../../views/Settings";
 
@@ -59,7 +59,6 @@ const EditForm = ({
   auth,
   index
 }) => {
-
   // const [state, setState] = useState();
 
   // const shoot = (e, own) => (e, own) => {
@@ -142,26 +141,26 @@ const EditForm = ({
         <Fragment>
           <Alert />
         </Fragment>
-        {user ? (
-          <Box pt={11} pb={11}>
-            <div className={classes.root}>
-              <Grid container>
-                <Hidden xsDown>
-                  <Grid item lg={4} md={4} xs={4}>
-                    <Container maxWidth='md'>
-                      <Settings match={match} />
-                    </Container>
-                  </Grid>
-                </Hidden>
-                <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
-                  <Fragment>{Children}</Fragment>
+        {/* {user ? ( */}
+        <Box pt={11} pb={11}>
+          <div className={classes.root}>
+            <Grid container>
+              <Hidden xsDown>
+                <Grid item lg={4} md={4} xs={4}>
+                  <Container maxWidth='md'>
+                    <Settings match={match} />
+                  </Container>
                 </Grid>
+              </Hidden>
+              <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
+                <Fragment>{Children}</Fragment>
               </Grid>
-            </div>
-          </Box>
-        ) : (
-          <Progress />
-        )}
+            </Grid>
+          </div>
+        </Box>
+        {/* ) : ( */}
+        {/* <Progress /> */}
+        {/* )} */}
       </Fragment>
     </Fragment>
   );

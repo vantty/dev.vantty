@@ -78,7 +78,6 @@ const Porfolio = ({
       <div>
         <GridList>
           <br />
-
           {portfolioPictures &&
             portfolioPictures.map(picture => (
               <GridListTile key={picture._id} style={{ height: "auto" }}>
@@ -96,6 +95,7 @@ const Porfolio = ({
                   <CancelIcon />
                   <DeleteForeverOutlinedIcon />
                 </span> */}
+
                 <span
                   style={{
                     backgroundImage: `url(${picture.original})`
@@ -120,7 +120,9 @@ const Porfolio = ({
                           )
                         }
                       >
-                        <DeleteForeverOutlinedIcon />
+                        {portfolioPictures.length > 5 && (
+                          <DeleteForeverOutlinedIcon />
+                        )}
                       </IconButton>
                     }
                   />
