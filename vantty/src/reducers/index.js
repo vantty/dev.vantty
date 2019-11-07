@@ -7,6 +7,7 @@ import navbar from "./navbar";
 import uploader from "./uploader";
 import number from "./number";
 import search from "./search";
+import pay from "./pay";
 
 export default combineReducers({
   alert,
@@ -16,5 +17,6 @@ export default combineReducers({
   navbar,
   uploader,
   number,
-  search
+  search,
+  pay
 });

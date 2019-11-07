@@ -1,86 +1,91 @@
-import React, { Component } from "react";
-import {
-  CardElement,
-  injectStripe,
-  StripeProvider,
-  Elements
-} from "react-stripe-elements";
+import React from "react";
+import { StripeProvider, Elements } from "react-stripe-elements";
+// import { connect } from "react-redux";
+// import PropTypes from "prop-types";
 
-const log = console.log;
-// You can customize your Elements to give it the look and feel of your site.
-const createOptions = () => {
-  return {
-    style: {
-      base: {
-        fontSize: "16px",
-        color: "#424770",
-        fontFamily: "Open Sans, sans-serif",
-        letterSpacing: "0.025em",
-        "::placeholder": {
-          color: "#aab7c4"
-        }
-      },
-      invalid: {
-        color: "#c23d4b"
-      }
-    }
-  };
+// Components
+import StripeForm from "./components/StripeForm";
+
+// Helpers
+// const log = console.log;
+
+// const createOptions = () => {
+//   return {
+//     style: {
+//       base: {
+//         fontSize: "36px",
+//         color: "#424770",
+//         fontFamily: "Open Sans, sans-serif",
+//         letterSpacing: "0.025em",
+//         "::placeholder": {
+//           color: "#aab7c4"
+//         }
+//       },
+//       invalid: {
+//         color: "#c23d4b"
+//       }
+//     }
+//   };
+// };
+
+// const _StripeForm = props => {
+//   const { stripe, payment } = props;
+//   const [errorMessage, setErrorMessage] = useState("");
+
+//   const handleChange = ({ error }) => {
+//     if (error) {
+//       setErrorMessage(error.message);
+//     }
+//   };
+
+//   const handleSubmit = evt => {
+//     evt.preventDefault();
+//     if (stripe) {
+//       stripe.createToken().then(res => {
+//         let { token } = res;
+//         let amount = "100";
+//         payment(token);
+//       });
+//     } else {
+//       console.log("Stripe.js hasn't loaded yet.");
+//     }
+//   };
+
+//   return (
+//     <div className="CardDemo">
+//       <form onSubmit={handleSubmit}>
+//         <label>
+//           Card details
+//           <CardElement onChange={handleChange} {...createOptions()} />
+//         </label>
+//         <div className="error" role="alert">
+//           {errorMessage}
+//         </div>
+//         <button>Pay</button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// const StripeForm = injectStripe(_StripeForm);
+
+const Book = () => {
+  return (
+    <StripeProvider apiKey={"pk_test_HHkuqizzDlMmZMauV39jofnJ000LOHKMAN"}>
+      <Elements>
+        <StripeForm />
+      </Elements>
+    </StripeProvider>
+  );
 };
 
-class _CardForm extends Component {
-  state = {
-    errorMessage: ""
-  };
+export default Book;
 
-  handleChange = ({ error }) => {
-    if (error) {
-      this.setState({ errorMessage: error.message });
-    }
-  };
+// Book.propTypes = {
+//   payment: PropTypes.func
+// };
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    if (this.props.stripe) {
-      this.props.stripe
-        .createToken()
-        .then(this.props.handleResult)
-        .then(token => {
-          log(token.token.id);
-        });
-    } else {
-      console.log("Stripe.js hasn't loaded yet.");
-    }
-  };
-
-  render() {
-    return (
-      <div className='CardDemo'>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <label>
-            Card details
-            <CardElement onChange={this.handleChange} {...createOptions()} />
-          </label>
-          <div className='error' role='alert'>
-            {this.state.errorMessage}
-          </div>
-          <button>Pay</button>
-        </form>
-      </div>
-    );
-  }
-}
-
-const CardForm = injectStripe(_CardForm);
-
-export class CardDemo extends Component {
-  render() {
-    return (
-      <StripeProvider apiKey={"pk_test_HHkuqizzDlMmZMauV39jofnJ000LOHKMAN"}>
-        <Elements>
-          <CardForm handleResult={this.props.handleResult} />
-        </Elements>
-      </StripeProvider>
-    );
-  }
-}
-export default CardDemo;
+// export default connect(
+//   null,
+//   { payment }
+// )(Book);
