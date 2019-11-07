@@ -51,3 +51,18 @@ export const schemaErrorsReview = {
     }
   }
 };
+
+export const serviceSchemaErrors = {
+  amount: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 3
+    }
+  },
+  description: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 5
+    }
+  }
+};

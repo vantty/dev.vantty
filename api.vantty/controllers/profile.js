@@ -44,6 +44,9 @@ exports.createANDupdate = async (req, res) => {
     firstName,
     lastName,
     verified,
+    typeOfService,
+    description,
+    amount,
     englishLevel
   } = req.body;
 
@@ -56,6 +59,12 @@ exports.createANDupdate = async (req, res) => {
   profileFields.name = {};
   profileFields.name.firstName = req.user[method].firstName;
   profileFields.name.lastName = req.user[method].lastName;
+
+  // Build service object
+  profileFields.service = {};
+  if (typeOfService) service.typeOfService = typeOfService;
+  if (instagram) service.description = description;
+  if (instagram) service.amount = amount;
 
   profileFields.profilePicture = req.user[method].profilePicture.original;
   if (bio) profileFields.bio = bio;

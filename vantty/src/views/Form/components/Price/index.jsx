@@ -33,40 +33,13 @@ import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
 
-import { Services, StartService } from "./components";
-
-const PrettoSlider = withStyles(theme => ({
-  root: {
-    color: theme.palette.purpleVantty.light,
-    height: 8
-  },
-  thumb: {
-    height: 24,
-    width: 24,
-    backgroundColor: "#fff",
-    border: "2px solid currentColor",
-    marginTop: -8,
-    marginLeft: -12,
-    "&:focus,&:hover,&$active": {
-      boxShadow: "inherit"
-    }
-  },
-  active: {},
-  valueLabel: {
-    left: "calc(-50% + 4px)"
-  },
-  track: {
-    height: 8,
-    borderRadius: 4
-  },
-  rail: {
-    height: 8,
-    borderRadius: 4
-  }
-}))(Slider);
+import { Form, ServiceCard } from "./components";
+import { getStrategy } from "../../../../helpers";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    padding: "0"
+  },
   button: {
     float: "right",
     color: "white",
@@ -76,6 +49,9 @@ const useStyles = makeStyles(theme => ({
       color: "white",
       backgroundColor: theme.palette.greenVantty.light
     }
+  },
+  content: {
+    padding: "1rem"
   }
 }));
 
@@ -93,14 +69,31 @@ const Price = ({
   const [formData, setFormData] = useState({
     price: 60
   });
+  const [serviceData, setServiceData] = useState({
+    typeOfService: "",
+    amount: "",
+    description: ""
+  });
+
   useEffect(() => {
     getCurrentProfile();
+
     setFormData({
       price: loading || !profile.price ? "" : profile.price
     });
+    // setServiceData({
+    //   typeOfService:
+    //     loading || !profile.service.typeOfService ? "" : profile.typeOfService
+    //   // amount: loading || !profile.service ? "" : profile.amount,
+    //   // description: loading || !profile.service ? "" : profile.description
+    // });
   }, [loading, getCurrentProfile]);
 
+  const onChange = e =>
+    setServiceData({ ...formData, [e.target.name]: e.target.value });
+
   const { price } = formData;
+  const { typeOfService, amount, description } = serviceData;
 
   // const continues = e => {
   //   e.preventDefault();
@@ -116,7 +109,7 @@ const Price = ({
   };
   const onSubmit = e => {
     e.preventDefault();
-    createProfile({ price }, history, true);
+    // createProfile({ services: serviceData }, history, true);
     nextStep();
   };
   const onSubmitPrice = e => {
@@ -138,7 +131,16 @@ const Price = ({
               {/* <Divider /> */}
               <CardContent className={classes.content}>
                 {/* <StartService price={price} handleChange={handleChange} /> */}
-                <Services />
+                <Form serviceData={serviceData} onChange={onChange} />
+                <Divider />
+                <br />
+                <CardHeader
+                  // subheader='from what value do your services start'
+                  title='Services'
+                />
+                <ServiceCard />
+                <ServiceCard />
+                {/* <ServiceForm /> */}
               </CardContent>
               {match.url === "/price" && !isMobile && (
                 <Fragment>

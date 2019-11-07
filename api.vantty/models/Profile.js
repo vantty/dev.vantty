@@ -67,18 +67,17 @@ const ProfileSchema = new mongoose.Schema({
   // ],
   categories: { makeup: [String], hair: [String] },
 
-  // portfolioPictures: [
-  //   {
-  //     original: {
-  //       type: String
-  //     },
-  //     cloudId: {
-  //       type: String
-  //     },
-  //     tag: { type: String },
-  //     elasticId: { type: String, default: null }
-  //   }
-  // ],
+  services: [
+    {
+      typeOfService: {
+        type: String
+      },
+      description: {
+        type: String
+      },
+      amount: { type: Number }
+    }
+  ],
   social: {
     youtube: {
       type: String
