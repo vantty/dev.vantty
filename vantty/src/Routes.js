@@ -34,6 +34,7 @@ import {
   Board,
   Settings,
   ForgotPassword,
+  Book,
   NotFound
 } from "./views";
 
@@ -46,6 +47,7 @@ import { SettingsGeneral } from "./views/Settings/components";
 const Routes = () => {
   return (
     <Switch>
+      <Route exact path="/book" component={Book} />
       <Route exact path="/confirmation/:token" component={Confirmation} />
       {/* <Route exact path='/confirmation' component={WaitForConfirmation} /> */}
       {/* ADMIN */}

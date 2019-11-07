@@ -26,6 +26,7 @@ import MuiLink from "@material-ui/core/Link";
 import { changeNavbarValue } from "../../actions/navbar";
 import { Link } from "react-router-dom";
 const { ResultCardsWrapper } = ReactiveList;
+
 const useStyles = makeStyles(theme => ({
   resultCard: {
     boxShadow: `none !important`,
@@ -89,16 +90,16 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
           children={
             <DataSearch
               onChange={clearSearch}
-              componentId='searchbox'
-              dataField='*'
-              placeholder='Search...'
+              componentId="searchbox"
+              dataField="*"
+              placeholder="Search..."
               defaultValue={searchValue}
             />
           }
           modal={
             <MultiDataList
-              componentId='categoryFilter'
-              dataField='tag.keyword'
+              componentId="categoryFilter"
+              dataField="tag.keyword"
               showSearch={false}
               data={[
                 {
@@ -116,32 +117,32 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               ]}
               value={values}
               onChange={setValues}
-              title='Category'
+              title="Category"
             />
           }
           invisible={values}
         />
       )}
-      <Container maxWidth='lg'>
+      <Container maxWidth="lg">
         <Grid
           container
-          direction='row'
-          justify='center'
-          alignItems='flex-start'
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
         >
           <Hidden xsDown>
             <Grid item lg={4} md={4} className={classes.filters}>
               <DataSearch
                 onChange={clearSearch}
-                componentId='searchbox'
-                dataField='*'
-                placeholder='Search...'
+                componentId="searchbox"
+                dataField="*"
+                placeholder="Search..."
                 defaultValue={searchValue}
               />
               <br />
               <MultiDataList
-                componentId='categoryFilter'
-                dataField='tag.keyword'
+                componentId="categoryFilter"
+                dataField="tag.keyword"
                 showSearch={false}
                 data={[
                   {
@@ -159,16 +160,16 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                 ]}
                 value={values}
                 onChange={setValues}
-                title='Category'
+                title="Category"
               />
             </Grid>
           </Hidden>
           <Grid item lg={8} xs={12} md={8}>
             {/* </div> */}
             <ReactiveList
-              componentId='result'
-              dataField='*'
-              title='Results'
+              componentId="result"
+              dataField="*"
+              title="Results"
               size={12}
               infiniteScroll={true}
               showResultStats={false}
@@ -182,7 +183,6 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               }}
               render={({ data }) => (
                 <Fragment>
-                  {console.log(values)}
                   <ResultCardsWrapper>
                     <Fragment>
                       {data.map(pic => (
@@ -208,7 +208,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                           key={pic.original}
                                           className={classes.cardMedia}
                                           image={pic.original}
-                                          title='Image title'
+                                          title="Image title"
                                         />
                                         {/* </a> */}
                                       </MuiLink>
@@ -218,7 +218,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                     >
                                       <Toolbar className={classes.cardTitle}>
                                         <Avatar
-                                          alt=''
+                                          alt=""
                                           src={pic.profilePicture}
                                           className={classes.avatar}
                                         />
@@ -254,7 +254,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             key={pic.original}
                                             className={classes.cardMedia}
                                             image={pic.original}
-                                            title='Image title'
+                                            title="Image title"
                                           />
                                           {/* </a> */}
                                         </MuiLink>
@@ -264,7 +264,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                       >
                                         <Toolbar className={classes.cardTitle}>
                                           <Avatar
-                                            alt=''
+                                            alt=""
                                             src={pic.profilePicture}
                                             className={classes.avatar}
                                           />

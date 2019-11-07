@@ -14,4 +14,5 @@ export { default as LoginWithEmail } from "./LoginWithEmail";
 export { default as Form } from "./Form";
 export { default as Settings } from "./Settings";
 export { default as ForgotPassword } from "./ForgotPassword";
+export { default as Book } from "./Book";
 export { default as NotFound } from "./NotFound";
