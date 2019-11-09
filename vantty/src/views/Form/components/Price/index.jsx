@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 //Actions
-import { getCurrentProfile, createProfile } from "../../../../actions/profile";
+import {
+  getCurrentProfile,
+  createProfile,
+  addService,
+  deleteService
+} from "../../../../actions/profile";
 
 //Components
 import { FormBottomNav } from "../ComponentsForm";
@@ -64,7 +69,9 @@ const Price = ({
   match,
   getCurrentProfile,
   className,
-  history
+  history,
+  addService,
+  deleteService
 }) => {
   const [formData, setFormData] = useState({
     price: 60
@@ -90,7 +97,7 @@ const Price = ({
   }, [loading, getCurrentProfile]);
 
   const onChange = e =>
-    setServiceData({ ...formData, [e.target.name]: e.target.value });
+    setServiceData({ ...serviceData, [e.target.name]: e.target.value });
 
   const { price } = formData;
   const { typeOfService, amount, description } = serviceData;
@@ -109,12 +116,17 @@ const Price = ({
   };
   const onSubmit = e => {
     e.preventDefault();
-    // createProfile({ services: serviceData }, history, true);
+    createProfile({ services: serviceData }, history, true);
     nextStep();
   };
   const onSubmitPrice = e => {
     e.preventDefault();
-    createProfile({ price }, history, true);
+    addService({ typeOfService, amount, description }, history, true);
+  };
+
+  const deleteServiceFunction = (e, id) => {
+    e.preventDefault();
+    deleteService(id);
   };
 
   const classes = useStyles();
@@ -131,15 +143,22 @@ const Price = ({
               {/* <Divider /> */}
               <CardContent className={classes.content}>
                 {/* <StartService price={price} handleChange={handleChange} /> */}
-                <Form serviceData={serviceData} onChange={onChange} />
+                <Form
+                  serviceData={serviceData}
+                  onChange={onChange}
+                  onSubmit={onSubmitPrice}
+                />
                 <Divider />
                 <br />
                 <CardHeader
                   // subheader='from what value do your services start'
                   title='Services'
                 />
-                <ServiceCard />
-                <ServiceCard />
+                <ServiceCard
+                  services={profile.services}
+                  deleteService={deleteServiceFunction}
+                />
+
                 {/* <ServiceForm /> */}
               </CardContent>
               {match.url === "/price" && !isMobile && (
@@ -239,6 +258,8 @@ const Price = ({
 Price.propTypes = {
   className: PropTypes.string,
   createProfile: PropTypes.func.isRequired,
+  addService: PropTypes.func.isRequired,
+  deleteService: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -249,5 +270,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createProfile, getCurrentProfile }
+  { createProfile, getCurrentProfile, addService, deleteService }
 )(withRouter(Price));

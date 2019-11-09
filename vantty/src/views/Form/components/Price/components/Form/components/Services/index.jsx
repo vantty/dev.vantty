@@ -60,6 +60,7 @@ const Services = ({
   step,
   serviceData,
   onChange,
+  onSubmit,
   ...rest
 }) => {
   const classes = useStyles();
@@ -106,11 +107,11 @@ const Services = ({
     onChange(event);
   };
 
-  const onSubmit = async e => {
-    e.preventDefault();
+  // const onSubmit = async e => {
+  //   e.preventDefault();
 
-    await updateInfo(serviceData, true);
-  };
+  //   await updateInfo(serviceData, true);
+  // };
 
   //errors
   const hasError = field =>
@@ -184,7 +185,7 @@ const Services = ({
                     ? formState.errors.description[0]
                     : null
                 }
-                value={formState.values.description}
+                value={formState.values.description || serviceData.description}
                 onChange={handleChange}
               />
             </Grid>
@@ -192,7 +193,7 @@ const Services = ({
               <Button
                 onClick={e => onSubmit(e)}
                 className={classes.button}
-                disabled={!formState.isValid}
+                // disabled={!formState.isValid}
               >
                 Update
               </Button>

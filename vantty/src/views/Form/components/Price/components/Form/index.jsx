@@ -25,9 +25,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NestedList({ serviceData, onChange }) {
+export default function NestedList({
+  serviceData,
+  onChange,
+  onSubmit,
+  deleteService
+}) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
@@ -53,8 +58,12 @@ export default function NestedList({ serviceData, onChange }) {
       </ListItem>
       <Collapse in={open} timeout='auto' unmountOnExit>
         <List component='div' disablePadding>
-          <ListItem button className={classes.nested}>
-            <Services serviceData={serviceData} onChange={onChange} />
+          <ListItem className={classes.nested}>
+            <Services
+              serviceData={serviceData}
+              onChange={onChange}
+              onSubmit={onSubmit}
+            />
           </ListItem>
         </List>
       </Collapse>

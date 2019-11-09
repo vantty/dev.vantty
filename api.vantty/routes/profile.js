@@ -23,7 +23,9 @@ const {
   deleteProfilePicture,
   loadToElastic,
   verifiedProfile,
-  deleteProfileAndUserDashboard
+  deleteProfileAndUserDashboard,
+  addService,
+  deleteService
 } = require("../controllers/profile");
 
 // @desc     Get current users profile
@@ -95,5 +97,11 @@ router.delete(
   passportJWT,
   deleteProfileAndUserDashboard
 );
+
+// @route    PUT /profile/add-tags
+// @access   Private
+router.post("/add-service", passportJWT, addService);
+
+router.delete("/delete-service/:serv_id", passportJWT, deleteService);
 
 module.exports = router;

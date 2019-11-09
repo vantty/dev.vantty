@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,10 +8,13 @@ import Typography from "@material-ui/core/Typography";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
+import LinkMui from "@material-ui/core/Link";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    display: "flex"
+    display: "flex",
+    margin: "0.3rem"
   },
   details: {
     display: "flex"
@@ -25,55 +28,51 @@ const useStyles = makeStyles(theme => ({
   controls: {
     display: "flex",
     alignItems: "center",
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
+    margin: "0.5rem",
+    fontSize: "1rem"
   },
   playIcon: {
     height: 38,
     width: 38
+  },
+  button: {
+    fontSize: "0.5rem",
+    color: "red"
   }
 }));
 
-export default function MediaControlCard() {
+export default function ServiceCard({ services, deleteService }) {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
-    <Card className={classes.card}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component='h5' variant='h5'>
-            Live From Space
-          </Typography>
-          <Typography variant='subtitle1' color='textSecondary'>
-            Mac Miller
-          </Typography>
-        </CardContent>
-        <div className={classes.controls}>
-          <IconButton aria-label='previous'>
-            {theme.direction === "rtl" ? (
-              <SkipNextIcon />
-            ) : (
-              <SkipPreviousIcon />
-            )}
-          </IconButton>
-          <IconButton aria-label='play/pause'>
-            <PlayArrowIcon className={classes.playIcon} />
-          </IconButton>
-          <IconButton aria-label='next'>
-            {theme.direction === "rtl" ? (
-              <SkipPreviousIcon />
-            ) : (
-              <SkipNextIcon />
-            )}
-          </IconButton>
-        </div>
-      </div>
-      {/* <CardMedia
-        className={classes.cover}
-        image='/static/images/cards/live-from-space.jpg'
-        title='Live from space album cover'
-      /> */}
-    </Card>
+    <Fragment>
+      {services.map(serv => (
+        <Card key={serv._id} className={classes.card}>
+          <div key={serv._id} className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography component='h5' variant='h5'>
+                {serv.typeOfService}
+              </Typography>
+              <Typography color='textSecondary' variant='2'>
+                {serv.description}
+              </Typography>
+              <Button>
+                <span
+                  className={classes.button}
+                  onClick={e => deleteService(e, serv._id)}
+                >
+                  Delete Service
+                </span>
+              </Button>
+            </CardContent>
+          </div>
+          <div className={classes.controls}>
+            <Typography variant={1}>{serv.amount}</Typography>
+          </div>
+
+          <br />
+        </Card>
+      ))}
+    </Fragment>
   );
 }
