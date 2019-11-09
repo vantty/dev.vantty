@@ -6,6 +6,9 @@ import { CardElement, injectStripe } from "react-stripe-elements";
 // Actions
 import { payment } from "../../../../actions/pay";
 
+// Helpers
+const log = console.log;
+
 const createOptions = () => {
   return {
     style: {
@@ -35,16 +38,18 @@ const _StripeForm = props => {
     }
   };
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    if (stripe) {
-      stripe.createToken().then(res => {
-        let { token } = res;
+  const handleSubmit = async evt => {
+    try {
+      evt.preventDefault();
+      if (stripe) {
+        let { token } = await stripe.createToken();
         let amount = "100";
-        payment(token);
-      });
-    } else {
-      console.log("Stripe.js hasn't loaded yet.");
+        payment(token, amount);
+      } else {
+        console.log("Stripe.js hasn't loaded yet.");
+      }
+    } catch (error) {
+      log(error);
     }
   };
 
