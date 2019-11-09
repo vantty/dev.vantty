@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
 const Book = require("../models/Book");
-
+const log = console.log;
 // Current User
 exports.current = async (req, res) => {
   try {
@@ -44,9 +44,14 @@ exports.createANDupdate = async (req, res) => {
     firstName,
     lastName,
     verified,
+    typeOfService,
+    description,
+    amount,
+    services,
     englishLevel
   } = req.body;
 
+  log(req.body);
   // Build profile object
   var method = req.user.method;
 
@@ -56,6 +61,14 @@ exports.createANDupdate = async (req, res) => {
   profileFields.name = {};
   profileFields.name.firstName = req.user[method].firstName;
   profileFields.name.lastName = req.user[method].lastName;
+
+  // Build service array
+  profileFields.services = [];
+  if (services) profileFiels.services.push(services);
+  // if (instagram) profileFiels.service.description = description;
+  // if (instagram) profileFiels.service.amount = amount;
+  // if (service) profileFields.service.push(profileFields.service);
+  log(profileFields.service);
 
   profileFields.profilePicture = req.user[method].profilePicture.original;
   if (bio) profileFields.bio = bio;
@@ -382,5 +395,65 @@ exports.deleteProfileAndUserDashboard = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error 1");
+  }
+};
+
+///SERVICESSS
+
+// Add Service
+// exports.addService = async (req, res) => {
+//   log(req.body);
+
+//   try {
+//     const profile = await Profile.findOne({ user: req.user._id });
+
+//     profile.services.push(req.body.services);
+
+//     await profile.save();
+//     await res.json(profile);
+//   } catch (err) {
+//     res.status(500).send("Server Error");
+//   }
+// };
+
+// Add Education
+exports.addService = async (req, res) => {
+  log(req.body);
+  const { typeOfService, description, amount } = req.body;
+
+  const newService = { typeOfService, description, amount };
+
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    profile.services.unshift(newService);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Add Service
+exports.deleteService = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    // Get remove index
+    const removeIndex = profile.services
+      .map(item => item.id)
+      .indexOf(req.params.serv_id);
+
+    profile.services.splice(removeIndex, 1);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 };

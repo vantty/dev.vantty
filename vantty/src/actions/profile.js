@@ -11,6 +11,7 @@ import {
   ACCOUNT_DELETE
 } from "./types";
 
+const log = console.log;
 // Get current users profile
 export const getCurrentProfile = (owner = true) => async dispatch => {
   !owner && dispatch({ type: CLEAR_PROFILE });
@@ -79,6 +80,7 @@ export const createProfile = (
         "Content-type": "application/json"
       }
     };
+
     const res = await server.post("/profile", formData, config);
     dispatch(getCurrentProfile());
     dispatch({
@@ -454,4 +456,53 @@ const deleteFromElastic = async elasticId => {
     }
   };
   await elastic.delete(`/${elasticId}`, elasticConfig);
+};
+
+// Add Service
+export const addService = (formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    await dispatch(loadUser());
+    const res = await server.post("/profile/add-service", formData, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert("Service Added", "success"));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "error")));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+export const deleteService = id => async dispatch => {
+  try {
+    const res = await server.delete(`/profile/delete-service/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert("Education Removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
 };

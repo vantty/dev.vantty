@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 //Actions
-import { getCurrentProfile, createProfile } from "../../../../actions/profile";
+import {
+  getCurrentProfile,
+  createProfile,
+  addService,
+  deleteService
+} from "../../../../actions/profile";
 
 //Components
 import { FormBottomNav } from "../ComponentsForm";
@@ -33,38 +38,13 @@ import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
 
-const PrettoSlider = withStyles(theme => ({
-  root: {
-    color: theme.palette.purpleVantty.light,
-    height: 8
-  },
-  thumb: {
-    height: 24,
-    width: 24,
-    backgroundColor: "#fff",
-    border: "2px solid currentColor",
-    marginTop: -8,
-    marginLeft: -12,
-    "&:focus,&:hover,&$active": {
-      boxShadow: "inherit"
-    }
-  },
-  active: {},
-  valueLabel: {
-    left: "calc(-50% + 4px)"
-  },
-  track: {
-    height: 8,
-    borderRadius: 4
-  },
-  rail: {
-    height: 8,
-    borderRadius: 4
-  }
-}))(Slider);
+import { Form, ServiceCard } from "./components";
+import { getStrategy } from "../../../../helpers";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    padding: "0"
+  },
   button: {
     float: "right",
     color: "white",
@@ -74,6 +54,9 @@ const useStyles = makeStyles(theme => ({
       color: "white",
       backgroundColor: theme.palette.greenVantty.light
     }
+  },
+  content: {
+    padding: "1rem"
   }
 }));
 
@@ -86,19 +69,38 @@ const Price = ({
   match,
   getCurrentProfile,
   className,
-  history
+  history,
+  addService,
+  deleteService
 }) => {
   const [formData, setFormData] = useState({
     price: 60
   });
+  const [serviceData, setServiceData] = useState({
+    typeOfService: "",
+    amount: "",
+    description: ""
+  });
+
   useEffect(() => {
     getCurrentProfile();
+
     setFormData({
       price: loading || !profile.price ? "" : profile.price
     });
+    // setServiceData({
+    //   typeOfService:
+    //     loading || !profile.service.typeOfService ? "" : profile.typeOfService
+    //   // amount: loading || !profile.service ? "" : profile.amount,
+    //   // description: loading || !profile.service ? "" : profile.description
+    // });
   }, [loading, getCurrentProfile]);
 
+  const onChange = e =>
+    setServiceData({ ...serviceData, [e.target.name]: e.target.value });
+
   const { price } = formData;
+  const { typeOfService, amount, description } = serviceData;
 
   // const continues = e => {
   //   e.preventDefault();
@@ -114,12 +116,17 @@ const Price = ({
   };
   const onSubmit = e => {
     e.preventDefault();
-    createProfile({ price }, history, true);
+    createProfile({ services: serviceData }, history, true);
     nextStep();
   };
   const onSubmitPrice = e => {
     e.preventDefault();
-    createProfile({ price }, history, true);
+    addService({ typeOfService, amount, description }, history, true);
+  };
+
+  const deleteServiceFunction = (e, id) => {
+    e.preventDefault();
+    deleteService(id);
   };
 
   const classes = useStyles();
@@ -135,52 +142,24 @@ const Price = ({
               />
               {/* <Divider /> */}
               <CardContent className={classes.content}>
-                <div>
-                  <div>
-                    <Container>
-                      <Typography color='textSecondary' variant='body1'>
-                        This is the minimum price for which you provide a
-                        service but you define the final price with the customer
-                      </Typography>
-                      <br />
-                      <br />
-                      <br />
-                      <Fragment>
-                        <Grid
-                          container
-                          direction='row'
-                          justify='center'
-                          alignItems='center'
-                        >
-                          <Grid item xs={isMobile ? 12 : 11}>
-                            <PrettoSlider
-                              defaultValue={60}
-                              valueLabelDisplay='on'
-                              max={500}
-                              step={10}
-                              disabled={false}
-                              value={price || 80}
-                              name='price'
-                              // onChange={e => onChange(e)}
-                              onChange={handleChange}
-                              // handleDragStop={price}
-                            />
-                            <br />
-                            <br />
-                            <Typography
-                              // className={classes.locationText}
-                              // color='textSecondary'
-                              variant='body1'
-                            >
-                              I provide a service minimum for{" "}
-                              <strong>${price || 80}</strong>
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Fragment>
-                    </Container>
-                  </div>
-                </div>
+                {/* <StartService price={price} handleChange={handleChange} /> */}
+                <Form
+                  serviceData={serviceData}
+                  onChange={onChange}
+                  onSubmit={onSubmitPrice}
+                />
+                <Divider />
+                <br />
+                <CardHeader
+                  // subheader='from what value do your services start'
+                  title='Services'
+                />
+                <ServiceCard
+                  services={profile.services}
+                  deleteService={deleteServiceFunction}
+                />
+
+                {/* <ServiceForm /> */}
               </CardContent>
               {match.url === "/price" && !isMobile && (
                 <Fragment>
@@ -279,6 +258,8 @@ const Price = ({
 Price.propTypes = {
   className: PropTypes.string,
   createProfile: PropTypes.func.isRequired,
+  addService: PropTypes.func.isRequired,
+  deleteService: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -289,5 +270,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createProfile, getCurrentProfile }
+  { createProfile, getCurrentProfile, addService, deleteService }
 )(withRouter(Price));

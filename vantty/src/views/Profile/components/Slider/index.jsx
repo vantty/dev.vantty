@@ -97,7 +97,7 @@ export default function Slider({ profile, disabled, verified, user }) {
             </Typography>
           </Grid>
         </Grid>
-        {/* <Typography color='primary' variant='body1'>
+        <Typography color='primary' variant='body1'>
           Services
         </Typography>
         <Service onChange={onchange} services={services} />
@@ -116,7 +116,6 @@ export default function Slider({ profile, disabled, verified, user }) {
         </Typography>
         <Hour />
         <Divider variant='middle' />
-        <br /> */}
 
         {/* <Typography color='primary' variant='body1'>
           Resume
@@ -125,17 +124,17 @@ export default function Slider({ profile, disabled, verified, user }) {
         {/* <Divider variant='middle' /> */}
         <Fragment>
           {/* <Divider variant='middle' /> */}
-          {/* <div className={classes.section3}>
+          <div className={classes.section3}>
             <Button
               className={classes.button}
               disabled={!verified}
               variant='contained'
             >
-              Reserve
+              Book
             </Button>
-          </div> */}
+          </div>
         </Fragment>
-        {!disabled && (
+        {/* {!disabled && (
           <Fragment>
             <Divider variant='middle' />
             <div className={classes.section3}>
@@ -163,7 +162,7 @@ export default function Slider({ profile, disabled, verified, user }) {
               </Button>
             </div>
           </Fragment>
-        )}
+        )} */}
       </Paper>
     </div>
   );
