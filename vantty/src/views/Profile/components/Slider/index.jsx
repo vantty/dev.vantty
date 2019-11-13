@@ -68,20 +68,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Slider({ profile, disabled, verified, user }) {
+export default function Slider({
+  profile,
+  disabled,
+  verified,
+  user,
+  loadService,
+  onChange
+}) {
   const classes = useStyles();
 
-  const [book, setBook] = useState({
-    date: "",
-    hour: "",
-    services: [],
-    taxes: "",
-    totalValue: ""
-  });
+  // const [book, setBook] = useState({
+  //   date: "",
+  //   hour: "",
+  //   services: [],
+  //   taxes: "",
+  //   totalValue: ""
+  // });
 
-  const onChange = e => setBook({ ...book, [e.target.name]: e.target.value });
+  // const onChange = e => setBook({ ...book, [e.target.name]: e.target.value });
 
-  const { services } = book;
+  // const { services } = book;
   return (
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
@@ -100,13 +107,13 @@ export default function Slider({ profile, disabled, verified, user }) {
         <Typography color='primary' variant='body1'>
           Services
         </Typography>
-        <Service onChange={onchange} services={services} />
+        <Service onChange={onChange} services={profile.services} />
         <Divider />
         <br />
         <Typography color='primary' variant='body1'>
           Date
         </Typography>
-        <Date />
+        <Date onChange={onChange} />
 
         <Divider />
         <br />
@@ -117,11 +124,11 @@ export default function Slider({ profile, disabled, verified, user }) {
         <Hour />
         <Divider variant='middle' />
 
-        {/* <Typography color='primary' variant='body1'>
+        <Typography color='primary' variant='body1'>
           Resume
         </Typography>
-        <Resume /> */}
-        {/* <Divider variant='middle' /> */}
+        <Resume />
+        <Divider variant='middle' />
         <Fragment>
           {/* <Divider variant='middle' /> */}
           <div className={classes.section3}>

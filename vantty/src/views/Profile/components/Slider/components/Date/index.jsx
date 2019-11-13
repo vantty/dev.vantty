@@ -8,6 +8,7 @@ import {
   KeyboardDatePicker
 } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
+const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,13 +19,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MaterialUIPickers() {
+export default function MaterialUIPickers({ loadService, onChange }) {
   // The first commit of Material-UI
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  const handleDateChange = date => {
+  const handleDateChange = (e, date) => {
     setSelectedDate(date);
+    onChange(e, { date: date });
   };
 
   return (
@@ -35,8 +37,9 @@ export default function MaterialUIPickers() {
           variant='inline'
           format='MM/dd/yyyy'
           margin='normal'
-          id='date-picker-inline'
+          id='date'
           label='Date picker inline'
+          name='date'
           value={selectedDate}
           onChange={handleDateChange}
           KeyboardButtonProps={{

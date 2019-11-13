@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -23,7 +23,7 @@ import { SimpleAppBar } from "../../components";
 import { BottomNavbar } from "../../layout/Main/components";
 import { getImagesById } from "../../actions/uploader";
 import { isOwner } from "../../helpers";
-
+const log = console.log;
 const useStyles = makeStyles(theme => ({
   mainGrid: {
     [theme.breakpoints.down("sm", "xs")]: {
@@ -59,6 +59,30 @@ const Profile = ({
   //   history.goBack();
   // };
 
+  // const [loadService, setLoadService] = useState({});
+
+  // const onChange = (e, value) => {
+  //   e.preventDefault();
+  //   setLoadService({
+  //     ...loadService,
+  //     ...value
+  //   });
+  // };
+  // log("LOAD", loadService);
+
+  const [state, setState] = useState([]);
+
+  const onChange = amount => event => {
+    if (event.target.checked) {
+      setState({
+        ...state,
+        [event.target.name]: { type: event.target.value, amount: amount }
+      });
+    } else {
+      delete state[event.target.name];
+    }
+  };
+  console.log(state);
   const classes = useStyles();
 
   return (
@@ -118,18 +142,20 @@ const Profile = ({
                       <Review profile={profile} />
                     </Fragment>
                   </Grid>
-                  <Hidden smDown>
-                    <Grid item md={4}>
-                      <div className={classes.sticky}>
-                        <Slider
-                          profile={profile}
-                          verified={profile.verified}
-                          disabled={user && user._id === profile.user._id}
-                          user={user}
-                        />
-                      </div>
-                    </Grid>
-                  </Hidden>
+                  {/* <Hidden smDown> */}
+                  <Grid item md={4}>
+                    <div className={classes.sticky}>
+                      <Slider
+                        profile={profile}
+                        verified={profile.verified}
+                        disabled={user && user._id === profile.user._id}
+                        user={user}
+                        // loadService={}
+                        onChange={onChange}
+                      />
+                    </div>
+                  </Grid>
+                  {/* </Hidden> */}
                 </Fragment>
                 {/* )} */}
               </Fragment>

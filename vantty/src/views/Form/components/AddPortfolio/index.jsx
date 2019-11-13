@@ -27,7 +27,7 @@ import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 
 import { getImages, uploadTag } from "../../../../actions/uploader";
-
+const log = console.log;
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
