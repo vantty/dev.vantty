@@ -2,13 +2,13 @@ import React from "react";
 import { StripeProvider, Elements } from "react-stripe-elements";
 
 // Components
-import StripeForm from "./components/StripeForm";
+import PaymentForm from "./components/StripeForm";
 
 const Book = () => {
   return (
     <StripeProvider apiKey={"pk_test_bwLsCIDJL7qmxZCb2XHPWtnZ00eRusQUf1"}>
       <Elements>
-        <StripeForm />
+        <PaymentForm />
       </Elements>
     </StripeProvider>
   );

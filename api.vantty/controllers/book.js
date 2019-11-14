@@ -28,3 +28,16 @@ exports.pay = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+exports.confirmAccount = async (req, res) => {
+  try {
+    const data = await stripe.oauth.token({
+      grant_type: "authorization_code",
+      code: req.params.code
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    log(error);
+    res.status(500).json(error);
+  }
+};

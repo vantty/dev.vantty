@@ -7,7 +7,7 @@ import { CssBaseline, Typography, Container, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Actions
-import { resendEmail } from "../../actions/auth";
+import { createStripeAccount } from "../../actions/pay";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -32,11 +32,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WaitForConfirmation = ({ resendEmail, user }) => {
+const Order = ({ createStripeAccount }) => {
   const classes = useStyles();
 
   const handleClick = () => {
-    resendEmail(user);
+    createStripeAccount();
   };
 
   return (
@@ -44,12 +44,13 @@ const WaitForConfirmation = ({ resendEmail, user }) => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography variant="h2" className={classes.title}>
-          Just one more step!
+          Your book is complete
         </Typography>
         <Typography variant="subtitle1" className={classes.text}>
-          Please confirm your email address. If our email is not inside Inbox
-          folder, please verify the Spam folder. If you did not receive any
-          email, please click the link below.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
         </Typography>
         <Button
           onClick={handleClick}
@@ -57,19 +58,19 @@ const WaitForConfirmation = ({ resendEmail, user }) => {
           variant="contained"
           className={classes.button}
         >
-          Resend Confirmation Email
+          Conect with Stripe
         </Button>
       </div>
     </Container>
   );
 };
 
-WaitForConfirmation.propTypes = {
+Order.propTypes = {
   user: PropTypes.object
 };
 
-const mapStateToProps = state => ({
-  user: state.auth.user
-});
+// const mapStateToProps = state => ({
+//   user: state.auth.user
+// });
 
-export default connect(mapStateToProps, { resendEmail })(WaitForConfirmation);
+export default connect(null, { createStripeAccount })(Order);

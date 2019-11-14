@@ -12,9 +12,8 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import AddressForm from "./components/AddressForm";
-import PaymentForm from "./components/PaymentForm";
 import Review from "./components/Review";
-import Book from "../Book";
+import Book from "./components/Book";
 
 function Copyright() {
   return (
@@ -66,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const steps = ["Review", "Contact", "Payment", "Book"];
+const steps = ["Review", "Contact", "Pay", "Book"];
 
 function getStepContent(step) {
   switch (step) {
@@ -75,9 +74,9 @@ function getStepContent(step) {
     case 1:
       return <AddressForm />;
     case 2:
-      return <PaymentForm />;
-    case 3:
       return <Book />;
+    case 3:
+      return <Review />;
     default:
       throw new Error("Unknown step");
   }
