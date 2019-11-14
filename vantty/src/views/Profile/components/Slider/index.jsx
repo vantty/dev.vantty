@@ -8,7 +8,8 @@ import { Paper } from "@material-ui/core";
 
 //Google Analytics
 import ReactGA from "react-ga";
-import { Date, Hour, Service, Resume } from "./components";
+import { Date, Hour, Service, Resume, Table } from "./components";
+
 ReactGA.initialize("UA-108639612-1");
 ReactGA.pageview(window.location.pathname + window.location.search);
 const ga = ReactGA;
@@ -39,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: "white"
   },
   button: {
-    width: "100%",
+    width: "90%",
     color: "white",
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
@@ -49,6 +50,9 @@ const useStyles = makeStyles(theme => ({
   },
   a: {
     color: "white"
+  },
+  table: {
+    backgroundColor: "white"
   },
   // button: {
   //   marginTop: "0.5rem",
@@ -74,7 +78,9 @@ export default function Slider({
   verified,
   user,
   loadService,
-  onChange
+  onChange,
+  onChangeDate,
+  state
 }) {
   const classes = useStyles();
 
@@ -93,49 +99,48 @@ export default function Slider({
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
         {/* <div className={classes.section1}> */}
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Starting Cost
         </Typography>
-        <Grid container alignItems='center'>
+        <Grid container alignItems="center">
           <Grid item xs>
-            <Typography gutterBottom variant='h5'>
+            <Typography gutterBottom variant="h5">
               ${profile.price}
               <span className={classes.infoPrice}> /cad </span>
             </Typography>
           </Grid>
         </Grid>
-        <Typography color='primary' variant='body1'>
-          Services
-        </Typography>
-        <Service onChange={onChange} services={profile.services} />
+
+        <Table services={profile.services} />
         <Divider />
         <br />
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Date
         </Typography>
-        <Date onChange={onChange} />
+        <Date onChangeDate={onChangeDate} />
 
-        <Divider />
-        <br />
+        {/* <Divider /> */}
+        {/* <br /> */}
 
-        <Typography color='primary' variant='body1'>
+        {/* <Typography color="primary" variant="body1">
           Hour Range
         </Typography>
-        <Hour />
-        <Divider variant='middle' />
+        <Hour onChangeDate={onChangeDate} state={state} /> */}
+        <Divider variant="middle" />
 
-        <Typography color='primary' variant='body1'>
+        {/* <Typography color="primary" variant="body1">
           Resume
         </Typography>
-        <Resume />
-        <Divider variant='middle' />
+        <Resume /> */}
+        {/* <Divider variant="middle" /> */}
         <Fragment>
           {/* <Divider variant='middle' /> */}
           <div className={classes.section3}>
             <Button
               className={classes.button}
-              disabled={!verified}
-              variant='contained'
+              // disabled={!verified}
+              onClick={() => loadService(state)}
+              variant="contained"
             >
               Book
             </Button>

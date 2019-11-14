@@ -23,6 +23,11 @@ export const loadService = services => async dispatch => {
     // };
     // const body = JSON.stringify({ token, amount });
     // const res = await server.post("/book/pay", body, config);
+
+    dispatch({
+      type: SERVICE_SUCCESS,
+      payload: services
+    });
     log(services);
   } catch (error) {
     console.log(error);

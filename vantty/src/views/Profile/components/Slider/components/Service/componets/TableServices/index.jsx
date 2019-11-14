@@ -570,35 +570,37 @@ export default function CheckboxesGroup({ services, onChange }) {
   // const [state, setState] = useState([]);
 
   // const handleChange = amount => event => {
+  //   event.preventDefault();
   //   if (event.target.checked) {
   //     setState({
   //       ...state,
   //       [event.target.name]: { type: event.target.value, amount: amount }
   //     });
-  //     return onChange(event, state);
+  //     onChange(event, state);
   //   } else {
   //     delete state[event.target.name];
-  //     return onChange(event, state);
   //   }
+  //   onChange(state);
   // };
   return (
     <div className={classes.root}>
-      <FormControl component='fieldset' className={classes.formControl}>
-        <FormLabel component='legend'>Services</FormLabel>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Services</FormLabel>
         <FormGroup>
           {services.map(service => (
-            <Fragment>
+            <Fragment key={service._id}>
               <Grid
                 container
-                direction='row'
-                justify='space-between'
-                alignItems='center'
+                direction="row"
+                justify="space-between"
+                alignItems="center"
               >
                 <Grid item>
                   <FormControlLabel
                     control={
                       <Checkbox
-                        onChange={onChange(service.amount, service.amount)}
+                        onChange={onChange(service.amount)}
+                        // onChange={handleChange}
                         value={service.typeOfService}
                         name={service._id}
                       />

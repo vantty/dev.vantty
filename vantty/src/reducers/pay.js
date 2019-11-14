@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   token: null,
-  services: []
+  services: {}
 };
 
 export default function(state = initialState, action) {

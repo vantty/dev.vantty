@@ -9,13 +9,14 @@ import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 // Components
 import { Header } from "../../components/";
-import { Review, Slider, MessageVerified } from "./components";
+import { Review, Slider, MessageVerified, ContactBook } from "./components";
 
 //Components inside
 import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";
+import { loadService } from "../../actions/pay";
 // Material-UI
 import { CssBaseline, Container } from "@material-ui/core";
 import Progress from "@material-ui/core/LinearProgress";
@@ -24,6 +25,7 @@ import { BottomNavbar } from "../../layout/Main/components";
 import { getImagesById } from "../../actions/uploader";
 import { isOwner } from "../../helpers";
 const log = console.log;
+
 const useStyles = makeStyles(theme => ({
   mainGrid: {
     [theme.breakpoints.down("sm", "xs")]: {
@@ -48,7 +50,8 @@ const Profile = ({
   auth,
   auth: { user },
   match,
-  history
+  history,
+  loadService
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
@@ -59,30 +62,35 @@ const Profile = ({
   //   history.goBack();
   // };
 
-  // const [loadService, setLoadService] = useState({});
+  const [state, setState] = useState({
+    id: match.params.id
+  });
 
-  // const onChange = (e, value) => {
-  //   e.preventDefault();
-  //   setLoadService({
-  //     ...loadService,
-  //     ...value
-  //   });
-  // };
-  // log("LOAD", loadService);
+  const onChangeDate = value => {
+    // e.preventDefault();
 
-  const [state, setState] = useState([]);
-
-  const onChange = amount => event => {
-    if (event.target.checked) {
-      setState({
-        ...state,
-        [event.target.name]: { type: event.target.value, amount: amount }
-      });
-    } else {
-      delete state[event.target.name];
-    }
+    setState({
+      ...state,
+      ...value
+      // [e.target.name]: e.target.value
+    });
   };
-  console.log(state);
+  log(state);
+
+  // const onChange = value => event => {
+  //   if (event.target.checked) {
+  //     setState({
+  //       ...state,
+  //       services: {
+  //         [event.target.name]: { type: event.target.value, amount: value }
+  //       }
+  //     });
+  //   } else {
+  //     delete state[event.target.name];
+  //   }
+  // };
+
+  console.log("state", state);
   const classes = useStyles();
 
   return (
@@ -106,7 +114,7 @@ const Profile = ({
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          <Container maxWidth='md'>
+          <Container maxWidth="md">
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}
@@ -142,20 +150,22 @@ const Profile = ({
                       <Review profile={profile} />
                     </Fragment>
                   </Grid>
-                  {/* <Hidden smDown> */}
-                  <Grid item md={4}>
-                    <div className={classes.sticky}>
-                      <Slider
-                        profile={profile}
-                        verified={profile.verified}
-                        disabled={user && user._id === profile.user._id}
-                        user={user}
-                        // loadService={}
-                        onChange={onChange}
-                      />
-                    </div>
-                  </Grid>
-                  {/* </Hidden> */}
+                  <Hidden smDown>
+                    <Grid item md={4}>
+                      <div className={classes.sticky}>
+                        <Slider
+                          profile={profile}
+                          verified={profile.verified}
+                          disabled={user && user._id === profile.user._id}
+                          user={user}
+                          // onChange={onChange}
+                          loadService={loadService}
+                          onChangeDate={onChangeDate}
+                          state={state}
+                        />
+                      </div>
+                    </Grid>
+                  </Hidden>
                 </Fragment>
                 {/* )} */}
               </Fragment>
@@ -164,7 +174,7 @@ const Profile = ({
             {/* </main> */}
           </Container>
           <div>
-            {profile === null ||
+            {/* {profile === null ||
             (!loading &&
               auth.isAuthenticated &&
               auth.loading === false &&
@@ -177,6 +187,24 @@ const Profile = ({
                 <ContactButton
                   profile={profile}
                   location={auth.currentLocation}
+                />
+              )
+            )} */}
+            {profile === null ||
+            (!loading &&
+              auth.isAuthenticated &&
+              auth.loading === false &&
+              auth.user._id === profile.user._id) ? (
+              isMobile ? (
+                <BottomNavbar />
+              ) : null
+            ) : (
+              isMobile && (
+                <ContactBook
+                  profile={profile}
+                  onChangeDate={onChangeDate}
+                  state={state}
+                  loadService={loadService}
                 />
               )
             )}
@@ -204,7 +232,8 @@ const mapStateToProps = state => ({
   uploader: state.uploader
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfileById, getImagesById }
-)(Profile);
+export default connect(mapStateToProps, {
+  getProfileById,
+  getImagesById,
+  loadService
+})(Profile);
