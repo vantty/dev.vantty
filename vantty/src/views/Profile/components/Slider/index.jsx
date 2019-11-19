@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import { Paper } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 //Google Analytics
 import ReactGA from "react-ga";
@@ -99,12 +100,12 @@ export default function Slider({
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
         {/* <div className={classes.section1}> */}
-        <Typography color="primary" variant="body1">
+        <Typography color='primary' variant='body1'>
           Starting Cost
         </Typography>
-        <Grid container alignItems="center">
+        <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography gutterBottom variant="h5">
+            <Typography gutterBottom variant='h5'>
               ${profile.price}
               <span className={classes.infoPrice}> /cad </span>
             </Typography>
@@ -114,7 +115,7 @@ export default function Slider({
         <Table services={profile.services} />
         <Divider />
         <br />
-        <Typography color="primary" variant="body1">
+        <Typography color='primary' variant='body1'>
           Date
         </Typography>
         <Date onChangeDate={onChangeDate} />
@@ -126,7 +127,7 @@ export default function Slider({
           Hour Range
         </Typography>
         <Hour onChangeDate={onChangeDate} state={state} /> */}
-        <Divider variant="middle" />
+        <Divider variant='middle' />
 
         {/* <Typography color="primary" variant="body1">
           Resume
@@ -139,8 +140,10 @@ export default function Slider({
             <Button
               className={classes.button}
               // disabled={!verified}
+              component={Link}
+              to={"/checkout"}
               onClick={() => loadService(state)}
-              variant="contained"
+              variant='contained'
             >
               Book
             </Button>

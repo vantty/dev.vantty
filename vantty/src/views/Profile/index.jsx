@@ -49,13 +49,14 @@ const Profile = ({
   getImagesById,
   auth,
   auth: { user },
+  pay: { services },
   match,
   history,
   loadService
 }) => {
   useEffect(() => {
-    getProfileById(match.params.id);
-    getImagesById(match.params.id);
+    getProfileById(match.params.id || (services && services.id));
+    getImagesById(match.params.id || (services && services.id));
   }, [getProfileById, match.params.id]);
 
   // const handleBack = () => {
@@ -90,7 +91,6 @@ const Profile = ({
   //   }
   // };
 
-  console.log("state", state);
   const classes = useStyles();
 
   return (
@@ -110,11 +110,12 @@ const Profile = ({
           />
         </Fragment>
       )}
+
       {(!profile && !images) || profile === null || loading || !images ? (
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          <Container maxWidth="md">
+          <Container maxWidth='md'>
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}
@@ -124,11 +125,11 @@ const Profile = ({
                 {/* {profile === null || loading || !images ? ( */}
                 {/* <Progress />) : ( */}
                 <Fragment>
-                  {isOwner(auth, user && user._id) === true &&
+                  {/* {isOwner(auth, user && user._id) === true &&
                     profile &&
                     profile.user._id === auth.user._id &&
                     profile.mobileNumber &&
-                    !profile.verified && <MessageVerified profile={profile} />}
+                    !profile.verified && <MessageVerified profile={profile} />} */}
                   <Grid item xs={12} md={8} sm={10}>
                     <Header />
 
@@ -222,14 +223,16 @@ Profile.propTypes = {
   auth: PropTypes.object.isRequired,
   navbar: PropTypes.object.isRequired,
   history: PropTypes.object,
-  uploader: PropTypes.object.isRequired
+  uploader: PropTypes.object.isRequired,
+  pay: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
   navbar: state.navbar,
-  uploader: state.uploader
+  uploader: state.uploader,
+  pay: state.pay
 });
 
 export default connect(mapStateToProps, {
