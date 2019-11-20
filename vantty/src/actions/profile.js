@@ -51,12 +51,12 @@ export const getProfiles = () => async dispatch => {
 
 // Get profile by ID
 export const getProfileById = userId => async dispatch => {
+  await dispatch({
+    type: CLEAR_PROFILE
+  });
   try {
-    await dispatch({
-      type: CLEAR_PROFILE
-    });
     const res = await server.get(`/profile/artist/${userId}`);
-    dispatch({
+    await dispatch({
       type: GET_PROFILE,
       payload: res.data
     });

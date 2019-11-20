@@ -112,6 +112,7 @@ const Profile = ({
       )}
 
       {(!profile && !images) || profile === null || loading || !images ? (
+        // {(!profile && !images) || profile === null || loading ? (
         <Progress className={classes.progress} />
       ) : (
         <Fragment>

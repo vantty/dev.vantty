@@ -61,12 +61,7 @@ const Routes = () => {
       <Route component={RegisterWithEmail} exact path='/register-email' />
       <Route component={Login} exact path='/login' />
       <Route component={LoginWithEmail} exact path='/login-email' />
-      <RouteWithLayout
-        component={Checkout}
-        exact
-        layout={MainLayout}
-        path='/checkout'
-      />
+      <PrivateRoute component={Checkout} exact path='/checkout/:id' />
       <RouteWithLayout
         component={ForgotPassword}
         exact

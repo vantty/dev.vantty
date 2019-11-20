@@ -27,6 +27,7 @@ import { getProfileById } from "../../actions/profile";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { initialServices } from "../../actions/cart";
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -133,12 +134,19 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ["Service", "Contact", "Payment", "Book"];
 
-const Checkout = ({ pay, getProfileById, profile: { profile }, history }) => {
+const Checkout = ({
+  pay,
+  getProfileById,
+  profile: { profile },
+  initialServices,
+  history,
+  match
+}) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
   useEffect(() => {
-    // getProfileById(profile && profile.user._id);
+    getProfileById(match.params.id);
   }, []);
 
   const handleNext = () => {
@@ -152,7 +160,7 @@ const Checkout = ({ pay, getProfileById, profile: { profile }, history }) => {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <Review profile={profile} />;
+        return <Review profile={profile} initialServices={initialServices} />;
       case 1:
         return <AddressForm />;
       case 2:
@@ -169,7 +177,7 @@ const Checkout = ({ pay, getProfileById, profile: { profile }, history }) => {
       <CssBaseline />
 
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth='sm'>
+      <Container maxWidth='xs'>
         <main className={classes.layout}>
           {/* <Paper className={classes.paper}> */}
           <Typography component='h1' variant='h4' align='center'>
@@ -201,7 +209,7 @@ const Checkout = ({ pay, getProfileById, profile: { profile }, history }) => {
               </Fragment>
             ) : (
               <Fragment>
-                {getStepContent(activeStep)}
+                {profile && getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
@@ -231,16 +239,18 @@ Checkout.propTypes = {
   history: PropTypes.object,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  pay: PropTypes.object.isRequired
+  pay: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
   uploader: state.uploader,
-  pay: PropTypes.pay
+  pay: state.pay,
+  cart: state.cart
 });
 
-export default connect(mapStateToProps, { getProfileById })(
+export default connect(mapStateToProps, { getProfileById, initialServices })(
   withRouter(Checkout)
 );
