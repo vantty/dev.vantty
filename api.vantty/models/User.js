@@ -57,7 +57,6 @@ const userSchema = new Schema(
       type: String,
       default: "Suscriber"
     },
-    stripeArtistAccount: { type: String },
     stripeCustomerId: { type: String },
     profile: { type: Boolean, default: false }
   },

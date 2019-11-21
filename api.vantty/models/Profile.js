@@ -5,6 +5,7 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
+  stripeArtistAccount: { type: String },
   name: {
     firstName: {
       type: String
