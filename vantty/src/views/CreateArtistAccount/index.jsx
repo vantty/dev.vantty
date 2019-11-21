@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { connect } from "react-redux";
 import qs from "query-string";
 
@@ -7,7 +8,7 @@ import { CssBaseline, Typography, Container, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Actions
-import { confirmStripeAccount } from "../../actions/pay";
+import { creacteStripeAccount } from "../../actions/book";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -32,10 +33,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ConfirmArtistAccount = props => {
-  const { location, confirmStripeAccount } = props;
+const CreateArtistAccount = props => {
+  const { location, creacteStripeAccount } = props;
   const { code } = qs.parse(location.search, { ignoreQueryPrefix: true });
-  confirmStripeAccount(code);
+  creacteStripeAccount(code);
 
   const handleClick = () => {
     console.log("CLICKED");
@@ -47,7 +48,7 @@ const ConfirmArtistAccount = props => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography variant="h2" className={classes.title}>
-          You Account has been successfully created
+          You account has been successfully created
         </Typography>
         <Typography variant="subtitle1" className={classes.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -60,8 +61,8 @@ const ConfirmArtistAccount = props => {
           color="primary"
           variant="contained"
           className={classes.button}
-          // component={RouterLink}
-          // to="/personal-info"
+          component={RouterLink}
+          to="/personal-info"
         >
           View your profile
         </Button>
@@ -70,4 +71,4 @@ const ConfirmArtistAccount = props => {
   );
 };
 
-export default connect(null, { confirmStripeAccount })(ConfirmArtistAccount);
+export default connect(null, { creacteStripeAccount })(CreateArtistAccount);

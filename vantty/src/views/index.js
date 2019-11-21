@@ -15,5 +15,5 @@ export { default as Form } from "./Form";
 export { default as Settings } from "./Settings";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Checkout } from "./Checkout";
-export { default as ConfirmArtistAccount } from "./ConfirmArtistAccount";
+export { default as CreateArtistAccount } from "./CreateArtistAccount";
 export { default as NotFound } from "./NotFound";

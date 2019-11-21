@@ -17,7 +17,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 
 // Actions
-import { payment } from "../../../../../../actions/pay";
+import { payment } from "../../../../../../actions/book";
 
 // Helpers
 const log = console.log;
@@ -54,9 +54,9 @@ const _PaymentForm = props => {
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <TextField required id="cardName" label="Name on card" fullWidth />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6}>
             <CardNumberElement onChange={handleChange} />
             {/* <TextField required id="cardNumber" label="Card number" fullWidth /> */}

@@ -1,12 +1,38 @@
 const sripeLoader = require("stripe");
-const Review = require("../models/Review");
 const User = require("../models/User");
-const Profile = require("../models/Profile");
 const Book = require("../models/Book");
 
 const log = console.log;
-
 const stripe = new sripeLoader("sk_test_2ZvJXkOqKtXmex8vDaAeuTsm00SBivNKpy");
+
+// Create Stripe Artist Account
+exports.createAccount = async (req, res) => {
+  try {
+    const data = await stripe.oauth.token({
+      grant_type: "authorization_code",
+      code: req.params.code
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    log(error);
+    res.status(500).json(error);
+  }
+};
+
+// Save Stripe Artist Account
+exports.saveAccount = async (req, res) => {
+  try {
+    let user = await User.findOneAndUpdate(
+      { _id: req.body._id },
+      { $set: { stripeArtistAccount: req.body.stripe_user_id } },
+      { new: true }
+    );
+    res.status(200).json(user);
+  } catch (error) {
+    log(error);
+    res.status(500).json(error);
+  }
+};
 
 const customer = (token, email) => {
   return stripe.customers.create({
@@ -36,34 +62,6 @@ exports.pay = async (req, res) => {
     let data = await charge(newCustomer, req.body.amount);
     log(data);
     res.status(200).json(data);
-  } catch (error) {
-    log(error);
-    res.status(500).json(error);
-  }
-};
-
-exports.confirmAccount = async (req, res) => {
-  try {
-    const data = await stripe.oauth.token({
-      grant_type: "authorization_code",
-      code: req.params.code
-    });
-    log("BACK", data);
-    res.status(200).json(data);
-  } catch (error) {
-    log(error);
-    res.status(500).json(error);
-  }
-};
-
-exports.saveAccount = async (req, res) => {
-  try {
-    let user = await User.findOneAndUpdate(
-      { _id: req.body._id },
-      { $set: { stripeArtistAccount: req.body.stripe_user_id } },
-      { new: true }
-    );
-    res.status(200).json(user);
   } catch (error) {
     log(error);
     res.status(500).json(error);

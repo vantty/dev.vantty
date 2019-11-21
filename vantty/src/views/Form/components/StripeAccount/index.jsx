@@ -1,13 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 
 // Material-UI
-import { CssBaseline, Typography, Container, Button } from "@material-ui/core";
+import { CssBaseline, Typography, Container, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-// Actions
-import { createStripeAccount } from "../../../../actions/pay";
+// Assets
+const StripeButton =
+  "https://res.cloudinary.com/vantty/image/upload/v1574347454/seed/geofw7htk4kuglyonrh9.png";
+
+const stripeApi =
+  "https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=ca_G8ZSxRaqpSpBlLsbbS5TTevLIRDo3cFF&scope=read_write#/";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -29,22 +31,21 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: theme.palette.greenVantty.dark
     }
+  },
+  logo: {
+    width: "16rem"
   }
 }));
 
-const StripeAccount = ({ createStripeAccount }) => {
+const StripeAccount = () => {
   const classes = useStyles();
-
-  const handleClick = () => {
-    createStripeAccount();
-  };
 
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography variant="h2" className={classes.title}>
-          Your book is complete
+          Conect your bank account
         </Typography>
         <Typography variant="subtitle1" className={classes.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -52,25 +53,12 @@ const StripeAccount = ({ createStripeAccount }) => {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </Typography>
-        <Button
-          onClick={handleClick}
-          color="primary"
-          variant="contained"
-          className={classes.button}
-        >
-          Conect with Stripe
-        </Button>
+        <Link underline="none" color="inherit" href={stripeApi}>
+          <img src={StripeButton} alt="" className={classes.logo} />
+        </Link>
       </div>
     </Container>
   );
 };
 
-StripeAccount.propTypes = {
-  user: PropTypes.object
-};
-
-// const mapStateToProps = state => ({
-//   user: state.auth.user
-// });
-
-export default connect(null, { createStripeAccount })(StripeAccount);
+export default StripeAccount;

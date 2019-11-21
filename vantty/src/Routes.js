@@ -35,7 +35,7 @@ import {
   Settings,
   ForgotPassword,
   Checkout,
-  ConfirmArtistAccount,
+  CreateArtistAccount,
   NotFound
 } from "./views";
 
@@ -49,7 +49,7 @@ const Routes = () => {
   return (
     <Switch>
       {/* <Route exact path="/order" component={Order} /> */}
-      <Route exact path="/confirm-account" component={ConfirmArtistAccount} />
+      <Route exact path="/confirm-account" component={CreateArtistAccount} />
       <PrivateRoute exact path="/checkout" component={Checkout} />
       <Route exact path="/confirmation/:token" component={Confirmation} />
       {/* <Route exact path='/confirmation' component={WaitForConfirmation} /> */}
