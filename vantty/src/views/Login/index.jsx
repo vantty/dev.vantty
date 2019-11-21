@@ -169,9 +169,6 @@ const Login = props => {
   };
 
   if (isAuthenticated) {
-    //  loadUser();
-    console.log("AUTH", isAuthenticated);
-    console.log("H", history);
     history.goBack();
   }
 

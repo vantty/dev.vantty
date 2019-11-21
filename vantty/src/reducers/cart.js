@@ -4,23 +4,16 @@ import {
   SUB_QUANTITY,
   ADD_QUANTITY,
   ADD_SHIPPING,
-  INITIAL_SERVICES
+  INITIAL_SERVICES,
+  ADD_BOOK,
+  CLEAR_BOOK
 } from "../actions/types";
 
 const initState = {
   items: [],
-  // items: [
-  //   {
-  //     id: 1,
-  //     title: "Winter body",
-  //     desc:
-  //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ex.",
-  //     amount: 110,
-  //     img: "img"
-  //   }
-  // ],
   addedItems: [],
-  total: 0
+  total: 0,
+  loading: true
 };
 
 const cartReducer = (state = initState, action) => {
@@ -109,10 +102,30 @@ const cartReducer = (state = initState, action) => {
     };
   }
 
-  if (action.type === "SUB_SHIPPING") {
+  // if (action.type === "SUB_SHIPPING") {
+  //   return {
+  //     ...state,
+  //     total: state.total - 6
+  //   };
+  // } else {
+  //   return state;
+  // }
+
+  if (action.type === ADD_BOOK) {
     return {
       ...state,
-      total: state.total - 6
+      loading: state.payload
+    };
+  } else {
+    return state;
+  }
+
+  if (action.type === CLEAR_BOOK) {
+    return {
+      items: [],
+      addedItems: [],
+      total: 0,
+      loading: true
     };
   } else {
     return state;

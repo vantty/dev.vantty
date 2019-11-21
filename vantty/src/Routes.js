@@ -61,7 +61,6 @@ const Routes = () => {
       <Route component={RegisterWithEmail} exact path='/register-email' />
       <Route component={Login} exact path='/login' />
       <Route component={LoginWithEmail} exact path='/login-email' />
-      <PrivateRoute component={Checkout} exact path='/checkout/:id' />
       <RouteWithLayout
         component={ForgotPassword}
         exact
@@ -114,6 +113,12 @@ const Routes = () => {
         path='/data-policy'
       />
       {/* EDIT FORM */}
+      <RoutePrivateWithLayout
+        component={Checkout}
+        exact
+        layout={MinimalLayout}
+        path='/checkout/:id/:bookId'
+      />
       <RoutePrivateWithLayout
         component={EditPersonalInfo}
         exact

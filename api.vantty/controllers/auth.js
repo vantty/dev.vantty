@@ -300,7 +300,6 @@ exports.addUserImage = async (req, res) => {
 
 // Delete ProfilePicture
 exports.deleteUserPicture = async (req, res) => {
-  console.log(req);
   try {
     const user = await User.findById(req.body.dataBaseId);
 

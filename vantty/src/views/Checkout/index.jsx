@@ -22,13 +22,14 @@ import { withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Check from "@material-ui/icons/Check";
 import { getProfileById } from "../../actions/profile";
-
 // Externals
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { initialServices } from "../../actions/cart";
+import { addNewBook } from "../../actions/book";
 
+const log = console.log;
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -140,16 +141,37 @@ const Checkout = ({
   profile: { profile },
   initialServices,
   history,
-  match
+  match,
+  cart,
+  cart: { items, addedItems, total, loading },
+  addNewBook
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [checkout, setCheckout] = React.useState({
+    date: "",
+    hour: "",
+    address: "",
+    descriptionAddress: "",
+    services: [],
+    totals: ""
+  });
+  const {
+    date,
+    hour,
+    services,
+    totals,
+    address,
+    descriptionAddress
+  } = checkout;
 
   useEffect(() => {
     getProfileById(match.params.id);
   }, []);
 
-  const handleNext = () => {
+  const handleNext = (e, total, addedItems) => {
+    e.preventDefault();
+    setCheckout({ ...checkout, totals: total, services: addedItems });
     setActiveStep(activeStep + 1);
   };
 
@@ -157,12 +179,40 @@ const Checkout = ({
     setActiveStep(activeStep - 1);
   };
 
+  const handleBook = async e => {
+    e.preventDefault();
+    addNewBook(match.params.bookId, checkout);
+  };
+  // const onChange = (e, data, value) => {
+  //   e.preventDefault();
+  //   setCheckout({ ...checkout, totals: total, services: addedItems });
+  //   // setCheckout({ ...checkout, [data]: value });
+  // };
+
+  // Handle fields change
+
+  const onChangeTarget = e =>
+    setCheckout({ ...checkout, [e.target.name]: e.target.value });
+  log(checkout);
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <Review profile={profile} initialServices={initialServices} />;
+        return (
+          <Review
+            profile={profile}
+            initialServices={initialServices}
+            checkout={checkout}
+            cart={cart}
+          />
+        );
       case 1:
-        return <AddressForm />;
+        return (
+          <AddressForm
+            onChangeTarget={onChangeTarget}
+            address={address}
+            descriptionAddress={descriptionAddress}
+          />
+        );
       case 2:
         return <PaymentForm />;
       case 3:
@@ -171,6 +221,10 @@ const Checkout = ({
         throw new Error("Unknown step");
     }
   }
+
+  // if (!loading) {
+  //   return <Redirect push to='/search' />;
+  // }
 
   return (
     <Fragment>
@@ -219,7 +273,11 @@ const Checkout = ({
                   <Button
                     variant='contained'
                     color='primary'
-                    onClick={handleNext}
+                    onClick={
+                      activeStep === 3
+                        ? e => handleBook(e, total, addedItems, checkout)
+                        : e => handleNext(e, total, addedItems)
+                    }
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}
@@ -251,6 +309,8 @@ const mapStateToProps = state => ({
   cart: state.cart
 });
 
-export default connect(mapStateToProps, { getProfileById, initialServices })(
-  withRouter(Checkout)
-);
+export default connect(mapStateToProps, {
+  getProfileById,
+  initialServices,
+  addNewBook
+})(withRouter(Checkout));

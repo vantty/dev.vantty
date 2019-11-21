@@ -416,9 +416,8 @@ exports.deleteProfileAndUserDashboard = async (req, res) => {
 //   }
 // };
 
-// Add Education
+// Add Services
 exports.addService = async (req, res) => {
-  log(req.body);
   const { typeOfService, description, amount } = req.body;
 
   const newService = { typeOfService, description, amount };

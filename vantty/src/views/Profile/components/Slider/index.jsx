@@ -142,7 +142,7 @@ export default function Slider({
               // disabled={!verified}
               component={Link}
               // to={"/checkout"}
-              to={`/checkout/${profile.user._id}`}
+              to={`/checkout/${profile.user._id}/${profile.bookId}`}
               onClick={() => loadService(state)}
               variant='contained'
             >

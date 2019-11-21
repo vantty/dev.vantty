@@ -4,7 +4,8 @@ import {
   SUB_QUANTITY,
   ADD_QUANTITY,
   ADD_SHIPPING,
-  INITIAL_SERVICES
+  INITIAL_SERVICES,
+  ADD_BOOK
 } from "./types";
 
 //add cart action

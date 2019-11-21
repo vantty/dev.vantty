@@ -63,7 +63,8 @@ const Review = ({
   addQuantity,
   subtractQuantity,
   addToCart,
-  removeItem
+  removeItem,
+  onChange
 }) => {
   const classes = useStyles();
 

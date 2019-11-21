@@ -42,3 +42,6 @@ export const SUB_QUANTITY = "SUB_QUANTITY";
 export const ADD_QUANTITY = "ADD_QUANTITY";
 export const ADD_SHIPPING = "ADD_SHIPPING";
 export const INITIAL_SERVICES = "INITIAL_SERVICES";
+export const ADD_BOOK = "ADD_BOOK";
+export const BOOK_ERROR = "BOOK_ERROR";
+export const CLEAR_BOOK = "CLEAR_BOOK";
