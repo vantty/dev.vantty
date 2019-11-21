@@ -213,6 +213,7 @@ const Login = props => {
   if (isAuthenticated) {
     return <Redirect push to="/" />;
   }
+
   return (
     <div className={classes.root}>
       <Alert />
@@ -336,7 +337,6 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { login, changeNavbarValue }
-)(withRouter(Login));
+export default connect(mapStateToProps, { login, changeNavbarValue })(
+  withRouter(Login)
+);

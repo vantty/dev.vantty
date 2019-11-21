@@ -147,7 +147,8 @@ const Register = props => {
     isAuthenticated,
     googleRegister,
     facebookRegister,
-    changeNavbarValue
+    changeNavbarValue,
+    history
   } = props;
 
   const classes = useStyles();
@@ -174,7 +175,9 @@ const Register = props => {
   };
 
   if (isAuthenticated) {
-    return <Redirect push to="/" />;
+    console.log(isAuthenticated);
+    // return <Redirect push to="/" />;
+    history.goBack();
   }
 
   if (sendConfirmation) {
@@ -324,7 +327,8 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { googleRegister, facebookRegister, changeNavbarValue }
-)(withRouter(Register));
+export default connect(mapStateToProps, {
+  googleRegister,
+  facebookRegister,
+  changeNavbarValue
+})(withRouter(Register));

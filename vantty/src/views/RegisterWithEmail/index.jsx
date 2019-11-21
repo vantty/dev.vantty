@@ -166,7 +166,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Register = props => {
-  const { sendEmail, isAuthenticated, changeNavbarValue } = props;
+  const { sendEmail, isAuthenticated, changeNavbarValue, history } = props;
 
   const classes = useStyles();
 
@@ -230,7 +230,8 @@ const Register = props => {
     formState.touched[field] && formState.errors[field] ? true : false;
 
   if (isAuthenticated) {
-    return <Redirect push to="/" />;
+    // return <Redirect push to="/" />;
+    history.goBack()
   }
 
   if (sendConfirmation) {

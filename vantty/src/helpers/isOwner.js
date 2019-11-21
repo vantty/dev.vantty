@@ -1,4 +1,5 @@
 export default (auth, user) => {
+  console.log(auth);
   if (auth.isAuthenticated) {
     if (auth.loading === false) {
       if (auth.user._id === user) {

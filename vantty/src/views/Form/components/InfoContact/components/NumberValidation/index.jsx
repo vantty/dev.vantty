@@ -45,12 +45,7 @@ const NumberValidation = ({
       onResponse={res => verifyNumber(res, id)}
     >
       {p => (
-        <Button
-          variant='contained'
-          className={classes.button}
-          to='/artists'
-          {...p}
-        >
+        <Button variant="contained" className={classes.button} {...p}>
           Validate and finish
         </Button>
       )}
@@ -62,7 +57,4 @@ NumberValidation.propTypes = {
   verifyNumber: PropTypes.func.isRequired
 };
 
-export default connect(
-  null,
-  { verifyNumber }
-)(NumberValidation);
+export default connect(null, { verifyNumber })(NumberValidation);

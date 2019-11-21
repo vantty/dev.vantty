@@ -35,8 +35,7 @@ import {
   Settings,
   ForgotPassword,
   Checkout,
-  Order,
-  OrderConfirm,
+  ConfirmArtistAccount,
   NotFound
 } from "./views";
 
@@ -49,9 +48,9 @@ import { SettingsGeneral } from "./views/Settings/components";
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/order" component={Order} />
-      <Route exact path="/test" component={OrderConfirm} />
-      <Route exact path="/checkout" component={Checkout} />
+      {/* <Route exact path="/order" component={Order} /> */}
+      <Route exact path="/confirm-account" component={ConfirmArtistAccount} />
+      <PrivateRoute exact path="/checkout" component={Checkout} />
       <Route exact path="/confirmation/:token" component={Confirmation} />
       {/* <Route exact path='/confirmation' component={WaitForConfirmation} /> */}
       {/* ADMIN */}

@@ -144,7 +144,8 @@ const Login = props => {
     isAuthenticated,
     googleLogin,
     facebookLogin,
-    changeNavbarValue
+    changeNavbarValue,
+    history
   } = props;
 
   const classes = useStyles();
@@ -162,7 +163,7 @@ const Login = props => {
   };
 
   if (isAuthenticated) {
-    return <Redirect push to="/" />;
+    history.goBack();
   }
   return (
     <div className={classes.root}>
@@ -284,7 +285,9 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { login, googleLogin, facebookLogin, changeNavbarValue }
-)(withRouter(Login));
+export default connect(mapStateToProps, {
+  login,
+  googleLogin,
+  facebookLogin,
+  changeNavbarValue
+})(withRouter(Login));

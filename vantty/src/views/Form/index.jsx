@@ -23,7 +23,8 @@ import {
   Price,
   PersonalInfo,
   Categories,
-  Validation
+  Validation,
+  StripeAccount
 } from "./components";
 
 import { AppBarForm } from "./components/ComponentsForm";
@@ -133,11 +134,11 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
             prevStep={prevStep}
           />
         );
+      // case 7:
+      //   return (
+      //     <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+      //   );
       case 6:
-        return (
-          <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
-        );
-      case 7:
         return (
           <InfoContact
             step={activeStep}
@@ -145,6 +146,8 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
             prevStep={prevStep}
           />
         );
+      case 7:
+        return <StripeAccount />;
       default:
         throw new Error("Unknown step");
     }
@@ -160,7 +163,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Fragment>
                     <Fragment>{getStepContent(activeStep)}</Fragment>
                   </Fragment>
@@ -189,7 +192,6 @@ const mapStateToProps = state => ({
   uploader: state.uploader
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, createProfile }
-)(withRouter(Form));
+export default connect(mapStateToProps, { getCurrentProfile, createProfile })(
+  withRouter(Form)
+);

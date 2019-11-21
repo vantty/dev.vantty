@@ -82,7 +82,7 @@ const Profile = ({
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          <Container maxWidth='md'>
+          <Container maxWidth="md">
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}
@@ -92,11 +92,11 @@ const Profile = ({
                 {/* {profile === null || loading || !images ? ( */}
                 {/* <Progress />) : ( */}
                 <Fragment>
-                  {isOwner(auth, user && user._id) === true &&
+                  {/* {isOwner(auth, user && user._id) === true &&
                     profile &&
                     profile.user._id === auth.user._id &&
                     profile.mobileNumber &&
-                    !profile.verified && <MessageVerified profile={profile} />}
+                    !profile.verified && <MessageVerified profile={profile} />} */}
                   <Grid item xs={12} md={8} sm={10}>
                     <Header />
 
@@ -178,7 +178,6 @@ const mapStateToProps = state => ({
   uploader: state.uploader
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfileById, getImagesById }
-)(Profile);
+export default connect(mapStateToProps, { getProfileById, getImagesById })(
+  Profile
+);

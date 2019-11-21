@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -86,24 +87,24 @@ export default function Slider({ profile, disabled, verified, user }) {
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
         {/* <div className={classes.section1}> */}
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Starting Cost
         </Typography>
-        <Grid container alignItems='center'>
+        <Grid container alignItems="center">
           <Grid item xs>
-            <Typography gutterBottom variant='h5'>
+            <Typography gutterBottom variant="h5">
               ${profile.price}
               <span className={classes.infoPrice}> /cad </span>
             </Typography>
           </Grid>
         </Grid>
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Services
         </Typography>
         <Service onChange={onchange} services={services} />
         <Divider />
         <br />
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Date
         </Typography>
         <Date />
@@ -111,11 +112,11 @@ export default function Slider({ profile, disabled, verified, user }) {
         <Divider />
         <br />
 
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Hour Range
         </Typography>
         <Hour />
-        <Divider variant='middle' />
+        <Divider variant="middle" />
 
         {/* <Typography color='primary' variant='body1'>
           Resume
@@ -128,7 +129,9 @@ export default function Slider({ profile, disabled, verified, user }) {
             <Button
               className={classes.button}
               disabled={!verified}
-              variant='contained'
+              variant="contained"
+              component={RouterLink}
+              to="/checkout"
             >
               Book
             </Button>

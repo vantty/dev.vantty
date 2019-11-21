@@ -4,9 +4,6 @@ import axios from "axios";
 export const elastic = axios.create({
   baseURL: process.env.REACT_APP_ELASTIC_BASE_URL
 });
-export const stripe = axios.create({
-  baseURL: "https://connect.stripe.com"
-});
 
 export const server = axios.create({
   // baseURL: process.env.REACT_APP_NOW_BASE_URL

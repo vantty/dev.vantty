@@ -57,7 +57,7 @@ export const verifyNumber = (res, id) => async dispatch => {
             type: NUMBER_VERIFY_SUCCESS,
             payload: numberVerified
           });
-          await redirect(numberVerified, id);
+          // await redirect(numberVerified, id);
         })
         .catch(err => {
           dispatch({

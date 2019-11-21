@@ -91,6 +91,11 @@ const InfoContact = ({
     e.preventDefault();
     prevStep();
   };
+  const next = e => {
+    e.preventDefault();
+    nextStep();
+  };
+
   const classes = useStyles();
 
   return (
@@ -99,16 +104,16 @@ const InfoContact = ({
         {/* <form autoComplete='off' noValidate> */}
         <CardHeader
           // subheader='The information can be edited'
-          title='Mobile'
+          title="Mobile"
         />
         {/* <Divider /> */}
         <CardContent>
           <Fragment>
             <Grid
               container
-              direction='row'
-              justify='center'
-              alignItems='center'
+              direction="row"
+              justify="center"
+              alignItems="center"
             >
               <Grid
                 item
@@ -116,15 +121,15 @@ const InfoContact = ({
                 sm={12}
                 md={12}
                 container
-                direction='row'
-                justify='center'
-                alignItems='center'
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
                 <Box>
                   <Typography
-                    component='h5'
-                    variant='h6'
-                    align='center'
+                    component="h5"
+                    variant="h6"
+                    align="center"
                     className={classes.typography}
                   >
                     This number will be where your clients could contact with
@@ -142,7 +147,7 @@ const InfoContact = ({
                       }}
                     >
                       <ReactPhoneInput
-                        defaultCountry='us'
+                        defaultCountry="us"
                         onlyCountries={["co", "us", "ca"]}
                         masks={{
                           co: "+.. (...) ...-..-..",
@@ -170,9 +175,9 @@ const InfoContact = ({
                     sm={12}
                     md={12}
                     container
-                    direction='row'
-                    justify='center'
-                    alignItems='center'
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
                   >
                     <NumberValidation
                       phone={phone}
@@ -198,6 +203,7 @@ const InfoContact = ({
               <div>
                 <div>
                   <Button onClick={back}>Back</Button>
+                  <Button onClick={next}>Next</Button>
                 </div>
               </div>
             }
@@ -211,7 +217,7 @@ const InfoContact = ({
             Children={
               <div>
                 <div>
-                  <Button component={Link} to='/settings'>
+                  <Button component={Link} to="/settings">
                     Back
                   </Button>
                 </div>
@@ -237,7 +243,6 @@ const mapStateToProps = state => ({
   number: state.number
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile }
-)(withRouter(InfoContact));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(InfoContact)
+);

@@ -1,7 +1,12 @@
-import { PAY_SUCCESS, PAY_FAIL } from "../actions/types";
+import {
+  PAY_SUCCESS,
+  PAY_FAIL,
+  CREATE_STRIPE_ACCOUNT_SUCCESS
+} from "../actions/types";
 
 const initialState = {
-  token: null
+  token: null,
+  stripeAccount: null
 };
 
 export default function(state = initialState, action) {
@@ -11,6 +16,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         token: payload
+      };
+    case CREATE_STRIPE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        stripeAccount: payload
       };
     default:
       return state;
