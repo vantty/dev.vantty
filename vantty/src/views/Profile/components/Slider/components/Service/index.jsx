@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NestedList() {
+export default function NestedList({ services, onChange }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -43,7 +43,7 @@ export default function NestedList() {
       </ListItem>
       <Collapse in={open} timeout='auto' unmountOnExit>
         <List component='div' disablePadding className={classes.listItem}>
-          <TableServices />
+          <TableServices services={services} onChange={onChange} />
         </List>
       </Collapse>
     </List>

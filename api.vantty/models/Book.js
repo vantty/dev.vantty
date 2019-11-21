@@ -9,31 +9,26 @@ const BookSchema = new Schema({
   name: {
     type: String
   },
-  comments: [
+  bookings: [
     {
       user: {
         type: Schema.Types.ObjectId,
         ref: "users"
       },
-      current: {
+
+      appointment: {
         type: String
       },
-      date: {
-        type: Date
+      address: {
+        type: String
+      },
+      descriptionAddress: {
+        type: String
       },
       hour: {
         type: String
       },
-      services: [
-        {
-          kind: {
-            type: String
-          },
-          value: {
-            type: Number
-          }
-        }
-      ],
+      services: [Object],
       totalValue: {
         type: Number
       },
@@ -41,7 +36,7 @@ const BookSchema = new Schema({
         type: Number
       },
 
-      date: {
+      requestDate: {
         type: Date,
         default: Date.now
       }

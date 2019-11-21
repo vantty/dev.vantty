@@ -19,7 +19,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function AddressForm() {
+export default function AddressForm({
+  onChangeTarget,
+  address,
+  descriptionAddress
+}) {
   const classes = useStyles();
 
   const [location, setLocation] = useState("");
@@ -28,12 +32,11 @@ export default function AddressForm() {
     setLocation(event.target.value);
   };
 
-  log(location);
   return (
     <Fragment>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant='h6' gutterBottom>
             Place of the service
           </Typography>
           <FormControl className={classes.formControl}>
@@ -50,9 +53,22 @@ export default function AddressForm() {
             <Grid item xs={12}>
               <TextField
                 required
-                id="address"
-                name="address"
-                label="Address"
+                id='address'
+                label='Address'
+                name='address'
+                value={address}
+                onChange={onChangeTarget}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                id='description'
+                label='Description'
+                name='descriptionAddress'
+                value={descriptionAddress}
+                onChange={onChangeTarget}
                 fullWidth
               />
             </Grid>
@@ -65,7 +81,7 @@ export default function AddressForm() {
           </Fragment>
         ) : null}
         <Grid item xs={12}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant='h6' gutterBottom>
             Validate your phone
           </Typography>
         </Grid>

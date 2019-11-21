@@ -23,13 +23,7 @@ import { payment } from "../../../../../../actions/book";
 const log = console.log;
 
 const _PaymentForm = props => {
-  const {
-    stripe,
-    payment,
-    profile: {
-      profile: { stripeArtistAccount }
-    }
-  } = props;
+  const { stripe, payment, stripeArtistAccount, amount } = props;
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = ({ error }) => {
@@ -43,7 +37,7 @@ const _PaymentForm = props => {
       evt.preventDefault();
       if (stripe) {
         let { token } = await stripe.createToken();
-        let amount = "100";
+        // let amount = "100";
         payment(token, stripeArtistAccount, amount);
       } else {
         console.log("Stripe.js hasn't loaded yet.");

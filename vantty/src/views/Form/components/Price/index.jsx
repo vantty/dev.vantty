@@ -214,7 +214,7 @@ const Price = ({
                       <Button
                         className={classes.button}
                         onClick={e => onSubmit(e)}
-                        disabled={!price}
+                        // disabled={!price}
                       >
                         Next
                       </Button>
@@ -268,7 +268,9 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile, addService, deleteService }
-)(withRouter(Price));
+export default connect(mapStateToProps, {
+  createProfile,
+  getCurrentProfile,
+  addService,
+  deleteService
+})(withRouter(Price));

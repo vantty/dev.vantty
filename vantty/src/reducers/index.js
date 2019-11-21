@@ -8,6 +8,7 @@ import uploader from "./uploader";
 import number from "./number";
 import search from "./search";
 import pay from "./pay";
+import cart from "./cart";
 
 export default combineReducers({
   alert,
@@ -18,5 +19,6 @@ export default combineReducers({
   uploader,
   number,
   search,
-  pay
+  pay,
+  cart
 });

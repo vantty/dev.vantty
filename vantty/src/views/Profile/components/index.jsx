@@ -5,3 +5,4 @@ export { default as Review } from "./Review";
 export { default as ContactButton } from "./ContactButton";
 export { default as Slider } from "./Slider";
 export { default as MessageVerified } from "./MessageVerified";
+export { default as ContactBook } from "./ContactBook";

@@ -1,27 +1,17 @@
-import {
-  PAY_SUCCESS,
-  PAY_FAIL,
-  CREATE_STRIPE_ACCOUNT_SUCCESS
-} from "../actions/types";
+import { SERVICE_SUCCESS } from "../actions/types";
 
 const initialState = {
-  token: null,
-  stripeAccount: null
+  services: {}
 };
 
 export default function(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case PAY_SUCCESS:
+    case SERVICE_SUCCESS:
       return {
-        ...state,
-        token: payload
+        services: payload
       };
-    case CREATE_STRIPE_ACCOUNT_SUCCESS:
-      return {
-        ...state,
-        stripeAccount: payload
-      };
+
     default:
       return state;
   }

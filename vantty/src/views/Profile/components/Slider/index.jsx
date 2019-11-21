@@ -1,15 +1,16 @@
 import React, { Fragment, useState } from "react";
-import { Link as RouterLink, withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import { Paper } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 //Google Analytics
 import ReactGA from "react-ga";
-import { Date, Hour, Service, Resume } from "./components";
+import { Date, Hour, Service, Resume, Table } from "./components";
+
 ReactGA.initialize("UA-108639612-1");
 ReactGA.pageview(window.location.pathname + window.location.search);
 const ga = ReactGA;
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: "white"
   },
   button: {
-    width: "100%",
+    width: "90%",
     color: "white",
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
@@ -50,6 +51,9 @@ const useStyles = makeStyles(theme => ({
   },
   a: {
     color: "white"
+  },
+  table: {
+    backgroundColor: "white"
   },
   // button: {
   //   marginTop: "0.5rem",
@@ -69,20 +73,29 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Slider({ profile, disabled, verified, user }) {
+export default function Slider({
+  profile,
+  disabled,
+  verified,
+  user,
+  loadService,
+  onChange,
+  onChangeDate,
+  state
+}) {
   const classes = useStyles();
 
-  const [book, setBook] = useState({
-    date: "",
-    hour: "",
-    services: [],
-    taxes: "",
-    totalValue: ""
-  });
+  // const [book, setBook] = useState({
+  //   date: "",
+  //   hour: "",
+  //   services: [],
+  //   taxes: "",
+  //   totalValue: ""
+  // });
 
-  const onChange = e => setBook({ ...book, [e.target.name]: e.target.value });
+  // const onChange = e => setBook({ ...book, [e.target.name]: e.target.value });
 
-  const { services } = book;
+  // const { services } = book;
   return (
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
@@ -98,40 +111,40 @@ export default function Slider({ profile, disabled, verified, user }) {
             </Typography>
           </Grid>
         </Grid>
-        <Typography color="primary" variant="body1">
-          Services
-        </Typography>
-        <Service onChange={onchange} services={services} />
+
+        <Table services={profile.services} />
         <Divider />
         <br />
         <Typography color="primary" variant="body1">
           Date
         </Typography>
-        <Date />
+        <Date onChangeDate={onChangeDate} />
 
-        <Divider />
-        <br />
+        {/* <Divider /> */}
+        {/* <br /> */}
 
-        <Typography color="primary" variant="body1">
+        {/* <Typography color="primary" variant="body1">
           Hour Range
         </Typography>
-        <Hour />
+        <Hour onChangeDate={onChangeDate} state={state} /> */}
         <Divider variant="middle" />
 
-        {/* <Typography color='primary' variant='body1'>
+        {/* <Typography color="primary" variant="body1">
           Resume
         </Typography>
         <Resume /> */}
-        {/* <Divider variant='middle' /> */}
+        {/* <Divider variant="middle" /> */}
         <Fragment>
           {/* <Divider variant='middle' /> */}
           <div className={classes.section3}>
             <Button
               className={classes.button}
-              disabled={!verified}
+              // disabled={!verified}
+              component={Link}
+              // to={"/checkout"}
+              to={`/checkout/${profile.user._id}/${profile.bookId}`}
+              onClick={() => loadService(state)}
               variant="contained"
-              component={RouterLink}
-              to="/checkout"
             >
               Book
             </Button>

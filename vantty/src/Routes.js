@@ -50,7 +50,7 @@ const Routes = () => {
     <Switch>
       {/* <Route exact path="/order" component={Order} /> */}
       <Route exact path="/confirm-account" component={CreateArtistAccount} />
-      <PrivateRoute exact path="/checkout" component={Checkout} />
+      {/* <PrivateRoute exact path="/checkout" component={Checkout} /> */}
       <Route exact path="/confirmation/:token" component={Confirmation} />
       {/* <Route exact path='/confirmation' component={WaitForConfirmation} /> */}
       {/* ADMIN */}
@@ -114,6 +114,12 @@ const Routes = () => {
         path="/data-policy"
       />
       {/* EDIT FORM */}
+      <RoutePrivateWithLayout
+        component={Checkout}
+        exact
+        layout={MinimalLayout}
+        path="/checkout/:id/:bookId"
+      />
       <RoutePrivateWithLayout
         component={EditPersonalInfo}
         exact

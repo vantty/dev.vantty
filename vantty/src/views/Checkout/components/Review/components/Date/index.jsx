@@ -43,17 +43,17 @@ export default function MaterialUIPickers({ loadService, onChangeDate }) {
   };
 
   return (
-    <form className={classes.container} noValidate>
+    <form className={classes.root} noValidate>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justify="space-around" className={classes.margin}>
+        <Grid container justify='baseline' className={classes.margin}>
           <KeyboardDatePicker
             disableToolbar
-            variant="inline"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="date"
-            label="Date "
-            name="date"
+            variant='inline'
+            format='MM/dd/yyyy'
+            margin='normal'
+            id='date'
+            label='Date '
+            name='date'
             value={date}
             onChange={handleDateChange}
             KeyboardButtonProps={{
@@ -63,13 +63,13 @@ export default function MaterialUIPickers({ loadService, onChangeDate }) {
         </Grid>
       </MuiPickersUtilsProvider>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justify="space-around" className={classes.margin}>
+        <Grid container justify='baseline' className={classes.margin}>
           <KeyboardTimePicker
-            margin="normal"
-            variant="inline"
-            id="time"
-            label="Time"
-            name="hour"
+            margin='normal'
+            variant='inline'
+            id='time'
+            label='Time'
+            name='hour'
             value={hour}
             onChange={handleDateChangeHour}
             KeyboardButtonProps={{
@@ -78,6 +78,7 @@ export default function MaterialUIPickers({ loadService, onChangeDate }) {
           />
         </Grid>
       </MuiPickersUtilsProvider>
+      <br />
     </form>
   );
 }

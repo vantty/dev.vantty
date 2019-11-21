@@ -17,7 +17,12 @@ import {
 } from "../../assets/icons";
 
 // Actions
-import { login, googleLogin, facebookLogin } from "../../actions/auth";
+import {
+  login,
+  googleLogin,
+  facebookLogin,
+  loadUser
+} from "../../actions/auth";
 import { changeNavbarValue } from "../../actions/navbar";
 
 // Components
@@ -165,6 +170,7 @@ const Login = props => {
   if (isAuthenticated) {
     history.goBack();
   }
+
   return (
     <div className={classes.root}>
       <Alert />
@@ -278,7 +284,8 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
   googleLogin: PropTypes.func,
   facebookLogin: PropTypes.func,
-  changeNavbarValue: PropTypes.func
+  changeNavbarValue: PropTypes.func,
+  loadUser: PropTypes.func
 };
 
 const mapStateToProps = state => ({
