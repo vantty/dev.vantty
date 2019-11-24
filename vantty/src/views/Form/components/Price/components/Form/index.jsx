@@ -19,9 +19,6 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper
-  },
-  nested: {
-    paddingLeft: theme.spacing(4)
   }
 }));
 
@@ -29,10 +26,11 @@ export default function NestedList({
   serviceData,
   onChange,
   onSubmit,
+  services,
   deleteService
 }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(services[0] ? false : true);
 
   const handleClick = () => {
     setOpen(!open);
@@ -42,11 +40,6 @@ export default function NestedList({
     <List
       component='nav'
       aria-labelledby='nested-list-subheader'
-      subheader={
-        <ListSubheader component='div' id='nested-list-subheader'>
-          Nested List Items
-        </ListSubheader>
-      }
       className={classes.root}
     >
       <ListItem button onClick={handleClick}>

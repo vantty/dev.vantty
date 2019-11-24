@@ -41,7 +41,29 @@ export const pagesProfile = [
 export const pagesUser = [
   {
     title: "Profile",
-    href: "/personal-info"
+    href: "/dashboard/user/profile"
+  },
+  {
+    title: "Appointments",
+    href: "/dashboard/user/apponitments"
+  },
+  {
+    title: "Help Center",
+    href: "/helpcenter"
+  },
+
+  {
+    title: "Change Password",
+    href: "/password"
+  },
+  {
+    title: "Terms",
+    href: "/terms-of-service"
+  },
+
+  {
+    title: "Data Policy",
+    href: "/data-policy"
   }
 ];
 

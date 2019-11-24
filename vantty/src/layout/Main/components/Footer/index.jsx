@@ -7,13 +7,13 @@ import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import { Divider } from "@material-ui/core";
+import { Divider, CssBaseline } from "@material-ui/core";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant='body2' color='textSecondary' align='center'>
       {"Copyright © "}
-      <Link color="inherit" href="https://vantty.ca/">
+      <Link color='inherit' href='https://vantty.ca/'>
         Vantty
       </Link>{" "}
       {new Date().getFullYear()}
@@ -35,11 +35,23 @@ const useStyles = makeStyles(theme => ({
       listStyle: "none"
     }
   },
+
   root: {
     [theme.breakpoints.down("sm")]: {
       marginBottom: theme.spacing(8)
     }
   },
+
+  main: {
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(2)
+  },
+  footer: {
+    padding: theme.spacing(2),
+    marginTop: "auto",
+    backgroundColor: "white"
+  },
+
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`
   },
@@ -97,14 +109,14 @@ export default function Footer() {
     <Fragment>
       <div className={classes.root}>
         <Divider />
-        <Container maxWidth="md" component="footer" className={classes.footer}>
-          <Grid container direction="row" justify="center" alignItems="center">
+        <Container maxWidth='md' component='footer' className={classes.footer}>
+          <Grid container direction='row' justify='center' alignItems='center'>
             {footers.map(item => (
               <span className={classes.element} key={item.title}>
                 <Link
                   href={item.Link}
-                  variant="subtitle1"
-                  color="textSecondary"
+                  variant='subtitle1'
+                  color='textSecondary'
                 >
                   {item.title}{" "}
                 </Link>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -12,6 +12,7 @@ import Divider from "@material-ui/core/Divider";
 import { isMobile } from "react-device-detect";
 import { logout } from "../../../../actions/auth";
 import { connect } from "react-redux";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +29,11 @@ const useStyles = makeStyles(theme => ({
     float: "left",
     minWidth: "130px",
     maxWidth: "130px"
+  },
+  arrow: {
+    marginLeft: "7px",
+    color: theme.palette.text.primary,
+    fontSize: "18px"
   }
 }));
 
@@ -45,13 +51,27 @@ const SettingsProfile = ({ match, pages, logout }) => {
         {pages.map((page, ind) => (
           <div key={page.title}>
             <Container maxWidth='md'>
-              <ListItemLink
-                href={page.href}
-                to={page.href}
-                selected={page.href === match.url}
+              <Grid
+                container
+                direction='row'
+                justify='space-between'
+                alignItems='center'
               >
-                <ListItemText primary={page.title} />
-              </ListItemLink>
+                <Grid item xs={11} md={12} lg={12} xl={12}>
+                  <ListItemLink
+                    href={page.href}
+                    to={page.href}
+                    selected={page.href === match.url}
+                  >
+                    <ListItemText primary={page.title} />
+                  </ListItemLink>
+                </Grid>
+                <Grid item xs={1}>
+                  {isMobile && (
+                    <ArrowForwardIosIcon className={classes.arrow} />
+                  )}
+                </Grid>
+              </Grid>
             </Container>
             <Divider />
           </div>
@@ -59,7 +79,7 @@ const SettingsProfile = ({ match, pages, logout }) => {
         <Container maxWidth='md'>
           {isMobile && (
             <ListItemLink to={"/create-profile"}>
-              <ListItemText primary={"Becamo to an Artists"} />
+              <ListItemText primary={"Become to an Artists"} />
             </ListItemLink>
           )}
           {!isMobile && (
@@ -81,7 +101,4 @@ SettingsProfile.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-export default connect(
-  null,
-  { logout }
-)(SettingsProfile);
+export default connect(null, { logout })(SettingsProfile);

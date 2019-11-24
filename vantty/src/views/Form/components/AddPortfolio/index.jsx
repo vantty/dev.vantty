@@ -10,7 +10,7 @@ import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
 
 //Components
 import { ImagesUploader } from "./components";
-import { FormBottomNav } from "../ComponentsForm";
+import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 // Material-UI
 import {
@@ -20,7 +20,8 @@ import {
   Divider,
   Button,
   CardActions,
-  Grid
+  Grid,
+  Typography
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
@@ -92,139 +93,138 @@ const AddPortfolio = ({
   };
   const classes = useStyles();
   return (
-    <Fragment>
-      <Fragment>
-        <Card className={clsx(classes.root, className)}>
-          {profile ? (
-            <form autoComplete='off' noValidate>
-              <CardHeader title='Portfolio' />
-              <CardContent className={classes.content}>
+    <CustomPaper
+      Children={
+        <Fragment>
+          <Typography>Portfolio</Typography>
+          <Fragment>
+            {profile ? (
+              <form autoComplete='off' noValidate>
                 <div>
                   <ImagesUploader tags={tags} onChangeTags={onChangeTags} />
                 </div>
-              </CardContent>
-              <br />
-              <br />
-              <Divider />
-            </form>
-          ) : (
-            <Progress />
-          )}
+                <br />
+                <br />
+                <Divider />
+              </form>
+            ) : (
+              <Progress />
+            )}
 
-          {match.url === "/add-portfolio" && !isMobile && (
-            <Fragment>
-              <Divider />
+            {match.url === "/add-portfolio" && !isMobile && (
+              <Fragment>
+                <Divider />
 
-              <CardActions>
-                <Grid
-                  container
-                  direction='row'
-                  justify='flex-end'
-                  alignItems='flex-start'
-                >
-                  <Button className={classes.button} onClick={e => submit(e)}>
-                    Update
-                  </Button>
-                </Grid>
-              </CardActions>
-            </Fragment>
-          )}
-        </Card>
-      </Fragment>
-      <Fragment>
-        <div>
-          <div>
-            <Fragment>
-              {match.url === "/create-profile" && (
-                <FormBottomNav
-                  step={step}
-                  Children={
-                    <div>
-                      <div>
-                        <Fragment>
-                          <Fragment>
-                            <Button onClick={back}>Back</Button>
+                <CardActions>
+                  <Grid
+                    container
+                    direction='row'
+                    justify='flex-end'
+                    alignItems='flex-start'
+                  >
+                    <Button className={classes.button} onClick={e => submit(e)}>
+                      Update
+                    </Button>
+                  </Grid>
+                </CardActions>
+              </Fragment>
+            )}
+            {/* </Card> */}
+          </Fragment>
+          <Fragment>
+            <div>
+              <div>
+                <Fragment>
+                  {match.url === "/create-profile" && (
+                    <FormBottomNav
+                      step={step}
+                      Children={
+                        <div>
+                          <div>
                             <Fragment>
-                              <Button
-                                className={classes.button}
-                                disabled={
-                                  images && images.length < 5 && true
+                              <Fragment>
+                                <Button onClick={back}>Back</Button>
+                                <Fragment>
+                                  <Button
+                                    className={classes.button}
+                                    disabled={
+                                      images && images.length < 5 && true
 
-                                  // profile && !loading && images
-                                  //   ? images.length >= 5
-                                  //     ? Object.keys(tags).length ===
-                                  //       images.length
-                                  //       ? false
-                                  //       : true
-                                  //     : true
-                                  //   : false
+                                      // profile && !loading && images
+                                      //   ? images.length >= 5
+                                      //     ? Object.keys(tags).length ===
+                                      //       images.length
+                                      //       ? false
+                                      //       : true
+                                      //     : true
+                                      //   : false
 
-                                  // profile &&
-                                  // !loading &&
-                                  // images &&
-                                  // (images.map(img => img.tag)).length &&
-                                  // false
+                                      // profile &&
+                                      // !loading &&
+                                      // images &&
+                                      // (images.map(img => img.tag)).length &&
+                                      // false
 
-                                  // profile &&
-                                  // !loading &&
-                                  // images &&
-                                  // images
-                                  //   .map(img => img.tag)
-                                  //   .splice(undefined) === images.length &&
-                                  // false
-                                  //     images.length &&
-                                  // (images &&
-                                  //   Object.keys(tags).length !==
-                                  //     images.length &&
-                                  //   false)
-                                  // profile &&
-                                  // !loading &&
-                                  // images &&
-                                  // images.length < 5 &&
-                                  // true &&
-                                  // profile &&
-                                  // !loading &&
-                                  // Object.keys(tags).length < 1 &&
-                                  // true
-                                }
-                                onClick={continues}
-                              >
-                                Next
-                              </Button>
+                                      // profile &&
+                                      // !loading &&
+                                      // images &&
+                                      // images
+                                      //   .map(img => img.tag)
+                                      //   .splice(undefined) === images.length &&
+                                      // false
+                                      //     images.length &&
+                                      // (images &&
+                                      //   Object.keys(tags).length !==
+                                      //     images.length &&
+                                      //   false)
+                                      // profile &&
+                                      // !loading &&
+                                      // images &&
+                                      // images.length < 5 &&
+                                      // true &&
+                                      // profile &&
+                                      // !loading &&
+                                      // Object.keys(tags).length < 1 &&
+                                      // true
+                                    }
+                                    onClick={continues}
+                                  >
+                                    Next
+                                  </Button>
+                                </Fragment>
+                              </Fragment>
                             </Fragment>
-                          </Fragment>
-                        </Fragment>
-                      </div>
-                    </div>
-                  }
-                />
-              )}
-              {match.url === "/add-portfolio" && isMobile && (
-                <FormBottomNav
-                  step={step}
-                  Children={
-                    <div>
-                      <div>
-                        <Fragment>
-                          <Fragment>
-                            <Button component={Link} to='/settings'>
-                              Back
-                            </Button>
-                            <Button
-                              className={classes.button}
-                              onClick={e => submit(e)}
-                            >
-                              Update
-                            </Button>
-                          </Fragment>
-                        </Fragment>
-                      </div>
-                    </div>
-                  }
-                />
-              )}
+                          </div>
+                        </div>
+                      }
+                    />
+                  )}
+                  {match.url === "/add-portfolio" && isMobile && (
+                    <FormBottomNav
+                      step={step}
+                      Children={
+                        <div>
+                          <div>
+                            <Fragment>
+                              <Fragment>
+                                <Button component={Link} to='/settings'>
+                                  Back
+                                </Button>
+                                <Button
+                                  className={classes.button}
+                                  onClick={e => submit(e)}
+                                >
+                                  Update
+                                </Button>
+                              </Fragment>
+                            </Fragment>
+                          </div>
+                        </div>
+                      }
+                    />
+                  )}
 
-              {/* <FormBottomNav
+                  {/* <FormBottomNav
                 step={step}
                 Children={
                   <div>
@@ -238,11 +238,13 @@ const AddPortfolio = ({
                   </div>
                 }
               /> */}
-            </Fragment>
-          </div>
-        </div>
-      </Fragment>
-    </Fragment>
+                </Fragment>
+              </div>
+            </div>
+          </Fragment>
+        </Fragment>
+      }
+    />
   );
 };
 
@@ -258,7 +260,9 @@ const mapStateToProps = state => ({
   uploader: state.uploader
 });
 
-export default connect(
-  mapStateToProps,
-  { addPortfolio, getCurrentProfile, getImages, uploadTag }
-)(withRouter(AddPortfolio));
+export default connect(mapStateToProps, {
+  addPortfolio,
+  getCurrentProfile,
+  getImages,
+  uploadTag
+})(withRouter(AddPortfolio));

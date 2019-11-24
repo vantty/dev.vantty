@@ -10,21 +10,19 @@ import { getStrategy } from "../../../../helpers";
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
 import {
-  Card,
-  CardHeader,
-  CardContent,
   CardActions,
   Divider,
   Grid,
   Button,
-  TextField
+  TextField,
+  Typography
 } from "@material-ui/core";
 
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
 import { getCurrentProfile, createProfile } from "../../../../actions/profile";
 import { AvatarUploader } from "./components";
-import { FormBottomNav } from "../ComponentsForm";
+import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 // Helpers
 import { schemaErrors } from "../../../../helpers/errorsData";
@@ -39,6 +37,21 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       color: "white",
       backgroundColor: theme.palette.greenVantty.light
+    }
+  },
+  layout: {
+    width: "auto",
+    padding: theme.spacing(),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: 600,
+      padding: theme.spacing(3),
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+      borderStyle: "solid",
+      borderWidth: "0.1px",
+      borderColor: "grey"
     }
   }
 }));
@@ -165,14 +178,12 @@ const AccountDetails = ({
     formState.touched[field] && formState.errors[field] ? true : false;
   return (
     <Fragment>
-      <Card className={clsx(classes.root, className)}>
-        <form autoComplete='off' noValidate>
-          <CardHeader
-            // subheader='The information can be edited'
-            title='Profile'
-          />
-          {/* <Divider /> */}
-          <CardContent>
+      {/* <spam className={classes.layout}> */}
+      {/* <Card className={clsx(classes.root, className)}> */}
+      <CustomPaper
+        Children={
+          <form autoComplete='off' noValidate>
+            <Typography>Profile</Typography>
             <Grid container spacing={3}>
               <Grid
                 container
@@ -214,7 +225,6 @@ const AccountDetails = ({
                   onChange={handleChange}
                 />
               </Grid>
-
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
@@ -251,31 +261,31 @@ const AccountDetails = ({
                 />
               </Grid> */}
             </Grid>
-          </CardContent>
-          {match.url !== "/create-profile" && !isMobile && (
-            <Fragment>
-              <Divider />
+            {/* </CardContent> */}
+            {match.url !== "/create-profile" && !isMobile && (
+              <Fragment>
+                <Divider />
 
-              <CardActions>
-                <Grid
-                  container
-                  direction='row'
-                  justify='space-between'
-                  alignItems='flex-start'
-                >
-                  <Grid>
-                    {/* {!profile && !profile.mobileNumber && ( */}
-                    {user && !user.profile && (
-                      <Button
-                        component={Link}
-                        size='small'
-                        className={classes.button}
-                        to={"/create-profile"}
-                      >
-                        Create Profile as Artist
-                      </Button>
-                    )}
-                    {/* {!profile && (
+                <CardActions>
+                  <Grid
+                    container
+                    direction='row'
+                    justify='space-between'
+                    alignItems='flex-start'
+                  >
+                    <Grid>
+                      {/* {!profile && !profile.mobileNumber && ( */}
+                      {user && !user.profile && (
+                        <Button
+                          component={Link}
+                          size='small'
+                          className={classes.button}
+                          to={"/create-profile"}
+                        >
+                          Create Profile as Artist
+                        </Button>
+                      )}
+                      {/* {!profile && (
                       <Button
                         component={Link}
                         size='small'
@@ -285,71 +295,73 @@ const AccountDetails = ({
                         Create Profile as Artist
                       </Button>
                     )} */}
-                  </Grid>
+                    </Grid>
 
-                  <Grid>
-                    <Button
-                      onClick={e => onSubmit(e)}
-                      className={classes.button}
-                      disabled={!formState.isValid}
-                    >
-                      Update
-                    </Button>
-                  </Grid>
-                </Grid>
-              </CardActions>
-            </Fragment>
-          )}
-
-          <Divider />
-          {match.url === "/create-profile" && (
-            <FormBottomNav
-              step={step}
-              Children={
-                <div>
-                  <div>
-                    <Fragment>
-                      <Button component={Link} to={"/settings"}>
-                        Back
-                      </Button>
+                    <Grid>
                       <Button
                         onClick={e => onSubmit(e)}
                         className={classes.button}
                         disabled={!formState.isValid}
                       >
-                        {match.url === "/personal-info" ? "Update" : "Next"}
+                        Update
                       </Button>
-                    </Fragment>
-                  </div>
-                </div>
-              }
-            />
-          )}
-          {isMobile && (
-            <FormBottomNav
-              step={step}
-              Children={
-                <div>
+                    </Grid>
+                  </Grid>
+                </CardActions>
+              </Fragment>
+            )}
+
+            <Divider />
+            {match.url === "/create-profile" && (
+              <FormBottomNav
+                step={step}
+                Children={
                   <div>
-                    <Fragment>
-                      <Button component={Link} to={"/settings"}>
-                        Back
-                      </Button>
-                      <Button
-                        onClick={e => onSubmit(e)}
-                        className={classes.button}
-                        disabled={!formState.isValid}
-                      >
-                        {match.url === "/personal-info" ? "Update" : "Next"}
-                      </Button>
-                    </Fragment>
+                    <div>
+                      <Fragment>
+                        <Button component={Link} to={"/settings"}>
+                          Back
+                        </Button>
+                        <Button
+                          onClick={e => onSubmit(e)}
+                          className={classes.button}
+                          disabled={!formState.isValid}
+                        >
+                          {match.url === "/personal-info" ? "Update" : "Next"}
+                        </Button>
+                      </Fragment>
+                    </div>
                   </div>
-                </div>
-              }
-            />
-          )}
-        </form>
-      </Card>
+                }
+              />
+            )}
+            {isMobile && (
+              <FormBottomNav
+                step={step}
+                Children={
+                  <div>
+                    <div>
+                      <Fragment>
+                        <Button component={Link} to={"/settings"}>
+                          Back
+                        </Button>
+                        <Button
+                          onClick={e => onSubmit(e)}
+                          className={classes.button}
+                          disabled={!formState.isValid}
+                        >
+                          {match.url === "/personal-info" ? "Update" : "Next"}
+                        </Button>
+                      </Fragment>
+                    </div>
+                  </div>
+                }
+              />
+            )}
+          </form>
+        }
+      />
+      {/* </Card> */}
       <br />
     </Fragment>
   );
@@ -370,7 +382,9 @@ const mapStateToProps = state => ({
   uploading: state.uploader.uploading
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, updateInfo, createProfile, loadUser }
-)(withRouter(AccountDetails));
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  updateInfo,
+  createProfile,
+  loadUser
+})(withRouter(AccountDetails));

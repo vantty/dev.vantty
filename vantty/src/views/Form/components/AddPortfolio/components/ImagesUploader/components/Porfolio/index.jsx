@@ -150,8 +150,5 @@ Porfolio.propTypes = {
   deletePicture: PropTypes.func.isRequired
 };
 
-export default connect(
-  null,
-  { deletePicture }
-)(Porfolio);
+export default connect(null, { deletePicture })(Porfolio);
 //

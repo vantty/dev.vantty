@@ -10,11 +10,8 @@ import { getStrategy } from "../../../../../../../../helpers";
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
 import {
-  Card,
   CardHeader,
   CardContent,
-  CardActions,
-  Divider,
   Grid,
   Button,
   TextField
@@ -220,7 +217,9 @@ const mapStateToProps = state => ({
   uploading: state.uploader.uploading
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, updateInfo, createProfile, loadUser }
-)(withRouter(Services));
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  updateInfo,
+  createProfile,
+  loadUser
+})(withRouter(Services));

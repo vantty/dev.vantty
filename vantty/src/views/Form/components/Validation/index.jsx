@@ -18,7 +18,7 @@ import {
 // Actions
 import { createProfile } from "../../../../actions/profile";
 // import { AvatarUploader } from "./components";
-import { FormBottomNav } from "../ComponentsForm";
+import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 // Helpers
 
@@ -73,14 +73,9 @@ const Validation = ({
 
   return (
     <Fragment>
-      <Card className={clsx(classes.root, className)}>
-        <form autoComplete='off' noValidate>
-          <CardHeader
-            // subheader='The information can be edited'
-            title='Professional'
-          />
-          {/* <Divider /> */}
-          <CardContent>
+      <CustomPaper
+        Children={
+          <form autoComplete='off' noValidate>
             <Grid container spacing={3}>
               <br />
               <Grid item md={12} xs={12}>
@@ -91,35 +86,35 @@ const Validation = ({
                 <EnglishLevel formData={formData} handleChange={handleChange} />
               </Grid>
             </Grid>
-          </CardContent>
 
-          <Divider />
+            <Divider />
 
-          <FormBottomNav
-            step={step}
-            Children={
-              <div>
+            <FormBottomNav
+              step={step}
+              Children={
                 <div>
-                  <Fragment>
-                    <Button onClick={back}>Back</Button>
-                    <Button
-                      onClick={e => onSubmit(e)}
-                      className={classes.button}
-                      disabled={
-                        !formData.gender ||
-                        !formData.qualified ||
-                        !formData.englishLevel
-                      }
-                    >
-                      Next
-                    </Button>
-                  </Fragment>
+                  <div>
+                    <Fragment>
+                      <Button onClick={back}>Back</Button>
+                      <Button
+                        onClick={e => onSubmit(e)}
+                        className={classes.button}
+                        disabled={
+                          !formData.gender ||
+                          !formData.qualified ||
+                          !formData.englishLevel
+                        }
+                      >
+                        Next
+                      </Button>
+                    </Fragment>
+                  </div>
                 </div>
-              </div>
-            }
-          />
-        </form>
-      </Card>
+              }
+            />
+          </form>
+        }
+      />
       <br />
     </Fragment>
   );
@@ -135,7 +130,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile }
-)(withRouter(Validation));
+export default connect(mapStateToProps, { createProfile })(
+  withRouter(Validation)
+);
