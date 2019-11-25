@@ -9,6 +9,7 @@ import number from "./number";
 import search from "./search";
 import pay from "./pay";
 import cart from "./cart";
+import book from "./book";
 
 export default combineReducers({
   alert,
@@ -20,5 +21,6 @@ export default combineReducers({
   number,
   search,
   pay,
-  cart
+  cart,
+  book
 });

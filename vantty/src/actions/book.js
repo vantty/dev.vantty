@@ -4,7 +4,13 @@ import {
   REMOVE_COMMENT,
   ADD_BOOK,
   BOOK_ERROR,
-  CLEAR_BOOK
+  CLEAR_BOOK,
+  CREATE_STRIPE_ACCOUNT_SUCCESS,
+  CREATE_STRIPE_ACCOUNT_FAIL,
+  CREATE_STRIPE_CUSTOMER_SUCCESS,
+  CREATE_STRIPE_CUSTOMER_FAIL,
+  PAY_SUCCESS,
+  PAY_FAIL
 } from "./types";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
@@ -25,9 +31,15 @@ export const creacteStripeAccount = code => async dispatch => {
     };
     const body = JSON.stringify({ stripe_user_id, _id });
     const resSave = await server.post("/book/save-account", body, config);
-    log(resSave.data);
+    dispatch({
+      type: CREATE_STRIPE_ACCOUNT_SUCCESS,
+      payload: resSave.data
+    });
   } catch (error) {
     console.log(error);
+    dispatch({
+      type: CREATE_STRIPE_ACCOUNT_FAIL
+    });
   }
 };
 
