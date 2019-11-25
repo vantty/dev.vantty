@@ -14,7 +14,8 @@ import {
   EditPortfolio,
   EditMobile,
   EditPrice,
-  EditCategories
+  EditCategories,
+  EditBookings
 } from "./views/EditForm/components";
 
 import {
@@ -42,19 +43,19 @@ import {
 //Routes
 import PrivateRoute from "./router/PrivateRoute";
 import AdminRoute from "./router/AdminRoute";
-import { InfoContact, Validation } from "./views/Form/components";
+import {
+  InfoContact,
+  Validation,
+  Appointments,
+  Bookings
+} from "./views/Form/components";
 import { SettingsGeneral } from "./views/Settings/components";
-import ProfileUser from "./views/ProfileUser";
-import Personal from "./views/ViewsForm/Personal";
 
 const Routes = () => {
   return (
     <Switch>
-      {/* <Route exact path="/order" component={Order} /> */}
       <Route exact path='/confirm-account' component={CreateArtistAccount} />
-      {/* <PrivateRoute exact path="/checkout" component={Checkout} /> */}
       <Route exact path='/confirmation/:token' component={Confirmation} />
-      {/* <Route exact path='/confirmation' component={WaitForConfirmation} /> */}
       {/* ADMIN */}
       <AdminRoute exact path='/dashboard' component={Board} />
       <PrivateRoute exact path='/create-profile' component={Form} />
@@ -116,6 +117,12 @@ const Routes = () => {
         path='/data-policy'
       />
       {/* EDIT FORM */}
+      <RoutePrivateWithLayout
+        component={EditBookings}
+        exact
+        layout={MinimalLayout}
+        path='/bookings'
+      />
       <RoutePrivateWithLayout
         component={Checkout}
         exact

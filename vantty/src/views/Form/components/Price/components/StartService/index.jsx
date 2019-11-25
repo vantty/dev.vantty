@@ -79,8 +79,7 @@ const StartService = ({ price, handleChange }) => {
           <div>
             <Container>
               <Typography color='textSecondary' variant='body1'>
-                This is the minimum price for which you provide a service but
-                you define the final price with the customer
+                This is the minimum price for which you provide a service
               </Typography>
               <br />
               <br />
@@ -107,14 +106,14 @@ const StartService = ({ price, handleChange }) => {
                     />
                     <br />
                     <br />
-                    <Typography
+                    {/* <Typography
                       // className={classes.locationText}
                       // color='textSecondary'
                       variant='body1'
                     >
                       I provide a service minimum for{" "}
                       <strong>${price || 80}</strong>
-                    </Typography>
+                    </Typography> */}
                   </Grid>
                 </Grid>
               </Fragment>
@@ -122,6 +121,7 @@ const StartService = ({ price, handleChange }) => {
           </div>
         </div>
       </Fragment>
+      <Divider />
     </Fragment>
   );
 };

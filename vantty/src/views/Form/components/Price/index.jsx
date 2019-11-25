@@ -117,6 +117,7 @@ const Price = ({
   const onSubmit = e => {
     e.preventDefault();
     createProfile({ services: serviceData }, history, true);
+    createProfile({ price: price }, history, true);
     nextStep();
   };
 

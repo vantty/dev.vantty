@@ -15,8 +15,9 @@ const useStyles = makeStyles(theme => ({
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
       borderStyle: "solid",
-      borderWidth: "0.1px",
-      borderColor: "grey"
+      borderWidth: "0.08rem",
+      borderColor: "grey",
+      boxShadow: "0 0 1.5px #000"
     }
   }
 }));

@@ -10,19 +10,16 @@ import { getCurrentProfile } from "../../actions/profile";
 //Material-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Box, Grid, Hidden } from "@material-ui/core";
-import Progress from "@material-ui/core/LinearProgress";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Container } from "@material-ui/core";
-// import {
-//   SettSettingsProfile,
-//   SettingsProfile,
-//   SettingsUser
-// } from "./components";
+
 import { isOwner } from "../../helpers";
 import { Alert, SimpleAppBar } from "../../components";
 import { isMobile } from "react-device-detect";
 import Settings from "../../views/Settings";
+import { Bookings } from "../Form/components";
 
 // Component styles
 const useStyles = makeStyles(theme => ({

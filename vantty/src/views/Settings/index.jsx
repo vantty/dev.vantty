@@ -52,7 +52,11 @@ const Settings = ({
               : "/search"
           }
         />
-        <AvatarUser profilePicture={method && method.profilePicture.original} />
+        {isMobile && (
+          <AvatarUser
+            profilePicture={method && method.profilePicture.original}
+          />
+        )}
       </Hidden>
       {/* {user && user.profile ? (
         <SettingsProfile match={match} pagesProfile={pagesProfile} />
