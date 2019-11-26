@@ -15,6 +15,9 @@ const BookSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users"
       },
+      name: {
+        type: String
+      },
       appointment: {
         type: String
       },
@@ -33,6 +36,10 @@ const BookSchema = new Schema({
       },
       taxes: {
         type: Number
+      },
+      state: {
+        type: String,
+        default: "request"
       },
       requestDate: {
         type: Date,

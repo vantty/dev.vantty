@@ -10,6 +10,7 @@ import {
   Select
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { GoogleMapsAutocomplete } from "../../../../components";
 const log = console.log;
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +23,8 @@ const useStyles = makeStyles(theme => ({
 export default function AddressForm({
   onChangeTarget,
   address,
-  descriptionAddress
+  descriptionAddress,
+  onChange
 }) {
   const classes = useStyles();
 
@@ -50,6 +52,12 @@ export default function AddressForm({
         </Grid>
         {location === "userLocation" ? (
           <Fragment>
+            {/* <GoogleMapsAutocomplete
+              address={address}
+              onChangeTarget={onChangeTarget}
+              onChange={onChange}
+              descriptionAddress={descriptionAddress}
+            /> */}
             <Grid item xs={12}>
               <TextField
                 required

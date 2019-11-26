@@ -116,7 +116,7 @@ export default function Slider({
         <Table services={profile.services} />
         <Divider />
         <br />
-        {owner && (
+        {!owner && (
             <Typography color='primary' variant='body1'>
               Date
             </Typography>
@@ -138,7 +138,7 @@ export default function Slider({
         {/* <Divider variant="middle" /> */}
         <Fragment>
           {/* <Divider variant='middle' /> */}
-          {owner && (
+          {!owner && (
             <div className={classes.section3}>
               <Button
                 className={classes.button}

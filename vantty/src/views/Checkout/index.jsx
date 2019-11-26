@@ -178,7 +178,7 @@ const Checkout = ({
     e.preventDefault();
     setCheckout({ ...checkout, totals: total, services: addedItems });
     setActiveStep(activeStep + 1);
-    if (activeStep === 2) handlePay();
+
     if (activeStep === 3) {
       const bookCode = randomCode({ length: 6 });
       addNewBook(
@@ -190,21 +190,24 @@ const Checkout = ({
     }
   };
 
-  const handlePay = () => {};
-
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
-  // const handleBook = async e => {
-  //   e.preventDefault();
-  //   addNewBook(match.params.bookId, profile.stripeArtistAccount, checkout);
-  // };
   // const onChange = (e, data, value) => {
   //   e.preventDefault();
   //   setCheckout({ ...checkout, totals: total, services: addedItems });
   //   // setCheckout({ ...checkout, [data]: value });
   // };
+  // const handleBook = async e => {
+  //   e.preventDefault();
+  //   addNewBook(match.params.bookId, checkout);
+  // };
+  const onChange = (e, data, value) => {
+    e.preventDefault();
+    setCheckout({ ...checkout, data: value });
+    // setCheckout({ ...checkout, [data]: value });
+  };
 
   // Handle fields change
 
@@ -225,6 +228,7 @@ const Checkout = ({
         return (
           <AddressForm
             onChangeTarget={onChangeTarget}
+            onChange={onChange}
             address={address}
             descriptionAddress={descriptionAddress}
           />
@@ -252,10 +256,10 @@ const Checkout = ({
       <CssBaseline />
 
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth="xs">
+      <Container maxWidth='xs'>
         <main className={classes.layout}>
           {/* <Paper className={classes.paper}> */}
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component='h1' variant='h4' align='center'>
             Checkout
           </Typography>
 
@@ -273,10 +277,10 @@ const Checkout = ({
           <Fragment>
             {activeStep === steps.length ? (
               <Fragment>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant='h5' gutterBottom>
                   Thank you for your order.
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant='subtitle1'>
                   Your order number is #2001539. We have emailed your order
                   confirmation, and will send you an update when your order has
                   shipped.
@@ -292,8 +296,8 @@ const Checkout = ({
                     </Button>
                   )}
                   <Button
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >
