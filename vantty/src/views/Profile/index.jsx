@@ -76,7 +76,6 @@ const Profile = ({
       // [e.target.name]: e.target.value
     });
   };
-  log(state);
 
   // const onChange = value => event => {
   //   if (event.target.checked) {

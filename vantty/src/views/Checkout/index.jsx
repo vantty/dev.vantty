@@ -1,35 +1,40 @@
 import React, { useEffect, Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+import clsx from "clsx";
+import randomCode from "crypto-random-string";
+
+// Material-UI
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import {
+  CssBaseline,
+  Container,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  StepConnector
+} from "@material-ui/core";
+import Check from "@material-ui/icons/Check";
+
+// Components
 import AddressForm from "./components/AddressForm";
 import Book from "./components/Book";
 import Review from "./components/Review";
 import Summary from "./components/Summary";
-import StepConnector from "@material-ui/core/StepConnector";
-import { isMobile } from "react-device-detect";
 import { SimpleAppBar } from "../../components";
-import { withStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
-import Check from "@material-ui/icons/Check";
+
+// Actions
 import { getProfileById } from "../../actions/profile";
-// Externals
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
 import { initialServices } from "../../actions/cart";
 import { addNewBook } from "../../actions/book";
 
+// Helpers
 const log = console.log;
+
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -173,17 +178,28 @@ const Checkout = ({
     e.preventDefault();
     setCheckout({ ...checkout, totals: total, services: addedItems });
     setActiveStep(activeStep + 1);
-    if (activeStep === 3) addNewBook(match.params.bookId, checkout);
+    if (activeStep === 2) handlePay();
+    if (activeStep === 3) {
+      const bookCode = randomCode({ length: 6 });
+      addNewBook(
+        match.params.bookId,
+        profile.stripeArtistAccount,
+        bookCode,
+        checkout
+      );
+    }
   };
+
+  const handlePay = () => {};
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleBook = async e => {
-    e.preventDefault();
-    addNewBook(match.params.bookId, checkout);
-  };
+  // const handleBook = async e => {
+  //   e.preventDefault();
+  //   addNewBook(match.params.bookId, profile.stripeArtistAccount, checkout);
+  // };
   // const onChange = (e, data, value) => {
   //   e.preventDefault();
   //   setCheckout({ ...checkout, totals: total, services: addedItems });
@@ -194,7 +210,6 @@ const Checkout = ({
 
   const onChangeTarget = e =>
     setCheckout({ ...checkout, [e.target.name]: e.target.value });
-  log(checkout);
   function getStepContent(step) {
     switch (step) {
       case 0:

@@ -15,7 +15,6 @@ const BookSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users"
       },
-
       appointment: {
         type: String
       },
@@ -35,11 +34,13 @@ const BookSchema = new Schema({
       taxes: {
         type: Number
       },
-
       requestDate: {
         type: Date,
         default: Date.now
-      }
+      },
+      bookCode: { type: String },
+      stripeCustomerId: { type: String },
+      stripeArtistAccount: { type: String }
     }
   ],
   date: {

@@ -85,6 +85,24 @@ exports.pay = async (req, res) => {
   }
 };
 
+// Complete Service
+exports.completeService = async (req, res) => {
+  try {
+    const book = await Book.findOne({ user: req.body._id });
+    const service = book.bookings.find(
+      service => service.bookCode === req.body.code
+    );
+    const { stripeCustomerId, stripeArtistAccount, totalValue } = service;
+    let data = await charge(stripeCustomerId, stripeArtistAccount, totalValue);
+
+    log("BACK", data);
+    res.status(200).json(data);
+  } catch (error) {
+    log(error);
+    res.status(500).json(error);
+  }
+};
+
 ///BOOK
 // Current User
 // exports.current = async (req, res) => {
@@ -125,6 +143,7 @@ exports.createNewBook = async (req, res) => {
     log(book);
 
     var method = user.method;
+
     const newBook = {
       // rating: req.body.rating,
       // text: req.body.text,
@@ -132,7 +151,9 @@ exports.createNewBook = async (req, res) => {
       // name: user[method].firstName,
       // profilePicture: user[method].profilePicture.original,
       // user: req.user.id,
-
+      bookCode: req.body.bookCode,
+      stripeCustomerId: req.body.stripeCustomerId,
+      stripeArtistAccount: req.body.stripeArtistAccount,
       appointment: req.body.date,
       address: req.body.address,
       descriptionAddress: req.body.descriptionAddress,
@@ -140,6 +161,7 @@ exports.createNewBook = async (req, res) => {
       services: req.body.services,
       totalValue: req.body.totals
     };
+    console.log("NEW", newBook);
     book.bookings.unshift(newBook);
 
     await book.save();

@@ -37,7 +37,6 @@ const _PaymentForm = props => {
       evt.preventDefault();
       if (stripe) {
         let { token } = await stripe.createToken();
-        // let amount = "100";
         payment(token, stripeArtistAccount, amount);
       } else {
         console.log("Stripe.js hasn't loaded yet.");

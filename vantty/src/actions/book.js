@@ -43,6 +43,23 @@ export const creacteStripeAccount = code => async dispatch => {
   }
 };
 
+// Complete Service
+export const completeService = code => async dispatch => {
+  try {
+    const {
+      data: { _id }
+    } = await server.get("/auth");
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    const body = JSON.stringify({ _id, code });
+    const res = await server.post("/book/complete-service", body, config);
+    log("ACTION", res);
+  } catch (error) {
+    log(error);
+  }
+};
+
 // Create Stripe Customer Id and Pay
 export const payment = (
   token,
@@ -62,8 +79,8 @@ export const payment = (
       const body = JSON.stringify({ token, email, _id });
       await server.post("/book/create-customer", body, config);
     }
-    const body = JSON.stringify({ _id, stripeArtistAccount, amount });
-    const res = await server.post("/book/pay", body, config);
+    // const body = JSON.stringify({ _id, stripeArtistAccount, amount });
+    // const res = await server.post("/book/pay", body, config);
   } catch (error) {
     console.log(error);
   }
@@ -86,17 +103,31 @@ export const payment = (
 // };
 
 // Add comment
-export const addNewBook = (reviewId, formData) => async dispatch => {
-  console.log(reviewId, formData);
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
+export const addNewBook = (
+  reviewId,
+  stripeArtistAccount,
+  bookCode,
+  formData
+) => async dispatch => {
   try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    const user = await server.get("/auth");
+    const {
+      data: { stripeCustomerId }
+    } = user;
+    const body = {
+      ...formData,
+      bookCode: bookCode,
+      stripeCustomerId: stripeCustomerId,
+      stripeArtistAccount: stripeArtistAccount
+    };
     const res = await server.post(
       `/book/create-book/${reviewId}`,
-      formData,
+      body,
       config
     );
     await dispatch({

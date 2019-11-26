@@ -28,7 +28,7 @@ export const loadService = services => async dispatch => {
       type: SERVICE_SUCCESS,
       payload: services
     });
-    log(services);
+    // log(services);
   } catch (error) {
     console.log(error);
   }

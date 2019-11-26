@@ -4,7 +4,8 @@ const express = require("express"),
     createAccount,
     saveAccount,
     createCustomer,
-    createNewBook
+    createNewBook,
+    completeService
   } = require("../controllers/book"),
   router = express.Router();
 const passport = require("passport");
@@ -15,6 +16,7 @@ router.post("/create-account/:code", createAccount);
 router.post("/save-account", saveAccount);
 router.post("/create-customer", createCustomer);
 router.post("/create-book/:id", passportJWT, createNewBook);
+router.post("/complete-service", completeService);
 // router.delete("/comment/:id/:comment_id", passportJWT, deleteComment);
 
 module.exports = router;
