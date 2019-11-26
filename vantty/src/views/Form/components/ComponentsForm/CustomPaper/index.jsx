@@ -14,10 +14,7 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(3),
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
-      borderStyle: "solid",
-      borderWidth: "0.08rem",
-      borderColor: "grey",
-      boxShadow: "0 0 1.5px #000"
+      boxShadow: "0 0 0.3rem #e9e9e9"
     }
   }
 }));
