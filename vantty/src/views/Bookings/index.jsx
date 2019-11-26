@@ -8,6 +8,9 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { BookingList } from "./Components";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getBook, changeStateBooking } from "../../actions/book";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,13 +52,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function FullWidthTabs() {
+const Bookings = ({ getBook, book: { book }, changeStateBooking }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
     // changeNavbarValue("bookings");
+    getBook();
   }, []);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -87,10 +91,13 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <BookingList />
+          <BookingList
+            book={book && book}
+            changeStateBooking={changeStateBooking}
+          />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          All
+          <BookingList />
         </TabPanel>
         {/* <TabPanel value={value} index={2} dir={theme.direction}>
           Item Three
@@ -98,4 +105,17 @@ export default function FullWidthTabs() {
       </SwipeableViews>
     </div>
   );
-}
+};
+
+Bookings.propTypes = {
+  book: PropTypes.object.isRequired,
+  getBook: PropTypes.func,
+  changeStateBooking: PropTypes.func
+};
+
+const mapStateToProps = state => ({
+  book: state.book
+});
+export default connect(mapStateToProps, { getBook, changeStateBooking })(
+  withRouter(Bookings)
+);

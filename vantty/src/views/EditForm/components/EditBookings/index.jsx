@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import EditForm from "../../../EditForm";
-import { Bookings } from "../../../Form/components";
+import Bookings from "../../../Bookings";
 
 const EditBookings = () => {
   return (

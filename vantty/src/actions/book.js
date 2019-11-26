@@ -4,7 +4,9 @@ import {
   REMOVE_COMMENT,
   ADD_BOOK,
   BOOK_ERROR,
-  CLEAR_BOOK
+  CLEAR_BOOK,
+  GET_BOOK,
+  CHANGE_STATE_BOOKING
 } from "./types";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
@@ -57,31 +59,50 @@ export const payment = (
   }
 };
 
-// Get Review
-// export const getReview = reviewId => async dispatch => {
-//   try {
-//     const res = await server.get(`/review/${reviewId}`);
-//     dispatch({
-//       type: GET_REVIEW,
-//       payload: res.data
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: REVIEW_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status }
-//     });
-//   }
-// };
+//////////////////////////
+//Booking
+//////////////////////////
 
-// Add comment
-export const addNewBook = (reviewId, formData) => async dispatch => {
-  console.log(reviewId, formData);
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
+export const getBook = () => async dispatch => {
   try {
+    const res = await server.get(`/book`);
+
+    dispatch({
+      type: GET_BOOK,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: BOOK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get Book by Id
+export const getBookById = reviewId => async dispatch => {
+  try {
+    const res = await server.get(`/book/${reviewId}`);
+    dispatch({
+      type: GET_BOOK,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: REVIEW_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Add Book
+export const addNewBook = (reviewId, formData) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
     const res = await server.post(
       `/book/create-book/${reviewId}`,
       formData,
@@ -104,21 +125,47 @@ export const addNewBook = (reviewId, formData) => async dispatch => {
   }
 };
 
-// Delete comment
-export const deleteComment = (reviewId, commentId) => async dispatch => {
+// Change State
+export const changeStateBooking = (bookingId, data) => async dispatch => {
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   }
+  // };
+  const formData = { state: data };
   try {
-    await server.delete(`/review/comment/${reviewId}/${commentId}`);
+    const res = await server.post(`/book/booking/${bookingId}`, formData);
 
-    dispatch({
-      type: REMOVE_COMMENT,
-      payload: commentId
+    await dispatch({
+      type: CHANGE_STATE_BOOKING,
+      payload: res.data
     });
-
-    dispatch(setAlert("Comment Removed", "success"));
+    await dispatch(getBook());
+    // dispatch(setAlert("Comment Removed", "success"));
   } catch (err) {
     dispatch({
-      type: REVIEW_ERROR,
+      type: BOOK_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
+
+// Delete comment
+// export const deleteComment = (reviewId, commentId) => async dispatch => {
+//   try {
+
+//     await server.delete(`/review/comment/${reviewId}/${commentId}`);
+
+//     dispatch({
+//       type: REMOVE_COMMENT,
+//       payload: commentId
+//     });
+
+//     dispatch(setAlert("Comment Removed", "success"));
+//   } catch (err) {
+//     dispatch({
+//       type: REVIEW_ERROR,
+//       payload: { msg: err.response.statusText, status: err.response.status }
+//     });
+//   }
+// };

@@ -85,26 +85,28 @@ exports.pay = async (req, res) => {
   }
 };
 
+//////////////////////////
 ///BOOK
-// Current User
-// exports.current = async (req, res) => {
-//   try {
-//     // var method = "";
-//     const profile = await Profile.findOne({ user: req.user.id });
-//     const images = await Image.findById(profile.imagesId);
+//////////////////////////
 
-//     if (!images) {
-//       return res.status(400).json({ msg: "There is no images for this user" });
-//     }
-//     res.json(images.pictures);
-//   } catch (err) {
-//     console.error(err.message);
-//     if (err.kind === "ObjectId") {
-//       return res.status(404).json({ msg: "Images not found" });
-//     }
-//     res.status(500).send("Server Error");
-//   }
-// };
+// Current User
+exports.current = async (req, res) => {
+  try {
+    // var method = "";
+    const profile = await Profile.findOne({ user: req.user.id });
+    const book = await Book.findById(profile.bookId);
+    if (!book) {
+      return res.status(400).json({ msg: "There is no book for this user" });
+    }
+    res.json(book.bookings);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Images not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+};
 
 // @desc     Get all Books
 // exports.allReviews = async (req, res) => {
@@ -117,22 +119,33 @@ exports.pay = async (req, res) => {
 //   }
 // };
 
-// @desc     Comment on a reviews
+// @desc     Get review by ID
+exports.getBookById = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+
+    if (!book) {
+      return res.status(404).json({ msg: "Review not found" });
+    }
+
+    res.json(book);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Review not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+};
+
+// @desc  Create New Booking
 exports.createNewBook = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     const book = await Book.findById(req.params.id);
-    log(book);
-
     var method = user.method;
     const newBook = {
-      // rating: req.body.rating,
-      // text: req.body.text,
-      // subject: req.body.subject,
-      // name: user[method].firstName,
-      // profilePicture: user[method].profilePicture.original,
-      // user: req.user.id,
-
+      name: user[method].firstName,
       appointment: req.body.date,
       address: req.body.address,
       descriptionAddress: req.body.descriptionAddress,
@@ -150,3 +163,69 @@ exports.createNewBook = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+// Change State Booking
+// exports.changeStateBooking = async (req, res) => {
+//   log(req.body);
+//   log(req.params.bookingId);
+//   try {
+//     const profile = await Profile.findOne({ user: req.user.id });
+//     const book = await Book.findById(profile.bookId);
+
+//     if (!book) {
+//       return res.status(404).json({ msg: "Review not found" });
+//     }
+//     res.json(book);
+//   } catch (err) {
+//     console.error(err.message);
+//     if (err.kind === "ObjectId") {
+//       return res.status(404).json({ msg: "Review not found" });
+//     }
+//     res.status(500).send("Server Error");
+//   }
+// };
+
+exports.changeStateBooking = async (req, res) => {
+  try {
+    const { state } = req.body;
+    const profile = await Profile.findOne({ user: req.user.id });
+    const book = await Book.findById(profile.bookId);
+
+    // const arr = Array.from(pictures);
+    // const arr2 = Array.from(sendTags);
+    // log(book);
+    for (const x of book.bookings) {
+      if (x._id == req.params.bookingId) {
+        x.state = state;
+      }
+    }
+    book.save();
+    log(book);
+    res.json(book.bookings);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+// try {
+//   const sendTags = req.body;
+//   const profile = await Profile.findOne({ user: req.user.id });
+//   const images = await Image.findById(profile.imagesId);
+
+//   let pictures = images.pictures;
+
+//   const arr = Array.from(pictures);
+//   const arr2 = Array.from(sendTags);
+//   for (const x of arr) {
+//     for (const y of arr2) {
+//       if (x._id == y._id) {
+//         x.tag = y.tag;
+//       }
+//     }
+//   }
+//   images.save();
+//   res.json(images);
+// } catch (error) {
+//   console.log(error);
+// }
+// };
