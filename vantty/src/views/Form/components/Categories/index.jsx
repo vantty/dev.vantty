@@ -19,7 +19,7 @@ import {
   Typography
 } from "@material-ui/core";
 //Components
-import { FormBottomNav } from "../ComponentsForm";
+import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -33,7 +33,7 @@ import { isMobile } from "react-device-detect";
 const useStyles = makeStyles(theme => ({
   root: {},
   formControl: {
-    margin: theme.spacing(3)
+    // margin: theme.spacing(3)
   },
   button: {
     float: "right",
@@ -130,192 +130,190 @@ const AddCategories = ({
 
   return (
     <Fragment>
-      <Card className={clsx(classes.root, className)}>
-        <form autoComplete='off' noValidate>
-          <CardHeader
-            // subheader='from what value do your services start'
-            title='Categories'
-          />
-          {/* <Divider /> */}
-          <CardContent>
-            <Fragment>
-              <Grid
-                container
-                direction='row'
-                justify='center'
-                alignItems='baseline'
-              >
-                <Grid item xs={6} xl={6} md={6} sm={6}>
-                  {/* <form className='form'> */}
+      <CustomPaper
+        Children={
+          <Fragment>
+            <form autoComplete='off' noValidate>
+              {/* <Divider /> */}
 
-                  <FormControl
-                    error={error}
-                    component='fieldset'
-                    className={classes.formControl}
-                  >
-                    <Typography color='textSecondary' variant='body1'>
-                      Makeup
-                    </Typography>
-
-                    {error && (
-                      <FormLabel component='legend'>
-                        Select minimum one
-                      </FormLabel>
-                    )}
-
-                    <FormGroup>
-                      {Object.keys(state).map((data, index) => {
-                        return (
-                          <div key={data}>
-                            <Fragment>
-                              <FormControlLabel
-                                key={data}
-                                control={
-                                  <Checkbox
-                                    className={classes.checked}
-                                    checked={state[data] === true && true}
-                                    // state[data](
-                                    //   profile &&
-                                    //     profile.categories.makeup[index]
-                                    // );
-                                    onChange={handleChange(data)}
-                                    value={toString(data)}
-                                  />
-                                }
-                                label={data}
-                              />
-                            </Fragment>
-                          </div>
-                        );
-                      })}
-                    </FormGroup>
-                    {/* <FormHelperText>Be careful</FormHelperText> */}
-                  </FormControl>
-                  {/* </form> */}
-                </Grid>
-                <Grid item xs={6} xl={6} md={6} sm={6}>
-                  <FormControl
-                    error={errorHair}
-                    component='fieldset'
-                    className={classes.formControl}
-                  >
-                    <Typography color='textSecondary' variant='body1'>
-                      Hair
-                    </Typography>
-                    {errorHair && (
-                      <FormLabel component='legend'>
-                        Select minimum one
-                      </FormLabel>
-                    )}
-                    <FormGroup>
-                      {Object.keys(stateHair).map((data, index) => {
-                        return (
-                          <div key={data}>
-                            <Fragment>
-                              <FormControlLabel
-                                control={
-                                  <Checkbox
-                                    key={data}
-                                    className={classes.checked}
-                                    // checked={"" || stateHair[data] === true && true}
-                                    checked={"" || stateHair[data] === true}
-                                    onChange={handleChangeHair(data)}
-                                    value={toString(data)}
-                                  />
-                                }
-                                label={data}
-                              />
-                            </Fragment>
-                          </div>
-                        );
-                      })}
-                    </FormGroup>
-                    {/* <FormHelperText>Be careful</FormHelperText> */}
-                  </FormControl>
-                </Grid>
-              </Grid>
-            </Fragment>
-          </CardContent>
-          {match.url === "/categories" && !isMobile && (
-            <Fragment>
-              <Divider />
-
-              <CardActions>
+              <Fragment>
                 <Grid
                   container
                   direction='row'
-                  justify='flex-end'
+                  justify='space-between'
                   alignItems='flex-start'
                 >
-                  <Button
-                    className={classes.button}
-                    onClick={e => onSubmit(e)}
-                    disabled={error || errorHair}
-                  >
-                    Update
-                  </Button>
+                  <Grid item xs={6} xl={6} md={6} sm={6}>
+                    {/* <form className='form'> */}
+
+                    <FormControl
+                      error={error}
+                      component='fieldset'
+                      className={classes.formControl}
+                    >
+                      <Typography color='textSecondary' variant='body1'>
+                        Makeup
+                      </Typography>
+
+                      {error && (
+                        <FormLabel component='legend'>
+                          Select minimum one
+                        </FormLabel>
+                      )}
+
+                      <FormGroup>
+                        {Object.keys(state).map((data, index) => {
+                          return (
+                            <div key={data}>
+                              <Fragment>
+                                <FormControlLabel
+                                  key={data}
+                                  control={
+                                    <Checkbox
+                                      className={classes.checked}
+                                      checked={state[data] === true && true}
+                                      // state[data](
+                                      //   profile &&
+                                      //     profile.categories.makeup[index]
+                                      // );
+                                      onChange={handleChange(data)}
+                                      value={toString(data)}
+                                    />
+                                  }
+                                  label={data}
+                                />
+                              </Fragment>
+                            </div>
+                          );
+                        })}
+                      </FormGroup>
+                      {/* <FormHelperText>Be careful</FormHelperText> */}
+                    </FormControl>
+                    {/* </form> */}
+                  </Grid>
+                  <Grid item xs={6} xl={6} md={6} sm={6}>
+                    <FormControl
+                      error={errorHair}
+                      component='fieldset'
+                      className={classes.formControl}
+                    >
+                      <Typography color='textSecondary' variant='body1'>
+                        Hair
+                      </Typography>
+                      {errorHair && (
+                        <FormLabel component='legend'>
+                          Select minimum one
+                        </FormLabel>
+                      )}
+                      <FormGroup>
+                        {Object.keys(stateHair).map((data, index) => {
+                          return (
+                            <div key={data}>
+                              <Fragment>
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      key={data}
+                                      className={classes.checked}
+                                      // checked={"" || stateHair[data] === true && true}
+                                      checked={"" || stateHair[data] === true}
+                                      onChange={handleChangeHair(data)}
+                                      value={toString(data)}
+                                    />
+                                  }
+                                  label={data}
+                                />
+                              </Fragment>
+                            </div>
+                          );
+                        })}
+                      </FormGroup>
+                      {/* <FormHelperText>Be careful</FormHelperText> */}
+                    </FormControl>
+                  </Grid>
                 </Grid>
-              </CardActions>
-            </Fragment>
-          )}
-          <Fragment>
-            {match.url === "/create-profile" ? (
-              <FormBottomNav
-                step={step}
-                Children={
-                  <div>
-                    <div>
-                      <Fragment>
-                        {/* {match.url !== "/categories" ? (
+              </Fragment>
+
+              {match.url === "/categories" && !isMobile && (
+                <Fragment>
+                  <Divider />
+
+                  <CardActions>
+                    <Grid
+                      container
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
+                    >
+                      <Button
+                        className={classes.button}
+                        onClick={e => onSubmit(e)}
+                        disabled={error || errorHair}
+                      >
+                        Update
+                      </Button>
+                    </Grid>
+                  </CardActions>
+                </Fragment>
+              )}
+              <Fragment>
+                {match.url === "/create-profile" ? (
+                  <FormBottomNav
+                    step={step}
+                    Children={
+                      <div>
+                        <div>
+                          <Fragment>
+                            {/* {match.url !== "/categories" ? (
                           <Button onClick={back}>Back</Button>
                         ) : (
                           <Button component={Link} to={"/dashboard"}>
                             Back
                           </Button>
                         )} */}
-                        <Button onClick={back}>Back</Button>
-                        <Button
-                          className={classes.button}
-                          onClick={e => onSubmit(e)}
-                          disabled={error || errorHair}
-                        >
-                          {match.url === "/categories" ? "Update" : "next"}
-                        </Button>
-                      </Fragment>
-                    </div>
-                  </div>
-                }
-              />
-            ) : (
-              isMobile && (
-                <FormBottomNav
-                  step={step}
-                  Children={
-                    <div>
-                      <div>
-                        <Fragment>
-                          <Button component={Link} to={"/settings"}>
-                            Back
-                          </Button>
-                          <Button
-                            className={classes.button}
-                            onClick={e => onSubmit(e)}
-                            disabled={error || errorHair}
-                          >
-                            Update
-                          </Button>
-                        </Fragment>
+                            <Button onClick={back}>Back</Button>
+                            <Button
+                              className={classes.button}
+                              onClick={e => onSubmit(e)}
+                              disabled={error || errorHair}
+                            >
+                              {match.url === "/categories" ? "Update" : "next"}
+                            </Button>
+                          </Fragment>
+                        </div>
                       </div>
-                    </div>
-                  }
-                />
-              )
-            )}
+                    }
+                  />
+                ) : (
+                  isMobile && (
+                    <FormBottomNav
+                      step={step}
+                      Children={
+                        <div>
+                          <div>
+                            <Fragment>
+                              <Button component={Link} to={"/settings"}>
+                                Back
+                              </Button>
+                              <Button
+                                className={classes.button}
+                                onClick={e => onSubmit(e)}
+                                disabled={error || errorHair}
+                              >
+                                Update
+                              </Button>
+                            </Fragment>
+                          </div>
+                        </div>
+                      }
+                    />
+                  )
+                )}
+              </Fragment>
+            </form>
           </Fragment>
-        </form>
-
-        {/* <Progress /> */}
-      </Card>
+        }
+      />
     </Fragment>
   );
 };
@@ -331,7 +329,6 @@ AddCategories.propTypes = {
 const mapStateToProps = state => ({
   profile: state.profile
 });
-export default connect(
-  mapStateToProps,
-  { addCategories, getCurrentProfile }
-)(withRouter(AddCategories));
+export default connect(mapStateToProps, { addCategories, getCurrentProfile })(
+  withRouter(AddCategories)
+);

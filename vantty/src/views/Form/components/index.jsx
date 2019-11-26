@@ -7,3 +7,5 @@ export { default as Categories } from "./Categories";
 export { default as Education } from "./Education";
 export { default as Validation } from "./Validation";
 export { default as StripeAccount } from "./StripeAccount";
+export { default as Profile } from "./Profile";
+export { default as Bookings } from "./Bookings";

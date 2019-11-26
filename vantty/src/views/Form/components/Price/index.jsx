@@ -12,7 +12,7 @@ import {
 } from "../../../../actions/profile";
 
 //Components
-import { FormBottomNav } from "../ComponentsForm";
+import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 import { isMobile } from "react-device-detect";
 
@@ -38,7 +38,7 @@ import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
 
-import { Form, ServiceCard } from "./components";
+import { Form, ServiceCard, StartService } from "./components";
 import { getStrategy } from "../../../../helpers";
 
 const useStyles = makeStyles(theme => ({
@@ -117,7 +117,13 @@ const Price = ({
   const onSubmit = e => {
     e.preventDefault();
     createProfile({ services: serviceData }, history, true);
+    createProfile({ price: price }, history, true);
     nextStep();
+  };
+
+  const onSubmitStartCost = e => {
+    e.preventDefault();
+    createProfile({ price: price }, history, true);
   };
   const onSubmitPrice = e => {
     e.preventDefault();
@@ -132,21 +138,19 @@ const Price = ({
   const classes = useStyles();
   return (
     <Fragment>
-      <Fragment>
-        <Card className={clsx(classes.root, className)}>
-          {profile ? (
-            <form autoComplete='off' noValidate>
-              <CardHeader
-                // subheader='from what value do your services start'
-                title='Price'
-              />
-              {/* <Divider /> */}
-              <CardContent className={classes.content}>
-                {/* <StartService price={price} handleChange={handleChange} /> */}
+      <CustomPaper
+        Children={
+          <Fragment>
+            {profile ? (
+              <form autoComplete='off' noValidate>
+                {/* <Divider /> */}
+
+                <StartService price={price} handleChange={handleChange} />
                 <Form
                   serviceData={serviceData}
                   onChange={onChange}
                   onSubmit={onSubmitPrice}
+                  services={profile.services}
                 />
                 <Divider />
                 <br />
@@ -160,33 +164,34 @@ const Price = ({
                 />
 
                 {/* <ServiceForm /> */}
-              </CardContent>
-              {match.url === "/price" && !isMobile && (
-                <Fragment>
-                  <Divider />
-                  <CardActions>
-                    <Grid
-                      container
-                      direction='row'
-                      justify='flex-end'
-                      alignItems='flex-start'
-                    >
-                      <Button
-                        className={classes.button}
-                        onClick={e => onSubmitPrice(e)}
+
+                {match.url === "/price" && !isMobile && (
+                  <Fragment>
+                    <Divider />
+                    <CardActions>
+                      <Grid
+                        container
+                        direction='row'
+                        justify='flex-end'
+                        alignItems='flex-start'
                       >
-                        Update
-                      </Button>
-                    </Grid>
-                  </CardActions>
-                </Fragment>
-              )}
-            </form>
-          ) : (
-            <Progress />
-          )}
-        </Card>
-      </Fragment>
+                        <Button
+                          className={classes.button}
+                          onClick={e => onSubmitPrice(e)}
+                        >
+                          Update
+                        </Button>
+                      </Grid>
+                    </CardActions>
+                  </Fragment>
+                )}
+              </form>
+            ) : (
+              <Progress />
+            )}
+          </Fragment>
+        }
+      />
       <Fragment>
         {match.url === "/create-profile" ? (
           <FormBottomNav
@@ -237,10 +242,11 @@ const Price = ({
                       Back
                     </Button>
                     <Button
-                      component={Link}
-                      to='/settings'
+                      // component={Link}
+                      // to='/settings'
                       className={classes.button}
-                      onClick={e => onSubmitPrice(e)}
+                      // onClick={e => onSubmitPrice(e)}
+                      onClick={e => onSubmitStartCost(e)}
                     >
                       Update
                     </Button>

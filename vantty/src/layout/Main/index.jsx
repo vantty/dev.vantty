@@ -36,7 +36,7 @@ const Main = props => {
       <main className={classes.content}>
         {!isMobile ? <Navbar /> : <BottomNavbar />}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </div>
   );

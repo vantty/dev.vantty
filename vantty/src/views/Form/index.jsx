@@ -42,16 +42,6 @@ const useStyles = makeStyles(theme => ({
       marginLeft: "auto",
       marginRight: "auto"
     }
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
-    padding: theme.spacing(1),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(13),
-      marginBottom: theme.spacing(12),
-      padding: theme.spacing(1)
-    }
   }
 }));
 
@@ -163,7 +153,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Fragment>
                     <Fragment>{getStepContent(activeStep)}</Fragment>
                   </Fragment>

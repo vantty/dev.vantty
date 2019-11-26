@@ -162,7 +162,10 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { userImage, deleteUserPicture, loadUser, updateInfo, getCurrentProfile }
-)(AvatarUploader);
+export default connect(mapStateToProps, {
+  userImage,
+  deleteUserPicture,
+  loadUser,
+  updateInfo,
+  getCurrentProfile
+})(AvatarUploader);

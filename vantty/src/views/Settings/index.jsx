@@ -9,12 +9,12 @@ import { getProfileById, getCurrentProfile } from "../../actions/profile";
 import { loadUser, logout } from "../../actions/auth";
 
 // Helpers
-import { isOwner } from "../../helpers";
+import { isOwner, getStrategy } from "../../helpers";
 import { pagesProfile, pagesUser } from "./list";
 
 // Components
 import { SimpleAppBar } from "../../components";
-import { SettingsProfile, SettingsUser } from "./components";
+import { SettingsProfile, SettingsUser, AvatarUser } from "./components";
 
 // Material-UI
 import { Hidden } from "@material-ui/core";
@@ -30,6 +30,8 @@ const Settings = ({
   history,
   getProfileById
 }) => {
+  const method = getStrategy(user);
+
   useEffect(() => {
     loadUser();
     getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
@@ -50,11 +52,23 @@ const Settings = ({
               : "/search"
           }
         />
+        {isMobile && (
+          <AvatarUser
+            profilePicture={method && method.profilePicture.original}
+          />
+        )}
       </Hidden>
-      {user && user.profile ? (
+      {/* {user && user.profile ? (
         <SettingsProfile match={match} pagesProfile={pagesProfile} />
       ) : (
         <SettingsUser match={match} pages={pagesUser} />
+      )} */}
+
+      {user && user.profile && (
+        <SettingsProfile
+          match={match}
+          pagesProfile={user.profile ? pagesProfile : pagesUser}
+        />
       )}
     </Fragment>
   );
@@ -74,7 +88,9 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfileById, getCurrentProfile, loadUser, logout }
-)(Settings);
+export default connect(mapStateToProps, {
+  getProfileById,
+  getCurrentProfile,
+  loadUser,
+  logout
+})(Settings);

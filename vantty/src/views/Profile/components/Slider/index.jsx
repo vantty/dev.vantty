@@ -81,7 +81,8 @@ export default function Slider({
   loadService,
   onChange,
   onChangeDate,
-  state
+  state,
+  owner
 }) {
   const classes = useStyles();
 
@@ -100,12 +101,12 @@ export default function Slider({
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
         {/* <div className={classes.section1}> */}
-        <Typography color="primary" variant="body1">
+        <Typography color='primary' variant='body1'>
           Starting Cost
         </Typography>
-        <Grid container alignItems="center">
+        <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography gutterBottom variant="h5">
+            <Typography gutterBottom variant='h5'>
               ${profile.price}
               <span className={classes.infoPrice}> /cad </span>
             </Typography>
@@ -115,10 +116,11 @@ export default function Slider({
         <Table services={profile.services} />
         <Divider />
         <br />
-        <Typography color="primary" variant="body1">
-          Date
-        </Typography>
-        <Date onChangeDate={onChangeDate} />
+        {owner && (
+            <Typography color='primary' variant='body1'>
+              Date
+            </Typography>
+          ) && <Date onChangeDate={onChangeDate} />}
 
         {/* <Divider /> */}
         {/* <br /> */}
@@ -127,7 +129,7 @@ export default function Slider({
           Hour Range
         </Typography>
         <Hour onChangeDate={onChangeDate} state={state} /> */}
-        <Divider variant="middle" />
+        <Divider variant='middle' />
 
         {/* <Typography color="primary" variant="body1">
           Resume
@@ -136,19 +138,21 @@ export default function Slider({
         {/* <Divider variant="middle" /> */}
         <Fragment>
           {/* <Divider variant='middle' /> */}
-          <div className={classes.section3}>
-            <Button
-              className={classes.button}
-              // disabled={!verified}
-              component={Link}
-              // to={"/checkout"}
-              to={`/checkout/${profile.user._id}/${profile.bookId}`}
-              onClick={() => loadService(state)}
-              variant="contained"
-            >
-              Book
-            </Button>
-          </div>
+          {owner && (
+            <div className={classes.section3}>
+              <Button
+                className={classes.button}
+                // disabled={!verified}
+                component={Link}
+                // to={"/checkout"}
+                to={`/checkout/${profile.user._id}/${profile.bookId}`}
+                onClick={() => loadService(state)}
+                variant='contained'
+              >
+                Book
+              </Button>
+            </div>
+          )}
         </Fragment>
         {/* {!disabled && (
           <Fragment>

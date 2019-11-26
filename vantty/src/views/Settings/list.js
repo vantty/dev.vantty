@@ -1,47 +1,73 @@
-import React from "react";
-
-import PeopleIcon from "@material-ui/icons/People";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import ImageIcon from "@material-ui/icons/Image";
-
 export const pagesProfile = [
   {
     title: "Profile",
-    href: "/personal-info",
-    icon: <PeopleIcon />
+    href: "/personal-info"
   },
   {
     title: "Biografy",
-    href: "/edit-profile",
-    icon: <ImageIcon />
+    href: "/edit-profile"
   },
-
+  {
+    title: "Bookings",
+    href: "/bookings"
+  },
+  {
+    title: "Payments",
+    href: "/payments"
+  },
+  {
+    title: "Help Center",
+    href: "/helpcenter"
+  },
   {
     title: "Portfolio",
-    href: "/add-portfolio",
-    icon: <PeopleIcon />
+    href: "/add-portfolio"
   },
   {
     title: "Categories",
-    href: "/categories",
-    icon: <ImageIcon />
+    href: "/categories"
   },
   {
     title: "Service",
-    href: "/price",
-    icon: <ImageIcon />
+    href: "/price"
   },
   {
     title: "Mobile",
-    href: "/mobile",
-    icon: <ShoppingBasketIcon />
+    href: "/mobile"
   }
 ];
 
 export const pagesUser = [
   {
     title: "Profile",
-    href: "/personal-info"
+    href: "/dashboard/user/profile"
+  },
+
+  {
+    title: "Appointments",
+    href: "/dashboard/user/apponitments"
+  },
+  {
+    title: "Payments",
+    href: "/dashboard/user/apponitments"
+  },
+  {
+    title: "Help Center",
+    href: "/helpcenter"
+  },
+
+  {
+    title: "Change Password",
+    href: "/password"
+  },
+  {
+    title: "Terms",
+    href: "/terms-of-service"
+  },
+
+  {
+    title: "Data Policy",
+    href: "/data-policy"
   }
 ];
 

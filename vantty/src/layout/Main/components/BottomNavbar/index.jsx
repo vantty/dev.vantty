@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import HomeIcon from "@material-ui/icons/Home";
+import Event from "@material-ui/icons/Event";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountIcon from "@material-ui/icons/AccountCircle";
 import { getCurrentProfile } from "../../../../actions/profile";
@@ -73,6 +74,15 @@ const BottomNavbar = props => {
             to='/search'
             icon={<SearchIcon />}
           />
+          {isAuthenticated && (
+            <BottomNavigationAction
+              label='Event'
+              value='bookings'
+              component={Link}
+              to='/bookings'
+              icon={<Event />}
+            />
+          )}
           {!isAuthenticated ? (
             <BottomNavigationAction
               label='Join Now'
@@ -143,7 +153,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { logout, getCurrentProfile }
-)(BottomNavbar);
+export default connect(mapStateToProps, { logout, getCurrentProfile })(
+  BottomNavbar
+);
