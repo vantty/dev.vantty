@@ -5,6 +5,7 @@ const JWT = require("jsonwebtoken"),
   async = require("async"),
   crypto = require("crypto"),
   bcrypt = require("bcryptjs"),
+  { composeEmail } = require("../helpers"),
   log = console.log;
 
 exports.auth = async (req, res) => {
@@ -213,39 +214,6 @@ generateEmailToken = user => {
   return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
     expiresIn: "1d"
   });
-};
-
-// Compose and send email
-composeEmail = (email, subject, html) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.mailgun.org",
-      port: 465,
-      secure: true,
-      auth: {
-        user: "postmaster@mg.vantty.ca",
-        pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
-      }
-    });
-
-    let message = {
-      from: "admin@vantty.ca",
-      to: `${email}`,
-      subject: subject,
-      html: html
-    };
-
-    transporter.sendMail(message, (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Email sent");
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
-  }
 };
 
 //Update Personal Info

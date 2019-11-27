@@ -7,7 +7,6 @@ import navbar from "./navbar";
 import uploader from "./uploader";
 import number from "./number";
 import search from "./search";
-import pay from "./pay";
 import cart from "./cart";
 import book from "./book";
 
@@ -20,7 +19,6 @@ export default combineReducers({
   uploader,
   number,
   search,
-  pay,
   cart,
   book
 });

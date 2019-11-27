@@ -12,7 +12,8 @@ import {
   PAY_SUCCESS,
   PAY_FAIL,
   GET_BOOK,
-  CHANGE_STATE_BOOKING
+  CHANGE_STATE_BOOKING,
+  SERVICE_SUCCESS
 } from "./types";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
@@ -62,12 +63,8 @@ export const completeService = code => async dispatch => {
   }
 };
 
-// Create Stripe Customer Id and Pay
-export const payment = (
-  token,
-  stripeArtistAccount,
-  amount
-) => async dispatch => {
+// Validate Card and Create Stripe ID
+export const validateCard = token => async dispatch => {
   try {
     const config = {
       headers: { "Content-Type": "application/json" }
@@ -81,8 +78,6 @@ export const payment = (
       const body = JSON.stringify({ token, email, _id });
       await server.post("/book/create-customer", body, config);
     }
-    // const body = JSON.stringify({ _id, stripeArtistAccount, amount });
-    // const res = await server.post("/book/pay", body, config);
   } catch (error) {
     console.log(error);
   }
@@ -91,6 +86,24 @@ export const payment = (
 //////////////////////////
 //Booking
 //////////////////////////
+
+export const loadService = services => async dispatch => {
+  try {
+    // const config = {
+    //   headers: { "Content-Type": "application/json" }
+    // };
+    // const body = JSON.stringify({ token, amount });
+    // const res = await server.post("/book/pay", body, config);
+
+    dispatch({
+      type: SERVICE_SUCCESS,
+      payload: services
+    });
+    // log(services);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getBook = () => async dispatch => {
   try {

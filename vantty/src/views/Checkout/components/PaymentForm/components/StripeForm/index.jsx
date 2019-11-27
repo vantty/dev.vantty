@@ -17,13 +17,13 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 
 // Actions
-import { payment } from "../../../../../../actions/book";
+import { validateCard } from "../../../../../../actions/book";
 
 // Helpers
 const log = console.log;
 
-const _PaymentForm = props => {
-  const { stripe, payment, stripeArtistAccount, amount } = props;
+const _StripeForm = props => {
+  const { stripe, validateCard } = props;
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = ({ error }) => {
@@ -37,7 +37,7 @@ const _PaymentForm = props => {
       evt.preventDefault();
       if (stripe) {
         let { token } = await stripe.createToken();
-        payment(token, stripeArtistAccount, amount);
+        validateCard(token);
       } else {
         console.log("Stripe.js hasn't loaded yet.");
       }
@@ -76,7 +76,7 @@ const _PaymentForm = props => {
           </Grid>
           <div role="alert">{errorMessage}</div>
           <Grid item xs={12}>
-            <Button type="submit">PAY</Button>
+            <Button type="submit">VALIDATE YOUR CARD</Button>
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
@@ -92,15 +92,14 @@ const _PaymentForm = props => {
   );
 };
 
-const PaymentForm = injectStripe(_PaymentForm);
+const StripeForm = injectStripe(_StripeForm);
 
-PaymentForm.propTypes = {
-  payment: PropTypes.func,
-  profile: PropTypes.object
+StripeForm.propTypes = {
+  validateCard: PropTypes.func
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
-});
+// const mapStateToProps = state => ({
+//   profile: state.profile
+// });
 
-export default connect(mapStateToProps, { payment })(PaymentForm);
+export default connect(null, { validateCard })(StripeForm);

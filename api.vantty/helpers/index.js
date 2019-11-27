@@ -1,3 +1,5 @@
+const nodemailer = require("nodemailer");
+
 exports.validator = (req, res, next) => {
   req.check("firstName", "Please enter your first name").notEmpty();
   req.check("lastName", "Please enter your last name").notEmpty();
@@ -54,6 +56,39 @@ exports.profileValidatorPortfolio = (req, res, next) => {
     return res.status(400).json({ errors });
   }
   next();
+};
+
+// Compose and send email
+exports.composeEmail = (email, subject, html) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.mailgun.org",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "postmaster@mg.vantty.ca",
+        pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
+      }
+    });
+
+    let message = {
+      from: "admin@vantty.ca",
+      to: `${email}`,
+      subject: subject,
+      html: html
+    };
+
+    transporter.sendMail(message, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Email sent");
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
 };
 
 // exports.createReviewValidator = (req, res, next) => {

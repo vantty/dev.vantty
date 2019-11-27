@@ -8,7 +8,8 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
-  ACCOUNT_DELETE
+  ACCOUNT_DELETE,
+  SERVICE_SUCCESS
 } from "./types";
 
 const log = console.log;
@@ -456,6 +457,25 @@ const deleteFromElastic = async elasticId => {
     }
   };
   await elastic.delete(`/${elasticId}`, elasticConfig);
+};
+
+// Load Service
+export const loadService = services => async dispatch => {
+  try {
+    // const config = {
+    //   headers: { "Content-Type": "application/json" }
+    // };
+    // const body = JSON.stringify({ token, amount });
+    // const res = await server.post("/book/pay", body, config);
+
+    dispatch({
+      type: SERVICE_SUCCESS,
+      payload: services
+    });
+    // log(services);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // Add Service

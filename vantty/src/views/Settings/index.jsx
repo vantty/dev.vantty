@@ -40,7 +40,7 @@ const Settings = ({
   return (
     <Fragment>
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
 
       <Hidden only={["md", "lg", "xl"]}>
@@ -58,18 +58,14 @@ const Settings = ({
           />
         )}
       </Hidden>
-      {/* {user && user.profile ? (
+      {user && user.profile ? (
         <SettingsProfile match={match} pagesProfile={pagesProfile} />
       ) : (
         <SettingsUser match={match} pages={pagesUser} />
-      )} */}
-
-      {user && user.profile && (
-        <SettingsProfile
-          match={match}
-          pagesProfile={user.profile ? pagesProfile : pagesUser}
-        />
       )}
+      {/* {user && user.profile && (
+        <SettingsProfile match={match} pagesProfile={pagesProfile} />
+      )} */}
     </Fragment>
   );
 };

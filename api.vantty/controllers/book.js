@@ -1,7 +1,8 @@
-const sripeLoader = require("stripe");
-const User = require("../models/User");
-const Profile = require("../models/Profile");
-const Book = require("../models/Book");
+const sripeLoader = require("stripe"),
+  User = require("../models/User"),
+  Profile = require("../models/Profile"),
+  Book = require("../models/Book"),
+  { composeEmail } = require("../helpers");
 
 const log = console.log;
 const stripe = new sripeLoader("sk_test_2ZvJXkOqKtXmex8vDaAeuTsm00SBivNKpy");

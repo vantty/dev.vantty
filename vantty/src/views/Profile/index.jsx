@@ -1,28 +1,30 @@
 import React, { Fragment, useEffect, useState } from "react";
-
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
-
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
+
 // Components
 import { Header } from "../../components/";
 import { Review, Slider, MessageVerified, ContactBook } from "./components";
-
-//Components inside
 import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
-
-// Actions
-import { getProfileById } from "../../actions/profile";
-import { loadService } from "../../actions/pay";
-// Material-UI
-import { CssBaseline, Container } from "@material-ui/core";
-import Progress from "@material-ui/core/LinearProgress";
 import { SimpleAppBar } from "../../components";
 import { BottomNavbar } from "../../layout/Main/components";
+
+// Actions
+import { getProfileById, loadService } from "../../actions/profile";
 import { getImagesById } from "../../actions/uploader";
+
+// Material-UI
+import {
+  CssBaseline,
+  Container,
+  Grid,
+  Hidden,
+  LinearProgress as Progress
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+// Helpers
 import { isOwner } from "../../helpers";
 const log = console.log;
 
@@ -44,12 +46,12 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = ({
   getProfileById,
-  profile: { profile, loading },
+  profile: { profile, loading, services },
   uploader: { images },
   getImagesById,
   auth,
   auth: { user },
-  pay: { services },
+  // pay: { services },
   match,
   history,
   loadService
@@ -115,7 +117,7 @@ const Profile = ({
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          <Container maxWidth='md'>
+          <Container maxWidth="md">
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}
