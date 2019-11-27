@@ -25,6 +25,7 @@ import {
   ListItemSecondaryAction,
   Button
 } from "@material-ui/core";
+const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -65,6 +66,10 @@ const useStyles = makeStyles(theme => ({
 export default function RecipeReviewCard({ booking, changeStateBooking }) {
   const classes = useStyles();
 
+  const replace = str => {
+    const newString = str.replace(/ /g, "+");
+    return newString;
+  };
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -78,22 +83,32 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title='Shrimp and Chorizo Paella'
+        title={`Your client is ${booking.name}`}
         subheader={booking.requestDate}
       />
-      <CardMedia
-        className={classes.media}
-        // image='/static/images/cards/paella.jpg'
-        title='Paella dish'
-      />
+      <a
+        target='_blank'
+        href={`https://www.google.com/maps/place/${replace(
+          booking.address.street
+        )}/`}
+      >
+        <CardMedia
+          className={classes.media}
+          image={`https://maps.googleapis.com/maps/api/staticmap?center=${replace(
+            booking.address.street
+          )}&zoom=13&scale=false&size=500x500&maptype=terrain&key=${
+            process.env.REACT_APP_GOOGLE_MAPS_ID
+          }&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C2360+dundas+street+west`}
+          title={booking.address.street}
+        />
+      </a>
+
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {booking.descriptionAddress}
         </Typography>
       </CardContent>
-
+      {log(booking)}
       <Fragment>
         <div className={classes.root}>
           <Grid container spacing={0}>

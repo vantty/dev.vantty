@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 export default function AddressForm({
   onChangeTarget,
   address,
+  onChangeAddress,
   descriptionAddress,
   onChange
 }) {
@@ -52,23 +53,15 @@ export default function AddressForm({
         </Grid>
         {location === "userLocation" ? (
           <Fragment>
-            {/* <GoogleMapsAutocomplete
-              address={address}
+            <GoogleMapsAutocomplete
+              // address={address}
               onChangeTarget={onChangeTarget}
-              onChange={onChange}
-              descriptionAddress={descriptionAddress}
-            /> */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                id='address'
-                label='Address'
-                name='address'
-                value={address}
-                onChange={onChangeTarget}
-                fullWidth
-              />
-            </Grid>
+              onChangeAddress={onChangeAddress}
+
+              // onChange={onChange}
+              // descriptionAddress={descriptionAddress}
+            />
+
             <Grid item xs={12}>
               <TextField
                 required

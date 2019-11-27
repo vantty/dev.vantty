@@ -1,71 +1,71 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
-import { Grid, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@material-ui/core";
+const log = console.log;
+const useStyles = makeStyles(theme => ({
+  div: {
+    marginLeft: "0.8rem",
+    minWidth: "5rem"
+  }
+}));
 
-export default function App({
-  onChangeTarget,
-  descriptionAddress,
-  address,
-  onChange
-}) {
-  // const [address, setAddress] = React.useState("");
+export default function App({ onChangeAddress }) {
+  const [address, setAddress] = React.useState("");
   const [coordinates, setCoordinates] = React.useState({
     lat: null,
     lng: null
   });
+  const classes = useStyles();
 
-  const handleChange = address => e => {
-    e.preventDefault();
-    onChange({ address: address });
-  };
-  const handleSelect = async value => {
-    const results = await geocodeByAddress(value);
+  const handleSelect = async address => {
+    const results = await geocodeByAddress(address);
     const latLng = await getLatLng(results[0]);
-    // setAddress(value);
-    setCoordinates(latLng);
+    await setAddress(address);
+    await setCoordinates(latLng);
+    await onChangeAddress({
+      street: address,
+      lat: latLng.lat,
+      log: latLng.lng
+    });
   };
 
   return (
     <div>
       <PlacesAutocomplete
         value={address}
-        onChange={onChange}
+        onChange={setAddress}
         onSelect={handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <Fragment>
-              <Grid container spacing={3}>
-                <Fragment>
-                  <Grid item xs={12}>
-                    {/* <TextField
-                      required
-                      id='address'
-                      label='Address'
-                      name='address'
-                      value={address}
-                      onChange={onChangeTarget}
-                      fullWidth
-                    /> */}
-                    <input
-                      {...getInputProps({ placeholder: "Type address" })}
-                    />
-                  </Grid>
-                </Fragment>
-              </Grid>
-            </Fragment>
+          <div className={classes.div}>
             {/* <p>Latitude: {coordinates.lat}</p> */}
             {/* <p>Longitude: {coordinates.lng}</p> */}
-
-            <div>
+            <span>
+              <TextField
+                fullWidth
+                required
+                name='address'
+                id='description'
+                label='Addrees'
+                value={address}
+                {...getInputProps({
+                  // id: "mui-places-autocomplete-input",
+                  // placeholder: "Type address"
+                  className: "textfield"
+                })}
+              />
+              <span {...getInputProps({})} />
               {loading ? <div>...loading</div> : null}
-
+            </span>
+            <div>
               {suggestions.map(suggestion => {
                 const style = {
-                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                  width: "10rem"
                 };
 
                 return (

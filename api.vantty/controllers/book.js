@@ -95,7 +95,6 @@ exports.completeService = async (req, res) => {
     const { stripeCustomerId, stripeArtistAccount, totalValue } = service;
     let data = await charge(stripeCustomerId, stripeArtistAccount, totalValue);
 
-    log("BACK", data);
     res.status(200).json(data);
   } catch (error) {
     log(error);
@@ -181,7 +180,7 @@ exports.createNewBook = async (req, res) => {
       services: req.body.services,
       totalValue: req.body.totals
     };
-    console.log("NEW", newBook);
+
     book.bookings.unshift(newBook);
 
     await book.save();

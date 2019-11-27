@@ -156,7 +156,7 @@ const Checkout = ({
   const [checkout, setCheckout] = React.useState({
     date: "",
     hour: "",
-    address: "",
+    // address: {},
     descriptionAddress: "",
     services: [],
     totals: ""
@@ -213,6 +213,19 @@ const Checkout = ({
 
   const onChangeTarget = e =>
     setCheckout({ ...checkout, [e.target.name]: e.target.value });
+
+  ///Address
+  const onChangeAddress = (address, log, lat) => {
+    // const address = { address, log, lat };
+    setCheckout({
+      ...checkout,
+      // address,
+      address,
+      log,
+      lat
+    });
+  };
+  log(checkout);
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -227,9 +240,8 @@ const Checkout = ({
       case 1:
         return (
           <AddressForm
+            onChangeAddress={onChangeAddress}
             onChangeTarget={onChangeTarget}
-            onChange={onChange}
-            address={address}
             descriptionAddress={descriptionAddress}
           />
         );
