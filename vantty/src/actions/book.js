@@ -193,6 +193,7 @@ export const changeStateBooking = (bookingId, data) => async dispatch => {
   //   }
   // };
   const formData = { state: data };
+  log("STATUS", data);
   try {
     const res = await server.post(`/book/booking/${bookingId}`, formData);
 

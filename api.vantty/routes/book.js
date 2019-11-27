@@ -1,6 +1,5 @@
 const express = require("express"),
   {
-    pay,
     createAccount,
     saveAccount,
     createCustomer,
@@ -14,7 +13,7 @@ const express = require("express"),
 const passport = require("passport");
 const passportJWT = passport.authenticate("jwt", { session: false });
 
-router.post("/pay", pay);
+// router.post("/pay", pay);
 router.post("/create-account/:code", createAccount);
 router.post("/save-account", saveAccount);
 router.post("/create-customer", createCustomer);

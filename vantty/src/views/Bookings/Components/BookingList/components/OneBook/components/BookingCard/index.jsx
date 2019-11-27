@@ -69,25 +69,25 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label='recipe' className={classes.avatar}>
+          <Avatar aria-label="recipe" className={classes.avatar}>
             {booking.user}
           </Avatar>
         }
         action={
-          <IconButton aria-label='settings'>
+          <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title='Shrimp and Chorizo Paella'
+        title="Shrimp and Chorizo Paella"
         subheader={booking.requestDate}
       />
       <CardMedia
         className={classes.media}
         // image='/static/images/cards/paella.jpg'
-        title='Paella dish'
+        title="Paella dish"
       />
       <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p'>
+        <Typography variant="body2" color="textSecondary" component="p">
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the
           mussels, if you like.
@@ -121,18 +121,17 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                     ))}
 
                   <CardActions>
-                    {console.log(booking.state)}
                     {booking.state === "request" && (
                       <Grid
                         container
-                        direction='row-reverse'
-                        justify='flex-start'
-                        alignItems='center'
+                        direction="row-reverse"
+                        justify="flex-start"
+                        alignItems="center"
                       >
                         <Button
-                          variant='outlined'
-                          size='small'
-                          color='primary'
+                          variant="outlined"
+                          size="small"
+                          color="primary"
                           onClick={e =>
                             changeStateBooking(booking._id, "decline")
                           }
@@ -141,9 +140,9 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           Decline
                         </Button>
                         <Button
-                          variant='outlined'
-                          size='small'
-                          color='primary'
+                          variant="outlined"
+                          size="small"
+                          color="primary"
                           onClick={e =>
                             changeStateBooking(booking._id, "propose")
                           }
@@ -152,9 +151,9 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           Propose new time
                         </Button>
                         <Button
-                          variant='outlined'
-                          size='small'
-                          color='primary'
+                          variant="outlined"
+                          size="small"
+                          color="primary"
                           onClick={() =>
                             changeStateBooking(booking._id, "accepted")
                           }

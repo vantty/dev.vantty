@@ -32,7 +32,7 @@ exports.sendEmail = async (req, res) => {
     const emailToken = generateEmailToken(newUser);
     const subject = "Email Confirmation";
     const url = `${req.headers.origin}/confirmation/${emailToken}`;
-    const html = `Hi ${firstName}, welcome to Vantty! Please confirm your email address by clicking this link: <a href=${url}><strong>Click Here.</strong></a>`;
+    const html = `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${url}><strong>click here.</strong></a>`;
     composeEmail(email, subject, html);
     res.status(200).json(newUser);
   } catch (error) {
