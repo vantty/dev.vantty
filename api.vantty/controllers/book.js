@@ -95,6 +95,9 @@ exports.completeService = async (req, res) => {
     );
     const { stripeCustomerId, stripeArtistAccount, totalValue } = service;
     let data = await charge(stripeCustomerId, stripeArtistAccount, totalValue);
+    service.state = "completed";
+    await book.save();
+    log("SERVICE", service);
     res.status(200).json(data);
   } catch (error) {
     log(error);

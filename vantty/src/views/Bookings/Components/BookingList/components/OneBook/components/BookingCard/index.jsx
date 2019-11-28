@@ -1,19 +1,7 @@
 import React, { Fragment } from "react";
+
+// Material-UI
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import {
   Grid,
@@ -23,8 +11,19 @@ import {
   ListItemText,
   Divider,
   ListItemSecondaryAction,
-  Button
+  Button,
+  Typography,
+  IconButton,
+  Avatar,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CardHeader,
+  Card
 } from "@material-ui/core";
+
+// Components
+import Test from "../../../../../../../Test";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -46,13 +45,16 @@ const useStyles = makeStyles(theme => ({
     transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: red[500]
+    backgroundColor: "red"
   },
   margin: {
     margin: theme.spacing(1)
   },
   stateAccepted: {
     backgroundColor: theme.palette.greenVantty.dark
+  },
+  stateCompleted: {
+    backgroundColor: theme.palette.greenVantty.light
   },
   stateDeclined: {
     backgroundColor: "orange"
@@ -166,8 +168,23 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                   </CardActions>
                   {booking.state === "accepted" && (
                     <CardActions className={classes.stateAccepted}>
+                      <Grid container>
+                        <Grid item>
+                          <Typography>
+                            This service was <strong>Accepted</strong>
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Test />
+                        </Grid>
+                      </Grid>
+                    </CardActions>
+                  )}
+                  {console.log(booking.state)}
+                  {booking.state === "completed" && (
+                    <CardActions className={classes.stateCompleted}>
                       <Typography>
-                        This service was <strong>Accepted</strong>
+                        This service was <strong>Completed</strong>
                       </Typography>
                     </CardActions>
                   )}

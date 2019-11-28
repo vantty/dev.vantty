@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1)
   },
   button: {
-    marginBottom: theme.spacing(10),
+    // marginBottom: theme.spacing(10),
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
       backgroundColor: theme.palette.greenVantty.dark
@@ -64,13 +64,12 @@ const Test = ({ completeService }) => {
       <CssBaseline />
       <div className={classes.paper}>
         <form onSubmit={handleSubmit}>
-          <Typography variant="h2" className={classes.title}>
+          {/* <Typography variant="h2" className={classes.title}>
             Lorem
-          </Typography>
+          </Typography> */}
           <Typography variant="subtitle1" className={classes.text}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem omnis
-            sapiente suscipit recusandae consequatur, hic dolor atque fugiat
-            maxime nemo.
+            Please enter the booking code given by the user to complete the
+            service
           </Typography>
           <TextField
             onChange={handleChange}

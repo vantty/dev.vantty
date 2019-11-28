@@ -57,7 +57,7 @@ export const completeService = code => async dispatch => {
     };
     const body = JSON.stringify({ _id, code });
     const res = await server.post("/book/complete-service", body, config);
-    log("ACTION", res);
+    await dispatch(getBook());
   } catch (error) {
     log(error);
   }
