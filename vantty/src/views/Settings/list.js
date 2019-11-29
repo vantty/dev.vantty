@@ -40,35 +40,35 @@ export const pagesProfile = [
 export const pagesUser = [
   {
     title: "Profile",
-    href: "/dashboard/user/profile"
+    href: "/personal-info"
   },
 
   {
     title: "Appointments",
-    href: "/dashboard/user/apponitments"
+    href: "/appointments"
   },
   {
     title: "Payments",
-    href: "/dashboard/user/apponitments"
-  },
-  {
-    title: "Help Center",
-    href: "/helpcenter"
-  },
-
-  {
-    title: "Change Password",
-    href: "/password"
-  },
-  {
-    title: "Terms",
-    href: "/terms-of-service"
-  },
-
-  {
-    title: "Data Policy",
-    href: "/data-policy"
+    href: "/payments"
   }
+  // {
+  //   title: "Help Center",
+  //   href: "/helpcenter"
+  // },
+
+  // {
+  //   title: "Change Password",
+  //   href: "/password"
+  // },
+  // {
+  //   title: "Terms",
+  //   href: "/terms-of-service"
+  // },
+
+  // {
+  //   title: "Data Policy",
+  //   href: "/data-policy"
+  // }
 ];
 
 export const pagesGeneral = [

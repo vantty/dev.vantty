@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-
 // Material-UI
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -8,12 +7,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import { Divider } from "@material-ui/core";
-
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant='body2' color='textSecondary' align='center'>
       {"Copyright © "}
-      <Link color="inherit" href="https://vantty.ca/">
+      <Link color='inherit' href='https://vantty.ca/'>
         Vantty
       </Link>{" "}
       {new Date().getFullYear()}
@@ -21,7 +19,6 @@ function Copyright() {
     </Typography>
   );
 }
-
 const useStyles = makeStyles(theme => ({
   "@global": {
     body: {
@@ -70,7 +67,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: "0.5rem"
   }
 }));
-
 const footers = [
   {
     title: "Team",
@@ -89,22 +85,20 @@ const footers = [
     Link: "/data-policy"
   }
 ];
-
 export default function Footer() {
   const classes = useStyles();
-
   return (
     <Fragment>
       <div className={classes.root}>
         <Divider />
-        <Container maxWidth="md" component="footer" className={classes.footer}>
-          <Grid container direction="row" justify="center" alignItems="center">
+        <Container maxWidth='md' component='footer' className={classes.footer}>
+          <Grid container direction='row' justify='center' alignItems='center'>
             {footers.map(item => (
               <span className={classes.element} key={item.title}>
                 <Link
                   href={item.Link}
-                  variant="subtitle1"
-                  color="textSecondary"
+                  variant='subtitle1'
+                  color='textSecondary'
                 >
                   {item.title}{" "}
                 </Link>

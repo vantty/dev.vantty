@@ -163,7 +163,7 @@ const Profile = ({
                           loadService={loadService}
                           onChangeDate={onChangeDate}
                           state={state}
-                          owner={isOwner(auth, user)}
+                          owner={isOwner(auth, profile.user._id)}
                         />
                       </div>
                     </Grid>

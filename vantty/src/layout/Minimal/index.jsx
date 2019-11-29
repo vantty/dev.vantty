@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: "100%",
+    // height: "100%",
     [theme.breakpoints.up("sm")]: {
       paddingTop: 64
     }
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: 240
   },
   content: {
-    height: "100%"
+    // height: "100%"
   }
 }));
 

@@ -5,7 +5,8 @@ import {
   ADD_QUANTITY,
   ADD_SHIPPING,
   INITIAL_SERVICES,
-  ADD_BOOK
+  ADD_BOOK,
+  CLEAR_CART
 } from "./types";
 
 //add cart action
@@ -42,5 +43,12 @@ export const addQuantity = id => {
   return {
     type: ADD_QUANTITY,
     id
+  };
+};
+
+// /add qt action
+export const clearCart = id => {
+  return {
+    type: CLEAR_CART
   };
 };

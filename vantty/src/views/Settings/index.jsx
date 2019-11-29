@@ -54,21 +54,15 @@ const Settings = ({
         />
         {isMobile && (
           <AvatarUser
-            profilePicture={method && method.profilePicture.original}
+            profilePicture={profile && method && method.profilePicture.original}
+            firstName={method.firstName}
           />
         )}
       </Hidden>
-      {/* {user && user.profile ? (
+      {user && user.profile ? (
         <SettingsProfile match={match} pagesProfile={pagesProfile} />
       ) : (
         <SettingsUser match={match} pages={pagesUser} />
-      )} */}
-
-      {user && user.profile && (
-        <SettingsProfile
-          match={match}
-          pagesProfile={user.profile ? pagesProfile : pagesUser}
-        />
       )}
     </Fragment>
   );

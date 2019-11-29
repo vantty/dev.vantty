@@ -138,6 +138,7 @@ export default function Slider({
         {/* <Divider variant="middle" /> */}
         <Fragment>
           {/* <Divider variant='middle' /> */}
+
           {!owner && (
             <div className={classes.section3}>
               <Button

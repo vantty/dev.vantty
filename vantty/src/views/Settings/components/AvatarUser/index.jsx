@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Avatar, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { getInitials } from "../../../../helpers";
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -18,15 +19,21 @@ const useStyles = makeStyles(theme => ({
     margin: "auto"
   }
 }));
-const AvatarUser = ({ profilePicture }) => {
+const AvatarUser = ({ profilePicture, firstName }) => {
   const classes = useStyles();
   return (
     <div>
       <br />
-      <Fragment>
-        <Avatar className={classes.avatar} src={profilePicture} />
-      </Fragment>
+      {profilePicture ? (
+        <Fragment>
+          <Avatar className={classes.avatar} src={profilePicture} />
+        </Fragment>
+      ) : (
+        <Avatar className={classes.avatar}>{getInitials(firstName)}</Avatar>
+      )}
       {/* <Link href={"/creare-profile"} className={classes.link}>
+      
+    }
         Become to an Artist
       </Link> */}
     </div>

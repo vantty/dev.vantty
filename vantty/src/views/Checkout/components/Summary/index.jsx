@@ -34,47 +34,59 @@ const useStyles = makeStyles(theme => ({
   total: {
     fontWeight: "700"
   },
+  fee: {
+    fontWeight: "500"
+  },
   title: {
     marginTop: theme.spacing(2)
   }
 }));
 
-export default function Summary() {
+export default function Summary({ checkout }) {
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant='h6' gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map(product => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+        {checkout.services.map(product => (
+          <ListItem className={classes.listItem} key={product._id}>
+            <ListItemText
+              primary={product.typeOfService}
+              secondary={`Quantity of services ${product.quantity}`}
+            />
+            <Typography variant='body2'>{`$${product.amount}`}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+          <ListItemText primary='Fee' />
+          <Typography variant='subtitle1' className={classes.fee}>
+            {`$${checkout.totals * 0.05}`}
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemText primary='Total' />
+          <Typography variant='subtitle1' className={classes.total}>
+            {`$${checkout.totals * 0.05 + checkout.totals}`}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+          <Typography variant='h6' gutterBottom className={classes.title}>
+            Address
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>Toronto</Typography>
+          <Typography gutterBottom>{checkout.address.street}</Typography>
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
+        {/* <Grid item container direction='column' xs={12} sm={6}>
+          <Typography variant='h6' gutterBottom className={classes.title}>
             Payment details
           </Typography>
           <Grid container>
-            {payments.map(payment => (
+            {checkout.map(payment => (
               <React.Fragment key={payment.name}>
                 <Grid item xs={6}>
                   <Typography gutterBottom>{payment.name}</Typography>
@@ -85,7 +97,7 @@ export default function Summary() {
               </React.Fragment>
             ))}
           </Grid>
-        </Grid>
+        </Grid> */}
       </Grid>
     </React.Fragment>
   );

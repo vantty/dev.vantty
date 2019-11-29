@@ -12,7 +12,8 @@ import {
   PAY_SUCCESS,
   PAY_FAIL,
   GET_BOOK,
-  CHANGE_STATE_BOOKING
+  CHANGE_STATE_BOOKING,
+  CLEAR_CART
 } from "./types";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
@@ -162,6 +163,9 @@ export const addNewBook = (
 
     await dispatch({
       type: CLEAR_BOOK
+    });
+    await dispatch({
+      type: CLEAR_CART
     });
     dispatch(setAlert("Comment Added", "success"));
   } catch (err) {

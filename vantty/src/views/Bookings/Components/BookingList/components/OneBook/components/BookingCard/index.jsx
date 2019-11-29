@@ -25,6 +25,7 @@ import {
   ListItemSecondaryAction,
   Button
 } from "@material-ui/core";
+import { Services } from "./components";
 const log = console.log;
 
 const useStyles = makeStyles(theme => ({
@@ -60,6 +61,15 @@ const useStyles = makeStyles(theme => ({
   },
   statePospone: {
     backgroundColor: "yellow"
+  },
+  button: {
+    width: "20px",
+    // height: "10rem",
+    // fontSize: "10px" + "!important",
+    margin: theme.spacing(1)
+    // minWidth: "1rem",
+    // minHeight: "1rem",
+    // marginTop: "1rem"
   }
 }));
 
@@ -84,7 +94,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           </IconButton>
         }
         title={`Your client is ${booking.name}`}
-        subheader={booking.requestDate}
+        // subheader={booking.requestDate}
       />
       <a
         target='_blank'
@@ -105,24 +115,24 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
 
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>
+          {booking.address.street}
+        </Typography>
+        <Typography variant='body2' color='textSecondary' component='p'>
           {booking.descriptionAddress}
         </Typography>
       </CardContent>
-      {log(booking)}
       <Fragment>
         <div className={classes.root}>
           <Grid container spacing={0}>
             <Grid item md={12} sm={12} xs={12}>
               <div className={classes.demo}>
                 <List>
-                  {booking.services &&
+                  <Services booking={booking} />
+                  {/* {booking.services &&
                     booking.services.map(service => (
                       <ListItem>
                         <ListItemAvatar>
-                          <Avatar>
-                            {/* <FolderIcon /> */}
-                            ji
-                          </Avatar>
+                          <Avatar>ji</Avatar>
                         </ListItemAvatar>
                         <ListItemText
                           primary={service.typeOfService}
@@ -133,47 +143,45 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                         </ListItemSecondaryAction>
                         <Divider />
                       </ListItem>
-                    ))}
+                    ))} */}
 
                   <CardActions>
-                    {console.log(booking.state)}
                     {booking.state === "request" && (
                       <Grid
                         container
-                        direction='row-reverse'
-                        justify='flex-start'
+                        direction='row'
+                        justify='flex-end'
                         alignItems='center'
                       >
                         <Button
-                          variant='outlined'
-                          size='small'
-                          color='primary'
+                          // variant='outlined'
+                          classes={classes.button}
+                          // color='primary'
                           onClick={e =>
                             changeStateBooking(booking._id, "decline")
                           }
-                          className={classes.margin}
                         >
                           Decline
                         </Button>
                         <Button
+                          classes={classes.button}
                           variant='outlined'
                           size='small'
                           color='primary'
                           onClick={e =>
                             changeStateBooking(booking._id, "propose")
                           }
-                          className={classes.margin}
                         >
                           Propose new time
                         </Button>
                         <Button
                           variant='outlined'
+                          classes={classes.button}
                           size='small'
                           color='primary'
                           onClick={() =>
                             changeStateBooking(booking._id, "accepted")
                           }
-                          className={classes.margin}
                         >
                           Accept
                         </Button>
