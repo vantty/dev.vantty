@@ -5,7 +5,8 @@ const sripeLoader = require("stripe"),
   { composeEmail } = require("../helpers");
 
 const log = console.log;
-const stripe = new sripeLoader("sk_test_2ZvJXkOqKtXmex8vDaAeuTsm00SBivNKpy");
+const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
+// const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
 
 // Create Stripe Artist Account
 exports.createAccount = async (req, res) => {
@@ -59,7 +60,7 @@ exports.createCustomer = async (req, res) => {
 // Create Charge
 const charge = (customer, artist, amount) => {
   return stripe.charges.create({
-    amount: amount * 100 * 1.05,
+    amount: amount * 100,
     currency: "cad",
     customer: customer,
     description: "Vantty Service",

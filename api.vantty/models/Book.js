@@ -22,7 +22,15 @@ const BookSchema = new Schema({
         type: String
       },
       address: {
-        type: String
+        street: {
+          type: String
+        },
+        log: {
+          type: Number
+        },
+        lat: {
+          type: Number
+        }
       },
       descriptionAddress: {
         type: String

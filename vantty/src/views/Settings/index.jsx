@@ -54,7 +54,8 @@ const Settings = ({
         />
         {isMobile && (
           <AvatarUser
-            profilePicture={method && method.profilePicture.original}
+            profilePicture={profile && method && method.profilePicture.original}
+            firstName={method.firstName}
           />
         )}
       </Hidden>

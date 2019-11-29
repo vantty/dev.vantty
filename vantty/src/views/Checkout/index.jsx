@@ -23,7 +23,7 @@ import Check from "@material-ui/icons/Check";
 // Components
 import AddressForm from "./components/AddressForm";
 import PaymentForm from "./components/PaymentForm";
-import Review from "./components/Review";
+import Service from "./components/Service";
 import Summary from "./components/Summary";
 import { SimpleAppBar } from "../../components";
 
@@ -156,7 +156,7 @@ const Checkout = ({
   const [checkout, setCheckout] = React.useState({
     date: "",
     hour: "",
-    address: "",
+    address: {},
     descriptionAddress: "",
     services: [],
     totals: ""
@@ -213,11 +213,24 @@ const Checkout = ({
 
   const onChangeTarget = e =>
     setCheckout({ ...checkout, [e.target.name]: e.target.value });
+
+  ///Address
+  const onChangeAddress = (address, log, lat) => {
+    // const address = { address, log, lat };
+    setCheckout({
+      ...checkout,
+      // address,
+      address,
+      log,
+      lat
+    });
+  };
+  log(checkout);
   function getStepContent(step) {
     switch (step) {
       case 0:
         return (
-          <Review
+          <Service
             profile={profile}
             initialServices={initialServices}
             checkout={checkout}
@@ -227,31 +240,27 @@ const Checkout = ({
       case 1:
         return (
           <AddressForm
+            onChangeAddress={onChangeAddress}
+            addressLocal={address}
             onChangeTarget={onChangeTarget}
-            onChange={onChange}
-            address={address}
             descriptionAddress={descriptionAddress}
           />
         );
       case 2:
         return <PaymentForm />;
       case 3:
-        return <Summary />;
+        return <Summary checkout={checkout} total={total} />;
       default:
         throw new Error("Unknown step");
     }
   }
-
-  // if (!loading) {
-  //   return <Redirect push to='/search' />;
-  // }
 
   return (
     <Fragment>
       <CssBaseline />
 
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth="xs">
+      <Container maxWidth="sm">
         <main className={classes.layout}>
           {/* <Paper className={classes.paper}> */}
           <Typography component="h1" variant="h4" align="center">
@@ -283,21 +292,64 @@ const Checkout = ({
               </Fragment>
             ) : (
               <Fragment>
-                {profile && getStepContent(activeStep)}
+                <Container maxWidth="sm">
+                  {profile && getStepContent(activeStep)}
+                </Container>
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>
                   )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={e => handleNext(e, total, addedItems)}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                  </Button>
+                  {activeStep === 0 && (
+                    <Button
+                      variant="contained"
+                      disabled={total === 0 && true}
+                      color="primary"
+                      onClick={e => handleNext(e, total, addedItems)}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  )}
+                  {activeStep === 1 && (
+                    <Button
+                      variant="contained"
+                      disabled={
+                        Object.entries(address).length === 0 &&
+                        address.constructor === Object &&
+                        true
+                      }
+                      color="primary"
+                      onClick={e => handleNext(e, total, addedItems)}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  )}
+                  {activeStep === 2 && (
+                    <Button
+                      variant="contained"
+                      disabled={false}
+                      color="primary"
+                      onClick={e => handleNext(e, total, addedItems)}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  )}
+
+                  {activeStep === 3 && (
+                    <Button
+                      variant="contained"
+                      disabled={false}
+                      color="primary"
+                      onClick={e => handleNext(e, total, addedItems)}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  )}
                 </div>
               </Fragment>
             )}

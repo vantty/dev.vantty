@@ -87,9 +87,9 @@ const SettingsProfile = ({ match, pages, logout }) => {
               <ListItemText primary={"Logout"} />
             </ListItem>
           )}
-          <ListItemLink to={"/settings/account"}>
+          {/* <ListItemLink to={"/settings/account"}>
             <ListItemText primary={"Account"} />
-          </ListItemLink>
+          </ListItemLink> */}
         </Container>
         <Divider />
       </List>

@@ -2,11 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-
 import { Footer, BottomNavbar, Navbar } from "./components";
-
 import { isMobile } from "react-device-detect";
-
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
@@ -21,12 +18,9 @@ const useStyles = makeStyles(theme => ({
     height: "100%"
   }
 }));
-
 const Main = props => {
   const { children } = props;
-
   const classes = useStyles();
-
   return (
     <div
       className={clsx({
@@ -36,12 +30,11 @@ const Main = props => {
       <main className={classes.content}>
         {!isMobile ? <Navbar /> : <BottomNavbar />}
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </main>
     </div>
   );
 };
-
 Main.propTypes = {
   children: PropTypes.node
 };

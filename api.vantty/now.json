@@ -20,7 +20,9 @@
     "CLOUDINARY_API_SECRET": "@cloudinary-api-secret",
     "CONFIRMATION_URL": "@confirmation-uri",
     "MAILGUN_USER": "@mailgun-user",
-    "MAILGUN_PASS": "@mailgun-pass"
+    "MAILGUN_PASS": "@mailgun-pass",
+    "STRIPE_SECRET_KEY_TEST": "@stripe-secret-key-test",
+    "STRIPE_SECRET_KEY": "@stripe-secret-key"
   },
   "routes": [{ "src": "/api/.*", "dest": "/index.js" }]
 }

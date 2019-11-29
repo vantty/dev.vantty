@@ -21,9 +21,12 @@ import {
   CardHeader,
   Card
 } from "@material-ui/core";
+import { Services } from "./components";
 
 // Components
 import { BookCode } from "../../../../../../../../components";
+
+const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -61,12 +64,25 @@ const useStyles = makeStyles(theme => ({
   },
   statePospone: {
     backgroundColor: "yellow"
+  },
+  button: {
+    width: "20px",
+    // height: "10rem",
+    // fontSize: "10px" + "!important",
+    margin: theme.spacing(1)
+    // minWidth: "1rem",
+    // minHeight: "1rem",
+    // marginTop: "1rem"
   }
 }));
 
 export default function RecipeReviewCard({ booking, changeStateBooking }) {
   const classes = useStyles();
 
+  const replace = str => {
+    const newString = str.replace(/ /g, "+");
+    return newString;
+  };
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -80,36 +96,46 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader={booking.requestDate}
+        title={`Your client is ${booking.name}`}
+        // subheader={booking.requestDate}
       />
-      <CardMedia
-        className={classes.media}
-        // image='/static/images/cards/paella.jpg'
-        title="Paella dish"
-      />
+      <a
+        target="_blank"
+        href={`https://www.google.com/maps/place/${replace(
+          booking.address.street
+        )}/`}
+      >
+        <CardMedia
+          className={classes.media}
+          image={`https://maps.googleapis.com/maps/api/staticmap?center=${replace(
+            booking.address.street
+          )}&zoom=13&scale=false&size=500x500&maptype=terrain&key=${
+            process.env.REACT_APP_GOOGLE_MAPS_ID
+          }&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C2360+dundas+street+west`}
+          title={booking.address.street}
+        />
+      </a>
+
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {booking.address.street}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {booking.descriptionAddress}
         </Typography>
       </CardContent>
-
       <Fragment>
         <div className={classes.root}>
           <Grid container spacing={0}>
             <Grid item md={12} sm={12} xs={12}>
               <div className={classes.demo}>
                 <List>
-                  {booking.services &&
+                  <Services booking={booking} />
+                  {/* {booking.services &&
                     booking.services.map(service => (
                       <ListItem>
                         <ListItemAvatar>
-                          <Avatar>
-                            {/* <FolderIcon /> */}
-                            ji
-                          </Avatar>
+                          <Avatar>ji</Avatar>
                         </ListItemAvatar>
                         <ListItemText
                           primary={service.typeOfService}
@@ -120,46 +146,45 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                         </ListItemSecondaryAction>
                         <Divider />
                       </ListItem>
-                    ))}
+                    ))} */}
 
                   <CardActions>
                     {booking.state === "request" && (
                       <Grid
                         container
-                        direction="row-reverse"
-                        justify="flex-start"
+                        direction="row"
+                        justify="flex-end"
                         alignItems="center"
                       >
                         <Button
-                          variant="outlined"
-                          size="small"
-                          color="primary"
+                          // variant='outlined'
+                          classes={classes.button}
+                          // color='primary'
                           onClick={e =>
                             changeStateBooking(booking._id, "decline")
                           }
-                          className={classes.margin}
                         >
                           Decline
                         </Button>
                         <Button
+                          classes={classes.button}
                           variant="outlined"
                           size="small"
                           color="primary"
                           onClick={e =>
                             changeStateBooking(booking._id, "propose")
                           }
-                          className={classes.margin}
                         >
                           Propose new time
                         </Button>
                         <Button
                           variant="outlined"
+                          classes={classes.button}
                           size="small"
                           color="primary"
                           onClick={() =>
                             changeStateBooking(booking._id, "accepted")
                           }
-                          className={classes.margin}
                         >
                           Accept
                         </Button>

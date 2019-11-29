@@ -87,10 +87,13 @@ const Review = ({
   //to substruct from the quantity
   const handleSubtractQuantity = id => {
     subtractQuantity(id);
+    removeItem(id);
   };
 
   return (
     <Fragment>
+      <Date />
+
       <Typography variant='h6' gutterBottom>
         Service summary
       </Typography>
@@ -112,21 +115,23 @@ const Review = ({
               alignItems='center'
               className={classes.grid}
             >
-              <Link to={`/checkout/${profile.user._id}`}>
-                <i
-                  onClick={() => handleSubtractQuantity(product._id)}
-                  disabled={product.quantity == undefined}
-                  key={product._id}
-                >
-                  <RemoveIcon className={classes.icon} />
-                </i>
-              </Link>
+              <button
+                disabled={
+                  (product.quantity === 0 && true) ||
+                  (product.quantity === undefined && true)
+                }
+                onClick={() => handleSubtractQuantity(product._id)}
+                key={product._id}
+              >
+                <RemoveIcon className={classes.icon} />
+              </button>
               <div className={classes.margin}>
                 <Typography gutterBottom variant='h6'>
                   {product.quantity}
                 </Typography>
               </div>
-              <span
+              <button
+                disabled={product.quantity === 3 && true}
                 onClick={() =>
                   !product.quantity
                     ? handleAddToCart(product._id)
@@ -135,7 +140,7 @@ const Review = ({
                 key={product.id}
               >
                 <AddIcon className={classes.icon} />
-              </span>
+              </button>
             </Grid>
           </ListItem>
         ))}
@@ -170,7 +175,6 @@ const Review = ({
         </Grid>
       </List>
       {/* <Divider /> */}
-      {/* <Date /> */}
     </Fragment>
   );
 };

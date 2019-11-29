@@ -8,8 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 const StripeButton =
   "https://res.cloudinary.com/vantty/image/upload/v1574347454/seed/geofw7htk4kuglyonrh9.png";
 
-const stripeApi =
-  "https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=ca_G8ZSxRaqpSpBlLsbbS5TTevLIRDo3cFF&scope=read_write#/";
+const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&scope=read_write#/`;
+// const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID}&scope=read_write#/`;
 
 const useStyles = makeStyles(theme => ({
   paper: {

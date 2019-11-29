@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function AddressForm({
   onChangeTarget,
-  address,
+  addressLocal,
+  onChangeAddress,
   descriptionAddress,
   onChange
 }) {
@@ -41,53 +42,45 @@ export default function AddressForm({
           <Typography variant='h6' gutterBottom>
             Place of the service
           </Typography>
-          <FormControl className={classes.formControl}>
+          {/* <FormControl className={classes.formControl}>
             <Select value={location} onChange={handleChange}>
               <MenuItem value={"artistLocation"}>Artist Location</MenuItem>
               <MenuItem value={"userLocation"}>
                 A location of your choice
               </MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Grid>
-        {location === "userLocation" ? (
-          <Fragment>
-            {/* <GoogleMapsAutocomplete
-              address={address}
-              onChangeTarget={onChangeTarget}
-              onChange={onChange}
-              descriptionAddress={descriptionAddress}
-            /> */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                id='address'
-                label='Address'
-                name='address'
-                value={address}
-                onChange={onChangeTarget}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                id='description'
-                label='Description'
-                name='descriptionAddress'
-                value={descriptionAddress}
-                onChange={onChangeTarget}
-                fullWidth
-              />
-            </Grid>
-          </Fragment>
-        ) : location === "artistLocation" ? (
-          <Fragment>
-            <Grid item xs={12}>
-              <h1>Artist Location</h1>
-            </Grid>
-          </Fragment>
-        ) : null}
+        {/* {location === "userLocation" ? ( */}
+        <Fragment>
+          <GoogleMapsAutocomplete
+            addressLocal={addressLocal}
+            onChangeTarget={onChangeTarget}
+            onChangeAddress={onChangeAddress}
+
+            // onChange={onChange}
+            // descriptionAddress={descriptionAddress}
+          />
+
+          <Grid item xs={12}>
+            <TextField
+              required
+              id='description'
+              label='Description'
+              name='descriptionAddress'
+              value={descriptionAddress}
+              onChange={onChangeTarget}
+              fullWidth
+            />
+          </Grid>
+        </Fragment>
+        {/* ) : location === "artistLocation" ? ( */}
+        {/* <Fragment>
+          <Grid item xs={12}>
+            <h1>Artist Location</h1>
+          </Grid>
+        </Fragment> */}
+        {/* ) : null} */}
         <Grid item xs={12}>
           <Typography variant='h6' gutterBottom>
             Validate your phone

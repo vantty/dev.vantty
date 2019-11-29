@@ -6,7 +6,8 @@ import StripeForm from "./components/StripeForm";
 
 const PaymentForm = ({ stripeArtistAccount, amount }) => {
   return (
-    <StripeProvider apiKey={"pk_test_bwLsCIDJL7qmxZCb2XHPWtnZ00eRusQUf1"}>
+    <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY_TEST}>
+      {/* <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}> */}
       <Elements>
         <StripeForm />
       </Elements>

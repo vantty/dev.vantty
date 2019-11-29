@@ -6,7 +6,8 @@ import {
   ADD_SHIPPING,
   INITIAL_SERVICES,
   ADD_BOOK,
-  CLEAR_BOOK
+  CLEAR_BOOK,
+  CLEAR_CART
 } from "../actions/types";
 
 const initState = {
@@ -49,17 +50,20 @@ const cartReducer = (state = initState, action) => {
     }
   }
   if (action.type === REMOVE_ITEM) {
-    let itemToRemove = state.addedItems.find(item => action.id === item.id);
-    let new_items = state.addedItems.filter(item => action.id !== item.id);
+    let itemToRemove = state.addedItems.find(item => action.id === item._id);
+    let new_items = state.addedItems.filter(item => action.id !== item._id);
 
     //calculating the total
-    let newTotal = state.total - itemToRemove.amount * itemToRemove.quantity;
-    console.log(itemToRemove);
-    return {
-      ...state,
-      addedItems: new_items,
-      total: newTotal
-    };
+    if (itemToRemove.quantity === 0) {
+      //calculating the total
+      let newTotal = state.total - itemToRemove.amount * itemToRemove.quantity;
+
+      return {
+        ...state,
+        addedItems: new_items,
+        total: newTotal
+      };
+    }
   }
   //INSIDE CART COMPONENT
   if (action.type === ADD_QUANTITY) {
@@ -77,7 +81,7 @@ const cartReducer = (state = initState, action) => {
     let addedItem = state.items.find(item => item._id === action.id);
 
     //if the qt == 0 then it should be removed
-    if (addedItem.quantity === 1) {
+    if (addedItem.quantity === 0) {
       let new_items = state.addedItems.filter(item => item._id !== action.id);
       let newTotal = state.total - addedItem.amount;
       return {
@@ -95,32 +99,7 @@ const cartReducer = (state = initState, action) => {
     }
   }
 
-  if (action.type === ADD_SHIPPING) {
-    return {
-      ...state,
-      total: state.total + 6
-    };
-  }
-
-  // if (action.type === "SUB_SHIPPING") {
-  //   return {
-  //     ...state,
-  //     total: state.total - 6
-  //   };
-  // } else {
-  //   return state;
-  // }
-
-  if (action.type === ADD_BOOK) {
-    return {
-      ...state,
-      loading: state.payload
-    };
-  } else {
-    return state;
-  }
-
-  if (action.type === CLEAR_BOOK) {
+  if (action.type === CLEAR_CART) {
     return {
       items: [],
       addedItems: [],
@@ -130,6 +109,22 @@ const cartReducer = (state = initState, action) => {
   } else {
     return state;
   }
+
+  // if (action.type === ADD_SHIPPING) {
+  //   return {
+  //     ...state,
+  //     total: state.total + 6
+  //   };
+  // }
+
+  // if (action.type === "SUB_SHIPPING") {
+  //   return {
+  //     ...state,
+  //     total: state.total - 6
+  //   };
+  // } else {
+  //   return state;
+  // }
 };
 
 export default cartReducer;
