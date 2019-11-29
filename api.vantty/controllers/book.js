@@ -59,32 +59,16 @@ exports.createCustomer = async (req, res) => {
 // Create Charge
 const charge = (customer, artist, amount) => {
   return stripe.charges.create({
-    amount: amount * 100,
+    amount: amount * 100 * 1.05,
     currency: "cad",
     customer: customer,
     description: "Vantty Service",
     transfer_data: {
+      amount: amount * 100 * 0.72,
       destination: artist
-    },
-    application_fee_amount: amount * 100 * 0.3
+    }
   });
 };
-
-// // Make payment
-// exports.pay = async (req, res) => {
-//   try {
-//     const { stripeCustomerId } = await User.findOne({ _id: req.body._id });
-//     let data = await charge(
-//       stripeCustomerId,
-//       req.body.stripeArtistAccount,
-//       req.body.amount
-//     );
-//     res.status(200).json(data);
-//   } catch (error) {
-//     log(error);
-//     res.status(500).json(error);
-//   }
-// };
 
 // Complete Service
 exports.completeService = async (req, res) => {
@@ -97,7 +81,6 @@ exports.completeService = async (req, res) => {
     let data = await charge(stripeCustomerId, stripeArtistAccount, totalValue);
     service.state = "completed";
     await book.save();
-    log("SERVICE", service);
     res.status(200).json(data);
   } catch (error) {
     log(error);

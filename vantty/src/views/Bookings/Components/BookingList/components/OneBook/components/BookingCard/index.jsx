@@ -23,7 +23,7 @@ import {
 } from "@material-ui/core";
 
 // Components
-import Test from "../../../../../../../Test";
+import { BookCode } from "../../../../../../../../components";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -175,7 +175,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           </Typography>
                         </Grid>
                         <Grid item>
-                          <Test />
+                          <BookCode />
                         </Grid>
                       </Grid>
                     </CardActions>

@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Test = ({ completeService }) => {
+const BookCode = ({ completeService }) => {
   const classes = useStyles();
 
   const [code, setCode] = useState("");
@@ -94,7 +94,7 @@ const Test = ({ completeService }) => {
   );
 };
 
-// Test.propTypes = {
+// BookCode.propTypes = {
 //   user: PropTypes.object
 // };
 
@@ -102,4 +102,4 @@ const Test = ({ completeService }) => {
 //   user: state.auth.user
 // });
 
-export default connect(null, { completeService })(Test);
+export default connect(null, { completeService })(BookCode);
