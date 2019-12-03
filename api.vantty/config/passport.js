@@ -6,6 +6,7 @@ const passport = require("passport"),
   FacebookTokenStrategy = require("passport-facebook-token"),
   User = require("../models/User");
 
+const log = console.log;
 // JWT Strategy
 passport.use(
   new JwtStrategy(
@@ -37,10 +38,22 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const existingUser = await User.findOne({ "google.id": profile.id });
+        let existingUser = await User.findOne({ "google.id": profile.id });
         if (existingUser) {
           return done(null, existingUser);
         }
+
+        // Check if we have someone with the same email
+        let existingUserLocal = await User.findOne({
+          "local.email": profile.emails[0].value
+        });
+        let existingUserFacebook = await User.findOne({
+          "facebook.email": profile.emails[0].value
+        });
+        if (existingUserLocal || existingUserFacebook) {
+          return done(null, false);
+        }
+
         const newUser = await User.create({
           method: "google",
           google: {
@@ -73,6 +86,18 @@ passport.use(
         if (existingUser) {
           return done(null, existingUser);
         }
+
+        // Check if we have someone with the same email
+        let existingUserLocal = await User.findOne({
+          "local.email": profile.emails[0].value
+        });
+        let existingUserGoogle = await User.findOne({
+          "google.email": profile.emails[0].value
+        });
+        if (existingUserLocal || existingUserGoogle) {
+          return done(null, false);
+        }
+
         const newUser = await User.create({
           method: "facebook",
           facebook: {
@@ -105,6 +130,18 @@ passport.use(
             errors: { "email or password": "is invalid" }
           });
         }
+
+        // // Check if we have someone with the same email
+        // let existingUserFacebook = await User.findOne({
+        //   "facebook.email": profile.emails[0].value
+        // });
+        // let existingUserGoogle = await User.findOne({
+        //   "google.email": profile.emails[0].value
+        // });
+        // if (existingUserFacebook || existingUserGoogle) {
+        //   return done(null, false);
+        // }
+
         const isMatch = await user.isValidPassword(password);
         if (!isMatch) {
           return done(null, false, {

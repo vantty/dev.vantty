@@ -54,7 +54,15 @@ export const sendEmail = ({
       payload: res.data
     });
   } catch (error) {
-    console.log(error);
+    dispatch(
+      setAlert(
+        "There is an account with the same email address. Try with another method.",
+        "warning"
+      )
+    );
+    dispatch({
+      type: REGISTER_FAIL
+    });
   }
 };
 
@@ -89,12 +97,6 @@ export const register = token => async dispatch => {
     });
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
     dispatch({
       type: REGISTER_FAIL
     });
@@ -109,7 +111,6 @@ export const login = ({ email, password }) => async dispatch => {
   const body = JSON.stringify({ email, password });
   try {
     const res = await server.post("/auth/login", body, config);
-    log(res);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -180,18 +181,18 @@ export const facebookRegister = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/facebook", body, config);
-    await dispatch(loadUser());
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
+    dispatch(
+      setAlert(
+        "There is an account with the same email address. Try with another method.",
+        "warning"
+      )
+    );
     dispatch({
       type: REGISTER_FAIL
     });
@@ -206,18 +207,18 @@ export const googleRegister = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/google", body, config);
-    await dispatch(loadUser());
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
+    dispatch(
+      setAlert(
+        "There is an account with the same email address. Try with another method.",
+        "warning"
+      )
+    );
     dispatch({
       type: REGISTER_FAIL
     });
@@ -232,18 +233,18 @@ export const facebookLogin = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/facebook", body, config);
-    await dispatch(loadUser());
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
+    dispatch(
+      setAlert(
+        "There is an account with the same email address. Try with another method.",
+        "warning"
+      )
+    );
     dispatch({
       type: LOGIN_FAIL
     });
@@ -258,18 +259,18 @@ export const googleLogin = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/google", body, config);
-    await dispatch(loadUser());
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
+    dispatch(
+      setAlert(
+        "There is an account with the same email address. Try with another method.",
+        "warning"
+      )
+    );
     dispatch({
       type: LOGIN_FAIL
     });

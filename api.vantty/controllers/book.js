@@ -8,6 +8,17 @@ const log = console.log;
 const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
 // const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
 
+//
+exports.testSendEmail = async (req, res) => {
+  try {
+    composeEmail("sebhernandezram@gmail.com", "Test", req.body.text);
+    res.status(200).json(req.body);
+  } catch (error) {
+    log(error);
+    res.status(500).json(error);
+  }
+};
+
 // Create Stripe Artist Account
 exports.createAccount = async (req, res) => {
   try {

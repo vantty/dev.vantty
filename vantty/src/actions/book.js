@@ -21,6 +21,18 @@ import { getStrategyEmail } from "../helpers";
 import setAlert from "./alert";
 const log = console.log;
 
+export const testSendEmail = text => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    const body = JSON.stringify({ text });
+    await server.post("/book/test", body, config);
+  } catch (error) {
+    log(error);
+  }
+};
+
 // Create Stripe Artist Account
 export const creacteStripeAccount = code => async dispatch => {
   try {

@@ -1,8 +1,9 @@
 const { Schema, model } = require("mongoose"),
   bcrypt = require("bcryptjs");
-
+const log = console.log;
 const userSchema = new Schema(
   {
+    // methods: { type: String },
     method: {
       type: String,
       enum: ["local", "google", "facebook"],
@@ -65,16 +66,17 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function(next) {
-  if (this.method !== "local") {
+  if (this.method == "local" && !this.google.id) {
+    try {
+      const salt = await bcrypt.genSalt(14);
+      const hash = await bcrypt.hash(this.local.password, salt);
+      this.local.password = hash;
+      next();
+    } catch (err) {
+      next(err);
+    }
+  } else {
     next();
-  }
-  try {
-    const salt = await bcrypt.genSalt(14);
-    const hash = await bcrypt.hash(this.local.password, salt);
-    this.local.password = hash;
-    next();
-  } catch (err) {
-    next(err);
   }
 });
 

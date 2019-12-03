@@ -7,13 +7,15 @@ const express = require("express"),
     completeService,
     getBookById,
     current,
-    changeStateBooking
+    changeStateBooking,
+    testSendEmail
   } = require("../controllers/book"),
-  router = express.Router();
-const passport = require("passport");
-const passportJWT = passport.authenticate("jwt", { session: false });
+  router = express.Router(),
+  passport = require("passport"),
+  passportJWT = passport.authenticate("jwt", { session: false });
 
 // router.post("/pay", pay);
+router.post("/test", testSendEmail);
 router.post("/create-account/:code", createAccount);
 router.post("/save-account", saveAccount);
 router.post("/create-customer", createCustomer);

@@ -166,7 +166,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Register = props => {
-  const { sendEmail, isAuthenticated, changeNavbarValue, history } = props;
+  const {
+    sendEmail,
+    isAuthenticated,
+    changeNavbarValue,
+    history,
+    user
+  } = props;
 
   const classes = useStyles();
 
@@ -175,8 +181,7 @@ const Register = props => {
     showPassword: false,
     values: {},
     touched: {},
-    errors: {},
-    sendConfirmation: false
+    errors: {}
   });
 
   useEffect(() => {
@@ -212,8 +217,7 @@ const Register = props => {
 
   const {
     showPassword,
-    values: { firstName, lastName, email, password },
-    sendConfirmation
+    values: { firstName, lastName, email, password }
   } = formState;
 
   const handleClickShowPassword = () => {
@@ -223,18 +227,16 @@ const Register = props => {
   const handleRegister = event => {
     event.preventDefault();
     sendEmail({ firstName, lastName, email, password });
-    setFormState({ ...formState, sendConfirmation: true });
   };
 
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
 
   if (isAuthenticated) {
-    // return <Redirect push to="/" />;
-    history.goBack()
+    history.goBack();
   }
 
-  if (sendConfirmation) {
+  if (user) {
     return <Redirect push to="/confirmation" />;
   }
 
@@ -398,14 +400,15 @@ Register.propTypes = {
   history: PropTypes.object,
   login: PropTypes.func,
   isAuthenticated: PropTypes.bool,
-  changeNavbarValue: PropTypes.func
+  changeNavbarValue: PropTypes.func,
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 
-export default connect(
-  mapStateToProps,
-  { sendEmail, changeNavbarValue }
-)(withRouter(Register));
+export default connect(mapStateToProps, { sendEmail, changeNavbarValue })(
+  withRouter(Register)
+);

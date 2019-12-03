@@ -38,7 +38,7 @@ const ProfileInfo = ({
       <div>
         <div className={classes.profile}>
           <Fragment>
-            <Grid container justify='center' alignItems='center'>
+            <Grid container justify="center" alignItems="center">
               {profilePicture ? (
                 isMobile ? (
                   <Avatar src={profilePicture} className={classes.bigAvatar} />
@@ -82,12 +82,12 @@ const ProfileInfo = ({
                     !isMobile && (
                       <Button
                         component={Link}
-                        variant='outlined'
-                        size='small'
+                        variant="outlined"
+                        size="small"
                         className={classes.button}
                         to={"/personal-info"}
                       >
-                        update
+                        Settings
                       </Button>
                     )}
                 </Fragment>
@@ -98,7 +98,7 @@ const ProfileInfo = ({
           {/* )} */}
         </div>
 
-        <Divider variant='middle' />
+        <Divider variant="middle" />
       </div>
     </div>
   );

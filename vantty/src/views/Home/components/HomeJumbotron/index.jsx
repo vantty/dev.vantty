@@ -9,13 +9,16 @@ import { searchValue } from "../../../../actions/search";
 
 // Material-UI
 import SearchIcon from "@material-ui/icons/Search";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {
+  Grid,
+  Typography,
+  Button,
+  Container,
+  InputAdornment,
+  TextField,
+  CssBaseline
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
 const JumbotronBackground =
   "https://res.cloudinary.com/vantty/image/upload/v1572391341/seed/ha8bgdvtvdaekxhabqja.jpg";
@@ -124,21 +127,35 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
                         Get your dreamed look, done by the perfect artists
                       </Typography>
                       <form onSubmit={handleSearch}>
-                        <TextField
-                          id="outlined-simple-start-adornment"
-                          onChange={handleChange}
-                          fullWidth
-                          className={classes.textField}
-                          variant="outlined"
-                          placeholder="Search"
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <SearchIcon />
-                              </InputAdornment>
-                            )
-                          }}
-                        />
+                        <Grid container>
+                          <Grid item>
+                            <TextField
+                              id="outlined-simple-start-adornment"
+                              onChange={handleChange}
+                              fullWidth
+                              className={classes.textField}
+                              variant="outlined"
+                              placeholder="Search"
+                              InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <SearchIcon />
+                                  </InputAdornment>
+                                )
+                              }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              type="submit"
+                              color="primary"
+                              variant="contained"
+                              className={classes.button}
+                            >
+                              Search
+                            </Button>
+                          </Grid>
+                        </Grid>
                       </form>
                     </div>
                   </Grid>
@@ -161,7 +178,4 @@ const mapStateToProps = state => ({
   goSearch: state.search.goSearch
 });
 
-export default connect(
-  mapStateToProps,
-  { searchValue }
-)(HomeJumbotron);
+export default connect(mapStateToProps, { searchValue })(HomeJumbotron);

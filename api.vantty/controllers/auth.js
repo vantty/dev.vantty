@@ -1,12 +1,8 @@
 const JWT = require("jsonwebtoken"),
   User = require("../models/User"),
-  nodemailer = require("nodemailer"),
-  hbs = require("nodemailer-express-handlebars"),
   async = require("async"),
   crypto = require("crypto"),
-  bcrypt = require("bcryptjs"),
-  { composeEmail } = require("../helpers"),
-  log = console.log;
+  { composeEmail } = require("../helpers");
 
 exports.auth = async (req, res) => {
   try {
@@ -24,6 +20,19 @@ exports.sendEmail = async (req, res) => {
     const user = await User.findOne({ "local.email": email });
     if (user) {
       return res.status(403).json({ errors: [{ msg: "User already exists" }] });
+    }
+    // Check if we have someone with the same email
+    let existingUserFacebook = await User.findOne({
+      "facebook.email": email
+    });
+    let existingUserGoogle = await User.findOne({
+      "google.email": email
+    });
+
+    if (existingUserFacebook || existingUserGoogle) {
+      return res
+        .status(403)
+        .json({ errors: [{ msg: "User already existsXXX" }] });
     }
     const newUser = await User.create({
       method: "local",
