@@ -115,11 +115,11 @@ const Services = ({
     formState.touched[field] && formState.errors[field] ? true : false;
   return (
     <Fragment>
-      <form autoComplete='off' noValidate>
+      <form autoComplete="off" noValidate>
         {/* <Divider /> */}
         <CardHeader
           // subheader='from what value do your services start'
-          title='Create new typeOfService'
+          title="Create new typeOfService"
         />
         <CardContent>
           <Grid container spacing={1}>
@@ -132,14 +132,14 @@ const Services = ({
                     : null
                 }
                 fullWidth
-                label='Service'
-                margin='dense'
-                name='typeOfService'
+                label="Service"
+                margin="dense"
+                name="typeOfService"
                 required
-                type='text'
-                variant='outlined'
-                id='typeOfService'
-                autoComplete='fname'
+                type="text"
+                variant="outlined"
+                id="typeOfService"
+                autoComplete="fname"
                 value={
                   formState.values.typeOfService || serviceData.typeOfService
                 }
@@ -150,12 +150,12 @@ const Services = ({
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label='Amount'
-                margin='dense'
-                name='amount'
+                label="Amount"
+                margin="dense"
+                name="amount"
                 required
-                variant='outlined'
-                id='amount'
+                variant="outlined"
+                id="amount"
                 error={hasError("amount")}
                 helperText={
                   hasError("amount") ? formState.errors.amount[0] : null
@@ -167,15 +167,15 @@ const Services = ({
             <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
-                label='Description'
-                margin='dense'
-                name='description'
+                label="Description"
+                margin="dense"
+                name="description"
                 required
-                type='text'
+                type="text"
                 multiline
-                rows='3'
-                variant='outlined'
-                autoComplete='description'
+                rows="3"
+                variant="outlined"
+                autoComplete="description"
                 error={hasError("description")}
                 helperText={
                   hasError("description")

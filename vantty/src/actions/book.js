@@ -87,10 +87,24 @@ export const validateCard = token => async dispatch => {
       data: { _id, stripeCustomerId }
     } = user;
     const email = getStrategyEmail(user.data);
-    if (!stripeCustomerId) {
-      const body = JSON.stringify({ token, email, _id });
-      await server.post("/book/create-customer", body, config);
-    }
+    const body = JSON.stringify({ token, email, _id });
+    await server.post("/book/create-customer", body, config);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addCard = token => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    const user = await server.get("/auth");
+    const {
+      data: { _id }
+    } = user;
+    const body = JSON.stringify({ token, _id });
+    await server.post("/book/add-card", body, config);
   } catch (error) {
     console.log(error);
   }
@@ -209,7 +223,6 @@ export const changeStateBooking = (bookingId, data) => async dispatch => {
   //   }
   // };
   const formData = { state: data };
-  log("STATUS", data);
   try {
     const res = await server.post(`/book/booking/${bookingId}`, formData);
 

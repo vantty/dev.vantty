@@ -37,6 +37,7 @@ import {
   ForgotPassword,
   Checkout,
   CreateArtistAccount,
+  Help,
   NotFound,
   Test
 } from "./views";
@@ -56,6 +57,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/test" component={Test} />
+      <Route exact path="/help" component={Help} />
       <Route exact path="/confirm-account" component={CreateArtistAccount} />
       <Route exact path="/confirmation/:token" component={Confirmation} />
       {/* ADMIN */}

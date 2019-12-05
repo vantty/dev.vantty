@@ -77,51 +77,58 @@ const Navbar = props => {
       <CssBaseline />
       <AppBar className={classes.root}>
         <Toolbar>
-          <Typography variant='h5' className={classes.title}>
-            <LinkMui underline='none' color='inherit' component={Link} to='/'>
-              <img src={Logo} alt='' className={classes.logo} />
+          <Typography variant="h5" className={classes.title}>
+            <LinkMui underline="none" color="inherit" component={Link} to="/">
+              <img src={Logo} alt="" className={classes.logo} />
             </LinkMui>
           </Typography>
           {loading ? (
-            <Progress data-test='progress' />
+            <Progress data-test="progress" />
           ) : (
             <Fragment>
               {!isAuthenticated ? (
                 <Fragment>
-                  <section data-test='noAuthButtons'>
+                  <section data-test="noAuthButtons">
                     <div className={classes.sectionDesktop}>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/search'
+                        to="/help"
                       >
-                        Artists
+                        Help Center
                       </Button>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/login'
+                        to="/search"
+                      >
+                        See All Artists
+                      </Button>
+                      <Button
+                        className={classes.button}
+                        component={Link}
+                        to="/login"
                       >
                         Login
                       </Button>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/register'
+                        to="/register"
                       >
-                        Register
+                        Become an Artist Partner
                       </Button>
                     </div>
                   </section>
                 </Fragment>
               ) : (
                 <Fragment>
-                  <section data-test='authButtons'>
+                  <section data-test="authButtons">
                     <div className={classes.sectionDesktop}>
                       <Button
                         className={classes.button}
                         component={Link}
-                        to='/search'
+                        to="/search"
                       >
                         Artists
                       </Button>
@@ -163,10 +170,10 @@ const Navbar = props => {
                       )}
                       {user && user.role === "Admin" && (
                         <Button
-                          color='inherit'
+                          color="inherit"
                           className={classes.button}
                           component={Link}
-                          to='/dashboard'
+                          to="/dashboard"
                         >
                           Admin
                         </Button>
@@ -203,7 +210,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Navbar);
+export default connect(mapStateToProps, {})(Navbar);

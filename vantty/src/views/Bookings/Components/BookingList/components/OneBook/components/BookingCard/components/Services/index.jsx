@@ -43,24 +43,31 @@ const useStyles = makeStyles(theme => ({
 export default function Summary({ booking }) {
   const classes = useStyles();
 
+  const subtotal = booking.totalValue;
+  const money = {
+    vanttyFee: subtotal * 0.25,
+    transFee: subtotal * 0.03,
+    total: subtotal * 0.72
+  };
+
   return (
     <React.Fragment>
       <Container>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
-            <Typography variant='h6' gutterBottom className={classes.title}>
+            <Typography variant="h6" gutterBottom className={classes.title}>
               Date
             </Typography>
             <Typography gutterBottom>{booking.appointment}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography variant='h6' gutterBottom className={classes.title}>
+            <Typography variant="h6" gutterBottom className={classes.title}>
               Hour
             </Typography>
             <Typography gutterBottom>{booking.appointment}</Typography>
           </Grid>
         </Grid>
-        <Typography variant='h6' gutterBottom>
+        <Typography variant="h6" gutterBottom>
           Order summary
         </Typography>
         <List disablePadding>
@@ -70,13 +77,31 @@ export default function Summary({ booking }) {
                 primary={product.typeOfService}
                 secondary={`Quantity of services ${product.quantity}`}
               />
-              <Typography variant='body2'>{`$${product.amount}`}</Typography>
+              <Typography variant="body2">{`$${product.amount}`}</Typography>
             </ListItem>
           ))}
           <ListItem className={classes.listItem}>
-            <ListItemText primary='Total' />
-            <Typography variant='subtitle1' className={classes.total}>
+            <ListItemText primary="Subtotal" />
+            <Typography variant="subtitle1" className={classes.listItem}>
               {`$${booking.totalValue}`}
+            </Typography>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <ListItemText primary="Vantty Fee" />
+            <Typography variant="subtitle1" className={classes.listItem}>
+              {`$${money.vanttyFee}`}
+            </Typography>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <ListItemText primary="Transaction Fee" />
+            <Typography variant="subtitle1" className={classes.listItem}>
+              {`$${money.transFee}`}
+            </Typography>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <ListItemText primary="Total" />
+            <Typography variant="subtitle1" className={classes.total}>
+              {`$${money.total}`}
             </Typography>
           </ListItem>
         </List>

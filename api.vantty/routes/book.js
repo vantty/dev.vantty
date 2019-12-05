@@ -3,6 +3,7 @@ const express = require("express"),
     createAccount,
     saveAccount,
     createCustomer,
+    addCard,
     createNewBook,
     completeService,
     getBookById,
@@ -19,6 +20,7 @@ router.post("/test", testSendEmail);
 router.post("/create-account/:code", createAccount);
 router.post("/save-account", saveAccount);
 router.post("/create-customer", createCustomer);
+router.post("/add-card", addCard);
 router.post("/create-book/:id", passportJWT, createNewBook);
 router.post("/complete-service", completeService);
 router.post("/:id", passportJWT, getBookById);

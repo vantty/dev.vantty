@@ -59,6 +59,15 @@ const userSchema = new Schema(
       default: "Suscriber"
     },
     stripeCustomerId: { type: String },
+    cards: [
+      {
+        stripeCardId: { type: String },
+        brand: { type: String },
+        expMonth: { type: String },
+        expYear: { type: String },
+        last4: { type: String }
+      }
+    ],
     profile: { type: Boolean, default: false }
   },
 

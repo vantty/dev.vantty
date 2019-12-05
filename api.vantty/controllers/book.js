@@ -51,16 +51,52 @@ exports.saveAccount = async (req, res) => {
 // Create and Save Stripe Customer Id
 exports.createCustomer = async (req, res) => {
   try {
+    let user = await User.findById(req.body._id);
     const customer = await stripe.customers.create({
       source: req.body.token.id,
       email: req.body.email,
       name: req.body._id
     });
-    let user = await User.findOneAndUpdate(
-      { _id: req.body._id },
-      { $set: { stripeCustomerId: customer.id } },
-      { new: true }
+    const card = await stripe.customers.retrieveSource(
+      customer.id,
+      customer.default_source
     );
+    const newCard = {
+      stripeCardId: customer.default_source,
+      brand: card.brand,
+      expMonth: card.exp_month,
+      expYear: card.exp_year,
+      last4: card.last4
+    };
+    user.stripeCustomerId = customer.id;
+    user.cards.push(newCard);
+    await user.save();
+    res.status(200).json(user);
+  } catch (error) {
+    log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.addCard = async (req, res) => {
+  try {
+    let user = await User.findById(req.body._id);
+    const { stripeCustomerId } = user;
+    stripe.customers
+      .createSource(stripeCustomerId, {
+        source: req.body.token.id
+      })
+      .then(async card => {
+        const newCard = {
+          stripeCardId: card.id,
+          brand: card.brand,
+          expMonth: card.exp_month,
+          expYear: card.exp_year,
+          last4: card.last4
+        };
+        user.cards.push(newCard);
+        await user.save();
+      });
     res.status(200).json(user);
   } catch (error) {
     log(error);
@@ -242,25 +278,44 @@ exports.changeStateBooking = async (req, res) => {
       service => service._id == req.params.bookingId
     );
 
+    // Mailing info
+
+    // User Mailing Info
+    const user = await User.findOne({
+      stripeCustomerId: service.stripeCustomerId
+    });
+    let method = user.method;
+    const emailUser = user[method].email;
+    const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
+
+    // Artist Mailing Info
+    const artist = await User.findById(book.user);
+    const emailArtist = artist[method].email;
+    const urlArtist = `${req.headers.origin}/bookings`;
+
     if (service.state === "accepted") {
       // Email subject
       const subject = "Book Accepted";
 
       // Email to User
-      const user = await User.findOne({
-        stripeCustomerId: service.stripeCustomerId
-      });
-      let method = user.method;
-      const emailUser = user[method].email;
-      const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
       const htmlUser = `Hi ${user[method].firstName}, your book has been accepted by the artist. Your booking code is: <strong>${service.bookCode}</strong>. Please save this code, because you have to give it to the artist once she finish your service. If you need to modify or cancell the service please <a href=${urlUser}><strong>click here.</strong></a>`;
       composeEmail(emailUser, subject, htmlUser);
 
       // Email to Artist
-      const artist = await User.findById(book.user);
-      const emailArtist = artist[method].email;
-      const urlArtist = `${req.headers.origin}/bookings`;
       const htmlArtist = `Hi ${artist[method].firstName}, you have accepted the book request. To see the details of the service please <a href=${urlArtist}><strong>click here.</strong></a>`;
+      composeEmail(emailArtist, subject, htmlArtist);
+    }
+
+    if (service.state === "declined") {
+      // Email subject
+      const subject = "Book Declined";
+
+      // Email to User
+      const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
+      composeEmail(emailUser, subject, htmlUser);
+
+      // Email to Artist
+      const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
       composeEmail(emailArtist, subject, htmlArtist);
     }
 

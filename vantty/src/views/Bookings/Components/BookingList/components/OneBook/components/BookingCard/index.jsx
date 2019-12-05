@@ -25,6 +25,7 @@ import { Services } from "./components";
 
 // Components
 import { BookCode } from "../../../../../../../../components";
+import { PosponeForm } from "./components";
 
 const log = console.log;
 
@@ -54,16 +55,16 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1)
   },
   stateAccepted: {
-    backgroundColor: theme.palette.greenVantty.dark
+    backgroundColor: theme.palette.greenVantty.main
   },
   stateCompleted: {
     backgroundColor: theme.palette.greenVantty.light
   },
   stateDeclined: {
-    backgroundColor: "orange"
+    backgroundColor: "red"
   },
-  statePospone: {
-    backgroundColor: "yellow"
+  statePosponed: {
+    backgroundColor: "orange"
   },
   button: {
     width: "20px",
@@ -161,7 +162,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           classes={classes.button}
                           // color='primary'
                           onClick={e =>
-                            changeStateBooking(booking._id, "decline")
+                            changeStateBooking(booking._id, "declined")
                           }
                         >
                           Decline
@@ -172,10 +173,10 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           size="small"
                           color="primary"
                           onClick={e =>
-                            changeStateBooking(booking._id, "propose")
+                            changeStateBooking(booking._id, "posponed")
                           }
                         >
-                          Propose new time
+                          Propose a new date
                         </Button>
                         <Button
                           variant="outlined"
@@ -214,7 +215,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                     </CardActions>
                   )}
 
-                  {booking.state === "decline" && (
+                  {booking.state === "declined" && (
                     <CardActions className={classes.stateDeclined}>
                       <Typography>
                         This service was <strong>Declined</strong>
@@ -222,11 +223,21 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                     </CardActions>
                   )}
 
-                  {booking.state === "pospone" && (
-                    <CardActions className={classes.statePospone}>
-                      <Typography>
-                        This service was <strong>Popppppp</strong>
-                      </Typography>
+                  {booking.state === "posponed" && (
+                    <CardActions className={classes.statePosponed}>
+                      <Grid container>
+                        <Grid item>
+                          <Typography>
+                            This service was <strong>Posponed</strong>
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <PosponeForm
+                            changeStateBooking={changeStateBooking}
+                            bookingId={booking._id}
+                          />
+                        </Grid>
+                      </Grid>
                     </CardActions>
                   )}
                 </List>
