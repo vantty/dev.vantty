@@ -63,6 +63,7 @@ exports.createCustomer = async (req, res) => {
     );
     const newCard = {
       stripeCardId: customer.default_source,
+      fingerPrint: card.fingerprint,
       brand: card.brand,
       expMonth: card.exp_month,
       expYear: card.exp_year,
@@ -81,23 +82,33 @@ exports.createCustomer = async (req, res) => {
 exports.addCard = async (req, res) => {
   try {
     let user = await User.findById(req.body._id);
+
     const { stripeCustomerId } = user;
     stripe.customers
       .createSource(stripeCustomerId, {
         source: req.body.token.id
       })
       .then(async card => {
-        const newCard = {
-          stripeCardId: card.id,
-          brand: card.brand,
-          expMonth: card.exp_month,
-          expYear: card.exp_year,
-          last4: card.last4
-        };
-        user.cards.push(newCard);
-        await user.save();
+        const existingCard = user.cards.find(
+          existingCard => existingCard.fingerPrint === card.fingerprint
+        );
+        if (existingCard) {
+          stripe.customers.deleteSource(stripeCustomerId, card.id);
+          return res.status(403).json(user);
+        } else {
+          const newCard = {
+            stripeCardId: card.id,
+            fingerPrint: card.fingerprint,
+            brand: card.brand,
+            expMonth: card.exp_month,
+            expYear: card.exp_year,
+            last4: card.last4
+          };
+          user.cards.push(newCard);
+          await user.save();
+          return res.status(200).json(user);
+        }
       });
-    res.status(200).json(user);
   } catch (error) {
     log(error);
     res.status(500).json(error);
@@ -105,11 +116,12 @@ exports.addCard = async (req, res) => {
 };
 
 // Create Charge
-const charge = (customer, artist, amount) => {
+const charge = (customer, card, artist, amount) => {
   return stripe.charges.create({
     amount: amount * 100,
     currency: "cad",
     customer: customer,
+    source: card,
     description: "Vantty Service",
     transfer_data: {
       amount: amount * 100 * 0.72,
@@ -125,8 +137,18 @@ exports.completeService = async (req, res) => {
     const service = book.bookings.find(
       service => service.bookCode === req.body.code
     );
-    const { stripeCustomerId, stripeArtistAccount, totalValue } = service;
-    let data = await charge(stripeCustomerId, stripeArtistAccount, totalValue);
+    const {
+      stripeCustomerId,
+      stripeCardId,
+      stripeArtistAccount,
+      totalValue
+    } = service;
+    let data = await charge(
+      stripeCustomerId,
+      stripeCardId,
+      stripeArtistAccount,
+      totalValue
+    );
     service.state = "completed";
     await book.save();
     res.status(200).json(data);
@@ -205,6 +227,7 @@ exports.createNewBook = async (req, res) => {
       // user: req.user.id,
       bookCode: req.body.bookCode,
       stripeCustomerId: req.body.stripeCustomerId,
+      stripeCardId: req.body.stripeCardId,
       stripeArtistAccount: req.body.stripeArtistAccount,
       name: user[method].firstName,
       appointment: req.body.date,

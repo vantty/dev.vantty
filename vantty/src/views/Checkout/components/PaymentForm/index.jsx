@@ -4,12 +4,12 @@ import { StripeProvider, Elements } from "react-stripe-elements";
 // Components
 import StripeForm from "./components/StripeForm";
 
-const PaymentForm = ({ stripeArtistAccount, amount }) => {
+const PaymentForm = ({ onChangeTarget }) => {
   return (
     <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY_TEST}>
       {/* <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}> */}
       <Elements>
-        <StripeForm />
+        <StripeForm onChangeTarget={onChangeTarget} />
       </Elements>
     </StripeProvider>
   );

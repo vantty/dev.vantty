@@ -55,6 +55,7 @@ const BookSchema = new Schema({
       },
       bookCode: { type: String },
       stripeCustomerId: { type: String },
+      stripeCardId: { type: String },
       stripeArtistAccount: { type: String }
     }
   ],

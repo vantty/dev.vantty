@@ -62,6 +62,7 @@ const userSchema = new Schema(
     cards: [
       {
         stripeCardId: { type: String },
+        fingerPrint: { type: String },
         brand: { type: String },
         expMonth: { type: String },
         expYear: { type: String },

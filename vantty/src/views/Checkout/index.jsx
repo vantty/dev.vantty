@@ -25,7 +25,7 @@ import AddressForm from "./components/AddressForm";
 import PaymentForm from "./components/PaymentForm";
 import Service from "./components/Service";
 import Summary from "./components/Summary";
-import { SimpleAppBar } from "../../components";
+import { SimpleAppBar, Alert } from "../../components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";
@@ -159,7 +159,8 @@ const Checkout = ({
     address: {},
     descriptionAddress: "",
     services: [],
-    totals: ""
+    totals: "",
+    stripeCardId: ""
   });
   const {
     date,
@@ -167,7 +168,8 @@ const Checkout = ({
     services,
     totals,
     address,
-    descriptionAddress
+    descriptionAddress,
+    stripeCardId
   } = checkout;
 
   useEffect(() => {
@@ -247,7 +249,7 @@ const Checkout = ({
           />
         );
       case 2:
-        return <PaymentForm />;
+        return <PaymentForm onChangeTarget={onChangeTarget} />;
       case 3:
         return <Summary checkout={checkout} total={total} />;
       default:
@@ -258,7 +260,7 @@ const Checkout = ({
   return (
     <Fragment>
       <CssBaseline />
-
+      <Alert />
       {isMobile && <SimpleAppBar />}
       <Container maxWidth="sm">
         <main className={classes.layout}>
@@ -330,7 +332,7 @@ const Checkout = ({
                   {activeStep === 2 && (
                     <Button
                       variant="contained"
-                      disabled={false}
+                      disabled={!stripeCardId}
                       color="primary"
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}

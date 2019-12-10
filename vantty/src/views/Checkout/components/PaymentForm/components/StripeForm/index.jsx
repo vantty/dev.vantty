@@ -14,6 +14,10 @@ import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,7 +26,9 @@ import { green } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
 import SaveIcon from "@material-ui/icons/Save";
+
 // Components
+import CardsList from "../CardsList";
 import { Progress } from "../../../../../../components";
 
 // Actions
@@ -35,6 +41,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     alignItems: "center"
+  },
+  panel: {
+    width: "100%"
   },
   wrapper: {
     margin: theme.spacing(1),
@@ -57,14 +66,12 @@ const useStyles = makeStyles(theme => ({
     color: green[500],
     position: "absolute",
     top: "50%",
-    left: "50%",
-    marginTop: -12,
-    marginLeft: -12
+    left: "50%"
   }
 }));
 
 const _StripeForm = props => {
-  const { stripe, validateCard, addCard } = props;
+  const { stripe, validateCard, addCard, user, onChangeTarget } = props;
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -98,7 +105,7 @@ const _StripeForm = props => {
     }
   };
 
-  const handleSubmit = async evt => {
+  const handleSubmit = async event => {
     if (!loading) {
       setSuccess(false);
       setLoading(true);
@@ -108,7 +115,7 @@ const _StripeForm = props => {
       }, 2000);
     }
     try {
-      evt.preventDefault();
+      event.preventDefault();
       if (stripe) {
         let { token } = await stripe.createToken();
         validateCard(token);
@@ -120,8 +127,9 @@ const _StripeForm = props => {
     }
   };
 
-  const handleAddCard = async () => {
+  const handleAddCard = async event => {
     try {
+      event.preventDefault();
       if (stripe) {
         let { token } = await stripe.createToken();
         addCard(token);
@@ -138,70 +146,110 @@ const _StripeForm = props => {
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <CardNumberElement onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <CardExpiryElement onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <CardCVCElement onChange={handleChange} />
-          </Grid>
-          <div role="alert">{errorMessage}</div>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={handleAddCard}>
-              Add Card
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            {/* <Button type="submit">VALIDATE YOUR CARD</Button> */}
-            <div className={classes.root}>
-              <div className={classes.wrapper}>
-                <Fab
-                  aria-label="save"
-                  color="primary"
-                  className={buttonClassname}
-                  // onClick={handleButtonClick}
-                >
-                  {success ? <CheckIcon /> : <SaveIcon />}
-                </Fab>
-                {loading && (
-                  <CircularProgress size={68} className={classes.fabProgress} />
-                )}
-              </div>
-              <div className={classes.wrapper}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={buttonClassname}
-                  disabled={loading}
-                  // onClick={handleButtonClick}
-                >
-                  Validate and save your card
-                </Button>
-                {loading && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
-              </div>
-            </div>
-          </Grid>
+      {/* <form onSubmit={handleSubmit}> */}
+      <Grid container spacing={1}>
+        {user.stripeCustomerId ? (
+          <Fragment>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <CardsList cards={user.cards} onChangeTarget={onChangeTarget} />
+              </Grid>
+            </Grid>
+            <ExpansionPanel className={classes.panel}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className={classes.heading}>
+                  Add a new card
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <form onSubmit={handleAddCard}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                      <CardNumberElement onChange={handleChange} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CardExpiryElement onChange={handleChange} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CardCVCElement onChange={handleChange} />
+                    </Grid>
+                    <div role="alert">{errorMessage}</div>
+                    <Grid item xs={12}>
+                      <Button type="submit" variant="contained" color="primary">
+                        Add card
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </form>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <form onSubmit={handleSubmit}>
+              <Grid item xs={12}>
+                <CardNumberElement onChange={handleChange} />
+              </Grid>
+              <Grid item xs={12}>
+                <CardExpiryElement onChange={handleChange} />
+              </Grid>
+              <Grid item xs={12}>
+                <CardCVCElement onChange={handleChange} />
+              </Grid>
+              <div role="alert">{errorMessage}</div>
+              <Grid item xs={12}>
+                <div className={classes.root}>
+                  <div className={classes.wrapper}>
+                    <Fab
+                      aria-label="save"
+                      color="primary"
+                      className={buttonClassname}
+                    >
+                      {success ? <CheckIcon /> : <SaveIcon />}
+                    </Fab>
+                    {loading && (
+                      <CircularProgress
+                        size={68}
+                        className={classes.fabProgress}
+                      />
+                    )}
+                  </div>
+                  <div className={classes.wrapper}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      className={buttonClassname}
+                      disabled={loading}
+                      // onClick={handleButtonClick}
+                    >
+                      Save your card
+                    </Button>
+                    {loading && (
+                      <CircularProgress
+                        size={24}
+                        className={classes.buttonProgress}
+                      />
+                    )}
+                  </div>
+                </div>
+              </Grid>
+            </form>
+          </Fragment>
+        )}
 
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox color="secondary" name="saveCard" value="yes" />
-              }
-              label="Remember credit card details for next time"
-            />
-          </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
+            label="Remember credit card details for next time"
+          />
         </Grid>
-      </form>
+      </Grid>
+      {/* </form> */}
     </Fragment>
   );
 };
@@ -209,11 +257,12 @@ const _StripeForm = props => {
 const StripeForm = injectStripe(_StripeForm);
 
 StripeForm.propTypes = {
-  validateCard: PropTypes.func
+  validateCard: PropTypes.func,
+  user: PropTypes.object
 };
 
-// const mapStateToProps = state => ({
-//   profile: state.profile
-// });
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
 
-export default connect(null, { validateCard, addCard })(StripeForm);
+export default connect(mapStateToProps, { validateCard, addCard })(StripeForm);

@@ -14,8 +14,11 @@ import {
   GET_BOOK,
   CHANGE_STATE_BOOKING,
   SERVICE_SUCCESS,
-  CLEAR_CART
+  CLEAR_CART,
+  ADD_CARD_SUCCESS,
+  ADD_CARD_FAIL
 } from "./types";
+import { loadUser } from "./auth";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
 import setAlert from "./alert";
@@ -88,7 +91,11 @@ export const validateCard = token => async dispatch => {
     } = user;
     const email = getStrategyEmail(user.data);
     const body = JSON.stringify({ token, email, _id });
-    await server.post("/book/create-customer", body, config);
+    const res = await server.post("/book/create-customer", body, config);
+    await dispatch({
+      type: ADD_CARD_SUCCESS,
+      payload: res.data
+    });
   } catch (error) {
     console.log(error);
   }
@@ -104,9 +111,21 @@ export const addCard = token => async dispatch => {
       data: { _id }
     } = user;
     const body = JSON.stringify({ token, _id });
-    await server.post("/book/add-card", body, config);
+    const res = await server.post("/book/add-card", body, config);
+    await dispatch({
+      type: ADD_CARD_SUCCESS,
+      payload: res.data
+    });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: ADD_CARD_FAIL
+    });
+    dispatch(
+      setAlert(
+        "This card is already added. Please try with another one.",
+        "error"
+      )
+    );
   }
 };
 

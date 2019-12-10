@@ -52,3 +52,5 @@ export const GET_BOOK = "GET_BOOK";
 export const BOOK_ERROR = "BOOK_ERROR";
 export const CHANGE_STATE_BOOKING = "CHANGE_STATE_BOOKING";
 export const CLEAR_BOOK = "CLEAR_BOOK";
+export const ADD_CARD_SUCCESS = "ADD_CARD_SUCCESS";
+export const ADD_CARD_FAIL = "ADD_CARD_FAIL";

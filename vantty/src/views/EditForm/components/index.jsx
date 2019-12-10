@@ -5,3 +5,4 @@ export { default as EditMobile } from "./EditMobile";
 export { default as EditPersonalInfo } from "./EditPersonalInfo";
 export { default as EditCategories } from "./EditCategories";
 export { default as EditBookings } from "./EditBookings";
+export { default as EditPayment } from "./EditPayment";

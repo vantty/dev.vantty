@@ -8,7 +8,9 @@ import {
   LOGOUT,
   ACCOUNT_DELETE,
   USER_LOCATION,
-  SAVE_CONFIRMATION_EMAIL
+  SAVE_CONFIRMATION_EMAIL,
+  ADD_CARD_SUCCESS,
+  ADD_CARD_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -57,9 +59,14 @@ export default function(state = initialState, action) {
         user: null
       };
     case SAVE_CONFIRMATION_EMAIL:
+    case ADD_CARD_SUCCESS:
       return {
         ...state,
         user: payload
+      };
+    case ADD_CARD_FAIL:
+      return {
+        ...state
       };
     default:
       return state;
