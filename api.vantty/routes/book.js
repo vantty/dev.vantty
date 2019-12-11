@@ -4,6 +4,7 @@ const express = require("express"),
     saveAccount,
     createCustomer,
     addCard,
+    deleteCard,
     createNewBook,
     completeService,
     getBookById,
@@ -21,6 +22,7 @@ router.post("/create-account/:code", createAccount);
 router.post("/save-account", saveAccount);
 router.post("/create-customer", createCustomer);
 router.post("/add-card", addCard);
+router.post("/delete-card", deleteCard);
 router.post("/create-book/:id", passportJWT, createNewBook);
 router.post("/complete-service", completeService);
 router.post("/:id", passportJWT, getBookById);

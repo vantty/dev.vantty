@@ -149,7 +149,8 @@ const Checkout = ({
   match,
   cart,
   cart: { items, addedItems, total, loading },
-  addNewBook
+  addNewBook,
+  user: { stripeCustomerId, cards },
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -249,7 +250,7 @@ const Checkout = ({
           />
         );
       case 2:
-        return <PaymentForm onChangeTarget={onChangeTarget} />;
+        return <PaymentForm onChangeTarget={onChangeTarget} stripeCustomerId={stripeCustomerId} cards={cards} isEdit={false} />;
       case 3:
         return <Summary checkout={checkout} total={total} />;
       default:
@@ -368,7 +369,8 @@ Checkout.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   pay: PropTypes.object.isRequired,
-  cart: PropTypes.object.isRequired
+  cart: PropTypes.object.isRequired,
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -376,7 +378,8 @@ const mapStateToProps = state => ({
   auth: state.auth,
   uploader: state.uploader,
   pay: state.pay,
-  cart: state.cart
+  cart: state.cart,
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps, {

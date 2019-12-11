@@ -71,7 +71,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const _StripeForm = props => {
-  const { stripe, validateCard, addCard, user, onChangeTarget } = props;
+  const {
+    stripe,
+    validateCard,
+    addCard,
+    stripeCustomerId,
+    cards,
+    onChangeTarget,
+    isEdit
+  } = props;
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -87,17 +95,6 @@ const _StripeForm = props => {
       clearTimeout(timer.current);
     };
   }, []);
-
-  // const handleButtonClick = () => {
-  //   if (!loading) {
-  //     setSuccess(false);
-  //     setLoading(true);
-  //     timer.current = setTimeout(() => {
-  //       setSuccess(true);
-  //       setLoading(false);
-  //     }, 2000);
-  //   }
-  // };
 
   const handleChange = ({ error }) => {
     if (error) {
@@ -146,13 +143,16 @@ const _StripeForm = props => {
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
-      {/* <form onSubmit={handleSubmit}> */}
       <Grid container spacing={1}>
-        {user.stripeCustomerId ? (
+        {stripeCustomerId ? (
           <Fragment>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <CardsList cards={user.cards} onChangeTarget={onChangeTarget} />
+                <CardsList
+                  cards={cards}
+                  onChangeTarget={onChangeTarget}
+                  isEdit={isEdit}
+                />
               </Grid>
             </Grid>
             <ExpansionPanel className={classes.panel}>
@@ -202,6 +202,11 @@ const _StripeForm = props => {
               </Grid>
               <div role="alert">{errorMessage}</div>
               <Grid item xs={12}>
+                <Button type="submit" variant="contained" color="primary">
+                  Save your card
+                </Button>
+              </Grid>
+              {/* <Grid item xs={12}>
                 <div className={classes.root}>
                   <div className={classes.wrapper}>
                     <Fab
@@ -225,7 +230,6 @@ const _StripeForm = props => {
                       color="primary"
                       className={buttonClassname}
                       disabled={loading}
-                      // onClick={handleButtonClick}
                     >
                       Save your card
                     </Button>
@@ -237,19 +241,11 @@ const _StripeForm = props => {
                     )}
                   </div>
                 </div>
-              </Grid>
+              </Grid> */}
             </form>
           </Fragment>
         )}
-
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid>
       </Grid>
-      {/* </form> */}
     </Fragment>
   );
 };
@@ -257,12 +253,11 @@ const _StripeForm = props => {
 const StripeForm = injectStripe(_StripeForm);
 
 StripeForm.propTypes = {
-  validateCard: PropTypes.func,
-  user: PropTypes.object
+  validateCard: PropTypes.func
 };
 
-const mapStateToProps = state => ({
-  user: state.auth.user
-});
+// const mapStateToProps = state => ({
+//   user: state.auth.user
+// });
 
-export default connect(mapStateToProps, { validateCard, addCard })(StripeForm);
+export default connect(null, { validateCard, addCard })(StripeForm);

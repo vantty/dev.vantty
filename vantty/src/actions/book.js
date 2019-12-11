@@ -16,7 +16,8 @@ import {
   SERVICE_SUCCESS,
   CLEAR_CART,
   ADD_CARD_SUCCESS,
-  ADD_CARD_FAIL
+  ADD_CARD_FAIL,
+  DELETE_CARD_SUCCESS
 } from "./types";
 import { loadUser } from "./auth";
 import { server } from "../utils/axios";
@@ -126,6 +127,26 @@ export const addCard = token => async dispatch => {
         "error"
       )
     );
+  }
+};
+
+export const deleteCard = stripeCardId => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    const user = await server.get("/auth");
+    const {
+      data: { _id, stripeCustomerId }
+    } = user;
+    const body = JSON.stringify({ _id, stripeCustomerId, stripeCardId });
+    const res = await server.post("/book/delete-card", body, config);
+    await dispatch({
+      type: DELETE_CARD_SUCCESS,
+      payload: res.data
+    });
+  } catch (error) {
+    log(error);
   }
 };
 

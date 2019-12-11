@@ -1,16 +1,26 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+// Material-UI
 import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import DeleteIcon from "@material-ui/icons/Delete";
+import {
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  IconButton
+} from "@material-ui/core";
+
+// Actions
+import { deleteCard } from "../../../../../../actions/book";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -22,13 +32,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function RadioButtonsGroup({ cards, onChangeTarget }) {
+const CardsList = ({ cards, onChangeTarget, isEdit, deleteCard }) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
 
   const handleChange = event => {
     setValue(event.target.value);
     onChangeTarget(event);
+  };
+
+  const handleDelete = stripeCardId => {
+    deleteCard(stripeCardId);
   };
 
   return (
@@ -54,11 +68,19 @@ export default function RadioButtonsGroup({ cards, onChangeTarget }) {
               {cards.map(card => (
                 <TableRow key={card.stripeCardId}>
                   <TableCell align="left" key={card.stripeCardId}>
-                    <FormControlLabel
-                      key={card.stripeCardId}
-                      value={card.stripeCardId}
-                      control={<Radio />}
-                    />
+                    {!isEdit ? (
+                      <FormControlLabel
+                        key={card.stripeCardId}
+                        value={card.stripeCardId}
+                        control={<Radio />}
+                      />
+                    ) : (
+                      <IconButton
+                        onClick={() => handleDelete(card.stripeCardId)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
                   </TableCell>
                   <TableCell align="left">{card.brand}</TableCell>
                   <TableCell align="left">{card.last4}</TableCell>
@@ -80,4 +102,14 @@ export default function RadioButtonsGroup({ cards, onChangeTarget }) {
       </FormControl>
     </div>
   );
-}
+};
+
+CardsList.propTypes = {
+  deleteCard: PropTypes.func
+};
+
+// const mapStateToProps = state => ({
+//   user: state.auth.user
+// });
+
+export default connect(null, { deleteCard })(CardsList);
