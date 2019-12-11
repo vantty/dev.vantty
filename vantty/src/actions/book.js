@@ -256,13 +256,17 @@ export const addNewBook = (
 };
 
 // Change State
-export const changeStateBooking = (bookingId, data) => async dispatch => {
+export const changeStateBooking = (
+  bookingId,
+  data,
+  posponedText
+) => async dispatch => {
   // const config = {
   //   headers: {
   //     "Content-Type": "application/json"
   //   }
   // };
-  const formData = { state: data };
+  const formData = { state: data, text: posponedText };
   try {
     const res = await server.post(`/book/booking/${bookingId}`, formData);
 

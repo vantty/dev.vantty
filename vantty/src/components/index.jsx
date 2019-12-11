@@ -8,3 +8,4 @@ export { default as Alert } from "./Alert";
 export { default as GoogleMapsAutocomplete } from "./GoogleMapsAutocomplete";
 export { default as BookCode } from "./BookCode";
 export { default as Progress } from "./Progress";
+export { default as ConfirmationModal } from "./ConfirmationModal";

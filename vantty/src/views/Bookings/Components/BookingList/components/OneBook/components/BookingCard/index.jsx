@@ -24,7 +24,10 @@ import {
 import { Services } from "./components";
 
 // Components
-import { BookCode } from "../../../../../../../../components";
+import {
+  BookCode,
+  ConfirmationModal
+} from "../../../../../../../../components";
 import { PosponeForm } from "./components";
 
 const log = console.log;
@@ -84,6 +87,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
     const newString = str.replace(/ /g, "+");
     return newString;
   };
+
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -157,7 +161,34 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                         justify="flex-end"
                         alignItems="center"
                       >
-                        <Button
+                        <ConfirmationModal
+                          buttonText={"Decline"}
+                          modalText={
+                            "Are you sure you want to decline this service?"
+                          }
+                          changeStateBooking={changeStateBooking}
+                          bookingId={booking._id}
+                          state={"declined"}
+                        />
+                        <ConfirmationModal
+                          buttonText={"Pospone"}
+                          modalText={
+                            "Are you sure you want to propose the user another date for this service?"
+                          }
+                          changeStateBooking={changeStateBooking}
+                          bookingId={booking._id}
+                          state={"posponed"}
+                        />
+                        <ConfirmationModal
+                          buttonText={"Accept"}
+                          modalText={
+                            "Are you sure you want to accept this service?"
+                          }
+                          changeStateBooking={changeStateBooking}
+                          bookingId={booking._id}
+                          state={"accepted"}
+                        />
+                        {/* <Button
                           // variant='outlined'
                           classes={classes.button}
                           // color='primary'
@@ -177,8 +208,9 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           }
                         >
                           Propose a new date
-                        </Button>
-                        <Button
+                        </Button> */}
+
+                        {/* <Button
                           variant="outlined"
                           classes={classes.button}
                           size="small"
@@ -188,7 +220,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           }
                         >
                           Accept
-                        </Button>
+                        </Button> */}
                       </Grid>
                     )}
                   </CardActions>
@@ -238,6 +270,14 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           />
                         </Grid>
                       </Grid>
+                    </CardActions>
+                  )}
+
+                  {booking.state === "declined-posponed" && (
+                    <CardActions className={classes.statePosponed}>
+                      <Typography>
+                        This service was <strong>Posponed</strong>
+                      </Typography>
                     </CardActions>
                   )}
                 </List>

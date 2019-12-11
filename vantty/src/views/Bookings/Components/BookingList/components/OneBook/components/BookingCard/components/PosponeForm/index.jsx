@@ -57,7 +57,7 @@ const PosponeForm = ({ changeStateBooking, bookingId }) => {
   const handleSubmit = event => {
     event.preventDefault();
     log(text);
-    changeStateBooking(bookingId, "declined");
+    changeStateBooking(bookingId, "declined-posponed", text);
   };
 
   return (

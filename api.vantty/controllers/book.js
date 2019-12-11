@@ -302,7 +302,7 @@ exports.createNewBook = async (req, res) => {
 
 exports.changeStateBooking = async (req, res) => {
   try {
-    const { state } = req.body;
+    const { state, text } = req.body;
     const profile = await Profile.findOne({ user: req.user.id });
     const book = await Book.findById(profile.bookId);
 
@@ -351,6 +351,20 @@ exports.changeStateBooking = async (req, res) => {
 
       // Email to User
       const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
+      composeEmail(emailUser, subject, htmlUser);
+
+      // Email to Artist
+      const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
+      composeEmail(emailArtist, subject, htmlArtist);
+    }
+
+    if (service.state === "declined-posponed") {
+      // Email subject
+      const subject = "Book Declined";
+
+      console.log("BACK", text);
+      // Email to User
+      const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. However she has an alternative proposal for you: ${text}. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
       composeEmail(emailUser, subject, htmlUser);
 
       // Email to Artist
