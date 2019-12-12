@@ -300,6 +300,8 @@ export const updateInfo = (formData, edit = false) => async dispatch => {
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
+    dispatch(loadUser());
+
     dispatch(setAlert(edit && "User Update", "success"));
   } catch (err) {
     const errors = err.response.data.errors;

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import AppBarForm from "../Form/components/ComponentsForm/AppBar";
 
 //actions
-import { getCurrentProfile } from "../../actions/profile";
+import { getCurrentProfile, deleteAccount } from "../../actions/profile";
 
 //Material-UI
 import CssBaseline from "@material-ui/core/CssBaseline";

@@ -20,7 +20,7 @@ import {
   CardHeader,
   Card
 } from "@material-ui/core";
-import { Services } from "./components";
+import { Services, SettingsCard } from "./components";
 
 // Components
 import {
@@ -70,13 +70,18 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "orange"
   },
   button: {
-    width: "20px",
+    // width: "10px"
     // height: "10rem",
     // fontSize: "10px" + "!important",
-    margin: theme.spacing(1)
+    // margin: theme.spacing(1)
     // minWidth: "1rem",
     // minHeight: "1rem",
     // marginTop: "1rem"
+  },
+  buttonAccept: {
+    // width: "10px",
+    // margin: theme.spacing(1),
+    color: theme.palette.greenVantty.light
   }
 }));
 
@@ -143,6 +148,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                         direction="row"
                         justify="flex-end"
                         alignItems="center"
+                        spacing={1}
                       >
                         <ConfirmationModal
                           buttonText={"Decline"}

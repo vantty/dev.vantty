@@ -3,22 +3,7 @@ export const pagesProfile = [
     title: "Profile",
     href: "/personal-info"
   },
-  {
-    title: "Biografy",
-    href: "/edit-profile"
-  },
-  {
-    title: "Bookings",
-    href: "/bookings"
-  },
-  {
-    title: "Payments",
-    href: "/payments"
-  },
-  {
-    title: "Help Center",
-    href: "/helpcenter"
-  },
+
   {
     title: "Portfolio",
     href: "/add-portfolio"
@@ -41,16 +26,16 @@ export const pagesUser = [
   {
     title: "Profile",
     href: "/personal-info"
-  },
-
-  {
-    title: "Appointments",
-    href: "/appointments"
-  },
-  {
-    title: "Payments",
-    href: "/payments"
   }
+
+  // {
+  //   title: "Appointments",
+  //   href: "/appointments"
+  // },
+  // {
+  //   title: "Payments",
+  //   href: "/payments"
+  // }
   // {
   //   title: "Help Center",
   //   href: "/helpcenter"

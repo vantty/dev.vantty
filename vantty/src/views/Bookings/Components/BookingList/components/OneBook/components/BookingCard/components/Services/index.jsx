@@ -45,9 +45,13 @@ export default function Summary({ booking }) {
 
   const subtotal = booking.totalValue;
   const money = {
-    vanttyFee: subtotal * 0.25,
-    transFee: subtotal * 0.03,
-    total: subtotal * 0.72
+    vanttyFee: subtotal * process.env.REACT_APP_VANTTY_FEE,
+    transFee: subtotal * process.env.REACT_APP_TRANSFER_FEE,
+    total:
+      subtotal *
+      (1 -
+        process.env.REACT_APP_VANTTY_FEE -
+        process.env.REACT_APP_TRANSFER_FEE)
   };
 
   return (
@@ -80,6 +84,7 @@ export default function Summary({ booking }) {
               <Typography variant="body2">{`$${product.amount}`}</Typography>
             </ListItem>
           ))}
+
           <ListItem className={classes.listItem}>
             <ListItemText primary="Subtotal" />
             <Typography variant="subtitle1" className={classes.listItem}>

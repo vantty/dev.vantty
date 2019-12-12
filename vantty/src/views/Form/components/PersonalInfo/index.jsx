@@ -21,11 +21,14 @@ import {
 // Actions
 import { updateInfo, loadUser } from "../../../../actions/auth";
 import { getCurrentProfile, createProfile } from "../../../../actions/profile";
-import { AvatarUploader } from "./components";
+import { AvatarUploader, Profile } from "./components";
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 // Helpers
-import { schemaErrors } from "../../../../helpers/errorsData";
+import {
+  schemaErrors,
+  schemaErrorsCreateProfile
+} from "../../../../helpers/errorsData";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -57,13 +60,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AccountDetails = ({
-  auth: { user, loading },
+  auth: { user },
+  auth,
   getCurrentProfile,
   updateInfo,
   uploading,
   createProfile,
   loadUser,
-  profile: { profile },
+  profile: { profile, loading },
   history,
   className,
   nextStep,
@@ -73,6 +77,19 @@ const AccountDetails = ({
   ...rest
 }) => {
   const classes = useStyles();
+
+  const [formDataProfile, setFormDataProfile] = useState({
+    profilePicture: "",
+    bio: "",
+    profession: "",
+    city: "",
+    mobileNumber: "",
+    instagramUsername: "",
+    youtube: "",
+    instagram: "",
+    user: "",
+    price: ""
+  });
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -91,22 +108,51 @@ const AccountDetails = ({
     errors: {}
   });
 
+  const [formStateProfile, setFormStateProfile] = useState({
+    isValid: false,
+    values: {},
+    touched: {},
+    errors: {}
+  });
+
   useEffect(() => {
     getCurrentProfile();
-    loadUser();
+    // loadUser();
     const strategy = getStrategy(user);
     setFormData({
-      firstName: loading || !strategy ? "" : strategy.firstName,
-      lastName: loading || !strategy ? "" : strategy.lastName,
-      email: loading || !strategy ? "" : strategy.email,
+      firstName: auth.loading || !strategy ? "" : strategy.firstName,
+      lastName: auth.loading || !strategy ? "" : strategy.lastName,
+      email: auth.loading || !strategy ? "" : strategy.email,
       profilePicture:
-        loading || !strategy.profilePicture ? "" : strategy.profilePicture,
-      id: loading || !user._id ? "" : user._id,
-      password: loading || !user.password ? "" : user.password
+        auth.loading || !strategy.profilePicture ? "" : strategy.profilePicture,
+      id: auth.loading || !user._id ? "" : user._id,
+      password: auth.loading || !user.password ? "" : user.password
     });
-  }, [loading, getCurrentProfile, loadUser]);
+
+    user &&
+      user.profile &&
+      setFormDataProfile({
+        bio: loading || !profile.bio ? "" : profile.bio,
+        profilePicture:
+          loading || !profile.profilePicture ? "" : profile.profilePicture,
+        profession: loading || !profile.profession ? "" : profile.profession,
+        instagramUsername:
+          loading || !profile.instagramUsername
+            ? ""
+            : profile.instagramUsername,
+        mobileNumber:
+          loading || !profile.mobileNumber ? "" : profile.mobileNumber,
+        youtube: loading || !profile.social ? "" : profile.social.youtube,
+        instagram: loading || !profile.social ? "" : profile.social.instagram,
+        city: loading || !profile.city ? "" : profile.city,
+        price: loading || !profile.price ? "" : profile.price
+      });
+  }, [auth.loading, loading, getCurrentProfile, loadUser]);
 
   const { firstName, lastName } = formData;
+
+  const onChange = e =>
+    setFormDataProfile({ ...formDataProfile, [e.target.name]: e.target.value });
 
   useEffect(() => {
     const errors = validate(formState.values, schemaErrors);
@@ -118,7 +164,49 @@ const AccountDetails = ({
     }));
   }, [formState.values]);
 
-  //Errors
+  ///Profile Errors
+  useEffect(() => {
+    const errors = validate(formStateProfile.values, schemaErrorsCreateProfile);
+    setFormStateProfile(formStateProfile => ({
+      ...formStateProfile,
+      values: formDataProfile,
+      isValid: errors ? false : true,
+      errors: errors || {}
+    }));
+  }, [formStateProfile.values]);
+
+  const handleChangeProfile = async event => {
+    event.persist();
+
+    setFormStateProfile(formStateProfile => ({
+      ...formStateProfile,
+      values: {
+        ...formStateProfile.values,
+        [event.target.name]:
+          event.target.type === "checkbox"
+            ? event.target.checked
+            : event.target.value
+      },
+
+      touched: {
+        ...formStateProfile.touched,
+        [event.target.name]: true
+      }
+    }));
+    onChange(event);
+  };
+
+  const hasErrorProfile = field =>
+    formStateProfile.touched[field] && formStateProfile.errors[field]
+      ? true
+      : false;
+
+  const onSubmitProfile = e => {
+    e.preventDefault();
+    createProfile(formDataProfile, history, true);
+  };
+
+  //User Errors
   const handleChange = async event => {
     event.persist();
 
@@ -144,7 +232,7 @@ const AccountDetails = ({
     e.preventDefault();
 
     await updateInfo(formData, true);
-
+    await onSubmitProfile(e);
     profile &&
       (await createProfile(
         {
@@ -184,7 +272,7 @@ const AccountDetails = ({
         Children={
           <form autoComplete='off' noValidate>
             <Typography>Profile</Typography>
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
               <Grid
                 container
                 direction='row'
@@ -262,6 +350,20 @@ const AccountDetails = ({
               </Grid> */}
             </Grid>
             {/* </CardContent> */}
+
+            {user && user.profile && (
+              <Profile
+                formData={formDataProfile}
+                onChange={onChange}
+                onSubmit={onSubmitProfile}
+                match={match}
+                formState={formStateProfile}
+                setFormState={setFormStateProfile}
+                handleChange={handleChangeProfile}
+                hasError={hasErrorProfile}
+              />
+            )}
+
             {match.url !== "/create-profile" && !isMobile && (
               <Fragment>
                 <Divider />
@@ -285,16 +387,6 @@ const AccountDetails = ({
                           Create Profile as Artist
                         </Button>
                       )}
-                      {/* {!profile && (
-                      <Button
-                        component={Link}
-                        size='small'
-                        className={classes.button}
-                        to={"/create-profile"}
-                      >
-                        Create Profile as Artist
-                      </Button>
-                    )} */}
                     </Grid>
 
                     <Grid>
@@ -311,7 +403,7 @@ const AccountDetails = ({
               </Fragment>
             )}
 
-            <Divider />
+            {/* <Divider /> */}
             {match.url === "/create-profile" && (
               <FormBottomNav
                 step={step}
@@ -362,6 +454,7 @@ const AccountDetails = ({
         }
       />
       {/* </Card> */}
+
       <br />
     </Fragment>
   );

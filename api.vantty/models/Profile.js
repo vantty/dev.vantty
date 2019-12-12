@@ -53,6 +53,9 @@ const ProfileSchema = new mongoose.Schema({
   instagramUsername: {
     type: String
   },
+  availability: {
+    type: String
+  },
   // education: [
   //   {
   //     school: {

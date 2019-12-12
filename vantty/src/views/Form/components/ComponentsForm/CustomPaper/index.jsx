@@ -5,10 +5,10 @@ const useStyles = makeStyles(theme => ({
   root: {},
 
   layout: {
-    width: "auto",
-    padding: theme.spacing(),
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    // width: "auto",
+    // padding: theme.spacing(),
+    // marginLeft: theme.spacing(),
+    // marginRight: theme.spacing(),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       padding: theme.spacing(3),

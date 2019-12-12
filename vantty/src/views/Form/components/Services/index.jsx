@@ -21,25 +21,11 @@ import PropTypes from "prop-types";
 
 // Material components
 
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Divider,
-  Grid,
-  Button,
-  Typography,
-  Slider,
-  Container
-} from "@material-ui/core";
-import clsx from "clsx";
+import { CardHeader, Divider, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
-import { withStyles } from "@material-ui/core/styles";
 
-import { Form, ServiceCard, StartService } from "./components";
-import { getStrategy } from "../../../../helpers";
+import { Form, ServiceCard } from "./components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,6 +67,7 @@ const Price = ({
     amount: "",
     description: ""
   });
+  const [availability, setAvailability] = useState("");
 
   useEffect(() => {
     getCurrentProfile();
@@ -88,37 +75,37 @@ const Price = ({
     setFormData({
       price: loading || !profile.price ? "" : profile.price
     });
-    // setServiceData({
-    //   typeOfService:
-    //     loading || !profile.service.typeOfService ? "" : profile.typeOfService
-    //   // amount: loading || !profile.service ? "" : profile.amount,
-    //   // description: loading || !profile.service ? "" : profile.description
-    // });
   }, [loading, getCurrentProfile]);
 
   const onChange = e =>
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
 
+  const onChangeAvailability = e =>
+    setAvailability({ ...availability, [e.target.name]: e.target.value });
+
   const { price } = formData;
   const { typeOfService, amount, description } = serviceData;
-
-  // const continues = e => {
-  //   e.preventDefault();
-  //   nextStep();
-  // };
 
   const back = e => {
     e.preventDefault();
     prevStep();
   };
+
   const handleChange = (event, price) => {
     setFormData({ price });
   };
+
   const onSubmit = e => {
     e.preventDefault();
-    createProfile({ services: serviceData }, history, true);
-    createProfile({ price: price }, history, true);
+    // createProfile({ services: serviceData }, history, true);
+    // createProfile({ price: price }, history, true);
+    createProfile(availability, history, true);
     nextStep();
+  };
+
+  const onSubmitAvailability = e => {
+    e.preventDefault();
+    createProfile(availability, history, true);
   };
 
   const onSubmitStartCost = e => {
@@ -145,15 +132,18 @@ const Price = ({
               <form autoComplete='off' noValidate>
                 {/* <Divider /> */}
 
-                <StartService price={price} handleChange={handleChange} />
+                {/* <StartService price={price} handleChange={handleChange} /> */}
                 <Form
                   serviceData={serviceData}
                   onChange={onChange}
-                  onSubmit={onSubmitPrice}
+                  onSubmitPrice={onSubmitPrice}
                   services={profile.services}
+                  availability={availability}
+                  onChangeAvailability={onChangeAvailability}
+                  onSubmitAvailability={onSubmitAvailability}
                 />
                 <Divider />
-                <br />
+
                 <CardHeader
                   // subheader='from what value do your services start'
                   title='Services'
@@ -165,7 +155,7 @@ const Price = ({
 
                 {/* <ServiceForm /> */}
 
-                {match.url === "/price" && !isMobile && (
+                {/* {match.url === "/price" && !isMobile && (
                   <Fragment>
                     <Divider />
                     <CardActions>
@@ -184,7 +174,7 @@ const Price = ({
                       </Grid>
                     </CardActions>
                   </Fragment>
-                )}
+                )} */}
               </form>
             ) : (
               <Progress />
@@ -208,7 +198,7 @@ const Price = ({
                         component={Link}
                         to='/settings'
                         className={classes.button}
-                        onClick={e => onSubmitPrice(e)}
+                        onClick={e => onSubmitAvailability(e)}
                       >
                         Update
                       </Button>
@@ -219,7 +209,7 @@ const Price = ({
                       <Button
                         className={classes.button}
                         onClick={e => onSubmit(e)}
-                        // disabled={!price}
+                        disabled={profile.services.length === 0}
                       >
                         Next
                       </Button>
@@ -246,7 +236,7 @@ const Price = ({
                       // to='/settings'
                       className={classes.button}
                       // onClick={e => onSubmitPrice(e)}
-                      onClick={e => onSubmitStartCost(e)}
+                      onClick={e => onSubmitAvailability(e)}
                     >
                       Update
                     </Button>

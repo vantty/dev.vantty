@@ -48,9 +48,9 @@ const AvatarUploader = ({
   const classes = useStyles();
   const method = getStrategy(user);
 
-  useEffect(() => {
-    loadUser();
-  }, []);
+  // useEffect(() => {
+  //   loadUser();
+  // }, []);
 
   const onChange = async e => {
     e.preventDefault();

@@ -5,7 +5,11 @@ import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 // Actions
-import { getProfileById, getCurrentProfile } from "../../actions/profile";
+import {
+  getProfileById,
+  getCurrentProfile,
+  deleteAccount
+} from "../../actions/profile";
 import { loadUser, logout } from "../../actions/auth";
 
 // Helpers
@@ -17,7 +21,7 @@ import { SimpleAppBar } from "../../components";
 import { SettingsProfile, SettingsUser, AvatarUser } from "./components";
 
 // Material-UI
-import { Hidden } from "@material-ui/core";
+import { Hidden, Typography } from "@material-ui/core";
 
 const Settings = ({
   match,
@@ -28,7 +32,8 @@ const Settings = ({
   auth: { user },
   auth,
   history,
-  getProfileById
+  getProfileById,
+  deleteAccount
 }) => {
   const method = getStrategy(user);
 
@@ -40,7 +45,7 @@ const Settings = ({
   return (
     <Fragment>
       {!isMobile && match.url === "/settings" && (
-        <Redirect to="/personal-info" />
+        <Redirect to='/personal-info' />
       )}
 
       <Hidden only={["md", "lg", "xl"]}>
@@ -52,21 +57,24 @@ const Settings = ({
               : "/search"
           }
         />
-        {isMobile && (
+        {isMobile && user && (
           <AvatarUser
-            profilePicture={profile && method && method.profilePicture.original}
-            firstName={method.firstName}
+            profilePicture={user && method.profilePicture}
+            firstName={user && method.firstName}
           />
         )}
+        <br />
       </Hidden>
+
       {user && user.profile ? (
-        <SettingsProfile match={match} pagesProfile={pagesProfile} />
+        <SettingsProfile
+          match={match}
+          pages={pagesProfile}
+          // deleteAccount={deleteAccount}
+        />
       ) : (
-        <SettingsUser match={match} pages={pagesUser} />
+        <SettingsProfile match={match} pages={pagesUser} />
       )}
-      {/* {user && user.profile && (
-        <SettingsProfile match={match} pagesProfile={pagesProfile} />
-      )} */}
     </Fragment>
   );
 };
@@ -82,12 +90,23 @@ Settings.propTypes = {
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  deleteAccount: PropTypes.func
 });
 
 export default connect(mapStateToProps, {
   getProfileById,
   getCurrentProfile,
   loadUser,
-  logout
+  logout,
+  deleteAccount
 })(Settings);
+
+// {user && user.profile ? (
+//   <SettingsProfile match={match} pagesProfile={pagesProfile} />
+// ) : (
+//   <SettingsUser match={match} pages={pagesUser} />
+// )}
+// {/* {user && user.profile && (
+//   <SettingsProfile match={match} pagesProfile={pagesProfile} />
+// )} */}

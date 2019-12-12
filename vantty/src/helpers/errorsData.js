@@ -56,13 +56,13 @@ export const serviceSchemaErrors = {
   amount: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 3
+      maximum: 5
     }
   },
-  description: {
+  typeOfService: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 5
+      maximum: 20
     }
   }
 };
