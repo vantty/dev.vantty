@@ -14,7 +14,9 @@
       "REACT_APP_STRIPE_PUBLIC_KEY_TEST": "@stripe-public-key-test",
       "REACT_APP_STRIPE_PUBLIC_KEY": "@stripe-public-key",
       "REACT_APP_STRIPE_CLIENT_ID_TEST": "@stripe-client-id-test",
-      "REACT_APP_STRIPE_CLIENT_ID": "@stripe-client-id"
+      "REACT_APP_STRIPE_CLIENT_ID": "@stripe-client-id",
+      "REACT_APP_VANTTY_FEE": "@vantty-fee",
+      "REACT_APP_TRANSFER_FEE": "@transfer-fee"
     }
   }
 }

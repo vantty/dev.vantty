@@ -20,9 +20,9 @@ a {
   text-decoration: none;
 }
 
-#root {
-  // height: 100%;
-}
+// #root {
+// height: 100%;
+// }
 
 .css-12nu9md {
   display: none !important;
@@ -30,13 +30,11 @@ a {
 
 .css-106d0ed {
   box-shadow: none !important;
-  background-color: red;
 }
 
 @media (max-width: 420px) {
   css-106d0ed {
     box-shadow: none;
-    background-color: red;
     border: 1px solid #eee;
   }
 }
