@@ -34,6 +34,7 @@ exports.createANDupdate = async (req, res) => {
     instagramUsername,
     youtube,
     instagram,
+    availability,
     review,
     country,
     state,
@@ -51,7 +52,6 @@ exports.createANDupdate = async (req, res) => {
     englishLevel
   } = req.body;
 
-  log(req.body);
   // Build profile object
   var method = req.user.method;
 
@@ -63,12 +63,11 @@ exports.createANDupdate = async (req, res) => {
   profileFields.name.lastName = req.user[method].lastName;
 
   // Build service array
-  profileFields.services = [];
-  if (services) profileFiels.services.push(services);
+  // profileFields.services = [];
+  // if (services) profileFiels.services = services;
   // if (instagram) profileFiels.service.description = description;
   // if (instagram) profileFiels.service.amount = amount;
   // if (service) profileFields.service.push(profileFields.service);
-  log(profileFields.service);
 
   profileFields.profilePicture = req.user[method].profilePicture.original;
   if (bio) profileFields.bio = bio;
@@ -78,6 +77,10 @@ exports.createANDupdate = async (req, res) => {
   if (instagramUsername) profileFields.instagramUsername = instagramUsername;
   if (profession) {
     profileFields.profession = profession;
+  }
+
+  if (availability) {
+    profileFields.availability = availability;
   }
   if (qualified) {
     profileFields.qualified = qualified;
@@ -94,6 +97,7 @@ exports.createANDupdate = async (req, res) => {
   if (verified) {
     profileFields.verified = verified;
   }
+  log("ff", req.body);
 
   // Build social object
   profileFields.social = {};
@@ -211,8 +215,8 @@ exports.deleteUserAndReviews = async (req, res) => {
 
 // Add Categories
 exports.addCategories = async (req, res) => {
-  const make = req.body.makeup;
-  const hair = req.body.hair;
+  const make = req.body.stateMakeup;
+  const hair = req.body.stateHair;
 
   try {
     const profile = await Profile.findOne({ user: req.user.id });

@@ -1,8 +1,15 @@
 import React from "react";
 
 // Material-UI
-import { CssBaseline, Typography, Container, Link } from "@material-ui/core";
+import {
+  CssBaseline,
+  Typography,
+  Container,
+  Link,
+  Button
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { FormBottomNav } from "../ComponentsForm";
 
 // Assets
 const StripeButton =
@@ -37,26 +44,40 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const StripeAccount = () => {
+const StripeAccount = ({ match, prevStep, step }) => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component='main' maxWidth='sm'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography variant="h2" className={classes.title}>
+        <Typography variant='h2' className={classes.title}>
           Conect your bank account
         </Typography>
-        <Typography variant="subtitle1" className={classes.text}>
+        <Typography variant='subtitle1' className={classes.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </Typography>
-        <Link underline="none" color="inherit" href={stripeApi}>
-          <img src={StripeButton} alt="" className={classes.logo} />
+        <Link underline='none' color='inherit' href={stripeApi}>
+          <img src={StripeButton} alt='' className={classes.logo} />
         </Link>
       </div>
+      {match.url === "/create-profile" && (
+        <div>
+          <FormBottomNav
+            step={step}
+            Children={
+              <div>
+                <div>
+                  <Button onClick={prevStep}>Back</Button>
+                </div>
+              </div>
+            }
+          />
+        </div>
+      )}
     </Container>
   );
 };

@@ -73,10 +73,25 @@ export default function Summary({ booking }) {
               <Typography variant='body2'>{`$${product.amount}`}</Typography>
             </ListItem>
           ))}
+
           <ListItem className={classes.listItem}>
             <ListItemText primary='Total' />
             <Typography variant='subtitle1' className={classes.total}>
               {`$${booking.totalValue}`}
+            </Typography>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <ListItemText primary='Commision Vantty' />
+            <Typography variant='subtitle1' className={classes.total}>
+              {`$${booking.totalValue *
+                process.env.REACT_APP_VANTTY_COMMISION}`}
+            </Typography>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <ListItemText primary='Your transfer will be' />
+            <Typography variant='subtitle1' className={classes.total}>
+              {`$${booking.totalValue -
+                booking.totalValue * process.env.REACT_APP_VANTTY_COMMISION}`}
             </Typography>
           </ListItem>
         </List>

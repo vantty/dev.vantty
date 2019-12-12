@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import EditForm from "../../../EditForm";
-import { Price } from "../../../Form/components";
+import { Services } from "../../../Form/components";
 
-const EditPrice = () => {
+const EditServices = () => {
   return (
     <Fragment>
-      <EditForm Children={<Price />} />
+      <EditForm Children={<Services />} />
     </Fragment>
   );
 };
 
-export default EditPrice;
+export default EditServices;

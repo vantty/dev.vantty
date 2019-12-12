@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function AddressForm({
   onChangeTarget,
-  addressLocal,
+  localAddress,
   onChangeAddress,
   descriptionAddress,
   onChange
@@ -54,7 +54,7 @@ export default function AddressForm({
         {/* {location === "userLocation" ? ( */}
         <Fragment>
           <GoogleMapsAutocomplete
-            addressLocal={addressLocal}
+            localAddress={localAddress}
             onChangeTarget={onChangeTarget}
             onChangeAddress={onChangeAddress}
 
@@ -85,6 +85,7 @@ export default function AddressForm({
           <Typography variant='h6' gutterBottom>
             Validate your phone
           </Typography>
+          <TextField id='outlined-basic' label='Outlined' variant='outlined' />
         </Grid>
       </Grid>
     </Fragment>

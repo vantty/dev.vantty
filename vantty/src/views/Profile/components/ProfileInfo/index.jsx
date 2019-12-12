@@ -87,7 +87,7 @@ const ProfileInfo = ({
                         className={classes.button}
                         to={"/personal-info"}
                       >
-                        update
+                        settings
                       </Button>
                     )}
                 </Fragment>

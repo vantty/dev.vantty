@@ -173,7 +173,7 @@ const Checkout = ({
   useEffect(() => {
     getProfileById(match.params.id);
   }, []);
-
+  console.log(checkout);
   const handleNext = (e, total, addedItems) => {
     e.preventDefault();
     setCheckout({ ...checkout, totals: total, services: addedItems });
@@ -203,14 +203,19 @@ const Checkout = ({
   //   e.preventDefault();
   //   addNewBook(match.params.bookId, checkout);
   // };
-  const onChange = (e, data, value) => {
-    e.preventDefault();
-    setCheckout({ ...checkout, data: value });
-    // setCheckout({ ...checkout, [data]: value });
+  // const onChange = (e, data, value) => {
+  //   e.preventDefault();
+  //   setCheckout({ ...checkout, data: value });
+  // setCheckout({ ...checkout, [data]: value });
+  // };
+  const onChangeDate = value => {
+    setCheckout({
+      ...checkout,
+      ...value
+    });
   };
 
   // Handle fields change
-
   const onChangeTarget = e =>
     setCheckout({ ...checkout, [e.target.name]: e.target.value });
 
@@ -235,13 +240,16 @@ const Checkout = ({
             initialServices={initialServices}
             checkout={checkout}
             cart={cart}
+            onChangeDate={onChangeDate}
+            date={date}
+            hour={hour}
           />
         );
       case 1:
         return (
           <AddressForm
             onChangeAddress={onChangeAddress}
-            addressLocal={address}
+            localAddress={address}
             onChangeTarget={onChangeTarget}
             descriptionAddress={descriptionAddress}
           />
@@ -260,10 +268,10 @@ const Checkout = ({
       <CssBaseline />
 
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth="sm">
+      <Container maxWidth='sm'>
         <main className={classes.layout}>
           {/* <Paper className={classes.paper}> */}
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component='h1' variant='h4' align='center'>
             Checkout
           </Typography>
 
@@ -281,10 +289,10 @@ const Checkout = ({
           <Fragment>
             {activeStep === steps.length ? (
               <Fragment>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant='h5' gutterBottom>
                   Thank you for your order.
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant='subtitle1'>
                   Your order number is #2001539. We have emailed your order
                   confirmation, and will send you an update when your order has
                   shipped.
@@ -292,7 +300,7 @@ const Checkout = ({
               </Fragment>
             ) : (
               <Fragment>
-                <Container maxWidth="sm">
+                <Container maxWidth='sm'>
                   {profile && getStepContent(activeStep)}
                 </Container>
                 <div className={classes.buttons}>
@@ -301,11 +309,16 @@ const Checkout = ({
                       Back
                     </Button>
                   )}
+
                   {activeStep === 0 && (
                     <Button
-                      variant="contained"
-                      disabled={total === 0 && true}
-                      color="primary"
+                      variant='contained'
+                      disabled={
+                        (total === 0 && true) ||
+                        (date === "" && true) ||
+                        (hour === "" && true)
+                      }
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >
@@ -314,13 +327,13 @@ const Checkout = ({
                   )}
                   {activeStep === 1 && (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       disabled={
                         Object.entries(address).length === 0 &&
                         address.constructor === Object &&
                         true
                       }
-                      color="primary"
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >
@@ -329,9 +342,9 @@ const Checkout = ({
                   )}
                   {activeStep === 2 && (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       disabled={false}
-                      color="primary"
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >
@@ -341,9 +354,9 @@ const Checkout = ({
 
                   {activeStep === 3 && (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       disabled={false}
-                      color="primary"
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >

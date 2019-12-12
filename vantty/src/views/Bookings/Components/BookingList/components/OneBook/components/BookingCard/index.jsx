@@ -21,7 +21,7 @@ import {
   CardHeader,
   Card
 } from "@material-ui/core";
-import { Services } from "./components";
+import { Services, SettingsCard } from "./components";
 
 // Components
 import { BookCode } from "../../../../../../../../components";
@@ -66,13 +66,18 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "yellow"
   },
   button: {
-    width: "20px",
+    // width: "10px"
     // height: "10rem",
     // fontSize: "10px" + "!important",
-    margin: theme.spacing(1)
+    // margin: theme.spacing(1)
     // minWidth: "1rem",
     // minHeight: "1rem",
     // marginTop: "1rem"
+  },
+  buttonAccept: {
+    // width: "10px",
+    // margin: theme.spacing(1),
+    color: theme.palette.greenVantty.light
   }
 }));
 
@@ -87,20 +92,21 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label='recipe' className={classes.avatar}>
             {booking.user}
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          // <IconButton aria-label='settings' onClick={() => alert("hello")}>
+          //   <MoreVertIcon />
+          // </IconButton>
+          <SettingsCard />
         }
         title={`Your client is ${booking.name}`}
         // subheader={booking.requestDate}
       />
       <a
-        target="_blank"
+        target='_blank'
         href={`https://www.google.com/maps/place/${replace(
           booking.address.street
         )}/`}
@@ -117,10 +123,10 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
       </a>
 
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant='body2' color='textSecondary' component='p'>
           {booking.address.street}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant='body2' color='textSecondary' component='p'>
           {booking.descriptionAddress}
         </Typography>
       </CardContent>
@@ -152,42 +158,49 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                     {booking.state === "request" && (
                       <Grid
                         container
-                        direction="row"
-                        justify="flex-end"
-                        alignItems="center"
+                        direction='row'
+                        justify='flex-end'
+                        alignItems='center'
+                        spacing={1}
                       >
-                        <Button
-                          // variant='outlined'
-                          classes={classes.button}
-                          // color='primary'
-                          onClick={e =>
-                            changeStateBooking(booking._id, "decline")
-                          }
-                        >
-                          Decline
-                        </Button>
-                        <Button
-                          classes={classes.button}
-                          variant="outlined"
-                          size="small"
-                          color="primary"
-                          onClick={e =>
-                            changeStateBooking(booking._id, "propose")
-                          }
-                        >
-                          Propose new time
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          classes={classes.button}
-                          size="small"
-                          color="primary"
-                          onClick={() =>
-                            changeStateBooking(booking._id, "accepted")
-                          }
-                        >
-                          Accept
-                        </Button>
+                        <Grid item xs={3}>
+                          <Button
+                            // variant='outlined'
+                            classes={classes.button}
+                            size='small'
+                            color='primary'
+                            onClick={e =>
+                              changeStateBooking(booking._id, "decline")
+                            }
+                          >
+                            Decline
+                          </Button>
+                        </Grid>
+                        <Grid item xs={3}>
+                          <Button
+                            classes={classes.button}
+                            // variant='outlined'
+                            size='small'
+                            color='primary'
+                            onClick={e =>
+                              changeStateBooking(booking._id, "propose")
+                            }
+                          >
+                            Propose
+                          </Button>
+                        </Grid>
+                        <Grid item xs={3}>
+                          <Button
+                            variant='outlined'
+                            classes={classes.buttonAccept}
+                            size='small'
+                            onClick={() =>
+                              changeStateBooking(booking._id, "accepted")
+                            }
+                          >
+                            Accept
+                          </Button>
+                        </Grid>
                       </Grid>
                     )}
                   </CardActions>
@@ -205,7 +218,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       </Grid>
                     </CardActions>
                   )}
-                  {console.log(booking.state)}
+
                   {booking.state === "completed" && (
                     <CardActions className={classes.stateCompleted}>
                       <Typography>

@@ -20,7 +20,7 @@ import {
   CreateProfile,
   AddPortfolio,
   InfoContact,
-  Price,
+  Services,
   PersonalInfo,
   Categories,
   Validation,
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
+const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = useState(1);
@@ -64,6 +64,9 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
     gender: "",
     english: ""
   });
+
+  const [stateHair, setStateHair] = React.useState([]);
+  const [stateMakeup, setStateMakeup] = React.useState([]);
 
   useEffect(() => {
     getCurrentProfile();
@@ -97,26 +100,31 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
             onChange={onChange}
           />
         );
+      // case 3:
+      //   return (
+      //     <Validation
+      //       formData={formData}
+      //       step={activeStep}
+      //       nextStep={nextStep}
+      //       getCurrentProfile={getCurrentProfile}
+      //       prevStep={prevStep}
+      //       onChange={onChange}
+      //     />
+      //   );
       case 3:
-        return (
-          <Validation
-            formData={formData}
-            step={activeStep}
-            nextStep={nextStep}
-            getCurrentProfile={getCurrentProfile}
-            prevStep={prevStep}
-            onChange={onChange}
-          />
-        );
-      case 4:
         return (
           <Categories
             step={activeStep}
             nextStep={nextStep}
             prevStep={prevStep}
+            formData={formData}
+            setStateHair={setStateHair}
+            setStateMakeup={setStateMakeup}
+            stateHair={stateHair}
+            stateMakeup={stateMakeup}
           />
         );
-      case 5:
+      case 4:
         return (
           <AddPortfolio
             step={activeStep}
@@ -124,10 +132,10 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
             prevStep={prevStep}
           />
         );
-      // case 7:
-      //   return (
-      //     <Price step={activeStep} nextStep={nextStep} prevStep={prevStep} />
-      //   );
+      case 5:
+        return (
+          <Services step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+        );
       case 6:
         return (
           <InfoContact
@@ -137,7 +145,14 @@ const Form = ({ profile, getCurrentProfile, uploader: { images } }) => {
           />
         );
       case 7:
-        return <StripeAccount />;
+        return (
+          <StripeAccount
+            step={activeStep}
+            match={match}
+            nextStep={nextStep}
+            prevStep={prevStep}
+          />
+        );
       default:
         throw new Error("Unknown step");
     }

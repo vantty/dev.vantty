@@ -18,7 +18,7 @@ export const getCurrentProfile = (owner = true) => async dispatch => {
   !owner && dispatch({ type: CLEAR_PROFILE });
   try {
     // dispatch({ type: GET_PROFILE });
-    await dispatch(loadUser());
+    // await dispatch(loadUser());
     const res = await server.get("/profile/me");
     await dispatch({
       type: GET_PROFILE,
@@ -55,6 +55,7 @@ export const getProfileById = userId => async dispatch => {
   await dispatch({
     type: CLEAR_PROFILE
   });
+  await dispatch(loadUser());
   try {
     const res = await server.get(`/profile/artist/${userId}`);
     await dispatch({
@@ -143,27 +144,27 @@ export const createMobileNumber = (
 
 // Add Education
 export const addCategories = (
-  state,
+  stateMakeup,
   history,
   stateHair,
   edit = false
 ) => async dispatch => {
   let categories = {};
-  let makeup = [];
-  let hair = [];
+  // let makeup = [];
+  // let hair = [];
 
-  for (const prop in state) {
-    if (state[prop] === true) {
-      await makeup.push(prop);
-    }
-  }
+  // for (const prop in stateMakeup) {
+  //   if (stateMakeup[prop] === true) {
+  //     await makeup.push(prop);
+  //   }
+  // }
 
-  for (const prop in stateHair) {
-    if (stateHair[prop] === true) {
-      await hair.push(prop);
-    }
-  }
-  categories = { makeup, hair };
+  // for (const prop in stateHair) {
+  //   if (stateHair[prop] === true) {
+  //     await hair.push(prop);
+  //   }
+  // }
+  categories = { stateMakeup, stateHair };
 
   try {
     const config = {
@@ -218,7 +219,7 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = elastidId => async dispatch => {
   if (window.confirm("Are you sure?")) {
     try {
-      await deleteFromElastic(elastidId);
+      // await deleteFromElastic(elastidId);
       await server.delete("/profile");
 
       dispatch({ type: CLEAR_PROFILE });
@@ -518,7 +519,7 @@ export const deleteService = id => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert("Education Removed", "success"));
+    dispatch(setAlert("Service Removed", "success"));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,

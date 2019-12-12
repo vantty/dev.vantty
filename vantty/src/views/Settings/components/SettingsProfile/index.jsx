@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 import { logout } from "../../../../actions/auth";
+import { deleteAccount } from "../../../../actions/profile";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -33,16 +34,23 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.black
   },
   title: {
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
+    backgroundColor: "#F3F3F3",
+    paddingTop: "0.09rem" + "!important",
+    paddingBottom: "0.09rem" + "!important"
+  },
+  listItem: {
+    paddingTop: "0.2rem" + "!important",
+    paddingBottom: "0.2rem" + "!important"
   },
   arrow: {
     marginLeft: "7px",
     color: theme.palette.text.primary,
-    fontSize: "18px"
+    fontSize: "16px"
   }
 }));
 
-const SettingsProfile = ({ match, logout, pagesProfile }) => {
+const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -52,7 +60,47 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
   return (
     <Fragment>
       <List component='nav'>
-        {pagesProfile.map((page, ind) => (
+        <Container maxWidth='md'>
+          <ListItem className={classes.title}>
+            <ListItemText primary={"Manage"} />
+          </ListItem>
+          <Grid
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+          >
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink to={"/bookings"} className={classes.listItem}>
+                <ListItemText
+                  primary={"Booking"}
+                  // className={classes.title}
+                />
+              </ListItemLink>
+            </Grid>
+            {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <Divider />
+            </Grid>
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink to={"/payments"} className={classes.listItem}>
+                <ListItemText
+                  primary={"Payments"}
+                  // className={classes.title}
+                />
+              </ListItemLink>
+            </Grid>
+
+            {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            <Divider />
+          </Grid>
+
+          <ListItem className={classes.title}>
+            <ListItemText primary={"Update Profile"} />
+          </ListItem>
+        </Container>
+
+        {pages.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
             <Container maxWidth='md'>
@@ -67,6 +115,7 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
                     href={page.href}
                     to={page.href}
                     selected={page.href === match.url}
+                    className={classes.listItem}
                   >
                     <ListItemText
                       primary={page.title}
@@ -89,6 +138,9 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
         ))}
         {/* <Container maxWidth='sm'> */}
         <Container maxWidth='md'>
+          <ListItem className={classes.title}>
+            <ListItemText primary={"Account"} />
+          </ListItem>
           {isMobile && (
             <Grid
               container
@@ -97,9 +149,24 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
               alignItems='center'
             >
               <Grid item xs={11} md={12} lg={12} xl={12}>
-                <ListItemLink to={"/settings/account"}>
+                <ListItemLink
+                  to={"/settings/account"}
+                  className={classes.listItem}
+                >
                   <ListItemText
-                    primary={"Account"}
+                    primary={"Detalils"}
+                    // className={classes.title}
+                  />
+                </ListItemLink>
+              </Grid>
+
+              <Grid item xs={1}>
+                <ArrowForwardIosIcon className={classes.arrow} />
+              </Grid>
+              <Grid item xs={11} md={12} lg={12} xl={12}>
+                <ListItemLink to={"/help-center"} className={classes.listItem}>
+                  <ListItemText
+                    primary={"Help Center"}
                     // className={classes.title}
                   />
                 </ListItemLink>
@@ -110,8 +177,11 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
               </Grid>
             </Grid>
           )}
+          <ListItem button onClick={deleteAccount} className={classes.listItem}>
+            <ListItemText primary={"Delete Account"} />
+          </ListItem>
           {!isMobile && (
-            <ListItem button onClick={logout}>
+            <ListItem button onClick={logout} className={classes.listItem}>
               <ListItemText primary={"Logout"} />
             </ListItem>
           )}
@@ -125,10 +195,8 @@ const SettingsProfile = ({ match, logout, pagesProfile }) => {
 };
 
 SettingsProfile.propTypes = {
-  logout: PropTypes.func
+  logout: PropTypes.func,
+  deleteAccount: PropTypes.func
 };
 
-export default connect(
-  null,
-  { logout }
-)(SettingsProfile);
+export default connect(null, { logout, deleteAccount })(SettingsProfile);

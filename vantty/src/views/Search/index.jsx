@@ -170,7 +170,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               componentId='result'
               dataField='*'
               title='Results'
-              size={12}
+              size={31}
               infiniteScroll={true}
               showResultStats={false}
               loader={<CircularProgress />}

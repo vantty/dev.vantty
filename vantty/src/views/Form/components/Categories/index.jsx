@@ -16,7 +16,12 @@ import {
   CardActions,
   Divider,
   Grid,
-  Typography
+  Typography,
+  InputLabel,
+  Select,
+  Input,
+  Chip,
+  MenuItem
 } from "@material-ui/core";
 //Components
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
@@ -29,6 +34,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { isMobile } from "react-device-detect";
+import { useTheme } from "@material-ui/styles";
+import { Services } from "..";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -50,6 +57,22 @@ const useStyles = makeStyles(theme => ({
     "&$checked": {
       color: theme.palette.greenVantty.main
     }
+  },
+  formControl: {
+    margin: theme.spacing(),
+    width: "100%"
+    // minWidth: 120,
+    // maxWidth: 300
+  },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  chip: {
+    margin: 2
+  },
+  noLabel: {
+    marginTop: theme.spacing(3)
   }
 }));
 
@@ -63,71 +86,80 @@ const AddCategories = ({
   step,
   match,
   getCurrentProfile,
-  className
+  className,
+  setStateHair,
+  setStateMakeup,
+  stateHair,
+  stateMakeup
 }) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   useEffect(() => {
     getCurrentProfile();
   }, []);
 
-  // const continues = e => {
-  //   e.preventDefault();
-  //   nextStep();
-  // };
-
   const back = e => {
     e.preventDefault();
     prevStep();
   };
+  const [stateHairElement, setStateHairElement] = React.useState([]);
+  const [stateMakeupElement, setStateMakeupElement] = React.useState([]);
 
   const onSubmit = async e => {
     e.preventDefault();
-    addCategories(state, history, stateHair, false);
+    match.url === "/categories" &&
+      addCategories(stateMakeupElement, history, stateHairElement, false);
+    match.url === "/create-profile" &&
+      addCategories(stateMakeup, history, stateHair, false);
     match.url === "/create-profile" && nextStep();
   };
 
-  const [state, setState] = useState({
-    Wedding: true,
-    Social: false,
-    Prom: false,
-    Fashion: false,
-    Special_Effects: false,
-    Photography: false
-  });
-
-  const {
-    Wedding,
-    Social,
-    Prom,
-    Fashion,
-    Special_Effects,
-    Photography
-  } = state;
-
-  const handleChange = name => event => {
-    setState({ ...state, [name]: event.target.checked });
+  const handleChangeHair = event => {
+    match.url === "/create-profile" && setStateHair(event.target.value);
+    setStateHairElement(event.target.value);
   };
 
-  const error =
-    [Wedding, Social, Prom, Fashion, Special_Effects, Photography].filter(
-      v => v
-    ).length < 1;
-
-  //Hair
-  const [stateHair, setStateHair] = useState({
-    Brides: true,
-    Peinados: false,
-    Cut: false
-  });
-
-  const { Brides, Peinados, Cut } = stateHair;
-  const errorHair = [Brides, Peinados, Cut].filter(v => v).length < 1;
-
-  const handleChangeHair = name => event => {
-    setStateHair({ ...stateHair, [name]: event.target.checked });
+  const handleChangeMakeup = event => {
+    match.url === "/create-profile" && setStateMakeup(event.target.value);
+    setStateMakeupElement(event.target.value);
   };
 
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250
+      }
+    }
+  };
+
+  const hair = [
+    "corte",
+    "Van Henry",
+    "April Tucker",
+    "Ralph Hubbard",
+    "Omar Alexander"
+  ];
+
+  const makeup = [
+    "Artistic",
+    "Van Henry",
+    "April Tucker",
+    "Ralph Hubbard",
+    "Omar Alexander"
+  ];
+
+  function getStyles(name, state, theme) {
+    return {
+      fontWeight:
+        state.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium
+    };
+  }
   return (
     <Fragment>
       <CustomPaper
@@ -135,104 +167,79 @@ const AddCategories = ({
           <Fragment>
             <form autoComplete='off' noValidate>
               {/* <Divider /> */}
-
-              <Fragment>
-                <Grid
-                  container
-                  direction='row'
-                  justify='space-between'
-                  alignItems='flex-start'
-                >
-                  <Grid item xs={6} xl={6} md={6} sm={6}>
-                    {/* <form className='form'> */}
-
-                    <FormControl
-                      error={error}
-                      component='fieldset'
-                      className={classes.formControl}
-                    >
-                      <Typography color='textSecondary' variant='body1'>
-                        Makeup
-                      </Typography>
-
-                      {error && (
-                        <FormLabel component='legend'>
-                          Select minimum one
-                        </FormLabel>
+              <div>
+                <Fragment>
+                  <Typography>Categoties</Typography>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id='demo-mutiple-chip-label'>Hair</InputLabel>
+                    <Select
+                      labelId='demo-mutiple-chip-label'
+                      id='demo-mutiple-chip'
+                      multiple
+                      value={stateHair || stateHairElement}
+                      onChange={handleChangeHair}
+                      input={<Input id='select-multiple-chip' />}
+                      renderValue={selected => (
+                        <div className={classes.chips}>
+                          {selected.map(value => (
+                            <Chip
+                              key={value}
+                              label={value}
+                              className={classes.chip}
+                            />
+                          ))}
+                        </div>
                       )}
-
-                      <FormGroup>
-                        {Object.keys(state).map((data, index) => {
-                          return (
-                            <div key={data}>
-                              <Fragment>
-                                <FormControlLabel
-                                  key={data}
-                                  control={
-                                    <Checkbox
-                                      className={classes.checked}
-                                      checked={state[data] === true && true}
-                                      // state[data](
-                                      //   profile &&
-                                      //     profile.categories.makeup[index]
-                                      // );
-                                      onChange={handleChange(data)}
-                                      value={toString(data)}
-                                    />
-                                  }
-                                  label={data}
-                                />
-                              </Fragment>
-                            </div>
-                          );
-                        })}
-                      </FormGroup>
-                      {/* <FormHelperText>Be careful</FormHelperText> */}
-                    </FormControl>
-                    {/* </form> */}
-                  </Grid>
-                  <Grid item xs={6} xl={6} md={6} sm={6}>
-                    <FormControl
-                      error={errorHair}
-                      component='fieldset'
-                      className={classes.formControl}
+                      MenuProps={MenuProps}
                     >
-                      <Typography color='textSecondary' variant='body1'>
-                        Hair
-                      </Typography>
-                      {errorHair && (
-                        <FormLabel component='legend'>
-                          Select minimum one
-                        </FormLabel>
+                      {hair.map(name => (
+                        <MenuItem
+                          key={name}
+                          value={name}
+                          // style={getStyles(name, stateHair, theme)}
+                        >
+                          {name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  {/* MAKEUP */}
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id='demo-mutiple-chip-label'>Makeup</InputLabel>
+                    <Select
+                      labelId='demo-mutiple-chip-label'
+                      id='demo-mutiple-chip'
+                      multiple
+                      value={stateMakeup || stateMakeupElement}
+                      onChange={handleChangeMakeup}
+                      input={<Input id='select-multiple-chip' />}
+                      renderValue={selected => (
+                        <div className={classes.chips}>
+                          {selected.map(value => (
+                            <Chip
+                              key={value}
+                              label={value}
+                              className={classes.chip}
+                            />
+                          ))}
+                        </div>
                       )}
-                      <FormGroup>
-                        {Object.keys(stateHair).map((data, index) => {
-                          return (
-                            <div key={data}>
-                              <Fragment>
-                                <FormControlLabel
-                                  control={
-                                    <Checkbox
-                                      key={data}
-                                      className={classes.checked}
-                                      // checked={"" || stateHair[data] === true && true}
-                                      checked={"" || stateHair[data] === true}
-                                      onChange={handleChangeHair(data)}
-                                      value={toString(data)}
-                                    />
-                                  }
-                                  label={data}
-                                />
-                              </Fragment>
-                            </div>
-                          );
-                        })}
-                      </FormGroup>
-                      {/* <FormHelperText>Be careful</FormHelperText> */}
-                    </FormControl>
-                  </Grid>
-                </Grid>
-              </Fragment>
+                      MenuProps={MenuProps}
+                    >
+                      {makeup.map(name => (
+                        <MenuItem
+                          key={name}
+                          value={name}
+                          // style={getStyles(name, stateMakeup, theme)}
+                        >
+                          {name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  {/* <Services formData={formData} onChange={onChange} /> */}
+                </Fragment>
+              </div>
 
               {match.url === "/categories" && !isMobile && (
                 <Fragment>
@@ -248,7 +255,7 @@ const AddCategories = ({
                       <Button
                         className={classes.button}
                         onClick={e => onSubmit(e)}
-                        disabled={error || errorHair}
+                        // disabled={error || errorHair}
                       >
                         Update
                       </Button>
@@ -275,7 +282,12 @@ const AddCategories = ({
                             <Button
                               className={classes.button}
                               onClick={e => onSubmit(e)}
-                              disabled={error || errorHair}
+                              disabled={
+                                // stateHair === undefined ||
+                                stateHair.length == 0 ||
+                                // stateMakeup === undefined ||
+                                stateMakeup.length == 0
+                              }
                             >
                               {match.url === "/categories" ? "Update" : "next"}
                             </Button>
@@ -298,7 +310,7 @@ const AddCategories = ({
                               <Button
                                 className={classes.button}
                                 onClick={e => onSubmit(e)}
-                                disabled={error || errorHair}
+                                // disabled={error || errorHair}
                               >
                                 Update
                               </Button>

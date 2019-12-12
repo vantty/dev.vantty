@@ -44,15 +44,7 @@ const ReviewItem = ({
           <h1>Reviews</h1>
         </Grid>
 
-        <Grid item>
-          {/* <Button
-            size='small'
-            color='primary'
-            component={Link}
-            to={`/profile/artist/${user}/${_id}`}
-          >
-            Give a comment
-          </Button> */}
+        {/* <Grid item>
           <LinkMui
             component={Link}
             variant='body1'
@@ -60,7 +52,7 @@ const ReviewItem = ({
           >
             Give a comment
           </LinkMui>
-        </Grid>
+        </Grid> */}
       </Grid>
 
       <br />
@@ -162,7 +154,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { deleteComment }
-)(withStyles(styles)(ReviewItem));
+export default connect(mapStateToProps, { deleteComment })(
+  withStyles(styles)(ReviewItem)
+);

@@ -112,15 +112,27 @@ export default function Slider({
             </Typography>
           </Grid>
         </Grid>
-
+        <Typography color='primary' variant='body1'>
+          Availability
+        </Typography>
+        <Grid container alignItems='center'>
+          <Grid item xs>
+            <Typography gutterBottom variant='h5'>
+              {profile.availability}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Typography color='primary' variant='body1'>
+          Services
+        </Typography>
         <Table services={profile.services} />
-        <Divider />
+        {/* <Divider />
         <br />
         {!owner && (
             <Typography color='primary' variant='body1'>
               Date
             </Typography>
-          ) && <Date onChangeDate={onChangeDate} />}
+          ) && <Date onChangeDate={onChangeDate} />} */}
 
         {/* <Divider /> */}
         {/* <br /> */}

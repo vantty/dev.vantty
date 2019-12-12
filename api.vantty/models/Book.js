@@ -18,7 +18,7 @@ const BookSchema = new Schema({
       name: {
         type: String
       },
-      appointment: {
+      date: {
         type: String
       },
       address: {

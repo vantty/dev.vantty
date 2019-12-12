@@ -180,11 +180,11 @@ export const facebookRegister = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/facebook", body, config);
-    await dispatch(loadUser());
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -206,11 +206,12 @@ export const googleRegister = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/google", body, config);
-    await dispatch(loadUser());
+
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -232,11 +233,12 @@ export const facebookLogin = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/facebook", body, config);
-    await dispatch(loadUser());
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -258,11 +260,12 @@ export const googleLogin = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/google", body, config);
-    await dispatch(loadUser());
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -299,6 +302,8 @@ export const updateInfo = (formData, edit = false) => async dispatch => {
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
+    dispatch(loadUser());
+
     dispatch(setAlert(edit && "User Update", "success"));
   } catch (err) {
     const errors = err.response.data.errors;

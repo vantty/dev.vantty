@@ -160,7 +160,7 @@ exports.createNewBook = async (req, res) => {
       stripeCustomerId: req.body.stripeCustomerId,
       stripeArtistAccount: req.body.stripeArtistAccount,
       name: user[method].firstName,
-      appointment: req.body.date,
+      date: req.body.date,
       address: req.body.address,
       descriptionAddress: req.body.descriptionAddress,
       hour: req.body.hour,

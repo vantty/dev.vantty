@@ -105,7 +105,7 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
   };
 
   if (goSearch) {
-    return <Redirect push to="/search" />;
+    return <Redirect push to='/search' />;
   }
 
   return (
@@ -114,26 +114,26 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
       <div className={classes.root}>
         <Grid className={classes.grid} container>
           <Grid className={classes.quoteContainer} item sm={12}>
-            {isMobile && <img src={Logo} alt="" className={classes.logo} />}
+            {isMobile && <img src={Logo} alt='' className={classes.logo} />}
             <div className={classes.quote}>
-              <Container maxWidth="xl">
+              <Container maxWidth='xl'>
                 <Grid container>
                   <Grid item xs={12} sm={4}>
                     <div className={classes.quoteInner}>
-                      <Typography className={classes.quoteText} variant="h1">
+                      <Typography className={classes.quoteText} variant='h1'>
                         Get your dreamed look, done by the perfect artists
                       </Typography>
                       <form onSubmit={handleSearch}>
                         <TextField
-                          id="outlined-simple-start-adornment"
+                          id='outlined-simple-start-adornment'
                           onChange={handleChange}
                           fullWidth
                           className={classes.textField}
-                          variant="outlined"
-                          placeholder="Search"
+                          variant='outlined'
+                          placeholder='Search'
                           InputProps={{
                             startAdornment: (
-                              <InputAdornment position="start">
+                              <InputAdornment position='start'>
                                 <SearchIcon />
                               </InputAdornment>
                             )
@@ -161,7 +161,4 @@ const mapStateToProps = state => ({
   goSearch: state.search.goSearch
 });
 
-export default connect(
-  mapStateToProps,
-  { searchValue }
-)(HomeJumbotron);
+export default connect(mapStateToProps, { searchValue })(HomeJumbotron);

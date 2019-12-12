@@ -6,10 +6,12 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
+import CheckIcon from "@material-ui/icons/Check";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import FolderIcon from "@material-ui/icons/Folder";
+
+import EventSeatIcon from "@material-ui/icons/EventSeat";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Divider, Button } from "@material-ui/core";
 import { OneBook } from "./components";
@@ -21,6 +23,9 @@ const useStyles = makeStyles(theme => ({
   },
   demo: {
     backgroundColor: theme.palette.background.paper
+  },
+  avatar: {
+    backgroundColor: "green"
   },
   title: {
     // margin: theme.spacing(4, 0, 2)
@@ -44,12 +49,16 @@ const BookingList = ({ book, changeStateBooking }) => {
                   book.map(booking => (
                     <ListItem>
                       <ListItemAvatar>
-                        <Avatar>
-                          <FolderIcon />
+                        <Avatar className={classes.avatar}>
+                          {booking.state !== "accepted" ? (
+                            <EventSeatIcon />
+                          ) : (
+                            <CheckIcon />
+                          )}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
-                        primary='Natalia'
+                        primary={booking.name}
                         // secondary={`Total Service Value $${booking.totalValue}`}
                         secondary={
                           <React.Fragment>
@@ -59,11 +68,11 @@ const BookingList = ({ book, changeStateBooking }) => {
                               className={classes.inline}
                               color='textPrimary'
                             >
-                              {`Total Service Value $${booking.totalValue}`}
+                              {`Value $${booking.totalValue}`}
                             </Typography>
 
-                            {booking.state !== "  request" &&
-                              `This service was ${booking.state}`}
+                            {booking.state !== "request" &&
+                              `State ${booking.state}`}
                           </React.Fragment>
                         }
                       />

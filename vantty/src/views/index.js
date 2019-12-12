@@ -17,4 +17,5 @@ export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Checkout } from "./Checkout";
 export { default as CreateArtistAccount } from "./CreateArtistAccount";
 export { default as NotFound } from "./NotFound";
+export { default as CreateProfile } from "./CreateProfile";
 // export { default as Test } from "./Test";

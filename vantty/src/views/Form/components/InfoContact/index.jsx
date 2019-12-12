@@ -39,6 +39,16 @@ const useStyles = makeStyles(theme => ({
   typography: {
     // marginTop: "1rem",
     marginBottom: "1.5rem"
+  },
+  button: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
   }
 }));
 
@@ -122,66 +132,85 @@ const InfoContact = ({
                 alignItems='center'
               >
                 <Box>
-                  <Typography
-                    component='h5'
-                    variant='h6'
-                    align='center'
-                    className={classes.typography}
-                  >
-                    This number will be where your clients could contact with
-                    you. You should have this phone with you to validate it.
-                  </Typography>
-                  <br />
-                  <div
-                    style={{
-                      textAlign: "center"
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "inline-block"
-                      }}
+                  {!numberIsVerified ? (
+                    <Typography
+                      component='h5'
+                      variant='h6'
+                      align='center'
+                      className={classes.typography}
                     >
-                      <ReactPhoneInput
-                        defaultCountry='us'
-                        onlyCountries={["co", "us", "ca"]}
-                        masks={{
-                          co: "+.. (...) ...-..-..",
-                          ca: "+. (...) ...-..-..",
-                          us: "+. (...) ...-..-.."
-                        }}
-                        disableAreaCodes
-                        value={phone}
-                        onChange={handleOnChange}
-                        inputExtraProps={{
-                          margin: "normal",
-                          autoComplete: "phone",
-                          name: "custom-username"
-                        }}
-                        inputClass={classes.field}
-                        dropdownClass={classes.countryList}
-                      />
-                    </div>
-                  </div>
-                  <br />
+                      This number will be where your clients could contact with
+                      you. You should have this phone with you to validate it.
+                    </Typography>
+                  ) : (
+                    <Typography
+                      component='h5'
+                      variant='h6'
+                      align='center'
+                      className={classes.typography}
+                    >
+                      This number has been verified!
+                    </Typography>
+                  )}
 
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={12}
-                    container
-                    direction='row'
-                    justify='center'
-                    alignItems='center'
-                  >
-                    <NumberValidation
-                      phone={phone}
-                      countryCode={countryCode}
-                      history={history}
-                      id={profile && profile.user._id}
-                    />
-                  </Grid>
+                  <br />
+                  {!numberIsVerified ? (
+                    <Fragment>
+                      <div
+                        style={{
+                          textAlign: "center"
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "inline-block"
+                          }}
+                        >
+                          <ReactPhoneInput
+                            defaultCountry='us'
+                            onlyCountries={["co", "us", "ca"]}
+                            masks={{
+                              co: "+.. (...) ...-..-..",
+                              ca: "+. (...) ...-..-..",
+                              us: "+. (...) ...-..-.."
+                            }}
+                            disableAreaCodes
+                            value={phone}
+                            onChange={handleOnChange}
+                            inputExtraProps={{
+                              margin: "normal",
+                              autoComplete: "phone",
+                              name: "custom-username"
+                            }}
+                            inputClass={classes.field}
+                            dropdownClass={classes.countryList}
+                          />
+                        </div>
+                      </div>
+                      <br />
+
+                      <Grid
+                        item
+                        xs={12}
+                        sm={12}
+                        md={12}
+                        container
+                        direction='row'
+                        justify='center'
+                        alignItems='center'
+                      >
+                        <NumberValidation
+                          phone={phone}
+                          countryCode={countryCode}
+                          history={history}
+                          id={profile && profile.user._id}
+                        />
+                      </Grid>
+                    </Fragment>
+                  ) : (
+                    "he;;p"
+                  )}
+
                   <br />
                 </Box>
               </Grid>
@@ -200,7 +229,13 @@ const InfoContact = ({
               <div>
                 <div>
                   <Button onClick={back}>Back</Button>
-                  <Button onClick={next}>Next</Button>
+                  <Button
+                    onClick={next}
+                    className={classes.button}
+                    // disabled={!numberIsVerified}
+                  >
+                    Next
+                  </Button>
                 </div>
               </div>
             }
