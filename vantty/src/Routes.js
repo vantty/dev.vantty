@@ -37,8 +37,7 @@ import {
   ForgotPassword,
   Checkout,
   CreateArtistAccount,
-  NotFound,
-  CreateProfile
+  NotFound
 } from "./views";
 
 //Routes
@@ -63,7 +62,6 @@ const Routes = () => {
       <PrivateRoute exact path='/create-profile' component={Form} />
       />
       {/*  */}
-      <Route component={CreateProfile} exact path='/create-artist' />
       <Route component={Register} exact path='/register' />
       <Route component={RegisterWithEmail} exact path='/register-email' />
       <Route component={Login} exact path='/login' />
