@@ -150,7 +150,7 @@ const Checkout = ({
   cart,
   cart: { items, addedItems, total, loading },
   addNewBook,
-  user: { stripeCustomerId, cards },
+  user: { stripeCustomerId, cards }
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -250,7 +250,15 @@ const Checkout = ({
           />
         );
       case 2:
-        return <PaymentForm onChangeTarget={onChangeTarget} stripeCustomerId={stripeCustomerId} cards={cards} isEdit={false} />;
+        return (
+          <PaymentForm
+            onChangeTarget={onChangeTarget}
+            stripeCustomerId={stripeCustomerId}
+            cards={cards}
+            isEdit={false}
+            cardSelected={stripeCardId}
+          />
+        );
       case 3:
         return <Summary checkout={checkout} total={total} />;
       default:

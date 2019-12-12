@@ -42,28 +42,36 @@ const BookingList = ({ book, changeStateBooking }) => {
               <List>
                 {book &&
                   book.map(booking => (
-                    <ListItem>
+                    <ListItem key={booking._id}>
                       <ListItemAvatar>
                         <Avatar>
                           <FolderIcon />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
-                        primary='Natalia'
+                        key={booking.state}
+                        primary="Natalia"
                         // secondary={`Total Service Value $${booking.totalValue}`}
                         secondary={
                           <React.Fragment>
                             <Typography
-                              component='span'
-                              variant='body2'
+                              component="span"
+                              variant="body2"
                               className={classes.inline}
-                              color='textPrimary'
+                              color="textPrimary"
                             >
                               {`Total Service Value $${booking.totalValue}`}
                             </Typography>
-
-                            {booking.state !== "  request" &&
-                              `This service was ${booking.state}`}
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                              {`This service was ${booking.state}`}
+                            </Typography>
+                            {/* {booking.state !== "  request" &&
+                              `This service was ${booking.state}`} */}
                           </React.Fragment>
                         }
                       />
@@ -74,7 +82,7 @@ const BookingList = ({ book, changeStateBooking }) => {
                           changeStateBooking={changeStateBooking}
                         />
                       </ListItemSecondaryAction>
-                      <Divider />
+                      {/* <Divider /> */}
                     </ListItem>
                   ))}
               </List>

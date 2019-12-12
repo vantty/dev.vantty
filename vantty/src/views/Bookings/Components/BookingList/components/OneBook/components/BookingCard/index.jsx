@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import {
   Grid,
   List,
@@ -28,8 +27,9 @@ import {
   BookCode,
   ConfirmationModal
 } from "../../../../../../../../components";
-import { PosponeForm } from "./components";
+import { PosponeForm, HelpButton } from "./components";
 
+// Helper
 const log = console.log;
 
 const useStyles = makeStyles(theme => ({
@@ -97,9 +97,10 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <HelpButton
+            booking={booking}
+            changeStateBooking={changeStateBooking}
+          />
         }
         title={`Your client is ${booking.name}`}
         // subheader={booking.requestDate}
@@ -120,7 +121,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           title={booking.address.street}
         />
       </a>
-
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {booking.address.street}
@@ -136,23 +136,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
               <div className={classes.demo}>
                 <List>
                   <Services booking={booking} />
-                  {/* {booking.services &&
-                    booking.services.map(service => (
-                      <ListItem>
-                        <ListItemAvatar>
-                          <Avatar>ji</Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={service.typeOfService}
-                          secondary={`Amount ${service.quantity}`}
-                        />
-                        <ListItemSecondaryAction>
-                          {service.amount}
-                        </ListItemSecondaryAction>
-                        <Divider />
-                      </ListItem>
-                    ))} */}
-
                   <CardActions>
                     {booking.state === "request" && (
                       <Grid
@@ -188,39 +171,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                           bookingId={booking._id}
                           state={"accepted"}
                         />
-                        {/* <Button
-                          // variant='outlined'
-                          classes={classes.button}
-                          // color='primary'
-                          onClick={e =>
-                            changeStateBooking(booking._id, "declined")
-                          }
-                        >
-                          Decline
-                        </Button>
-                        <Button
-                          classes={classes.button}
-                          variant="outlined"
-                          size="small"
-                          color="primary"
-                          onClick={e =>
-                            changeStateBooking(booking._id, "posponed")
-                          }
-                        >
-                          Propose a new date
-                        </Button> */}
-
-                        {/* <Button
-                          variant="outlined"
-                          classes={classes.button}
-                          size="small"
-                          color="primary"
-                          onClick={() =>
-                            changeStateBooking(booking._id, "accepted")
-                          }
-                        >
-                          Accept
-                        </Button> */}
                       </Grid>
                     )}
                   </CardActions>
@@ -238,7 +188,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       </Grid>
                     </CardActions>
                   )}
-                  {console.log(booking.state)}
                   {booking.state === "completed" && (
                     <CardActions className={classes.stateCompleted}>
                       <Typography>
@@ -246,7 +195,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       </Typography>
                     </CardActions>
                   )}
-
                   {booking.state === "declined" && (
                     <CardActions className={classes.stateDeclined}>
                       <Typography>
@@ -254,7 +202,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       </Typography>
                     </CardActions>
                   )}
-
                   {booking.state === "posponed" && (
                     <CardActions className={classes.statePosponed}>
                       <Grid container>
@@ -272,7 +219,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       </Grid>
                     </CardActions>
                   )}
-
                   {booking.state === "declined-posponed" && (
                     <CardActions className={classes.statePosponed}>
                       <Typography>

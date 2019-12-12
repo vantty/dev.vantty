@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CardsList = ({ cards, onChangeTarget, isEdit, deleteCard }) => {
+const CardsList = ({ cards, onChangeTarget, isEdit, deleteCard,cardSelected }) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
 
@@ -52,7 +52,7 @@ const CardsList = ({ cards, onChangeTarget, isEdit, deleteCard }) => {
         <RadioGroup
           aria-label="gender"
           name="stripeCardId"
-          value={value}
+          value={cardSelected}
           onChange={handleChange}
         >
           <Table className={classes.table} aria-label="simple table">

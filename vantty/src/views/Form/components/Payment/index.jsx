@@ -6,16 +6,14 @@ import PaymentForm from "../../../Checkout/components/PaymentForm";
 // Actions
 import { loadUser } from "../../../../actions/auth";
 
-const Payment = ({ loadUser, user: { stripeCustomerId, cards } }) => {
+const Payment = ({ loadUser, user }) => {
   useEffect(() => {
-    console.log("USE EFECT LOAD USER");
     loadUser();
   }, []);
-  console.log("ID", stripeCustomerId);
   return (
     <PaymentForm
-      stripeCustomerId={stripeCustomerId}
-      cards={cards}
+      stripeCustomerId={user && user.stripeCustomerId}
+      cards={user && user.cards}
       isEdit={true}
     />
   );

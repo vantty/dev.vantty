@@ -78,7 +78,8 @@ const _StripeForm = props => {
     stripeCustomerId,
     cards,
     onChangeTarget,
-    isEdit
+    isEdit,
+    cardSelected
   } = props;
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = React.useState(false);
@@ -149,6 +150,7 @@ const _StripeForm = props => {
             <Grid container spacing={1}>
               <Grid item xs={12}>
                 <CardsList
+                cardSelected={cardSelected}
                   cards={cards}
                   onChangeTarget={onChangeTarget}
                   isEdit={isEdit}

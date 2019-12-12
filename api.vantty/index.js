@@ -55,6 +55,7 @@ app.use("/api/profile", require("./routes/profile"));
 app.use("/api/review", require("./routes/review"));
 app.use("/api/images", require("./routes/images"));
 app.use("/api/book", require("./routes/book"));
+app.use("/api/help", require("./routes/help"));
 
 // Connect Server
 app.listen(process.env.PORT, () => {

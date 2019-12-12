@@ -1,6 +1,35 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+
+// Material-UI
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Container,
+  Grid,
+  Hidden,
+  Toolbar,
+  Avatar,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+  CircularProgress
+} from "@material-ui/core";
+import MuiLink from "@material-ui/core/Link";
+
+// Actions
+import { clearSearch } from "../../actions/search";
+import { changeNavbarValue } from "../../actions/navbar";
+
+// Components
+import { Header } from "../../components";
+import { AppBar } from "./Components";
+
+// Reactive Search (Appbase)
 import {
   ReactiveBase,
   ReactiveList,
@@ -8,23 +37,6 @@ import {
   DataSearch,
   MultiDataList
 } from "@appbaseio/reactivesearch";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import { Container, Grid, Hidden, Toolbar, Avatar } from "@material-ui/core";
-
-import { clearSearch } from "../../actions/search";
-import { Header } from "../../components";
-import { isMobile } from "react-device-detect";
-import { AppBar } from "./Components";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import MuiLink from "@material-ui/core/Link";
-// Actions
-import { changeNavbarValue } from "../../actions/navbar";
-import { Link } from "react-router-dom";
 const { ResultCardsWrapper } = ReactiveList;
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +44,6 @@ const useStyles = makeStyles(theme => ({
     boxShadow: `none !important`,
     border: `none !important`
   },
-
   card: {
     height: "100%",
     display: "flex",
@@ -90,16 +101,16 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
           children={
             <DataSearch
               onChange={clearSearch}
-              componentId='searchbox'
-              dataField='*'
-              placeholder='Search...'
+              componentId="searchbox"
+              dataField="*"
+              placeholder="Search..."
               defaultValue={searchValue}
             />
           }
           modal={
             <MultiDataList
-              componentId='categoryFilter'
-              dataField='tag.keyword'
+              componentId="categoryFilter"
+              dataField="tag.keyword"
               showSearch={false}
               data={[
                 {
@@ -117,32 +128,32 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
               ]}
               value={values}
               onChange={setValues}
-              title='Category'
+              title="Category"
             />
           }
           invisible={values}
         />
       )}
-      <Container maxWidth='lg'>
+      <Container maxWidth="lg">
         <Grid
           container
-          direction='row'
-          justify='center'
-          alignItems='flex-start'
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
         >
           <Hidden xsDown>
             <Grid item lg={4} md={4} className={classes.filters}>
               <DataSearch
                 onChange={clearSearch}
-                componentId='searchbox'
-                dataField='*'
-                placeholder='Search...'
+                componentId="searchbox"
+                dataField="*"
+                placeholder="Search..."
                 defaultValue={searchValue}
               />
               <br />
               <MultiDataList
-                componentId='categoryFilter'
-                dataField='tag.keyword'
+                componentId="categoryFilter"
+                dataField="tag.keyword"
                 showSearch={false}
                 data={[
                   {
@@ -160,16 +171,16 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                 ]}
                 value={values}
                 onChange={setValues}
-                title='Category'
+                title="Category"
               />
             </Grid>
           </Hidden>
           <Grid item lg={8} xs={12} md={8}>
             {/* </div> */}
             <ReactiveList
-              componentId='result'
-              dataField='*'
-              title='Results'
+              componentId="result"
+              dataField="*"
+              title="Results"
               size={12}
               infiniteScroll={true}
               showResultStats={false}
@@ -201,7 +212,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                           key={pic.original}
                                           className={classes.cardMedia}
                                           image={pic.original}
-                                          title='Image title'
+                                          title="Image title"
                                         />
                                         {/* </a> */}
                                       </MuiLink>
@@ -211,7 +222,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                     >
                                       <Toolbar className={classes.cardTitle}>
                                         <Avatar
-                                          alt=''
+                                          alt=""
                                           src={pic.profilePicture}
                                           className={classes.avatar}
                                         />
@@ -244,7 +255,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             key={pic.original}
                                             className={classes.cardMedia}
                                             image={pic.original}
-                                            title='Image title'
+                                            title="Image title"
                                           />
                                           {/* </a> */}
                                         </MuiLink>
@@ -254,7 +265,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                       >
                                         <Toolbar className={classes.cardTitle}>
                                           <Avatar
-                                            alt=''
+                                            alt=""
                                             src={pic.profilePicture}
                                             className={classes.avatar}
                                           />
