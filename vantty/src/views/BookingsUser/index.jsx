@@ -56,14 +56,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Bookings = ({ getUserBookings, book: { book }, changeStateBooking }) => {
+const Bookings = ({ getUserBookings, auth }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
     // changeNavbarValue("bookings");
-    getUserBookings("5df6a15749faf5092aeb4b6d");
+    getUserBookings(auth && auth.user._id);
   }, []);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -96,7 +96,7 @@ const Bookings = ({ getUserBookings, book: { book }, changeStateBooking }) => {
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <BookingList
-            book={book && book}
+            book={auth.bookings && auth.bookings}
             changeStateBooking={changeStateBooking}
           />
         </TabPanel>
@@ -112,16 +112,13 @@ const Bookings = ({ getUserBookings, book: { book }, changeStateBooking }) => {
 };
 
 Bookings.propTypes = {
-  book: PropTypes.object.isRequired,
-  getBook: PropTypes.func,
-  changeStateBooking: PropTypes.func
+  getUserBookings: PropTypes.func,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  book: state.book
+  auth: state.auth
 });
 export default connect(mapStateToProps, {
-  getBook,
-  changeStateBooking,
   getUserBookings
 })(withRouter(Bookings));
