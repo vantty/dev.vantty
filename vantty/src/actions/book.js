@@ -77,6 +77,7 @@ export const completeService = code => async dispatch => {
     await dispatch(getBook());
   } catch (error) {
     log(error);
+    dispatch(setAlert("You have entered a wrong code", "error"));
   }
 };
 

@@ -150,7 +150,7 @@ const _StripeForm = props => {
             <Grid container spacing={1}>
               <Grid item xs={12}>
                 <CardsList
-                cardSelected={cardSelected}
+                  cardSelected={cardSelected}
                   cards={cards}
                   onChangeTarget={onChangeTarget}
                   isEdit={isEdit}

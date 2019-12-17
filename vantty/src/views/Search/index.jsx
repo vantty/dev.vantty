@@ -35,7 +35,9 @@ import {
   ReactiveList,
   ResultCard,
   DataSearch,
-  MultiDataList
+  MultiDataList,
+  RangeInput,
+  RatingsFilter
 } from "@appbaseio/reactivesearch";
 const { ResultCardsWrapper } = ReactiveList;
 
@@ -108,49 +110,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             />
           }
           modal={
-            <MultiDataList
-              componentId="categoryFilter"
-              dataField="tag.keyword"
-              showSearch={false}
-              data={[
-                {
-                  label: "Social",
-                  value: "Social"
-                },
-                {
-                  label: "Bridal",
-                  value: "Bridal"
-                },
-                {
-                  label: "Photography",
-                  value: "Photography"
-                }
-              ]}
-              value={values}
-              onChange={setValues}
-              title="Category"
-            />
-          }
-          invisible={values}
-        />
-      )}
-      <Container maxWidth="lg">
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-        >
-          <Hidden xsDown>
-            <Grid item lg={4} md={4} className={classes.filters}>
-              <DataSearch
-                onChange={clearSearch}
-                componentId="searchbox"
-                dataField="*"
-                placeholder="Search..."
-                defaultValue={searchValue}
-              />
-              <br />
+            <Fragment>
               <MultiDataList
                 componentId="categoryFilter"
                 dataField="tag.keyword"
@@ -173,9 +133,98 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                 onChange={setValues}
                 title="Category"
               />
+              <RangeInput
+                componentId="RangeInputComponent"
+                dataField="price"
+                title="Price"
+                range={{
+                  start: 50,
+                  end: 300
+                }}
+              />
+              <RatingsFilter
+                title="Rating"
+                componentId="ratingsSensor"
+                dataField="ratings"
+                data={[
+                  { start: 4, end: 5, label: "4 & up" },
+                  { start: 3, end: 5, label: "3 & up" },
+                  { start: 1, end: 5, label: "All" }
+                ]}
+              />
+            </Fragment>
+          }
+          invisible={values}
+        />
+      )}
+      <Container maxWidth="lg">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+        >
+          <Hidden xsDown>
+            <Grid item md={4} className={classes.filters}>
+              <Grid item xs={12}>
+                <DataSearch
+                  onChange={clearSearch}
+                  componentId="searchbox"
+                  dataField="*"
+                  placeholder="Search..."
+                  defaultValue={searchValue}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <MultiDataList
+                  componentId="categoryFilter"
+                  dataField="tag.keyword"
+                  showSearch={false}
+                  data={[
+                    {
+                      label: "Social",
+                      value: "Social"
+                    },
+                    {
+                      label: "Bridal",
+                      value: "Bridal"
+                    },
+                    {
+                      label: "Photography",
+                      value: "Photography"
+                    }
+                  ]}
+                  value={values}
+                  onChange={setValues}
+                  title="Category"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <RangeInput
+                  componentId="RangeInputComponent"
+                  dataField="price"
+                  title="Price"
+                  range={{
+                    start: 50,
+                    end: 300
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <RatingsFilter
+                  title="Rating"
+                  componentId="ratingsSensor"
+                  dataField="ratings"
+                  data={[
+                    { start: 4, end: 5, label: "4 & up" },
+                    { start: 3, end: 5, label: "3 & up" },
+                    { start: 1, end: 5, label: "All" }
+                  ]}
+                />
+              </Grid>
             </Grid>
           </Hidden>
-          <Grid item lg={8} xs={12} md={8}>
+          <Grid item xs={12} md={8}>
             {/* </div> */}
             <ReactiveList
               componentId="result"

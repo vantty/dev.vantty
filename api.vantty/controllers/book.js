@@ -149,16 +149,22 @@ const charge = (customer, card, artist, amount) => {
 // Complete Service
 exports.completeService = async (req, res) => {
   try {
+    const { reviewId } = await Profile.findOne({ user: req.body._id });
     const book = await Book.findOne({ user: req.body._id });
     const service = book.bookings.find(
       service => service.bookCode === req.body.code
     );
+    if (!service) {
+      const error = "NO Service";
+      return res.status(500).json(error);
+    }
     const {
       stripeCustomerId,
       stripeCardId,
       stripeArtistAccount,
       totalValue
     } = service;
+    const user = await User.findOne({ stripeCustomerId: stripeCustomerId });
     let data = await charge(
       stripeCustomerId,
       stripeCardId,
@@ -167,6 +173,18 @@ exports.completeService = async (req, res) => {
     );
     service.state = "completed";
     await book.save();
+
+    // Email subject
+    const subject = "Book Completed";
+
+    // Email to User
+    let method = user.method;
+    const emailUser = user[method].email;
+    const urlUser = `${req.headers.origin}/profile/artist/${req.body._id}/${reviewId}`;
+    const htmlUser = `Hi ${user[method].firstName}, your book has been completed. Your artist will appriciate a review from you. To write it please <a href=${urlUser}><strong>click here.</strong></a>`;
+
+    composeEmail(emailUser, subject, htmlUser);
+
     res.status(200).json(data);
   } catch (error) {
     log(error);

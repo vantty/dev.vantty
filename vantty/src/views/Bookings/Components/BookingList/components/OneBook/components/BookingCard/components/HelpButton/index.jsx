@@ -40,18 +40,18 @@ const HelpButton = ({ changeStateBooking, booking: { state, _id } }) => {
           Report a problem
         </MenuItem>
         {state == "accepted" ? (
-          <MenuItem onClick={handleDecline}>
-            <ConfirmationModal
-              buttonText={"Decline this service"}
-              modalText={
-                "Are you sure you want to decline this service? If you cancel within 4 hours prior the service we will charge you with 50% of the total service value."
-              }
-              changeStateBooking={changeStateBooking}
-              bookingId={_id}
-              state={"declined"}
-            />
-          </MenuItem>
-        ) : null}
+          // <MenuItem onClick={handleDecline}>
+          <ConfirmationModal
+            buttonText={"Decline this service"}
+            modalText={
+              "Are you sure you want to decline this service? If you cancel within 4 hours prior the service we will charge you with 50% of the total service value."
+            }
+            changeStateBooking={changeStateBooking}
+            bookingId={_id}
+            state={"declined"}
+          />
+        ) : // </MenuItem>
+        null}
       </Menu>
     </div>
   );

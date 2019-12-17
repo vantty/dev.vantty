@@ -5,6 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { Menu, MenuItem, IconButton } from "@material-ui/core";
 
 const ConfirmationModal = ({
   buttonText,
@@ -30,9 +31,10 @@ const ConfirmationModal = ({
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <MenuItem onClick={handleClickOpen}>{buttonText}</MenuItem>
+      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         {buttonText}
-      </Button>
+      </Button> */}
       <Dialog
         open={open}
         onClose={handleNo}

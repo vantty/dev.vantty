@@ -32,7 +32,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CardsList = ({ cards, onChangeTarget, isEdit, deleteCard,cardSelected }) => {
+const CardsList = ({
+  cards,
+  onChangeTarget,
+  isEdit,
+  deleteCard,
+  cardSelected
+}) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
 

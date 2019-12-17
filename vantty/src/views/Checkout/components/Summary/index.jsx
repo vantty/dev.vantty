@@ -1,31 +1,14 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Grid from "@material-ui/core/Grid";
+import React, { Fragment } from "react";
 
-const products = [
-  { name: "Product 1", desc: "A nice thing", price: "$9.99" },
-  { name: "Product 2", desc: "Another thing", price: "$3.45" },
-  { name: "Product 3", desc: "Something else", price: "$6.51" },
-  { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
-  { name: "Shipping", desc: "", price: "Free" }
-];
-const addresses = [
-  "1 Material-UI Drive",
-  "Reactville",
-  "Anytown",
-  "99999",
-  "USA"
-];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" }
-];
+// Material-UI
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Grid
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   listItem: {
@@ -42,12 +25,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Summary({ checkout }) {
+export default function Summary({ checkout, cards }) {
   const classes = useStyles();
 
+  const card = cards.find(card => card.stripeCardId == checkout.stripeCardId);
+  const payments = [
+    { name: "Card brand", detail: card.brand },
+    { name: "Card number", detail: `•••• ${card.last4}` },
+    { name: "Expiry date", detail: `${card.expMonth}/${card.expYear}` }
+  ];
+
   return (
-    <React.Fragment>
-      <Typography variant='h6' gutterBottom>
+    <Fragment>
+      <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
@@ -57,48 +47,48 @@ export default function Summary({ checkout }) {
               primary={product.typeOfService}
               secondary={`Quantity of services ${product.quantity}`}
             />
-            <Typography variant='body2'>{`$${product.amount}`}</Typography>
+            <Typography variant="body2">{`$${product.amount}`}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
-          <ListItemText primary='Fee' />
-          <Typography variant='subtitle1' className={classes.fee}>
+          <ListItemText primary="Fee" />
+          <Typography variant="subtitle1" className={classes.fee}>
             {`$${checkout.totals * 0.05}`}
           </Typography>
         </ListItem>
         <ListItem className={classes.listItem}>
-          <ListItemText primary='Total' />
-          <Typography variant='subtitle1' className={classes.total}>
+          <ListItemText primary="Total" />
+          <Typography variant="subtitle1" className={classes.total}>
             {`$${checkout.totals * 0.05 + checkout.totals}`}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6' gutterBottom className={classes.title}>
+          <Typography variant="h6" gutterBottom className={classes.title}>
             Address
           </Typography>
           <Typography gutterBottom>Toronto</Typography>
           <Typography gutterBottom>{checkout.address.street}</Typography>
         </Grid>
-        {/* <Grid item container direction='column' xs={12} sm={6}>
-          <Typography variant='h6' gutterBottom className={classes.title}>
+        <Grid item container direction="column" xs={12} sm={6}>
+          <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details
           </Typography>
           <Grid container>
-            {checkout.map(payment => (
-              <React.Fragment key={payment.name}>
+            {payments.map(payment => (
+              <Fragment key={payment.name}>
                 <Grid item xs={6}>
                   <Typography gutterBottom>{payment.name}</Typography>
                 </Grid>
                 <Grid item xs={6}>
                   <Typography gutterBottom>{payment.detail}</Typography>
                 </Grid>
-              </React.Fragment>
+              </Fragment>
             ))}
           </Grid>
-        </Grid> */}
+        </Grid>
       </Grid>
-    </React.Fragment>
+    </Fragment>
   );
 }

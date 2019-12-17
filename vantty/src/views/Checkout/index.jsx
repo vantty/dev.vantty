@@ -176,7 +176,7 @@ const Checkout = ({
   useEffect(() => {
     getProfileById(match.params.id);
   }, []);
-  console.log(checkout);
+
   const handleNext = (e, total, addedItems) => {
     e.preventDefault();
     setCheckout({ ...checkout, totals: total, services: addedItems });
@@ -197,20 +197,6 @@ const Checkout = ({
     setActiveStep(activeStep - 1);
   };
 
-  // const onChange = (e, data, value) => {
-  //   e.preventDefault();
-  //   setCheckout({ ...checkout, totals: total, services: addedItems });
-  //   // setCheckout({ ...checkout, [data]: value });
-  // };
-  // const handleBook = async e => {
-  //   e.preventDefault();
-  //   addNewBook(match.params.bookId, checkout);
-  // };
-  // const onChange = (e, data, value) => {
-  //   e.preventDefault();
-  //   setCheckout({ ...checkout, data: value });
-  // setCheckout({ ...checkout, [data]: value });
-  // };
   const onChangeDate = value => {
     setCheckout({
       ...checkout,
@@ -218,22 +204,20 @@ const Checkout = ({
     });
   };
 
-  // Handle fields change
   const onChangeTarget = e =>
     setCheckout({ ...checkout, [e.target.name]: e.target.value });
 
-  ///Address
   const onChangeAddress = (address, log, lat) => {
-    // const address = { address, log, lat };
     setCheckout({
       ...checkout,
-      // address,
       address,
       log,
       lat
     });
   };
-  log(checkout);
+
+  log("CHECK", checkout);
+
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -268,7 +252,7 @@ const Checkout = ({
           />
         );
       case 3:
-        return <Summary checkout={checkout} total={total} />;
+        return <Summary checkout={checkout} cards={cards} />;
       default:
         throw new Error("Unknown step");
     }
@@ -354,7 +338,7 @@ const Checkout = ({
                   {activeStep === 2 && (
                     <Button
                       variant="contained"
-                      disabled={!stripeCardId}
+                      // disabled={!stripeCardId}
                       color="primary"
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}

@@ -396,13 +396,13 @@ export const deleteProfileAndUserDashboard = ({
 
 //Upload data to elastic
 export const loadToElastic = async (data, imagesId) => {
+  console.log("LOAD");
   const elasticConfig = {
     headers: {
       "Content-type": "application/json",
       Authorization: process.env.REACT_APP_ELASTIC_TOKEN
     }
   };
-
   let allElasticId = [];
   for (let i = 0; i < data.length; i++) {
     const datum = data[i];
