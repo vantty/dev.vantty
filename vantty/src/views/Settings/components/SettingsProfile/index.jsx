@@ -50,7 +50,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
+const SettingsProfile = ({
+  match,
+  logout,
+  pages,
+  user,
+  deleteAccount,
+  profile
+}) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -71,7 +78,10 @@ const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
             alignItems='center'
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
-              <ListItemLink to={"/bookings"} className={classes.listItem}>
+              <ListItemLink
+                to={profile ? "/bookings" : "/bookings-user"}
+                className={classes.listItem}
+              >
                 <ListItemText
                   primary={"Booking"}
                   // className={classes.title}

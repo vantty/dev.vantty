@@ -10,8 +10,8 @@ const express = require("express"),
 // Connect Database
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      // await mongoose.connect(process.env.MONGODB_URI_LOCAL, {
+    // await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(process.env.MONGODB_URI_LOCAL, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,

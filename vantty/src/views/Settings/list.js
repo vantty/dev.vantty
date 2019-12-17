@@ -26,12 +26,12 @@ export const pagesUser = [
   {
     title: "Profile",
     href: "/personal-info"
-  }
+  },
 
-  // {
-  //   title: "Appointments",
-  //   href: "/appointments"
-  // },
+  {
+    title: "Booking",
+    href: "/boooking-user"
+  }
   // {
   //   title: "Payments",
   //   href: "/payments"

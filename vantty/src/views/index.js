@@ -19,3 +19,4 @@ export { default as CreateArtistAccount } from "./CreateArtistAccount";
 export { default as Help } from "./Help";
 export { default as NotFound } from "./NotFound";
 export { default as Test } from "./Test";
+export { default as BookingsUser } from "./BookingsUser";

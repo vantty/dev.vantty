@@ -150,7 +150,8 @@ const Checkout = ({
   cart,
   cart: { items, addedItems, total, loading },
   addNewBook,
-  user: { stripeCustomerId, cards }
+  user: { stripeCustomerId, cards, _id },
+  addUserBookings
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -279,10 +280,10 @@ const Checkout = ({
       <CssBaseline />
       <Alert />
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth="sm">
+      <Container maxWidth='sm'>
         <main className={classes.layout}>
           {/* <Paper className={classes.paper}> */}
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component='h1' variant='h4' align='center'>
             Checkout
           </Typography>
 
@@ -300,10 +301,10 @@ const Checkout = ({
           <Fragment>
             {activeStep === steps.length ? (
               <Fragment>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant='h5' gutterBottom>
                   Thank you for your order.
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant='subtitle1'>
                   Your order number is #2001539. We have emailed your order
                   confirmation, and will send you an update when your order has
                   shipped.
@@ -311,7 +312,7 @@ const Checkout = ({
               </Fragment>
             ) : (
               <Fragment>
-                <Container maxWidth="sm">
+                <Container maxWidth='sm'>
                   {profile && getStepContent(activeStep)}
                 </Container>
                 <div className={classes.buttons}>
@@ -323,13 +324,13 @@ const Checkout = ({
 
                   {activeStep === 0 && (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       disabled={
                         (total === 0 && true) ||
                         (date === "" && true) ||
                         (hour === "" && true)
                       }
-                      color="primary"
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >
@@ -338,13 +339,13 @@ const Checkout = ({
                   )}
                   {activeStep === 1 && (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       disabled={
                         Object.entries(address).length === 0 &&
                         address.constructor === Object &&
                         true
                       }
-                      color="primary"
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >
@@ -353,9 +354,9 @@ const Checkout = ({
                   )}
                   {activeStep === 2 && (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       disabled={!stripeCardId}
-                      color="primary"
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >
@@ -365,9 +366,9 @@ const Checkout = ({
 
                   {activeStep === 3 && (
                     <Button
-                      variant="contained"
+                      variant='contained'
                       disabled={false}
-                      color="primary"
+                      color='primary'
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}
                     >
