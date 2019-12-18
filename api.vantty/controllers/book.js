@@ -36,9 +36,25 @@ exports.createAccount = async (req, res) => {
 // Save Stripe Artist Account
 exports.saveAccount = async (req, res) => {
   try {
+    const {
+      external_accounts: { data }
+    } = await stripe.accounts.retrieve(req.body.stripe_user_id);
+    const stripeBankData = {
+      bankId: data[0].id,
+      country: data[0].country,
+      currency: data[0].currency,
+      bankName: data[0].bank_name,
+      routingNumber: data[0].routing_number,
+      last4: data[0].last4
+    };
     let profile = await Profile.findOneAndUpdate(
       { user: req.body._id },
-      { $set: { stripeArtistAccount: req.body.stripe_user_id } },
+      {
+        $set: {
+          stripeArtistAccount: req.body.stripe_user_id,
+          stripeBankData: stripeBankData
+        }
+      },
       { new: true }
     );
     res.status(200).json(profile);

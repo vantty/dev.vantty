@@ -5,6 +5,14 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
+  stripeBankData: {
+    bankId: { type: String },
+    country: { type: String },
+    currency: { type: String },
+    bankName: { type: String },
+    routingNumber: { type: String },
+    last4: { type: String }
+  },
   stripeArtistAccount: { type: String },
   name: {
     firstName: {

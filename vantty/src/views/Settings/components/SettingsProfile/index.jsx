@@ -59,16 +59,16 @@ const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
 
   return (
     <Fragment>
-      <List component='nav'>
-        <Container maxWidth='md'>
+      <List component="nav">
+        <Container maxWidth="md">
           <ListItem className={classes.title}>
             <ListItemText primary={"Manage"} />
           </ListItem>
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink to={"/bookings"} className={classes.listItem}>
@@ -83,9 +83,9 @@ const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
               <Divider />
             </Grid>
             <Grid item xs={11} md={12} lg={12} xl={12}>
-              <ListItemLink to={"/payments"} className={classes.listItem}>
+              <ListItemLink to={"/bank"} className={classes.listItem}>
                 <ListItemText
-                  primary={"Payments"}
+                  primary={"Bank info"}
                   // className={classes.title}
                 />
               </ListItemLink>
@@ -103,12 +103,12 @@ const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
         {pages.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
-            <Container maxWidth='md'>
+            <Container maxWidth="md">
               <Grid
                 container
-                direction='row'
-                justify='space-between'
-                alignItems='center'
+                direction="row"
+                justify="space-between"
+                alignItems="center"
               >
                 <Grid item xs={11} md={12} lg={12} xl={12}>
                   <ListItemLink
@@ -137,16 +137,16 @@ const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
           </div>
         ))}
         {/* <Container maxWidth='sm'> */}
-        <Container maxWidth='md'>
+        <Container maxWidth="md">
           <ListItem className={classes.title}>
             <ListItemText primary={"Account"} />
           </ListItem>
           {isMobile && (
             <Grid
               container
-              direction='row'
-              justify='space-between'
-              alignItems='center'
+              direction="row"
+              justify="space-between"
+              alignItems="center"
             >
               <Grid item xs={11} md={12} lg={12} xl={12}>
                 <ListItemLink
