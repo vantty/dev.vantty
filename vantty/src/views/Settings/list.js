@@ -3,7 +3,6 @@ export const pagesProfile = [
     title: "Profile",
     href: "/personal-info"
   },
-
   {
     title: "Portfolio",
     href: "/add-portfolio"
@@ -27,11 +26,6 @@ export const pagesUser = [
     title: "Profile",
     href: "/personal-info"
   }
-
-  // {
-  //   title: "Appointments",
-  //   href: "/appointments"
-  // },
   // {
   //   title: "Payments",
   //   href: "/payments"

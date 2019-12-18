@@ -49,6 +49,9 @@ const BookSchema = new Schema({
         type: String,
         default: "request"
       },
+      userId: {
+        type: String
+      },
       requestDate: {
         type: Date,
         default: Date.now

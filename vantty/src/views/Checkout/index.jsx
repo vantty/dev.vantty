@@ -150,7 +150,8 @@ const Checkout = ({
   cart,
   cart: { items, addedItems, total, loading },
   addNewBook,
-  user: { stripeCustomerId, cards }
+  user: { stripeCustomerId, cards, _id },
+  addUserBookings
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -215,8 +216,6 @@ const Checkout = ({
       lat
     });
   };
-
-  log("CHECK", checkout);
 
   function getStepContent(step) {
     switch (step) {
@@ -338,7 +337,7 @@ const Checkout = ({
                   {activeStep === 2 && (
                     <Button
                       variant="contained"
-                      // disabled={!stripeCardId}
+                      disabled={!stripeCardId}
                       color="primary"
                       onClick={e => handleNext(e, total, addedItems)}
                       className={classes.button}

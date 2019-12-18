@@ -17,12 +17,14 @@ import {
   CLEAR_CART,
   ADD_CARD_SUCCESS,
   ADD_CARD_FAIL,
-  DELETE_CARD_SUCCESS
+  DELETE_CARD_SUCCESS,
+  ADD_BOOKINGS
 } from "./types";
 import { loadUser } from "./auth";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
 import setAlert from "./alert";
+import { read } from "fs";
 const log = console.log;
 
 export const testSendEmail = text => async dispatch => {
@@ -173,6 +175,7 @@ export const loadService = services => async dispatch => {
   }
 };
 
+//Get Artists Bookings
 export const getBook = () => async dispatch => {
   try {
     const res = await server.get(`/book`);
@@ -188,8 +191,6 @@ export const getBook = () => async dispatch => {
     });
   }
 };
-
-// Add comment
 
 // Get Book by Id
 export const getBookById = reviewId => async dispatch => {
@@ -209,7 +210,7 @@ export const getBookById = reviewId => async dispatch => {
 
 // Add Book
 export const addNewBook = (
-  reviewId,
+  bookId,
   stripeArtistAccount,
   bookCode,
   formData
@@ -231,11 +232,9 @@ export const addNewBook = (
       stripeCustomerId: stripeCustomerId,
       stripeArtistAccount: stripeArtistAccount
     };
-    const res = await server.post(
-      `/book/create-book/${reviewId}`,
-      body,
-      config
-    );
+
+    const res = await server.post(`/book/create-book/${bookId}`, body, config);
+
     await dispatch({
       type: ADD_BOOK,
       payload: true
@@ -247,7 +246,7 @@ export const addNewBook = (
     await dispatch({
       type: CLEAR_CART
     });
-    dispatch(setAlert("Comment Added", "success"));
+    dispatch(setAlert("Request Sent", "success"));
   } catch (err) {
     dispatch({
       type: BOOK_ERROR,
@@ -304,3 +303,30 @@ export const changeStateBooking = (
 //     });
 //   }
 // };
+
+//////////////////
+///User Bookings
+//////////////
+
+//Get user bookings
+export const getUserBookings = id => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const res = await server.get(`/book/user-bookings/${id}`, config);
+
+    dispatch({
+      type: ADD_BOOKINGS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: BOOK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};

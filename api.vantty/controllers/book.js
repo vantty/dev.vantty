@@ -269,12 +269,6 @@ exports.createNewBook = async (req, res) => {
     let method = user.method;
 
     const newBook = {
-      // rating: req.body.rating,
-      // text: req.body.text,
-      // subject: req.body.subject,
-      // name: user[method].firstName,
-      // profilePicture: user[method].profilePicture.original,
-      // user: req.user.id,
       bookCode: req.body.bookCode,
       stripeCustomerId: req.body.stripeCustomerId,
       stripeCardId: req.body.stripeCardId,
@@ -285,9 +279,37 @@ exports.createNewBook = async (req, res) => {
       descriptionAddress: req.body.descriptionAddress,
       hour: req.body.hour,
       services: req.body.services,
-      totalValue: req.body.totals
+      totalValue: req.body.totals,
+      userId: req.user.id
     };
     book.bookings.unshift(newBook);
+
+    //Add Book id to the User Model
+    if (user.bookings.length < 1) {
+      user.bookings.unshift(req.params.id);
+    }
+    const service = user.bookings.find(service => service == req.params.id);
+
+    if (!service) {
+      user.bookings.unshift(req.params.id);
+    }
+
+    // else {
+    //   user.bookings.forEach(booki => {
+    //     req.params.id !== booki && user.bookings.unshift(req.params.id);
+    //     log(booki);
+    //   });
+    //   for (const id of user.bookings) {
+    //     req.params.id !== id
+    //     user.bookings.unshift(req.params.id);
+
+    // log("This book-id already exists");
+
+    // } else {
+
+    // }
+
+    await user.save();
     await book.save();
 
     // Email subject
@@ -412,25 +434,30 @@ exports.changeStateBooking = async (req, res) => {
   }
 };
 
-// try {
-//   const sendTags = req.body;
-//   const profile = await Profile.findOne({ user: req.user.id });
-//   const images = await Image.findById(profile.imagesId);
+///////////////////
+//User bookings
+///////////////////
+exports.getUserBookings = async (req, res) => {
+  let totalBookings = [];
 
-//   let pictures = images.pictures;
+  try {
+    const user = await User.findById(req.params.id);
 
-//   const arr = Array.from(pictures);
-//   const arr2 = Array.from(sendTags);
-//   for (const x of arr) {
-//     for (const y of arr2) {
-//       if (x._id == y._id) {
-//         x.tag = y.tag;
-//       }
-//     }
-//   }
-//   images.save();
-//   res.json(images);
-// } catch (error) {
-//   console.log(error);
-// }
-// };
+    for (let book of user.bookings) {
+      const profileBook = await Book.findById(book);
+
+      for (let bookings of profileBook.bookings) {
+        bookings.userId === user._id;
+        totalBookings.unshift(bookings);
+      }
+    }
+
+    res.json(totalBookings);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Images not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+};

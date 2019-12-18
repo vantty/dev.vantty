@@ -70,10 +70,11 @@ const Settings = ({
         <SettingsProfile
           match={match}
           pages={pagesProfile}
+          profile={true}
           // deleteAccount={deleteAccount}
         />
       ) : (
-        <SettingsProfile match={match} pages={pagesUser} />
+        <SettingsProfile match={match} pages={pagesUser} profile={false} />
       )}
     </Fragment>
   );

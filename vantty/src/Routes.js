@@ -17,7 +17,8 @@ import {
   EditCategories,
   EditBookings,
   EditPayment,
-  EditBank
+  EditBank,
+  EditBookingsUser
 } from "./views/EditForm/components";
 
 import {
@@ -128,6 +129,12 @@ const Routes = () => {
         exact
         layout={MinimalLayout}
         path="/bookings"
+      />
+      <RoutePrivateWithLayout
+        component={EditBookingsUser}
+        exact
+        layout={MinimalLayout}
+        path="/bookings-user"
       />
       <RoutePrivateWithLayout
         component={Checkout}

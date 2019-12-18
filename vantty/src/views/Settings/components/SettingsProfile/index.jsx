@@ -50,7 +50,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
+const SettingsProfile = ({
+  match,
+  logout,
+  pages,
+  user,
+  deleteAccount,
+  profile
+}) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -71,10 +78,23 @@ const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
             alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
-              <ListItemLink to={"/bookings"} className={classes.listItem}>
+              <ListItemLink
+                to={profile ? "/bookings" : "/bookings-user"}
+                className={classes.listItem}
+              >
                 <ListItemText
-                  primary={"Booking"}
+                  primary={"Bookings"}
                   // className={classes.title}
+                />
+              </ListItemLink>
+            </Grid>
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink
+                to={profile ? "/bank" : "/payments"}
+                className={classes.listItem}
+              >
+                <ListItemText
+                  primary={profile ? "Bank info" : "Payment methods"}
                 />
               </ListItemLink>
             </Grid>
@@ -82,14 +102,14 @@ const SettingsProfile = ({ match, logout, pages, user, deleteAccount }) => {
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <Divider />
             </Grid>
-            <Grid item xs={11} md={12} lg={12} xl={12}>
+            {/* <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink to={"/bank"} className={classes.listItem}>
                 <ListItemText
                   primary={"Bank info"}
                   // className={classes.title}
                 />
               </ListItemLink>
-            </Grid>
+            </Grid> */}
 
             {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
             <Divider />

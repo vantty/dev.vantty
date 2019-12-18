@@ -11,7 +11,8 @@ import {
   SAVE_CONFIRMATION_EMAIL,
   ADD_CARD_SUCCESS,
   ADD_CARD_FAIL,
-  DELETE_CARD_SUCCESS
+  DELETE_CARD_SUCCESS,
+  ADD_BOOKINGS
 } from "../actions/types";
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   isAuthenticated: null,
   currentLocation: "",
   loading: true,
-  user: null
+  user: null,
+  bookings: []
 };
 
 export default function(state = initialState, action) {
@@ -57,7 +59,8 @@ export default function(state = initialState, action) {
         token: null,
         isAuthenticated: false,
         loading: false,
-        user: null
+        user: null,
+        bookings: []
       };
     case SAVE_CONFIRMATION_EMAIL:
     case ADD_CARD_SUCCESS:
@@ -69,6 +72,11 @@ export default function(state = initialState, action) {
     case ADD_CARD_FAIL:
       return {
         ...state
+      };
+    case ADD_BOOKINGS:
+      return {
+        ...state,
+        bookings: payload
       };
     default:
       return state;

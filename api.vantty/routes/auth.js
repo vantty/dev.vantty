@@ -45,4 +45,5 @@ router.put("/user-image", addUserImage);
 // @access   Private
 router.post("/userPicture", passportJWT, deleteUserPicture);
 router.post("/is-profile", isProfile);
+
 module.exports = router;

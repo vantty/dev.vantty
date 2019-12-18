@@ -32,7 +32,6 @@ export default function App({ onChangeAddress, localAddress }) {
       log: latLng.lng
     });
   };
-  console.log(localAddress.street);
   return (
     <div>
       <PlacesAutocomplete
@@ -49,9 +48,9 @@ export default function App({ onChangeAddress, localAddress }) {
                 fullWidth
                 required
                 defaultValue={localAddress.street}
-                name='address'
-                id='description'
-                label='Addrees'
+                name="address"
+                id="description"
+                label="Addrees"
                 value={localAddress.street}
                 {...getInputProps({
                   // id: "mui-places-autocomplete-input",
