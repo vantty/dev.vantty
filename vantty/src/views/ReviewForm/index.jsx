@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Actions
@@ -93,7 +93,8 @@ const ReviewForm = ({ addComment, match, className, history }) => {
     isValid: false,
     values: {},
     touched: {},
-    errors: {}
+    errors: {},
+    sent: false
   });
 
   const { text, subject } = data;
@@ -134,7 +135,6 @@ const ReviewForm = ({ addComment, match, className, history }) => {
     }));
     onChange(event);
   };
-  console.log(formState.isValid);
 
   const handleBack = () => {
     history.goBack();
@@ -146,8 +146,13 @@ const ReviewForm = ({ addComment, match, className, history }) => {
     addComment(match.params.reviewId, { text, subject, rating });
     // setData({subject:subject});
     setRating();
-    handleBack();
+    setFormState({ ...formState, sent: true });
   };
+
+  if (formState.sent) {
+    return <Redirect push to="/" />;
+  }
+
   //errors
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
@@ -161,18 +166,18 @@ const ReviewForm = ({ addComment, match, className, history }) => {
             <Card className={clsx(classes.root, className)}>
               <CardHeader
                 // subheader='You commet is like you give us 1000 aplausos'
-                title='Commet'
+                title="Commet"
               />
               {/* <Divider /> */}
               {/* <Grid container direction='row'> */}
               <CardContent className={classes.content}>
-                <form className='form' onSubmit={e => onSubmit(e)}>
+                <form className="form" onSubmit={e => onSubmit(e)}>
                   <Fragment>
                     <Grid
                       container
-                      direction='column'
-                      justify='flex-start'
-                      alignItems='stretch'
+                      direction="column"
+                      justify="flex-start"
+                      alignItems="stretch"
                     >
                       <Grid item xs={12} sm={12} md={12}>
                         <TextField
@@ -183,13 +188,13 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                               : null
                           }
                           required
-                          id='subject'
-                          label='Subject'
-                          margin='dense'
-                          variant='outlined'
-                          name='subject'
+                          id="subject"
+                          label="Subject"
+                          margin="dense"
+                          variant="outlined"
+                          name="subject"
                           value={subject || ""}
-                          autoComplete='fname'
+                          autoComplete="fname"
                           onChange={handleChange}
                           // onChange={e => onChange(e)}
                         />
@@ -198,9 +203,9 @@ const ReviewForm = ({ addComment, match, className, history }) => {
 
                         <Grid item xs={12} sm={12} md={12}>
                           <Rating
-                            size='large'
+                            size="large"
                             precision={0.5}
-                            name='half-rating'
+                            name="half-rating"
                             value={rating}
                             onChange={(event, newValue) => {
                               setRating(newValue);
@@ -217,20 +222,20 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                           }
                           className={classes.text}
                           required
-                          id='text'
-                          name='text'
-                          label='Write the best comment'
+                          id="text"
+                          name="text"
+                          label="Write the best comment"
                           fullWidth
                           value={text}
-                          variant='outlined'
-                          placeholder='The best...'
+                          variant="outlined"
+                          placeholder="The best..."
                           // helperText="Full width!"
                           multiline
-                          rows='4'
-                          rowsMax='8'
-                          margin='normal'
-                          autoComplete='fname'
-                          type='text'
+                          rows="4"
+                          rowsMax="8"
+                          margin="normal"
+                          autoComplete="fname"
+                          type="text"
                           onChange={handleChange}
                         />
                       </Grid>
@@ -243,14 +248,14 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                     <CardActions>
                       <Grid
                         container
-                        direction='row'
-                        justify='flex-end'
-                        alignItems='center'
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="center"
                         spacing={3}
                       >
                         <Grid item>
                           <LinkMui
-                            variant='body2'
+                            variant="body2"
                             component={Link}
                             to={`/profile/artist/${match.params.userId}`}
                           >
@@ -259,9 +264,9 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                         </Grid>
                         <Grid item>
                           <Button
-                            type='submit'
+                            type="submit"
                             fullWidth
-                            variant='contained'
+                            variant="contained"
                             style={{ backgroundColor: "#f5f5" }}
                             disabled={!formState.isValid}
                             onChange={() => handleBack()}
@@ -291,7 +296,4 @@ ReviewForm.propTypes = {
 //   review: state.profile
 // });
 
-export default connect(
-  null,
-  { addComment }
-)(ReviewForm);
+export default connect(null, { addComment })(ReviewForm);

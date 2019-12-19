@@ -23,20 +23,20 @@ export default function DenseTable({ services }) {
 
   return (
     <div className={classes.root}>
-      <Table className={classes.table} padding='none'>
+      <Table className={classes.table} padding="none">
         <TableHead>
           <TableRow>
             <TableCell>Service</TableCell>
-            <TableCell align='right'>Amount</TableCell>
+            <TableCell align="right">Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {services.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component='th' scope='row'>
+            <TableRow key={row._id}>
+              <TableCell component="th" scope="row">
                 {row.typeOfService}
               </TableCell>
-              <TableCell align='right'>{row.amount}</TableCell>
+              <TableCell align="right">{row.amount}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -9,15 +9,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import {
-  Container,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Drawer
-} from "@material-ui/core";
+import { Container, Drawer } from "@material-ui/core";
 import { getStrategyName } from "../../../../helpers";
 import { isAndroid, isIOS } from "react-device-detect";
 
@@ -101,26 +93,26 @@ const ContactButton = ({
     return text;
   };
 
-  const sideList = side => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {/* {index % 2 === 0 ? <InboxIcom /> : <MailIcon />} */}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </div>
-  );
+  // const sideList = side => (
+  //   <div
+  //     className={classes.list}
+  //     role="presentation"
+  //     onClick={toggleDrawer(side, false)}
+  //     onKeyDown={toggleDrawer(side, false)}
+  //   >
+  //     <List>
+  //       {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+  //         <ListItem button key={text}>
+  //           <ListItemIcon>
+  //             {/* {index % 2 === 0 ? <InboxIcom /> : <MailIcon />} */}
+  //           </ListItemIcon>
+  //           <ListItemText primary={text} />
+  //         </ListItem>
+  //       ))}
+  //     </List>
+  //     <Divider />
+  //   </div>
+  // );
 
   const fullList = side => (
     <div

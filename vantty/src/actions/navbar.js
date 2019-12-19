@@ -1,4 +1,4 @@
-import { CHANGE_NAVBAR_VALUE, CLEAR_PROFILE } from "./types";
+import { CHANGE_NAVBAR_VALUE } from "./types";
 
 export const changeNavbarValue = value => async dispatch => {
   await dispatch({

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import FacebookAuth from "react-facebook-login/dist/facebook-login-render-props";
@@ -20,8 +20,7 @@ import {
 import {
   login,
   googleLogin,
-  facebookLogin,
-  loadUser
+  facebookLogin
 } from "../../actions/auth";
 import { changeNavbarValue } from "../../actions/navbar";
 
@@ -284,8 +283,7 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
   googleLogin: PropTypes.func,
   facebookLogin: PropTypes.func,
-  changeNavbarValue: PropTypes.func,
-  loadUser: PropTypes.func
+  changeNavbarValue: PropTypes.func
 };
 
 const mapStateToProps = state => ({

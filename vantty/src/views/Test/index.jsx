@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment } from "react";
+// import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 // Actions
@@ -13,12 +13,11 @@ import {
   CssBaseline,
   Typography,
   Container,
-  TextField,
   Button
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const log = console.log;
+// const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   paper: {

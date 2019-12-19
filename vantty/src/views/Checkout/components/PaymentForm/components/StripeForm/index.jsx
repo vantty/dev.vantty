@@ -9,27 +9,20 @@ import {
 } from "react-stripe-elements";
 
 // Material-UI
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
-import clsx from "clsx";
+import {
+  Typography,
+  Grid,
+  Button,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
-import Fab from "@material-ui/core/Fab";
-import CheckIcon from "@material-ui/icons/Check";
-import SaveIcon from "@material-ui/icons/Save";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 // Components
 import CardsList from "../CardsList";
-import { Progress } from "../../../../../../components";
 
 // Actions
 import { validateCard, addCard } from "../../../../../../actions/book";
@@ -87,9 +80,9 @@ const _StripeForm = props => {
   const timer = React.useRef();
   const classes = useStyles();
 
-  const buttonClassname = clsx({
-    [classes.buttonSuccess]: success
-  });
+  // const buttonClassname = clsx({
+  //   [classes.buttonSuccess]: success
+  // });
 
   React.useEffect(() => {
     return () => {

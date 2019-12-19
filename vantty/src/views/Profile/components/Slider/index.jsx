@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 
 //Google Analytics
 import ReactGA from "react-ga";
-import { Date, Hour, Service, Resume, Table } from "./components";
+import { Table } from "./components";
 
 ReactGA.initialize("UA-108639612-1");
 ReactGA.pageview(window.location.pathname + window.location.search);
-const ga = ReactGA;
+// const ga = ReactGA;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -101,28 +101,28 @@ export default function Slider({
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
         {/* <div className={classes.section1}> */}
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Starting Cost
         </Typography>
-        <Grid container alignItems='center'>
+        <Grid container alignItems="center">
           <Grid item xs>
-            <Typography gutterBottom variant='h5'>
+            <Typography gutterBottom variant="h5">
               ${profile.price}
               <span className={classes.infoPrice}> /cad </span>
             </Typography>
           </Grid>
         </Grid>
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Availability
         </Typography>
-        <Grid container alignItems='center'>
+        <Grid container alignItems="center">
           <Grid item xs>
-            <Typography gutterBottom variant='h5'>
+            <Typography gutterBottom variant="h5">
               {profile.availability}
             </Typography>
           </Grid>
         </Grid>
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Services
         </Typography>
         <Table services={profile.services} />
@@ -141,7 +141,7 @@ export default function Slider({
           Hour Range
         </Typography>
         <Hour onChangeDate={onChangeDate} state={state} /> */}
-        <Divider variant='middle' />
+        <Divider variant="middle" />
 
         {/* <Typography color="primary" variant="body1">
           Resume
@@ -160,7 +160,7 @@ export default function Slider({
                 // to={"/checkout"}
                 to={`/checkout/${profile.user._id}/${profile.bookId}`}
                 onClick={() => loadService(state)}
-                variant='contained'
+                variant="contained"
               >
                 Book
               </Button>

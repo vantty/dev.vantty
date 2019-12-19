@@ -18,10 +18,10 @@ import { pagesProfile, pagesUser } from "./list";
 
 // Components
 import { SimpleAppBar } from "../../components";
-import { SettingsProfile, SettingsUser, AvatarUser } from "./components";
+import { SettingsProfile, AvatarUser } from "./components";
 
 // Material-UI
-import { Hidden, Typography } from "@material-ui/core";
+import { Hidden } from "@material-ui/core";
 
 const Settings = ({
   match,

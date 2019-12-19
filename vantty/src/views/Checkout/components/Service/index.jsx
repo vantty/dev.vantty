@@ -1,14 +1,17 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+
+// Material-UI
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { Icon, Divider, Grid, Paper } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+
+// Actions
 import {
   removeItem,
   addQuantity,
@@ -16,9 +19,8 @@ import {
   addToCart
 } from "../../../../actions/cart";
 
+// Components
 import { Date } from "./components";
-
-const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   listItem: {
@@ -88,9 +90,9 @@ const Review = ({
     addToCart(id);
   };
   //to remove the item completely
-  const handleRemove = id => {
-    removeItem(id);
-  };
+  // const handleRemove = id => {
+  //   removeItem(id);
+  // };
   //to add the quantity
   const handleAddQuantity = id => {
     addQuantity(id);

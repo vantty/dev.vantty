@@ -1,18 +1,16 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import clsx from "clsx";
+import { isMobile } from "react-device-detect";
 
-//Actions
+// Actions
 import { addCategories } from "../../../../actions/profile";
 import { getCurrentProfile } from "../../../../actions/profile";
 
-//Material-UI
+// Material-UI
+import { makeStyles } from "@material-ui/core/styles";
 import {
-  Card,
-  CardHeader,
-  CardContent,
   CardActions,
   Divider,
   Grid,
@@ -21,27 +19,15 @@ import {
   Select,
   Input,
   Chip,
-  MenuItem
+  MenuItem,
+  FormControl,
+  Button
 } from "@material-ui/core";
-//Components
+
+// Components
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { isMobile } from "react-device-detect";
-import { useTheme } from "@material-ui/styles";
-import { Services } from "..";
-
 const useStyles = makeStyles(theme => ({
-  root: {},
-  formControl: {
-    // margin: theme.spacing(3)
-  },
   button: {
     float: "right",
     color: "white",
@@ -93,7 +79,6 @@ const AddCategories = ({
   stateMakeup
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   useEffect(() => {
     getCurrentProfile();
@@ -152,14 +137,15 @@ const AddCategories = ({
     "Omar Alexander"
   ];
 
-  function getStyles(name, state, theme) {
-    return {
-      fontWeight:
-        state.indexOf(name) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium
-    };
-  }
+  // function getStyles(name, state, theme) {
+  //   return {
+  //     fontWeight:
+  //       state.indexOf(name) === -1
+  //         ? theme.typography.fontWeightRegular
+  //         : theme.typography.fontWeightMedium
+  //   };
+  // }
+
   return (
     <Fragment>
       <CustomPaper
@@ -283,10 +269,8 @@ const AddCategories = ({
                               className={classes.button}
                               onClick={e => onSubmit(e)}
                               disabled={
-                                // stateHair === undefined ||
-                                stateHair.length == 0 ||
-                                // stateMakeup === undefined ||
-                                stateMakeup.length == 0
+                                stateHair.length === 0 ||
+                                stateMakeup.length === 0
                               }
                             >
                               {match.url === "/categories" ? "Update" : "next"}

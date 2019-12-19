@@ -1,4 +1,4 @@
-import { SEARCH_SUCCESS, CLEAR_SEARCH, CLEAR_PROFILE } from "./types";
+import { SEARCH_SUCCESS, CLEAR_SEARCH } from "./types";
 
 export const searchValue = value => async dispatch => {
   await dispatch({

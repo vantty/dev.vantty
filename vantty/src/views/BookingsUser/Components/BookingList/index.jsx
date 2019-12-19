@@ -1,21 +1,23 @@
-import React, { Fragment, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
-import CheckIcon from "@material-ui/icons/Check";
-import IconButton from "@material-ui/core/IconButton";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import React, { Fragment } from "react";
 
+// Material-UI
+import { makeStyles } from "@material-ui/core/styles";
 import EventSeatIcon from "@material-ui/icons/EventSeat";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { Divider, Button } from "@material-ui/core";
+import CheckIcon from "@material-ui/icons/Check";
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  ListItemText,
+  Avatar,
+  Grid,
+  Typography
+} from "@material-ui/core";
+
+// Components
 import { OneBook } from "./components";
-const log = console.log;
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,

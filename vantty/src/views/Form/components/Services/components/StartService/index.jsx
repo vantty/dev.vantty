@@ -1,31 +1,16 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
-
+import React, { Fragment} from "react";
 import { isMobile } from "react-device-detect";
 
-// Externals
-import PropTypes from "prop-types";
-
-// Material components
-
+// Material-UI
+import { makeStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
   Divider,
   Grid,
-  Button,
   Typography,
   Slider,
   Container
 } from "@material-ui/core";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/styles";
-import Progress from "@material-ui/core/LinearProgress";
-import { withStyles } from "@material-ui/core/styles";
 
 const PrettoSlider = withStyles(theme => ({
   root: {
@@ -57,19 +42,19 @@ const PrettoSlider = withStyles(theme => ({
   }
 }))(Slider);
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-  button: {
-    float: "right",
-    color: "white",
-    boxShadow: "none",
-    backgroundColor: theme.palette.greenVantty.main,
-    "&:hover": {
-      color: "white",
-      backgroundColor: theme.palette.greenVantty.light
-    }
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {},
+//   button: {
+//     float: "right",
+//     color: "white",
+//     boxShadow: "none",
+//     backgroundColor: theme.palette.greenVantty.main,
+//     "&:hover": {
+//       color: "white",
+//       backgroundColor: theme.palette.greenVantty.light
+//     }
+//   }
+// }));
 
 const StartService = ({ price, handleChange }) => {
   return (

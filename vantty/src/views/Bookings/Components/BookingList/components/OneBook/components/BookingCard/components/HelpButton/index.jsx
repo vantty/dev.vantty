@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 // Components
@@ -16,9 +16,9 @@ const HelpButton = ({ changeStateBooking, booking: { state, _id } }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleDecline = () => {
-    setAnchorEl(null);
-  };
+  // const handleDecline = () => {
+  //   setAnchorEl(null);
+  // };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -39,7 +39,7 @@ const HelpButton = ({ changeStateBooking, booking: { state, _id } }) => {
         <MenuItem component={RouterLink} to="/help">
           Report a problem
         </MenuItem>
-        {state == "accepted" ? (
+        {state === "accepted" ? (
           <ConfirmationModal
             buttonText={"Decline this service"}
             modalText={

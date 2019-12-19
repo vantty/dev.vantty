@@ -23,7 +23,6 @@ import {
   Services,
   PersonalInfo,
   Categories,
-  Validation,
   StripeAccount
 } from "./components";
 
@@ -168,7 +167,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Fragment>
                     <Fragment>{getStepContent(activeStep)}</Fragment>
                   </Fragment>

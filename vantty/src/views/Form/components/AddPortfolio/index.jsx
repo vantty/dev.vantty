@@ -14,21 +14,16 @@ import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 // Material-UI
 import {
-  Card,
-  CardHeader,
-  CardContent,
   Divider,
   Button,
   CardActions,
   Grid,
   Typography
 } from "@material-ui/core";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 
 import { getImages, uploadTag } from "../../../../actions/uploader";
-const log = console.log;
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1

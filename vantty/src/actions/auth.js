@@ -17,8 +17,6 @@ import {
 import { deleteImages } from "./uploader";
 import { getCurrentProfile } from "./profile";
 
-const log = console.log;
-
 // Load User
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
