@@ -141,7 +141,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
               <div className={classes.demo}>
                 <List>
                   <Services booking={booking} />
-                  <CardActions>
+                  {/* <CardActions>
                     {booking.state === "request" && (
                       <Grid
                         container
@@ -179,17 +179,20 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                         />
                       </Grid>
                     )}
-                  </CardActions>
+                  </CardActions> */}
                   {booking.state === "accepted" && (
                     <CardActions className={classes.stateAccepted}>
                       <Grid container>
-                        <Grid item>
+                        <Grid item xs={12}>
                           <Typography>
                             This service was <strong>Accepted</strong>
                           </Typography>
                         </Grid>
-                        <Grid item>
-                          <BookCode />
+                        <Grid item xs={12}>
+                          <Typography>
+                            Your booking code is{" "}
+                            <strong>{booking.bookCode}</strong>
+                          </Typography>
                         </Grid>
                       </Grid>
                     </CardActions>
@@ -202,6 +205,13 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                     </CardActions>
                   )}
                   {booking.state === "declined" && (
+                    <CardActions className={classes.stateDeclined}>
+                      <Typography>
+                        This service was <strong>Declined</strong>
+                      </Typography>
+                    </CardActions>
+                  )}
+                  {booking.state === "declined-user" && (
                     <CardActions className={classes.stateDeclined}>
                       <Typography>
                         This service was <strong>Declined</strong>

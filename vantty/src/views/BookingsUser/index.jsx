@@ -10,19 +10,15 @@ import Box from "@material-ui/core/Box";
 import { BookingList } from "./Components";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  getBook,
-  changeStateBooking,
-  getUserBookings
-} from "../../actions/book";
+import { changeStateBooking, getUserBookings } from "../../actions/book";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <Typography
-      component='div'
-      role='tabpanel'
+      component="div"
+      role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
@@ -56,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Bookings = ({ getUserBookings, auth }) => {
+const Bookings = ({ getUserBookings, changeStateBooking, auth }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -79,13 +75,13 @@ const Bookings = ({ getUserBookings, auth }) => {
       <Tabs
         value={value}
         onChange={handleChange}
-        indicatorColor='primary'
-        textColor='primary'
-        variant='fullWidth'
-        aria-label='full width tabs example'
+        indicatorColor="primary"
+        textColor="primary"
+        variant="fullWidth"
+        aria-label="full width tabs example"
       >
-        <Tab label='New' {...a11yProps(0)} />
-        <Tab label='All' {...a11yProps(1)} />
+        <Tab label="New" {...a11yProps(0)} />
+        <Tab label="All" {...a11yProps(1)} />
         {/* <Tab label='Item Three' {...a11yProps(2)} /> */}
       </Tabs>
       {/* </AppBar> */}
@@ -113,6 +109,7 @@ const Bookings = ({ getUserBookings, auth }) => {
 
 Bookings.propTypes = {
   getUserBookings: PropTypes.func,
+  changeStateBooking: PropTypes.func,
   auth: PropTypes.object.isRequired
 };
 
@@ -120,5 +117,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 export default connect(mapStateToProps, {
-  getUserBookings
+  getUserBookings,
+  changeStateBooking
 })(withRouter(Bookings));

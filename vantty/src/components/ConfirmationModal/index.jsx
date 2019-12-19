@@ -12,7 +12,8 @@ const ConfirmationModal = ({
   modalText,
   changeStateBooking,
   bookingId,
-  state
+  state,
+  byUser
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -25,16 +26,13 @@ const ConfirmationModal = ({
   };
 
   const handleYes = () => {
-    changeStateBooking(bookingId, state);
+    changeStateBooking(bookingId, state, null, byUser);
     setOpen(false);
   };
 
   return (
     <div>
       <MenuItem onClick={handleClickOpen}>{buttonText}</MenuItem>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        {buttonText}
-      </Button> */}
       <Dialog
         open={open}
         onClose={handleNo}

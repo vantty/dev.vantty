@@ -40,7 +40,6 @@ const HelpButton = ({ changeStateBooking, booking: { state, _id } }) => {
           Report a problem
         </MenuItem>
         {state == "accepted" ? (
-          // <MenuItem onClick={handleDecline}>
           <ConfirmationModal
             buttonText={"Decline this service"}
             modalText={
@@ -49,9 +48,9 @@ const HelpButton = ({ changeStateBooking, booking: { state, _id } }) => {
             changeStateBooking={changeStateBooking}
             bookingId={_id}
             state={"declined"}
+            byUser={false}
           />
-        ) : // </MenuItem>
-        null}
+        ) : null}
       </Menu>
     </div>
   );

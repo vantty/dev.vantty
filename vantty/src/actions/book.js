@@ -259,23 +259,24 @@ export const addNewBook = (
 export const changeStateBooking = (
   bookingId,
   data,
-  posponedText
+  posponedText,
+  byUser
 ) => async dispatch => {
-  // const config = {
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   }
-  // };
   const formData = { state: data, text: posponedText };
   try {
     const res = await server.post(`/book/booking/${bookingId}`, formData);
-
     await dispatch({
       type: CHANGE_STATE_BOOKING,
       payload: res.data
     });
-    await dispatch(getBook());
-    // dispatch(setAlert("Comment Removed", "success"));
+    if (byUser) {
+      const {
+        data: { _id }
+      } = await server.get("/auth");
+      await dispatch(getUserBookings(_id));
+    } else {
+      await dispatch(getBook());
+    }
   } catch (err) {
     dispatch({
       type: BOOK_ERROR,

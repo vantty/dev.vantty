@@ -360,75 +360,115 @@ exports.changeStateBooking = async (req, res) => {
   try {
     const { state, text } = req.body;
     const profile = await Profile.findOne({ user: req.user.id });
-    const book = await Book.findById(profile.bookId);
 
-    for (const x of book.bookings) {
-      if (x._id == req.params.bookingId) {
-        x.state = state;
+    if (!profile) {
+      const books = await Book.find();
+      let service;
+      books.map(async book => {
+        service = await book.bookings.find(
+          service => service._id == req.params.bookingId
+        );
+        service.state = state;
+        book.save();
+
+        // User Mailing Info
+        const user = await User.findOne({
+          stripeCustomerId: service.stripeCustomerId
+        });
+        let method = user.method;
+        const emailUser = user[method].email;
+        const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
+
+        // Artist Mailing Info
+        const profile = await Profile.findOne({
+          stripeArtistAccount: service.stripeArtistAccount
+        });
+        const artistId = profile.user;
+        const artist = await User.findById(artistId);
+        const emailArtist = artist[method].email;
+        const urlArtist = `${req.headers.origin}/bookings`;
+
+        if (service.state === "declined-user") {
+          // Email subject
+          const subject = "Book Declined";
+
+          // Email to User
+          const htmlUser = `Hi ${user[method].firstName}, you have declined the service. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
+          composeEmail(emailUser, subject, htmlUser);
+
+          // Email to Artist
+          const htmlArtist = `Hi ${artist[method].firstName}, the user has declined the service. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
+          composeEmail(emailArtist, subject, htmlArtist);
+        }
+      });
+      return res.json(books);
+    } else {
+      const book = await Book.findById(profile.bookId);
+      for (const x of book.bookings) {
+        if (x._id == req.params.bookingId) {
+          x.state = state;
+        }
       }
+      book.save();
+
+      const service = book.bookings.find(
+        service => service._id == req.params.bookingId
+      );
+
+      // User Mailing Info
+      const user = await User.findOne({
+        stripeCustomerId: service.stripeCustomerId
+      });
+      let method = user.method;
+      const emailUser = user[method].email;
+      const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
+
+      // Artist Mailing Info
+      const artist = await User.findById(book.user);
+      const emailArtist = artist[method].email;
+      const urlArtist = `${req.headers.origin}/bookings`;
+
+      if (service.state === "accepted") {
+        // Email subject
+        const subject = "Book Accepted";
+
+        // Email to User
+        const htmlUser = `Hi ${user[method].firstName}, your book has been accepted by the artist. Your booking code is: <strong>${service.bookCode}</strong>. Please save this code, because you have to give it to the artist once she finish your service. If you need to modify or cancell the service please <a href=${urlUser}><strong>click here.</strong></a>`;
+        composeEmail(emailUser, subject, htmlUser);
+
+        // Email to Artist
+        const htmlArtist = `Hi ${artist[method].firstName}, you have accepted the book request. To see the details of the service please <a href=${urlArtist}><strong>click here.</strong></a>`;
+        composeEmail(emailArtist, subject, htmlArtist);
+      }
+
+      if (service.state === "declined") {
+        // Email subject
+        const subject = "Book Declined";
+
+        // Email to User
+        const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
+        composeEmail(emailUser, subject, htmlUser);
+
+        // Email to Artist
+        const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
+        composeEmail(emailArtist, subject, htmlArtist);
+      }
+
+      if (service.state === "declined-posponed") {
+        // Email subject
+        const subject = "Book Declined";
+
+        // Email to User
+        const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. However she has an alternative proposal for you: ${text}. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
+        composeEmail(emailUser, subject, htmlUser);
+
+        // Email to Artist
+        const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
+        composeEmail(emailArtist, subject, htmlArtist);
+      }
+
+      res.json(book.bookings);
     }
-    book.save();
-
-    const service = book.bookings.find(
-      service => service._id == req.params.bookingId
-    );
-
-    // Mailing info
-
-    // User Mailing Info
-    const user = await User.findOne({
-      stripeCustomerId: service.stripeCustomerId
-    });
-    let method = user.method;
-    const emailUser = user[method].email;
-    const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
-
-    // Artist Mailing Info
-    const artist = await User.findById(book.user);
-    const emailArtist = artist[method].email;
-    const urlArtist = `${req.headers.origin}/bookings`;
-
-    if (service.state === "accepted") {
-      // Email subject
-      const subject = "Book Accepted";
-
-      // Email to User
-      const htmlUser = `Hi ${user[method].firstName}, your book has been accepted by the artist. Your booking code is: <strong>${service.bookCode}</strong>. Please save this code, because you have to give it to the artist once she finish your service. If you need to modify or cancell the service please <a href=${urlUser}><strong>click here.</strong></a>`;
-      composeEmail(emailUser, subject, htmlUser);
-
-      // Email to Artist
-      const htmlArtist = `Hi ${artist[method].firstName}, you have accepted the book request. To see the details of the service please <a href=${urlArtist}><strong>click here.</strong></a>`;
-      composeEmail(emailArtist, subject, htmlArtist);
-    }
-
-    if (service.state === "declined") {
-      // Email subject
-      const subject = "Book Declined";
-
-      // Email to User
-      const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
-      composeEmail(emailUser, subject, htmlUser);
-
-      // Email to Artist
-      const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
-      composeEmail(emailArtist, subject, htmlArtist);
-    }
-
-    if (service.state === "declined-posponed") {
-      // Email subject
-      const subject = "Book Declined";
-
-      console.log("BACK", text);
-      // Email to User
-      const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. However she has an alternative proposal for you: ${text}. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
-      composeEmail(emailUser, subject, htmlUser);
-
-      // Email to Artist
-      const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
-      composeEmail(emailArtist, subject, htmlArtist);
-    }
-
-    res.json(book.bookings);
   } catch (err) {
     res.send(err);
   }
