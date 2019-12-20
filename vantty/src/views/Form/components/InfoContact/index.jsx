@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import ReactPhoneInput from "react-phone-input-2";
-import "react-phone-input-2/dist/style.css";
-import clsx from "clsx";
+import "react-phone-input-2/lib/style.css";
 import { isMobile } from "react-device-detect";
 
 // Actions
@@ -19,15 +18,7 @@ import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 import { makeStyles } from "@material-ui/styles";
 
 //Material Compoments
-import {
-  Button,
-  Typography,
-  Grid,
-  Card,
-  CardHeader,
-  CardContent,
-  Box
-} from "@material-ui/core";
+import { Button, Typography, Grid, Box } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -117,9 +108,9 @@ const InfoContact = ({
           <Fragment>
             <Grid
               container
-              direction='row'
-              justify='center'
-              alignItems='center'
+              direction="row"
+              justify="center"
+              alignItems="center"
             >
               <Grid
                 item
@@ -127,16 +118,16 @@ const InfoContact = ({
                 sm={12}
                 md={12}
                 container
-                direction='row'
-                justify='center'
-                alignItems='center'
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
                 <Box>
                   {!numberIsVerified ? (
                     <Typography
-                      component='h5'
-                      variant='h6'
-                      align='center'
+                      component="h5"
+                      variant="h6"
+                      align="center"
                       className={classes.typography}
                     >
                       This number will be where your clients could contact with
@@ -144,9 +135,9 @@ const InfoContact = ({
                     </Typography>
                   ) : (
                     <Typography
-                      component='h5'
-                      variant='h6'
-                      align='center'
+                      component="h5"
+                      variant="h6"
+                      align="center"
                       className={classes.typography}
                     >
                       This number has been verified!
@@ -167,7 +158,7 @@ const InfoContact = ({
                           }}
                         >
                           <ReactPhoneInput
-                            defaultCountry='us'
+                            defaultCountry="us"
                             onlyCountries={["co", "us", "ca"]}
                             masks={{
                               co: "+.. (...) ...-..-..",
@@ -195,9 +186,9 @@ const InfoContact = ({
                         sm={12}
                         md={12}
                         container
-                        direction='row'
-                        justify='center'
-                        alignItems='center'
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
                       >
                         <NumberValidation
                           phone={phone}
@@ -249,7 +240,7 @@ const InfoContact = ({
             Children={
               <div>
                 <div>
-                  <Button component={Link} to='/settings'>
+                  <Button component={Link} to="/settings">
                     Back
                   </Button>
                 </div>
