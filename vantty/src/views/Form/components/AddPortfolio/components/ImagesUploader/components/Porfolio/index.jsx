@@ -120,9 +120,9 @@ const Porfolio = ({
                           )
                         }
                       >
-                        {portfolioPictures.length > 5 && (
-                          <DeleteForeverOutlinedIcon />
-                        )}
+                        {/* {portfolioPictures.length > 5 && ( */}
+                        <DeleteForeverOutlinedIcon />
+                        {/* )} */}
                       </IconButton>
                     }
                   />

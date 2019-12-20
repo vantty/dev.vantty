@@ -133,10 +133,8 @@ export const uploadImages = e => async dispatch => {
 
       const resImages = await server.get("/images");
       const resProfile = await server.get("/profile/me");
-      const data = elasticData(resImages.data, resProfile); // helpers
-      console.log("HOLA");
-      await loadToElastic(data, resProfile.data.imagesId); //ACTION
-      console.log("CHAO");
+      const data = elasticData(resImages.data, resProfile);
+      await loadToElastic(data, resProfile.data.imagesId);
       await dispatch(getImages());
     })
     .catch(error => {

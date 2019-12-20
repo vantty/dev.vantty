@@ -330,10 +330,8 @@ export const verifiedProfile = formData => async dispatch => {
       }
     };
     await server.post("/profile/verified", formData, config);
-
     const resImages = await server.get(`/images/${formData.id}`);
 
-    console.log(formData);
     const elasticConfig = {
       headers: {
         "Content-type": "application/json",
@@ -368,20 +366,10 @@ export const verifiedProfile = formData => async dispatch => {
 export const deleteProfileAndUserDashboard = ({
   formData
 }) => async dispatch => {
-  // const config = {
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   }
-  // };
-
   if (window.confirm("Are you sure?")) {
     try {
       // await deleteFromElastic(elastidId);
       await server.delete("/profile/profile-user-dashboard", formData);
-
-      // dispatch({ type: CLEAR_PROFILE });
-      // dispatch({ type: ACCOUNT_DELETE });
-
       dispatch(
         setAlert("Your account has been permanantly deleted", "success")
       );
@@ -396,7 +384,6 @@ export const deleteProfileAndUserDashboard = ({
 
 //Upload data to elastic
 export const loadToElastic = async (data, imagesId) => {
-  console.log("LOAD");
   const elasticConfig = {
     headers: {
       "Content-type": "application/json",
@@ -463,17 +450,10 @@ const deleteFromElastic = async elasticId => {
 // Load Service
 export const loadService = services => async dispatch => {
   try {
-    // const config = {
-    //   headers: { "Content-Type": "application/json" }
-    // };
-    // const body = JSON.stringify({ token, amount });
-    // const res = await server.post("/book/pay", body, config);
-
     dispatch({
       type: SERVICE_SUCCESS,
       payload: services
     });
-    // log(services);
   } catch (error) {
     console.log(error);
   }
