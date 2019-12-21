@@ -20,7 +20,7 @@ import {
   Button
 } from "@material-ui/core";
 import clsx from "clsx";
-import { Rating } from "@material-ui/lab";
+// import { Rating } from "@material-ui/lab";
 import LinkMui from "@material-ui/core/Link";
 import { FrameForm, SimpleAppBar } from "../../components";
 import validate from "validate.js";
@@ -202,7 +202,7 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                         <br />
 
                         <Grid item xs={12} sm={12} md={12}>
-                          <Rating
+                          {/* <Rating
                             size="large"
                             precision={0.5}
                             name="half-rating"
@@ -210,7 +210,7 @@ const ReviewForm = ({ addComment, match, className, history }) => {
                             onChange={(event, newValue) => {
                               setRating(newValue);
                             }}
-                          />
+                          /> */}
                         </Grid>
                       </Grid>
 

@@ -61,42 +61,8 @@ exports.profileValidatorPortfolio = (req, res, next) => {
 };
 
 // Compose and send email
-// exports.composeEmail = (email, subject, html) => {
-//   try {
-//     const transporter = nodemailer.createTransport({
-//       host: "smtp.mailgun.org",
-//       port: 465,
-//       secure: true,
-//       auth: {
-//         user: "postmaster@mg.vantty.ca",
-//         pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
-//       }
-//     });
-
-//     let message = {
-//       from: "admin@vantty.ca",
-//       to: `${email}`,
-//       subject: subject,
-//       html: html
-//     };
-
-//     transporter.sendMail(message, (err, data) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         console.log("Email sent");
-//       }
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Server error");
-//   }
-// };
-
-// Email Template
 exports.composeEmail = (email, subject, html) => {
   try {
-    // Step 1
     const transporter = nodemailer.createTransport({
       host: "smtp.mailgun.org",
       port: 465,
@@ -107,44 +73,78 @@ exports.composeEmail = (email, subject, html) => {
       }
     });
 
-    // Step 2
-    transporter.use(
-      "compile",
-      hbs({
-        viewEngine: {
-          extName: ".hbs",
-          partialsDir: "./views",
-          layoutsDir: "./views",
-          defaultLayout: "index.hbs"
-        },
-        viewPath: "./views",
-        extName: ".hbs"
-      })
-    );
-
-    // Step 3
-    let mailOptions = {
-      from: "admin@vantty.ca", // TODO: email sender
-      to: `${email}`, // TODO: email receiver
-      subject: "Nodemailer - Test",
-      text: "Wooohooo it works!!",
-      template: "index",
-      context: {
-        subject: subject,
-        html: html
-      }
+    let message = {
+      from: "admin@vantty.ca",
+      to: `${email}`,
+      subject: subject,
+      html: html
     };
 
-    // Step 4
-    transporter.sendMail(mailOptions, (err, data) => {
+    transporter.sendMail(message, (err, data) => {
       if (err) {
-        log("EMAIL ERROR", err);
-        return log("Error occurs");
+        console.log(err);
+      } else {
+        console.log("Email sent");
       }
-      return log("Email sent!!!");
     });
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
   }
 };
+
+// Email Template
+// exports.composeEmail = (email, subject, html) => {
+//   try {
+//     // Step 1
+//     const transporter = nodemailer.createTransport({
+//       host: "smtp.mailgun.org",
+//       port: 465,
+//       secure: true,
+//       auth: {
+//         user: "postmaster@mg.vantty.ca",
+//         pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
+//       }
+//     });
+
+//     // Step 2
+//     transporter.use(
+//       "compile",
+//       hbs({
+//         viewEngine: {
+//           extName: ".hbs",
+//           partialsDir: "./views",
+//           layoutsDir: "./views",
+//           defaultLayout: "index.hbs"
+//         },
+//         viewPath: "./views",
+//         extName: ".hbs"
+//       })
+//     );
+
+//     // Step 3
+//     let mailOptions = {
+//       from: "admin@vantty.ca", // TODO: email sender
+//       to: `${email}`, // TODO: email receiver
+//       subject: "Nodemailer - Test",
+//       text: "Wooohooo it works!!",
+//       template: "index",
+//       context: {
+//         subject: subject,
+//         html: html
+//       }
+//     };
+
+//     // Step 4
+//     transporter.sendMail(mailOptions, (err, data) => {
+//       if (err) {
+//         log("EMAIL ERROR", err);
+//         return log("Error occurs");
+//       }
+//       return log("Email sent!!!");
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send("Server error");
+//   }
+// };

@@ -31,6 +31,7 @@ import { SimpleAppBar, Alert } from "../../components";
 import { getProfileById } from "../../actions/profile";
 import { initialServices } from "../../actions/cart";
 import { addNewBook } from "../../actions/book";
+import CheckoutContext from "./CheckoutContext";
 
 // Helpers
 const log = console.log;
@@ -242,13 +243,15 @@ const Checkout = ({
         );
       case 2:
         return (
-          <PaymentForm
-            onChangeTarget={onChangeTarget}
-            stripeCustomerId={stripeCustomerId}
-            cards={cards}
-            isEdit={false}
-            cardSelected={stripeCardId}
-          />
+          <CheckoutContext.Provider value={{ onChangeTarget }}>
+            <PaymentForm
+              // onChangeTarget={onChangeTarget}
+              stripeCustomerId={stripeCustomerId}
+              cards={cards}
+              isEdit={false}
+              cardSelected={stripeCardId}
+            />
+          </CheckoutContext.Provider>
         );
       case 3:
         return <Summary checkout={checkout} cards={cards} />;

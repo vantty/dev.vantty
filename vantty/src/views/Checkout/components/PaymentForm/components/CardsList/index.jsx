@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -21,6 +21,7 @@ import {
 
 // Actions
 import { deleteCard } from "../../../../../../actions/book";
+import CheckoutContext from "../../../../CheckoutContext";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -34,13 +35,14 @@ const useStyles = makeStyles(theme => ({
 
 const CardsList = ({
   cards,
-  onChangeTarget,
+  // onChangeTarget,
   isEdit,
   deleteCard,
   cardSelected
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
+  const { onChangeTarget } = useContext(CheckoutContext);
 
   const handleChange = event => {
     setValue(event.target.value);

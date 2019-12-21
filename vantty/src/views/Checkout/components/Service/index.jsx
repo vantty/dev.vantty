@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -80,7 +80,10 @@ const Review = ({
   hour
 }) => {
   const classes = useStyles();
-
+  const { profile: profileDemo } = useSelector(state => ({
+    profile: state.profile
+  }));
+  console.log(profileDemo);
   useEffect(() => {
     initialServices(profile.services);
   }, []);
@@ -107,16 +110,16 @@ const Review = ({
     <Fragment>
       <Date onChangeDate={onChangeDate} localDate={date} localTime={hour} />
 
-      <Typography variant='h6' gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Service summary
       </Typography>
 
       <List disablePadding>
         <Grid
           container
-          direction='row'
-          justify='center'
-          alignItems='center'
+          direction="row"
+          justify="center"
+          alignItems="center"
           spacing={3}
         >
           {items.map(product => (
@@ -130,7 +133,7 @@ const Review = ({
               </Grid>
               <Grid item xs={4}>
                 <Typography
-                  variant='body2'
+                  variant="body2"
                   key={product.id}
                   className={classes.paper}
                 >
@@ -176,26 +179,26 @@ const Review = ({
           <br />
           <Grid
             container
-            direction='row'
-            justify='flex-end'
-            alignItems='center'
+            direction="row"
+            justify="flex-end"
+            alignItems="center"
             className={classes.totals}
           >
             <ListItem className={classes.values}>
-              <ListItemText primary='Service' />
-              <Typography variant='subtitle1' className={classes.subtitle}>
+              <ListItemText primary="Service" />
+              <Typography variant="subtitle1" className={classes.subtitle}>
                 ${total}
               </Typography>
             </ListItem>
             <ListItem className={classes.values}>
-              <ListItemText primary='Fee' />
-              <Typography variant='subtitle1' className={classes.subtitle}>
+              <ListItemText primary="Fee" />
+              <Typography variant="subtitle1" className={classes.subtitle}>
                 ${total * 0.05}
               </Typography>
             </ListItem>
             <ListItem className={classes.values}>
-              <ListItemText primary='Total' />
-              <Typography variant='subtitle1' className={classes.total}>
+              <ListItemText primary="Total" />
+              <Typography variant="subtitle1" className={classes.total}>
                 ${total + total * 0.05}
               </Typography>
             </ListItem>
