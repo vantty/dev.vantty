@@ -70,7 +70,7 @@ const _StripeForm = props => {
     addCard,
     stripeCustomerId,
     cards,
-    onChangeTarget,
+    // onChangeTarget,
     isEdit,
     cardSelected
   } = props;
@@ -145,7 +145,7 @@ const _StripeForm = props => {
                 <CardsList
                   cardSelected={cardSelected}
                   cards={cards}
-                  onChangeTarget={onChangeTarget}
+                  // onChangeTarget={onChangeTarget}
                   isEdit={isEdit}
                 />
               </Grid>

@@ -5,7 +5,7 @@ import { StripeProvider, Elements } from "react-stripe-elements";
 import StripeForm from "./components/StripeForm";
 
 const PaymentForm = ({
-  onChangeTarget,
+  // onChangeTarget,
   stripeCustomerId,
   cards,
   isEdit,
@@ -16,7 +16,7 @@ const PaymentForm = ({
       {/* <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}> */}
       <Elements>
         <StripeForm
-          onChangeTarget={onChangeTarget}
+          // onChangeTarget={onChangeTarget}
           stripeCustomerId={stripeCustomerId}
           cards={cards}
           isEdit={isEdit}

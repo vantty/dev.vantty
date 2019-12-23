@@ -83,7 +83,6 @@ const Review = ({
   const { profile: profileDemo } = useSelector(state => ({
     profile: state.profile
   }));
-  console.log(profileDemo);
   useEffect(() => {
     initialServices(profile.services);
   }, []);
