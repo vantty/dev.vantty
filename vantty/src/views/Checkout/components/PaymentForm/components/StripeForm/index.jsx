@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -26,6 +26,7 @@ import CardsList from "../CardsList";
 
 // Actions
 import { validateCard, addCard } from "../../../../../../actions/book";
+import CheckoutContext from "../../../../CheckoutContext";
 
 // Helpers
 const log = console.log;
@@ -64,16 +65,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const _StripeForm = props => {
-  const {
-    stripe,
-    validateCard,
-    addCard,
-    stripeCustomerId,
-    cards,
-    // onChangeTarget,
-    isEdit,
-    cardSelected
-  } = props;
+  const { stripe, validateCard, addCard } = props;
+  const { cards, isEdit, cardSelected, stripeCustomerId } = useContext(
+    CheckoutContext
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -134,7 +129,7 @@ const _StripeForm = props => {
 
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant='h6' gutterBottom>
         Payment method
       </Typography>
       <Grid container spacing={1}>
@@ -153,8 +148,8 @@ const _StripeForm = props => {
             <ExpansionPanel className={classes.panel}>
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls='panel1a-content'
+                id='panel1a-header'
               >
                 <Typography className={classes.heading}>
                   Add a new card
@@ -172,9 +167,9 @@ const _StripeForm = props => {
                     <Grid item xs={12}>
                       <CardCVCElement onChange={handleChange} />
                     </Grid>
-                    <div role="alert">{errorMessage}</div>
+                    <div role='alert'>{errorMessage}</div>
                     <Grid item xs={12}>
-                      <Button type="submit" variant="contained" color="primary">
+                      <Button type='submit' variant='contained' color='primary'>
                         Add card
                       </Button>
                     </Grid>
@@ -195,9 +190,9 @@ const _StripeForm = props => {
               <Grid item xs={12}>
                 <CardCVCElement onChange={handleChange} />
               </Grid>
-              <div role="alert">{errorMessage}</div>
+              <div role='alert'>{errorMessage}</div>
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary">
+                <Button type='submit' variant='contained' color='primary'>
                   Save your card
                 </Button>
               </Grid>

@@ -33,14 +33,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CardsList = ({ cards, isEdit, deleteCard, cardSelected }) => {
+const CardsList = () => {
   const classes = useStyles();
   const [value, setValue] = useState("");
-  // const { onChangeTarget } = useContext(CheckoutContext);
+  const {
+    onChangeTarget,
+    cards,
+    isEdit,
+    deleteCard,
+    cardSelected
+  } = useContext(CheckoutContext);
 
   const handleChange = event => {
     setValue(event.target.value);
-    // onChangeTarget(event);
+    onChangeTarget(event);
   };
 
   const handleDelete = stripeCardId => {
@@ -49,27 +55,27 @@ const CardsList = ({ cards, isEdit, deleteCard, cardSelected }) => {
 
   return (
     <div>
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Saved Cards</FormLabel>
+      <FormControl component='fieldset' className={classes.formControl}>
+        <FormLabel component='legend'>Saved Cards</FormLabel>
         <RadioGroup
-          aria-label="gender"
-          name="stripeCardId"
+          aria-label='gender'
+          name='stripeCardId'
           value={cardSelected}
           onChange={handleChange}
         >
-          <Table className={classes.table} aria-label="simple table">
+          <Table className={classes.table} aria-label='simple table'>
             <TableHead>
               <TableRow>
                 <TableCell>Select</TableCell>
-                <TableCell align="left">Brand</TableCell>
-                <TableCell align="left">Number</TableCell>
-                <TableCell align="left">EXP</TableCell>
+                <TableCell align='left'>Brand</TableCell>
+                <TableCell align='left'>Number</TableCell>
+                <TableCell align='left'>EXP</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {cards.map(card => (
                 <TableRow key={card.stripeCardId}>
-                  <TableCell align="left" key={card.stripeCardId}>
+                  <TableCell align='left' key={card.stripeCardId}>
                     {!isEdit ? (
                       <FormControlLabel
                         key={card.stripeCardId}
@@ -84,9 +90,9 @@ const CardsList = ({ cards, isEdit, deleteCard, cardSelected }) => {
                       </IconButton>
                     )}
                   </TableCell>
-                  <TableCell align="left">{card.brand}</TableCell>
-                  <TableCell align="left">{card.last4}</TableCell>
-                  <TableCell align="left">
+                  <TableCell align='left'>{card.brand}</TableCell>
+                  <TableCell align='left'>{card.last4}</TableCell>
+                  <TableCell align='left'>
                     {card.expMonth}/{card.expYear}
                   </TableCell>
                 </TableRow>
