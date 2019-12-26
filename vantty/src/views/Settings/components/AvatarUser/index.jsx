@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import { Avatar, Typography } from "@material-ui/core";
+import { Avatar, Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getInitials } from "../../../../helpers";
+import { Link as LinkReact } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -29,16 +30,30 @@ const AvatarUser = ({ profilePicture, firstName }) => {
   return (
     <div>
       <br />
-      {console.log(profilePicture)}
       {profilePicture ? (
         <Fragment>
           <Avatar className={classes.avatar} src={profilePicture.original} />
           <Typography className={classes.hello}>
             Hello! {firstName}. Welcome back!
           </Typography>
+          <Typography className={classes.hello}>
+            <Link component={LinkReact} to={"/create-profile"}>
+              Become to an Artists
+            </Link>
+          </Typography>
         </Fragment>
       ) : (
-        <Avatar className={classes.avatar}>{getInitials(firstName)}</Avatar>
+        <Fragment>
+          <Avatar className={classes.avatar}>{getInitials(firstName)}</Avatar>
+          <Typography className={classes.hello}>
+            Hello! {firstName}. Welcome back!
+          </Typography>
+          <Typography className={classes.hello}>
+            <Link component={LinkReact} to={"/create-profile"}>
+              Become to an Artists
+            </Link>
+          </Typography>
+        </Fragment>
       )}
       {/* <Link href={"/creare-profile"} className={classes.link}>
       

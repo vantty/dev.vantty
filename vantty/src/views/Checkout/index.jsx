@@ -244,11 +244,11 @@ const Checkout = ({
       case 2:
         return (
           <PaymentForm
-            // onChangeTarget={onChangeTarget}
-            // stripeCustomerId={stripeCustomerId}
-            // cards={cards}
+            onChangeTarget={onChangeTarget}
+            stripeCustomerId={stripeCustomerId}
+            cards={cards}
             isEdit={false}
-            // cardSelected={stripeCardId}
+            cardSelected={stripeCardId}
           />
         );
       case 3:
@@ -296,7 +296,7 @@ const Checkout = ({
             ) : (
               <Fragment>
                 <Container maxWidth='sm'>
-                  <CheckoutContext.Provider
+                  {/* <CheckoutContext.Provider
                     value={{
                       onChangeTarget,
                       stripeCustomerId,
@@ -304,9 +304,9 @@ const Checkout = ({
                       cards,
                       isEdit: false
                     }}
-                  >
-                    {profile && getStepContent(activeStep)}
-                  </CheckoutContext.Provider>
+                  > */}
+                  {profile && getStepContent(activeStep)}
+                  {/* </CheckoutContext.Provider> */}
                 </Container>
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (

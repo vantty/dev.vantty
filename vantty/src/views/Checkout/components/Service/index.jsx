@@ -10,6 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import Progress from "@material-ui/core/LinearProgress";
 
 // Actions
 import {
@@ -80,9 +81,15 @@ const Review = ({
   hour
 }) => {
   const classes = useStyles();
-  const { profile: profileDemo } = useSelector(state => ({
-    profile: state.profile
-  }));
+
+  // const { profile, items, total } = useSelector(state => ({
+  //   profile: state.profile,
+  //   items: state.cart.items,
+  //   total: state.cart.total
+  // }));
+
+  console.log("Items", items);
+  console.log("profile", profile);
   useEffect(() => {
     initialServices(profile.services);
   }, []);
@@ -109,100 +116,104 @@ const Review = ({
     <Fragment>
       <Date onChangeDate={onChangeDate} localDate={date} localTime={hour} />
 
-      <Typography variant="h6" gutterBottom>
+      <Typography variant='h6' gutterBottom>
         Service summary
       </Typography>
 
       <List disablePadding>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          spacing={3}
-        >
-          {items.map(product => (
-            <ListItem className={classes.listItem} key={product._id}>
-              <Grid item xs={4}>
-                <ListItemText
-                  className={classes.paper}
-                  primary={product.typeOfServices}
-                  secondary={product.description}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <Typography
-                  variant="body2"
-                  key={product.id}
-                  className={classes.paper}
-                >
-                  ${product.amount}
-                </Typography>
-              </Grid>
-
-              <Grid item xs={4}>
-                <span>
-                  <button
-                    className={classes.button}
-                    disabled={
-                      (product.quantity === 0 && true) ||
-                      (product.quantity === undefined && true)
-                    }
-                    onClick={() => handleSubtractQuantity(product._id)}
-                    key={product._id}
-                  >
-                    <RemoveIcon className={classes.icon} />
-                  </button>
-                  {/* <div className={classes.margin}> */}
-                  {/* <Typography gutterBottom variant='h6'> */}
-                  <span className={classes.margin}>{product.quantity}</span>
-                  {/* </Typography> */}
-                  {/* </div> */}
-                  <button
-                    disabled={product.quantity === 3 && true}
-                    onClick={() =>
-                      !product.quantity
-                        ? handleAddToCart(product._id)
-                        : handleAddQuantity(product._id)
-                    }
-                    key={product.id}
-                  >
-                    <AddIcon className={classes.icon} />
-                  </button>
-                </span>
-              </Grid>
-            </ListItem>
-          ))}
-
-          <br />
-          <br />
+        {profile && items ? (
           <Grid
             container
-            direction="row"
-            justify="flex-end"
-            alignItems="center"
-            className={classes.totals}
+            direction='row'
+            justify='center'
+            alignItems='center'
+            spacing={3}
           >
-            <ListItem className={classes.values}>
-              <ListItemText primary="Service" />
-              <Typography variant="subtitle1" className={classes.subtitle}>
-                ${total}
-              </Typography>
-            </ListItem>
-            <ListItem className={classes.values}>
-              <ListItemText primary="Fee" />
-              <Typography variant="subtitle1" className={classes.subtitle}>
-                ${total * 0.05}
-              </Typography>
-            </ListItem>
-            <ListItem className={classes.values}>
-              <ListItemText primary="Total" />
-              <Typography variant="subtitle1" className={classes.total}>
-                ${total + total * 0.05}
-              </Typography>
-            </ListItem>
+            {items.map(product => (
+              <ListItem className={classes.listItem} key={product._id}>
+                <Grid item xs={4}>
+                  <ListItemText
+                    className={classes.paper}
+                    primary={product.typeOfServices}
+                    secondary={product.description}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography
+                    variant='body2'
+                    key={product.id}
+                    className={classes.paper}
+                  >
+                    ${product.amount}
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={4}>
+                  <span>
+                    <button
+                      className={classes.button}
+                      disabled={
+                        (product.quantity === 0 && true) ||
+                        (product.quantity === undefined && true)
+                      }
+                      onClick={() => handleSubtractQuantity(product._id)}
+                      key={product._id}
+                    >
+                      <RemoveIcon className={classes.icon} />
+                    </button>
+                    {/* <div className={classes.margin}> */}
+                    {/* <Typography gutterBottom variant='h6'> */}
+                    <span className={classes.margin}>{product.quantity}</span>
+                    {/* </Typography> */}
+                    {/* </div> */}
+                    <button
+                      disabled={product.quantity === 3 && true}
+                      onClick={() =>
+                        !product.quantity
+                          ? handleAddToCart(product._id)
+                          : handleAddQuantity(product._id)
+                      }
+                      key={product.id}
+                    >
+                      <AddIcon className={classes.icon} />
+                    </button>
+                  </span>
+                </Grid>
+              </ListItem>
+            ))}
+
+            <br />
+            <br />
+            <Grid
+              container
+              direction='row'
+              justify='flex-end'
+              alignItems='center'
+              className={classes.totals}
+            >
+              <ListItem className={classes.values}>
+                <ListItemText primary='Service' />
+                <Typography variant='subtitle1' className={classes.subtitle}>
+                  ${total}
+                </Typography>
+              </ListItem>
+              <ListItem className={classes.values}>
+                <ListItemText primary='Fee' />
+                <Typography variant='subtitle1' className={classes.subtitle}>
+                  ${total * 0.05}
+                </Typography>
+              </ListItem>
+              <ListItem className={classes.values}>
+                <ListItemText primary='Total' />
+                <Typography variant='subtitle1' className={classes.total}>
+                  ${total + total * 0.05}
+                </Typography>
+              </ListItem>
+            </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          <Progress />
+        )}
       </List>
       {/* <Divider /> */}
     </Fragment>
@@ -211,7 +222,7 @@ const Review = ({
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    // cart: state.cart
     // items: state.items,
     // addedItems: state.addedItems
   };

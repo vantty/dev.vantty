@@ -55,7 +55,7 @@ const AddPortfolio = ({
   ...rest
 }) => {
   useEffect(() => {
-    getCurrentProfile();
+    // getCurrentProfile();
     getImages();
     setTags({});
   }, []);

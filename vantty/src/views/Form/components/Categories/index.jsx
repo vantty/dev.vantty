@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -26,6 +26,7 @@ import {
 
 // Components
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
+import FormContext from "../../FormContext";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -67,22 +68,30 @@ const AddCategories = ({
   history,
   profile: { profile, loading },
   createProfile,
-  nextStep,
-  prevStep,
-  step,
+  // nextStep,
+  // prevStep,
+  // step,
   match,
   getCurrentProfile,
-  className,
-  setStateHair,
-  setStateMakeup,
-  stateHair,
-  stateMakeup
+  className
+  // setStateHair,
+  // setStateMakeup,
+  // stateHair,
+  // stateMakeup
 }) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    getCurrentProfile();
-  }, []);
+  const {
+    activeStep: step,
+    nextStep,
+    prevStep,
+    setStateHair,
+    setStateMakeup,
+    stateHair,
+    stateMakeup
+  } = useContext(FormContext);
+  // useEffect(() => {
+  //   getCurrentProfile();
+  // }, []);
 
   const back = e => {
     e.preventDefault();

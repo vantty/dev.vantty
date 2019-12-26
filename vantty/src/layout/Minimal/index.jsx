@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { isMobile } from "react-device-detect";
 
 // Components
 import { Footer, Navbar } from "../Main/components";
+import { connect } from "react-redux";
+
+import { withRouter } from "react-router-dom";
+
+///actions
+import { getCurrentProfile } from "../../actions/profile";
+import { loadUser } from "../../actions/auth";
 
 // Material-UI
 import { makeStyles } from "@material-ui/styles";
@@ -25,7 +32,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Minimal = props => {
-  const { children } = props;
+  const { children, loadUser, getCurrentProfile } = props;
+
+  useEffect(() => {
+    // getCurrentProfile();
+    // loadUser();
+  }, []);
   const classes = useStyles();
   return (
     <div
@@ -43,7 +55,17 @@ const Minimal = props => {
 };
 
 Minimal.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default Minimal;
+const mapStateToProps = state => ({
+  profile: state.profile,
+  auth: state.auth,
+  uploader: state.uploader
+});
+
+export default connect(mapStateToProps, { getCurrentProfile, loadUser })(
+  withRouter(Minimal)
+);

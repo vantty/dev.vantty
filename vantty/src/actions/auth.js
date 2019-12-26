@@ -294,11 +294,11 @@ export const updateInfo = (formData, edit = false) => async dispatch => {
       }
     };
     await server.post("/auth/update-info", formData, config);
-    // await dispatch(loadUser());
+    await dispatch(loadUser());
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
-    dispatch(loadUser());
+    // dispatch(loadUser());
 
     dispatch(setAlert(edit && "User Update", "success"));
   } catch (err) {

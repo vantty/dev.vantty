@@ -66,16 +66,16 @@ const SettingsProfile = ({
 
   return (
     <Fragment>
-      <List component="nav">
-        <Container maxWidth="md">
+      <List component='nav'>
+        <Container maxWidth='md'>
           <ListItem className={classes.title}>
             <ListItemText primary={"Manage"} />
           </ListItem>
           <Grid
             container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
+            direction='row'
+            justify='space-between'
+            alignItems='center'
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -88,6 +88,9 @@ const SettingsProfile = ({
                 />
               </ListItemLink>
             </Grid>
+            <Grid item xs={1}>
+              {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            </Grid>
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
                 to={profile ? "/bank" : "/payments"}
@@ -98,7 +101,9 @@ const SettingsProfile = ({
                 />
               </ListItemLink>
             </Grid>
-            {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            <Grid item xs={1}>
+              {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            </Grid>
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <Divider />
             </Grid>
@@ -111,7 +116,6 @@ const SettingsProfile = ({
               </ListItemLink>
             </Grid> */}
 
-            {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
             <Divider />
           </Grid>
 
@@ -123,12 +127,12 @@ const SettingsProfile = ({
         {pages.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
-            <Container maxWidth="md">
+            <Container maxWidth='md'>
               <Grid
                 container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
+                direction='row'
+                justify='space-between'
+                alignItems='center'
               >
                 <Grid item xs={11} md={12} lg={12} xl={12}>
                   <ListItemLink
@@ -157,16 +161,16 @@ const SettingsProfile = ({
           </div>
         ))}
         {/* <Container maxWidth='sm'> */}
-        <Container maxWidth="md">
+        <Container maxWidth='md'>
           <ListItem className={classes.title}>
             <ListItemText primary={"Account"} />
           </ListItem>
           {isMobile && (
             <Grid
               container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
+              direction='row'
+              justify='space-between'
+              alignItems='center'
             >
               <Grid item xs={11} md={12} lg={12} xl={12}>
                 <ListItemLink

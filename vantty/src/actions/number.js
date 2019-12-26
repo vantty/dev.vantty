@@ -2,7 +2,7 @@ import { NUMBER_VERIFY_SUCCESS, NUMBER_VERIFY_FAIL } from "./types";
 import axios from "axios";
 import crypto from "crypto";
 
-import { createMobileNumber } from "./profile";
+import { createMobileNumber, getCurrentProfile } from "./profile";
 
 import { updateInfo } from "./auth";
 import { server } from "../utils/axios";
@@ -53,6 +53,7 @@ export const verifyNumber = (res, id) => async dispatch => {
             true,
             config
           );
+          await dispatch(getCurrentProfile());
           await dispatch({
             type: NUMBER_VERIFY_SUCCESS,
             payload: numberVerified
