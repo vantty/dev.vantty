@@ -31,7 +31,7 @@ import { SimpleAppBar, Alert } from "../../components";
 import { getProfileById } from "../../actions/profile";
 import { initialServices } from "../../actions/cart";
 import { addNewBook } from "../../actions/book";
-import CheckoutContext from "./CheckoutContext";
+// import CheckoutContext from "./CheckoutContext";
 
 // Helpers
 const log = console.log;
@@ -243,13 +243,15 @@ const Checkout = ({
         );
       case 2:
         return (
+          // <CheckoutContext.Provider value={{ onChangeTarget }}>
           <PaymentForm
-            // onChangeTarget={onChangeTarget}
-            // stripeCustomerId={stripeCustomerId}
-            // cards={cards}
+            onChangeTarget={onChangeTarget}
+            stripeCustomerId={stripeCustomerId}
+            cards={cards}
             isEdit={false}
-            // cardSelected={stripeCardId}
+            cardSelected={stripeCardId}
           />
+          // </CheckoutContext.Provider>
         );
       case 3:
         return <Summary checkout={checkout} cards={cards} />;
@@ -296,17 +298,7 @@ const Checkout = ({
             ) : (
               <Fragment>
                 <Container maxWidth='sm'>
-                  <CheckoutContext.Provider
-                    value={{
-                      onChangeTarget,
-                      stripeCustomerId,
-                      stripeCardId,
-                      cards,
-                      isEdit: false
-                    }}
-                  >
-                    {profile && getStepContent(activeStep)}
-                  </CheckoutContext.Provider>
+                  {profile && getStepContent(activeStep)}
                 </Container>
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (

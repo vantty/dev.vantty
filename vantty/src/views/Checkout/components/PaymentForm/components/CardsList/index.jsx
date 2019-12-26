@@ -33,16 +33,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CardsList = () => {
+const CardsList = ({ cards, isEdit, deleteCard, cardSelected }) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
-  const {
-    onChangeTarget,
-    cards,
-    isEdit,
-    deleteCard,
-    cardSelected
-  } = useContext(CheckoutContext);
+  const { onChangeTarget } = useContext(CheckoutContext);
 
   const handleChange = event => {
     setValue(event.target.value);

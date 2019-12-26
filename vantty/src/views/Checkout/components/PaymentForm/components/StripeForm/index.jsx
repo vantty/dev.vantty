@@ -65,10 +65,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const _StripeForm = props => {
-  const { stripe, validateCard, addCard } = props;
-  const { cards, isEdit, cardSelected, stripeCustomerId } = useContext(
-    CheckoutContext
-  );
+  const {
+    stripe,
+    validateCard,
+    addCard,
+    stripeCustomerId,
+    cards,
+    isEdit,
+    cardSelected
+  } = props;
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -140,7 +145,6 @@ const _StripeForm = props => {
                 <CardsList
                   cardSelected={cardSelected}
                   cards={cards}
-                  // onChangeTarget={onChangeTarget}
                   isEdit={isEdit}
                 />
               </Grid>
