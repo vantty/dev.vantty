@@ -7,9 +7,9 @@ import PaymentForm from "../../../Checkout/components/PaymentForm";
 import { loadUser } from "../../../../actions/auth";
 
 const Payment = ({ loadUser, user }) => {
-  useEffect(() => {
-    loadUser();
-  }, []);
+  // useEffect(() => {
+  //   loadUser();
+  // }, []);
   return (
     <PaymentForm
       stripeCustomerId={user && user.stripeCustomerId}

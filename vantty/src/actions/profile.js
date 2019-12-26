@@ -84,7 +84,7 @@ export const createProfile = (
     };
 
     const res = await server.post("/profile", formData, config);
-    dispatch(getCurrentProfile());
+    // dispatch(getCurrentProfile());
     dispatch({
       type: GET_PROFILE,
       payload: res.data

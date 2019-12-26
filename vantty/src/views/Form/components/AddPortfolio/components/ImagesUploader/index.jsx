@@ -62,7 +62,7 @@ const ImagesUploader = ({
 }) => {
   const classes = useStyles();
   useEffect(() => {
-    getCurrentProfile();
+    // getCurrentProfile();
     getImages();
   }, []);
 
@@ -74,7 +74,7 @@ const ImagesUploader = ({
     // const classesMsg = useStyles();
     if (profile !== null && images && images.length < 5) {
       return (
-        <Typography variant="h5">
+        <Typography variant='h5'>
           You need at least 5 pictures and each one of them must have a tag.
         </Typography>
       );
@@ -86,17 +86,17 @@ const ImagesUploader = ({
       <Fragment>
         <div className={classes.div}>
           <Button
-            variant="contained"
-            color="default"
+            variant='contained'
+            color='default'
             className={classes.button}
             startIcon={<CloudUploadIcon />}
-            component="label"
+            component='label'
           >
             Upload Picture
             <input
               style={{ display: "none" }}
-              type="file"
-              name="file"
+              type='file'
+              name='file'
               multiple
               onChange={onChange}
             />
@@ -125,7 +125,7 @@ const ImagesUploader = ({
       {uploading || !profile ? (
         <Fragment>
           <Progress />
-          <Typography variant="h5" className={classes.waitMessage}>
+          <Typography variant='h5' className={classes.waitMessage}>
             {"This may take a while. Please wait..."}
           </Typography>
         </Fragment>
@@ -155,7 +155,8 @@ const mapStateToProps = state => ({
   uploader: state.uploader
 });
 
-export default connect(
-  mapStateToProps,
-  { uploadImages, getCurrentProfile, getImages }
-)(ImagesUploader);
+export default connect(mapStateToProps, {
+  uploadImages,
+  getCurrentProfile,
+  getImages
+})(ImagesUploader);

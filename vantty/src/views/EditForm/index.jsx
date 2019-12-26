@@ -56,8 +56,7 @@ const EditForm = ({
 
   const classes = useStyles();
   useEffect(() => {
-    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
-    // getCurrentProfile();
+    // getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
   }, []);
   return (
     <Fragment>

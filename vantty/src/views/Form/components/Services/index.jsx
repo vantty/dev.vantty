@@ -70,7 +70,7 @@ const Price = ({
   const [availability, setAvailability] = useState("");
 
   useEffect(() => {
-    getCurrentProfile();
+    // getCurrentProfile();
 
     setFormData({
       price: loading || !profile.price ? "" : profile.price

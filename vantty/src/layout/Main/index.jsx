@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import { Footer, BottomNavbar, Navbar } from "./components";
 import { isMobile } from "react-device-detect";
+import { connect } from "react-redux";
+
+import { withRouter } from "react-router-dom";
+
+///actions
+import { getCurrentProfile } from "../../actions/profile";
+import { loadUser } from "../../actions/auth";
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
@@ -19,8 +27,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const Main = props => {
-  const { children } = props;
+  const { children, getCurrentProfile, loadUser } = props;
   const classes = useStyles();
+
+  useEffect(() => {
+    // getCurrentProfile();
+    // loadUser();
+  }, []);
+
   return (
     <div
       className={clsx({
@@ -36,7 +50,17 @@ const Main = props => {
   );
 };
 Main.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default Main;
+const mapStateToProps = state => ({
+  profile: state.profile,
+  auth: state.auth,
+  uploader: state.uploader
+});
+
+export default connect(mapStateToProps, { getCurrentProfile, loadUser })(
+  withRouter(Main)
+);

@@ -61,7 +61,7 @@ const InfoContact = ({
   });
 
   useEffect(() => {
-    getCurrentProfile();
+    // getCurrentProfile();
 
     setFormData({
       mobileNumber: loading || !profile.mobileNumber ? "" : profile.mobileNumber
@@ -108,9 +108,9 @@ const InfoContact = ({
           <Fragment>
             <Grid
               container
-              direction="row"
-              justify="center"
-              alignItems="center"
+              direction='row'
+              justify='center'
+              alignItems='center'
             >
               <Grid
                 item
@@ -118,16 +118,16 @@ const InfoContact = ({
                 sm={12}
                 md={12}
                 container
-                direction="row"
-                justify="center"
-                alignItems="center"
+                direction='row'
+                justify='center'
+                alignItems='center'
               >
                 <Box>
                   {!numberIsVerified ? (
                     <Typography
-                      component="h5"
-                      variant="h6"
-                      align="center"
+                      component='h5'
+                      variant='h6'
+                      align='center'
                       className={classes.typography}
                     >
                       This number will be where your clients could contact with
@@ -135,9 +135,9 @@ const InfoContact = ({
                     </Typography>
                   ) : (
                     <Typography
-                      component="h5"
-                      variant="h6"
-                      align="center"
+                      component='h5'
+                      variant='h6'
+                      align='center'
                       className={classes.typography}
                     >
                       This number has been verified!
@@ -158,7 +158,7 @@ const InfoContact = ({
                           }}
                         >
                           <ReactPhoneInput
-                            defaultCountry="us"
+                            defaultCountry='us'
                             onlyCountries={["co", "us", "ca"]}
                             masks={{
                               co: "+.. (...) ...-..-..",
@@ -186,9 +186,9 @@ const InfoContact = ({
                         sm={12}
                         md={12}
                         container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
+                        direction='row'
+                        justify='center'
+                        alignItems='center'
                       >
                         <NumberValidation
                           phone={phone}
@@ -240,7 +240,7 @@ const InfoContact = ({
             Children={
               <div>
                 <div>
-                  <Button component={Link} to="/settings">
+                  <Button component={Link} to='/settings'>
                     Back
                   </Button>
                 </div>

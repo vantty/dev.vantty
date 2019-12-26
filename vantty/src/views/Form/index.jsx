@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 // Externals
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import FormContext from "./FormContext";
 
 // Actions
 import { getCurrentProfile, createProfile } from "../../actions/profile";
@@ -67,9 +68,9 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
   const [stateHair, setStateHair] = React.useState([]);
   const [stateMakeup, setStateMakeup] = React.useState([]);
 
-  useEffect(() => {
-    getCurrentProfile();
-  }, []);
+  // useEffect(() => {
+  //   getCurrentProfile();
+  // }, []);
   // Handle fields change
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -113,14 +114,14 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
       case 3:
         return (
           <Categories
-            step={activeStep}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            formData={formData}
-            setStateHair={setStateHair}
-            setStateMakeup={setStateMakeup}
-            stateHair={stateHair}
-            stateMakeup={stateMakeup}
+          // step={activeStep}
+          // nextStep={nextStep}
+          // prevStep={prevStep}
+          // formData={formData}
+          // setStateHair={setStateHair}
+          // setStateMakeup={setStateMakeup}
+          // stateHair={stateHair}
+          // stateMakeup={stateMakeup}
           />
         );
       case 4:
@@ -167,9 +168,22 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Fragment>
-                    <Fragment>{getStepContent(activeStep)}</Fragment>
+                    <FormContext.Provider
+                      value={{
+                        activeStep,
+                        nextStep,
+                        prevStep,
+                        formData,
+                        setStateHair,
+                        setStateMakeup,
+                        stateHair,
+                        stateMakeup
+                      }}
+                    >
+                      <Fragment>{getStepContent(activeStep)}</Fragment>
+                    </FormContext.Provider>
                   </Fragment>
                 </Container>
               </Grid>

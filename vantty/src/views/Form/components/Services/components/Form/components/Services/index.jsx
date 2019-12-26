@@ -193,51 +193,54 @@ const Services = ({
         <br />
         <Typography>Add a Service</Typography>
         <Grid container direction='row' justify='center' alignItems='center'>
-          {/* <Grid item md={6} xs={12}> */}
-          <FormControl>
-            <TextField
-              error={hasError("typeOfService")}
-              helperText={
-                hasError("typeOfService")
-                  ? formState.errors.typeOfService[0]
-                  : null
-              }
-              className={classes.textField}
-              label='Service'
-              margin='dense'
-              name='typeOfService'
-              required
-              type='text'
-              variant='outlined'
-              id='typeOfService'
-              autoComplete='fname'
-              value={
-                formState.values.typeOfService || serviceData.typeOfService
-              }
-              onChange={handleChange}
-            />
-          </FormControl>
+          <Grid item md={6} xs={5}>
+            <FormControl>
+              <TextField
+                error={hasError("typeOfService")}
+                helperText={
+                  hasError("typeOfService")
+                    ? formState.errors.typeOfService[0]
+                    : null
+                }
+                className={classes.textField}
+                label='Service'
+                margin='dense'
+                name='typeOfService'
+                required
+                type='text'
+                variant='outlined'
+                id='typeOfService'
+                autoComplete='fname'
+                value={
+                  formState.values.typeOfService || serviceData.typeOfService
+                }
+                onChange={handleChange}
+              />
+            </FormControl>
+          </Grid>
 
-          {/* <Grid item md={6} xs={12}> */}
-          <TextField
-            label='Amount'
-            margin='dense'
-            name='amount'
-            required
-            className={classes.textField}
-            variant='outlined'
-            id='amount'
-            error={hasError("amount")}
-            helperText={hasError("amount") ? formState.errors.amount[0] : null}
-            value={formState.values.amount || serviceData.amount}
-            // id='formatted-numberformat-input'
-            // InputProps={{
-            //   inputComponent: NumberFormatCustom
-            // }}
-            onChange={handleChange}
-            // onChange={handleChange("amount")}
-          />
-          {/* </Grid> */}
+          <Grid item md={6} xs={5}>
+            <TextField
+              label='Amount'
+              margin='dense'
+              name='amount'
+              required
+              className={classes.textField}
+              variant='outlined'
+              id='amount'
+              error={hasError("amount")}
+              helperText={
+                hasError("amount") ? formState.errors.amount[0] : null
+              }
+              value={formState.values.amount || serviceData.amount}
+              // id='formatted-numberformat-input'
+              // InputProps={{
+              //   inputComponent: NumberFormatCustom
+              // }}
+              onChange={handleChange}
+              // onChange={handleChange("amount")}
+            />
+          </Grid>
           {/* <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
@@ -260,20 +263,19 @@ const Services = ({
                 onChange={handleChange}
               />
             </Grid> */}
-          {/* <Grid> */}
-          <Button
-            className={classes.textField}
-            onClick={e => onSubmitPrice(e)}
-            // className={classes.button}
-            size='small'
-            aria-label='small outlined'
-            color='primary'
-            disabled={!formState.isValid}
-          >
-            Add Service
-          </Button>
-          {/* </Grid> */}
-          {/* </Grid> */}
+          <Grid item md={2} xs={2}>
+            <Button
+              className={classes.textField}
+              onClick={e => onSubmitPrice(e)}
+              // className={classes.button}
+              size='small'
+              aria-label='small outlined'
+              color='primary'
+              disabled={!formState.isValid}
+            >
+              Add Service
+            </Button>
+          </Grid>
         </Grid>
       </div>
       {/* </form> */}

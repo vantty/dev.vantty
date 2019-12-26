@@ -37,10 +37,10 @@ const Settings = ({
 }) => {
   const method = getStrategy(user);
 
-  useEffect(() => {
-    loadUser();
-    getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
-  }, [getCurrentProfile]);
+  // useEffect(() => {
+  //   loadUser();
+  //   getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
+  // }, [getCurrentProfile]);
 
   return (
     <Fragment>

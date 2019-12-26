@@ -359,9 +359,9 @@ exports.createNewBook = async (req, res) => {
 exports.changeStateBooking = async (req, res) => {
   try {
     const { state, text } = req.body;
-    const profile = await Profile.findOne({ user: req.user.id });
-
-    if (!profile) {
+    const profile = await Profile.findOne({ user: req.user._id });
+    log("profile", req.user.profile);
+    if (!req.user.profile) {
       const books = await Book.find();
       let service;
       books.map(async book => {
