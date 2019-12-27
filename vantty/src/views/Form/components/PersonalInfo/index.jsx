@@ -79,7 +79,7 @@ const AccountDetails = ({
   const classes = useStyles();
 
   const [formDataProfile, setFormDataProfile] = useState({
-    profilePicture: "",
+    // profilePicture: "",
     bio: "",
     profession: "",
     city: "",
@@ -117,14 +117,14 @@ const AccountDetails = ({
 
   useEffect(() => {
     // getCurrentProfile();
-    // loadUser();
+    loadUser();
     const strategy = getStrategy(user);
     setFormData({
       firstName: auth.loading || !strategy ? "" : strategy.firstName,
       lastName: auth.loading || !strategy ? "" : strategy.lastName,
       email: auth.loading || !strategy ? "" : strategy.email,
-      // profilePicture:
-      //   auth.loading || !strategy.profilePicture ? "" : strategy.profilePicture,
+      profilePicture:
+        auth.loading || !strategy.profilePicture ? "" : strategy.profilePicture,
       id: auth.loading || !user._id ? "" : user._id,
       password: auth.loading || !user.password ? "" : user.password
     });
@@ -133,8 +133,8 @@ const AccountDetails = ({
       user.profile &&
       setFormDataProfile({
         bio: loading || !profile.bio ? "" : profile.bio,
-        // profilePicture:
-        //   loading || !profile.profilePicture ? "" : profile.profilePicture,
+        profilePicture:
+          loading || !profile.profilePicture ? "" : profile.profilePicture,
         profession: loading || !profile.profession ? "" : profile.profession,
         instagramUsername:
           loading || !profile.instagramUsername
@@ -232,8 +232,8 @@ const AccountDetails = ({
     e.preventDefault();
 
     await updateInfo(formData, true);
-    await onSubmitProfile(e);
-    profile &&
+    user.profile && (await onSubmitProfile(e));
+    user.profile &&
       (await createProfile(
         {
           name: {
@@ -283,7 +283,7 @@ const AccountDetails = ({
                   <Grid item>
                     <div>
                       <Grid>
-                        <AvatarUploader formData={formData} />
+                        <AvatarUploader />
                       </Grid>
                     </div>
 

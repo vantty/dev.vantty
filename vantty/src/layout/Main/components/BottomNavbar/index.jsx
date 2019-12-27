@@ -79,7 +79,7 @@ const BottomNavbar = props => {
               label='Event'
               value='bookings'
               component={Link}
-              to='/bookings'
+              to={!user.profile ? "/bookings-user" : "/bookings"}
               icon={<Event />}
             />
           )}

@@ -9,3 +9,4 @@ export { default as Validation } from "./Validation";
 export { default as StripeAccount } from "./StripeAccount";
 export { default as Payment } from "./Payment";
 export { default as Bank } from "./Bank";
+export { default as Location } from "./Location";

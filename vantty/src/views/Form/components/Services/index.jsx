@@ -25,7 +25,7 @@ import { CardHeader, Divider, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 
-import { Form, ServiceCard } from "./components";
+import { Form, ServiceCard, StartService } from "./components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -98,13 +98,15 @@ const Price = ({
   const onSubmit = e => {
     e.preventDefault();
     // createProfile({ services: serviceData }, history, true);
-    // createProfile({ price: price }, history, true);
+    createProfile({ price: price }, history, true);
     createProfile(availability, history, true);
     nextStep();
   };
 
   const onSubmitAvailability = e => {
     e.preventDefault();
+    // createProfile({ price: price }, history, true);
+
     createProfile(availability, history, true);
   };
 
@@ -132,7 +134,7 @@ const Price = ({
               <form autoComplete='off' noValidate>
                 {/* <Divider /> */}
 
-                {/* <StartService price={price} handleChange={handleChange} /> */}
+                <StartService price={price} handleChange={handleChange} />
                 <Form
                   serviceData={serviceData}
                   onChange={onChange}

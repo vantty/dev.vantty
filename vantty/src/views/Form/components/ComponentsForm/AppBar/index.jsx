@@ -40,18 +40,18 @@ const SimpleAppBar = ({ step, page }) => {
       <AppBar position='fixed' className={classes.appBar}>
         <Toolbar>
           <Container maxWidth='md'>
-            <MuiLink underline='none' color='inherit' component={Link} to={"/"}>
-              <Typography
-                variant='h6'
-                color='inherit'
-                noWrap
-                // className={classes.typography}
-                classes={classes.logo}
-                type='title'
-              >
-                <img src={vantty} className={classes.avatar} alt='' />
-              </Typography>
-            </MuiLink>
+            {/* <MuiLink underline='none' color='inherit' component={Link} to={"/"}> */}
+            <Typography
+              variant='h6'
+              color='inherit'
+              noWrap
+              // className={classes.typography}
+              classes={classes.logo}
+              type='title'
+            >
+              <img src={vantty} className={classes.avatar} alt='' />
+            </Typography>
+            {/* </MuiLink> */}
           </Container>
         </Toolbar>
         {step && <ProgressBarForm value={step} />}

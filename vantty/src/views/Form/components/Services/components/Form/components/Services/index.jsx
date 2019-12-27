@@ -193,7 +193,7 @@ const Services = ({
         <br />
         <Typography>Add a Service</Typography>
         <Grid container direction='row' justify='center' alignItems='center'>
-          <Grid item md={6} xs={5}>
+          <Grid item md={5} xs={5}>
             <FormControl>
               <TextField
                 error={hasError("typeOfService")}
@@ -219,7 +219,7 @@ const Services = ({
             </FormControl>
           </Grid>
 
-          <Grid item md={6} xs={5}>
+          <Grid item md={5} xs={5}>
             <TextField
               label='Amount'
               margin='dense'

@@ -39,10 +39,9 @@ const AvatarUploader = ({
   updateInfo,
   history,
   loadUser,
-  formData,
   deleteUserPicture,
-  profile: { profile },
-  auth: { user },
+  // profile: { profile },
+  auth: { user, profile },
   ...rest
 }) => {
   const classes = useStyles();

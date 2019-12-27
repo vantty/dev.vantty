@@ -12,6 +12,10 @@ export const pagesProfile = [
     href: "/categories"
   },
   {
+    title: "Location",
+    href: "/location"
+  },
+  {
     title: "Service",
     href: "/price"
   },

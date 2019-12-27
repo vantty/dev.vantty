@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     margin: "auto"
   }
 }));
-const AvatarUser = ({ profilePicture, firstName }) => {
+const AvatarUser = ({ profilePicture, firstName, profile }) => {
   const classes = useStyles();
   return (
     <div>
@@ -36,11 +36,13 @@ const AvatarUser = ({ profilePicture, firstName }) => {
           <Typography className={classes.hello}>
             Hello! {firstName}. Welcome back!
           </Typography>
-          <Typography className={classes.hello}>
-            <Link component={LinkReact} to={"/create-profile"}>
-              Become to an Artists
-            </Link>
-          </Typography>
+          {!profile && (
+            <Typography className={classes.hello}>
+              <Link component={LinkReact} to={"/create-profile"}>
+                Become to an Artists
+              </Link>
+            </Typography>
+          )}
         </Fragment>
       ) : (
         <Fragment>
@@ -48,11 +50,13 @@ const AvatarUser = ({ profilePicture, firstName }) => {
           <Typography className={classes.hello}>
             Hello! {firstName}. Welcome back!
           </Typography>
-          <Typography className={classes.hello}>
-            <Link component={LinkReact} to={"/create-profile"}>
-              Become to an Artists
-            </Link>
-          </Typography>
+          {!profile && (
+            <Typography className={classes.hello}>
+              <Link component={LinkReact} to={"/create-profile"}>
+                Become to an Artists
+              </Link>
+            </Typography>
+          )}
         </Fragment>
       )}
       {/* <Link href={"/creare-profile"} className={classes.link}>

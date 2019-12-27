@@ -4,7 +4,7 @@ import crypto from "crypto";
 
 import { createMobileNumber, getCurrentProfile } from "./profile";
 
-import { updateInfo } from "./auth";
+import { updateInfo, loadUser } from "./auth";
 import { server } from "../utils/axios";
 //vantty.ca
 const appId = process.env.REACT_APP_FACEBOOK_ID;
@@ -46,18 +46,23 @@ export const verifyNumber = (res, id) => async dispatch => {
               "Content-Type": "application/json"
             }
           };
+          const {
+            data: { _id }
+          } = await server.get("/auth");
 
           await server.post(
             "/auth/is-profile",
-            { id: id, profile: true },
+            { id: _id, profile: true },
             true,
             config
           );
-          await dispatch(getCurrentProfile());
           await dispatch({
             type: NUMBER_VERIFY_SUCCESS,
             payload: numberVerified
           });
+          await dispatch(getCurrentProfile());
+          await dispatch(loadUser());
+
           // await redirect(numberVerified, id);
         })
         .catch(err => {

@@ -68,27 +68,17 @@ const AddCategories = ({
   history,
   profile: { profile, loading },
   createProfile,
-  // nextStep,
-  // prevStep,
-  // step,
+  nextStep,
+  prevStep,
+  step,
   match,
-  getCurrentProfile,
-  className
-  // setStateHair,
-  // setStateMakeup,
-  // stateHair,
-  // stateMakeup
+  setStateHair,
+  setStateMakeup,
+  stateHair,
+  stateMakeup
 }) => {
   const classes = useStyles();
-  const {
-    activeStep: step,
-    nextStep,
-    prevStep,
-    setStateHair,
-    setStateMakeup,
-    stateHair,
-    stateMakeup
-  } = useContext(FormContext);
+
   // useEffect(() => {
   //   getCurrentProfile();
   // }, []);
@@ -131,20 +121,14 @@ const AddCategories = ({
   };
 
   const hair = [
-    "corte",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander"
+    "Haircuts",
+    "All-Over color",
+    "Formal styling/Special Occasion hair",
+    "Blowouts",
+    "Deep conditioning treatments "
   ];
 
-  const makeup = [
-    "Artistic",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander"
-  ];
+  const makeup = ["Social", "Bridal", "Glam"];
 
   // function getStyles(name, state, theme) {
   //   return {
@@ -278,7 +262,7 @@ const AddCategories = ({
                               className={classes.button}
                               onClick={e => onSubmit(e)}
                               disabled={
-                                stateHair.length === 0 ||
+                                stateHair.length === 0 &&
                                 stateMakeup.length === 0
                               }
                             >

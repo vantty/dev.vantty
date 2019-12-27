@@ -61,6 +61,7 @@ const Settings = ({
           <AvatarUser
             profilePicture={user && method.profilePicture}
             firstName={user && method.firstName}
+            profile={user.profile}
           />
         )}
         <br />

@@ -8,3 +8,4 @@ export { default as EditBookings } from "./EditBookings";
 export { default as EditBookingsUser } from "./EditBookingsUser";
 export { default as EditPayment } from "./EditPayment";
 export { default as EditBank } from "./EditBank";
+export { default as EditLocation } from "./EditLocation";

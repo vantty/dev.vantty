@@ -24,10 +24,11 @@ import {
   Services,
   PersonalInfo,
   Categories,
-  StripeAccount
+  StripeAccount,
+  Location
 } from "./components";
 
-import { AppBarForm } from "./components/ComponentsForm";
+import { AppBarForm, CustomPaper } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -114,14 +115,14 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
       case 3:
         return (
           <Categories
-          // step={activeStep}
-          // nextStep={nextStep}
-          // prevStep={prevStep}
-          // formData={formData}
-          // setStateHair={setStateHair}
-          // setStateMakeup={setStateMakeup}
-          // stateHair={stateHair}
-          // stateMakeup={stateMakeup}
+            step={activeStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            formData={formData}
+            setStateHair={setStateHair}
+            setStateMakeup={setStateMakeup}
+            stateHair={stateHair}
+            stateMakeup={stateMakeup}
           />
         );
       case 4:
@@ -134,9 +135,13 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
         );
       case 5:
         return (
-          <Services step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+          <Location step={activeStep} nextStep={nextStep} prevStep={prevStep} />
         );
       case 6:
+        return (
+          <Services step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+        );
+      case 7:
         return (
           <InfoContact
             step={activeStep}
@@ -144,7 +149,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
             prevStep={prevStep}
           />
         );
-      case 7:
+      case 8:
         return (
           <StripeAccount
             step={activeStep}
@@ -170,7 +175,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
               <Grid item lg={12} md={12} xl={12} xs={12}>
                 <Container maxWidth='md'>
                   <Fragment>
-                    <FormContext.Provider
+                    {/* <FormContext.Provider
                       value={{
                         activeStep,
                         nextStep,
@@ -181,9 +186,9 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
                         stateHair,
                         stateMakeup
                       }}
-                    >
-                      <Fragment>{getStepContent(activeStep)}</Fragment>
-                    </FormContext.Provider>
+                    > */}
+                    <Fragment>{getStepContent(activeStep)}</Fragment>
+                    {/* </FormContext.Provider> */}
                   </Fragment>
                 </Container>
               </Grid>
