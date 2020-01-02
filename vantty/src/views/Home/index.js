@@ -17,14 +17,14 @@ import { changeNavbarValue } from "../../actions/navbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 // Seed
-import { homeSeed } from "./seed";
+import { homeSeed } from "./../../assets/seed/homeSeed";
 
 const Home = ({ changeNavbarValue }) => {
   useEffect(() => {
     changeNavbarValue("home");
   }, []);
   return (
-    <Fragment>
+    <Fragment data-testid="home">
       <CssBaseline />
       <HomeJumbotron />
       <HomeGrid
@@ -70,7 +70,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { changeNavbarValue }
-)(Home);
+export default connect(mapStateToProps, { changeNavbarValue })(Home);

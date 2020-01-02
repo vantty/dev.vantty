@@ -117,7 +117,7 @@ export const uploadImages = e => async dispatch => {
       const images = res.data;
       for (let i = 0; i < images.length; i++) {
         const sendImage = {
-          original: images[i].secure_url,
+          original: images[i].eager[0].url,
           cloudId: images[i].public_id,
           tag: [""]
         };

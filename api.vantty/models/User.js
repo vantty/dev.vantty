@@ -69,11 +69,9 @@ const userSchema = new Schema(
         last4: { type: String }
       }
     ],
-
     bookings: [String],
     profile: { type: Boolean, default: false }
   },
-
   { timestamps: true }
 );
 

@@ -18,7 +18,7 @@ const redirect = (numberVerified, id) => {
   }
 };
 
-export const verifyNumber = (res, id) => async dispatch => {
+export const verifyNumber = (res) => async dispatch => {
   const auth_code = res.code;
   // Get Access Token
   axios
@@ -46,10 +46,12 @@ export const verifyNumber = (res, id) => async dispatch => {
               "Content-Type": "application/json"
             }
           };
-
+          const {
+            data: { _id }
+          } = await server.get("/auth");
           await server.post(
             "/auth/is-profile",
-            { id: id, profile: true },
+            { id: _id, profile: true },
             true,
             config
           );
