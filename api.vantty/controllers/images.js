@@ -48,11 +48,19 @@ exports.imagesById = async (req, res) => {
 exports.addImages = (req, res) => {
   const values = Object.values(req.files);
   const promises = values.map(image =>
-    cloudinary.v2.uploader.upload(image.path)
+    cloudinary.v2.uploader.upload(image.path, {
+      eager: [
+        {
+          quality: "auto"
+        }
+      ],
+      eager_async: true
+      // eager_notification_url: "http://api.vantty.ca/api/images/notification"
+    })
   );
   Promise.all(promises)
     .then(results => {
-      res.json(results);
+      res.status(201).json(results);
     })
     .catch(err => res.status(400).json(err));
 };
@@ -65,6 +73,10 @@ exports.deleteImages = (req, res) => {
       res.json(results);
     })
     .catch(err => res.status(400).json(err));
+};
+
+exports.notification = (req, res) => {
+  // console.log("EAGER", res);
 };
 
 // Add Porfolio Pictures

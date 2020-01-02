@@ -250,13 +250,6 @@ const AddCategories = ({
                       <div>
                         <div>
                           <Fragment>
-                            {/* {match.url !== "/categories" ? (
-                          <Button onClick={back}>Back</Button>
-                        ) : (
-                          <Button component={Link} to={"/dashboard"}>
-                            Back
-                          </Button>
-                        )} */}
                             <Button onClick={back}>Back</Button>
                             <Button
                               className={classes.button}

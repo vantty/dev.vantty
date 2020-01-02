@@ -49,7 +49,9 @@ const useStyles = makeStyles(theme => ({
   //   }
   // },
   textField: {
-    padding: "0.3rem"
+    padding: "0.3rem",
+    // margin: theme.spacing(1),
+    fontSize: "0.6rem"
   }
 }));
 
@@ -159,37 +161,6 @@ const Services = ({
       {/* <form autoComplete='off' noValidate> */}
 
       <div className={classes.root}>
-        <Typography>Tell you to your clients to availability</Typography>
-        <form name='availability'>
-          <TextField
-            id='availability'
-            fullWidth
-            label='Availability'
-            multiline
-            rows='2'
-            placeholder='Hi! You can take an appointment with me all days on the weekend'
-            // defaultValue='Default Value'
-            name='availability'
-            value={"" || availability.availability || profile.availability}
-            className={classes.textField}
-            margin='normal'
-            variant='outlined'
-            onChange={onChangeAvailability}
-          />
-          {!isMobile && (
-            <Button
-              className={classes.textField}
-              onClick={e => onSubmitAvailability(e)}
-              // className={classes.button}
-              size='small'
-              aria-label='small outlined'
-              color='primary'
-            >
-              update
-            </Button>
-          )}
-        </form>
-        <Divider />
         <br />
         <Typography>Add a Service</Typography>
         <Grid container direction='row' justify='center' alignItems='center'>
@@ -267,7 +238,7 @@ const Services = ({
             <Button
               className={classes.textField}
               onClick={e => onSubmitPrice(e)}
-              // className={classes.button}
+              variant='contained'
               size='small'
               aria-label='small outlined'
               color='primary'

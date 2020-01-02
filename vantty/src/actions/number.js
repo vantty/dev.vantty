@@ -18,7 +18,7 @@ const redirect = (numberVerified, id) => {
   }
 };
 
-export const verifyNumber = (res, id) => async dispatch => {
+export const verifyNumber = res => async dispatch => {
   const auth_code = res.code;
   // Get Access Token
   axios

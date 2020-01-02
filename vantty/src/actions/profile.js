@@ -82,7 +82,7 @@ export const createProfile = (
         "Content-type": "application/json"
       }
     };
-
+    log(formData);
     const res = await server.post("/profile", formData, config);
 
     // dispatch(getCurrentProfile());

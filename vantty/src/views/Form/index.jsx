@@ -135,7 +135,12 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
         );
       case 5:
         return (
-          <Location step={activeStep} nextStep={nextStep} prevStep={prevStep} />
+          <Location
+            step={activeStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            // match={match}
+          />
         );
       case 6:
         return (

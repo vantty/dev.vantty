@@ -30,8 +30,7 @@ const NumberValidation = ({
   verifyNumber,
   phone,
   countryCode,
-  history,
-  id
+  history
 }) => {
   const classes = useStyles();
   return (
@@ -42,7 +41,7 @@ const NumberValidation = ({
       countryCode={`+${countryCode}`} // eg. +60
       phoneNumber={phone.slice(countryCode.length)} // eg. 12345678
       emailAddress={""} // eg. me@site.com
-      onResponse={res => verifyNumber(res, id)}
+      onResponse={res => verifyNumber(res)}
     >
       {p => (
         <Button variant="contained" className={classes.button} {...p}>

@@ -239,6 +239,7 @@ const Checkout = ({
             localAddress={address}
             onChangeTarget={onChangeTarget}
             descriptionAddress={descriptionAddress}
+            profile={profile}
           />
         );
       case 2:

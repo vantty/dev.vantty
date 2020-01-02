@@ -295,10 +295,9 @@ exports.deleteUserPicture = async (req, res) => {
 exports.isProfile = async (req, res) => {
   try {
     const { id, profile } = req.body;
-    // const profileId = await Profile.findOne({ user: req.user.id });
     let user = await User.findOneAndUpdate(
       { _id: id },
-      { $set: { profile } },
+      { $set: { profile} },
       { new: true }
     );
     res.status(200).json(user);

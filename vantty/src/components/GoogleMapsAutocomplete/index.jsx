@@ -48,9 +48,9 @@ export default function App({ onChangeAddress, localAddress }) {
                 fullWidth
                 required
                 defaultValue={localAddress.street}
-                name="address"
-                id="description"
-                label="Addrees"
+                name='address'
+                id='description'
+                label='Addrees'
                 value={localAddress.street}
                 {...getInputProps({
                   // id: "mui-places-autocomplete-input",
@@ -82,7 +82,7 @@ export default function App({ onChangeAddress, localAddress }) {
   );
 }
 
-//
+//New Google Maps Component by Material UI
 
 // import React from "react";
 // import TextField from "@material-ui/core/TextField";

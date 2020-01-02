@@ -48,7 +48,25 @@ const ProfileSchema = new mongoose.Schema({
   price: {
     type: Number
   },
-
+  place: {
+    type: Boolean,
+    default: false
+  },
+  address: {
+    street: {
+      type: String
+    },
+    log: {
+      type: Number
+    },
+    lat: {
+      type: Number
+    }
+  },
+  delivery: {
+    type: Boolean,
+    default: false
+  },
   profession: {
     type: [String]
   },

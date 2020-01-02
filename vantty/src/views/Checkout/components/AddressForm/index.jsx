@@ -25,7 +25,8 @@ export default function AddressForm({
   localAddress,
   onChangeAddress,
   descriptionAddress,
-  onChange
+  onChange,
+  profile: { delivery, place }
 }) {
   const classes = useStyles();
 
@@ -51,42 +52,46 @@ export default function AddressForm({
             </Select>
           </FormControl> */}
         </Grid>
-        {/* {location === "userLocation" ? ( */}
-        <Fragment>
-          <GoogleMapsAutocomplete
-            localAddress={localAddress}
-            onChangeTarget={onChangeTarget}
-            onChangeAddress={onChangeAddress}
+        {delivery && (
+          <Fragment>
+            <GoogleMapsAutocomplete
+              localAddress={localAddress}
+              onChangeTarget={onChangeTarget}
+              onChangeAddress={onChangeAddress}
 
-            // onChange={onChange}
-            // descriptionAddress={descriptionAddress}
-          />
-
-          <Grid item xs={12}>
-            <TextField
-              required
-              id='description'
-              label='Description'
-              name='descriptionAddress'
-              value={descriptionAddress}
-              onChange={onChangeTarget}
-              fullWidth
+              // onChange={onChange}
+              // descriptionAddress={descriptionAddress}
             />
-          </Grid>
-        </Fragment>
-        {/* ) : location === "artistLocation" ? ( */}
-        {/* <Fragment>
-          <Grid item xs={12}>
-            <h1>Artist Location</h1>
-          </Grid>
-        </Fragment> */}
+
+            <Grid item xs={12}>
+              <TextField
+                required
+                id='description'
+                label='Description'
+                name='descriptionAddress'
+                value={descriptionAddress}
+                onChange={onChangeTarget}
+                fullWidth
+              />
+            </Grid>
+          </Fragment>
+        )}
+        {place && (
+          <Fragment>
+            <Grid item xs={12}>
+              <Typography variant='h6' gutterBottom>
+                Artist Location
+              </Typography>
+            </Grid>
+          </Fragment>
+        )}
         {/* ) : null} */}
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Typography variant='h6' gutterBottom>
             Validate your phone
           </Typography>
           <TextField id='outlined-basic' label='Outlined' variant='outlined' />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Fragment>
   );

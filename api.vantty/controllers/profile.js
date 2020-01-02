@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
 const Book = require("../models/Book");
-const log = console.log;
+
 // Current User
 exports.current = async (req, res) => {
   try {
@@ -49,7 +49,13 @@ exports.createANDupdate = async (req, res) => {
     description,
     amount,
     services,
-    englishLevel
+    englishLevel,
+    place,
+    delivery,
+    // address: { street, lat, log }
+    street,
+    log,
+    lat
   } = req.body;
 
   // Build profile object
@@ -97,13 +103,27 @@ exports.createANDupdate = async (req, res) => {
   if (verified) {
     profileFields.verified = verified;
   }
-  log("ff", req.body);
+  console.log("controlProfile", req.body);
 
+  // Build location object
+  profileFields.address = {};
+  if (street) profileFields.address.street = street;
+  if (log) profileFields.address.log = log;
+  if (lat) profileFields.address.lat = lat;
+
+  if (place) {
+    profileFields.place = place;
+  }
+
+  if (delivery) {
+    profileFields.delivery = delivery || false;
+  }
   // Build social object
   profileFields.social = {};
   if (youtube) profileFields.social.youtube = youtube;
   if (instagram) profileFields.social.instagram = instagram;
-
+  console.log("delivery body", delivery);
+  console.log("delivery", profileFields.delivery);
   try {
     let profile = await Profile.findOne({ user: req.user.id });
 
