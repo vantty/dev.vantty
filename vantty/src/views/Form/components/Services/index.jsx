@@ -21,7 +21,13 @@ import PropTypes from "prop-types";
 
 // Material components
 
-import { CardHeader, Divider, Button } from "@material-ui/core";
+import {
+  CardHeader,
+  Divider,
+  Button,
+  CardActions,
+  Grid
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Progress from "@material-ui/core/LinearProgress";
 
@@ -97,16 +103,15 @@ const Price = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    // createProfile({ services: serviceData }, history, true);
-    // createProfile({ price: price }, history, true);
+    console.log("PRICE", formData);
+    createProfile({ price: price }, history, true);
     createProfile({ availability: availability }, history, true);
     nextStep();
   };
 
   const onSubmitAvailability = e => {
     e.preventDefault();
-    // createProfile({ price: price }, history, true);
-
+    console.log("222");
     createProfile(availability, history, true);
   };
 
@@ -131,7 +136,7 @@ const Price = ({
         Children={
           <Fragment>
             {profile ? (
-              <form autoComplete='off' noValidate>
+              <form autoComplete="off" noValidate>
                 {/* <Divider /> */}
 
                 <StartService price={price} handleChange={handleChange} />
@@ -148,7 +153,7 @@ const Price = ({
 
                 <CardHeader
                   // subheader='from what value do your services start'
-                  title='Services'
+                  title="Services"
                 />
                 <ServiceCard
                   services={profile.services}
@@ -157,26 +162,26 @@ const Price = ({
 
                 {/* <ServiceForm /> */}
 
-                {/* {match.url === "/price" && !isMobile && (
+                {match.url === "/price" && !isMobile && (
                   <Fragment>
                     <Divider />
                     <CardActions>
                       <Grid
                         container
-                        direction='row'
-                        justify='flex-end'
-                        alignItems='flex-start'
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="flex-start"
                       >
                         <Button
                           className={classes.button}
-                          onClick={e => onSubmitPrice(e)}
+                          onClick={e => onSubmitStartCost(e)}
                         >
                           Update
                         </Button>
                       </Grid>
                     </CardActions>
                   </Fragment>
-                )} */}
+                )}
               </form>
             ) : (
               <Progress />
@@ -193,12 +198,12 @@ const Price = ({
                 <div>
                   {match.url === "/price" ? (
                     <Fragment>
-                      <Button component={Link} to='/settings'>
+                      <Button component={Link} to="/settings">
                         Back
                       </Button>
                       <Button
                         component={Link}
-                        to='/settings'
+                        to="/settings"
                         className={classes.button}
                         onClick={e => onSubmitAvailability(e)}
                       >
@@ -230,7 +235,7 @@ const Price = ({
               <div>
                 <div>
                   <Fragment>
-                    <Button component={Link} to='/settings'>
+                    <Button component={Link} to="/settings">
                       Back
                     </Button>
                     <Button
