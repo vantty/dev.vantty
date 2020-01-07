@@ -57,6 +57,16 @@ export const creacteStripeAccount = code => async dispatch => {
       type: CREATE_STRIPE_ACCOUNT_SUCCESS,
       payload: resSave.data
     });
+    if (resSave.data.stripeArtistAccount) {
+      const user = await server.post(
+        "/auth/is-profile",
+        { id: _id, profile: true },
+        true,
+        config
+      );
+      console.log("User", user);
+    }
+    console.log("Profile", resSave.data);
   } catch (error) {
     console.log(error);
     dispatch({

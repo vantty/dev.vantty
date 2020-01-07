@@ -222,7 +222,7 @@ const InfoContact = ({
                   <Button
                     onClick={next}
                     className={classes.button}
-                    // disabled={!numberIsVerified}
+                    disabled={!numberIsVerified}
                   >
                     Next
                   </Button>

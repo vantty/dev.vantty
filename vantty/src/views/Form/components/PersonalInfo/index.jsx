@@ -411,7 +411,7 @@ const AccountDetails = ({
                   <div>
                     <div>
                       <Fragment>
-                        <Button component={Link} to={"/settings/profile"}>
+                        <Button component={Link} to={"/settings"}>
                           Back
                         </Button>
                         <Button
@@ -434,7 +434,14 @@ const AccountDetails = ({
                   <div>
                     <div>
                       <Fragment>
-                        <Button component={Link} to={"/settings/profile"}>
+                        <Button
+                          component={Link}
+                          to={
+                            user && user.profile
+                              ? "/settings/profile"
+                              : "/settings"
+                          }
+                        >
                           Back
                         </Button>
                         <Button

@@ -77,6 +77,7 @@ const AddPortfolio = ({
         })
       : delete tags[_id];
 
+  console.log("TAGS IN ADD PORT", tags);
   const back = e => {
     e.preventDefault();
     prevStep();

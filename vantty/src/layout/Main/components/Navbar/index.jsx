@@ -44,34 +44,16 @@ const useStyles = makeStyles(theme => ({
     "&:action": {},
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    textTransform: "capitalize"
+    textTransform: "none"
   },
   sectionDesktop: {
     display: "flex"
   }
 }));
 
-// const HideOnScroll = props => {
-//   const { children, window } = props;
-//   const trigger = useScrollTrigger({ target: window ? window() : undefined });
-//   return (
-//     // <Slide appear={false} direction='down' in={!trigger}>
-//     <Slide appear={false} direction='down'>
-//       {children}
-//     </Slide>
-//   );
-// };
-
 const Navbar = props => {
-  const {
-    isAuthenticated,
-    loading,
-    user,
-    profile: { profile }
-  } = props;
-
+  const { isAuthenticated, loading, user } = props;
   const classes = useStyles();
-
   return (
     <Fragment>
       <CssBaseline />
@@ -86,102 +68,66 @@ const Navbar = props => {
             <Progress data-test="progress" />
           ) : (
             <Fragment>
-              {!isAuthenticated ? (
-                <Fragment>
-                  <section data-test="noAuthButtons">
-                    <div className={classes.sectionDesktop}>
+              <div className={classes.sectionDesktop}>
+                <Button className={classes.button} component={Link} to="/help">
+                  Help center
+                </Button>
+                <Button
+                  className={classes.button}
+                  component={Link}
+                  to="/search"
+                >
+                  See all artists
+                </Button>
+                {!isAuthenticated ? (
+                  <Fragment>
+                    <Button
+                      className={classes.button}
+                      component={Link}
+                      to="/login"
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      className={classes.button}
+                      component={Link}
+                      to="/register"
+                    >
+                      Become an artist partner
+                    </Button>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    {user && user.profile ? (
                       <Button
                         className={classes.button}
                         component={Link}
-                        to="/help"
+                        to={`/profile/artist/${user && user._id}`}
                       >
-                        Help Center
+                        Profile
                       </Button>
+                    ) : (
                       <Button
                         className={classes.button}
                         component={Link}
-                        to="/search"
+                        to={"/settings"}
                       >
-                        See All Artists
+                        Profile
                       </Button>
+                    )}
+                    {user && user.role === "Admin" && (
                       <Button
+                        color="inherit"
                         className={classes.button}
                         component={Link}
-                        to="/login"
+                        to="/dashboard"
                       >
-                        Login
+                        Admin
                       </Button>
-                      <Button
-                        className={classes.button}
-                        component={Link}
-                        to="/register"
-                      >
-                        Become an Artist Partner
-                      </Button>
-                    </div>
-                  </section>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <section data-test="authButtons">
-                    <div className={classes.sectionDesktop}>
-                      <Button
-                        className={classes.button}
-                        component={Link}
-                        to="/search"
-                      >
-                        Artists
-                      </Button>
-                      {user ? (
-                        user.profile ? (
-                          // <a
-                          //   href={`https://www.vantty.ca/profile/artist/${user &&
-                          //     user._id}`}
-                          //   // href={`http://localhost:3000/profile/artist/${user &&
-                          //   //   user._id}`}
-                          // >
-                          //   <Button className={classes.button}>Profile</Button>
-
-                          // </a>
-                          <Button
-                            className={classes.button}
-                            component={Link}
-                            to={`/profile/artist/${user && user._id}`}
-                          >
-                            Profile
-                          </Button>
-                        ) : (
-                          <Button
-                            className={classes.button}
-                            component={Link}
-                            to={"/settings"}
-                          >
-                            Profile
-                          </Button>
-                        )
-                      ) : (
-                        <Button
-                          className={classes.button}
-                          component={Link}
-                          to={"/settings"}
-                        >
-                          Profile
-                        </Button>
-                      )}
-                      {user && user.role === "Admin" && (
-                        <Button
-                          color="inherit"
-                          className={classes.button}
-                          component={Link}
-                          to="/dashboard"
-                        >
-                          Admin
-                        </Button>
-                      )}
-                    </div>
-                  </section>
-                </Fragment>
-              )}
+                    )}
+                  </Fragment>
+                )}
+              </div>
             </Fragment>
           )}
         </Toolbar>
@@ -194,20 +140,13 @@ const Navbar = props => {
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
-  user: PropTypes.object,
-  profile: PropTypes.object.isRequired
+  user: PropTypes.object
 };
-
-// HideOnScroll.propTypes = {
-//   children: PropTypes.element.isRequired,
-//   window: PropTypes.func
-// };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
-  user: state.auth.user,
-  profile: state.profile
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps, {})(Navbar);

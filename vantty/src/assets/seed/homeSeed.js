@@ -98,7 +98,7 @@ const featuresHairstylesImages = [
 export const homeSeed = {
   firstGrid: {
     title: "Bridal",
-    subtitle: "Look for the best Makeup and Hairstyle for your big day!",
+    subtitle: "Look for your dream look for your big day!",
     images: weddingImages
   },
   secondGrid: {
@@ -108,8 +108,7 @@ export const homeSeed = {
   },
   thirdGrid: {
     title: "Featured Hairstyles",
-    subtitle:
-      "Hair, hair  and hair! Fall in love with the most beautiful Hairstyles!",
+    subtitle: "Fall in love with the most beautiful Hairstyles!",
     images: featuresHairstylesImages
   },
   carousel: {
@@ -119,7 +118,7 @@ export const homeSeed = {
   },
   firstBanner: {
     image: banner1Image,
-    text: "Find the best Beauty Artist in your area and change your look!",
+    text: "Find the best beauty artist and change your look!",
     buttonText: "Join Now"
   },
   secondBanner: {

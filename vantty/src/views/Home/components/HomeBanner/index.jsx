@@ -74,7 +74,7 @@ const HomeBanner = ({ image, text, buttonText }) => {
           <div className={classes.quoteInner}>
             <Grid container>
               <Grid item xs={12} sm={8}>
-                <Typography className={classes.quoteText} variant="h1">
+                <Typography className={classes.quoteText} variant="h2">
                   {text}
                 </Typography>
                 <Button

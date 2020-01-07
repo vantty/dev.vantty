@@ -21,6 +21,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowRight from "@material-ui/icons/ArrowForwardIos";
+import { API_URL } from "../../../../utils/axios";
 
 const useStyles = makeStyles(theme => ({
   blockTitle: {
@@ -104,7 +105,7 @@ const HomeGrid = ({ title, subtitle, images }) => {
           className={classes.blockTitle}
         >
           <Grid item>
-            <Typography className={classes.title} variant="h4">
+            <Typography className={classes.title} variant="h5">
               {subtitle}
             </Typography>
           </Grid>
@@ -114,7 +115,7 @@ const HomeGrid = ({ title, subtitle, images }) => {
             <Grid item key={index} xs={6} md={4}>
               <Card className={classes.card}>
                 <CardActionArea>
-                  <a href={`http://localhost:3000/profile/artist/${image.id}`}>
+                  <a href={`${window.location.href}search`}>
                     <CardMedia
                       key={image.photo}
                       className={classes.cardMedia}

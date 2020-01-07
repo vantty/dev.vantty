@@ -41,21 +41,7 @@ export const verifyNumber = res => async dispatch => {
           const numberVerified = res.data.phone.number;
           var number = numberVerified.substr(1);
           await dispatch(createMobileNumber({ mobileNumber: number }, true));
-          const config = {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          };
-          const {
-            data: { _id }
-          } = await server.get("/auth");
 
-          await server.post(
-            "/auth/is-profile",
-            { id: _id, profile: true },
-            true,
-            config
-          );
           await dispatch({
             type: NUMBER_VERIFY_SUCCESS,
             payload: numberVerified

@@ -13,7 +13,7 @@ export default {
     fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 700,
-    fontSize: "29px",
+    fontSize: "27px",
     letterSpacing: "-0.24px",
     lineHeight: "32px"
   },
@@ -21,7 +21,7 @@ export default {
     fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 500,
-    fontSize: "24px",
+    fontSize: "23px",
     letterSpacing: "-0.06px",
     lineHeight: "28px"
   },

@@ -8,14 +8,9 @@ import {
 } from "./types";
 
 import { server, API_URL, elastic } from "../utils/axios";
-import {
-  getCurrentProfile,
-  createProfile,
-  loadToElastic
-  // tagsToElastic
-} from "./profile";
+import { getCurrentProfile, createProfile, loadToElastic } from "./profile";
 import { loadUser } from "./auth";
-import { elasticData } from "../helpers";
+import { elasticData, updatePropertiesAppbase } from "../helpers";
 import setAlert from "./alert";
 
 // Get Model Image
@@ -207,7 +202,7 @@ export const userImage = (e, id, profile, cloudId) => async dispatch => {
           id: id
         };
         await server.put("/auth/user-image", sendImage);
-
+        await updatePropertiesAppbase(id, "profilePicture", sendImage.original);
         cloudId && (await dispatch(deleteImages(cloudId)));
       }
       profile &&

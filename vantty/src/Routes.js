@@ -66,7 +66,6 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path='/test' component={Test} />
-      <Route exact path='/help' component={Help} />
       <Route exact path='/confirm-account' component={CreateArtistAccount} />
       <Route exact path='/confirmation/:token' component={Confirmation} />
       {/* ADMIN */}
@@ -117,6 +116,12 @@ const Routes = () => {
         path='/profile/artist/:id'
       />
       {/* GENERAL */}
+      <RouteWithLayout
+        exact
+        layout={MainLayout}
+        path='/help'
+        component={Help}
+      />
       <RouteWithLayout
         layout={MainLayout}
         component={Terms}

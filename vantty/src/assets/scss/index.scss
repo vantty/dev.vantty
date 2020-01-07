@@ -5,24 +5,18 @@
 }
 
 html {
-  // height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background-color: #ffffff !important;
-  // height: 100%;
   font-family: "'Montserrat', 'sans-serif'" !important;
 }
 
 a {
   text-decoration: none;
 }
-
-// #root {
-//   height: 100%;
-// }
 
 .css-12nu9md {
   display: none !important;
@@ -36,6 +30,11 @@ a {
   css-106d0ed {
     box-shadow: none;
     border: 1px solid #eee;
+  }
+}
+@media (min-width: 600px) {
+  .makeStyles-root-1 {
+    padding-top: 0px !important;
   }
 }
 

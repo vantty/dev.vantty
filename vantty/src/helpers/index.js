@@ -6,3 +6,4 @@ export { default as getStrategyEmail } from "./getStrategyEmail";
 export { default as getStrategy } from "./getStrategy";
 export { default as elasticData } from "./elasticData";
 export { default as isOwner } from "./isOwner";
+export { default as updatePropertiesAppbase } from "./updatePropertiesAppbase";

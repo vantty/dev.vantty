@@ -11,7 +11,7 @@ import {
   ACCOUNT_DELETE,
   SERVICE_SUCCESS
 } from "./types";
-
+import { updatePropertiesAppbase } from "../helpers";
 const log = console.log;
 // Get current users profile
 export const getCurrentProfile = (owner = true) => async dispatch => {
@@ -82,20 +82,22 @@ export const createProfile = (
         "Content-type": "application/json"
       }
     };
-    log(formData);
     const res = await server.post("/profile", formData, config);
 
-    // dispatch(getCurrentProfile());
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
-
     dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
-
-    // const data = elasticData(res);
-    // const { profileId, elasticId } = data;
-    // loadToElastic(data, profileId, elasticId);
+    if (formData.price) {
+      const { user, price } = res.data;
+      await updatePropertiesAppbase(user, "price", price);
+    }
+    // console.log("FORMDATA", formData);
+    // if (formData.profilePicture) {
+    //   const { user, profilePicture } = res.data;
+    //   await updatePropertiesAppbase(user, "profilePicture", profilePicture);
+    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -392,37 +394,20 @@ export const loadToElastic = async (data, imagesId) => {
     }
   };
   let allElasticId = [];
-  for (let i = 0; i < data.length; i++) {
-    const datum = data[i];
-    if (datum.elasticId == null) {
-      const esRes = await elastic.post("/", datum, elasticConfig);
-      const elasticId = await esRes.data._id;
 
+  data.map(async datum => {
+    if (datum.elasticId === null) {
+      const {
+        data: { _id }
+      } = await elastic.post("/", datum, elasticConfig);
       await allElasticId.push({
         _id: datum.pictureId,
-        elasticId: elasticId,
+        elasticId: _id,
         tag: datum.tag
       });
-
-      const body = { allElasticId, imagesId };
-      await server.put("/profile/elastic", body);
+      await server.put("/profile/elastic", { allElasticId, imagesId });
     }
-  }
-
-  // if (!elasticId) {
-  //   data.map(async datum => {
-  //     const esRes = await elastic.post("/", datum, elasticConfig);
-  //     console.log(esRes);
-  //     picId = await esRes.data.picId;
-  //     const body = { picId };
-  //     await server.put("/profile/elastic", body);
-  //   });
-  // } else {
-  //   data.map(async datum => {
-  //     console.log(datum);
-  //     await elastic.put(`/${elasticId}`, datum, elasticConfig);
-  //   });
-  // }
+  });
 };
 
 export const tagsToElastic = async data => {

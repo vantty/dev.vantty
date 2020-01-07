@@ -22,7 +22,6 @@ import { getStrategy, getInitials } from "../../../../helpers";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    // overflow: "visible",
     position: "fixed",
     bottom: 0,
     zIndex: 10,
@@ -30,10 +29,11 @@ const useStyles = makeStyles(theme => ({
     borderTopColor: "black"
   },
   avatar: {
-    margin: 3,
     width: 22,
-    height: 20,
-    fontSize: "11px"
+    height: 22,
+    fontWeight: "bold",
+    fontSize: "10px",
+    backgroundColor: theme.palette.greenVantty.main
   },
   select: {
     margin: 0
@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
 const BottomNavbar = props => {
   const {
     auth: { isAuthenticated, user },
-    profile: { profile },
     navbarValue
   } = props;
 
@@ -76,10 +75,10 @@ const BottomNavbar = props => {
           />
           {isAuthenticated && (
             <BottomNavigationAction
-              label='Event'
+              label='Bookings'
               value='bookings'
               component={Link}
-              to={user && !user.profile ? "/bookings-user" : "/bookings"}
+              to={user && user.profile ? "/bookings" : "/bookings-user"}
               icon={<Event />}
             />
           )}
@@ -101,7 +100,6 @@ const BottomNavbar = props => {
                 user && user.profile
                   ? `/profile/artist/${user && user._id}`
                   : "/settings"
-                // : "/settings"
               }
               icon={
                 user ? (
@@ -142,15 +140,13 @@ const BottomNavbar = props => {
 BottomNavbar.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
   navbarValue: PropTypes.string.isRequired,
   getCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  navbarValue: state.navbar.navbarValue,
-  profile: state.profile
+  navbarValue: state.navbar.navbarValue
 });
 
 export default connect(mapStateToProps, { logout, getCurrentProfile })(
