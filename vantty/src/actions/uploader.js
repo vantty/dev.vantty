@@ -119,15 +119,16 @@ export const uploadImages = e => async dispatch => {
         };
         await server.put("/images/portfolio", sendImage);
       }
-
       await dispatch({
-        type: IMAGES_UPLOAD_SUCCESS
-        // payload: images
+        type: IMAGES_UPLOAD_SUCCESS,
+        payload: images
       });
+
       await dispatch(loadUser());
       await dispatch(getCurrentProfile());
 
       const resImages = await server.get("/images");
+      console.log("RES IMAGES", resImages);
       const resProfile = await server.get("/profile/me");
       const data = elasticData(resImages.data, resProfile);
       await loadToElastic(data, resProfile.data.imagesId);

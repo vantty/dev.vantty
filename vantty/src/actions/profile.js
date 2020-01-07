@@ -395,19 +395,23 @@ export const loadToElastic = async (data, imagesId) => {
   };
   let allElasticId = [];
 
-  data.map(async datum => {
-    if (datum.elasticId === null) {
+  for (let i = 0; i < data.length; i++) {
+    const datum = data[i];
+    if (datum.elasticId == null) {
       const {
         data: { _id }
       } = await elastic.post("/", datum, elasticConfig);
+
       await allElasticId.push({
         _id: datum.pictureId,
         elasticId: _id,
         tag: datum.tag
       });
-      await server.put("/profile/elastic", { allElasticId, imagesId });
+
+      const body = { allElasticId, imagesId };
+      await server.put("/profile/elastic", body);
     }
-  });
+  }
 };
 
 export const tagsToElastic = async data => {

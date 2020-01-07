@@ -81,7 +81,6 @@ const Porfolio = ({
           {portfolioPictures &&
             portfolioPictures.map(picture => (
               <GridListTile key={picture._id} style={{ height: "auto" }}>
-                {console.log("PICTURES PORT", picture)}
                 {/* <span
                   onClick={e =>
                     send(
