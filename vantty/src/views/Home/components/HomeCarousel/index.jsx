@@ -79,7 +79,7 @@ const HomeCarousel = ({ title, artist, images }) => {
   return (
     <div className={classes.pageBlock}>
       <Container maxWidth="md" className={classes.carousel}>
-        <Typography className={classes.title} variant="h4">
+        <Typography className={classes.title} variant="h5">
           {title}
         </Typography>
         <Grid

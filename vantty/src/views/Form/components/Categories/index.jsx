@@ -121,43 +121,33 @@ const AddCategories = ({
   };
 
   const hair = [
-    "Haircuts",
-    "All-Over color",
-    "Formal styling/Special Occasion hair",
-    "Blowouts",
-    "Deep conditioning treatments "
+    "Haircut",
+    "All-Over Color",
+    "Formal Styling",
+    "Blowout",
+    "Deep Conditioning Treatments"
   ];
 
   const makeup = ["Social", "Bridal", "Glam"];
-
-  // function getStyles(name, state, theme) {
-  //   return {
-  //     fontWeight:
-  //       state.indexOf(name) === -1
-  //         ? theme.typography.fontWeightRegular
-  //         : theme.typography.fontWeightMedium
-  //   };
-  // }
 
   return (
     <Fragment>
       <CustomPaper
         Children={
           <Fragment>
-            <form autoComplete='off' noValidate>
-              {/* <Divider /> */}
+            <form autoComplete="off" noValidate>
               <div>
                 <Fragment>
                   <Typography>Categoties</Typography>
                   <FormControl className={classes.formControl}>
-                    <InputLabel id='demo-mutiple-chip-label'>Hair</InputLabel>
+                    <InputLabel id="demo-mutiple-chip-label">Hair</InputLabel>
                     <Select
-                      labelId='demo-mutiple-chip-label'
-                      id='demo-mutiple-chip'
+                      labelId="demo-mutiple-chip-label"
+                      id="demo-mutiple-chip"
                       multiple
                       value={stateHair || stateHairElement}
                       onChange={handleChangeHair}
-                      input={<Input id='select-multiple-chip' />}
+                      input={<Input id="select-multiple-chip" />}
                       renderValue={selected => (
                         <div className={classes.chips}>
                           {selected.map(value => (
@@ -172,11 +162,7 @@ const AddCategories = ({
                       MenuProps={MenuProps}
                     >
                       {hair.map(name => (
-                        <MenuItem
-                          key={name}
-                          value={name}
-                          // style={getStyles(name, stateHair, theme)}
-                        >
+                        <MenuItem key={name} value={name}>
                           {name}
                         </MenuItem>
                       ))}
@@ -184,14 +170,14 @@ const AddCategories = ({
                   </FormControl>
                   {/* MAKEUP */}
                   <FormControl className={classes.formControl}>
-                    <InputLabel id='demo-mutiple-chip-label'>Makeup</InputLabel>
+                    <InputLabel id="demo-mutiple-chip-label">Makeup</InputLabel>
                     <Select
-                      labelId='demo-mutiple-chip-label'
-                      id='demo-mutiple-chip'
+                      labelId="demo-mutiple-chip-label"
+                      id="demo-mutiple-chip"
                       multiple
                       value={stateMakeup || stateMakeupElement}
                       onChange={handleChangeMakeup}
-                      input={<Input id='select-multiple-chip' />}
+                      input={<Input id="select-multiple-chip" />}
                       renderValue={selected => (
                         <div className={classes.chips}>
                           {selected.map(value => (
@@ -206,35 +192,28 @@ const AddCategories = ({
                       MenuProps={MenuProps}
                     >
                       {makeup.map(name => (
-                        <MenuItem
-                          key={name}
-                          value={name}
-                          // style={getStyles(name, stateMakeup, theme)}
-                        >
+                        <MenuItem key={name} value={name}>
                           {name}
                         </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
-                  {/* <Services formData={formData} onChange={onChange} /> */}
                 </Fragment>
               </div>
 
               {match.url === "/categories" && !isMobile && (
                 <Fragment>
                   <Divider />
-
                   <CardActions>
                     <Grid
                       container
-                      direction='row'
-                      justify='flex-end'
-                      alignItems='flex-start'
+                      direction="row"
+                      justify="flex-end"
+                      alignItems="flex-start"
                     >
                       <Button
                         className={classes.button}
                         onClick={e => onSubmit(e)}
-                        // disabled={error || errorHair}
                       >
                         Update
                       </Button>
@@ -280,7 +259,6 @@ const AddCategories = ({
                               <Button
                                 className={classes.button}
                                 onClick={e => onSubmit(e)}
-                                // disabled={error || errorHair}
                               >
                                 Update
                               </Button>

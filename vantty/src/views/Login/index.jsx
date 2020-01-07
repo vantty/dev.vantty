@@ -17,11 +17,7 @@ import {
 } from "../../assets/icons";
 
 // Actions
-import {
-  login,
-  googleLogin,
-  facebookLogin
-} from "../../actions/auth";
+import { login, googleLogin, facebookLogin } from "../../actions/auth";
 import { changeNavbarValue } from "../../actions/navbar";
 
 // Components
@@ -36,7 +32,7 @@ const LoginPhoto =
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.default,
-    height: "100%"
+    height: "100vh"
   },
   grid: {
     height: "100%"
@@ -48,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   },
   quote: {
     backgroundColor: theme.palette.neutral,
-    height: "100%",
+    height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

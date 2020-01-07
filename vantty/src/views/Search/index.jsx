@@ -190,8 +190,28 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                       value: "Bridal"
                     },
                     {
-                      label: "Photography",
-                      value: "Photography"
+                      label: "Glam",
+                      value: "Glam"
+                    },
+                    {
+                      label: "Haircut",
+                      value: "Haircut"
+                    },
+                    {
+                      label: "All-Over Color",
+                      value: "All-Over Color"
+                    },
+                    {
+                      label: "Formal Styling",
+                      value: "Formal Styling"
+                    },
+                    {
+                      label: "Blowout",
+                      value: "Blowout"
+                    },
+                    {
+                      label: "Deep Conditioning Treatments",
+                      value: "Deep Conditioning Treatments"
                     }
                   ]}
                   value={values}
@@ -199,18 +219,18 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                   title="Category"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <RangeInput
                   componentId="RangeInputComponent"
                   dataField="price"
                   title="Price"
                   range={{
                     start: 50,
-                    end: 300
+                    end: 500
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid> */}
+              {/* <Grid item xs={12}>
                 <RatingsFilter
                   title="Rating"
                   componentId="ratingsSensor"
@@ -221,7 +241,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                     { start: 1, end: 5, label: "All" }
                   ]}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
           </Hidden>
           <Grid item xs={12} md={8}>
@@ -263,7 +283,6 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                           image={pic.original}
                                           title="Image title"
                                         />
-                                        {/* </a> */}
                                       </MuiLink>
                                     </CardActionArea>
                                     <CardContent
@@ -306,7 +325,6 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             image={pic.original}
                                             title="Image title"
                                           />
-                                          {/* </a> */}
                                         </MuiLink>
                                       </CardActionArea>
                                       <CardContent
@@ -341,7 +359,6 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                 </Fragment>
               )}
             />
-            {/* </div> */}
           </Grid>
         </Grid>
       </Container>

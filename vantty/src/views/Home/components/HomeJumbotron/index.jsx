@@ -27,15 +27,11 @@ const Logo =
   "https://res.cloudinary.com/vantty/image/upload/v1572304171/seed/pms9bvmck4uygtqs0ljz.png";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.background.default,
-    height: "100%"
-  },
+  root: {},
   grid: {
-    height: "100%"
+    height: "30rem"
   },
   logo: {
-    // height: "80%",
     position: "absolute",
     width: "5rem",
     marginTop: theme.spacing(2),
@@ -44,9 +40,9 @@ const useStyles = makeStyles(theme => ({
   },
   quoteContainer: {},
   quote: {
+    height: "100%",
     zIndex: "10",
     backgroundColor: theme.palette.neutral,
-    height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -66,6 +62,7 @@ const useStyles = makeStyles(theme => ({
     color: "white"
   },
   textField: {
+    height: "40px",
     backgroundColor: "white",
     borderRadius: "4px",
     borderColor: "white",
@@ -88,6 +85,18 @@ const useStyles = makeStyles(theme => ({
       "&.Mui-focused fieldset": {
         borderColor: "white"
       }
+    },
+    "& .MuiOutlinedInput-adornedStart": {
+      height: "40px"
+    },
+    "& .MuiOutlinedInput-input": {
+      padding: 0
+    }
+  },
+  button: {
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
     }
   }
 }));
@@ -115,13 +124,13 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
     <Fragment>
       <CssBaseline />
       <div className={classes.root}>
-        <Grid className={classes.grid} container>
-          <Grid className={classes.quoteContainer} item sm={12}>
+        <Grid container>
+          <Grid className={classes.grid} item sm={12}>
             {isMobile && <img src={Logo} alt="" className={classes.logo} />}
             <div className={classes.quote}>
               <Container maxWidth="xl">
                 <Grid container>
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} sm={6} lg={4}>
                     <div className={classes.quoteInner}>
                       <Typography className={classes.quoteText} variant="h1">
                         Get your dreamed look, done by the perfect artists
@@ -130,7 +139,6 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
                         <Grid container>
                           <Grid item>
                             <TextField
-                              id="outlined-simple-start-adornment"
                               onChange={handleChange}
                               fullWidth
                               className={classes.textField}

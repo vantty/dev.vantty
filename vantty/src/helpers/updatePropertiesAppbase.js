@@ -10,9 +10,13 @@ export default async (userId, field, value) => {
     const resImages = await server.get(`/images/${userId}`);
     const pictures = resImages.data;
     const datum = { doc: { [field]: value } };
-    pictures.map(pic => {
-      elastic.post(`/${pic.elasticId}/_update`, datum, elasticConfig);
-    });
+    for (let i = 0; i < pictures.length; i++) {
+      await elastic.post(
+        `/${pictures[i].elasticId}/_update`,
+        datum,
+        elasticConfig
+      );
+    }
   } catch (error) {
     console.log(error);
   }

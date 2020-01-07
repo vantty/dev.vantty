@@ -93,11 +93,11 @@ export const createProfile = (
       const { user, price } = res.data;
       await updatePropertiesAppbase(user, "price", price);
     }
-    console.log("FORMDATA", formData);
-    if (formData.profilePicture) {
-      const { user, profilePicture } = res.data;
-      await updatePropertiesAppbase(user, "profilePicture", profilePicture);
-    }
+    // console.log("FORMDATA", formData);
+    // if (formData.profilePicture) {
+    //   const { user, profilePicture } = res.data;
+    //   await updatePropertiesAppbase(user, "profilePicture", profilePicture);
+    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -394,22 +394,20 @@ export const loadToElastic = async (data, imagesId) => {
     }
   };
   let allElasticId = [];
-  for (let i = 0; i < data.length; i++) {
-    const datum = data[i];
-    if (datum.elasticId == null) {
-      const esRes = await elastic.post("/", datum, elasticConfig);
-      const elasticId = await esRes.data._id;
 
+  data.map(async datum => {
+    if (datum.elasticId === null) {
+      const {
+        data: { _id }
+      } = await elastic.post("/", datum, elasticConfig);
       await allElasticId.push({
         _id: datum.pictureId,
-        elasticId: elasticId,
+        elasticId: _id,
         tag: datum.tag
       });
-
-      const body = { allElasticId, imagesId };
-      await server.put("/profile/elastic", body);
+      await server.put("/profile/elastic", { allElasticId, imagesId });
     }
-  }
+  });
 };
 
 export const tagsToElastic = async data => {
