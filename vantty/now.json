@@ -16,7 +16,9 @@
       "REACT_APP_STRIPE_CLIENT_ID_TEST": "@stripe-client-id-test",
       "REACT_APP_STRIPE_CLIENT_ID": "@stripe-client-id",
       "REACT_APP_VANTTY_FEE": "@vantty-fee",
-      "REACT_APP_TRANSFER_FEE": "@transfer-fee"
+      "REACT_APP_TRANSFER_FEE": "@transfer-fee",
+      "REACT_APP_STRIPE_REDIRECT_URI": "@stripe-redirect-uri",
+      "REACT_APP_STRIPE_REDIRECT_URI_TEST": "@stripe-redirect-uri-test"
     }
   }
 }
