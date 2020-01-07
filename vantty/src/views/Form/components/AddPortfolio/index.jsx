@@ -202,7 +202,7 @@ const AddPortfolio = ({
                           <div>
                             <Fragment>
                               <Fragment>
-                                <Button component={Link} to='/settings'>
+                                <Button component={Link} to='/settings/profile'>
                                   Back
                                 </Button>
                                 <Button

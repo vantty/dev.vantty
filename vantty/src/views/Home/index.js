@@ -24,7 +24,7 @@ const Home = ({ changeNavbarValue }) => {
     changeNavbarValue("home");
   }, []);
   return (
-    <Fragment data-testid="home">
+    <Fragment data-testid='home'>
       <CssBaseline />
       <HomeJumbotron />
       <HomeGrid

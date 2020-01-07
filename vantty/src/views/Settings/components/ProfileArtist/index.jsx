@@ -8,13 +8,14 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { pagesGeneral } from "../../list";
+import { pagesGeneral, pagesAccount, pagesProfile } from "../../list";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { isMobile } from "react-device-detect";
 import { SimpleAppBar } from "../../../../components";
 import PropTypes from "prop-types";
-import { logout } from "../../../../actions/auth";
+
 import { connect } from "react-redux";
+import { deleteAccount } from "../../../../actions/profile";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SettingsGeneral = ({ match, history, logout }) => {
+const ProfileArtist = ({ match, history }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -53,7 +54,7 @@ const SettingsGeneral = ({ match, history, logout }) => {
         <Fragment>
           {/* <div className={classes.root}></div> */}
           <List component='nav'>
-            {pagesGeneral.map((page, ind) => (
+            {pagesProfile.map((page, ind) => (
               <div key={page.title}>
                 {/* <Container maxWidth='sm'> */}
                 <Container maxWidth='md'>
@@ -86,11 +87,6 @@ const SettingsGeneral = ({ match, history, logout }) => {
                 {/* </Container> */}
               </div>
             ))}
-            <Container maxWidth='md'>
-              <ListItem button onClick={logout}>
-                <ListItemText primary={"Logout"} />
-              </ListItem>
-            </Container>
           </List>
         </Fragment>
       )}
@@ -98,11 +94,4 @@ const SettingsGeneral = ({ match, history, logout }) => {
   );
 };
 
-SettingsGeneral.propTypes = {
-  logout: PropTypes.func.isRequired
-};
-
-export default connect(
-  null,
-  { logout }
-)(SettingsGeneral);
+export default ProfileArtist;

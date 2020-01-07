@@ -109,11 +109,11 @@ export const login = ({ email, password }) => async dispatch => {
   const body = JSON.stringify({ email, password });
   try {
     const res = await server.post("/auth/login", body, config);
-    dispatch({
+    await dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-    dispatch(loadUser());
+    await dispatch(loadUser());
   } catch (err) {
     dispatch(
       setAlert(
@@ -257,6 +257,7 @@ export const googleLogin = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/auth/google", body, config);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data

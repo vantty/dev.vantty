@@ -96,28 +96,33 @@ const Profile = ({
 
   return (
     <Fragment>
-      {isMobile && (
-        <Fragment>
-          <SimpleAppBar
-            path={"/search"}
-            // path={history}
-            owner={
-              isOwner(auth, user && user._id) === true &&
-              profile &&
-              profile.user._id === auth.user._id &&
-              isMobile &&
-              "/settings"
-            }
-          />
-        </Fragment>
-      )}
-
-      {(!profile && !images) || profile === null || loading || !images ? (
+      {(!profile && !images) ||
+      profile === null ||
+      loading ||
+      !images ||
+      auth.loading ? (
         // {(!profile && !images) || profile === null || loading ? (
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          <Container maxWidth="md">
+          {isMobile ? (
+            <Fragment>
+              <SimpleAppBar
+                path={"/search"}
+                // path={history}
+                owner={
+                  isOwner(auth, user && user._id) === true &&
+                  profile &&
+                  profile.user._id === auth.user._id &&
+                  isMobile &&
+                  "/settings"
+                }
+              />
+            </Fragment>
+          ) : (
+            <Progress className={classes.progress} />
+          )}
+          <Container maxWidth='md'>
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}
@@ -127,11 +132,11 @@ const Profile = ({
                 {/* {profile === null || loading || !images ? ( */}
                 {/* <Progress />) : ( */}
                 <Fragment>
-                  {isOwner(auth, user && user._id) === true &&
+                  {/* {isOwner(auth, user && user._id) === true &&
                     profile &&
                     profile.user._id === auth.user._id &&
                     profile.mobileNumber &&
-                    !profile.verified && <MessageVerified profile={profile} />}
+                    !profile.verified && <MessageVerified profile={profile} />} */}
                   <Grid item xs={12} md={8} sm={10}>
                     <Header />
 

@@ -114,7 +114,7 @@ const Location = ({
                     placeholder='Hi! You can take an appointment with me all days on the weekend'
                     // defaultValue='Default Value'
                     name='availability'
-                    value={"" || availability || profile.availability}
+                    value={availability || "" || profile.availability || ""}
                     className={classes.textField}
                     margin='normal'
                     variant='outlined'
@@ -205,9 +205,9 @@ const Location = ({
                                 <Button
                                   className={classes.button}
                                   onClick={e => onSubmit(e)}
-                                  disabled={false}
+                                  disabled={!place && !delivery}
                                 >
-                                  {match.url === "/categories"
+                                  {match.url === "/location"
                                     ? "Update"
                                     : "next"}
                                 </Button>
@@ -224,13 +224,15 @@ const Location = ({
                             <div>
                               <div>
                                 <Fragment>
-                                  <Button component={Link} to={"/settings"}>
+                                  <Button
+                                    component={Link}
+                                    to={"/settings/profile"}
+                                  >
                                     Back
                                   </Button>
                                   <Button
                                     className={classes.button}
                                     onClick={e => onSubmit(e)}
-                                    // disabled={error || errorHair}
                                   >
                                     Update
                                   </Button>

@@ -55,7 +55,7 @@ export const getProfileById = userId => async dispatch => {
   await dispatch({
     type: CLEAR_PROFILE
   });
-  await dispatch(loadUser());
+  // await dispatch(loadUser());
   try {
     const res = await server.get(`/profile/artist/${userId}`);
     await dispatch({

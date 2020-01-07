@@ -56,16 +56,16 @@ export default function SearchAppBar({ children, modal, invisible }) {
     <div className={classes.grow}>
       <AppBar className={classes.appBar}>
         <Toolbar>
-          <img src={Logo} className={classes.logo} alt="" />
+          <img src={Logo} className={classes.logo} alt='' />
           <div>{children}</div>
           <div className={classes.sectionMobile}>
             <IconButton
-              aria-label="show more"
-              aria-haspopup="true"
+              aria-label='show more'
+              aria-haspopup='true'
               onClick={handleClickOpen("paper")}
-              color="inherit"
+              color='inherit'
             >
-              <Badge color="secondary" variant="dot" invisible={!invisible[0]}>
+              <Badge color='secondary' variant='dot' invisible={!invisible[0]}>
                 <FilterListIcon className={classes.filterIcon} />
               </Badge>
             </IconButton>

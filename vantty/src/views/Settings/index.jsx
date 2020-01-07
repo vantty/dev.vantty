@@ -14,11 +14,11 @@ import { loadUser, logout } from "../../actions/auth";
 
 // Helpers
 import { isOwner, getStrategy } from "../../helpers";
-import { pagesProfile, pagesUser } from "./list";
+import { pagesProfile, pagesUser, pagesGeneral } from "./list";
 
 // Components
 import { SimpleAppBar } from "../../components";
-import { SettingsProfile, AvatarUser } from "./components";
+import { SettingsProfile, AvatarUser, SettingsUser } from "./components";
 
 // Material-UI
 import { Hidden } from "@material-ui/core";
@@ -67,7 +67,7 @@ const Settings = ({
         <br />
       </Hidden>
 
-      {user && user.profile ? (
+      {/* {user && user.profile ? (
         <SettingsProfile
           match={match}
           pages={pagesProfile}
@@ -76,6 +76,20 @@ const Settings = ({
         />
       ) : (
         <SettingsProfile match={match} pages={pagesUser} profile={false} />
+      )} */}
+      {isMobile ? (
+        <SettingsUser
+          match={match}
+          profile={user && user.profile ? true : false}
+          // deleteAccount={deleteAccount}
+        />
+      ) : (
+        <SettingsProfile
+          match={match}
+          pages={user && user.profile ? pagesProfile : pagesUser}
+          profile={user && user.profile ? true : false}
+          // deleteAccount={deleteAccount}
+        />
       )}
     </Fragment>
   );

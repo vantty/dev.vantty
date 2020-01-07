@@ -50,6 +50,7 @@ export const getImagesById = imagesId => async dispatch => {
     });
   }
 };
+
 export const uploadTag = tagObj => async dispatch => {
   try {
     const keys = Object.keys(tagObj);

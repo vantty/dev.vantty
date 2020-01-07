@@ -193,12 +193,12 @@ const Price = ({
                 <div>
                   {match.url === "/price" ? (
                     <Fragment>
-                      <Button component={Link} to='/settings'>
+                      <Button component={Link} to='/settings/profile'>
                         Back
                       </Button>
                       <Button
                         component={Link}
-                        to='/settings'
+                        to='/settings/profile'
                         className={classes.button}
                         onClick={e => onSubmitAvailability(e)}
                       >

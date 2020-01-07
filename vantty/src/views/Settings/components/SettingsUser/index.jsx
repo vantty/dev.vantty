@@ -21,23 +21,34 @@ const useStyles = makeStyles(theme => ({
     float: "left",
     width: "100%",
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    fontSize: "20px"
   },
   tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
+    borderRight: `4px solid ${theme.palette.divider}`,
     marginRight: `3rem !important`,
     float: "left",
     minWidth: "130px",
-    maxWidth: "130px"
+    maxWidth: "130px",
+    color: theme.palette.common.black
+  },
+  title: {
+    color: theme.palette.text.primary,
+    backgroundColor: "#F3F3F3",
+    paddingTop: "0.09rem" + "!important",
+    paddingBottom: "0.09rem" + "!important"
+  },
+  listItem: {
+    paddingTop: "0.2rem" + "!important",
+    paddingBottom: "0.2rem" + "!important"
   },
   arrow: {
     marginLeft: "7px",
     color: theme.palette.text.primary,
-    fontSize: "18px"
+    fontSize: "16px"
   }
 }));
-
-const SettingsProfile = ({ match, pages, logout }) => {
+const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -46,59 +57,124 @@ const SettingsProfile = ({ match, pages, logout }) => {
 
   return (
     <Fragment>
-      <div className={classes.root}></div>
-      <List component='nav' className={classes.root}>
-        {pages.map((page, ind) => (
-          <div key={page.title}>
-            <Container maxWidth='md'>
-              <Grid
-                container
-                direction='row'
-                justify='space-between'
-                alignItems='center'
-              >
-                <Grid item xs={11} md={12} lg={12} xl={12}>
-                  <ListItemLink
-                    href={page.href}
-                    to={page.href}
-                    selected={page.href === match.url}
-                  >
-                    <ListItemText primary={page.title} />
-                  </ListItemLink>
-                </Grid>
-                <Grid item xs={1}>
-                  {isMobile && (
-                    <ArrowForwardIosIcon className={classes.arrow} />
-                  )}
-                </Grid>
-              </Grid>
-            </Container>
-            <Divider />
-          </div>
-        ))}
+      <List component='nav'>
         <Container maxWidth='md'>
+          <Grid
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+          >
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink
+                to={profile ? "settings/profile" : "/personal-info"}
+                className={classes.listItem}
+              >
+                <ListItemText primary={"Profile"}></ListItemText>
+              </ListItemLink>
+            </Grid>
+            <Grid item xs={1}>
+              {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            </Grid>
+          </Grid>
+          <Divider />
+
+          {/* 2 */}
+          <Grid
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+          >
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink
+                to={profile ? "/bookings" : "/bookings-user"}
+                className={classes.listItem}
+              >
+                <ListItemText primary={"Bookings"}></ListItemText>
+              </ListItemLink>
+            </Grid>
+            <Grid item xs={1}>
+              {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            </Grid>
+          </Grid>
+          <Divider />
+          {/* 3 */}
+          <Grid
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+          >
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink
+                to={profile ? "/bank" : "/payments"}
+                className={classes.listItem}
+              >
+                <ListItemText primary={"Banking"}></ListItemText>
+              </ListItemLink>
+            </Grid>
+            <Grid item xs={1}>
+              {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            </Grid>
+          </Grid>
+          <Divider />
+          {/* 4 */}
+          <Grid
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+          >
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink
+                to={"settings/account"}
+                className={classes.listItem}
+              >
+                <ListItemText primary={"Account"}></ListItemText>
+              </ListItemLink>
+            </Grid>
+            <Grid item xs={1}>
+              {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            </Grid>
+          </Grid>
+          <Divider />
+          {/* 5 */}
+          <Grid
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+          >
+            <Grid item xs={11} md={12} lg={12} xl={12}>
+              <ListItemLink to={"/help"} className={classes.listItem}>
+                <ListItemText primary={"Help Center"}></ListItemText>
+              </ListItemLink>
+            </Grid>
+            <Grid item xs={1}>
+              {isMobile && <ArrowForwardIosIcon className={classes.arrow} />}
+            </Grid>
+          </Grid>
+          <Divider />
+
+          {/* <Container maxWidth='md'> */}
           {isMobile && (
-            <ListItemLink to={"/create-profile"}>
-              <ListItemText primary={"Become to an Artists"} />
-            </ListItemLink>
-          )}
-          {!isMobile && (
-            <ListItem button onClick={logout}>
+            <ListItem button onClick={logout} className={classes.listItem}>
               <ListItemText primary={"Logout"} />
             </ListItem>
           )}
-          {/* <ListItemLink to={"/settings/account"}>
-            <ListItemText primary={"Account"} />
-          </ListItemLink> */}
+          {/* </Container> */}
         </Container>
+
         <Divider />
+        {/* </Container> */}
       </List>
     </Fragment>
   );
 };
 
-SettingsProfile.propTypes = {
+SettingsUser.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-export default connect(null, { logout })(SettingsProfile);
+export default connect(null, { logout })(SettingsUser);

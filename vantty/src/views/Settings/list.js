@@ -56,9 +56,29 @@ export const pagesUser = [
 
 export const pagesGeneral = [
   {
-    title: "Change Password",
-    href: "/password"
+    title: "Profile",
+    href: "/settings/profile"
   },
+  {
+    title: "Bookings",
+    href: "/terms-of-service"
+  },
+
+  {
+    title: "Banking",
+    href: "/data-policy"
+  },
+  {
+    title: "Account",
+    href: "/settings/account"
+  },
+  {
+    title: "Help Center",
+    href: "/settings/help"
+  }
+];
+
+export const pagesAccount = [
   {
     title: "Terms",
     href: "/terms-of-service"

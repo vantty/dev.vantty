@@ -51,7 +51,7 @@ exports.addImages = (req, res) => {
     cloudinary.v2.uploader.upload(image.path, {
       eager: [
         {
-          quality: "auto"
+          quality: "auto:low"
         }
       ],
       eager_async: true

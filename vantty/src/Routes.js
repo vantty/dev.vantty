@@ -55,7 +55,12 @@ import {
   Appointments,
   Bookings
 } from "./views/Form/components";
-import { SettingsGeneral } from "./views/Settings/components";
+import {
+  SettingsGeneral,
+  Account,
+  ProfileArist,
+  ProfileArtist
+} from "./views/Settings/components";
 
 const Routes = () => {
   return (
@@ -179,12 +184,10 @@ const Routes = () => {
         layout={MinimalLayout}
         path='/add-portfolio'
       />
+      {/* SETTINGD */}
       <PrivateRoute component={Settings} exact path='/settings' />
-      <PrivateRoute
-        component={SettingsGeneral}
-        exact
-        path='/settings/account'
-      />
+      <PrivateRoute component={Account} exact path='/settings/account' />
+      <PrivateRoute component={ProfileArtist} exact path='/settings/profile' />
       <RoutePrivateWithLayout
         component={EditMobile}
         exact

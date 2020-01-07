@@ -62,7 +62,11 @@ const EditForm = ({
     <Fragment>
       <CssBaseline />
       {/* <div> {isMobile && <AppBarForm step={null} />}</div> */}
-      {isMobile && <SimpleAppBar path={"/settings"} />}
+      {isMobile && (
+        <SimpleAppBar
+          path={user && user.profile ? "/settings/profile" : "/settings"}
+        />
+      )}
       <Fragment>
         <Fragment>
           <Alert />
