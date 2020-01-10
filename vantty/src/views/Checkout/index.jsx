@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import clsx from "clsx";
 import randomCode from "crypto-random-string";
@@ -136,6 +136,15 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1)
+  },
+  bookingsButton: {
+    textTransform: "none",
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
   }
 }));
 
@@ -292,10 +301,19 @@ const Checkout = ({
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your booking request has been placed and we have emailed your
+                  artist this request. Once she accepts it, we will send you the
+                  confirmation and your <strong>booking code.</strong>
                 </Typography>
+                <Button
+                  component={Link}
+                  to="/bookings-user"
+                  color="primary"
+                  variant="contained"
+                  className={classes.bookingsButton}
+                >
+                  {"See all bookings"}
+                </Button>
               </Fragment>
             ) : (
               <Fragment>
