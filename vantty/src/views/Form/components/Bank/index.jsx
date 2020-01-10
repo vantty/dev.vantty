@@ -31,12 +31,12 @@ const Bank = ({ profile: { profile } }) => {
                 <Grid item xs={10}>
                   <Grid container>
                     <Grid item xs={12}>
-                      <Typography variant='h4'>
+                      <Typography variant="h4">
                         {profile.stripeBankData.bankName}
                       </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                      <Typography variant='h4'>
+                      <Typography variant="h4">
                         {profile.stripeBankData.routingNumber} - ••••{" "}
                         {profile.stripeBankData.last4}
                       </Typography>

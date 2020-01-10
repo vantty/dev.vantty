@@ -16,7 +16,7 @@ import setAlert from "./alert";
 // Get Model Image
 export const getImages = () => async dispatch => {
   try {
-    const res = await server.get(`/images`);
+    const res = await server.get("/images/");
 
     dispatch({
       type: GET_IMAGES,

@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles(theme => ({
   header: {
-    paddingTop: theme.spacing(4)
+    paddingTop: "50px"
   }
 }));
 

@@ -21,7 +21,7 @@ import { SimpleAppBar } from "../../components";
 import { SettingsProfile, AvatarUser, SettingsUser } from "./components";
 
 // Material-UI
-import { Hidden } from "@material-ui/core";
+import { Hidden, CssBaseline } from "@material-ui/core";
 
 const Settings = ({
   match,
@@ -44,8 +44,9 @@ const Settings = ({
 
   return (
     <Fragment>
+      <CssBaseline />
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
 
       <Hidden only={["md", "lg", "xl"]}>

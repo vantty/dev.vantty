@@ -20,7 +20,7 @@ import {
   DELETE_CARD_SUCCESS,
   ADD_BOOKINGS
 } from "./types";
-import { loadUser } from "./auth";
+import { getCurrentProfile } from "./profile";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
 import setAlert from "./alert";
@@ -58,15 +58,15 @@ export const creacteStripeAccount = code => async dispatch => {
       payload: resSave.data
     });
     if (resSave.data.stripeArtistAccount) {
-      const user = await server.post(
+      await server.post(
         "/auth/is-profile",
         { id: _id, profile: true },
         true,
         config
       );
-      console.log("User", user);
+      await dispatch(getCurrentProfile());
     }
-    console.log("Profile", resSave.data);
+    await dispatch(getCurrentProfile());
   } catch (error) {
     console.log(error);
     dispatch({
@@ -236,8 +236,11 @@ export const addNewBook = (
     const {
       data: { stripeCustomerId }
     } = user;
+    const today = new Date();
     const body = {
       ...formData,
+      requestDate: today.toString().substr(0, 24),
+      timeStamp: today.getTime(),
       bookCode: bookCode,
       stripeCustomerId: stripeCustomerId,
       stripeArtistAccount: stripeArtistAccount

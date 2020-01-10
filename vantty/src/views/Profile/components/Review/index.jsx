@@ -31,6 +31,7 @@ const Review = ({
   ) : (
     <Fragment>
       <ReviewList review={review} />
+      {review.comments && <p>No reviews yet.</p>}
       <br />
       <br />
     </Fragment>
@@ -47,7 +48,6 @@ const mapStateToProps = state => ({
   review: state.review
 });
 
-export default connect(
-  mapStateToProps,
-  { getReview }
-)(withStyles(styles)(Review));
+export default connect(mapStateToProps, { getReview })(
+  withStyles(styles)(Review)
+);

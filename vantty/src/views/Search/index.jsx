@@ -42,6 +42,11 @@ import {
 const { ResultCardsWrapper } = ReactiveList;
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    [theme.breakpoints.down("md")]: {
+      marginTop: theme.spacing(2)
+    }
+  },
   resultCard: {
     boxShadow: `none !important`,
     border: `none !important`
@@ -92,224 +97,145 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
   const classes = useStyles();
   const [values, setValues] = useState("");
 
+  const Filters = () => (
+    <Fragment>
+      <MultiDataList
+        componentId="categoryFilter"
+        dataField="tag.keyword"
+        showSearch={false}
+        data={[
+          {
+            label: "Social Makeup",
+            value: "Social Makeup"
+          },
+          {
+            label: "Bridal Makeup",
+            value: "Bridal Makeup"
+          },
+          {
+            label: "Glam Makeup",
+            value: "Glam Makeup"
+          },
+          {
+            label: "Photography Makeup",
+            value: "Photography Makeup"
+          },
+          {
+            label: "Haircut",
+            value: "Haircut"
+          },
+          {
+            label: "All-Over Color",
+            value: "All-Over Color"
+          },
+          {
+            label: "Formal Styling",
+            value: "Formal Styling"
+          },
+          {
+            label: "Blowout",
+            value: "Blowout"
+          },
+          {
+            label: "Deep Conditioning Treatment",
+            value: "Deep Conditioning Treatment"
+          }
+        ]}
+        value={values}
+        onChange={setValues}
+        title="Category"
+      />
+      {/* <RatingsFilter
+        title="Rating"
+        componentId="ratingsSensor"
+        dataField="ratings"
+        data={[
+          { start: 4, end: 5, label: "4 & up" },
+          { start: 3, end: 5, label: "3 & up" },
+          { start: 1, end: 5, label: "All" }
+        ]}
+      />
+      <RangeInput
+        componentId="RangeInputComponent"
+        dataField="price"
+        title="Price"
+        range={{
+          start: 50,
+          end: 500
+        }}
+      /> */}
+    </Fragment>
+  );
+
   return (
-    <ReactiveBase
-      app={process.env.REACT_APP_APPBASE_INDEX}
-      credentials={process.env.REACT_APP_APPBASE_CREDENTIALS}
-    >
+    <div>
       <Header />
-      {isMobile && (
-        <AppBar
-          children={
-            <DataSearch
-              onChange={clearSearch}
-              componentId="searchbox"
-              dataField="*"
-              placeholder="Search..."
-              defaultValue={searchValue}
-            />
-          }
-          modal={
-            <Fragment>
-              <MultiDataList
-                componentId="categoryFilter"
-                dataField="tag.keyword"
-                showSearch={false}
-                data={[
-                  {
-                    label: "Social",
-                    value: "Social"
-                  },
-                  {
-                    label: "Bridal",
-                    value: "Bridal"
-                  },
-                  {
-                    label: "Photography",
-                    value: "Photography"
-                  }
-                ]}
-                value={values}
-                onChange={setValues}
-                title="Category"
+      <ReactiveBase
+        app={process.env.REACT_APP_APPBASE_INDEX}
+        credentials={process.env.REACT_APP_APPBASE_CREDENTIALS}
+      >
+        {isMobile && (
+          <AppBar
+            children={
+              <DataSearch
+                onChange={clearSearch}
+                componentId="searchbox"
+                dataField="*"
+                placeholder="Search..."
+                defaultValue={searchValue}
               />
-              <RangeInput
-                componentId="RangeInputComponent"
-                dataField="price"
-                title="Price"
-                range={{
-                  start: 50,
-                  end: 300
+            }
+            modal={<Fragment>{Filters()}</Fragment>}
+            invisible={values}
+          />
+        )}
+        <Container maxWidth="lg">
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="flex-start"
+            className={classes.container}
+          >
+            <Hidden xsDown>
+              <Grid item md={4} className={classes.filters}>
+                <Grid item xs={12}>
+                  <DataSearch
+                    onChange={clearSearch}
+                    componentId="searchbox"
+                    dataField="*"
+                    placeholder="Search..."
+                    defaultValue={searchValue}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  {Filters()}
+                </Grid>
+              </Grid>
+            </Hidden>
+            <Grid item xs={12} md={8}>
+              <ReactiveList
+                componentId="result"
+                dataField="*"
+                title="Results"
+                size={31}
+                infiniteScroll={true}
+                showResultStats={false}
+                loader={<CircularProgress />}
+                style={{
+                  width: "100%",
+                  textAlign: "center"
                 }}
-              />
-              <RatingsFilter
-                title="Rating"
-                componentId="ratingsSensor"
-                dataField="ratings"
-                data={[
-                  { start: 4, end: 5, label: "4 & up" },
-                  { start: 3, end: 5, label: "3 & up" },
-                  { start: 1, end: 5, label: "All" }
-                ]}
-              />
-            </Fragment>
-          }
-          invisible={values}
-        />
-      )}
-      <Container maxWidth="lg">
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-        >
-          <Hidden xsDown>
-            <Grid item md={4} className={classes.filters}>
-              <Grid item xs={12}>
-                <DataSearch
-                  onChange={clearSearch}
-                  componentId="searchbox"
-                  dataField="*"
-                  placeholder="Search..."
-                  defaultValue={searchValue}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <MultiDataList
-                  componentId="categoryFilter"
-                  dataField="tag.keyword"
-                  showSearch={false}
-                  data={[
-                    {
-                      label: "Social",
-                      value: "Social"
-                    },
-                    {
-                      label: "Bridal",
-                      value: "Bridal"
-                    },
-                    {
-                      label: "Glam",
-                      value: "Glam"
-                    },
-                    {
-                      label: "Haircut",
-                      value: "Haircut"
-                    },
-                    {
-                      label: "All-Over Color",
-                      value: "All-Over Color"
-                    },
-                    {
-                      label: "Formal Styling",
-                      value: "Formal Styling"
-                    },
-                    {
-                      label: "Blowout",
-                      value: "Blowout"
-                    },
-                    {
-                      label: "Deep Conditioning Treatments",
-                      value: "Deep Conditioning Treatments"
-                    }
-                  ]}
-                  value={values}
-                  onChange={setValues}
-                  title="Category"
-                />
-              </Grid>
-              {/* <Grid item xs={12}>
-                <RangeInput
-                  componentId="RangeInputComponent"
-                  dataField="price"
-                  title="Price"
-                  range={{
-                    start: 50,
-                    end: 500
-                  }}
-                />
-              </Grid> */}
-              {/* <Grid item xs={12}>
-                <RatingsFilter
-                  title="Rating"
-                  componentId="ratingsSensor"
-                  dataField="ratings"
-                  data={[
-                    { start: 4, end: 5, label: "4 & up" },
-                    { start: 3, end: 5, label: "3 & up" },
-                    { start: 1, end: 5, label: "All" }
-                  ]}
-                />
-              </Grid> */}
-            </Grid>
-          </Hidden>
-          <Grid item xs={12} md={8}>
-            {/* </div> */}
-            <ReactiveList
-              componentId="result"
-              dataField="*"
-              title="Results"
-              size={31}
-              infiniteScroll={true}
-              showResultStats={false}
-              loader={<CircularProgress />}
-              style={{
-                width: "100%",
-                textAlign: "center"
-              }}
-              react={{
-                and: ["searchbox", "categoryFilter", "DynamicRangeSensor"]
-              }}
-              render={({ data }) => (
-                <Fragment>
-                  <ResultCardsWrapper>
-                    <Fragment>
-                      {data.map(pic => (
-                        <Fragment key={pic.cloudId}>
-                          {!values[0] && pic.verified ? (
-                            <Fragment>
-                              <ResultCard className={classes.resultCard}>
-                                <Fragment>
-                                  <Card className={classes.card}>
-                                    <CardActionArea>
-                                      <MuiLink
-                                        component={Link}
-                                        to={`/profile/artist/${pic.userId}`}
-                                      >
-                                        <CardMedia
-                                          key={pic.original}
-                                          className={classes.cardMedia}
-                                          image={pic.original}
-                                          title="Image title"
-                                        />
-                                      </MuiLink>
-                                    </CardActionArea>
-                                    <CardContent
-                                      className={classes.cardContent}
-                                    >
-                                      <Toolbar className={classes.cardTitle}>
-                                        <Avatar
-                                          alt=""
-                                          src={pic.profilePicture}
-                                          className={classes.avatar}
-                                        />
-                                        <Typography
-                                          key={pic.original}
-                                          gutterBottom
-                                          className={classes.name}
-                                        >
-                                          {"by "}
-                                          {pic.name.firstName}
-                                        </Typography>
-                                      </Toolbar>
-                                    </CardContent>
-                                  </Card>
-                                </Fragment>
-                              </ResultCard>
-                            </Fragment>
-                          ) : (
-                            values.indexOf(pic.tag) > -1 && (
+                react={{
+                  and: ["searchbox", "categoryFilter", "DynamicRangeSensor"]
+                }}
+                render={({ data }) => (
+                  <Fragment>
+                    <ResultCardsWrapper>
+                      <Fragment>
+                        {data.map(pic => (
+                          <Fragment key={pic.cloudId}>
+                            {!values[0] && pic.verified ? (
                               <Fragment>
                                 <ResultCard className={classes.resultCard}>
                                   <Fragment>
@@ -350,19 +276,64 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                   </Fragment>
                                 </ResultCard>
                               </Fragment>
-                            )
-                          )}
-                        </Fragment>
-                      ))}
-                    </Fragment>
-                  </ResultCardsWrapper>
-                </Fragment>
-              )}
-            />
+                            ) : (
+                              values.indexOf(pic.tag) > -1 && (
+                                <Fragment>
+                                  <ResultCard className={classes.resultCard}>
+                                    <Fragment>
+                                      <Card className={classes.card}>
+                                        <CardActionArea>
+                                          <MuiLink
+                                            component={Link}
+                                            to={`/profile/artist/${pic.userId}`}
+                                          >
+                                            <CardMedia
+                                              key={pic.original}
+                                              className={classes.cardMedia}
+                                              image={pic.original}
+                                              title="Image title"
+                                            />
+                                          </MuiLink>
+                                        </CardActionArea>
+                                        <CardContent
+                                          className={classes.cardContent}
+                                        >
+                                          <Toolbar
+                                            className={classes.cardTitle}
+                                          >
+                                            <Avatar
+                                              alt=""
+                                              src={pic.profilePicture}
+                                              className={classes.avatar}
+                                            />
+                                            <Typography
+                                              key={pic.original}
+                                              gutterBottom
+                                              className={classes.name}
+                                            >
+                                              {"by "}
+                                              {pic.name.firstName}
+                                            </Typography>
+                                          </Toolbar>
+                                        </CardContent>
+                                      </Card>
+                                    </Fragment>
+                                  </ResultCard>
+                                </Fragment>
+                              )
+                            )}
+                          </Fragment>
+                        ))}
+                      </Fragment>
+                    </ResultCardsWrapper>
+                  </Fragment>
+                )}
+              />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </ReactiveBase>
+        </Container>
+      </ReactiveBase>
+    </div>
   );
 };
 

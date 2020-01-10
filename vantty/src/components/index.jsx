@@ -9,3 +9,4 @@ export { default as GoogleMapsAutocomplete } from "./GoogleMapsAutocomplete";
 export { default as BookCode } from "./BookCode";
 export { default as Progress } from "./Progress";
 export { default as ConfirmationModal } from "./ConfirmationModal";
+export { default as MarkdownText } from "./MarkdownText";

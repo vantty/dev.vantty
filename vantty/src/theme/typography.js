@@ -20,7 +20,7 @@ export default {
   h3: {
     fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
-    fontWeight: 500,
+    fontWeight: 700,
     fontSize: "23px",
     letterSpacing: "-0.06px",
     lineHeight: "28px"
@@ -69,7 +69,9 @@ export default {
     color: palette.text.primary,
     fontSize: "14px",
     letterSpacing: "-0.05px",
-    lineHeight: "21px"
+    lineHeight: "21px",
+    textAlign: "justify",
+    textJustify: "inter-word"
   },
   body2: {
     fontFamily: "'Montserrat', 'sans-serif'",

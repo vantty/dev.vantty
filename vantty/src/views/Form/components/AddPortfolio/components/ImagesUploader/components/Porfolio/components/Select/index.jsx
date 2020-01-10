@@ -47,7 +47,7 @@ const SelectTags = ({ _id, uploadTag, elasticId, tags, onChangeTags }) => {
     // <form autoComplete='off'>
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor='demo-controlled-open-select'>Tag</InputLabel>
+        <InputLabel htmlFor="demo-controlled-open-select">Tag</InputLabel>
         <Select
           className={classes.Select}
           open={open}
@@ -58,27 +58,21 @@ const SelectTags = ({ _id, uploadTag, elasticId, tags, onChangeTags }) => {
           name={_id}
           elastic={elasticId}
         >
-          {/* <MenuItem value={tag}>
-            <em>{tag}</em>
-          </MenuItem> */}
-
-          {/* <MenuItem value={tag}>{tag}</MenuItem> */}
-          <MenuItem value={"Haircuts"}>Haircuts</MenuItem>
-          <MenuItem value={"All-Over color"}>All Over Color</MenuItem>
-          <MenuItem value={"Formal styling"}>Formal Styling</MenuItem>
-          <MenuItem value={"Special Occasion hair"}>
+          <MenuItem value={"Haircut"}>Haircut</MenuItem>
+          <MenuItem value={"All-Over Color"}>All-Over Color</MenuItem>
+          <MenuItem value={"Formal Styling"}>Formal Styling</MenuItem>
+          {/* <MenuItem value={"Special Occasion hair"}>
             Special Occasion Hair
-          </MenuItem>
-          <MenuItem value={"Blowouts"}>Blowouts</MenuItem>
-          <MenuItem value={"Deep conditioning treatments"}>
-            Deep conditioning treatments
+          </MenuItem> */}
+          <MenuItem value={"Blowout"}>Blowouts</MenuItem>
+          <MenuItem value={"Deep Conditioning Treatment"}>
+            Deep Conditioning Treatment
           </MenuItem>
           <MenuItem value={"Bridal Makeup"}>Bridal Makeup</MenuItem>
           <MenuItem value={"Social Makeup"}>Social Makeup</MenuItem>
           <MenuItem value={"Photography Makeup"}>Photography Makeup</MenuItem>
           <MenuItem value={"Glam Makeup"}>Glam Makeup</MenuItem>
         </Select>
-        {/* <Button onClick={e => onSubmit(e, tag, _id)}>Send Tags</Button> */}
       </FormControl>
     </div>
   );

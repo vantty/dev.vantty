@@ -280,7 +280,9 @@ exports.createNewBook = async (req, res) => {
       hour: req.body.hour,
       services: req.body.services,
       totalValue: req.body.totals,
-      userId: req.user.id
+      userId: req.user.id,
+      requestDate: req.body.requestDate,
+      timeStamp: req.body.timeStamp
     };
     book.bookings.unshift(newBook);
 
@@ -293,21 +295,6 @@ exports.createNewBook = async (req, res) => {
     if (!service) {
       user.bookings.unshift(req.params.id);
     }
-
-    // else {
-    //   user.bookings.forEach(booki => {
-    //     req.params.id !== booki && user.bookings.unshift(req.params.id);
-    //     log(booki);
-    //   });
-    //   for (const id of user.bookings) {
-    //     req.params.id !== id
-    //     user.bookings.unshift(req.params.id);
-
-    // log("This book-id already exists");
-
-    // } else {
-
-    // }
 
     await user.save();
     await book.save();
@@ -334,27 +321,6 @@ exports.createNewBook = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
-
-// Change State Booking
-// exports.changeStateBooking = async (req, res) => {
-//   log(req.body);
-//   log(req.params.bookingId);
-//   try {
-//     const profile = await Profile.findOne({ user: req.user.id });
-//     const book = await Book.findById(profile.bookId);
-
-//     if (!book) {
-//       return res.status(404).json({ msg: "Review not found" });
-//     }
-//     res.json(book);
-//   } catch (err) {
-//     console.error(err.message);
-//     if (err.kind === "ObjectId") {
-//       return res.status(404).json({ msg: "Review not found" });
-//     }
-//     res.status(500).send("Server Error");
-//   }
-// };
 
 exports.changeStateBooking = async (req, res) => {
   try {

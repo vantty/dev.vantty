@@ -88,8 +88,6 @@ const Review = ({
   //   total: state.cart.total
   // }));
 
-  console.log("Items", items);
-  console.log("profile", profile);
   useEffect(() => {
     initialServices(profile.services);
   }, []);
@@ -112,11 +110,21 @@ const Review = ({
     removeItem(id);
   };
 
+  const subtotal = total;
+  const money = {
+    transFee: subtotal * process.env.REACT_APP_TRANSFER_FEE,
+    total:
+      subtotal *
+      (1 -
+        process.env.REACT_APP_VANTTY_FEE -
+        process.env.REACT_APP_TRANSFER_FEE)
+  };
+
   return (
     <Fragment>
       <Date onChangeDate={onChangeDate} localDate={date} localTime={hour} />
 
-      <Typography variant='h6' gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Service summary
       </Typography>
 
@@ -124,9 +132,9 @@ const Review = ({
         {profile && items ? (
           <Grid
             container
-            direction='row'
-            justify='center'
-            alignItems='center'
+            direction="row"
+            justify="center"
+            alignItems="center"
             spacing={3}
           >
             {items.map(product => (
@@ -140,7 +148,7 @@ const Review = ({
                 </Grid>
                 <Grid item xs={4}>
                   <Typography
-                    variant='body2'
+                    variant="body2"
                     key={product.id}
                     className={classes.paper}
                   >
@@ -186,27 +194,27 @@ const Review = ({
             <br />
             <Grid
               container
-              direction='row'
-              justify='flex-end'
-              alignItems='center'
+              direction="row"
+              justify="flex-end"
+              alignItems="center"
               className={classes.totals}
             >
               <ListItem className={classes.values}>
-                <ListItemText primary='Service' />
-                <Typography variant='subtitle1' className={classes.subtitle}>
-                  ${total}
+                <ListItemText primary="Service" />
+                <Typography variant="subtitle1" className={classes.subtitle}>
+                  ${subtotal.toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem className={classes.values}>
-                <ListItemText primary='Fee' />
-                <Typography variant='subtitle1' className={classes.subtitle}>
-                  ${total * 0.05}
+                <ListItemText primary="Fee" />
+                <Typography variant="subtitle1" className={classes.subtitle}>
+                  ${money.transFee.toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem className={classes.values}>
-                <ListItemText primary='Total' />
-                <Typography variant='subtitle1' className={classes.total}>
-                  ${total + total * 0.05}
+                <ListItemText primary="Total" />
+                <Typography variant="subtitle1" className={classes.total}>
+                  ${money.total.toFixed(2)}
                 </Typography>
               </ListItem>
             </Grid>

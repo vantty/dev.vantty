@@ -69,7 +69,10 @@ const profilePageStyle = theme => ({
   bigAvatar: {
     margin: 10,
     width: 90,
-    height: 90
+    height: 90,
+    fontWeight: "bold",
+    fontSize: "35px",
+    backgroundColor: theme.palette.greenVantty.main
   },
   button: {
     margin: 10,

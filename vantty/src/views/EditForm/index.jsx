@@ -16,7 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 
 import { isOwner } from "../../helpers";
-import { Alert, SimpleAppBar } from "../../components";
+import { Alert, SimpleAppBar, Header } from "../../components";
 import { isMobile } from "react-device-detect";
 import Settings from "../../views/Settings";
 import { Bookings } from "../Form/components";
@@ -61,6 +61,7 @@ const EditForm = ({
   return (
     <Fragment>
       <CssBaseline />
+      <Header />
       {/* <div> {isMobile && <AppBarForm step={null} />}</div> */}
       {isMobile && (
         <SimpleAppBar
@@ -77,7 +78,7 @@ const EditForm = ({
             <Grid container>
               <Hidden xsDown>
                 <Grid item lg={4} md={4} xs={4}>
-                  <Container maxWidth='md'>
+                  <Container maxWidth="md">
                     <Settings match={match} />
                   </Container>
                 </Grid>

@@ -19,17 +19,16 @@ import {
 
 // Actions
 import { sendEmail } from "../../actions/help";
+import { Header } from "../../components";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    // marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
   },
   title: {
-    marginTop: theme.spacing(10),
-    marginBottom: theme.spacing(2)
+    marginTop: theme.spacing(6)
   },
   text: {
     marginBottom: theme.spacing(2)
@@ -70,22 +69,35 @@ const Help = ({ sendEmail }) => {
   };
   const problems = [
     {
-      value: "cancel",
-      text: "I want to cancel an appointment"
+      value: "app-problem",
+      text: "I want to report a problem in the web"
     },
     {
-      value: "app",
-      text: "I want to report a problem"
-    },
-    {
-      value: "artist",
+      value: "artist-problem",
       text: "I want to report an artist"
+    },
+    {
+      value: "apponitment-problem",
+      text: "The artist didn't show up"
+    },
+    {
+      value: "cancel-problem",
+      text: "I can't cancel my booking"
+    },
+    {
+      value: "payment-problem",
+      text: "I have a problem with my payment method"
+    },
+    {
+      value: "charge-problem",
+      text: "My charge is incorrect"
     }
   ];
 
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
+      <Header />
       <div className={classes.paper}>
         <Typography variant="h2" className={classes.title}>
           Help Center

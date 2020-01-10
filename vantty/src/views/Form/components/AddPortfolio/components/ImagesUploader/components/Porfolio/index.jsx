@@ -120,9 +120,7 @@ const Porfolio = ({
                           )
                         }
                       >
-                        {/* {portfolioPictures.length > 5 && ( */}
                         <DeleteForeverOutlinedIcon />
-                        {/* )} */}
                       </IconButton>
                     }
                   />
@@ -135,7 +133,6 @@ const Porfolio = ({
                     onChangeTags={onChangeTags}
                   />
                 )}
-
                 <br />
               </GridListTile>
             ))}

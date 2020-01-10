@@ -53,19 +53,17 @@ const BookSchema = new Schema({
         type: String
       },
       requestDate: {
-        type: Date,
-        default: Date.now
+        type: String
+      },
+      timeStamp: {
+        type: Number
       },
       bookCode: { type: String },
       stripeCustomerId: { type: String },
       stripeCardId: { type: String },
       stripeArtistAccount: { type: String }
     }
-  ],
-  date: {
-    type: Date,
-    default: Date.now
-  }
+  ]
 });
 
 module.exports = Book = mongoose.model("Book", BookSchema);

@@ -62,7 +62,7 @@ export default function Summary({ booking }) {
           <ListItem className={classes.listItem}>
             <ListItemText primary="Subtotal" />
             <Typography variant="subtitle1" className={classes.listItem}>
-              {`$${booking.totalValue}`}
+              {`$${booking.totalValue.toFixed(2)}`}
             </Typography>
           </ListItem>
           {/* <ListItem className={classes.listItem}>
@@ -74,13 +74,13 @@ export default function Summary({ booking }) {
           <ListItem className={classes.listItem}>
             <ListItemText primary="Transaction Fee" />
             <Typography variant="subtitle1" className={classes.listItem}>
-              {`$${money.transFee}`}
+              {`$${money.transFee.toFixed(2)}`}
             </Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
             <ListItemText primary="Total" />
             <Typography variant="subtitle1" className={classes.total}>
-              {`$${money.total}`}
+              {`$${money.total.toFixed(2)}`}
             </Typography>
           </ListItem>
         </List>

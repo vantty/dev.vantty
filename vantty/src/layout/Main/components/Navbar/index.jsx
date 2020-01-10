@@ -20,7 +20,8 @@ import Logo from "../../../../assets/logos/logo.png";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#FFF"
+    backgroundColor: "#FFF",
+    position: "fixed"
   },
   title: {
     flexGrow: 1
@@ -65,7 +66,7 @@ const Navbar = props => {
             </LinkMui>
           </Typography>
           {loading ? (
-            <Progress data-test="progress" />
+            <Progress />
           ) : (
             <Fragment>
               <div className={classes.sectionDesktop}>

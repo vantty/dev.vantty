@@ -23,9 +23,10 @@ const Home = ({ changeNavbarValue }) => {
   useEffect(() => {
     changeNavbarValue("home");
   }, []);
+
   return (
     <Fragment>
-      <div data-testid='home'>
+      <div data-testid="home">
         <CssBaseline />
         <HomeJumbotron />
         <HomeGrid

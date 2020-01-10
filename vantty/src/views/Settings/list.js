@@ -81,11 +81,11 @@ export const pagesGeneral = [
 export const pagesAccount = [
   {
     title: "Terms",
-    href: "/terms-of-service"
+    href: "/terms"
   },
 
   {
     title: "Data Policy",
-    href: "/data-policy"
+    href: "/policy"
   }
 ];
