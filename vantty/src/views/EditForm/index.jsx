@@ -40,6 +40,7 @@ const EditForm = ({
   auth: { user },
   getCurrentProfile,
   Children,
+  children,
   match,
   page,
   title,
@@ -85,6 +86,7 @@ const EditForm = ({
               </Hidden>
               <Grid item lg={8} md={8} xl={8} xs={12} sm={8}>
                 <Fragment>{Children}</Fragment>
+                <Fragment>{children}</Fragment>
               </Grid>
             </Grid>
           </div>

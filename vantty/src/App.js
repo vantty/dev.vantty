@@ -25,8 +25,6 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-// const dotenv = require("dotenv");
-// dotenv.config();
 require("dotenv-flow").config();
 
 const App = () => {

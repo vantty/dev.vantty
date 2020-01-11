@@ -1,4 +1,3 @@
-// require("dotenv").config();
 require("dotenv-flow").config();
 const express = require("express"),
   mongoose = require("mongoose"),

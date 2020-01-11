@@ -136,7 +136,7 @@ const Price = ({
         Children={
           <Fragment>
             {profile ? (
-              <form autoComplete='off' noValidate>
+              <form autoComplete="off" noValidate>
                 {/* <Divider /> */}
 
                 <StartService price={price} handleChange={handleChange} />
@@ -153,7 +153,7 @@ const Price = ({
 
                 <CardHeader
                   // subheader='from what value do your services start'
-                  title='Services'
+                  title="Services"
                 />
                 <ServiceCard
                   services={profile.services}
@@ -168,9 +168,9 @@ const Price = ({
                     <CardActions>
                       <Grid
                         container
-                        direction='row'
-                        justify='flex-end'
-                        alignItems='flex-start'
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="flex-start"
                       >
                         <Button
                           className={classes.button}
@@ -198,12 +198,12 @@ const Price = ({
                 <div>
                   {match.url === "/price" ? (
                     <Fragment>
-                      <Button component={Link} to='/settings/profile'>
+                      <Button component={Link} to="/settings/profile">
                         Back
                       </Button>
                       <Button
                         component={Link}
-                        to='/settings/profile'
+                        to="/settings/profile"
                         className={classes.button}
                         onClick={e => onSubmitAvailability(e)}
                       >
@@ -235,7 +235,7 @@ const Price = ({
               <div>
                 <div>
                   <Fragment>
-                    <Button component={Link} to='/settings'>
+                    <Button component={Link} to="/settings">
                       Back
                     </Button>
                     <Button
