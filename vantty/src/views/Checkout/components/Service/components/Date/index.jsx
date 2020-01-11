@@ -1,5 +1,5 @@
 import "date-fns";
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -8,7 +8,14 @@ import {
   KeyboardDatePicker
 } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import {
+  Typography,
+  InputLabel,
+  MenuItem,
+  Select,
+  Button
+} from "@material-ui/core";
+import { hours } from "./seedHours";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,6 +23,9 @@ const useStyles = makeStyles(theme => ({
   },
   margin: {
     // margin: "1rem"
+  },
+  select: {
+    width: "100%"
   }
 }));
 
@@ -31,38 +41,45 @@ export default function MaterialUIPickers({
   const [selectedDate, setSelectedDate] = React.useState({
     date: new Date()
   });
-  const [selectedHour, setSelectedHour] = React.useState({
-    hour: new Date().toLocaleDateString()
-  });
+  // const [selectedHour, setSelectedHour] = React.useState({});
   const { date } = selectedDate;
-  const { hour } = selectedHour;
+  // const { hour } = selectedHour;
 
   const handleDateChange = (e, date) => {
     setSelectedDate({ date });
     onChangeDate({ date });
   };
 
-  const handleDateChangeHour = hour => {
-    setSelectedHour({ hour });
+  // const handleDateChangeHour = hour => {
+  //   setSelectedHour({ hour });
+  //   onChangeDate({ hour });
+  // };
+
+  const [formData, setFormData] = useState({
+    hour: "12:00"
+  });
+  const { hour } = formData;
+  const handleChange = event => {
+    setFormData({ [event.target.name]: event.target.value });
     onChangeDate({ hour });
   };
 
   return (
     <form className={classes.root} noValidate>
-      <Typography variant='h6' gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Date
       </Typography>
-      <Grid container direction='row' justify='center' alignItems='center'>
+      <Grid container direction="row" justify="center" alignItems="center">
         <Grid item sm={6}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
-              variant='inline'
-              format='MM/dd/yyyy'
-              margin='normal'
-              id='date'
-              label='Date '
-              name='date'
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date"
+              label="Date"
+              name="date"
               value={localDate || date}
               onChange={handleDateChange}
               KeyboardButtonProps={{
@@ -72,24 +89,35 @@ export default function MaterialUIPickers({
           </MuiPickersUtilsProvider>
         </Grid>
         <Grid item sm={6}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
-              margin='normal'
-              variant='inline'
-              id='time'
-              label='Time'
-              name='hour'
-              value={localTime || hour}
+              margin="normal"
+              variant="inline"
+              id="time"
+              label="Time"
+              name="hour"
+              value={selectedHour}
               onChange={handleDateChangeHour}
               KeyboardButtonProps={{
                 "aria-label": "change time"
               }}
             />
-          </MuiPickersUtilsProvider>
+          </MuiPickersUtilsProvider> */}
+          <InputLabel>Hour</InputLabel>
+          <Select
+            className={classes.select}
+            value={hour}
+            name="hour"
+            onChange={handleChange}
+          >
+            {hours.map(hour => (
+              <MenuItem value={hour.value} key={hour.value}>
+                {hour.value}
+              </MenuItem>
+            ))}
+          </Select>
         </Grid>
       </Grid>
-
-      <br />
     </form>
   );
 }

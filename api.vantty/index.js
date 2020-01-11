@@ -1,4 +1,5 @@
-require("dotenv").config();
+// require("dotenv").config();
+require("dotenv-flow").config();
 const express = require("express"),
   mongoose = require("mongoose"),
   expressValidator = require("express-validator"),
@@ -10,8 +11,7 @@ const express = require("express"),
 // Connect Database
 const connectDB = async () => {
   try {
-    // await mongoose.connect(process.env.MONGODB_URI, {
-    await mongoose.connect(process.env.MONGODB_URI_LOCAL, {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
@@ -46,7 +46,6 @@ app.use(morgan("dev"));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
 app.use(cors(corsOptions));
-// app.use(cors("*"));
 app.use(formData.parse());
 
 // Routes
