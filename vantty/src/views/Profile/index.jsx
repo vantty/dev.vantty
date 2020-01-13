@@ -113,7 +113,7 @@ const Profile = ({
                 owner={
                   isOwner(auth, user && user._id) === true &&
                   profile &&
-                  profile.user._id === auth.user._id &&
+                  profile.user === auth.user._id &&
                   isMobile &&
                   "/settings"
                 }
@@ -122,7 +122,7 @@ const Profile = ({
           ) : (
             <Progress className={classes.progress} />
           )}
-          <Container maxWidth='md'>
+          <Container maxWidth="md">
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}
@@ -134,7 +134,7 @@ const Profile = ({
                 <Fragment>
                   {isOwner(auth, user && user._id) === true &&
                     profile &&
-                    profile.user._id === auth.user._id &&
+                    profile.user === auth.user._id &&
                     profile.mobileNumber &&
                     !profile.verified && <MessageVerified profile={profile} />}
                   <Grid item xs={12} md={8} sm={10}>
@@ -164,13 +164,13 @@ const Profile = ({
                         <Slider
                           profile={profile}
                           verified={profile.verified}
-                          disabled={user && user._id === profile.user._id}
+                          disabled={user && user._id === profile.user}
                           user={user}
                           // onChange={onChange}
                           loadService={loadService}
                           onChangeDate={onChangeDate}
                           state={state}
-                          owner={isOwner(auth, profile.user._id)}
+                          owner={isOwner(auth, profile.user)}
                         />
                       </div>
                     </Grid>
@@ -203,7 +203,7 @@ const Profile = ({
             (!loading &&
               auth.isAuthenticated &&
               auth.loading === false &&
-              auth.user._id === profile.user._id) ? (
+              auth.user._id === profile.user) ? (
               isMobile ? (
                 <BottomNavbar />
               ) : null

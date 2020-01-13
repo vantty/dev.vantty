@@ -12,13 +12,11 @@ import {
   SERVICE_SUCCESS
 } from "./types";
 import { updatePropertiesAppbase } from "../helpers";
-const log = console.log;
+
 // Get current users profile
 export const getCurrentProfile = (owner = true) => async dispatch => {
-  !owner && dispatch({ type: CLEAR_PROFILE });
   try {
-    // dispatch({ type: GET_PROFILE });
-    // await dispatch(loadUser());
+    !owner && (await dispatch({ type: CLEAR_PROFILE }));
     const res = await server.get("/profile/me");
     await dispatch({
       type: GET_PROFILE,
@@ -32,14 +30,15 @@ export const getCurrentProfile = (owner = true) => async dispatch => {
   }
 };
 
-// Get all profiles
-export const getProfiles = () => async dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
+// Get profile by ID
+export const getProfileById = userId => async dispatch => {
   try {
-    const res = await server.get("/profile");
-
-    dispatch({
-      type: GET_PROFILES,
+    await dispatch({
+      type: CLEAR_PROFILE
+    });
+    const res = await server.get(`/profile/${userId}`);
+    await dispatch({
+      type: GET_PROFILE,
       payload: res.data
     });
   } catch (err) {
@@ -50,16 +49,16 @@ export const getProfiles = () => async dispatch => {
   }
 };
 
-// Get profile by ID
-export const getProfileById = userId => async dispatch => {
-  await dispatch({
-    type: CLEAR_PROFILE
-  });
-  // await dispatch(loadUser());
+// // Get all profiles
+export const getProfiles = () => async dispatch => {
   try {
-    const res = await server.get(`/profile/artist/${userId}`);
     await dispatch({
-      type: GET_PROFILE,
+      type: CLEAR_PROFILE
+    });
+    const res = await server.get("/profile");
+
+    dispatch({
+      type: GET_PROFILES,
       payload: res.data
     });
   } catch (err) {

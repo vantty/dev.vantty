@@ -5,9 +5,7 @@ const create = async userId => {
   const newReview = new Review({
     user: userId
   });
-
   const review = await newReview.save();
-
   return review;
 };
 

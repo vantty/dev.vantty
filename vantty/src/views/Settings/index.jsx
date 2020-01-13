@@ -5,11 +5,7 @@ import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 // Actions
-import {
-  getProfileById,
-  getCurrentProfile,
-  deleteAccount
-} from "../../actions/profile";
+import { getProfileById, deleteAccount } from "../../actions/profile";
 import { loadUser, logout } from "../../actions/auth";
 
 // Helpers
@@ -25,7 +21,6 @@ import { Hidden, CssBaseline } from "@material-ui/core";
 
 const Settings = ({
   match,
-  getCurrentProfile,
   profile: { profile, loading },
   loadUser,
   logout,
@@ -54,7 +49,7 @@ const Settings = ({
           history={history}
           path={
             user && user.profile && profile
-              ? `/profile/artist/${profile.user._id}`
+              ? `/profile/artist/${profile.user}`
               : "/search"
           }
         />
@@ -113,7 +108,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   getProfileById,
-  getCurrentProfile,
   loadUser,
   logout,
   deleteAccount

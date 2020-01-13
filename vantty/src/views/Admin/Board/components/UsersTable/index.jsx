@@ -23,7 +23,7 @@ import {
 } from "@material-ui/core";
 import Sms from "@material-ui/icons/SmsOutlined";
 import {
-  getProfiles,
+  // getProfiles,
   verifiedProfile,
   deleteProfileAndUserDashboard
 } from "../../../../../actions/profile";
@@ -73,7 +73,7 @@ const UsersTable = props => {
     history,
     formData,
     deleteProfileAndUserDashboard,
-    getProfiles,
+    // getProfiles,
     verifiedProfile,
     ...rest
   } = props;
@@ -149,10 +149,10 @@ const UsersTable = props => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding='checkbox'>
+                <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedUsers.length === users.length}
-                    color='primary'
+                    color="primary"
                     indeterminate={
                       selectedUsers.length > 0 &&
                       selectedUsers.length < users.length
@@ -178,12 +178,12 @@ const UsersTable = props => {
                   key={user._id}
                   selected={selectedUsers.indexOf(user._id) !== -1}
                 >
-                  <TableCell padding='checkbox'>
+                  <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedUsers.indexOf(user._id) !== -1}
-                      color='primary'
+                      color="primary"
                       onChange={event => handleSelectOne(event, user._id)}
-                      value='true'
+                      value="true"
                     />
                   </TableCell>
                   <TableCell className={classes.tableCell}>
@@ -194,7 +194,7 @@ const UsersTable = props => {
                       >
                         {/* {getInitials(user.name)} */}
                       </Avatar>
-                      <Typography variant='body1'>
+                      <Typography variant="body1">
                         {user.name.firstName}
                       </Typography>
                     </div>
@@ -204,12 +204,12 @@ const UsersTable = props => {
                     {
                       <div>
                         <a
-                          target='#'
+                          target="#"
                           href={`https://api.whatsapp.com/send?phone=${user.mobileNumber}&text=Hola!`}
                         >
                           <IconButton
                             className={classes.button}
-                            aria-label='delete'
+                            aria-label="delete"
                             style={{ color: "#25D366" }}
                           >
                             <Sms />
@@ -240,7 +240,7 @@ const UsersTable = props => {
                         //   target='_blank'
                         // >
                         href={`https://vantty.ca/profile/artist/${user.user._id}`}
-                        target='_blank'
+                        target="_blank"
                       >
                         Profile
                       </Link>
@@ -249,9 +249,9 @@ const UsersTable = props => {
                   <TableCell className={classes.tableCell}>
                     {
                       <Button
-                        size='small'
-                        variant='contained'
-                        color='secondary'
+                        size="small"
+                        variant="contained"
+                        color="secondary"
                         // onChange={event => handleSelectOne(event, user._id)}
                         // onChange={event =>
                         //   handleSelectVerified(event, user._id)
@@ -269,7 +269,7 @@ const UsersTable = props => {
 
                     {
                       <Button
-                        size='small'
+                        size="small"
                         disabled={false}
                         onClick={e => onSubmit(e, false, user.user._id)}
                       >
@@ -286,9 +286,9 @@ const UsersTable = props => {
                   <TableCell>
                     {
                       <Button
-                        size='small'
+                        size="small"
                         // variant='contained'
-                        color='secondary'
+                        color="secondary"
                         // disabled={verifyButton}
                         onClick={e => deleteUsers(e, user.elasticId, user._id)}
                       >
@@ -305,7 +305,7 @@ const UsersTable = props => {
       </CardContent>
       <CardActions className={classes.actions}>
         <TablePagination
-          component='div'
+          component="div"
           count={users.length}
           onChangePage={handlePageChange}
           onChangeRowsPerPage={handleRowsPerPageChange}
@@ -325,7 +325,7 @@ const UsersTable = props => {
 
 // export default UsersTable;
 UsersTable.propTypes = {
-  getProfiles: PropTypes.func.isRequired,
+  // getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   className: PropTypes.string,
   profiles: PropTypes.array.isRequired,
@@ -336,7 +336,7 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { verifiedProfile, deleteProfileAndUserDashboard, getProfiles }
-)(UsersTable);
+export default connect(mapStateToProps, {
+  verifiedProfile,
+  deleteProfileAndUserDashboard
+})(UsersTable);

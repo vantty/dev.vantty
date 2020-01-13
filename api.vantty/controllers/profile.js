@@ -2,74 +2,55 @@ const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
-
 const profileService = require("../services/profile");
-// Current User
-exports.current = async (req, res) => {
-  try {
-    // var method = "";
-    const profile = await Profile.findOne({ user: req.user.id }).populate(
-      "user",
-      // ["local.firstName"]
-      [`${req.user.method}.firstName`, `${req.user.method}.lastName`]
-    );
 
-    if (!profile) {
-      return res.status(400).json({ msg: "There is no profile for this user" });
-    }
-    res.json(profile);
+// Get Current Profile By User Id
+exports.getByUser = async (req, res) => {
+  try {
+    const {
+      user: { id }
+    } = req;
+    const result = await profileService.getById(id);
+    res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
 
-// Create or update profile
-exports.createANDupdate = async (req, res) => {
+// Get Profile By Id
+exports.getById = async (req, res) => {
+  try {
+    const {
+      params: { id }
+    } = req;
+    const result = await profileService.getById(id);
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Get All Profiles
+exports.getAll = async (req, res) => {
+  try {
+    const result = await profileService.getAll();
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Create and Update Profile
+exports.createAndUpdate = async (req, res) => {
   try {
     const { body: profile, user } = req;
-
     const result = await profileService.save(profile, user);
-
-    res.status(201).json(result);
+    res.status(201).send(result);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
-// Get all profiles
-exports.allProfiles = async (req, res) => {
-  try {
-    const profiles = await Profile.find().populate("user", [
-      "local.firstName" || "google.firstName" || "facebook.firstName",
-      "local.lastName" || "google.lastName" || "facebook.lastName"
-    ]);
-
-    res.json(profiles);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error 1");
-  }
-};
-
-// Get profile by Id
-exports.profileById = async (req, res) => {
-  try {
-    const profile = await Profile.findOne({
-      user: req.params.user_id
-    }).populate("user", [
-      "local.firstName" || "google.firstName" || "facebook.firstName",
-      "local.lastName" || "google.lastName" || "facebook.lastName"
-    ]);
-    if (!profile) return res.status(400).json({ msg: "Profile not found" });
-
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind == "ObjectId") {
-      return res.status(400).json({ msg: "Profile not found" });
-    }
     res.status(500).send("Server Error");
   }
 };

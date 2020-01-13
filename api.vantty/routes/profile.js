@@ -9,10 +9,10 @@ const {
 } = require("../helpers");
 
 const {
-  current,
-  createANDupdate,
-  allProfiles,
-  profileById,
+  getByUser,
+  getById,
+  getAll,
+  createAndUpdate,
   deleteUserAndReviews,
   addCategories,
   deleteEducation,
@@ -28,21 +28,13 @@ const {
   deleteService
 } = require("../controllers/profile");
 
-// @desc     Get current users profile
-// @access   Private
-router.get("/me", passportJWT, current);
+router.get("/me", passportJWT, getByUser);
+router.get("/:id", getById);
+router.get("/", getAll);
 
 // @desc     Create or update user profile
 // @access   Private
-router.post("/", passportJWT, profileValidator, createANDupdate);
-
-// @desc     Get all profiles
-// @access   Public
-router.get("/", allProfiles);
-
-// @desc     Get profile by user ID
-// @access   Public
-router.get("/artist/:user_id", profileById);
+router.post("/", passportJWT, profileValidator, createAndUpdate);
 
 // @desc     Delete profile, user & posts
 // @access   Private
