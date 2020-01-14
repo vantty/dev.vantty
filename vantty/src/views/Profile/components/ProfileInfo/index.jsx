@@ -78,7 +78,7 @@ const ProfileInfo = ({
               <Grid>
                 <Fragment>
                   {isOwner(auth, user._id) === true &&
-                    user._id === auth.user._id &&
+                    user === auth.user._id &&
                     !isMobile && (
                       <Button
                         component={Link}

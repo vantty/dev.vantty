@@ -23,7 +23,7 @@ import {
 } from "@material-ui/core";
 import Sms from "@material-ui/icons/SmsOutlined";
 import {
-  // getProfiles,
+  getProfiles,
   verifiedProfile,
   deleteProfileAndUserDashboard
 } from "../../../../../actions/profile";
@@ -73,14 +73,20 @@ const UsersTable = props => {
     history,
     formData,
     deleteProfileAndUserDashboard,
-    // getProfiles,
+    getProfiles,
     verifiedProfile,
     ...rest
   } = props;
 
   useEffect(() => {
-    // getProfiles();
+    getProfiles();
   }, []);
+  const [verifyButton, setVerifyButton] = useState({});
+  const [users] = useState(profiles);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+
   const onSubmit = (e, value, id) => {
     e.preventDefault();
 
@@ -91,13 +97,6 @@ const UsersTable = props => {
     e.preventDefault();
     deleteProfileAndUserDashboard({ elasticId, id });
   };
-
-  const [users] = useState(profiles);
-  const [selectedUsers, setSelectedUsers] = useState([]);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [page, setPage] = useState(0);
-  const [verifyButton, setVerifyButton] = useState({});
-
   //Selects
   const handleSelectAll = event => {
     const { users } = props;
@@ -182,7 +181,7 @@ const UsersTable = props => {
                     <Checkbox
                       checked={selectedUsers.indexOf(user._id) !== -1}
                       color="primary"
-                      onChange={event => handleSelectOne(event, user._id)}
+                      onChange={event => handleSelectOne(event, user.user)}
                       value="true"
                     />
                   </TableCell>
@@ -239,7 +238,7 @@ const UsersTable = props => {
                         //   href={`${process.env.REACT_APP_PATH}/profile/artist/${user.user._id}`}
                         //   target='_blank'
                         // >
-                        href={`https://vantty.ca/profile/artist/${user.user._id}`}
+                        href={`https://vantty.ca/profile/artist/${user.user}`}
                         target="_blank"
                       >
                         Profile
@@ -257,26 +256,28 @@ const UsersTable = props => {
                         //   handleSelectVerified(event, user._id)
                         // }
                         disabled={
-                          verifyButton[user.user._id] !== undefined
-                            ? verifyButton[user.user._id]
+                          verifyButton[user.user] !== undefined
+                            ? verifyButton[user.user]
                             : user.verified
                         }
-                        onClick={e => onSubmit(e, true, user.user._id)}
+                        onClick={e => onSubmit(e, true, user.user)}
                       >
                         Verify
                       </Button>
                     }
-
                     {
                       <Button
                         size="small"
-                        disabled={false}
-                        onClick={e => onSubmit(e, false, user.user._id)}
+                        disabled={
+                          verifyButton[user.user] !== undefined
+                            ? !verifyButton[user.user]
+                            : !user.verified
+                        }
+                        onClick={e => onSubmit(e, false, user.user)}
                       >
                         Block
                       </Button>
                     }
-                    {console.log(user.verified)}
                   </TableCell>
                   <TableCell>{user.date},</TableCell>
 
@@ -290,7 +291,7 @@ const UsersTable = props => {
                         // variant='contained'
                         color="secondary"
                         // disabled={verifyButton}
-                        onClick={e => deleteUsers(e, user.elasticId, user._id)}
+                        onClick={e => deleteUsers(e, user.elasticId, user.user)}
                       >
                         Delete
                       </Button>
@@ -325,7 +326,7 @@ const UsersTable = props => {
 
 // export default UsersTable;
 UsersTable.propTypes = {
-  // getProfiles: PropTypes.func.isRequired,
+  getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   className: PropTypes.string,
   profiles: PropTypes.array.isRequired,
@@ -338,5 +339,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   verifiedProfile,
-  deleteProfileAndUserDashboard
+  deleteProfileAndUserDashboard,
+  getProfiles
 })(UsersTable);

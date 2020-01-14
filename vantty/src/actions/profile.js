@@ -221,7 +221,6 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = elastidId => async dispatch => {
   if (window.confirm("Are you sure?")) {
     try {
-      // await deleteFromElastic(elastidId);
       await server.delete("/profile");
 
       dispatch({ type: CLEAR_PROFILE });
