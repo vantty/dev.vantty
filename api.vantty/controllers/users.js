@@ -5,7 +5,6 @@ const Image = require("../models/Image");
 const Book = require("../models/Book");
 const userService = require("../services/user");
 
-// DELETE profile
 exports.deleteAccount = async (req, res) => {
   try {
     const {

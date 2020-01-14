@@ -13,7 +13,6 @@ const {
   getById,
   getAll,
   createAndUpdate,
-  deleteUserAndReviews,
   addCategories,
   deleteEducation,
   addPortfolio,
@@ -31,14 +30,7 @@ const {
 router.get("/me", passportJWT, getByUser);
 router.get("/:id", getById);
 router.get("/", getAll);
-
-// @desc     Create or update user profile
-// @access   Private
 router.post("/", passportJWT, profileValidator, createAndUpdate);
-
-// @desc     Delete profile, user & posts
-// @access   Private
-router.delete("/", passportJWT, deleteUserAndReviews);
 
 // @route    PUT api/profile/education
 // @desc     Add profile education

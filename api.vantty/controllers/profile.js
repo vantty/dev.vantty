@@ -55,23 +55,6 @@ exports.createAndUpdate = async (req, res) => {
   }
 };
 
-// DELETE profile
-exports.deleteUserAndReviews = async (req, res) => {
-  try {
-    // Remove user review
-    await Review.deleteMany({ user: req.user.id });
-    // Remove profile
-    await Profile.findOneAndRemove({ user: req.user.id });
-    // Remove user
-    await User.findOneAndRemove({ _id: req.user.id });
-
-    res.json({ msg: "User deleted" });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error 1");
-  }
-};
-
 // Add Categories
 exports.addCategories = async (req, res) => {
   const make = req.body.stateMakeup;
