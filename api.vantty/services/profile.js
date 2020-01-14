@@ -89,19 +89,14 @@ const save = async (data, user) => {
   if (log) profileFields.address.log = log;
   if (lat) profileFields.address.lat = lat;
 
-  if (place) {
-    profileFields.place = place;
-  }
+  profileFields.place = place;
 
-  if (delivery) {
-    profileFields.delivery = delivery || false;
-  }
+  profileFields.delivery = delivery;
+
   // Build social object
   profileFields.social = {};
   if (youtube) profileFields.social.youtube = youtube;
   if (instagram) profileFields.social.instagram = instagram;
-  console.log("delivery body", delivery);
-  console.log("delivery", profileFields.delivery);
 
   let profile = await Profile.findOne({ user: user.id });
 

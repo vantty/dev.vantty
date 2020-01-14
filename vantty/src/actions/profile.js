@@ -13,6 +13,7 @@ import {
 } from "./types";
 import { updatePropertiesAppbase } from "../helpers";
 const log = console.log;
+
 // Get current users profile
 export const getCurrentProfile = (owner = true) => async dispatch => {
   !owner && dispatch({ type: CLEAR_PROFILE });
@@ -93,6 +94,7 @@ export const createProfile = (
       const { user, price } = res.data;
       await updatePropertiesAppbase(user, "price", price);
     }
+
     // console.log("FORMDATA", formData);
     // if (formData.profilePicture) {
     //   const { user, profilePicture } = res.data;

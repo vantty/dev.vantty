@@ -22,8 +22,22 @@ import {
 
 // Components
 import { Date } from "./components";
+import {
+  ListItemSecondaryAction,
+  Button,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Fab
+} from "@material-ui/core";
+import { type } from "os";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    paddingRight: "0rem" + "!important"
+  },
+
   listItem: {
     padding: theme.spacing(1, 0)
   },
@@ -64,6 +78,69 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(),
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  "@global": {
+    ul: {
+      margin: 0,
+      padding: 0
+    },
+    li: {
+      listStyle: "none"
+    }
+  },
+  appBar: {
+    borderBottom: `1px solid ${theme.palette.divider}`
+  },
+  card: {
+    margin: "1rem"
+  },
+  toolbar: {
+    flexWrap: "wrap"
+  },
+  toolbarTitle: {
+    flexGrow: 1
+  },
+  button: {
+    backgroundColor: theme.palette.greenVantty.main,
+    width: "1rem",
+    height: "1rem",
+    // padding: "0px",
+    paddingRight: "0rem",
+    paddingLeft: "0rem",
+    fontSize: "0.3rem"
+    // alignItems: "center"
+  },
+  generalButton: {
+    padding: "0px"
+  },
+  link: {
+    margin: theme.spacing(1, 1.5)
+  },
+  heroContent: {
+    padding: theme.spacing(8, 0, 6)
+  },
+  cardHeader: {
+    backgroundColor:
+      theme.palette.type === "dark"
+        ? theme.palette.grey[700]
+        : theme.palette.grey[200]
+  },
+  cardPricing: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "baseline",
+    marginBottom: theme.spacing(2)
+  },
+  newButton: {
+    minHeight: "24px" + "!important",
+    width: "2rem",
+    height: "2rem",
+    backgroundColor: theme.palette.greenVantty.main
+  },
+  newButtonSubstract: {
+    minHeight: "24px" + "!important",
+    width: "2rem",
+    height: "2rem"
   }
 }));
 
@@ -113,42 +190,48 @@ const Review = ({
   const subtotal = total;
   const money = {
     transFee: subtotal * process.env.REACT_APP_TRANSFER_FEE,
-    total:
-      subtotal *
-      (1 -
-        process.env.REACT_APP_VANTTY_FEE -
-        process.env.REACT_APP_TRANSFER_FEE)
+    total: subtotal + subtotal * process.env.REACT_APP_TRANSFER_FEE
+    // (1 -
+    //   process.env.REACT_APP_VANTTY_FEE -
+    //   process.env.REACT_APP_TRANSFER_FEE)
   };
 
   return (
     <Fragment>
       <Date onChangeDate={onChangeDate} localDate={date} localTime={hour} />
+      <br />
 
-      <Typography variant="h6" gutterBottom>
+      <Typography variant='h6' gutterBottom>
         Service summary
       </Typography>
 
-      <List disablePadding>
+      <List>
         {profile && items ? (
           <Grid
             container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={3}
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+            // spacing={3}
           >
             {items.map(product => (
               <ListItem className={classes.listItem} key={product._id}>
-                <Grid item xs={4}>
+                {/* <Grid
+                  container
+                  direction='row'
+                  justify='space-between'
+                  alignItems='center'
+                > */}
+                <Grid item xs={6}>
+                  {" "}
                   <ListItemText
-                    className={classes.paper}
-                    primary={product.typeOfServices}
+                    primary={product.typeOfService}
                     secondary={product.description}
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <Typography
-                    variant="body2"
+                    variant='body1'
                     key={product.id}
                     className={classes.paper}
                   >
@@ -158,8 +241,10 @@ const Review = ({
 
                 <Grid item xs={4}>
                   <span>
-                    <button
-                      className={classes.button}
+                    {/* <Button
+                      className={classes.generalButton}
+                      variant='outlined'
+                      size='small'
                       disabled={
                         (product.quantity === 0 && true) ||
                         (product.quantity === undefined && true)
@@ -168,14 +253,26 @@ const Review = ({
                       key={product._id}
                     >
                       <RemoveIcon className={classes.icon} />
-                    </button>
-                    {/* <div className={classes.margin}> */}
-                    {/* <Typography gutterBottom variant='h6'> */}
+                    </Button> */}
+                    <Fab
+                      disabled={
+                        (product.quantity === 0 && true) ||
+                        (product.quantity === undefined && true)
+                      }
+                      onClick={() => handleSubtractQuantity(product._id)}
+                      key={product._id}
+                      color='primary'
+                      aria-label='add'
+                      className={classes.newButtonSubstract}
+                    >
+                      <RemoveIcon className={classes.icon} />
+                    </Fab>
                     <span className={classes.margin}>{product.quantity}</span>
-                    {/* </Typography> */}
-                    {/* </div> */}
-                    <button
+                    {/* <Button
                       disabled={product.quantity === 3 && true}
+                      variant='outlined'
+                      className={classes.button}
+                      size='small'
                       onClick={() =>
                         !product.quantity
                           ? handleAddToCart(product._id)
@@ -184,9 +281,24 @@ const Review = ({
                       key={product.id}
                     >
                       <AddIcon className={classes.icon} />
-                    </button>
+                    </Button> */}
+                    <Fab
+                      disabled={product.quantity === 3 && true}
+                      onClick={() =>
+                        !product.quantity
+                          ? handleAddToCart(product._id)
+                          : handleAddQuantity(product._id)
+                      }
+                      key={product.id}
+                      color='primary'
+                      aria-label='add'
+                      className={classes.newButton}
+                    >
+                      <AddIcon />
+                    </Fab>
                   </span>
                 </Grid>
+                {/* </Grid> */}
               </ListItem>
             ))}
 
@@ -194,26 +306,26 @@ const Review = ({
             <br />
             <Grid
               container
-              direction="row"
-              justify="flex-end"
-              alignItems="center"
+              direction='row'
+              justify='flex-end'
+              alignItems='center'
               className={classes.totals}
             >
               <ListItem className={classes.values}>
-                <ListItemText primary="Service" />
-                <Typography variant="subtitle1" className={classes.subtitle}>
+                <ListItemText primary='Service' />
+                <Typography variant='subtitle1' className={classes.subtitle}>
                   ${subtotal.toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem className={classes.values}>
-                <ListItemText primary="Fee" />
-                <Typography variant="subtitle1" className={classes.subtitle}>
+                <ListItemText primary='Fee' />
+                <Typography variant='subtitle1' className={classes.subtitle}>
                   ${money.transFee.toFixed(2)}
                 </Typography>
               </ListItem>
               <ListItem className={classes.values}>
-                <ListItemText primary="Total" />
-                <Typography variant="subtitle1" className={classes.total}>
+                <ListItemText primary='Total' />
+                <Typography variant='subtitle1' className={classes.total}>
                   ${money.total.toFixed(2)}
                 </Typography>
               </ListItem>

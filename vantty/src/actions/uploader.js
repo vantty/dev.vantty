@@ -128,7 +128,6 @@ export const uploadImages = e => async dispatch => {
       await dispatch(getCurrentProfile());
 
       const resImages = await server.get("/images");
-      console.log("RES IMAGES", resImages);
       const resProfile = await server.get("/profile/me");
       const data = elasticData(resImages.data, resProfile);
       await loadToElastic(data, resProfile.data.imagesId);
@@ -206,6 +205,7 @@ export const userImage = (e, id, profile, cloudId) => async dispatch => {
         await updatePropertiesAppbase(id, "profilePicture", sendImage.original);
         cloudId && (await dispatch(deleteImages(cloudId)));
       }
+      console.log(profile);
       profile &&
         (await dispatch(
           createProfile({ profilePicture: sendImage.original }, undefined, true)

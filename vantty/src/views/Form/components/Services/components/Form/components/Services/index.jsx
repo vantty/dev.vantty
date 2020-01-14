@@ -52,6 +52,12 @@ const useStyles = makeStyles(theme => ({
     padding: "0.3rem",
     // margin: theme.spacing(1),
     fontSize: "0.6rem"
+  },
+  description: {
+    padding: "0.3rem",
+    maxWidth: "420px",
+    // margin: theme.spacing(1),
+    fontSize: "0.6rem"
   }
 }));
 
@@ -101,8 +107,7 @@ const Services = ({
   }
 
   NumberFormatCustom.propTypes = {
-    inputRef: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired
+    inputRef: PropTypes.func.isRequired
   };
 
   //errors
@@ -163,6 +168,7 @@ const Services = ({
       <div className={classes.root}>
         <br />
         <Typography>Add a Service</Typography>
+
         <Grid container direction='row' justify='center' alignItems='center'>
           <Grid item md={5} xs={5}>
             <FormControl>
@@ -212,29 +218,33 @@ const Services = ({
               // onChange={handleChange("amount")}
             />
           </Grid>
-          {/* <Grid item md={12} xs={12}>
-              <TextField
-                fullWidth
-                label='Description'
-                margin='dense'
-                name='description'
-                required
-                type='text'
-                multiline
-                rows='3'
-                variant='outlined'
-                autoComplete='description'
-                error={hasError("description")}
-                helperText={
-                  hasError("description")
-                    ? formState.errors.description[0]
-                    : null
-                }
-                value={formState.values.description || serviceData.description}
-                onChange={handleChange}
-              />
-            </Grid> */}
-          <Grid item md={2} xs={2}>
+          <Grid item md={10} xs={10}>
+            <TextField
+              fullWidth
+              className={classes.description}
+              label='Description'
+              margin='dense'
+              name='description'
+              required
+              type='text'
+              multiline
+              rows='3'
+              variant='outlined'
+              autoComplete='description'
+              error={hasError("description")}
+              helperText={
+                hasError("description") ? formState.errors.description[0] : null
+              }
+              value={formState.values.description || serviceData.description}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid
+            container
+            direction='row'
+            justify='flex-end'
+            alignItems='flex-start'
+          >
             <Button
               className={classes.textField}
               onClick={e => onSubmitPrice(e)}
@@ -242,7 +252,7 @@ const Services = ({
               size='small'
               aria-label='small outlined'
               color='primary'
-              disabled={!formState.isValid}
+              disabled={!formState.isValid || !formState.values.description}
             >
               Add Service
             </Button>

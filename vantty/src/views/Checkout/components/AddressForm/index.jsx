@@ -7,16 +7,40 @@ import {
   Checkbox,
   MenuItem,
   FormControl,
-  Select
+  Select,
+  FormLabel,
+  RadioGroup,
+  Radio,
+  CardMedia,
+  Card,
+  Paper,
+  ButtonBase,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  IconButton
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { GoogleMapsAutocomplete } from "../../../../components";
 const log = console.log;
 
 const useStyles = makeStyles(theme => ({
+  // formControl: {
+  //   margin: theme.spacing(1),
+  //   minWidth: 200
+  // },
+  media: {
+    height: 0,
+    paddingTop: "30%" // 16:9
+  },
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: 200
+    marginTop: theme.spacing(1),
+    width: "100%"
+  },
+  table: {
+    width: "100%"
   }
 }));
 
@@ -26,73 +50,109 @@ export default function AddressForm({
   onChangeAddress,
   descriptionAddress,
   onChange,
-  profile: { delivery, place }
+  location,
+  setLocation,
+  siteArtist,
+  toHome,
+  handleChange,
+  profile: { delivery, place, address }
 }) {
   const classes = useStyles();
 
-  const [location, setLocation] = useState("");
-
-  const handleChange = event => {
-    setLocation(event.target.value);
+  // const handleChange = event => {
+  //   setLocation(event.target.value);
+  // };
+  const replace = str => {
+    const newString = str.replace(/ /g, "+");
+    return newString;
   };
-
   return (
     <Fragment>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Typography variant='h6' gutterBottom>
-            Place of the service
-          </Typography>
-          {/* <FormControl className={classes.formControl}>
-            <Select value={location} onChange={handleChange}>
-              <MenuItem value={"artistLocation"}>Artist Location</MenuItem>
-              <MenuItem value={"userLocation"}>
-                A location of your choice
-              </MenuItem>
-            </Select>
-          </FormControl> */}
-        </Grid>
-        {delivery && (
-          <Fragment>
-            <GoogleMapsAutocomplete
-              localAddress={localAddress}
-              onChangeTarget={onChangeTarget}
-              onChangeAddress={onChangeAddress}
+      <Fragment>
+        <Typography variant='h6' gutterBottom>
+          Place of the service
+        </Typography>
+        <div>
+          <FormControl component='fieldset' className={classes.formControl}>
+            <FormLabel component='legend'>Saved Cards</FormLabel>
+            <RadioGroup
+              aria-label='gender'
+              name='location'
+              value={location}
+              onChange={handleChange}
+            >
+              <Table className={classes.table} aria-label='simple table'>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Select</TableCell>
+                    <TableCell align='left'>Type</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {delivery && (
+                    <TableRow key={"stripeCardId"}>
+                      <TableCell align='left' key={"stripeCardId"}>
+                        {delivery && (
+                          <FormControlLabel
+                            key={"stripeCardId"}
+                            value={"toHome"}
+                            control={<Radio />}
+                          />
+                        )}
+                      </TableCell>
+                      <TableCell align='left'>
+                        <Grid item xs>
+                          <GoogleMapsAutocomplete
+                            localAddress={localAddress}
+                            onChangeTarget={onChangeTarget}
+                            onChangeAddress={onChangeAddress}
 
-              // onChange={onChange}
-              // descriptionAddress={descriptionAddress}
-            />
-
-            <Grid item xs={12}>
-              <TextField
-                required
-                id='description'
-                label='Description'
-                name='descriptionAddress'
-                value={descriptionAddress}
-                onChange={onChangeTarget}
-                fullWidth
-              />
-            </Grid>
-          </Fragment>
-        )}
-        {place && (
-          <Fragment>
-            <Grid item xs={12}>
-              <Typography variant='h6' gutterBottom>
-                Artist Location
-              </Typography>
-            </Grid>
-          </Fragment>
-        )}
-        {/* ) : null} */}
-        {/* <Grid item xs={12}>
-          <Typography variant='h6' gutterBottom>
-            Validate your phone
-          </Typography>
-          <TextField id='outlined-basic' label='Outlined' variant='outlined' />
-        </Grid> */}
-      </Grid>
+                            // onChange={onChange}
+                            // descriptionAddress={descriptionAddress}
+                          />
+                        </Grid>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+                <TableBody>
+                  {place && (
+                    <TableRow key={"stripeCardId"}>
+                      <TableCell align='left' key={"stripeCardId"}>
+                        <FormControlLabel
+                          key={"stripeCardId"}
+                          value={"siteArtists"}
+                          control={<Radio />}
+                        />
+                      </TableCell>
+                      <TableCell align='left'>
+                        <Card className={classes.card}>
+                          <a
+                            target='_blank'
+                            href={`https://www.google.com/maps/place/${replace(
+                              address.street
+                            )}/`}
+                          >
+                            <CardMedia
+                              className={classes.media}
+                              image={`https://maps.googleapis.com/maps/api/staticmap?center=${replace(
+                                address.street
+                              )}&zoom=13&scale=false&size=500x500&maptype=terrain&key=${
+                                process.env.REACT_APP_GOOGLE_MAPS_ID
+                              }&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C2360+dundas+street+west`}
+                              title={address.street}
+                            />
+                          </a>
+                        </Card>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </RadioGroup>
+          </FormControl>
+        </div>
+      </Fragment>
     </Fragment>
   );
 }

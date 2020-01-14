@@ -80,8 +80,11 @@ const AddCategories = ({
   const classes = useStyles();
 
   // useEffect(() => {
-  //   getCurrentProfile();
-  // }, []);
+  //   setStateHairElement({
+  //     ...stateHairElement,
+  //     hair: profile ? profile.categories.hair : []
+  //   });
+  // }, [profile]);
 
   const back = e => {
     e.preventDefault();
@@ -135,19 +138,19 @@ const AddCategories = ({
       <CustomPaper
         Children={
           <Fragment>
-            <form autoComplete="off" noValidate>
+            <form autoComplete='off' noValidate>
               <div>
                 <Fragment>
                   <Typography>Categoties</Typography>
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-mutiple-chip-label">Hair</InputLabel>
+                    <InputLabel id='demo-mutiple-chip-label'>Hair</InputLabel>
                     <Select
-                      labelId="demo-mutiple-chip-label"
-                      id="demo-mutiple-chip"
+                      labelId='demo-mutiple-chip-label'
+                      id='demo-mutiple-chip'
                       multiple
                       value={stateHair || stateHairElement}
                       onChange={handleChangeHair}
-                      input={<Input id="select-multiple-chip" />}
+                      input={<Input id='select-multiple-chip' />}
                       renderValue={selected => (
                         <div className={classes.chips}>
                           {selected.map(value => (
@@ -170,14 +173,14 @@ const AddCategories = ({
                   </FormControl>
                   {/* MAKEUP */}
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-mutiple-chip-label">Makeup</InputLabel>
+                    <InputLabel id='demo-mutiple-chip-label'>Makeup</InputLabel>
                     <Select
-                      labelId="demo-mutiple-chip-label"
-                      id="demo-mutiple-chip"
+                      labelId='demo-mutiple-chip-label'
+                      id='demo-mutiple-chip'
                       multiple
                       value={stateMakeup || stateMakeupElement}
                       onChange={handleChangeMakeup}
-                      input={<Input id="select-multiple-chip" />}
+                      input={<Input id='select-multiple-chip' />}
                       renderValue={selected => (
                         <div className={classes.chips}>
                           {selected.map(value => (
@@ -207,9 +210,9 @@ const AddCategories = ({
                   <CardActions>
                     <Grid
                       container
-                      direction="row"
-                      justify="flex-end"
-                      alignItems="flex-start"
+                      direction='row'
+                      justify='flex-end'
+                      alignItems='flex-start'
                     >
                       <Button
                         className={classes.button}
