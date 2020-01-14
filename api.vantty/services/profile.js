@@ -12,6 +12,7 @@ const getById = async id => {
   });
   return profile;
 };
+
 const getAll = async () => {
   const profiles = await Profile.find();
   return profiles;
@@ -97,19 +98,7 @@ const save = async (data, user) => {
   if (youtube) profileFields.social.youtube = youtube;
   if (instagram) profileFields.social.instagram = instagram;
 
-  // Create Review Id
-  const { _id: reviewId } = await reviewService.create(user.id);
-  profileFields.reviewId = reviewId;
-
-  // Create Images id
-  const { _id: imagesId } = await imageService.create(user.id);
-  profileFields.imagesId = imagesId;
-
-  // Create Images id
-  const { _id: bookId } = await bookService.create(user.id);
-  profileFields.bookId = bookId;
-
-  let profile = await getById(user);
+  let profile = await getById(user.id);
   if (profile) {
     profile = await Profile.findOneAndUpdate(
       { user: user.id },
@@ -117,8 +106,19 @@ const save = async (data, user) => {
       { new: true }
     );
     return profile;
-  }
+  } else {
+    // Create Review Id
+    const { _id: reviewId } = await reviewService.create(user.id);
+    profileFields.reviewId = reviewId;
 
+    // Create Images id
+    const { _id: imagesId } = await imageService.create(user.id);
+    profileFields.imagesId = imagesId;
+
+    // Create Images id
+    const { _id: bookId } = await bookService.create(user.id);
+    profileFields.bookId = bookId;
+  }
   profile = new Profile(profileFields);
   await profile.save();
   return profile;

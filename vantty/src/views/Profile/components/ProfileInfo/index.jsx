@@ -77,7 +77,7 @@ const ProfileInfo = ({
               <div style={{ display: "inline-block" }}></div>
               <Grid>
                 <Fragment>
-                  {isOwner(auth, user._id) === true &&
+                  {isOwner(auth, user) === true &&
                     user === auth.user._id &&
                     !isMobile && (
                       <Button

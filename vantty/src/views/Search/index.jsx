@@ -26,7 +26,6 @@ import { clearSearch } from "../../actions/search";
 import { changeNavbarValue } from "../../actions/navbar";
 
 // Components
-import { Header } from "../../components";
 import { AppBar } from "./Components";
 
 // Reactive Search (Appbase)
@@ -43,9 +42,7 @@ const { ResultCardsWrapper } = ReactiveList;
 
 const useStyles = makeStyles(theme => ({
   container: {
-    [theme.breakpoints.down("md")]: {
-      marginTop: theme.spacing(2)
-    }
+    marginTop: theme.spacing(2)
   },
   resultCard: {
     boxShadow: `none !important`,
@@ -169,7 +166,6 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
 
   return (
     <div>
-      <Header />
       <ReactiveBase
         app={process.env.REACT_APP_APPBASE_INDEX}
         credentials={process.env.REACT_APP_APPBASE_CREDENTIALS}
@@ -189,13 +185,12 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             invisible={values}
           />
         )}
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={classes.container}>
           <Grid
             container
             direction="row"
             justify="center"
             alignItems="flex-start"
-            className={classes.container}
           >
             <Hidden xsDown>
               <Grid item md={4} className={classes.filters}>

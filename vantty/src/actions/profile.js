@@ -218,10 +218,10 @@ export const deleteEducation = id => async dispatch => {
 };
 
 // Delete Account & PROFILE
-export const deleteAccount = elastidId => async dispatch => {
+export const deleteAccount = () => async dispatch => {
   if (window.confirm("Are you sure?")) {
     try {
-      await server.delete("/profile");
+      await server.delete("/user");
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETE });
@@ -232,7 +232,8 @@ export const deleteAccount = elastidId => async dispatch => {
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        // payload: { msg: err.response.statusText, status: err.response.status }
+        payload: null
       });
     }
   }
