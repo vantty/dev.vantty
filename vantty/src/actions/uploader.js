@@ -85,47 +85,28 @@ export const uploadImages = e => async dispatch => {
 
     const formData = new FormData();
     const types = ["image/png", "image/jpeg", "image/gif"];
-
     files.forEach((file, i) => {
       if (types.every(type => file.type !== type)) {
         errs.push(`"${file.type}" is not a supported format`);
       }
-
       const maxFileSize = 5 * 1000 * 1000; // 7MB
       if (file.size > maxFileSize) {
         errs.push(
           `"${file.name}" is too large, please pick a smaller file (Max. 7MB)`
         );
       }
-
       formData.append(i, file);
     });
-
     if (errs.length) {
       dispatch({ type: IMAGES_UPLOAD_FAIL });
       return errs.forEach(err => console.log(err));
     }
 
     dispatch({ type: IMAGES_UPLOADING });
-
-    const res = await server.post("/images/cloud", formData);
-    const images = res.data;
-
-    for (let i = 0; i < images.length; i++) {
-      const sendImage = {
-        original: images[i].eager[0].url,
-        cloudId: images[i].public_id
-      };
-      await server.put("/images", sendImage);
-    }
-    await dispatch({
-      type: IMAGES_UPLOAD_SUCCESS,
-      payload: images
-    });
+    await server.post("/images", formData);
 
     await dispatch(loadUser());
     await dispatch(getCurrentProfile());
-
     const resImages = await server.get("/images");
     const resProfile = await server.get("/profile/me");
     const data = elasticData(resImages.data, resProfile);

@@ -5,22 +5,18 @@ const express = require("express"),
   {
     getByUser,
     getById,
-    saveCloud,
     save,
     deleteImages,
     deleteImageMongo,
-    addPictureTags,
-    notification
+    addPictureTags
   } = require("../controllers/images"),
   router = express.Router();
 
 router.get("/", passportJWT, getByUser);
 router.get("/:id", getById);
-router.post("/cloud", saveCloud);
-router.put("/", passportJWT, save);
+router.post("/", passportJWT, save);
 // =====
 router.post("/delete", deleteImages);
-router.post("/notification", notification);
 router.delete("/user-pictures/:id/:image_id", passportJWT, deleteImageMongo);
 router.post("/add-tags", passportJWT, addPictureTags);
 

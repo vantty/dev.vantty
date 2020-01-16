@@ -239,39 +239,6 @@ export const deleteAccount = () => async dispatch => {
   }
 };
 
-// Add Portfolio
-export const addPortfolio = (formData, history) => async dispatch => {
-  try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-    await dispatch(loadUser());
-    const res = await server.put("/profile/portfolio", formData, config);
-
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data
-    });
-
-    dispatch(setAlert("Pictures Added", "success"));
-
-    history.push("/contact-info");
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "error")));
-    }
-
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
 // Delete picture
 export const deletePicture = (
   modelImagesId, // model pictures' id

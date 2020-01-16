@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { isMobile } from "react-device-detect";
 
 //Actions
-import { addPortfolio, getCurrentProfile } from "../../../../actions/profile";
+import { getCurrentProfile } from "../../../../actions/profile";
 
 //Components
 import { ImagesUploader } from "./components";
@@ -245,7 +245,6 @@ const AddPortfolio = ({
 
 AddPortfolio.propTypes = {
   className: PropTypes.string,
-  addPortfolio: PropTypes.func.isRequired,
   files: PropTypes.string,
   profile: PropTypes.object.isRequired
 };
@@ -256,7 +255,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  addPortfolio,
   getCurrentProfile,
   getImages,
   uploadTag

@@ -15,9 +15,15 @@ const getById = async id => {
   return images;
 };
 
-const save = async (userId, newImage) => {
-  const images = await getByUser(userId);
-  await images.pictures.unshift(newImage);
+const save = async (userId, newImages) => {
+  const images = await getById(userId);
+  for (let i = 0; i < newImages.length; i++) {
+    const imgObj = {
+      original: newImages[i].eager[0].url,
+      cloudId: newImages[i].public_id
+    };
+    await images.pictures.unshift(imgObj);
+  }
   await images.save();
   return images;
 };

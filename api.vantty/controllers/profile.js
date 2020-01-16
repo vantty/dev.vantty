@@ -228,24 +228,6 @@ exports.deleteProfileAndUserDashboard = async (req, res) => {
   }
 };
 
-///SERVICESSS
-
-// Add Service
-// exports.addService = async (req, res) => {
-//   log(req.body);
-
-//   try {
-//     const profile = await Profile.findOne({ user: req.user._id });
-
-//     profile.services.push(req.body.services);
-
-//     await profile.save();
-//     await res.json(profile);
-//   } catch (err) {
-//     res.status(500).send("Server Error");
-//   }
-// };
-
 // Add Services
 exports.addService = async (req, res) => {
   const { typeOfService, description, amount } = req.body;

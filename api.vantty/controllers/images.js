@@ -37,31 +37,19 @@ exports.getById = async (req, res) => {
   }
 };
 
-// Save Images in Cloudinary
-exports.saveCloud = async (req, res) => {
-  try {
-    const images = Object.values(req.files);
-    const results = await cloudinaryService.save(images);
-    Promise.all(results).then(result => {
-      res.status(200).json(result);
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
-  }
-};
-
-// Save Images in DB
+// Save Images in Cloudinary and DB
 exports.save = async (req, res) => {
   try {
     const {
-      body: image,
       user: { id }
     } = req;
-    const result = await imageService.save(id, image);
-    res.status(200).send(result);
-  } catch (err) {
-    console.error(err.message);
+    const files = Object.values(req.files);
+    const cloudImages = await cloudinaryService.save(files);
+    const images = await Promise.all(cloudImages);
+    const result = await imageService.save(id, images);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Server Error");
   }
 };
@@ -74,10 +62,6 @@ exports.deleteImages = (req, res) => {
       res.json(results);
     })
     .catch(err => res.status(400).json(err));
-};
-
-exports.notification = (req, res) => {
-  // console.log("EAGER", res);
 };
 
 // @desc     Delete picture
