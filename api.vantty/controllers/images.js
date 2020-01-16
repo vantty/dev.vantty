@@ -1,5 +1,7 @@
 const cloudinary = require("cloudinary");
 const Image = require("../models/Image");
+const imageService = require("../services/image");
+const cloudinaryService = require("../services/cloudinary");
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -7,62 +9,61 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Current User
-exports.current = async (req, res) => {
+// Get Current Images By User Id
+exports.getByUser = async (req, res) => {
   try {
-    // var method = "";
-    const profile = await Profile.findOne({ user: req.user.id });
-    const images = await Image.findById(profile.imagesId);
-
-    if (!images) {
-      return res.status(400).json({ msg: "There is no images for this user" });
-    }
-    res.json(images.pictures);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Images not found" });
-    }
+    const {
+      user: { id }
+    } = req;
+    const { pictures: result } = await imageService.getById(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Server Error");
   }
 };
 
-// @desc     Get images by ID
-exports.imagesById = async (req, res) => {
+// Get Images By Params Id
+exports.getById = async (req, res) => {
   try {
-    const images = await Image.findOne({ user: req.params.id });
-
-    if (!images) {
-      return res.status(404).json({ msg: "Images not found" });
-    }
-    res.json(images.pictures);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Images not found" });
-    }
+    const {
+      params: { id }
+    } = req;
+    const { pictures: result } = await imageService.getById(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Server Error");
   }
 };
 
-exports.addImages = (req, res) => {
-  const values = Object.values(req.files);
-  const promises = values.map(image =>
-    cloudinary.v2.uploader.upload(image.path, {
-      eager: [
-        {
-          quality: "auto:low"
-        }
-      ],
-      eager_async: true
-      // eager_notification_url: "http://api.vantty.ca/api/images/notification"
-    })
-  );
-  Promise.all(promises)
-    .then(results => {
-      res.status(201).json(results);
-    })
-    .catch(err => res.status(400).json(err));
+// Save Images in Cloudinary
+exports.saveCloud = async (req, res) => {
+  try {
+    const images = Object.values(req.files);
+    const results = await cloudinaryService.save(images);
+    Promise.all(results).then(result => {
+      res.status(200).json(result);
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Save Images in DB
+exports.save = async (req, res) => {
+  try {
+    const {
+      body: image,
+      user: { id }
+    } = req;
+    const result = await imageService.save(id, image);
+    res.status(200).send(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 };
 
 exports.deleteImages = (req, res) => {
@@ -77,22 +78,6 @@ exports.deleteImages = (req, res) => {
 
 exports.notification = (req, res) => {
   // console.log("EAGER", res);
-};
-
-// Add Porfolio Pictures
-exports.addPortfolio = async (req, res) => {
-  const { original, cloudId } = req.body;
-  const newPicture = { original, cloudId };
-
-  try {
-    const images = await Image.findOne({ user: req.user.id });
-    await images.pictures.unshift(newPicture);
-    await images.save();
-    res.json(images);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
 };
 
 // @desc     Delete picture

@@ -1,6 +1,4 @@
 const nodemailer = require("nodemailer");
-const hbs = require("nodemailer-express-handlebars");
-const log = console.log;
 
 exports.validator = (req, res, next) => {
   req.check("firstName", "Please enter your first name").notEmpty();

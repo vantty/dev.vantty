@@ -1,4 +1,3 @@
-const User = require("../models/User");
 const Image = require("../models/Image");
 
 const create = async userId => {
@@ -9,4 +8,18 @@ const create = async userId => {
   return image;
 };
 
-module.exports = { create };
+const getById = async id => {
+  const images = await Image.findOne({
+    user: id
+  });
+  return images;
+};
+
+const save = async (userId, newImage) => {
+  const images = await getByUser(userId);
+  await images.pictures.unshift(newImage);
+  await images.save();
+  return images;
+};
+
+module.exports = { create, getById, save };

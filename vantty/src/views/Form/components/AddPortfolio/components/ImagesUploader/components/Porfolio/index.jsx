@@ -80,22 +80,10 @@ const Porfolio = ({
           <br />
           {portfolioPictures &&
             portfolioPictures.map(picture => (
-              <GridListTile key={picture._id} style={{ height: "auto" }}>
-                {/* <span
-                  onClick={e =>
-                    send(
-                      e,
-                      modelImagesId,
-                      picture._id,
-                      picture.cloudId,
-                      picture.elasticId
-                    )
-                  }
-                >
-                  <CancelIcon />
-                  <DeleteForeverOutlinedIcon />
-                </span> */}
-
+              <GridListTile
+                key={picture.public_id || picture._id}
+                style={{ height: "auto" }}
+              >
                 <span
                   style={{
                     backgroundImage: `url(${picture.original})`

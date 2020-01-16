@@ -62,7 +62,6 @@
     "@testing-library/react": "^9.4.0",
     "dotenv": "^8.1.0"
   },
-  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },

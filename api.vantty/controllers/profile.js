@@ -18,7 +18,7 @@ exports.getByUser = async (req, res) => {
   }
 };
 
-// Get Profile By Id
+// Get Profile By Params Id
 exports.getById = async (req, res) => {
   try {
     const {
@@ -87,22 +87,6 @@ exports.deleteEducation = async (req, res) => {
 
     await profile.save();
 
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
-// Add Porfolio Pictures
-exports.addPortfolio = async (req, res) => {
-  const { original, cloudId } = req.body;
-  const newPicture = { original, cloudId };
-
-  try {
-    const profile = await Profile.findOne({ user: req.user.id });
-    await profile.portfolioPictures.unshift(newPicture);
-    await profile.save();
     res.json(profile);
   } catch (err) {
     console.error(err.message);

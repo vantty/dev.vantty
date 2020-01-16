@@ -44,10 +44,9 @@ const SelectTags = ({ _id, uploadTag, elasticId, tags, onChangeTags }) => {
   };
 
   return (
-    // <form autoComplete='off'>
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="demo-controlled-open-select">Tag</InputLabel>
+        <InputLabel>Tag</InputLabel>
         <Select
           className={classes.Select}
           open={open}
@@ -61,9 +60,6 @@ const SelectTags = ({ _id, uploadTag, elasticId, tags, onChangeTags }) => {
           <MenuItem value={"Haircut"}>Haircut</MenuItem>
           <MenuItem value={"All-Over Color"}>All-Over Color</MenuItem>
           <MenuItem value={"Formal Styling"}>Formal Styling</MenuItem>
-          {/* <MenuItem value={"Special Occasion hair"}>
-            Special Occasion Hair
-          </MenuItem> */}
           <MenuItem value={"Blowout"}>Blowouts</MenuItem>
           <MenuItem value={"Deep Conditioning Treatment"}>
             Deep Conditioning Treatment
