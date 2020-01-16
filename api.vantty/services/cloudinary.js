@@ -20,4 +20,9 @@ const save = async images => {
   return results;
 };
 
-module.exports = { save };
+const remove = async id => {
+  const result = await cloudinary.v2.uploader.destroy(id);
+  return result;
+};
+
+module.exports = { save, remove };

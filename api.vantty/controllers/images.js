@@ -54,40 +54,41 @@ exports.save = async (req, res) => {
   }
 };
 
-exports.deleteImages = (req, res) => {
-  const id = Object.values(req.body);
-  cloudinary.v2.uploader
-    .destroy(id)
-    .then(results => {
-      res.json(results);
-    })
-    .catch(err => res.status(400).json(err));
+exports.deleteImages = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const result = await cloudinaryService.remove(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
 };
 
 // @desc     Delete picture
 exports.deleteImageMongo = async (req, res) => {
   try {
-    const images = await Image.findById(req.params.id);
+    const { image_id: imageId } = req.params;
+    const {
+      user: { id }
+    } = req;
+    console.log("IDS", id, imageId);
+    const result = await imageService.remove(id, imageId);
+    res.status(200).json(result);
 
-    // Pull out picture
-    const picture = images.pictures.find(
-      picture => picture.id === req.params.image_id
-    );
-    // Make sure picture exists
-    if (!picture) {
-      return res.status(404).json({ msg: "Comment does not exist" });
-    }
+    // const images = await Image.findById(req.params.id);
 
-    // Get remove index
-    const removeIndex = images.pictures
-      .map(picture => picture.id)
-      .indexOf(req.params.image_id);
+    // const removeIndex = images.pictures
+    //   .map(picture => picture.id)
+    //   .indexOf(req.params.images_id);
 
-    images.pictures.splice(removeIndex, 1);
+    // console.log("INDEX", removeIndex);
 
-    await images.save();
+    // images.pictures.splice(removeIndex, 1);
 
-    res.json(images.pictures);
+    // await images.save();
+
+    // res.json(images.pictures);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

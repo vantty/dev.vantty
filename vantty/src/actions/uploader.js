@@ -210,16 +210,12 @@ export const deletePicture = (
 ) => async dispatch => {
   try {
     await deleteFromElastic(elasticId);
-    // const res = await server.delete(`/profile/portfolio/${dataBaseId}`);
-    const res = await server.delete(
-      `/images/user-pictures/${modelImagesId}/${dataBaseId}`
-    );
-
+    const res = await server.delete(`/images/user-pictures/${dataBaseId}`);
     await dispatch(deleteImages(cloudId));
 
     dispatch({
       type: IMAGES_DELETE_SUCCESS,
-      payload: res.data
+      payload: res.data.pictures
     });
 
     dispatch(setAlert("Picture Removed", "success"));

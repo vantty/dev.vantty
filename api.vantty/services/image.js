@@ -28,4 +28,14 @@ const save = async (userId, newImages) => {
   return images;
 };
 
-module.exports = { create, getById, save };
+const remove = async (id, imageId) => {
+  const images = await getById(id);
+  const index = await images.pictures
+    .map(picture => picture.id)
+    .indexOf(imageId);
+  await images.pictures.splice(index, 1);
+  await images.save();
+  return images;
+};
+
+module.exports = { create, getById, save, remove };

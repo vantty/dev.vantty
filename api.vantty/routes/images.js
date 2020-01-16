@@ -17,7 +17,7 @@ router.get("/:id", getById);
 router.post("/", passportJWT, save);
 // =====
 router.post("/delete", deleteImages);
-router.delete("/user-pictures/:id/:image_id", passportJWT, deleteImageMongo);
+router.delete("/user-pictures/:image_id", passportJWT, deleteImageMongo);
 router.post("/add-tags", passportJWT, addPictureTags);
 
 module.exports = router;
