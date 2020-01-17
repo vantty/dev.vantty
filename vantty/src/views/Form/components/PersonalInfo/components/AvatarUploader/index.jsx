@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -40,16 +40,11 @@ const AvatarUploader = ({
   history,
   loadUser,
   deleteUserPicture,
-  // profile: { profile },
   auth: { user, profile },
   ...rest
 }) => {
   const classes = useStyles();
   const method = getStrategy(user);
-
-  // useEffect(() => {
-  //   loadUser();
-  // }, []);
 
   const onChange = async e => {
     e.preventDefault();
@@ -65,16 +60,16 @@ const AvatarUploader = ({
     return (
       <Fragment>
         <Button
-          component='label'
-          size='small'
-          variant='outlined'
-          color='primary'
+          component="label"
+          size="small"
+          variant="outlined"
+          color="primary"
         >
           Upload Picture
           <input
             style={{ display: "none" }}
-            type='file'
-            name='file'
+            type="file"
+            name="file"
             multiple
             onChange={onChange}
             // value={user && method.profilePicture}

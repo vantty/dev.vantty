@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import randomCode from "crypto-random-string";
 
 // Material-UI
 import {
@@ -15,8 +13,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Actions
 import { completeService } from "../../actions/book";
-
-const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   paper: {

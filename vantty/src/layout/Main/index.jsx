@@ -8,10 +8,6 @@ import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 
-///actions
-import { getCurrentProfile } from "../../actions/profile";
-import { loadUser } from "../../actions/auth";
-
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
@@ -27,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const Main = props => {
-  const { children, getCurrentProfile, loadUser } = props;
+  const { children } = props;
   const classes = useStyles();
 
   useEffect(() => {
@@ -61,6 +57,4 @@ const mapStateToProps = state => ({
   uploader: state.uploader
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, loadUser })(
-  withRouter(Main)
-);
+export default connect(mapStateToProps, {})(withRouter(Main));

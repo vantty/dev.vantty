@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext } from "react";
+import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -26,7 +26,6 @@ import {
 
 // Components
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
-import FormContext from "../../FormContext";
 
 const useStyles = makeStyles(theme => ({
   button: {

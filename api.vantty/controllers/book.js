@@ -217,7 +217,6 @@ exports.current = async (req, res) => {
   try {
     // var method = "";
     const profile = await Profile.findOne({ user: req.user.id });
-    console.log("PROF", profile);
     const book = await Book.findById(profile.bookId);
     if (!book) {
       return res.status(400).json({ msg: "There is no book for this user" });

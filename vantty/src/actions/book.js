@@ -1,16 +1,16 @@
 import {
-  GET_REVIEW,
+  // GET_REVIEW,
   REVIEW_ERROR,
-  REMOVE_COMMENT,
+  // REMOVE_COMMENT,
   ADD_BOOK,
   BOOK_ERROR,
   CLEAR_BOOK,
   CREATE_STRIPE_ACCOUNT_SUCCESS,
   CREATE_STRIPE_ACCOUNT_FAIL,
-  CREATE_STRIPE_CUSTOMER_SUCCESS,
-  CREATE_STRIPE_CUSTOMER_FAIL,
-  PAY_SUCCESS,
-  PAY_FAIL,
+  // CREATE_STRIPE_CUSTOMER_SUCCESS,
+  // CREATE_STRIPE_CUSTOMER_FAIL,
+  // PAY_SUCCESS,
+  // PAY_FAIL,
   GET_BOOK,
   CHANGE_STATE_BOOKING,
   SERVICE_SUCCESS,
@@ -24,7 +24,6 @@ import { getCurrentProfile } from "./profile";
 import { server } from "../utils/axios";
 import { getStrategyEmail } from "../helpers";
 import setAlert from "./alert";
-import { read } from "fs";
 const log = console.log;
 
 export const testSendEmail = text => async dispatch => {
@@ -85,7 +84,7 @@ export const completeService = code => async dispatch => {
       headers: { "Content-Type": "application/json" }
     };
     const body = JSON.stringify({ _id, code });
-    const res = await server.post("/book/complete-service", body, config);
+    await server.post("/book/complete-service", body, config);
     await dispatch(getBook());
   } catch (error) {
     log(error);
@@ -101,7 +100,7 @@ export const validateCard = token => async dispatch => {
     };
     const user = await server.get("/auth");
     const {
-      data: { _id, stripeCustomerId }
+      data: { _id }
     } = user;
     const email = getStrategyEmail(user.data);
     const body = JSON.stringify({ token, email, _id });
@@ -246,7 +245,7 @@ export const addNewBook = (
       stripeArtistAccount: stripeArtistAccount
     };
 
-    const res = await server.post(`/book/create-book/${bookId}`, body, config);
+    await server.post(`/book/create-book/${bookId}`, body, config);
 
     await dispatch({
       type: ADD_BOOK,

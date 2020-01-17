@@ -8,7 +8,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { pagesGeneral, pagesAccount } from "../../list";
+import { pagesAccount } from "../../list";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { isMobile } from "react-device-detect";
 import { SimpleAppBar } from "../../../../components";
@@ -53,16 +53,16 @@ const SettingsAccount = ({ match, history, deleteAccount }) => {
       {isMobile && (
         <Fragment>
           {/* <div className={classes.root}></div> */}
-          <List component='nav'>
+          <List component="nav">
             {pagesAccount.map((page, ind) => (
               <div key={page.title}>
                 {/* <Container maxWidth='sm'> */}
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Grid
                     container
-                    direction='row'
-                    justify='space-between'
-                    alignItems='center'
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
                   >
                     <Grid item xs={11} md={12} lg={12} xl={12}>
                       <ListItemLink
@@ -87,7 +87,7 @@ const SettingsAccount = ({ match, history, deleteAccount }) => {
                 {/* </Container> */}
               </div>
             ))}
-            <Container maxWidth='md'>
+            <Container maxWidth="md">
               <ListItem button onClick={deleteAccount}>
                 <ListItemText primary={"Delete Account"} />
               </ListItem>

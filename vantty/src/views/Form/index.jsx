@@ -1,10 +1,9 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 
 // Externals
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import FormContext from "./FormContext";
 
 // Actions
 import { getCurrentProfile, createProfile } from "../../actions/profile";
@@ -28,7 +27,7 @@ import {
   Location
 } from "./components";
 
-import { AppBarForm, CustomPaper } from "./components/ComponentsForm";
+import { AppBarForm } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
 

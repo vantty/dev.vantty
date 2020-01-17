@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { IconButton } from "@material-ui/core";
@@ -18,11 +17,11 @@ export default function SimpleMenu() {
 
   return (
     <div>
-      <IconButton aria-label='settings' onClick={handleClick}>
+      <IconButton aria-label="settings" onClick={handleClick}>
         <MoreVertIcon />
       </IconButton>
       <Menu
-        id='simple-menu'
+        id="simple-menu"
         anchorEl={anchorEl}
         // keepMounted
         open={Boolean(anchorEl)}

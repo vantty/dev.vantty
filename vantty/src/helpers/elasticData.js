@@ -17,7 +17,8 @@ export default (resImages, resProfile) => {
     pic.price = price; //profile
     pic.pictureId = pic._id;
     delete pic._id;
+    return pic;
   });
-  const data = resImages;
-  return data;
+  // const data = resImages;
+  return resImages;
 };

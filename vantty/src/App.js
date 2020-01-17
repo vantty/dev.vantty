@@ -19,7 +19,7 @@ import { ThemeProvider } from "@material-ui/styles";
 
 //Routes
 import Routes from "./Routes";
-import { getBook } from "./actions/book";
+// import { getBook } from "./actions/book";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

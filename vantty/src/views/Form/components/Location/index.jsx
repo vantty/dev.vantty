@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { CustomPaper, FormBottomNav } from "../ComponentsForm";
 import {
   makeStyles,
@@ -7,10 +7,9 @@ import {
   Divider,
   CardActions,
   Grid,
-  Button,
-  CardMedia
+  Button
 } from "@material-ui/core";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import Progress from "@material-ui/core/LinearProgress";
 import { createProfile } from "../../../../actions/profile";
 import { isMobile } from "react-device-detect";
@@ -94,7 +93,7 @@ const Location = ({
     createProfile(values, history, true);
     match.url === "/create-profile" && nextStep();
   };
-  const mode = match.url === "/location" ? "EDIT" : "ADD";
+
   return (
     <CustomPaper
       Children={

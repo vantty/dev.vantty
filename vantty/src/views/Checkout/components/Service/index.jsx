@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";

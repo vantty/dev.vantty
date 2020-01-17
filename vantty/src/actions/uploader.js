@@ -7,7 +7,7 @@ import {
   GET_IMAGES
 } from "./types";
 
-import { server, API_URL, elastic } from "../utils/axios";
+import { server, elastic } from "../utils/axios";
 import { getCurrentProfile, createProfile, loadToElastic } from "./profile";
 import { loadUser } from "./auth";
 import { elasticData, updatePropertiesAppbase } from "../helpers";

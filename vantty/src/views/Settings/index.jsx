@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -9,8 +9,8 @@ import { getProfileById, deleteAccount } from "../../actions/profile";
 import { loadUser, logout } from "../../actions/auth";
 
 // Helpers
-import { isOwner, getStrategy } from "../../helpers";
-import { pagesProfile, pagesUser, pagesGeneral } from "./list";
+import { getStrategy } from "../../helpers";
+import { pagesProfile, pagesUser } from "./list";
 
 // Components
 import { SimpleAppBar } from "../../components";

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -26,7 +26,6 @@ import CardsList from "../CardsList";
 
 // Actions
 import { validateCard, addCard } from "../../../../../../actions/book";
-import CheckoutContext from "../../../../CheckoutContext";
 
 // Helpers
 const log = console.log;
@@ -75,20 +74,7 @@ const _StripeForm = props => {
     cardSelected
   } = props;
   const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
-  const timer = React.useRef();
   const classes = useStyles();
-
-  // const buttonClassname = clsx({
-  //   [classes.buttonSuccess]: success
-  // });
-
-  React.useEffect(() => {
-    return () => {
-      clearTimeout(timer.current);
-    };
-  }, []);
 
   const handleChange = ({ error }) => {
     if (error) {
@@ -97,14 +83,6 @@ const _StripeForm = props => {
   };
 
   const handleSubmit = async event => {
-    if (!loading) {
-      setSuccess(false);
-      setLoading(true);
-      timer.current = setTimeout(() => {
-        setSuccess(true);
-        setLoading(false);
-      }, 2000);
-    }
     try {
       event.preventDefault();
       if (stripe) {
@@ -134,7 +112,7 @@ const _StripeForm = props => {
 
   return (
     <Fragment>
-      <Typography variant='h6' gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
       <Grid container spacing={1}>
@@ -152,8 +130,8 @@ const _StripeForm = props => {
             <ExpansionPanel className={classes.panel}>
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls='panel1a-content'
-                id='panel1a-header'
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
                 <Typography className={classes.heading}>
                   Add a new card
@@ -171,9 +149,9 @@ const _StripeForm = props => {
                     <Grid item xs={12}>
                       <CardCVCElement onChange={handleChange} />
                     </Grid>
-                    <div role='alert'>{errorMessage}</div>
+                    <div role="alert">{errorMessage}</div>
                     <Grid item xs={12}>
-                      <Button type='submit' variant='contained' color='primary'>
+                      <Button type="submit" variant="contained" color="primary">
                         Add card
                       </Button>
                     </Grid>
@@ -194,9 +172,9 @@ const _StripeForm = props => {
               <Grid item xs={12}>
                 <CardCVCElement onChange={handleChange} />
               </Grid>
-              <div role='alert'>{errorMessage}</div>
+              <div role="alert">{errorMessage}</div>
               <Grid item xs={12}>
-                <Button type='submit' variant='contained' color='primary'>
+                <Button type="submit" variant="contained" color="primary">
                   Save your card
                 </Button>
               </Grid>

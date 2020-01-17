@@ -23,7 +23,7 @@ export default function NestedList({
   onSubmitAvailability
 }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(services[0] ? false : true);
+  // const [open, setOpen] = React.useState(services[0] ? false : true);
 
   // const handleClick = () => {
   //   setOpen(!open);

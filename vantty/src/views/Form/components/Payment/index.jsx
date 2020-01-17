@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import PaymentForm from "../../../Checkout/components/PaymentForm";
 
-// Actions
-import { loadUser } from "../../../../actions/auth";
-
-const Payment = ({ loadUser, user }) => {
-  // useEffect(() => {
-  //   loadUser();
-  // }, []);
+const Payment = ({ user }) => {
   return (
     <PaymentForm
       stripeCustomerId={user && user.stripeCustomerId}
@@ -27,4 +21,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, { loadUser })(Payment);
+export default connect(mapStateToProps, {})(Payment);

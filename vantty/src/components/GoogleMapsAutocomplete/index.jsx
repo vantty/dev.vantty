@@ -15,17 +15,17 @@ const useStyles = makeStyles(theme => ({
 
 export default function App({ onChangeAddress, localAddress }) {
   const [address, setAddress] = React.useState();
-  const [coordinates, setCoordinates] = React.useState({
-    lat: null,
-    lng: null
-  });
+  // const [coordinates, setCoordinates] = React.useState({
+  //   lat: null,
+  //   lng: null
+  // });
   const classes = useStyles();
 
   const handleSelect = async address => {
     const results = await geocodeByAddress(address);
     const latLng = await getLatLng(results[0]);
     await setAddress(address);
-    await setCoordinates(latLng);
+    // await setCoordinates(latLng);
     await onChangeAddress({
       street: address,
       lat: latLng.lat,
