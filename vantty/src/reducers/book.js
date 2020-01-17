@@ -1,9 +1,7 @@
 import {
   CREATE_STRIPE_ACCOUNT_SUCCESS,
   CREATE_STRIPE_ACCOUNT_FAIL,
-  GET_BOOK,
-  ADD_BOOK,
-  BOOK_ERROR
+  GET_BOOK
 } from "../actions/types";
 
 const initialState = {

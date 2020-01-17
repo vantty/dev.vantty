@@ -1,8 +1,7 @@
-import React, { Fragment} from "react";
+import React, { Fragment } from "react";
 import { isMobile } from "react-device-detect";
 
 // Material-UI
-import { makeStyles } from "@material-ui/styles";
 import { withStyles } from "@material-ui/core/styles";
 import {
   Divider,
@@ -63,7 +62,7 @@ const StartService = ({ price, handleChange }) => {
         <div>
           <div>
             <Container>
-              <Typography color='textSecondary' variant='body1'>
+              <Typography color="textSecondary" variant="body1">
                 This is the minimum price for which you provide a service
               </Typography>
               <br />
@@ -72,19 +71,19 @@ const StartService = ({ price, handleChange }) => {
               <Fragment>
                 <Grid
                   container
-                  direction='row'
-                  justify='center'
-                  alignItems='center'
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
                 >
                   <Grid item xs={isMobile ? 12 : 11}>
                     <PrettoSlider
                       defaultValue={60}
-                      valueLabelDisplay='on'
+                      valueLabelDisplay="on"
                       max={500}
                       step={10}
                       disabled={false}
                       value={price || 80}
-                      name='price'
+                      name="price"
                       // onChange={e => onChange(e)}
                       onChange={handleChange}
                       // handleDragStop={price}

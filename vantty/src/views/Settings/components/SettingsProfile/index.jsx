@@ -36,12 +36,12 @@ const useStyles = makeStyles(theme => ({
   title: {
     color: theme.palette.text.primary,
     backgroundColor: "#F3F3F3",
-    paddingTop: "0.09rem" + "!important",
-    paddingBottom: "0.09rem" + "!important"
+    paddingTop: `0.09rem !important`,
+    paddingBottom: `0.09rem !important`
   },
   listItem: {
-    paddingTop: "0.2rem" + "!important",
-    paddingBottom: "0.2rem" + "!important"
+    paddingTop: `0.2rem !important`,
+    paddingBottom: `0.2rem !important`
   },
   arrow: {
     marginLeft: "7px",
@@ -66,16 +66,16 @@ const SettingsProfile = ({
 
   return (
     <Fragment>
-      <List component='nav'>
-        <Container maxWidth='md'>
+      <List component="nav">
+        <Container maxWidth="md">
           <ListItem className={classes.title}>
             <ListItemText primary={"Manage"} />
           </ListItem>
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -127,12 +127,12 @@ const SettingsProfile = ({
         {pages.map((page, ind) => (
           <div key={page.title}>
             {/* <Container maxWidth='sm'> */}
-            <Container maxWidth='md'>
+            <Container maxWidth="md">
               <Grid
                 container
-                direction='row'
-                justify='space-between'
-                alignItems='center'
+                direction="row"
+                justify="space-between"
+                alignItems="center"
               >
                 <Grid item xs={11} md={12} lg={12} xl={12}>
                   <ListItemLink
@@ -161,16 +161,16 @@ const SettingsProfile = ({
           </div>
         ))}
         {/* <Container maxWidth='sm'> */}
-        <Container maxWidth='md'>
+        <Container maxWidth="md">
           <ListItem className={classes.title}>
             <ListItemText primary={"Account"} />
           </ListItem>
           {isMobile && (
             <Grid
               container
-              direction='row'
-              justify='space-between'
-              alignItems='center'
+              direction="row"
+              justify="space-between"
+              alignItems="center"
             >
               <Grid item xs={11} md={12} lg={12} xl={12}>
                 <ListItemLink

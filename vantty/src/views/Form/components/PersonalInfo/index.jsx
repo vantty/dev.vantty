@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import clsx from "clsx";
 import PropTypes from "prop-types";
 import validate from "validate.js";
 import { isMobile } from "react-device-detect";
@@ -266,18 +265,16 @@ const AccountDetails = ({
     formState.touched[field] && formState.errors[field] ? true : false;
   return (
     <Fragment>
-      {/* <spam className={classes.layout}> */}
-      {/* <Card className={clsx(classes.root, className)}> */}
       <CustomPaper
         Children={
-          <form autoComplete='off' noValidate>
+          <form autoComplete="off" noValidate>
             <Typography>Profile</Typography>
             <Grid container spacing={1}>
               <Grid
                 container
-                direction='row'
-                justify='center'
-                alignItems='center'
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
                 <Grid item>
                   <Grid item>
@@ -301,14 +298,14 @@ const AccountDetails = ({
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
                   fullWidth
-                  label='First name'
-                  margin='dense'
-                  name='firstName'
+                  label="First name"
+                  margin="dense"
+                  name="firstName"
                   required
-                  type='text'
-                  variant='outlined'
-                  id='firstName'
-                  autoComplete='fname'
+                  type="text"
+                  variant="outlined"
+                  id="firstName"
+                  autoComplete="fname"
                   value={formState.values.firstName || firstName}
                   onChange={handleChange}
                 />
@@ -316,12 +313,12 @@ const AccountDetails = ({
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
-                  label='Last name'
-                  margin='dense'
-                  name='lastName'
+                  label="Last name"
+                  margin="dense"
+                  name="lastName"
                   required
-                  variant='outlined'
-                  id='lastName'
+                  variant="outlined"
+                  id="lastName"
                   error={hasError("lastName")}
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
@@ -371,16 +368,16 @@ const AccountDetails = ({
                 <CardActions>
                   <Grid
                     container
-                    direction='row'
-                    justify='space-between'
-                    alignItems='flex-start'
+                    direction="row"
+                    justify="space-between"
+                    alignItems="flex-start"
                   >
                     <Grid>
                       {/* {!profile && !profile.mobileNumber && ( */}
                       {user && !user.profile && (
                         <Button
                           component={Link}
-                          size='small'
+                          size="small"
                           className={classes.button}
                           to={"/create-profile"}
                         >

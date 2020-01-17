@@ -1,24 +1,18 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
-import clsx from "clsx";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import validate from "validate.js";
-import { isMobile } from "react-device-detect";
-import { getStrategy } from "../../../../../../../../helpers";
 import NumberFormat from "react-number-format";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
 import {
-  CardHeader,
-  CardContent,
   Grid,
   Button,
   TextField,
   FormControl,
-  Typography,
-  Divider
+  Typography
 } from "@material-ui/core";
 
 // Actions
@@ -95,7 +89,7 @@ const Services = ({
         }}
         thousandSeparator
         isNumericString
-        prefix='$'
+        prefix="$"
       />
     );
   }
@@ -163,7 +157,7 @@ const Services = ({
       <div className={classes.root}>
         <br />
         <Typography>Add a Service</Typography>
-        <Grid container direction='row' justify='center' alignItems='center'>
+        <Grid container direction="row" justify="center" alignItems="center">
           <Grid item md={5} xs={5}>
             <FormControl>
               <TextField
@@ -174,14 +168,14 @@ const Services = ({
                     : null
                 }
                 className={classes.textField}
-                label='Service'
-                margin='dense'
-                name='typeOfService'
+                label="Service"
+                margin="dense"
+                name="typeOfService"
                 required
-                type='text'
-                variant='outlined'
-                id='typeOfService'
-                autoComplete='fname'
+                type="text"
+                variant="outlined"
+                id="typeOfService"
+                autoComplete="fname"
                 value={
                   formState.values.typeOfService || serviceData.typeOfService
                 }
@@ -192,13 +186,13 @@ const Services = ({
 
           <Grid item md={5} xs={5}>
             <TextField
-              label='Amount'
-              margin='dense'
-              name='amount'
+              label="Amount"
+              margin="dense"
+              name="amount"
               required
               className={classes.textField}
-              variant='outlined'
-              id='amount'
+              variant="outlined"
+              id="amount"
               error={hasError("amount")}
               helperText={
                 hasError("amount") ? formState.errors.amount[0] : null
@@ -238,10 +232,10 @@ const Services = ({
             <Button
               className={classes.textField}
               onClick={e => onSubmitPrice(e)}
-              variant='contained'
-              size='small'
-              aria-label='small outlined'
-              color='primary'
+              variant="contained"
+              size="small"
+              aria-label="small outlined"
+              color="primary"
               disabled={!formState.isValid}
             >
               Add Service

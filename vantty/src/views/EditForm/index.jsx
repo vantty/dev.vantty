@@ -1,11 +1,9 @@
 import React, { useEffect, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-//Components
-import AppBarForm from "../Form/components/ComponentsForm/AppBar";
 
 //actions
-import { getCurrentProfile, deleteAccount } from "../../actions/profile";
+import { getCurrentProfile } from "../../actions/profile";
 
 //Material-UI
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,11 +13,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { Container } from "@material-ui/core";
 
-import { isOwner } from "../../helpers";
 import { Alert, SimpleAppBar, Header } from "../../components";
 import { isMobile } from "react-device-detect";
 import Settings from "../../views/Settings";
-import { Bookings } from "../Form/components";
 
 // Component styles
 const useStyles = makeStyles(theme => ({

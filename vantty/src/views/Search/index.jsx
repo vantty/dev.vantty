@@ -34,9 +34,9 @@ import {
   ReactiveList,
   ResultCard,
   DataSearch,
-  MultiDataList,
-  RangeInput,
-  RatingsFilter
+  MultiDataList
+  // RangeInput,
+  // RatingsFilter
 } from "@appbaseio/reactivesearch";
 const { ResultCardsWrapper } = ReactiveList;
 

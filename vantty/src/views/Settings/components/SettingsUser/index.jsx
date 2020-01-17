@@ -35,12 +35,12 @@ const useStyles = makeStyles(theme => ({
   title: {
     color: theme.palette.text.primary,
     backgroundColor: "#F3F3F3",
-    paddingTop: "0.09rem" + "!important",
-    paddingBottom: "0.09rem" + "!important"
+    paddingTop: `0.09rem !important`,
+    paddingBottom: `0.09rem !important`
   },
   listItem: {
-    paddingTop: "0.2rem" + "!important",
-    paddingBottom: "0.2rem" + "!important"
+    paddingTop: `0.2rem !important`,
+    paddingBottom: `0.2rem !important`
   },
   arrow: {
     marginLeft: "7px",
@@ -57,13 +57,13 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
 
   return (
     <Fragment>
-      <List component='nav'>
-        <Container maxWidth='md'>
+      <List component="nav">
+        <Container maxWidth="md">
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -82,9 +82,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 2 */}
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -102,9 +102,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 3 */}
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -122,9 +122,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 4 */}
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -142,9 +142,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 5 */}
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink to={"/help"} className={classes.listItem}>

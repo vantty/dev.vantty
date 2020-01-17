@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import validate from "validate.js";
 
@@ -178,15 +177,4 @@ const ResetPassword = ({ match, reset, login }) => {
   );
 };
 
-// ResetPassword.propTypes = {
-//   user: PropTypes.object
-// };
-
-// const mapStateToProps = state => ({
-//   user: state.auth.user
-// });
-
-export default connect(
-  null,
-  { reset, login }
-)(ResetPassword);
+export default connect(null, { reset, login })(ResetPassword);

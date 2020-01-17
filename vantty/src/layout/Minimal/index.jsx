@@ -9,10 +9,6 @@ import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 
-///actions
-import { getCurrentProfile } from "../../actions/profile";
-import { loadUser } from "../../actions/auth";
-
 // Material-UI
 import { makeStyles } from "@material-ui/styles";
 
@@ -32,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Minimal = props => {
-  const { children, loadUser, getCurrentProfile } = props;
+  const { children } = props;
 
   useEffect(() => {
     // getCurrentProfile();
@@ -66,6 +62,4 @@ const mapStateToProps = state => ({
   uploader: state.uploader
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, loadUser })(
-  withRouter(Minimal)
-);
+export default connect(mapStateToProps, {})(withRouter(Minimal));

@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import LinkMui from "@material-ui/core/Link";
@@ -36,9 +35,9 @@ const ReviewItem = ({
     <Grid>
       <Grid
         container
-        direction='row'
-        justify='space-between'
-        alignItems='stretch'
+        direction="row"
+        justify="space-between"
+        alignItems="stretch"
       >
         <Grid item>
           <h1>Reviews</h1>
@@ -56,21 +55,21 @@ const ReviewItem = ({
       </Grid>
 
       <br />
-      <Divider variant='middle' />
+      <Divider variant="middle" />
 
       <List>
         {comments.map(comment => (
           <Fragment key={comment._id}>
-            <ListItem key={comment._id} alignItems='flex-start'>
+            <ListItem key={comment._id} alignItems="flex-start">
               <ListItemAvatar>
                 {comment.profilePicture ? (
                   <Avatar
-                    alt=''
+                    alt=""
                     src={comment.profilePicture}
                     className={classes.avatarReviewList}
                   />
                 ) : (
-                  <Avatar alt='' src={""} className={classes.avatarReviewList}>
+                  <Avatar alt="" src={""} className={classes.avatarReviewList}>
                     {getInitials(comment.name)}
                   </Avatar>
                 )}
@@ -82,37 +81,37 @@ const ReviewItem = ({
                   <Fragment>
                     <Fragment>
                       <Typography
-                        component='span'
-                        variant='body2'
+                        component="span"
+                        variant="body2"
                         className={classes.inline}
-                        color='textPrimary'
+                        color="textPrimary"
                       >
                         {comment.name}
                       </Typography>
                       {`  — ${comment.text}`}
 
                       <Typography
-                        component='span'
-                        variant='body2'
+                        component="span"
+                        variant="body2"
                         className={classes.messageReview}
-                        color='textPrimary'
+                        color="textPrimary"
                       >
-                        <Moment format='YYYY/MM/DD' className={classes.date}>
+                        <Moment format="YYYY/MM/DD" className={classes.date}>
                           {date}
                         </Moment>
                       </Typography>
                     </Fragment>
                     <Fragment>
                       <Typography
-                        component='span'
-                        variant='body2'
+                        component="span"
+                        variant="body2"
                         className={classes.messageReview}
-                        color='textPrimary'
+                        color="textPrimary"
                       >
                         {isOwner(auth, comment.user) ? (
                           <LinkMui
-                            component='button'
-                            variant='body2'
+                            component="button"
+                            variant="body2"
                             className={classes.deleteReview}
                             onClick={() => deleteComment(_id, comment._id)}
                           >
@@ -127,15 +126,15 @@ const ReviewItem = ({
               <Fragment>
                 <div style={{ display: "inline-block" }}>
                   <Chip
-                    variant='outlined'
-                    size='small'
+                    variant="outlined"
+                    size="small"
                     icon={<Star style={{ color: "#fdd835" }} />}
                     label={comment.rating}
                   />
                 </div>
               </Fragment>
             </ListItem>
-            <Divider variant='inset' component='li' />
+            <Divider variant="inset" component="li" />
           </Fragment>
         ))}
       </List>

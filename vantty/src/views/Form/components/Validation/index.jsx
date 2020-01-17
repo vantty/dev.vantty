@@ -1,19 +1,11 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import clsx from "clsx";
 import PropTypes from "prop-types";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Divider,
-  Grid,
-  Button
-} from "@material-ui/core";
+import { Divider, Grid, Button } from "@material-ui/core";
 
 // Actions
 import { createProfile } from "../../../../actions/profile";
@@ -75,7 +67,7 @@ const Validation = ({
     <Fragment>
       <CustomPaper
         Children={
-          <form autoComplete='off' noValidate>
+          <form autoComplete="off" noValidate>
             <Grid container spacing={3}>
               <br />
               <Grid item md={12} xs={12}>

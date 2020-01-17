@@ -1,7 +1,7 @@
 import { server, elastic } from "../utils/axios";
 import setAlert from "./alert";
 import { loadUser } from "./auth";
-import { deleteImages, getImagesById } from "./uploader";
+import { deleteImages } from "./uploader";
 import {
   GET_PROFILE,
   GET_PROFILES,

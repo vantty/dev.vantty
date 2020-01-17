@@ -2,14 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import { Container } from "@material-ui/core";
@@ -28,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog({ booking, changeStateBooking }) {
@@ -45,7 +40,7 @@ export default function FullScreenDialog({ booking, changeStateBooking }) {
 
   return (
     <div>
-      <Button size='small' variant='contained' onClick={handleClickOpen}>
+      <Button size="small" variant="contained" onClick={handleClickOpen}>
         View
       </Button>
       <Dialog
@@ -56,19 +51,19 @@ export default function FullScreenDialog({ booking, changeStateBooking }) {
       >
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <Container maxWidth='sm'>
+            <Container maxWidth="sm">
               <IconButton
-                edge='start'
-                color='inherit'
+                edge="start"
+                color="inherit"
                 onClick={handleClose}
-                aria-label='close'
+                aria-label="close"
               >
                 <CloseIcon />
               </IconButton>
             </Container>
           </Toolbar>
         </AppBar>
-        <Container maxWidth='sm'>
+        <Container maxWidth="sm">
           <BookingCard
             booking={booking}
             changeStateBooking={changeStateBooking}

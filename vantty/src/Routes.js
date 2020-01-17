@@ -51,14 +51,14 @@ import PrivateRoute from "./router/PrivateRoute";
 import AdminRoute from "./router/AdminRoute";
 import {
   InfoContact,
-  Validation,
-  Appointments,
-  Bookings
+  Validation
+  // Appointments,
+  // Bookings
 } from "./views/Form/components";
 import {
-  SettingsGeneral,
+  // SettingsGeneral,
   Account,
-  ProfileArist,
+  // ProfileArist,
   ProfileArtist
 } from "./views/Settings/components";
 

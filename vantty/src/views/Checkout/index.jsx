@@ -34,7 +34,6 @@ import { addNewBook } from "../../actions/book";
 // import CheckoutContext from "./CheckoutContext";
 
 // Helpers
-const log = console.log;
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -176,8 +175,8 @@ const Checkout = ({
   const {
     date,
     hour,
-    services,
-    totals,
+    // services,
+    // totals,
     address,
     descriptionAddress,
     stripeCardId

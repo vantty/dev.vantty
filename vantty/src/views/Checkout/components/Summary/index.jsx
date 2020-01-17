@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 export default function Summary({ checkout, cards }) {
   const classes = useStyles();
 
-  const card = cards.find(card => card.stripeCardId == checkout.stripeCardId);
+  const card = cards.find(card => card.stripeCardId === checkout.stripeCardId);
   const payments = [
     { name: "Card brand", detail: card.brand },
     { name: "Card number", detail: `•••• ${card.last4}` },
