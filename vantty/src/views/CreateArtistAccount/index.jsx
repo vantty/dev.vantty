@@ -38,10 +38,6 @@ const CreateArtistAccount = props => {
   const { code } = qs.parse(location.search, { ignoreQueryPrefix: true });
   creacteStripeAccount(code);
 
-  const handleClick = () => {
-    console.log("CLICKED");
-  };
-
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="sm">
@@ -57,7 +53,6 @@ const CreateArtistAccount = props => {
           aliquip ex ea commodo consequat.
         </Typography>
         <Button
-          onClick={handleClick}
           color="primary"
           variant="contained"
           className={classes.button}

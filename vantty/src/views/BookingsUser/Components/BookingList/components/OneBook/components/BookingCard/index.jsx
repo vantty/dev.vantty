@@ -5,14 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
   List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Divider,
-  ListItemSecondaryAction,
-  Button,
   Typography,
-  IconButton,
   Avatar,
   CardActions,
   CardContent,
@@ -20,17 +13,10 @@ import {
   CardHeader,
   Card
 } from "@material-ui/core";
-import { Services, SettingsCard } from "./components";
+import { Services } from "./components";
 
 // Components
-import {
-  BookCode,
-  ConfirmationModal
-} from "../../../../../../../../components";
 import { PosponeForm, HelpButton } from "./components";
-
-// Helper
-const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -112,6 +98,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
       />
       <a
         target="_blank"
+        rel="noopener noreferrer"
         href={`https://www.google.com/maps/place/${replace(
           booking.address.street
         )}/`}

@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 // Components
 import { Header } from "../../components/";
 import { Review, Slider, MessageVerified, ContactBook } from "./components";
-import { ProfileCarousel, ProfileInfo, ContactButton } from "./components";
+import { ProfileCarousel, ProfileInfo } from "./components";
 import { SimpleAppBar } from "../../components";
 import { BottomNavbar } from "../../layout/Main/components";
 
@@ -26,7 +26,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Helpers
 import { isOwner } from "../../helpers";
-const log = console.log;
 
 const useStyles = makeStyles(theme => ({
   mainGrid: {
@@ -35,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   sticky: {
-    position: "-webkit-sticky" /* Safari */,
+    // position: "-webkit-sticky" /* Safari */,
     position: "sticky", //it must keep here
     top: "0"
   },

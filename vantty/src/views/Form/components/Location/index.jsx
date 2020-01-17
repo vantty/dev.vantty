@@ -92,8 +92,6 @@ const Location = ({
   const onSubmit = e => {
     e.preventDefault();
     createProfile(values, history, true);
-    console.log(values);
-
     match.url === "/create-profile" && nextStep();
   };
   const mode = match.url === "/location" ? "EDIT" : "ADD";

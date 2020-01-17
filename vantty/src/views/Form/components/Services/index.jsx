@@ -103,7 +103,6 @@ const Price = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log("PRICE", formData);
     createProfile({ price: price }, history, true);
     createProfile({ availability: availability }, history, true);
     nextStep();

@@ -37,19 +37,19 @@ const SimpleAppBar = ({ step, page }) => {
   const classes = useStyles();
   return (
     <div className={classes.grow}>
-      <AppBar position='fixed' className={classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Container maxWidth='md'>
+          <Container maxWidth="md">
             {/* <MuiLink underline='none' color='inherit' component={Link} to={"/"}> */}
             <Typography
-              variant='h6'
-              color='inherit'
+              variant="h6"
+              color="inherit"
               noWrap
-              // className={classes.typography}
-              classes={classes.logo}
-              type='title'
+              className={classes.logo}
+              // classes={classes.logo}
+              type="title"
             >
-              <img src={vantty} className={classes.avatar} alt='' />
+              <img src={vantty} className={classes.avatar} alt="" />
             </Typography>
             {/* </MuiLink> */}
           </Container>

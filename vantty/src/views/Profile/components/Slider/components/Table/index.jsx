@@ -5,16 +5,15 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: "3px" + "!important"
+    padding: `3px !important`
   },
 
   table: {
     fontSize: "2px",
-    padding: "3px" + "!important"
+    padding: `3px !important`
   }
 }));
 

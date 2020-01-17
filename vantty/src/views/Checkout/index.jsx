@@ -151,7 +151,6 @@ const useStyles = makeStyles(theme => ({
 const steps = ["Service", "Contact", "Payment", "Book"];
 
 const Checkout = ({
-  pay,
   getProfileById,
   profile: { profile },
   initialServices,
@@ -395,7 +394,6 @@ Checkout.propTypes = {
   history: PropTypes.object,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  pay: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
   user: PropTypes.object
 };
@@ -404,7 +402,6 @@ const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
   uploader: state.uploader,
-  pay: state.pay,
   cart: state.cart,
   user: state.auth.user
 });

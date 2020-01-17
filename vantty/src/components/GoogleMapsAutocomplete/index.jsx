@@ -5,7 +5,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField } from "@material-ui/core";
-const log = console.log;
+
 const useStyles = makeStyles(theme => ({
   div: {
     marginLeft: "0.8rem",
@@ -48,9 +48,9 @@ export default function App({ onChangeAddress, localAddress }) {
                 fullWidth
                 required
                 defaultValue={localAddress.street}
-                name='address'
-                id='description'
-                label='Addrees'
+                name="address"
+                id="description"
+                label="Addrees"
                 value={localAddress.street}
                 {...getInputProps({
                   // id: "mui-places-autocomplete-input",

@@ -4,19 +4,17 @@ import crypto from "crypto";
 
 import { createMobileNumber, getCurrentProfile } from "./profile";
 
-import { updateInfo, loadUser } from "./auth";
-import { server } from "../utils/axios";
-//vantty.ca
+import { loadUser } from "./auth";
 const appId = process.env.REACT_APP_FACEBOOK_ID;
 const appSecret = process.env.REACT_APP_FACEBOOK_APP;
 
 // const version = "v1.1";
 
-const redirect = (numberVerified, id) => {
-  if (numberVerified !== "") {
-    window.location.href = `https://vantty.ca/profile/artist/${id}`;
-  }
-};
+// const redirect = (numberVerified, id) => {
+//   if (numberVerified !== "") {
+//     window.location.href = `https://vantty.ca/profile/artist/${id}`;
+//   }
+// };
 
 export const verifyNumber = res => async dispatch => {
   const auth_code = res.code;

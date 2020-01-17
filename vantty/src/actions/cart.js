@@ -3,9 +3,7 @@ import {
   REMOVE_ITEM,
   SUB_QUANTITY,
   ADD_QUANTITY,
-  ADD_SHIPPING,
   INITIAL_SERVICES,
-  ADD_BOOK,
   CLEAR_CART
 } from "./types";
 

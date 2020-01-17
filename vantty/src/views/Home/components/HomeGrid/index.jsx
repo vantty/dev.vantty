@@ -149,7 +149,7 @@ const HomeGrid = ({ title, subtitle, images }) => {
           <Grid
             container
             direction="row"
-            justify="initial"
+            justify="flex-start"
             alignItems="center"
             className={classes.seeAllTitle}
           >

@@ -31,7 +31,7 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(getCurrentProfile());
-    store.dispatch(getBook());
+    // store.dispatch(getBook());
   }, []);
 
   return (

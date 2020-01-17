@@ -4,17 +4,10 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker
 } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  InputLabel,
-  MenuItem,
-  Select,
-  Button
-} from "@material-ui/core";
+import { Typography, InputLabel, MenuItem, Select } from "@material-ui/core";
 import { hours } from "./seedHours";
 
 const useStyles = makeStyles(theme => ({

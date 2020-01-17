@@ -5,7 +5,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,20 +37,20 @@ export default function DenseTable() {
   return (
     <div className={classes.root}>
       {/* <Paper className={classes.paper}> */}
-      <Table className={classes.table} size='small' aria-label='a dense table'>
+      <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Description</TableCell>
-            <TableCell align='right'>Value</TableCell>
+            <TableCell align="right">Value</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
             <TableRow key={row.name}>
-              <TableCell component='th' scope='row'>
+              <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align='right'>{row.calories}</TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
             </TableRow>
           ))}
         </TableBody>

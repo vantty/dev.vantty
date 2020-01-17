@@ -128,7 +128,7 @@ const HomeCarousel = ({ title, artist, images }) => {
           <Grid
             container
             direction="row"
-            justify="initial"
+            justify="flex-start"
             alignItems="center"
             className={classes.seeAllTitle}
           >

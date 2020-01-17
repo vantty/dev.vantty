@@ -140,14 +140,12 @@ const AddCategories = ({
                 <Fragment>
                   <Typography>Categoties</Typography>
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-mutiple-chip-label">Hair</InputLabel>
+                    <InputLabel>Hair</InputLabel>
                     <Select
-                      labelId="demo-mutiple-chip-label"
-                      id="demo-mutiple-chip"
                       multiple
                       value={stateHair || stateHairElement}
                       onChange={handleChangeHair}
-                      input={<Input id="select-multiple-chip" />}
+                      input={<Input />}
                       renderValue={selected => (
                         <div className={classes.chips}>
                           {selected.map(value => (
@@ -170,14 +168,12 @@ const AddCategories = ({
                   </FormControl>
                   {/* MAKEUP */}
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-mutiple-chip-label">Makeup</InputLabel>
+                    <InputLabel>Makeup</InputLabel>
                     <Select
-                      labelId="demo-mutiple-chip-label"
-                      id="demo-mutiple-chip"
                       multiple
                       value={stateMakeup || stateMakeupElement}
                       onChange={handleChangeMakeup}
-                      input={<Input id="select-multiple-chip" />}
+                      input={<Input />}
                       renderValue={selected => (
                         <div className={classes.chips}>
                           {selected.map(value => (
