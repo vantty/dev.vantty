@@ -5,9 +5,8 @@ const express = require("express"),
   {
     getByUser,
     getById,
+    remove,
     save,
-    deleteImages,
-    deleteImageMongo,
     addPictureTags
   } = require("../controllers/images"),
   router = express.Router();
@@ -15,9 +14,8 @@ const express = require("express"),
 router.get("/", passportJWT, getByUser);
 router.get("/:id", getById);
 router.post("/", passportJWT, save);
-// =====
-router.post("/delete", deleteImages);
-router.delete("/user-pictures/:image_id", passportJWT, deleteImageMongo);
+router.post("/delete/:image_id", passportJWT, remove);
+//
 router.post("/add-tags", passportJWT, addPictureTags);
 
 module.exports = router;

@@ -54,41 +54,17 @@ exports.save = async (req, res) => {
   }
 };
 
-exports.deleteImages = async (req, res) => {
+// Delete Images in Cloudinary and DB
+exports.remove = async (req, res) => {
   try {
-    const { id } = req.body;
-    const result = await cloudinaryService.remove(id);
-    res.status(200).json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
-  }
-};
-
-// @desc     Delete picture
-exports.deleteImageMongo = async (req, res) => {
-  try {
-    const { image_id: imageId } = req.params;
     const {
-      user: { id }
+      user: { id },
+      body: { cloudId },
+      params: { image_id: imageId }
     } = req;
-    console.log("IDS", id, imageId);
+    await cloudinaryService.remove(cloudId);
     const result = await imageService.remove(id, imageId);
     res.status(200).json(result);
-
-    // const images = await Image.findById(req.params.id);
-
-    // const removeIndex = images.pictures
-    //   .map(picture => picture.id)
-    //   .indexOf(req.params.images_id);
-
-    // console.log("INDEX", removeIndex);
-
-    // images.pictures.splice(removeIndex, 1);
-
-    // await images.save();
-
-    // res.json(images.pictures);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
