@@ -1,5 +1,4 @@
 const cloudinary = require("cloudinary");
-const Image = require("../models/Image");
 const imageService = require("../services/image");
 const cloudinaryService = require("../services/cloudinary");
 
@@ -9,7 +8,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Get Current Images By User Id
 exports.getByUser = async (req, res) => {
   try {
     const {
@@ -23,7 +21,6 @@ exports.getByUser = async (req, res) => {
   }
 };
 
-// Get Images By Params Id
 exports.getById = async (req, res) => {
   try {
     const {
@@ -37,7 +34,6 @@ exports.getById = async (req, res) => {
   }
 };
 
-// Save Images in Cloudinary and DB
 exports.save = async (req, res) => {
   try {
     const {
@@ -54,7 +50,6 @@ exports.save = async (req, res) => {
   }
 };
 
-// Delete Images in Cloudinary and DB
 exports.remove = async (req, res) => {
   try {
     const {
@@ -62,7 +57,7 @@ exports.remove = async (req, res) => {
       body: { cloudId },
       params: { image_id: imageId }
     } = req;
-    await cloudinaryService.remove(cloudId);
+    cloudinaryService.remove(cloudId);
     const result = await imageService.remove(id, imageId);
     res.status(200).json(result);
   } catch (err) {
@@ -71,25 +66,14 @@ exports.remove = async (req, res) => {
   }
 };
 
-exports.addPictureTags = async (req, res) => {
+exports.saveTags = async (req, res) => {
   try {
-    const sendTags = req.body;
-    const profile = await Profile.findOne({ user: req.user.id });
-    const images = await Image.findById(profile.imagesId);
-
-    let pictures = images.pictures;
-
-    const arr = Array.from(pictures);
-    const arr2 = Array.from(sendTags);
-    for (const x of arr) {
-      for (const y of arr2) {
-        if (x._id == y._id) {
-          x.tag = y.tag;
-        }
-      }
-    }
-    images.save();
-    res.json(images);
+    const {
+      user: { id },
+      body: tags
+    } = req;
+    const result = await imageService.saveTags(id, tags);
+    res.status(200).json(result);
   } catch (error) {
     console.log(error);
   }

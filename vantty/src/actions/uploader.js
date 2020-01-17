@@ -99,7 +99,7 @@ export const uploadTag = tagObj => async dispatch => {
       for (const x of [tagObj[y]]) {
         var newObjTag = { _id: x._id, tag: x.tag };
 
-        await server.post("/images/add-tags", [newObjTag]);
+        await server.post("/images/tags", [newObjTag]);
 
         //elastic Tags
         const elasticConfig = {

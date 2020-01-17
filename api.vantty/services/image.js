@@ -38,4 +38,17 @@ const remove = async (id, imageId) => {
   return images;
 };
 
-module.exports = { create, getById, save, remove };
+const saveTags = async (id, tags) => {
+  const images = await getById(id);
+  images.pictures.map(pic => {
+    tags.map(tag => {
+      if (pic._id == tag._id) {
+        pic.tag = tag.tag;
+      }
+    });
+  });
+  await images.save();
+  return images;
+};
+
+module.exports = { create, getById, save, remove, saveTags };

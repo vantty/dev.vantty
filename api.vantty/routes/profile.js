@@ -15,8 +15,6 @@ const {
   createAndUpdate,
   addCategories,
   deleteEducation,
-  addPictureTags,
-  deletePicture,
   addProfileImage,
   deleteProfilePicture,
   loadToElastic,
@@ -45,14 +43,6 @@ router.put(
 // @desc     Delete education from profile
 // @access   Private
 router.delete("/education/:edu_id", passportJWT, deleteEducation);
-
-// @route    PUT /profile/add-tags
-// @access   Private
-router.post("/add-tags", passportJWT, addPictureTags);
-
-// @route    DELETE /profile/portfolio/:pic_id
-// @access   Private
-router.delete("/portfolio/:pic_id", passportJWT, deletePicture);
 
 // @route    PUT /profile/profilePicture
 // @access   Private

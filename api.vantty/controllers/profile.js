@@ -94,49 +94,6 @@ exports.deleteEducation = async (req, res) => {
   }
 };
 
-exports.addPictureTags = async (req, res) => {
-  try {
-    const sendTags = req.body;
-    const profile = await Profile.findOne({ user: req.user.id });
-    let pictures = profile.portfolioPictures;
-
-    const arr = Array.from(pictures);
-    const arr2 = Array.from(sendTags);
-    for (const x of arr) {
-      for (const y of arr2) {
-        if (x._id == y._id) {
-          x.tag = y.tag;
-        }
-      }
-    }
-    profile.save();
-    res.json(profile);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// Delete Porfolio
-exports.deletePicture = async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ user: req.user.id });
-
-    // Get remove index
-    const removeIndex = profile.portfolioPictures
-      .map(item => item.id)
-      .indexOf(req.params.pic_id);
-
-    profile.portfolioPictures.splice(removeIndex, 1);
-
-    await profile.save();
-
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
 // Add Porfolio Pictures
 exports.addProfileImage = async (req, res) => {
   const { original, cloudId } = req.body;
