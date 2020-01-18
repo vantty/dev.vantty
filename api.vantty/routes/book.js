@@ -10,17 +10,14 @@ const express = require("express"),
     getBookById,
     current,
     changeStateBooking,
-    testSendEmail,
     getUserBookings
   } = require("../controllers/book"),
   router = express.Router(),
   passport = require("passport"),
   passportJWT = passport.authenticate("jwt", { session: false });
 
-// router.post("/pay", pay);
-router.post("/test", testSendEmail);
-router.post("/create-account/:code", createAccount);
-router.post("/save-account", saveAccount);
+router.post("/create-account/:code", passportJWT, createAccount);
+router.post("/save-account", passportJWT, saveAccount);
 router.post("/create-customer", createCustomer);
 router.post("/add-card", addCard);
 router.post("/delete-card", deleteCard);

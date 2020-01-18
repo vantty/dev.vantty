@@ -26,46 +26,37 @@ import { getStrategyEmail } from "../helpers";
 import setAlert from "./alert";
 const log = console.log;
 
-export const testSendEmail = text => async dispatch => {
-  try {
-    const config = {
-      headers: { "Content-Type": "application/json" }
-    };
-    const body = JSON.stringify({ text });
-    await server.post("/book/test", body, config);
-  } catch (error) {
-    log(error);
-  }
-};
-
 // Create Stripe Artist Account
 export const creacteStripeAccount = code => async dispatch => {
   try {
-    const {
-      data: { stripe_user_id }
-    } = await server.post(`/book/create-account/${code}`);
-    const {
-      data: { _id }
-    } = await server.get("/auth");
-    const config = {
-      headers: { "Content-Type": "application/json" }
-    };
-    const body = JSON.stringify({ stripe_user_id, _id });
-    const resSave = await server.post("/book/save-account", body, config);
+    const result = await server.post(`/book/create-account/${code}`);
+    console.log("RESULT", result);
     dispatch({
       type: CREATE_STRIPE_ACCOUNT_SUCCESS,
-      payload: resSave.data
+      payload: result
     });
-    if (resSave.data.stripeArtistAccount) {
-      await server.post(
-        "/auth/is-profile",
-        { id: _id, profile: true },
-        true,
-        config
-      );
-      await dispatch(getCurrentProfile());
-    }
     await dispatch(getCurrentProfile());
+
+    // const {
+    //   data: { stripe_user_id }
+    // } = await server.post(`/book/create-account/${code}`);
+    // const {
+    //   data: { _id }
+    // } = await server.get("/auth");
+    // const config = {
+    //   headers: { "Content-Type": "application/json" }
+    // };
+    // const body = JSON.stringify({ stripe_user_id, _id });
+    // const resSave = await server.post("/book/save-account", body, config);
+    // if (resSave.data.stripeArtistAccount) {
+    //   await server.post(
+    //     "/auth/is-profile",
+    //     { id: _id, profile: true },
+    //     true,
+    //     config
+    //   );
+    //   await dispatch(getCurrentProfile());
+    // }
   } catch (error) {
     console.log(error);
     dispatch({

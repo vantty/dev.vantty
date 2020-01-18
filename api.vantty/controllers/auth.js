@@ -297,7 +297,7 @@ exports.isProfile = async (req, res) => {
     const { id, profile } = req.body;
     let user = await User.findOneAndUpdate(
       { _id: id },
-      { $set: { profile} },
+      { $set: { profile } },
       { new: true }
     );
     res.status(200).json(user);

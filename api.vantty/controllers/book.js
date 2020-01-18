@@ -8,25 +8,43 @@ const log = console.log;
 const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
 // const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
 
-//
-exports.testSendEmail = async (req, res) => {
-  try {
-    composeEmail("sebhernandezram@gmail.com", "Test", req.body.text);
-    res.status(200).json(req.body);
-  } catch (error) {
-    log(error);
-    res.status(500).json(error);
-  }
-};
-
 // Create Stripe Artist Account
 exports.createAccount = async (req, res) => {
   try {
-    const data = await stripe.oauth.token({
+    const {
+      user: { id }
+    } = req;
+    const { stripe_user_id: stripeArtistAccount } = await stripe.oauth.token({
       grant_type: "authorization_code",
       code: req.params.code
     });
-    res.status(200).json(data);
+    const {
+      external_accounts: { data }
+    } = await stripe.accounts.retrieve(stripeArtistAccount);
+    const stripeBankData = {
+      bankId: data[0].id,
+      country: data[0].country,
+      currency: data[0].currency,
+      bankName: data[0].bank_name,
+      routingNumber: data[0].routing_number,
+      last4: data[0].last4
+    };
+    const profile = await Profile.findOneAndUpdate(
+      { user: id },
+      {
+        $set: {
+          stripeArtistAccount: stripeArtistAccount,
+          stripeBankData: stripeBankData
+        }
+      },
+      { new: true }
+    );
+    await User.findOneAndUpdate(
+      { _id: id },
+      { $set: { profile: true } },
+      { new: true }
+    );
+    res.status(201).json(profile);
   } catch (error) {
     log(error);
     res.status(500).json(error);
