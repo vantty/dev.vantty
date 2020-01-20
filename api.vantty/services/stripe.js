@@ -21,17 +21,21 @@ const createAccount = async (id, code) => {
     last4: data[0].last4
   };
   await userService.update(id, { profile: true });
-  const result = await profileService.update(id, {
-    stripeArtistAccount: stripeArtistAccount,
-    stripeBankData: stripeBankData
-  });
+  const result = await profileService.update(
+    id,
+    {
+      stripeArtistAccount: stripeArtistAccount,
+      stripeBankData: stripeBankData
+    },
+    "$set"
+  );
   return result;
 };
 
-const createCustomer = async (id, token) => {
+const createCustomer = async (id, source) => {
   const customer = await stripe.customers.create({
     name: id,
-    source: token
+    source: source
   });
   return customer;
 };
@@ -41,4 +45,22 @@ const retrieveSource = async (customerId, source) => {
   return card;
 };
 
-module.exports = { createAccount, createCustomer, retrieveSource };
+const createSource = async (stripeCustomerId, source) => {
+  const card = await stripe.customers.createSource(stripeCustomerId, {
+    source: source
+  });
+  return card;
+};
+
+const deleteSource = async (stripeCustomerId, cardId) => {
+  await stripe.customers.deleteSource(stripeCustomerId, cardId);
+  return null;
+};
+
+module.exports = {
+  createAccount,
+  createCustomer,
+  retrieveSource,
+  createSource,
+  deleteSource
+};

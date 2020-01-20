@@ -1,7 +1,5 @@
 const express = require("express"),
   {
-    createCustomer,
-    addCard,
     deleteCard,
     createNewBook,
     completeService,
@@ -14,8 +12,6 @@ const express = require("express"),
   passport = require("passport"),
   passportJWT = passport.authenticate("jwt", { session: false });
 
-router.post("/create-customer", createCustomer);
-router.post("/add-card", addCard);
 router.post("/delete-card", deleteCard);
 router.post("/create-book/:id", passportJWT, createNewBook);
 router.post("/complete-service", completeService);

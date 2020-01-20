@@ -91,58 +91,14 @@ exports.composeEmail = (email, subject, html) => {
   }
 };
 
-// Email Template
-// exports.composeEmail = (email, subject, html) => {
-//   try {
-//     // Step 1
-//     const transporter = nodemailer.createTransport({
-//       host: "smtp.mailgun.org",
-//       port: 465,
-//       secure: true,
-//       auth: {
-//         user: "postmaster@mg.vantty.ca",
-//         pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
-//       }
-//     });
-
-//     // Step 2
-//     transporter.use(
-//       "compile",
-//       hbs({
-//         viewEngine: {
-//           extName: ".hbs",
-//           partialsDir: "./views",
-//           layoutsDir: "./views",
-//           defaultLayout: "index.hbs"
-//         },
-//         viewPath: "./views",
-//         extName: ".hbs"
-//       })
-//     );
-
-//     // Step 3
-//     let mailOptions = {
-//       from: "admin@vantty.ca", // TODO: email sender
-//       to: `${email}`, // TODO: email receiver
-//       subject: "Nodemailer - Test",
-//       text: "Wooohooo it works!!",
-//       template: "index",
-//       context: {
-//         subject: subject,
-//         html: html
-//       }
-//     };
-
-//     // Step 4
-//     transporter.sendMail(mailOptions, (err, data) => {
-//       if (err) {
-//         log("EMAIL ERROR", err);
-//         return log("Error occurs");
-//       }
-//       return log("Email sent!!!");
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Server error");
-//   }
-// };
+exports.newCardObj = card => {
+  const newCard = {
+    stripeCardId: card.id,
+    fingerPrint: card.fingerprint,
+    brand: card.brand,
+    expMonth: card.exp_month,
+    expYear: card.exp_year,
+    last4: card.last4
+  };
+  return newCard;
+};

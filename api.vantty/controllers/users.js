@@ -13,30 +13,24 @@ exports.createCustomer = async (req, res) => {
         token: { id: token }
       }
     } = req;
-    console.log("INPUT", id, token);
     const result = await userService.customer(id, token);
+    console.log("RES PUSH", result);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
 
-    // let user = await User.findById(req.body._id);
-    // const customer = await stripe.customers.create({
-    //   source: req.body.token.id,
-    //   email: req.body.email,
-    //   name: req.body._id
-    // });
-    // const card = await stripe.customers.retrieveSource(
-    //   customer.id,
-    //   customer.default_source
-    // );
-    // const newCard = {
-    //   stripeCardId: customer.default_source,
-    //   fingerPrint: card.fingerprint,
-    //   brand: card.brand,
-    //   expMonth: card.exp_month,
-    //   expYear: card.exp_year,
-    //   last4: card.last4
-    // };
-    // user.stripeCustomerId = customer.id;
-    // user.cards.push(newCard);
-    // await user.save();
+exports.addCard = async (req, res) => {
+  try {
+    const {
+      user: { id, stripeCustomerId, cards },
+      body: {
+        token: { id: source }
+      }
+    } = req;
+    const result = await userService.card(stripeCustomerId, source, id, cards);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

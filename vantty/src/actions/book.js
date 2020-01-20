@@ -95,7 +95,7 @@ export const addCard = token => async dispatch => {
       data: { _id }
     } = user;
     const body = JSON.stringify({ token, _id });
-    const res = await server.post("/book/add-card", body, config);
+    const res = await server.post("/user/card", body, config);
     await dispatch({
       type: ADD_CARD_SUCCESS,
       payload: res.data

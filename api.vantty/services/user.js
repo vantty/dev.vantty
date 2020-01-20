@@ -4,6 +4,7 @@ const Review = require("../models/Review");
 const Image = require("../models/Image");
 const Book = require("../models/Book");
 const stripeService = require("../services/stripe");
+const { newCardObj } = require("../helpers");
 
 const getById = async id => {
   const user = await User.findById(id);
@@ -19,10 +20,10 @@ const deleteById = async id => {
   return null;
 };
 
-const update = async (id, field) => {
+const update = async (id, field, method) => {
   const user = await User.findOneAndUpdate(
     { _id: id },
-    { $set: field },
+    { [method]: field },
     { new: true }
   );
   return user;
@@ -34,25 +35,33 @@ const customer = async (id, token) => {
     default_source: source
   } = await stripeService.createCustomer(id, token);
   const card = await stripeService.retrieveSource(customerId, source);
-  const newCard = {
-    stripeCardId: source,
-    fingerPrint: card.fingerprint,
-    brand: card.brand,
-    expMonth: card.exp_month,
-    expYear: card.exp_year,
-    last4: card.last4
-  };
-  // user.stripeCustomerId = customerId;
-
-  console.log("CARD", newCard);
-  const user = await update(id, {
-    stripeCustomerId: customerId,
-    cards: newCard
-  });
-  console.log("USER", user);
+  const newCard = await newCardObj(card);
+  const user = await update(
+    id,
+    {
+      stripeCustomerId: customerId,
+      cards: newCard
+    },
+    "$set"
+  );
   return user;
-  // user.cards.push(newCard);
-  // await user.save();
 };
 
-module.exports = { deleteById, update, customer };
+const card = async (stripeCustomerId, source, id, cards) => {
+  const card = await stripeService.createSource(stripeCustomerId, source);
+  const existingCard = cards.find(
+    existingCard => existingCard.fingerPrint === card.fingerprint
+  );
+  if (existingCard) {
+    await stripeService.deleteSource(stripeCustomerId, card.id);
+    const user = await getById(id);
+    return user;
+    // DEBE ENVIAR UN ERROR DE QUE LA TARJETA YA EXISTE
+  } else {
+    const newCard = await newCardObj(card);
+    const user = await update(id, { cards: newCard }, "$push");
+    return user;
+  }
+};
+
+module.exports = { deleteById, update, customer, card };

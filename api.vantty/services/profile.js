@@ -124,10 +124,10 @@ const save = async (data, user) => {
   return profile;
 };
 
-const update = async (id, field) => {
+const update = async (id, field, method) => {
   const profile = await Profile.findOneAndUpdate(
     { user: id },
-    { $set: field },
+    { [method]: field },
     { new: true }
   );
   return profile;
