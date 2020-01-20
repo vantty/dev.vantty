@@ -124,4 +124,13 @@ const save = async (data, user) => {
   return profile;
 };
 
-module.exports = { getById, getAll, save };
+const update = async (id, field) => {
+  const profile = await Profile.findOneAndUpdate(
+    { user: id },
+    { $set: field },
+    { new: true }
+  );
+  return profile;
+};
+
+module.exports = { getById, getAll, save, update };

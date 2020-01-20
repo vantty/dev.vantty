@@ -29,7 +29,8 @@ const log = console.log;
 // Create Stripe Artist Account
 export const creacteStripeAccount = code => async dispatch => {
   try {
-    const result = await server.post(`/book/create-account/${code}`);
+    // const result = await server.post(`/book/create-account/${code}`);
+    const result = await server.post(`/profile/account/${code}`);
     console.log("RESULT", result);
     dispatch({
       type: CREATE_STRIPE_ACCOUNT_SUCCESS,

@@ -13,4 +13,13 @@ const deleteById = async id => {
   return null;
 };
 
-module.exports = { deleteById };
+const update = async (id, field) => {
+  const user = await User.findOneAndUpdate(
+    { _id: id },
+    { $set: field },
+    { new: true }
+  );
+  return user;
+};
+
+module.exports = { deleteById, update };

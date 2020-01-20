@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
 const profileService = require("../services/profile");
+const stripeService = require("../services/stripe");
 
 // Get Current Profile By User Id
 exports.getByUser = async (req, res) => {
@@ -222,6 +223,20 @@ exports.deleteService = async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+exports.createStripeAccount = async (req, res) => {
+  try {
+    const {
+      user: { id },
+      params: { code }
+    } = req;
+    const result = stripeService.account(id, code);
+    res.status(201).json(result);
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Server Error");
   }
 };

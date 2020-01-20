@@ -21,13 +21,15 @@ const {
   verifiedProfile,
   deleteProfileAndUserDashboard,
   addService,
-  deleteService
+  deleteService,
+  createStripeAccount
 } = require("../controllers/profile");
 
 router.get("/me", passportJWT, getByUser);
 router.get("/:id", getById);
 router.get("/", getAll);
 router.post("/", passportJWT, profileValidator, createAndUpdate);
+router.post("/account/:code", passportJWT, createStripeAccount);
 
 // @route    PUT api/profile/education
 // @desc     Add profile education
