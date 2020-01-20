@@ -233,7 +233,7 @@ exports.createStripeAccount = async (req, res) => {
       user: { id },
       params: { code }
     } = req;
-    const result = stripeService.account(id, code);
+    const result = stripeService.createAccount(id, code);
     res.status(201).json(result);
   } catch (error) {
     console.error(error);

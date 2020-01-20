@@ -74,7 +74,8 @@ export const validateCard = token => async dispatch => {
     } = user;
     const email = getStrategyEmail(user.data);
     const body = JSON.stringify({ token, email, _id });
-    const res = await server.post("/book/create-customer", body, config);
+    // const res = await server.post("/book/create-customer", body, config);
+    const res = await server.post("/user/customer", body, config);
     await dispatch({
       type: ADD_CARD_SUCCESS,
       payload: res.data

@@ -4,7 +4,7 @@ const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
 const profileService = require("../services/profile");
 const userService = require("../services/user");
 
-const account = async (id, code) => {
+const createAccount = async (id, code) => {
   const { stripe_user_id: stripeArtistAccount } = await stripe.oauth.token({
     grant_type: "authorization_code",
     code: code
@@ -28,4 +28,17 @@ const account = async (id, code) => {
   return result;
 };
 
-module.exports = { account };
+const createCustomer = async (id, token) => {
+  const customer = await stripe.customers.create({
+    name: id,
+    source: token
+  });
+  return customer;
+};
+
+const retrieveSource = async (customerId, source) => {
+  const card = await stripe.customers.retrieveSource(customerId, source);
+  return card;
+};
+
+module.exports = { createAccount, createCustomer, retrieveSource };
