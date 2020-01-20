@@ -21,7 +21,7 @@ export default function(state = initialState, action) {
     case CREATE_STRIPE_ACCOUNT_FAIL:
       return {
         ...state,
-        stripeAccount: null
+        stripeAccount: payload
       };
     case GET_BOOK:
       return {
