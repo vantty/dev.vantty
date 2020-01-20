@@ -29,7 +29,7 @@ const update = async (id, field, method) => {
   return user;
 };
 
-const customer = async (id, token) => {
+const createCustomer = async (id, token) => {
   const {
     id: customerId,
     default_source: source
@@ -47,7 +47,7 @@ const customer = async (id, token) => {
   return user;
 };
 
-const card = async (stripeCustomerId, source, id, cards) => {
+const saveCard = async (stripeCustomerId, source, id, cards) => {
   const card = await stripeService.createSource(stripeCustomerId, source);
   const existingCard = cards.find(
     existingCard => existingCard.fingerPrint === card.fingerprint
@@ -64,4 +64,14 @@ const card = async (stripeCustomerId, source, id, cards) => {
   }
 };
 
-module.exports = { deleteById, update, customer, card };
+const deleteCard = async (user, stripeCardId) => {
+  const { stripeCustomerId } = user;
+  await stripeService.deleteSource(stripeCustomerId, stripeCardId);
+  const card = user.cards.find(card => card.stripeCardId === stripeCardId);
+  const index = user.cards.indexOf(card);
+  await user.cards.splice(index, 1);
+  await user.save();
+  return user;
+};
+
+module.exports = { deleteById, update, createCustomer, saveCard, deleteCard };

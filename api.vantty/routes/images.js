@@ -14,7 +14,7 @@ const express = require("express"),
 router.get("/", passportJWT, getByUser);
 router.get("/:id", getById);
 router.post("/", passportJWT, save);
-router.post("/delete/:image_id", passportJWT, remove);
+router.delete("/delete/:image_id/:cloud_id", passportJWT, remove);
 router.post("/tags", passportJWT, saveTags);
 
 module.exports = router;

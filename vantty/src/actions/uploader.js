@@ -137,11 +137,7 @@ export const deletePicture = (
 ) => async dispatch => {
   try {
     await deleteFromElastic(elasticId);
-    const res = await server.post(`/images/delete/${dataBaseId}`, {
-      cloudId
-    });
-    // await dispatch(deleteImages(cloudId));
-
+    const res = await server.delete(`/images/delete/${dataBaseId}/${cloudId}`);
     dispatch({
       type: IMAGES_DELETE_SUCCESS,
       payload: res.data.pictures

@@ -13,7 +13,7 @@ exports.createCustomer = async (req, res) => {
         token: { id: token }
       }
     } = req;
-    const result = await userService.customer(id, token);
+    const result = await userService.createCustomer(id, token);
     console.log("RES PUSH", result);
     res.status(200).json(result);
   } catch (error) {
@@ -22,7 +22,7 @@ exports.createCustomer = async (req, res) => {
   }
 };
 
-exports.addCard = async (req, res) => {
+exports.saveCard = async (req, res) => {
   try {
     const {
       user: { id, stripeCustomerId, cards },
@@ -30,7 +30,26 @@ exports.addCard = async (req, res) => {
         token: { id: source }
       }
     } = req;
-    const result = await userService.card(stripeCustomerId, source, id, cards);
+    const result = await userService.saveCard(
+      stripeCustomerId,
+      source,
+      id,
+      cards
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.deleteCard = async (req, res) => {
+  try {
+    const {
+      user,
+      params: { card_id: stripeCardId }
+    } = req;
+    const result = await userService.deleteCard(user, stripeCardId);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

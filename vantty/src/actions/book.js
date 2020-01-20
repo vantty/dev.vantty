@@ -115,15 +115,16 @@ export const addCard = token => async dispatch => {
 
 export const deleteCard = stripeCardId => async dispatch => {
   try {
-    const config = {
-      headers: { "Content-Type": "application/json" }
-    };
-    const user = await server.get("/auth");
-    const {
-      data: { _id, stripeCustomerId }
-    } = user;
-    const body = JSON.stringify({ _id, stripeCustomerId, stripeCardId });
-    const res = await server.post("/book/delete-card", body, config);
+    // const config = {
+    //   headers: { "Content-Type": "application/json" }
+    // };
+    // const user = await server.get("/auth");
+    // const {
+    //   data: { _id, stripeCustomerId }
+    // } = user;
+    // const body = JSON.stringify({ _id, stripeCustomerId, stripeCardId });
+    // const res = await server.post("/book/delete-card", body, config);
+    const res = await server.delete(`/user/card/${stripeCardId}`);
     await dispatch({
       type: DELETE_CARD_SUCCESS,
       payload: res.data

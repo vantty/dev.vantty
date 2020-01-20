@@ -5,11 +5,13 @@ const router = express.Router();
 const {
   deleteAccount,
   createCustomer,
-  addCard
+  saveCard,
+  deleteCard
 } = require("../controllers/users");
 
 router.post("/customer", passportJWT, createCustomer);
-router.post("/card", passportJWT, addCard);
+router.post("/card", passportJWT, saveCard);
+router.delete("/card/:card_id", passportJWT, deleteCard);
 router.delete("/", passportJWT, deleteAccount);
 
 module.exports = router;
