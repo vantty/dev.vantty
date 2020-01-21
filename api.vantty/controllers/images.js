@@ -54,7 +54,6 @@ exports.remove = async (req, res) => {
   try {
     const {
       user: { id },
-      // body: { cloudId },
       params: { image_id: imageId, cloud_id: cloudId }
     } = req;
     cloudinaryService.remove(cloudId);

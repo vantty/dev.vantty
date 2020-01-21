@@ -7,7 +7,6 @@ const {
   profileValidatorEducation,
   profileValidatorPortfolio
 } = require("../helpers");
-
 const {
   getByUser,
   getById,

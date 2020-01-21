@@ -1,8 +1,3 @@
-const User = require("../models/User");
-const Profile = require("../models/Profile");
-const Review = require("../models/Review");
-const Image = require("../models/Image");
-const Book = require("../models/Book");
 const userService = require("../services/user");
 
 exports.createCustomer = async (req, res) => {
@@ -14,7 +9,6 @@ exports.createCustomer = async (req, res) => {
       }
     } = req;
     const result = await userService.createCustomer(id, token);
-    console.log("RES PUSH", result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

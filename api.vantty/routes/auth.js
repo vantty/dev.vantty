@@ -1,30 +1,29 @@
-const express = require("express"),
-  passport = require("passport"),
-  passportConfig = require("../config/passport"),
-  passportJWT = passport.authenticate("jwt", { session: false }),
-  passportLocal = passport.authenticate("local", { session: false }),
-  passportGoogle = passport.authenticate("googleToken", { session: false }),
-  passportFacebook = passport.authenticate("facebookToken", {
-    session: false
-  }),
-  {
-    auth,
-    register,
-    login,
-    forgot,
-    reset,
-    google,
-    facebook,
-    updatePersonalInfo,
-    sendEmail,
-    resendEmail,
-    confirmEmail,
-    addUserImage,
-    deleteUserPicture,
-    isProfile
-  } = require("../controllers/auth"),
-  { validator } = require("../helpers"),
-  router = express.Router();
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const passportJWT = passport.authenticate("jwt", { session: false });
+const passportLocal = passport.authenticate("local", { session: false });
+const passportGoogle = passport.authenticate("googleToken", { session: false });
+const passportFacebook = passport.authenticate("facebookToken", {
+  session: false
+});
+const {
+  auth,
+  register,
+  login,
+  forgot,
+  reset,
+  google,
+  facebook,
+  updatePersonalInfo,
+  sendEmail,
+  resendEmail,
+  confirmEmail,
+  addUserImage,
+  deleteUserPicture,
+  isProfile
+} = require("../controllers/auth");
+const { validator } = require("../helpers");
 
 router.get("/", passportJWT, auth);
 router.post("/register", validator, sendEmail);

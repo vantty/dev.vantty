@@ -1,15 +1,14 @@
-const express = require("express"),
-  passport = require("passport"),
-  passportConfig = require("../config/passport"),
-  passportJWT = passport.authenticate("jwt", { session: false }),
-  {
-    getByUser,
-    getById,
-    remove,
-    save,
-    saveTags
-  } = require("../controllers/images"),
-  router = express.Router();
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const passportJWT = passport.authenticate("jwt", { session: false });
+const {
+  getByUser,
+  getById,
+  remove,
+  save,
+  saveTags
+} = require("../controllers/images");
 
 router.get("/", passportJWT, getByUser);
 router.get("/:id", getById);

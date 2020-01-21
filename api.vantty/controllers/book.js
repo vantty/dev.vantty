@@ -8,22 +8,6 @@ const log = console.log;
 const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
 // const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
 
-exports.deleteCard = async (req, res) => {
-  try {
-    const { _id, stripeCustomerId, stripeCardId } = req.body;
-    let user = await User.findById(_id);
-    const card = user.cards.find(card => card.stripeCardId === stripeCardId);
-    const removeIndex = user.cards.indexOf(card);
-    user.cards.splice(removeIndex, 1);
-    user.save();
-    stripe.customers.deleteSource(stripeCustomerId, stripeCardId);
-    res.status(200).json(user);
-  } catch (error) {
-    log(error);
-    res.status(500).json(error);
-  }
-};
-
 // Create Charge
 const charge = (customer, card, artist, amount) => {
   return stripe.charges.create({

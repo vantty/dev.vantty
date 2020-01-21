@@ -1,10 +1,10 @@
-const passport = require("passport"),
-  JwtStrategy = require("passport-jwt").Strategy,
-  ExtractJwt = require("passport-jwt").ExtractJwt,
-  LocalStrategy = require("passport-local").Strategy,
-  GooglePlusTokenStrategy = require("passport-google-plus-token"),
-  FacebookTokenStrategy = require("passport-facebook-token"),
-  User = require("../models/User");
+const passport = require("passport");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const LocalStrategy = require("passport-local").Strategy;
+const GooglePlusTokenStrategy = require("passport-google-plus-token");
+const FacebookTokenStrategy = require("passport-facebook-token");
+const User = require("../models/User");
 
 const log = console.log;
 // JWT Strategy
