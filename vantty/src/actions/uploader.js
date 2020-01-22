@@ -210,6 +210,7 @@ export const userImage = (e, id, profile, cloudId) => async dispatch => {
         await updatePropertiesAppbase(id, "profilePicture", sendImage.original);
         cloudId && (await dispatch(deleteImages(cloudId)));
       }
+      console.log(profile);
       profile &&
         (await dispatch(
           createProfile({ profilePicture: sendImage.original }, undefined, true)

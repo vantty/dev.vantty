@@ -88,12 +88,12 @@ const save = async (data, user) => {
   if (street) profileFields.address.street = street;
   if (log) profileFields.address.log = log;
   if (lat) profileFields.address.lat = lat;
-  if (place) {
-    profileFields.place = place;
-  }
-  if (delivery) {
-    profileFields.delivery = delivery || false;
-  }
+
+  profileFields.place = place;
+
+  profileFields.delivery = delivery;
+
+  // Build social object
   profileFields.social = {};
   if (youtube) profileFields.social.youtube = youtube;
   if (instagram) profileFields.social.instagram = instagram;

@@ -92,6 +92,7 @@ export const createProfile = (
       const { user, price } = res.data;
       await updatePropertiesAppbase(user, "price", price);
     }
+
     // console.log("FORMDATA", formData);
     // if (formData.profilePicture) {
     //   const { user, profilePicture } = res.data;

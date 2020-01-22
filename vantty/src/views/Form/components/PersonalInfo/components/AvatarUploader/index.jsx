@@ -40,7 +40,7 @@ const AvatarUploader = ({
   history,
   loadUser,
   deleteUserPicture,
-  auth: { user, profile },
+  auth: { user },
   ...rest
 }) => {
   const classes = useStyles();
@@ -51,11 +51,10 @@ const AvatarUploader = ({
     await userImage(
       e,
       user._id,
-      profile,
+      user.profile,
       method.profilePicture ? method.profilePicture.cloudId : false
     );
   };
-
   const UploadButton = () => {
     return (
       <Fragment>

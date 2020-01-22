@@ -61,14 +61,20 @@ const Location = ({
     address: {}
   });
   useEffect(() => {
-    setState({ ...state, availability: profile ? profile.availability : "" });
+    setState({
+      ...state,
+      availability: profile ? profile.availability : "",
+      // address: profile ? profile.address : "",
+      place: profile ? profile.place : false,
+      delivery: profile ? profile.delivery : false
+    });
   }, [profile]);
 
   const { address, delivery, place, availability } = state;
-  const handleChange = name => event => {
-    setState({ ...state, [name]: event.target.checked });
+  const handleChange = e => {
+    setState({ ...state, [e.target.name]: e.target.checked });
+    console.log("taget", e.target.checked);
   };
-
   const onChangeAvailability = e =>
     setState({ ...state, [e.target.name]: e.target.value });
 
@@ -145,7 +151,8 @@ const Location = ({
                         <Grid item xs={2}>
                           <Switch
                             checked={place}
-                            onChange={handleChange("place")}
+                            name="place"
+                            onChange={handleChange}
                             value="place"
                             inputProps={{ "aria-label": "secondary checkbox" }}
                           />
@@ -169,7 +176,8 @@ const Location = ({
                         <Grid item xs={2}>
                           <Switch
                             checked={delivery}
-                            onChange={handleChange("delivery")}
+                            name="delivery"
+                            onChange={handleChange}
                             value="delivery"
                             color="primary"
                             inputProps={{ "aria-label": "primary checkbox" }}

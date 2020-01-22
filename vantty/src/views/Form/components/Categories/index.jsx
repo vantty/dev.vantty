@@ -79,8 +79,11 @@ const AddCategories = ({
   const classes = useStyles();
 
   // useEffect(() => {
-  //   getCurrentProfile();
-  // }, []);
+  //   setStateHairElement({
+  //     ...stateHairElement,
+  //     hair: profile ? profile.categories.hair : []
+  //   });
+  // }, [profile]);
 
   const back = e => {
     e.preventDefault();

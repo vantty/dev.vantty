@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
@@ -115,16 +115,16 @@ const useStyles = makeStyles(theme => ({
       marginRight: "auto"
     }
   },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3)
-    }
-  },
+  // paper: {
+  //   marginTop: theme.spacing(3),
+  //   marginBottom: theme.spacing(3),
+  //   padding: theme.spacing(2),
+  //   [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+  //     marginTop: theme.spacing(6),
+  //     marginBottom: theme.spacing(6),
+  //     padding: theme.spacing(3)
+  //   }
+  // },
   stepper: {
     padding: theme.spacing(3, 0, 5)
   },
@@ -213,6 +213,12 @@ const Checkout = ({
     });
   };
 
+  const [location, setLocation] = useState({
+    toHome: false,
+    siteArtist: false
+  });
+  const { toHome, siteArtist } = location;
+
   const onChangeTarget = e =>
     setCheckout({ ...checkout, [e.target.name]: e.target.value });
 
@@ -223,6 +229,12 @@ const Checkout = ({
       log,
       lat
     });
+  };
+
+  const handleChange = event => {
+    setLocation(event.target.value);
+    event.target.value === "siteArtists" &&
+      setCheckout({ ...checkout, address: profile.address });
   };
 
   function getStepContent(step) {
@@ -247,6 +259,11 @@ const Checkout = ({
             onChangeTarget={onChangeTarget}
             descriptionAddress={descriptionAddress}
             profile={profile}
+            location={location}
+            setLocation={setLocation}
+            toHome={toHome}
+            siteArtist={siteArtist}
+            handleChange={handleChange}
           />
         );
       case 2:
@@ -267,123 +284,123 @@ const Checkout = ({
         throw new Error("Unknown step");
     }
   }
-
+  console.log(checkout);
   return (
     <Fragment>
       <CssBaseline />
       <Header />
       <Alert />
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth="sm">
-        <main className={classes.layout}>
-          {/* <Paper className={classes.paper}> */}
-          <Typography component="h1" variant="h4" align="center">
-            Checkout
-          </Typography>
+      <Container maxWidth='sm'>
+        {/* <main className={classes.layout}> */}
+        {/* <Paper className={classes.paper}> */}
+        <Typography component='h1' variant='h4' align='center'>
+          Checkout
+        </Typography>
 
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            connector={<QontoConnector />}
-          >
-            {steps.map(label => (
-              <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <Fragment>
-            {activeStep === steps.length ? (
-              <Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your booking request has been placed and we have emailed your
-                  artist this request. Once she accepts it, we will send you the
-                  confirmation and your <strong>booking code.</strong>
-                </Typography>
-                <Button
-                  component={Link}
-                  to="/bookings-user"
-                  color="primary"
-                  variant="contained"
-                  className={classes.bookingsButton}
-                >
-                  {"See all bookings"}
-                </Button>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <Container maxWidth="sm">
-                  {profile && getStepContent(activeStep)}
-                </Container>
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
+        <Stepper
+          alternativeLabel
+          activeStep={activeStep}
+          connector={<QontoConnector />}
+        >
+          {steps.map(label => (
+            <Step key={label}>
+              <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <Fragment>
+          {activeStep === steps.length ? (
+            <Fragment>
+              <Typography variant='h5' gutterBottom>
+                Thank you for your order.
+              </Typography>
+              <Typography variant='subtitle1'>
+                Your booking request has been placed and we have emailed your
+                artist this request. Once she accepts it, we will send you the
+                confirmation and your <strong>booking code.</strong>
+              </Typography>
+              <Button
+                component={Link}
+                to='/bookings-user'
+                color='primary'
+                variant='contained'
+                className={classes.bookingsButton}
+              >
+                {"See all bookings"}
+              </Button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              {/* <Container maxWidth='sm'> */}
+              {profile && getStepContent(activeStep)}
+              <div className={classes.buttons}>
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                )}
 
-                  {activeStep === 0 && (
-                    <Button
-                      variant="contained"
-                      disabled={
-                        (total === 0 && true) ||
-                        (date === "" && true) ||
-                        (hour === "" && true)
-                      }
-                      color="primary"
-                      onClick={e => handleNext(e, total, addedItems)}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
-                  )}
-                  {activeStep === 1 && (
-                    <Button
-                      variant="contained"
-                      disabled={
-                        Object.entries(address).length === 0 &&
-                        address.constructor === Object &&
-                        true
-                      }
-                      color="primary"
-                      onClick={e => handleNext(e, total, addedItems)}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
-                  )}
-                  {activeStep === 2 && (
-                    <Button
-                      variant="contained"
-                      disabled={!stripeCardId}
-                      color="primary"
-                      onClick={e => handleNext(e, total, addedItems)}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
-                  )}
+                {activeStep === 0 && (
+                  <Button
+                    variant='contained'
+                    disabled={
+                      (total === 0 && true) ||
+                      (date === "" && true) ||
+                      (hour === "" && true)
+                    }
+                    color='primary'
+                    onClick={e => handleNext(e, total, addedItems)}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
+                )}
+                {activeStep === 1 && (
+                  <Button
+                    variant='contained'
+                    disabled={
+                      Object.entries(address).length === 0 &&
+                      address.constructor === Object &&
+                      true
+                    }
+                    color='primary'
+                    onClick={e => handleNext(e, total, addedItems)}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
+                )}
+                {activeStep === 2 && (
+                  <Button
+                    variant='contained'
+                    disabled={!stripeCardId}
+                    color='primary'
+                    onClick={e => handleNext(e, total, addedItems)}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
+                )}
 
-                  {activeStep === 3 && (
-                    <Button
-                      variant="contained"
-                      disabled={false}
-                      color="primary"
-                      onClick={e => handleNext(e, total, addedItems)}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
-                  )}
-                </div>
-              </Fragment>
-            )}
-          </Fragment>
-          {/* </Paper> */}
-        </main>
+                {activeStep === 3 && (
+                  <Button
+                    variant='contained'
+                    disabled={false}
+                    color='primary'
+                    onClick={e => handleNext(e, total, addedItems)}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
+                )}
+              </div>
+              {/* </Container> */}
+            </Fragment>
+          )}
+        </Fragment>
+        {/* </Paper> */}
+        {/* </main> */}
       </Container>
     </Fragment>
   );
