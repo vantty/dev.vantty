@@ -74,4 +74,11 @@ const deleteCard = async (user, stripeCardId) => {
   return user;
 };
 
-module.exports = { deleteById, update, createCustomer, saveCard, deleteCard };
+module.exports = {
+  getById,
+  deleteById,
+  update,
+  createCustomer,
+  saveCard,
+  deleteCard
+};

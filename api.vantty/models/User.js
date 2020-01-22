@@ -1,9 +1,8 @@
-const { Schema, model } = require("mongoose"),
-  bcrypt = require("bcryptjs");
-const log = console.log;
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcryptjs");
+
 const userSchema = new Schema(
   {
-    // methods: { type: String },
     method: {
       type: String,
       enum: ["local", "google", "facebook"],
@@ -54,9 +53,10 @@ const userSchema = new Schema(
       lastName: { type: String },
       email: { type: String, lowercase: true, unique: true, sparse: true }
     },
+    email: { type: String, lowercase: true, unique: true, sparse: true },
     role: {
       type: String,
-      default: "Suscriber"
+      default: "Subscriber"
     },
     stripeCustomerId: { type: String },
     cards: [

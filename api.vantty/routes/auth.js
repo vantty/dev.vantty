@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const passportConfig = require("../config/passport");
 const passportJWT = passport.authenticate("jwt", { session: false });
 const passportLocal = passport.authenticate("local", { session: false });
 const passportGoogle = passport.authenticate("googleToken", { session: false });
@@ -8,7 +9,7 @@ const passportFacebook = passport.authenticate("facebookToken", {
   session: false
 });
 const {
-  auth,
+  getById,
   register,
   login,
   forgot,
@@ -25,7 +26,7 @@ const {
 } = require("../controllers/auth");
 const { validator } = require("../helpers");
 
-router.get("/", passportJWT, auth);
+router.get("/", passportJWT, getById);
 router.post("/register", validator, sendEmail);
 router.post("/resend", resendEmail);
 router.post("/login", passportLocal, login);

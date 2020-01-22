@@ -1,15 +1,19 @@
-const JWT = require("jsonwebtoken"),
-  User = require("../models/User"),
-  async = require("async"),
-  crypto = require("crypto"),
-  { composeEmail } = require("../helpers");
+const JWT = require("jsonwebtoken");
+const User = require("../models/User");
+const async = require("async");
+const crypto = require("crypto");
+const { composeEmail } = require("../helpers");
+const userService = require("../services/user");
 
-exports.auth = async (req, res) => {
+exports.getById = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-local.password");
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
+    const {
+      user: { id }
+    } = req;
+    const result = await userService.getById(id);
+    res.json(result);
+  } catch (error) {
+    console.error(error);
     res.status(500).send("Server Error");
   }
 };
@@ -17,26 +21,14 @@ exports.auth = async (req, res) => {
 exports.sendEmail = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
-    const user = await User.findOne({ "local.email": email });
-    if (user) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(403).json({ errors: [{ msg: "User already exists" }] });
-    }
-    // Check if we have someone with the same email
-    let existingUserFacebook = await User.findOne({
-      "facebook.email": email
-    });
-    let existingUserGoogle = await User.findOne({
-      "google.email": email
-    });
-
-    if (existingUserFacebook || existingUserGoogle) {
-      return res
-        .status(403)
-        .json({ errors: [{ msg: "User already existsXXX" }] });
     }
     const newUser = await User.create({
       method: "local",
-      local: { firstName, lastName, email, password }
+      local: { firstName, lastName, email, password },
+      email: email
     });
     const emailToken = generateEmailToken(newUser);
     const subject = "Email Confirmation";
