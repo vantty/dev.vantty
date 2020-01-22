@@ -8,6 +8,11 @@ const userSchema = new Schema(
       enum: ["local", "google", "facebook"],
       required: true
     },
+    methodId: { type: String, default: null },
+    email: { type: String, lowercase: true, unique: true, sparse: true },
+    firstName: { type: String },
+    lastName: { type: String },
+    //
     confirmed: { type: Boolean, default: false },
     local: {
       firstName: { type: String },
@@ -53,7 +58,6 @@ const userSchema = new Schema(
       lastName: { type: String },
       email: { type: String, lowercase: true, unique: true, sparse: true }
     },
-    email: { type: String, lowercase: true, unique: true, sparse: true },
     role: {
       type: String,
       default: "Subscriber"

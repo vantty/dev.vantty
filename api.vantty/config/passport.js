@@ -37,7 +37,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const existingUser = await User.findOne({ "google.id": profile.id });
+        const existingUser = await User.findOne({ methodId: profile.id });
         if (existingUser) {
           return done(null, existingUser);
         }
@@ -48,14 +48,17 @@ passport.use(
         }
         const newUser = await User.create({
           method: "google",
+          methodId: profile.id,
+          email: profile.emails[0].value,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
           google: {
             id: profile.id,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
             profilePicture: profile.photos[0].value,
             email: profile.emails[0].value
-          },
-          email: profile.emails[0].value
+          }
         });
         done(null, newUser);
       } catch (err) {
@@ -75,7 +78,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const existingUser = await User.findOne({ "facebook.id": profile.id });
+        const existingUser = await User.findOne({ methodId: profile.id });
         if (existingUser) {
           return done(null, existingUser);
         }
@@ -86,6 +89,10 @@ passport.use(
         }
         const newUser = await User.create({
           method: "facebook",
+          methodId: profile.id,
+          email: profile.emails[0].value,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
           facebook: {
             id: profile.id,
             profilePicture: profile.photos[0].value,
@@ -111,7 +118,7 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const user = await User.findOne({ "local.email": email });
+        const user = await User.findOne({ email });
         if (!user) {
           return done(null, false, {
             errors: { "email or password": "is invalid" }

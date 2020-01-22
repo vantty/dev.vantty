@@ -27,8 +27,10 @@ exports.sendEmail = async (req, res) => {
     }
     const newUser = await User.create({
       method: "local",
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
       local: { firstName, lastName, email, password },
-      email: email
     });
     const emailToken = generateEmailToken(newUser);
     const subject = "Email Confirmation";
