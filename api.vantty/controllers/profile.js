@@ -4,6 +4,7 @@ const Review = require("../models/Review");
 const Image = require("../models/Image");
 const profileService = require("../services/profile");
 const stripeService = require("../services/stripe");
+const userService = require("../services/user");
 
 // Get Current Profile By User Id
 exports.getByUser = async (req, res) => {
@@ -234,6 +235,7 @@ exports.createStripeAccount = async (req, res) => {
       params: { code }
     } = req;
     const result = stripeService.createAccount(id, code);
+    await userService.update(id, { profile: true }, "$set");
     res.status(201).json(result);
   } catch (error) {
     console.error(error);

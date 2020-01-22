@@ -1,4 +1,5 @@
 const Profile = require("../models/Profile");
+const User = require("../models/User");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
 const Book = require("../models/Book");
