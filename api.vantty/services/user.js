@@ -11,6 +11,22 @@ const getById = async id => {
   return user;
 };
 
+const getByField = async field => {
+  const user = await User.findOne(field);
+  return user;
+};
+
+const create = async (method, email, firstName, lastName, password) => {
+  const newUser = await User.create({
+    method: method,
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    local: { firstName, lastName, email, password }
+  });
+  return newUser;
+};
+
 const deleteById = async id => {
   await Book.findOneAndRemove({ user: id });
   await Image.findOneAndRemove({ user: id });
@@ -77,8 +93,10 @@ const deleteCard = async (user, stripeCardId) => {
 module.exports = {
   getById,
   deleteById,
+  getByField,
   update,
   createCustomer,
   saveCard,
-  deleteCard
+  deleteCard,
+  create
 };

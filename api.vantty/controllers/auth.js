@@ -4,6 +4,7 @@ const async = require("async");
 const crypto = require("crypto");
 const { composeEmail } = require("../helpers");
 const userService = require("../services/user");
+const authService = require("../services/auth");
 
 exports.getById = async (req, res) => {
   try {
@@ -20,24 +21,35 @@ exports.getById = async (req, res) => {
 
 exports.sendEmail = async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(403).json({ errors: [{ msg: "User already exists" }] });
-    }
-    const newUser = await User.create({
-      method: "local",
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      local: { firstName, lastName, email, password },
-    });
-    const emailToken = generateEmailToken(newUser);
-    const subject = "Email Confirmation";
-    const url = `${req.headers.origin}/confirmation/${emailToken}`;
-    const html = `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${url}><strong>click here.</strong></a>`;
-    composeEmail(email, subject, html);
-    res.status(200).json(newUser);
+    const {
+      body: { email, firstName, lastName, password }
+    } = req;
+    const method = "local";
+    const result = await authService.sendEmail(
+      method,
+      email,
+      firstName,
+      lastName,
+      password
+    );
+    res.status(200).json(result);
+
+    // const existingUser = await User.findOne({ email });
+    // if (existingUser) {
+    //   return res.status(403).json({ errors: [{ msg: "User already exists" }] });
+    // }
+    // const newUser = await User.create({
+    //   method: "local",
+    //   email: email,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   local: { firstName, lastName, email, password },
+    // });
+    // const emailToken = generateEmailToken(newUser);
+    // const subject = "Email Confirmation";
+    // const url = `${req.headers.origin}/confirmation/${emailToken}`;
+    // const html = `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${url}><strong>click here.</strong></a>`;
+    // composeEmail(email, subject, html);
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");

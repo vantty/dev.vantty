@@ -27,7 +27,7 @@ import setAlert from "./alert";
 const log = console.log;
 
 // Create Stripe Artist Account
-export const creacteStripeAccount = code => async dispatch => {
+export const createStripeAccount = code => async dispatch => {
   try {
     const result = await server.post(`/profile/account/${code}`);
     dispatch({

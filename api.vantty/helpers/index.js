@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const JWT = require("jsonwebtoken");
 
 exports.validator = (req, res, next) => {
   req.check("firstName", "Please enter your first name").notEmpty();
@@ -101,4 +102,10 @@ exports.newCardObj = card => {
     last4: card.last4
   };
   return newCard;
+};
+
+exports.generateEmailToken = user => {
+  return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
+    expiresIn: "1d"
+  });
 };
