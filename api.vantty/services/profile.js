@@ -134,4 +134,14 @@ const update = async (id, field, method) => {
   return profile;
 };
 
-module.exports = { getById, getAll, save, update };
+const deleteDb = async (id, field, method) => {
+  const profile = await Profile.findOneAndUpdate(
+    { user: id },
+    { [method]: field },
+    { multi: true }
+  );
+
+  return profile;
+};
+
+module.exports = { getById, getAll, save, update, deleteDb };

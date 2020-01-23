@@ -156,20 +156,19 @@ exports.loadToElastic = async (req, res) => {
 
 exports.verifiedProfile = async (req, res) => {
   try {
-    const { id, verified } = req.body;
-    const profileId = await Profile.findOne({ user: id });
-    let profile = await Profile.findOneAndUpdate(
-      { _id: profileId.id },
-      { $set: { verified } },
-      { new: true }
-    );
-    res.status(200).json(profile);
+    const {
+      body: { id, verified }
+    } = req;
+    const result = await profileService.update(id, { verified }, "$set");
+
+    res.status(200).json(result);
   } catch (err) {
     res.send(err);
   }
 };
 
 // DELETE profile and User Dashboard
+//NOTA: we can activate this function. Right now is not working,
 exports.deleteProfileAndUserDashboard = async (req, res) => {
   console.log(req);
   try {
@@ -189,18 +188,19 @@ exports.deleteProfileAndUserDashboard = async (req, res) => {
 
 // Add Services
 exports.addService = async (req, res) => {
-  const { typeOfService, description, amount } = req.body;
-
-  const newService = { typeOfService, description, amount };
-
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
+    const {
+      user: { id },
+      body
+    } = req;
 
-    profile.services.unshift(newService);
+    const result = await profileService.update(
+      id,
+      { services: { $each: [body], $position: 0 } },
+      "$push"
+    );
 
-    await profile.save();
-
-    res.json(profile);
+    res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -210,18 +210,30 @@ exports.addService = async (req, res) => {
 // Add Service
 exports.deleteService = async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
+    const {
+      user: { id },
+      params: { serv_id }
+    } = req;
+    console.log("PARAMS", serv_id);
+    const result = await profileService.deleteDb(
+      id,
+      { services: { _id: serv_id } },
+      "$pull"
+    );
+    res.status(200).json(result);
+    ///////
+    // const profile = await Profile.findOne({ user: req.user.id });
 
     // Get remove index
-    const removeIndex = profile.services
-      .map(item => item.id)
-      .indexOf(req.params.serv_id);
+    // const removeIndex = profile.services
+    //   .map(item => item.id)
+    //   .indexOf(req.params.serv_id);
 
-    profile.services.splice(removeIndex, 1);
+    // profile.services.splice(removeIndex, 1);
 
-    await profile.save();
+    // await profile.save();
 
-    res.json(profile);
+    // res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
