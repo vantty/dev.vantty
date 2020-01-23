@@ -22,7 +22,8 @@ exports.getById = async (req, res) => {
 exports.sendEmail = async (req, res) => {
   try {
     const {
-      body: { email, firstName, lastName, password }
+      body: { email, firstName, lastName, password },
+      headers
     } = req;
     const method = "local";
     const result = await authService.sendEmail(
@@ -30,26 +31,10 @@ exports.sendEmail = async (req, res) => {
       email,
       firstName,
       lastName,
-      password
+      password,
+      headers
     );
     res.status(200).json(result);
-
-    // const existingUser = await User.findOne({ email });
-    // if (existingUser) {
-    //   return res.status(403).json({ errors: [{ msg: "User already exists" }] });
-    // }
-    // const newUser = await User.create({
-    //   method: "local",
-    //   email: email,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   local: { firstName, lastName, email, password },
-    // });
-    // const emailToken = generateEmailToken(newUser);
-    // const subject = "Email Confirmation";
-    // const url = `${req.headers.origin}/confirmation/${emailToken}`;
-    // const html = `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${url}><strong>click here.</strong></a>`;
-    // composeEmail(email, subject, html);
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
