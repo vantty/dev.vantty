@@ -46,7 +46,7 @@ export const sendEmail = ({
       headers: { "Content-Type": "application/json" }
     };
     const body = JSON.stringify({ firstName, lastName, email, password });
-    const res = await server.post("/auth/register", body, config);
+    const res = await server.post("/auth/send", body, config);
     dispatch({
       type: SAVE_CONFIRMATION_EMAIL,
       payload: res.data

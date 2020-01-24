@@ -16,12 +16,12 @@ const getByField = async field => {
   return user;
 };
 
-const create = async (method, email, firstName, lastName, password) => {
+const create = async (email, firstName, lastName, password) => {
   const newUser = await User.create({
-    method: method,
     email: email,
     firstName: firstName,
     lastName: lastName,
+    password: password,
     local: { firstName, lastName, email, password }
   });
   return newUser;

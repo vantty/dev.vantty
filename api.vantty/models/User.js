@@ -3,15 +3,12 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema(
   {
-    method: {
-      type: String,
-      enum: ["local", "google", "facebook"],
-      required: true
-    },
+    method: { type: String, default: "local" },
     methodId: { type: String, default: null },
     email: { type: String, lowercase: true, unique: true, sparse: true },
     firstName: { type: String },
     lastName: { type: String },
+    password: { type: String },
     //
     confirmed: { type: Boolean, default: false },
     local: {
@@ -80,11 +77,11 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function(next) {
-  if (this.method == "local" && !this.google.id) {
+  if (this.method == "local") {
     try {
       const salt = await bcrypt.genSalt(14);
-      const hash = await bcrypt.hash(this.local.password, salt);
-      this.local.password = hash;
+      const hash = await bcrypt.hash(this.password, salt);
+      this.password = hash;
       next();
     } catch (err) {
       next(err);

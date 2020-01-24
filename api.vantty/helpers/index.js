@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const JWT = require("jsonwebtoken");
+const { CONFIRMATION } = require("../helpers/emailTypes");
 
 exports.validator = (req, res, next) => {
   req.check("firstName", "Please enter your first name").notEmpty();
@@ -60,35 +61,36 @@ exports.profileValidatorPortfolio = (req, res, next) => {
 };
 
 // Compose and send email
-exports.composeEmail = (email, subject, html) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.mailgun.org",
-      port: 465,
-      secure: true,
-      auth: {
-        user: "postmaster@mg.vantty.ca",
-        pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
-      }
-    });
+exports.composeEmail = async (email, subject, html) => {
+  const transporter = await nodemailer.createTransport({
+    host: "smtp.mailgun.org",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "postmaster@mg.vantty.ca",
+      pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
+    }
+  });
+  const message = {
+    from: "admin@vantty.ca",
+    to: `${email}`,
+    subject: subject,
+    html: html
+  };
+  const { response } = await transporter.sendMail(message);
+  return response;
+};
 
-    let message = {
-      from: "admin@vantty.ca",
-      to: `${email}`,
-      subject: subject,
-      html: html
-    };
-
-    transporter.sendMail(message, (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Email sent");
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+exports.emailType = (type, uri, token, firstName) => {
+  switch (type) {
+    case CONFIRMATION:
+      const url = `${uri}/confirmation/${token}`;
+      return {
+        subject: "Email Confirmation",
+        html: `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${url}><strong>click here.</strong></a>`
+      };
+    default:
+      return null;
   }
 };
 
@@ -104,8 +106,8 @@ exports.newCardObj = card => {
   return newCard;
 };
 
-exports.generateEmailToken = user => {
-  return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
+exports.generateEmailToken = id => {
+  return JWT.sign({ user: id }, process.env.EMAIL_SECRET, {
     expiresIn: "1d"
   });
 };

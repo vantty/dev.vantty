@@ -17,8 +17,8 @@ const {
   google,
   facebook,
   updatePersonalInfo,
-  sendEmail,
-  resendEmail,
+  sendConfirmationEmail,
+  resendConfirmationEmail,
   confirmEmail,
   addUserImage,
   deleteUserPicture,
@@ -27,8 +27,8 @@ const {
 const { validator } = require("../helpers");
 
 router.get("/", passportJWT, getById);
-router.post("/register", validator, sendEmail);
-router.post("/resend", resendEmail);
+router.post("/send", validator, sendConfirmationEmail);
+router.post("/resend", resendConfirmationEmail);
 router.post("/login", passportLocal, login);
 router.post("/forgot", forgot);
 router.post("/reset", reset);

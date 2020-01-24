@@ -19,38 +19,38 @@ exports.getById = async (req, res) => {
   }
 };
 
-exports.sendEmail = async (req, res) => {
+exports.sendConfirmationEmail = async (req, res) => {
   try {
     const {
       body: { email, firstName, lastName, password },
-      headers
+      headers: { origin: uri }
     } = req;
-    const method = "local";
-    const result = await authService.sendEmail(
-      method,
+    const existingUser = await userService.getByField({ email });
+    if (existingUser) {
+      return res.status(401).send("User already exists");
+    }
+    const result = await userService.create(
       email,
       firstName,
       lastName,
-      password,
-      headers
+      password
     );
-    res.status(200).json(result);
+    await authService.sendConfirmationEmail(result, uri);
+    return res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
   }
 };
 
-exports.resendEmail = async (req, res) => {
+exports.resendConfirmationEmail = async (req, res) => {
   try {
-    const { email } = req.body.local;
-    const user = await User.findOne({ "local.email": email });
-    const emailToken = generateEmailToken(user);
-    const subject = "Email Confirmation";
-    const url = `${req.headers.origin}/confirmation/${emailToken}`;
-    const { firstName } = user.local;
-    const html = `Hi ${firstName}, welcome to Vantty! Please confirm your email address by clicking this link: <a href=${url}><strong>Click Here.</strong></a>`;
-    composeEmail(email, subject, html);
+    const {
+      body: user,
+      headers: { origin: uri }
+    } = req;
+    const result = await authService.sendConfirmationEmail(user, uri);
+    return res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
