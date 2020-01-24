@@ -10,6 +10,8 @@ const passportFacebook = passport.authenticate("facebookToken", {
 });
 const {
   getById,
+  sendConfirmationEmail,
+  resendConfirmationEmail,
   register,
   login,
   forgot,
@@ -17,9 +19,6 @@ const {
   google,
   facebook,
   updatePersonalInfo,
-  sendConfirmationEmail,
-  resendConfirmationEmail,
-  confirmEmail,
   addUserImage,
   deleteUserPicture,
   isProfile
@@ -29,14 +28,15 @@ const { validator } = require("../helpers");
 router.get("/", passportJWT, getById);
 router.post("/send", validator, sendConfirmationEmail);
 router.post("/resend", resendConfirmationEmail);
+router.get("/register/:token", register);
+
+//
 router.post("/login", passportLocal, login);
 router.post("/forgot", forgot);
 router.post("/reset", reset);
 router.post("/google", passportGoogle, google);
 router.post("/facebook", passportFacebook, facebook);
 router.post("/update-info", passportJWT, updatePersonalInfo);
-router.get("/confirmation/:token", confirmEmail);
-router.post("/validated/:token", register);
 // @route    PUT /profile/profilePicture
 // @access   Private
 router.put("/user-image", addUserImage);

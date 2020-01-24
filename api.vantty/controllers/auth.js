@@ -2,7 +2,11 @@ const JWT = require("jsonwebtoken");
 const User = require("../models/User");
 const async = require("async");
 const crypto = require("crypto");
-const { composeEmail } = require("../helpers");
+const {
+  composeEmail,
+  generateLoginToken,
+  generateEmailToken
+} = require("../helpers");
 const userService = require("../services/user");
 const authService = require("../services/auth");
 
@@ -57,35 +61,15 @@ exports.resendConfirmationEmail = async (req, res) => {
   }
 };
 
-exports.confirmEmail = async (req, res) => {
-  try {
-    const tokenVerified = JWT.verify(
-      req.params.token,
-      process.env.EMAIL_SECRET
-    );
-    const id = tokenVerified.user;
-    let user = await User.findOneAndUpdate(
-      { _id: id },
-      { $set: { confirmed: true } },
-      { new: true }
-    );
-    res.status(200).json(user);
-  } catch (err) {
-    res.send(err);
-  }
-};
-
 exports.register = async (req, res) => {
   try {
-    const tokenVerified = JWT.verify(
-      req.params.token,
-      process.env.EMAIL_SECRET
-    );
-    const id = tokenVerified.user;
-    const user = await User.findOne({ _id: id });
-    const token = generateToken(user);
+    const {
+      params: { token: registerToken }
+    } = req;
+    const token = await authService.register(registerToken);
     res.status(200).json({ token });
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     res.status(500).send("Server error");
   }
 };
@@ -97,7 +81,7 @@ exports.login = async (req, res) => {
         .status(403)
         .json({ errors: [{ msg: "Please validate your email" }] });
     }
-    const token = generateToken(req.user);
+    const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).send("Server error");
@@ -180,7 +164,7 @@ exports.reset = async (req, res, next) => {
 
 exports.google = async (req, res) => {
   try {
-    const token = generateToken(req.user);
+    const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).send("Server error");
@@ -189,31 +173,11 @@ exports.google = async (req, res) => {
 
 exports.facebook = async (req, res) => {
   try {
-    const token = generateToken(req.user);
+    const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).send("Server error");
   }
-};
-
-// Login Token Generator
-generateToken = user => {
-  return JWT.sign(
-    {
-      iss: "vantty",
-      sub: user.id,
-      iat: Math.floor(Date.now() / 1000), // current time
-      exp: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60 // current time + 1yr
-    },
-    process.env.JWT_SECRET
-  );
-};
-
-// Email Token Generator
-generateEmailToken = user => {
-  return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
-    expiresIn: "1d"
-  });
 };
 
 //Update Personal Info

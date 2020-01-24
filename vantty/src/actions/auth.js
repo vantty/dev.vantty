@@ -75,29 +75,21 @@ export const resendEmail = user => async dispatch => {
   }
 };
 
-// Confirm Email
-export const confirmEmail = token => async dispatch => {
-  try {
-    await server.get(`/auth/confirmation/${token}`);
-    await dispatch(register(token));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 // Register User
 export const register = token => async dispatch => {
   try {
-    const res = await server.post(`/auth/validated/${token}`);
-    dispatch({
+    const res = await server.get(`/auth/register/${token}`);
+    console.log("TOKEN", res.data);
+    await dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
-    dispatch(loadUser());
-  } catch (err) {
+    await dispatch(loadUser());
+  } catch (error) {
     dispatch({
       type: REGISTER_FAIL
     });
+    console.log(error);
   }
 };
 

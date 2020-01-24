@@ -111,3 +111,15 @@ exports.generateEmailToken = id => {
     expiresIn: "1d"
   });
 };
+
+exports.generateLoginToken = id => {
+  return JWT.sign(
+    {
+      iss: "vantty",
+      sub: id,
+      iat: Math.floor(Date.now() / 1000), // current time
+      exp: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60 // current time + 1yr
+    },
+    process.env.JWT_SECRET
+  );
+};
