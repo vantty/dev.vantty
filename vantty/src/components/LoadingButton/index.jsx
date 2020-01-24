@@ -4,12 +4,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  buttonRoot: {
     display: "flex",
     alignItems: "center"
   },
-  wrapper: {
-    margin: theme.spacing(1),
+  buttonWrapper: {
+    width: "100%",
     position: "relative"
   },
   signInButton: {
@@ -29,25 +29,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CircularIntegration() {
+const LoadingButton = errors => {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
 
-  const handleButtonClick = () => {
+  const handleClick = () => {
     setLoading(true);
   };
 
   return (
-    <div className={classes.root}>
-      <div className={classes.wrapper}>
+    <div className={classes.buttonRoot}>
+      <div className={classes.buttonWrapper}>
         <Button
           variant="contained"
           color="primary"
           className={classes.signInButton}
-          disabled={loading}
+          disabled={!errors || loading}
           fullWidth
           size="large"
-          onClick={handleButtonClick}
+          onClick={handleClick}
           type="submit"
         >
           Register now
@@ -58,4 +58,6 @@ export default function CircularIntegration() {
       </div>
     </div>
   );
-}
+};
+
+export default LoadingButton;
