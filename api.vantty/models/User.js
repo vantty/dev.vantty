@@ -12,6 +12,16 @@ const userSchema = new Schema(
     email: { type: String, lowercase: true, unique: true, sparse: true },
     firstName: { type: String },
     lastName: { type: String },
+    profileImage: {
+      original: {
+        type: String,
+        default: null
+      },
+      cloudId: {
+        type: String,
+        default: null
+      }
+    },
     //
     confirmed: { type: Boolean, default: false },
     local: {

@@ -84,6 +84,7 @@ export const uploadImages = e => async dispatch => {
     const resImages = await server.get("/images");
     const resProfile = await server.get("/profile/me");
     const data = elasticData(resImages.data, resProfile);
+
     await loadToElastic(data, resProfile.data.imagesId);
     await dispatch(getImages());
   } catch (error) {
@@ -163,69 +164,52 @@ const deleteFromElastic = async elasticId => {
 };
 
 //Profile Picture
-export const userImage = (e, id, profile, cloudId) => async dispatch => {
-  const errs = [];
-  const files = Array.from(e.target.files);
+export const userImage = (e, id, profile, removeCloudId) => async dispatch => {
+  try {
+    const errs = [];
+    const files = Array.from(e.target.files);
 
-  if (files.length > 3) {
-    const msg = "Only 1 images can be uploaded";
-    dispatch({ type: IMAGES_UPLOAD_FAIL });
-    return console.log(msg);
-  }
-  const formData = new FormData();
-  const types = ["image/png", "image/jpeg", "image/gif"];
-
-  files.forEach((file, i) => {
-    if (types.every(type => file.type !== type)) {
-      errs.push(`"${file.type}" is not a supported format`);
-    }
-
-    const maxFileSize = 5 * 1000 * 1000; // 7MB
-    if (file.size > maxFileSize) {
-      errs.push(
-        `"${file.name}" is too large, please pick a smaller file (Max. 7MB)`
-      );
-    }
-
-    formData.append(i, file);
-  });
-
-  if (errs.length) {
-    dispatch({ type: IMAGES_UPLOAD_FAIL });
-    return errs.forEach(err => console.log(err));
-  }
-
-  dispatch({ type: IMAGES_UPLOADING });
-  server
-    .post("/images/add", formData)
-    .then(async res => {
-      const images = res.data;
-      for (let i = 0; i < images.length; i++) {
-        var sendImage = {
-          original: images[i].secure_url,
-          cloudId: images[i].public_id,
-          id: id
-        };
-        await server.put("/auth/user-image", sendImage);
-        await updatePropertiesAppbase(id, "profilePicture", sendImage.original);
-        cloudId && (await dispatch(deleteImages(cloudId)));
-      }
-      console.log(profile);
-      profile &&
-        (await dispatch(
-          createProfile({ profilePicture: sendImage.original }, undefined, true)
-        ));
-      await dispatch({
-        type: IMAGES_UPLOAD_SUCCESS
-      });
-      await dispatch(loadUser());
-      // await dispatch(getCurrentProfile());
-    })
-
-    .catch(error => {
-      console.log(error);
+    if (files.length > 3) {
+      const msg = "Only 1 images can be uploaded";
       dispatch({ type: IMAGES_UPLOAD_FAIL });
+      return console.log(msg);
+    }
+    const formData = new FormData();
+    const types = ["image/png", "image/jpeg", "image/gif"];
+
+    files.forEach((file, i) => {
+      if (types.every(type => file.type !== type)) {
+        errs.push(`"${file.type}" is not a supported format`);
+      }
+
+      const maxFileSize = 5 * 1000 * 1000; // 7MB
+      if (file.size > maxFileSize) {
+        errs.push(
+          `"${file.name}" is too large, please pick a smaller file (Max. 7MB)`
+        );
+      }
+
+      formData.append(i, file);
     });
+
+    if (errs.length) {
+      dispatch({ type: IMAGES_UPLOAD_FAIL });
+      return errs.forEach(err => console.log(err));
+    }
+
+    dispatch({ type: IMAGES_UPLOADING });
+    const {
+      data: {
+        profileImage: { original }
+      }
+    } = await server.post(`/images/profile/${removeCloudId}`, formData);
+    await updatePropertiesAppbase(id, "profilePicture", original);
+    await dispatch(loadUser());
+    await dispatch(getCurrentProfile());
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: IMAGES_UPLOAD_FAIL });
+  }
 };
 
 export const updateAndCreateElastic = (

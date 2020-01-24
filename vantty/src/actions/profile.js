@@ -425,9 +425,9 @@ export const addService = (formData, history) => async dispatch => {
       }
     };
     await dispatch(loadUser());
-    const res = await server.post("/profile/add-service", formData, config);
+    const res = await server.post("/profile/service", formData, config);
 
-    dispatch({
+    await dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
@@ -449,9 +449,9 @@ export const addService = (formData, history) => async dispatch => {
 
 export const deleteService = id => async dispatch => {
   try {
-    const res = await server.delete(`/profile/delete-service/${id}`);
-
-    dispatch({
+    const res = await server.delete(`/profile/service/${id}`);
+    // console.log(res.data);
+    await dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });

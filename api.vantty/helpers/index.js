@@ -102,3 +102,12 @@ exports.newCardObj = card => {
   };
   return newCard;
 };
+
+exports.profileImageObject = async newImages => {
+  const profileImage = {
+    original: newImages[0].eager[0].url,
+    cloudId: newImages[0].public_id
+  };
+
+  return profileImage;
+};

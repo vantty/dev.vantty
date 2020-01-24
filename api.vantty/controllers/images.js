@@ -1,6 +1,9 @@
 const cloudinary = require("cloudinary");
 const imageService = require("../services/image");
+const userService = require("../services/user");
+const profileService = require("../services/profile");
 const cloudinaryService = require("../services/cloudinary");
+const { profileImageObject } = require("../helpers");
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -43,6 +46,31 @@ exports.save = async (req, res) => {
     const cloudImages = await cloudinaryService.save(files);
     const images = await Promise.all(cloudImages);
     const result = await imageService.save(id, images);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
+exports.saveProfileImage = async (req, res) => {
+  try {
+    const {
+      user: { id, profile },
+      params: { remove_cloud_id: removeCloudId }
+    } = req;
+    const file = Object.values(req.files);
+    const cloudImages = await cloudinaryService.save(file);
+    const image = await Promise.all(cloudImages);
+    const profileImage = await profileImageObject(image);
+    const result = await userService.update(id, { profileImage }, "$set");
+
+    await profileService.update(
+      id,
+      { profileImage: profileImage.original },
+      "$set"
+    );
+    await cloudinaryService.remove(removeCloudId);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);

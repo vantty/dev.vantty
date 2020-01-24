@@ -40,7 +40,7 @@ const ProfileSchema = new mongoose.Schema({
   englishLevel: {
     type: String
   },
-  profilePicture: { type: String },
+  profileImage: { type: String, default: null },
 
   bio: {
     type: String

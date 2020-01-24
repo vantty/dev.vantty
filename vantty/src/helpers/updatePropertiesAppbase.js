@@ -8,6 +8,7 @@ export default async (userId, field, value) => {
       }
     };
     const resImages = await server.get(`/images/${userId}`);
+
     const pictures = resImages.data;
     const datum = { doc: { [field]: value } };
     for (let i = 0; i < pictures.length; i++) {

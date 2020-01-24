@@ -5,6 +5,8 @@ const Image = require("../models/Image");
 const profileService = require("../services/profile");
 const stripeService = require("../services/stripe");
 const userService = require("../services/user");
+const imageService = require("../services/image");
+const elasticService = require("../services/elastic");
 
 // Get Current Profile By User Id
 exports.getByUser = async (req, res) => {
@@ -59,53 +61,52 @@ exports.createAndUpdate = async (req, res) => {
 
 // Add Categories
 exports.addCategories = async (req, res) => {
-  const make = req.body.stateMakeup;
-  const hair = req.body.stateHair;
-
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
+    const {
+      user: { id },
+      body: { stateHair, stateMakeup }
+    } = req;
 
-    profile.categories.makeup = await make.splice(0);
-    profile.categories.hair = await hair.slice(0);
+    await profileService.update(
+      id,
+      { "categories.hair": stateHair.splice(0) },
+      "$set"
+    );
+    const result = await profileService.update(
+      id,
+      { "categories.makeup": stateMakeup.splice(0) },
+      "$set"
+    );
 
-    await profile.save();
-    await res.json(profile);
+    res.status(200).json(result);
   } catch (err) {
-    res.status(500).send("Server Error");
-  }
-};
-
-// Delete education from profile
-exports.deleteEducation = async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ user: req.user.id });
-
-    // Get remove index
-    const removeIndex = profile.education
-      .map(item => item.id)
-      .indexOf(req.params.edu_id);
-
-    profile.education.splice(removeIndex, 1);
-
-    await profile.save();
-
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
 
 // Add Porfolio Pictures
 exports.addProfileImage = async (req, res) => {
-  const { original, cloudId } = req.body;
-  const newPicture = { original, cloudId };
   try {
+    // const {
+    //   user: { id },
+    //   body
+    // } = req;
+
+    // const result = await profileService.update(
+    //   id,
+    //   { services: { $each: [body], $position: 0 } },
+    //   "$push"
+    // );
+
+    // res.status(200).json(result);
+    ////
+    const { original, cloudId } = req.body;
+    const newPicture = { original, cloudId };
     const profile = await Profile.findOne({ user: req.user.id });
     await profile.profilePicture.unshift(newPicture);
     await profile.save();
     res.json(profile);
-    // if (profile.portfolioPictures) res.send("Hello");
+    if (profile.portfolioPictures) res.send("Hello");
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -115,19 +116,31 @@ exports.addProfileImage = async (req, res) => {
 // Delete ProfilePicture
 exports.deleteProfilePicture = async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
+    const {
+      user: { id },
+      params: { serv_id }
+    } = req;
 
-    // Get remove index
-    const removeIndex = profile.profilePicture
-      .map(item => item.id)
-      .indexOf(req.params.pic_id);
+    const result = await profileService.deleteDb(
+      id,
+      { profilePicture: { _id: serv_id } },
+      "$pop"
+    );
+    res.status(200).json(result);
+    /////
+    // const profile = await Profile.findOne({ user: req.user.id });
 
-    // profile.profilePicture.splice(removeIndex, 1);
-    profile.profilePicture.shift();
+    // // Get remove index
+    // const removeIndex = profile.profilePicture
+    //   .map(item => item.id)
+    //   .indexOf(req.params.pic_id);
 
-    await profile.save();
+    // // profile.profilePicture.splice(removeIndex, 1);
+    // profile.profilePicture.shift();
 
-    res.json(profile);
+    // await profile.save();
+
+    // res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -136,22 +149,8 @@ exports.deleteProfilePicture = async (req, res) => {
 
 exports.loadToElastic = async (req, res) => {
   const { allElasticId, imagesId } = req.body;
-
-  let images = await Image.findById({ _id: imagesId });
-  let pictures = images.pictures;
-
-  const arr = Array.from(pictures);
-  const arr2 = Array.from(allElasticId);
-  for (const x of arr) {
-    for (const y of arr2) {
-      if (x._id == y._id) {
-        x.elasticId = y.elasticId;
-        x.tag = y.tag;
-      }
-    }
-  }
-  images.save();
-  res.status(200).json(images);
+  let result = await elasticService.load(imagesId, allElasticId);
+  res.status(200).json(result);
 };
 
 exports.verifiedProfile = async (req, res) => {
@@ -164,25 +163,6 @@ exports.verifiedProfile = async (req, res) => {
     res.status(200).json(result);
   } catch (err) {
     res.send(err);
-  }
-};
-
-// DELETE profile and User Dashboard
-//NOTA: we can activate this function. Right now is not working,
-exports.deleteProfileAndUserDashboard = async (req, res) => {
-  console.log(req);
-  try {
-    // Remove user review
-    await Review.deleteMany({ user: req.body.id });
-    // Remove profile
-    await Profile.findOneAndRemove({ user: req.body.id });
-    // Remove user
-    await User.findOneAndRemove({ _id: req.body.id });
-
-    res.json({ msg: "User deleted" });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error 1");
   }
 };
 
@@ -214,26 +194,13 @@ exports.deleteService = async (req, res) => {
       user: { id },
       params: { serv_id }
     } = req;
-    console.log("PARAMS", serv_id);
+
     const result = await profileService.deleteDb(
       id,
       { services: { _id: serv_id } },
       "$pull"
     );
     res.status(200).json(result);
-    ///////
-    // const profile = await Profile.findOne({ user: req.user.id });
-
-    // Get remove index
-    // const removeIndex = profile.services
-    //   .map(item => item.id)
-    //   .indexOf(req.params.serv_id);
-
-    // profile.services.splice(removeIndex, 1);
-
-    // await profile.save();
-
-    // res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -251,6 +218,47 @@ exports.createStripeAccount = async (req, res) => {
     res.status(201).json(result);
   } catch (error) {
     console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
+// DELETE profile and User Dashboard
+//NOTA: we can activate this function. Right now is not working,
+exports.deleteProfileAndUserDashboard = async (req, res) => {
+  console.log(req);
+  try {
+    // Remove user review
+    await Review.deleteMany({ user: req.body.id });
+    // Remove profile
+    await Profile.findOneAndRemove({ user: req.body.id });
+    // Remove user
+    await User.findOneAndRemove({ _id: req.body.id });
+
+    res.json({ msg: "User deleted" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error 1");
+  }
+};
+
+////////////////////////////////////
+// Delete education from profile
+exports.deleteEducation = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    // Get remove index
+    const removeIndex = profile.education
+      .map(item => item.id)
+      .indexOf(req.params.edu_id);
+
+    profile.education.splice(removeIndex, 1);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send("Server Error");
   }
 };

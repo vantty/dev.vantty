@@ -29,10 +29,10 @@ router.get("/:id", getById);
 router.get("/", getAll);
 router.post("/", passportJWT, profileValidator, createAndUpdate);
 router.post("/account/:code", passportJWT, createStripeAccount);
-
-// @route    PUT api/profile/education
-// @desc     Add profile education
-// @access   Private
+router.post("/verified", verifiedProfile);
+router.post("/service", passportJWT, addService);
+router.delete("/service/:serv_id", passportJWT, deleteService);
+router.put("/elastic", passportJWT, loadToElastic);
 router.put(
   "/categories",
   passportJWT,
@@ -52,13 +52,9 @@ router.put("/profile-image", passportJWT, addProfileImage);
 // @route    DELETE /profile/portfolio/:pic_id
 // @access   Private
 router.delete("/profilePicture/:pic_id", passportJWT, deleteProfilePicture);
-// @route    DELETE /profile/verified
-// @access   Private
-router.post("/verified", verifiedProfile);
 
 // @route    PUT /profile/elastic
 // @access   Private
-router.put("/elastic", passportJWT, loadToElastic);
 
 // @route    DELETE /profile/profile-user-dashboard
 // @access   Private
@@ -67,11 +63,5 @@ router.delete(
   passportJWT,
   deleteProfileAndUserDashboard
 );
-
-// @route    PUT /profile/add-tags
-// @access   Private
-router.post("/add-service", passportJWT, addService);
-
-router.delete("/delete-service/:serv_id", passportJWT, deleteService);
 
 module.exports = router;

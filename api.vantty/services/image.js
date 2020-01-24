@@ -1,4 +1,5 @@
 const Image = require("../models/Image");
+const userService = require("./user");
 
 const create = async userId => {
   const newImages = new Image({
@@ -11,6 +12,13 @@ const create = async userId => {
 const getById = async id => {
   const images = await Image.findOne({
     user: id
+  });
+  return images;
+};
+
+const getByImagesId = async id => {
+  const images = await Image.findOne({
+    _id: id
   });
   return images;
 };
@@ -51,4 +59,11 @@ const saveTags = async (id, tags) => {
   return images;
 };
 
-module.exports = { create, getById, save, remove, saveTags };
+module.exports = {
+  create,
+  getById,
+  save,
+  remove,
+  saveTags,
+  getByImagesId
+};

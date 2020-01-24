@@ -44,31 +44,25 @@ const AvatarUploader = ({
   ...rest
 }) => {
   const classes = useStyles();
-  const method = getStrategy(user);
 
   const onChange = async e => {
     e.preventDefault();
-    await userImage(
-      e,
-      user._id,
-      user.profile,
-      method.profilePicture ? method.profilePicture.cloudId : false
-    );
+    await userImage(e, user._id, user.profile, user.profileImage.cloudId);
   };
   const UploadButton = () => {
     return (
       <Fragment>
         <Button
-          component="label"
-          size="small"
-          variant="outlined"
-          color="primary"
+          component='label'
+          size='small'
+          variant='outlined'
+          color='primary'
         >
           Upload Picture
           <input
             style={{ display: "none" }}
-            type="file"
-            name="file"
+            type='file'
+            name='file'
             multiple
             onChange={onChange}
             // value={user && method.profilePicture}
@@ -101,20 +95,17 @@ const AvatarUploader = ({
   // };
 
   const loadImages = () => {
-    if (user && method.profilePicture && method.profilePicture.original) {
+    if (user && user.profileImage.original) {
       return (
         <Fragment>
-          <Avatar
-            src={method.profilePicture.original}
-            className={classes.avatar}
-          />
+          <Avatar src={user.profileImage.original} className={classes.avatar} />
         </Fragment>
       );
     } else {
       return (
         <Fragment>
           <Avatar className={classes.avatar}>
-            {getInitials(method && method.firstName)}
+            {user && getInitials(user.firstName)}
           </Avatar>
         </Fragment>
       );
