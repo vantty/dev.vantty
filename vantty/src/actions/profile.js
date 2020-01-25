@@ -112,6 +112,39 @@ export const createProfile = (
   }
 };
 
+//Create or Update
+export const update = (formData, history, edit = false) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    const res = await server.put("/profile", formData, config);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+    dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
+    if (formData.price) {
+      const { user, price } = res.data;
+      await updatePropertiesAppbase(user, "price", price);
+    }
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, "error"));
+      });
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 //Create Mobile Number
 export const createMobileNumber = (
   formData,

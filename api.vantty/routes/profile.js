@@ -21,13 +21,17 @@ const {
   deleteProfileAndUserDashboard,
   addService,
   deleteService,
-  createStripeAccount
+  createStripeAccount,
+  create,
+  update
 } = require("../controllers/profile");
 
 router.get("/me", passportJWT, getByUser);
 router.get("/:id", getById);
 router.get("/", getAll);
 router.post("/", passportJWT, profileValidator, createAndUpdate);
+router.post("/", passportJWT, profileValidator, create);
+router.put("/", passportJWT, profileValidator, update);
 router.post("/account/:code", passportJWT, createStripeAccount);
 router.post("/verified", verifiedProfile);
 router.post("/service", passportJWT, addService);
@@ -45,16 +49,9 @@ router.put(
 // @access   Private
 router.delete("/education/:edu_id", passportJWT, deleteEducation);
 
-// @route    PUT /profile/profilePicture
-// @access   Private
-router.put("/profile-image", passportJWT, addProfileImage);
-
 // @route    DELETE /profile/portfolio/:pic_id
 // @access   Private
 router.delete("/profilePicture/:pic_id", passportJWT, deleteProfilePicture);
-
-// @route    PUT /profile/elastic
-// @access   Private
 
 // @route    DELETE /profile/profile-user-dashboard
 // @access   Private

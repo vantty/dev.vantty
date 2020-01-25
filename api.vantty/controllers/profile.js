@@ -59,6 +59,30 @@ exports.createAndUpdate = async (req, res) => {
   }
 };
 
+// Create
+exports.create = async (req, res) => {
+  try {
+    const { body: profile, user } = req;
+    const result = await profileService.save(profile, user);
+    res.status(201).send(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Update
+exports.update = async (req, res) => {
+  try {
+    const { body: profile, user } = req;
+    const result = await profileService.save(profile, user);
+    res.status(201).send(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
 // Add Categories
 exports.addCategories = async (req, res) => {
   try {
@@ -70,45 +94,18 @@ exports.addCategories = async (req, res) => {
     await profileService.update(
       id,
       { "categories.hair": stateHair.splice(0) },
+
       "$set"
     );
     const result = await profileService.update(
       id,
       { "categories.makeup": stateMakeup.splice(0) },
+
       "$set"
     );
 
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).send("Server Error");
-  }
-};
-
-// Add Porfolio Pictures
-exports.addProfileImage = async (req, res) => {
-  try {
-    // const {
-    //   user: { id },
-    //   body
-    // } = req;
-
-    // const result = await profileService.update(
-    //   id,
-    //   { services: { $each: [body], $position: 0 } },
-    //   "$push"
-    // );
-
-    // res.status(200).json(result);
-    ////
-    const { original, cloudId } = req.body;
-    const newPicture = { original, cloudId };
-    const profile = await Profile.findOne({ user: req.user.id });
-    await profile.profilePicture.unshift(newPicture);
-    await profile.save();
-    res.json(profile);
-    if (profile.portfolioPictures) res.send("Hello");
-  } catch (err) {
-    console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
@@ -116,31 +113,19 @@ exports.addProfileImage = async (req, res) => {
 // Delete ProfilePicture
 exports.deleteProfilePicture = async (req, res) => {
   try {
-    const {
-      user: { id },
-      params: { serv_id }
-    } = req;
+    const profile = await Profile.findOne({ user: req.user.id });
 
-    const result = await profileService.deleteDb(
-      id,
-      { profilePicture: { _id: serv_id } },
-      "$pop"
-    );
-    res.status(200).json(result);
-    /////
-    // const profile = await Profile.findOne({ user: req.user.id });
+    // Get remove index
+    const removeIndex = profile.profilePicture
+      .map(item => item.id)
+      .indexOf(req.params.pic_id);
 
-    // // Get remove index
-    // const removeIndex = profile.profilePicture
-    //   .map(item => item.id)
-    //   .indexOf(req.params.pic_id);
+    // profile.profilePicture.splice(removeIndex, 1);
+    profile.profilePicture.shift();
 
-    // // profile.profilePicture.splice(removeIndex, 1);
-    // profile.profilePicture.shift();
+    await profile.save();
 
-    // await profile.save();
-
-    // res.json(profile);
+    res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

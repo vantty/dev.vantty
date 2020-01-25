@@ -206,6 +206,7 @@ export const userImage = (e, id, profile, removeCloudId) => async dispatch => {
     await updatePropertiesAppbase(id, "profilePicture", original);
     await dispatch(loadUser());
     await dispatch(getCurrentProfile());
+    dispatch({ type: IMAGES_UPLOAD_SUCCESS });
   } catch (error) {
     console.log(error);
     dispatch({ type: IMAGES_UPLOAD_FAIL });
