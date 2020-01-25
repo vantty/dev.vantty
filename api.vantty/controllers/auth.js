@@ -2,11 +2,7 @@ const JWT = require("jsonwebtoken");
 const User = require("../models/User");
 const async = require("async");
 const crypto = require("crypto");
-const {
-  composeEmail,
-  generateLoginToken,
-  generateEmailToken
-} = require("../helpers");
+const { composeEmail, generateLoginToken } = require("../helpers");
 const userService = require("../services/user");
 const authService = require("../services/auth");
 
@@ -193,100 +189,3 @@ exports.facebook = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
-
-//Update Personal Info
-exports.updatePersonalInfo = async (req, res) => {
-  const { firstName, lastName, email, id, profilePicture, profile } = req.body;
-  let user = await User.findById({ _id: req.user._id });
-
-  // Build profile object
-  const strategy = user.method;
-  const userFields = {};
-  userFields.method = strategy;
-  userFields[strategy] = {};
-  //General
-  userFields[strategy].id = user[strategy].id;
-  userFields[strategy].password = user[strategy].password;
-  if (firstName) userFields[strategy].firstName = firstName;
-  if (lastName) userFields[strategy].lastName = lastName;
-  if (email) userFields[strategy].email = email;
-  // if (profile) userFields.profile = profile;
-
-  if (profilePicture)
-    userFields[strategy].profilePicture = user[strategy].profilePicture;
-
-  try {
-    let user = await User.findOneAndUpdate(
-      { _id: req.user._id },
-      { $set: userFields },
-      { new: true }
-    );
-    return res.json(user);
-  } catch (err) {
-    res.status(500).send("Server Error");
-  }
-};
-
-// Add User Pictures
-exports.addUserImage = async (req, res) => {
-  const { original, cloudId, id } = req.body;
-  const newPicture = { original, cloudId };
-
-  try {
-    const user = await User.findById(id);
-    const strategy = user.method;
-    user[strategy].profilePicture = newPicture;
-    await user.save();
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
-// Delete ProfilePicture
-exports.deleteUserPicture = async (req, res) => {
-  try {
-    const user = await User.findById(req.body.dataBaseId);
-
-    const strategy = user.method;
-    user[strategy].profilePicture = {};
-
-    await user.save();
-
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
-exports.isProfile = async (req, res) => {
-  try {
-    const { id, profile } = req.body;
-    let user = await User.findOneAndUpdate(
-      { _id: id },
-      { $set: { profile } },
-      { new: true }
-    );
-    res.status(200).json(user);
-  } catch (err) {
-    res.send(err);
-  }
-};
-
-// exports.hasAuthorization = (req, res, next) => {
-//   let sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
-//   let adminUser = req.profile && req.auth && req.auth.role === "admin";
-
-//   const authorized = sameUser || adminUser;
-
-//   console.log(req);
-
-//   if (!authorized) {
-//     return res.status(403).json({
-//       error: "User is not authorized to perform this action"
-//     });
-//   }
-//   next();
-// };

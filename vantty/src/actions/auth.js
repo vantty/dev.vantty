@@ -267,10 +267,6 @@ export const googleLogin = data => async dispatch => {
 export const logout = () => async dispatch => {
   await dispatch({ type: CLEAR_PROFILE });
   await dispatch({ type: LOGOUT });
-  // if (true) {
-  //   // window.location.href = "http://localhost:3000/";
-  //   window.location.href = "https://vantty.ca/";
-  // }
 };
 
 //Update Personal Info
@@ -281,13 +277,11 @@ export const updateInfo = (formData, edit = false) => async dispatch => {
         "Content-type": "application/json"
       }
     };
-    await server.post("/auth/update-info", formData, config);
+    await server.patch("/user", formData, config);
     await dispatch(loadUser());
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
-    // dispatch(loadUser());
-
     dispatch(setAlert(edit && "User Update", "success"));
   } catch (err) {
     const errors = err.response.data.errors;

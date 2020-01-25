@@ -1,5 +1,19 @@
 const userService = require("../services/user");
 
+exports.update = async (req, res) => {
+  try {
+    const {
+      user: { id },
+      body: fields
+    } = req;
+    const result = await userService.update(id, fields, "$set");
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
 exports.createCustomer = async (req, res) => {
   try {
     const {
