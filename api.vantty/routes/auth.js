@@ -31,7 +31,7 @@ router.post("/resend", resendConfirmationEmail);
 router.get("/register/:token", register);
 
 //
-router.post("/login", passportLocal, login);
+router.post("/login", login);
 router.post("/forgot", forgot);
 router.post("/reset", reset);
 router.post("/google", passportGoogle, google);

@@ -79,7 +79,6 @@ export const resendEmail = user => async dispatch => {
 export const register = token => async dispatch => {
   try {
     const res = await server.get(`/auth/register/${token}`);
-    console.log("TOKEN", res.data);
     await dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
@@ -106,13 +105,9 @@ export const login = ({ email, password }) => async dispatch => {
       payload: res.data
     });
     await dispatch(loadUser());
-  } catch (err) {
-    dispatch(
-      setAlert(
-        "Invalid Credentials; please check your email and password. If everything looks fine, maybe you haven't confirmed your email",
-        "error"
-      )
-    );
+  } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
     dispatch({
       type: LOGIN_FAIL
     });

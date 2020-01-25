@@ -39,7 +39,7 @@ exports.sendConfirmationEmail = async (req, res) => {
       lastName,
       password
     );
-    await authService.sendConfirmationEmail(result, uri);
+    authService.sendConfirmationEmail(result, uri);
     return res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -76,15 +76,29 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    if (!req.user.confirmed) {
+    const {
+      body: { email, password }
+    } = req;
+    console.log("PASSPORT", req.info);
+    const user = await userService.getByField({ email });
+    if (!user)
       return res
         .status(403)
-        .json({ errors: [{ msg: "Please validate your email" }] });
-    }
-    const token = generateLoginToken(req.user.id);
+        .json({ message: "Please check you email address and your password" });
+    const isMatch = await user.isValidPassword(password);
+    if (!isMatch)
+      return res
+        .status(403)
+        .json({ message: "Please check you email address and your password" });
+    const { id, confirmed } = user;
+    if (!confirmed)
+      return res.status(403).json({ message: "Please confirm your email" });
+    const token = await generateLoginToken(id);
     res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
