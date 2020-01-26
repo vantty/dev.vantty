@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 //Actions
 import {
   getCurrentProfile,
-  createProfile,
+  update,
   addService,
   deleteService
 } from "../../../../actions/profile";
@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
 
 const Price = ({
   profile: { profile, loading },
-  createProfile,
+  update,
   nextStep,
   prevStep,
   step,
@@ -103,20 +103,19 @@ const Price = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    createProfile({ price: price }, history, true);
-    createProfile({ availability: availability }, history, true);
+    update({ price: price }, history, true);
+    update({ availability: availability }, history, true);
     nextStep();
   };
 
   const onSubmitAvailability = e => {
     e.preventDefault();
-    console.log("222");
-    createProfile(availability, history, true);
+    update(availability, history, true);
   };
 
   const onSubmitStartCost = e => {
     e.preventDefault();
-    createProfile({ price: price }, history, true);
+    update({ price: price }, history, true);
   };
   const onSubmitPrice = e => {
     e.preventDefault();
@@ -135,7 +134,7 @@ const Price = ({
         Children={
           <Fragment>
             {profile ? (
-              <form autoComplete="off" noValidate>
+              <form autoComplete='off' noValidate>
                 {/* <Divider /> */}
 
                 <StartService price={price} handleChange={handleChange} />
@@ -152,7 +151,7 @@ const Price = ({
 
                 <CardHeader
                   // subheader='from what value do your services start'
-                  title="Services"
+                  title='Services'
                 />
                 <ServiceCard
                   services={profile.services}
@@ -167,9 +166,9 @@ const Price = ({
                     <CardActions>
                       <Grid
                         container
-                        direction="row"
-                        justify="flex-end"
-                        alignItems="flex-start"
+                        direction='row'
+                        justify='flex-end'
+                        alignItems='flex-start'
                       >
                         <Button
                           className={classes.button}
@@ -197,12 +196,12 @@ const Price = ({
                 <div>
                   {match.url === "/price" ? (
                     <Fragment>
-                      <Button component={Link} to="/settings/profile">
+                      <Button component={Link} to='/settings/profile'>
                         Back
                       </Button>
                       <Button
                         component={Link}
-                        to="/settings/profile"
+                        to='/settings/profile'
                         className={classes.button}
                         onClick={e => onSubmitAvailability(e)}
                       >
@@ -234,7 +233,7 @@ const Price = ({
               <div>
                 <div>
                   <Fragment>
-                    <Button component={Link} to="/settings">
+                    <Button component={Link} to='/settings'>
                       Back
                     </Button>
                     <Button
@@ -259,7 +258,7 @@ const Price = ({
 
 Price.propTypes = {
   className: PropTypes.string,
-  createProfile: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
   addService: PropTypes.func.isRequired,
   deleteService: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
@@ -271,7 +270,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  createProfile,
+  update,
   getCurrentProfile,
   addService,
   deleteService

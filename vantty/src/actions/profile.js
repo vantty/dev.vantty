@@ -112,25 +112,54 @@ export const createProfile = (
   }
 };
 
-//Create or Update
-export const update = (formData, history, edit = false) => async dispatch => {
+//Create
+export const create = formData => async dispatch => {
   try {
     const config = {
       headers: {
         "Content-type": "application/json"
       }
     };
-    const res = await server.put("/profile", formData, config);
+    const res = await server.post("/profile", formData, config);
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
-    dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
+    dispatch(setAlert("Profile Created", "success"));
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, "error"));
+      });
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+//Update
+export const update = formData => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    const res = await server.patch("/profile", formData, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
     if (formData.price) {
       const { user, price } = res.data;
       await updatePropertiesAppbase(user, "price", price);
     }
+    dispatch(setAlert("Profile Updated", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

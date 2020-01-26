@@ -17,10 +17,7 @@ import {
 
 // Actions
 import { updateInfo, loadUser } from "../../../../../../../../actions/auth";
-import {
-  getCurrentProfile,
-  createProfile
-} from "../../../../../../../../actions/profile";
+import { getCurrentProfile } from "../../../../../../../../actions/profile";
 
 // Helpers
 import { serviceSchemaErrors } from "../../../../../../../../helpers/errorsData";
@@ -56,13 +53,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Services = ({
-  auth: { user, loading },
+  auth,
   getCurrentProfile,
   updateInfo,
   uploading,
-  createProfile,
+
   loadUser,
-  profile: { profile },
+  profile,
   history,
   className,
   nextStep,
@@ -95,7 +92,7 @@ const Services = ({
         }}
         thousandSeparator
         isNumericString
-        prefix="$"
+        prefix='$'
       />
     );
   }
@@ -162,7 +159,7 @@ const Services = ({
       <div className={classes.root}>
         <br />
         <Typography>Add a Service</Typography>
-        <Grid container direction="row" justify="center" alignItems="center">
+        <Grid container direction='row' justify='center' alignItems='center'>
           <Grid item md={5} xs={5}>
             <FormControl>
               <TextField
@@ -173,14 +170,14 @@ const Services = ({
                     : null
                 }
                 className={classes.textField}
-                label="Service"
-                margin="dense"
-                name="typeOfService"
+                label='Service'
+                margin='dense'
+                name='typeOfService'
                 required
-                type="text"
-                variant="outlined"
-                id="typeOfService"
-                autoComplete="fname"
+                type='text'
+                variant='outlined'
+                id='typeOfService'
+                autoComplete='fname'
                 value={
                   formState.values.typeOfService || serviceData.typeOfService
                 }
@@ -191,13 +188,13 @@ const Services = ({
 
           <Grid item md={5} xs={5}>
             <TextField
-              label="Amount"
-              margin="dense"
-              name="amount"
+              label='Amount'
+              margin='dense'
+              name='amount'
               required
               className={classes.textField}
-              variant="outlined"
-              id="amount"
+              variant='outlined'
+              id='amount'
               error={hasError("amount")}
               helperText={
                 hasError("amount") ? formState.errors.amount[0] : null
@@ -215,15 +212,15 @@ const Services = ({
             <TextField
               fullWidth
               className={classes.description}
-              label="Description"
-              margin="dense"
-              name="description"
+              label='Description'
+              margin='dense'
+              name='description'
               required
-              type="text"
+              type='text'
               multiline
-              rows="3"
-              variant="outlined"
-              autoComplete="description"
+              rows='3'
+              variant='outlined'
+              autoComplete='description'
               error={hasError("description")}
               helperText={
                 hasError("description") ? formState.errors.description[0] : null
@@ -234,17 +231,17 @@ const Services = ({
           </Grid>
           <Grid
             container
-            direction="row"
-            justify="flex-end"
-            alignItems="flex-start"
+            direction='row'
+            justify='flex-end'
+            alignItems='flex-start'
           >
             <Button
               className={classes.textField}
               onClick={e => onSubmitPrice(e)}
-              variant="contained"
-              size="small"
-              aria-label="small outlined"
-              color="primary"
+              variant='contained'
+              size='small'
+              aria-label='small outlined'
+              color='primary'
               disabled={!formState.isValid || !formState.values.description}
             >
               Add Service
@@ -262,7 +259,6 @@ Services.propTypes = {
   updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired
 };
 
@@ -275,6 +271,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getCurrentProfile,
   updateInfo,
-  createProfile,
   loadUser
 })(withRouter(Services));

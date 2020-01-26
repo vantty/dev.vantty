@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Divider, Grid, Button } from "@material-ui/core";
 
 // Actions
-import { createProfile } from "../../../../actions/profile";
+import { update } from "../../../../actions/profile";
 // import { AvatarUploader } from "./components";
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Validation = ({
-  createProfile,
+  update,
   history,
   nextStep,
   formData,
@@ -46,7 +46,7 @@ const Validation = ({
   const onSubmit = e => {
     e.preventDefault();
 
-    createProfile(formData, history);
+    update(formData, history);
     nextStep();
   };
 
@@ -67,7 +67,7 @@ const Validation = ({
     <Fragment>
       <CustomPaper
         Children={
-          <form autoComplete="off" noValidate>
+          <form autoComplete='off' noValidate>
             <Grid container spacing={3}>
               <br />
               <Grid item md={12} xs={12}>
@@ -115,13 +115,11 @@ const Validation = ({
 Validation.propTypes = {
   className: PropTypes.string,
   profile: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired
+  update: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { createProfile })(
-  withRouter(Validation)
-);
+export default connect(mapStateToProps, { update })(withRouter(Validation));

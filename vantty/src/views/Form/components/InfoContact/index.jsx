@@ -7,9 +7,6 @@ import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { isMobile } from "react-device-detect";
 
-// Actions
-import { createProfile, getCurrentProfile } from "../../../../actions/profile";
-
 // Components
 import { NumberValidation } from "./components";
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
@@ -46,7 +43,6 @@ const useStyles = makeStyles(theme => ({
 const InfoContact = ({
   profile: { profile, loading },
   number: { numberIsVerified, numberVerified },
-  createProfile,
   getCurrentProfile,
   history,
   nextStep,
@@ -56,18 +52,6 @@ const InfoContact = ({
   match,
   ...rest
 }) => {
-  // const [formData, setFormData] = useState({
-  //   mobileNumber: ""
-  // });
-
-  // useEffect(() => {
-  //   // getCurrentProfile();
-
-  //   setFormData({
-  //     mobileNumber: loading || !profile.mobileNumber ? "" : profile.mobileNumber
-  //   });
-  // }, [loading, getCurrentProfile]);
-
   //validation
   const [formDataNumber, setFormDataNumber] = useState({
     phone: "",
@@ -82,11 +66,6 @@ const InfoContact = ({
       countryCode: data.countryCode === "co" ? "57" : "1"
     });
   }
-
-  // const continues = e => {
-  //   e.preventDefault();
-  //   nextStep();
-  // };
 
   const back = e => {
     e.preventDefault();
@@ -254,8 +233,6 @@ const InfoContact = ({
 
 InfoContact.propTypes = {
   className: PropTypes.string,
-  createProfile: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   number: PropTypes.object.isRequired
 };
@@ -265,6 +242,4 @@ const mapStateToProps = state => ({
   number: state.number
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  withRouter(InfoContact)
-);
+export default connect(mapStateToProps, {})(withRouter(InfoContact));

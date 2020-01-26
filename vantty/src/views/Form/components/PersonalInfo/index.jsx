@@ -4,7 +4,6 @@ import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import validate from "validate.js";
 import { isMobile } from "react-device-detect";
-import { getStrategy } from "../../../../helpers";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
@@ -18,8 +17,8 @@ import {
 } from "@material-ui/core";
 
 // Actions
-import { updateInfo, loadUser } from "../../../../actions/auth";
-import { getCurrentProfile, createProfile } from "../../../../actions/profile";
+import { updateInfo } from "../../../../actions/auth";
+import { update } from "../../../../actions/profile";
 import { AvatarUploader, Profile } from "./components";
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
@@ -61,11 +60,9 @@ const useStyles = makeStyles(theme => ({
 const AccountDetails = ({
   auth: { user },
   auth,
-  getCurrentProfile,
   updateInfo,
   uploading,
-  createProfile,
-  loadUser,
+  update,
   profile: { profile, loading },
   history,
   className,
@@ -78,16 +75,10 @@ const AccountDetails = ({
   const classes = useStyles();
 
   const [formDataProfile, setFormDataProfile] = useState({
-    // profilePicture: "",
     bio: "",
     profession: "",
     city: "",
-    mobileNumber: "",
-    instagramUsername: "",
-    youtube: "",
-    instagram: "",
-    user: "",
-    price: ""
+    instagramUsername: ""
   });
 
   const [formData, setFormData] = useState({
@@ -115,15 +106,12 @@ const AccountDetails = ({
   });
 
   useEffect(() => {
-    // getCurrentProfile();
-    loadUser();
-    const strategy = getStrategy(user);
     setFormData({
-      firstName: auth.loading || !strategy ? "" : strategy.firstName,
-      lastName: auth.loading || !strategy ? "" : strategy.lastName,
-      email: auth.loading || !strategy ? "" : strategy.email,
+      firstName: auth.loading || !user ? "" : user.firstName,
+      lastName: auth.loading || !user ? "" : user.lastName,
+      email: auth.loading || !user ? "" : user.email,
       profilePicture:
-        auth.loading || !strategy.profilePicture ? "" : strategy.profilePicture,
+        auth.loading || !user.profilePicture ? "" : user.profilePicture,
       id: auth.loading || !user._id ? "" : user._id,
       password: auth.loading || !user.password ? "" : user.password
     });
@@ -132,21 +120,14 @@ const AccountDetails = ({
       user.profile &&
       setFormDataProfile({
         bio: loading || !profile.bio ? "" : profile.bio,
-        profilePicture:
-          loading || !profile.profilePicture ? "" : profile.profilePicture,
         profession: loading || !profile.profession ? "" : profile.profession,
         instagramUsername:
           loading || !profile.instagramUsername
             ? ""
             : profile.instagramUsername,
-        mobileNumber:
-          loading || !profile.mobileNumber ? "" : profile.mobileNumber,
-        youtube: loading || !profile.social ? "" : profile.social.youtube,
-        instagram: loading || !profile.social ? "" : profile.social.instagram,
-        city: loading || !profile.city ? "" : profile.city,
-        price: loading || !profile.price ? "" : profile.price
+        city: loading || !profile.city ? "" : profile.city
       });
-  }, [auth.loading, loading, getCurrentProfile, loadUser]);
+  }, [auth.loading, loading]);
 
   const { firstName, lastName } = formData;
 
@@ -202,7 +183,7 @@ const AccountDetails = ({
 
   const onSubmitProfile = e => {
     e.preventDefault();
-    createProfile(formDataProfile, history, true);
+    update(formDataProfile, history, true);
   };
 
   //User Errors
@@ -233,7 +214,7 @@ const AccountDetails = ({
     await updateInfo(formData, true);
     user.profile && (await onSubmitProfile(e));
     user.profile &&
-      (await createProfile(
+      (await update(
         {
           name: {
             firstName: firstName,
@@ -246,19 +227,6 @@ const AccountDetails = ({
 
     (await match.url) === "/create-profile" && nextStep();
   };
-  // useEffect(() => {
-  //   getCurrentProfile();
-  // }, []);
-
-  // const continues = e => {
-  //   e.preventDefault();
-  //   nextStep();
-  // };
-
-  // const back = e => {
-  //   e.preventDefault();
-  //   prevStep();
-  // };
 
   //errors
   const hasError = field =>
@@ -267,14 +235,14 @@ const AccountDetails = ({
     <Fragment>
       <CustomPaper
         Children={
-          <form autoComplete="off" noValidate>
+          <form autoComplete='off' noValidate>
             <Typography>Profile</Typography>
             <Grid container spacing={1}>
               <Grid
                 container
-                direction="row"
-                justify="center"
-                alignItems="center"
+                direction='row'
+                justify='center'
+                alignItems='center'
               >
                 <Grid item>
                   <Grid item>
@@ -298,14 +266,14 @@ const AccountDetails = ({
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
                   fullWidth
-                  label="First name"
-                  margin="dense"
-                  name="firstName"
+                  label='First name'
+                  margin='dense'
+                  name='firstName'
                   required
-                  type="text"
-                  variant="outlined"
-                  id="firstName"
-                  autoComplete="fname"
+                  type='text'
+                  variant='outlined'
+                  id='firstName'
+                  autoComplete='fname'
                   value={formState.values.firstName || firstName}
                   onChange={handleChange}
                 />
@@ -313,12 +281,12 @@ const AccountDetails = ({
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
-                  label="Last name"
-                  margin="dense"
-                  name="lastName"
+                  label='Last name'
+                  margin='dense'
+                  name='lastName'
                   required
-                  variant="outlined"
-                  id="lastName"
+                  variant='outlined'
+                  id='lastName'
                   error={hasError("lastName")}
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
@@ -368,16 +336,15 @@ const AccountDetails = ({
                 <CardActions>
                   <Grid
                     container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="flex-start"
+                    direction='row'
+                    justify='space-between'
+                    alignItems='flex-start'
                   >
                     <Grid>
-                      {/* {!profile && !profile.mobileNumber && ( */}
                       {user && !user.profile && (
                         <Button
                           component={Link}
-                          size="small"
+                          size='small'
                           className={classes.button}
                           to={"/create-profile"}
                         >
@@ -400,7 +367,6 @@ const AccountDetails = ({
               </Fragment>
             )}
 
-            {/* <Divider /> */}
             {match.url === "/create-profile" && (
               <FormBottomNav
                 step={step}
@@ -469,7 +435,7 @@ AccountDetails.propTypes = {
   updateInfo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
   uploading: PropTypes.bool.isRequired
 };
 
@@ -480,8 +446,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getCurrentProfile,
   updateInfo,
-  createProfile,
-  loadUser
+  update
 })(withRouter(AccountDetails));

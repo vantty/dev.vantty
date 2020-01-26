@@ -11,7 +11,6 @@ const {
   getByUser,
   getById,
   getAll,
-  createAndUpdate,
   addCategories,
   deleteEducation,
   addProfileImage,
@@ -29,9 +28,8 @@ const {
 router.get("/me", passportJWT, getByUser);
 router.get("/:id", getById);
 router.get("/", getAll);
-router.post("/", passportJWT, profileValidator, createAndUpdate);
 router.post("/", passportJWT, profileValidator, create);
-router.put("/", passportJWT, profileValidator, update);
+router.patch("/", passportJWT, profileValidator, update);
 router.post("/account/:code", passportJWT, createStripeAccount);
 router.post("/verified", verifiedProfile);
 router.post("/service", passportJWT, addService);

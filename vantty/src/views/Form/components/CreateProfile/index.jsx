@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 //Actions
-import { createProfile } from "../../../../actions/profile";
+import { create } from "../../../../actions/profile";
 
 //helpers
 import { schemaErrorsCreateProfile } from "../../../../helpers/errorsData";
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CreateProfile = ({
-  createProfile,
+  create,
   getCurrentProfile,
   history,
   nextStep,
@@ -70,7 +70,7 @@ const CreateProfile = ({
 }) => {
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
+    create(formData);
     nextStep();
   };
 
@@ -286,14 +286,11 @@ const CreateProfile = ({
 CreateProfile.propTypes = {
   className: PropTypes.string,
   profile: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired
+  create: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth
 });
-export default connect(
-  mapStateToProps,
-  { createProfile }
-)(withRouter(CreateProfile));
+export default connect(mapStateToProps, { create })(withRouter(CreateProfile));

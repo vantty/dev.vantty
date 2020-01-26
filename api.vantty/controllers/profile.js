@@ -47,23 +47,14 @@ exports.getAll = async (req, res) => {
   }
 };
 
-// Create and Update Profile
-exports.createAndUpdate = async (req, res) => {
-  try {
-    const { body: profile, user } = req;
-    const result = await profileService.save(profile, user);
-    res.status(201).send(result);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
 // Create
 exports.create = async (req, res) => {
   try {
-    const { body: profile, user } = req;
-    const result = await profileService.save(profile, user);
+    const {
+      user: { id },
+      body: fields
+    } = req;
+    const result = await profileService.create(id, fields);
     res.status(201).send(result);
   } catch (err) {
     console.error(err.message);
@@ -74,8 +65,12 @@ exports.create = async (req, res) => {
 // Update
 exports.update = async (req, res) => {
   try {
-    const { body: profile, user } = req;
-    const result = await profileService.save(profile, user);
+    const {
+      user: { id },
+      body: fields
+    } = req;
+    const result = await profileService.update(id, fields, "$set");
+
     res.status(201).send(result);
   } catch (err) {
     console.error(err.message);

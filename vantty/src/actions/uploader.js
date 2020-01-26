@@ -8,7 +8,7 @@ import {
 } from "./types";
 
 import { server, elastic } from "../utils/axios";
-import { getCurrentProfile, createProfile, loadToElastic } from "./profile";
+import { getCurrentProfile, loadToElastic } from "./profile";
 import { loadUser } from "./auth";
 import { elasticData, updatePropertiesAppbase } from "../helpers";
 import setAlert from "./alert";

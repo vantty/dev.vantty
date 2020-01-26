@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { getInitials, getStrategy } from "../../../../../../helpers";
+import { getInitials } from "../../../../../../helpers";
 
 const useStyles = makeStyles(theme => ({
   avatar: {

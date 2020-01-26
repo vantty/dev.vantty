@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { connect } from "react-redux";
 import Progress from "@material-ui/core/LinearProgress";
-import { createProfile } from "../../../../actions/profile";
+import { update } from "../../../../actions/profile";
 import { isMobile } from "react-device-detect";
 import Switch from "@material-ui/core/Switch";
 import { GoogleMapsAutocomplete } from "../../../../components";
@@ -41,7 +41,7 @@ const Location = ({
   nextStep,
   history,
   match,
-  createProfile,
+  update,
   step,
   prevStep,
   profile: { profile }
@@ -87,16 +87,14 @@ const Location = ({
     });
   };
   const values = {
-    delivery: delivery,
-    place: place,
+    delivery,
+    place,
     availability,
-    street: address.street,
-    log: address.log,
-    lat: address.lat
+    address: { street: address.street, log: address.log, lat: address.lat }
   };
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(values, history, true);
+    update(values);
     match.url === "/create-profile" && nextStep();
   };
 
@@ -110,16 +108,16 @@ const Location = ({
             <Fragment>
               <div className={classes.root}>
                 <Typography>Tell your costumers your availability</Typography>
-                <form name="availability">
+                <form name='availability'>
                   <TextField
-                    id="availability"
+                    id='availability'
                     fullWidth
-                    label="Availability"
+                    label='Availability'
                     multiline
-                    rows="2"
-                    placeholder="Hi! You can take an appointment with me all days on the weekend"
+                    rows='2'
+                    placeholder='Hi! You can take an appointment with me all days on the weekend'
                     // defaultValue='Default Value'
-                    name="availability"
+                    name='availability'
                     value={
                       availability
                       // mode === "EDIT" ? profile.availability:availability
@@ -127,8 +125,8 @@ const Location = ({
                       // availability || profile.availability || ""
                     }
                     className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
+                    margin='normal'
+                    variant='outlined'
                     onChange={onChangeAvailability}
                   />
 
@@ -137,9 +135,9 @@ const Location = ({
                   <Fragment>
                     <Grid
                       container
-                      direction="row"
-                      justify="flex-start"
-                      alignItems="center"
+                      direction='row'
+                      justify='flex-start'
+                      alignItems='center'
                     >
                       <Fragment>
                         <Grid item xs={10}>
@@ -151,9 +149,9 @@ const Location = ({
                         <Grid item xs={2}>
                           <Switch
                             checked={place}
-                            name="place"
+                            name='place'
                             onChange={handleChange}
-                            value="place"
+                            value='place'
                             inputProps={{ "aria-label": "secondary checkbox" }}
                           />
                         </Grid>
@@ -176,10 +174,10 @@ const Location = ({
                         <Grid item xs={2}>
                           <Switch
                             checked={delivery}
-                            name="delivery"
+                            name='delivery'
                             onChange={handleChange}
-                            value="delivery"
-                            color="primary"
+                            value='delivery'
+                            color='primary'
                             inputProps={{ "aria-label": "primary checkbox" }}
                           />
                         </Grid>
@@ -191,9 +189,9 @@ const Location = ({
                       <CardActions>
                         <Grid
                           container
-                          direction="row"
-                          justify="flex-end"
-                          alignItems="flex-start"
+                          direction='row'
+                          justify='flex-end'
+                          alignItems='flex-start'
                         >
                           <Button
                             className={classes.button}
@@ -271,10 +269,8 @@ const mapStateToProps = state => ({
 });
 
 Location.propTypes = {
-  createProfile: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, { createProfile })(
-  withRouter(Location)
-);
+export default connect(mapStateToProps, { update })(withRouter(Location));
