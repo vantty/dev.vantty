@@ -25,14 +25,14 @@ const useStyles = makeStyles(theme => ({
     margin: "auto"
   }
 }));
-const AvatarUser = ({ profilePicture, firstName, profile }) => {
+const AvatarUser = ({ profileImage, firstName, profile }) => {
   const classes = useStyles();
   return (
     <div>
       <br />
-      {profilePicture ? (
+      {profileImage ? (
         <Fragment>
-          <Avatar className={classes.avatar} src={profilePicture.original} />
+          <Avatar className={classes.avatar} src={profileImage.original} />
           <Typography className={classes.hello}>
             Hello! {firstName}. Welcome back!
           </Typography>

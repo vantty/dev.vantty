@@ -9,7 +9,7 @@ import { getProfileById, deleteAccount } from "../../actions/profile";
 import { loadUser, logout } from "../../actions/auth";
 
 // Helpers
-import { getStrategy } from "../../helpers";
+
 import { pagesProfile, pagesUser } from "./list";
 
 // Components
@@ -22,26 +22,16 @@ import { Hidden, CssBaseline } from "@material-ui/core";
 const Settings = ({
   match,
   profile: { profile, loading },
-  loadUser,
-  logout,
   auth: { user },
   auth,
   history,
-  getProfileById,
   deleteAccount
 }) => {
-  const method = getStrategy(user);
-
-  // useEffect(() => {
-  //   loadUser();
-  //   getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
-  // }, [getCurrentProfile]);
-
   return (
     <Fragment>
       <CssBaseline />
       {!isMobile && match.url === "/settings" && (
-        <Redirect to="/personal-info" />
+        <Redirect to='/personal-info' />
       )}
 
       <Hidden only={["md", "lg", "xl"]}>
@@ -53,13 +43,14 @@ const Settings = ({
               : "/search"
           }
         />
-        {isMobile && user && (
+        {isMobile && !auth.loading && user && (
           <AvatarUser
-            profilePicture={user && method.profilePicture}
-            firstName={user && method.firstName}
+            profilePicture={user.profileImage}
+            firstName={user.firstName}
             profile={user.profile}
           />
         )}
+        {console.log(user)}
         <br />
       </Hidden>
 
@@ -92,8 +83,6 @@ const Settings = ({
 };
 
 Settings.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
-  loadUser: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   user: PropTypes.object,
   logout: PropTypes.func.isRequired,
@@ -107,8 +96,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getProfileById,
-  loadUser,
   logout,
   deleteAccount
 })(Settings);

@@ -1,11 +1,8 @@
 const Profile = require("../models/Profile");
-const User = require("../models/User");
-const Review = require("../models/Review");
-const Image = require("../models/Image");
-const Book = require("../models/Book");
 const reviewService = require("../services/review");
 const imageService = require("../services/image");
 const bookService = require("../services/book");
+const userService = require("../services/book");
 
 const getById = async id => {
   const profile = await Profile.findOne({
@@ -26,7 +23,6 @@ const create = async (id, fields) => {
   const { _id: imagesId } = await imageService.create(id);
   // Create Images id
   const { _id: bookId } = await bookService.create(id);
-
   const newProfile = {
     ...fields,
     user: id,
@@ -34,6 +30,7 @@ const create = async (id, fields) => {
     imagesId: imagesId,
     bookId: bookId
   };
+
   const profile = await new Profile(newProfile);
   await profile.save();
   return profile;

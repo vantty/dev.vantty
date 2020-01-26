@@ -55,7 +55,6 @@ const AddPortfolio = ({
   ...rest
 }) => {
   useEffect(() => {
-    // getCurrentProfile();
     getImages();
     setTags({});
   }, []);
@@ -94,7 +93,7 @@ const AddPortfolio = ({
           <Typography>Portfolio</Typography>
           <Fragment>
             {profile ? (
-              <form autoComplete="off" noValidate>
+              <form autoComplete='off' noValidate>
                 <div>
                   <ImagesUploader tags={tags} onChangeTags={onChangeTags} />
                 </div>
@@ -113,9 +112,9 @@ const AddPortfolio = ({
                 <CardActions>
                   <Grid
                     container
-                    direction="row"
-                    justify="flex-end"
-                    alignItems="flex-start"
+                    direction='row'
+                    justify='flex-end'
+                    alignItems='flex-start'
                   >
                     <Button className={classes.button} onClick={e => submit(e)}>
                       Update
@@ -202,7 +201,7 @@ const AddPortfolio = ({
                           <div>
                             <Fragment>
                               <Fragment>
-                                <Button component={Link} to="/settings/profile">
+                                <Button component={Link} to='/settings/profile'>
                                   Back
                                 </Button>
                                 <Button

@@ -51,9 +51,14 @@ exports.getAll = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     const {
-      user: { id },
-      body: fields
+      user: { id, firstName, lastName, profileImage },
+      body: field
     } = req;
+    const fields = {
+      ...field,
+      name: { firstName, lastName },
+      profileImage: profileImage.original
+    };
     const result = await profileService.create(id, fields);
     res.status(201).send(result);
   } catch (err) {
@@ -205,7 +210,6 @@ exports.createStripeAccount = async (req, res) => {
 // DELETE profile and User Dashboard
 //NOTA: we can activate this function. Right now is not working,
 exports.deleteProfileAndUserDashboard = async (req, res) => {
-  console.log(req);
   try {
     // Remove user review
     await Review.deleteMany({ user: req.body.id });
