@@ -32,7 +32,7 @@ const create = async (user, fields) => {
     const { _id: imagesId } = await imageService.create(id);
     // Create Images id
     const { _id: bookId } = await bookService.create(id);
-    const newProfileFieldsa = {
+    const newProfileFields = {
       ...fields,
       user: id,
       reviewId: reviewId,

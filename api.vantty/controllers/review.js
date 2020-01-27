@@ -1,76 +1,44 @@
 const Review = require("../models/Review");
-const User = require("../models/User");
-const Profile = require("../models/Profile");
+const serviceReview = require("../services/review");
 
-// @desc     Create a review
+//Create a review
 exports.create = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-
-    const newReview = new Review({
-      user: req.user.id
-    });
-
-    const review = await newReview.save();
-
-    res.json(review);
+    const {
+      user: { id }
+    } = req;
+    const review = await serviceReview.create(id);
+    res.status(200).json(review);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
 
-// @desc     Get all review
-exports.allReviews = async (req, res) => {
-  try {
-    const review = await Review.find().sort({ date: -1 });
-    res.json(review);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
+// //Get all review
+// exports.allReviews = async (req, res) => {
+//   try {
+//     const review = await Review.find().sort({ date: -1 });
+//     res.json(review);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// };
 
-// @desc     Get review by ID
-exports.reviewById = async (req, res) => {
+// Get review by ID
+exports.getById = async (req, res) => {
   try {
-    const review = await Review.findById(req.params.id);
-
+    const {
+      params: { id }
+    } = req;
+    const review = await serviceReview.getById(id);
     if (!review) {
       return res.status(404).json({ msg: "Review not found" });
     }
-
-    res.json(review);
+    res.status(200).json(review);
   } catch (err) {
     console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Review not found" });
-    }
-    res.status(500).send("Server Error");
-  }
-};
-
-// @desc     Delete a review
-exports.deleteReview = async (req, res) => {
-  try {
-    const review = await Review.findById(req.params.id);
-
-    if (!review) {
-      return res.status(404).json({ msg: "Review not found" });
-    }
-
-    // Check user
-    if (review.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: "User not authorized" });
-    }
-
-    await review.remove();
-
-    res.json({ msg: "Review removed" });
-  } catch (err) {
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Review not found" });
-    }
     res.status(500).send("Server Error");
   }
 };
@@ -80,25 +48,17 @@ exports.deleteReview = async (req, res) => {
 //=====================
 
 // @desc     Comment on a reviews
-exports.commentReview = async (req, res) => {
+exports.createComment = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-    const review = await Review.findById(req.params.id);
+    const {
+      user,
+      params: { id: reviewId },
+      body: fields
+    } = req;
 
-    var method = user.method;
-    const newComment = {
-      rating: req.body.rating,
-      text: req.body.text,
-      subject: req.body.subject,
-      name: user[method].firstName,
-      profilePicture: user[method].profilePicture.original,
-      user: req.user.id
-    };
-    review.comments.unshift(newComment);
+    const comments = await serviceReview.createComment(reviewId, user, fields);
 
-    await review.save();
-
-    res.json(review.comments);
+    res.status(200).json(comments);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -108,36 +68,31 @@ exports.commentReview = async (req, res) => {
 // @desc     Delete comment
 exports.deleteComment = async (req, res) => {
   try {
-    const review = await Review.findById(req.params.id);
-    const user = await User.findById(req.user.id);
-    const Admin = await User.findById(req.user.id);
+    const {
+      user: { role, id },
+      params: { id: reviewId, comment_id }
+    } = req;
+
+    const review = await serviceReview.getById(reviewId);
 
     // Pull out comment
-    const comment = review.comments.find(
-      comment => comment.id === req.params.comment_id
-    );
+    const comment = review.comments.find(comment => comment.id === comment_id);
     // Make sure comment exists
     if (!comment) {
       return res.status(404).json({ msg: "Comment does not exist" });
     }
 
     // Check user
-    if (user.role !== "Admin") {
-      if (comment.user.toString() !== req.user.id) {
+    if (role !== "Admin") {
+      if (comment.user.toString() !== id) {
         return res.status(401).json({ msg: "User not authorized" });
       }
     }
 
-    // Get remove index
-    const removeIndex = review.comments
-      .map(comment => comment.id)
-      .indexOf(req.params.comment_id);
+    const comments = await serviceReview.deleteComment(review, comment_id);
 
-    review.comments.splice(removeIndex, 1);
-
-    await review.save();
-
-    res.json(review.comments);
+    // res.json(review.comments);
+    res.status(200).json(comments);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

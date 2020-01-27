@@ -32,6 +32,7 @@ const Review = ({
     <Fragment>
       <ReviewList review={review} />
       {review.comments && <p>No reviews yet.</p>}
+
       <br />
       <br />
     </Fragment>
