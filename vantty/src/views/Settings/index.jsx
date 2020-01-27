@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 // Actions
-import { getProfileById, deleteAccount } from "../../actions/profile";
-import { loadUser, logout } from "../../actions/auth";
+import { deleteAccount } from "../../actions/profile";
+import { logout } from "../../actions/auth";
 
 // Helpers
 
@@ -18,7 +18,7 @@ import { SettingsProfile, AvatarUser, SettingsUser } from "./components";
 
 // Material-UI
 import { Hidden, CssBaseline } from "@material-ui/core";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 const Settings = ({
   match,
   profile: { profile, loading },
@@ -43,14 +43,16 @@ const Settings = ({
               : "/search"
           }
         />
-        {isMobile && !auth.loading && user && (
+        {isMobile && user !== null ? (
           <AvatarUser
-            profilePicture={user.profileImage}
+            profilePicture={user.profileImage.original}
             firstName={user.firstName}
             profile={user.profile}
           />
+        ) : (
+          <CircularProgress />
         )}
-        {console.log(user)}
+
         <br />
       </Hidden>
 

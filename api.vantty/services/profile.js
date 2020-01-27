@@ -16,24 +16,36 @@ const getAll = async () => {
   return profiles;
 };
 
-const create = async (id, fields) => {
-  // Create Review Id
-  const { _id: reviewId } = await reviewService.create(id);
-  // Create Images id
-  const { _id: imagesId } = await imageService.create(id);
-  // Create Images id
-  const { _id: bookId } = await bookService.create(id);
-  const newProfile = {
-    ...fields,
-    user: id,
-    reviewId: reviewId,
-    imagesId: imagesId,
-    bookId: bookId
-  };
+const create = async (user, fields) => {
+  //Properties User
+  const { id, firstName, lastName, profileImage } = user;
+  //validate Profile
+  const profileExist = await getById(id);
 
-  const profile = await new Profile(newProfile);
-  await profile.save();
-  return profile;
+  if (profileExist) {
+    const result = await update(id, fields, "$set");
+    return result;
+  } else {
+    // Create Review Id
+    const { _id: reviewId } = await reviewService.create(id);
+    // Create Images id
+    const { _id: imagesId } = await imageService.create(id);
+    // Create Images id
+    const { _id: bookId } = await bookService.create(id);
+    const newProfileFieldsa = {
+      ...fields,
+      user: id,
+      reviewId: reviewId,
+      imagesId: imagesId,
+      bookId: bookId,
+      name: { firstName, lastName },
+      profileImage: profileImage.original
+    };
+
+    const newProfile = await new Profile(newProfileFields);
+    await newProfile.save();
+    return newProfile;
+  }
 };
 
 const update = async (id, field, method) => {

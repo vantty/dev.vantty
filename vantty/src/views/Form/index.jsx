@@ -51,18 +51,10 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
   const [activeStep, setActiveStep] = useState(1);
 
   const [formData, setFormData] = useState({
-    profilePicture: "",
     bio: "",
     profession: "",
     city: "",
-    state: "",
-    country: "",
-    mobileNumber: "",
-    instagramUsername: "",
-    user: "",
-    qualified: "",
-    gender: "",
-    english: ""
+    instagramUsername: ""
   });
 
   const [stateHair, setStateHair] = React.useState([]);
@@ -177,7 +169,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Fragment>
                     {/* <FormContext.Provider
                       value={{

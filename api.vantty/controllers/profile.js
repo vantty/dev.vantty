@@ -50,16 +50,9 @@ exports.getAll = async (req, res) => {
 // Create
 exports.create = async (req, res) => {
   try {
-    const {
-      user: { id, firstName, lastName, profileImage },
-      body: field
-    } = req;
-    const fields = {
-      ...field,
-      name: { firstName, lastName },
-      profileImage: profileImage.original
-    };
-    const result = await profileService.create(id, fields);
+    const { user, body: fields } = req;
+
+    const result = await profileService.create(user, fields);
     res.status(201).send(result);
   } catch (err) {
     console.error(err.message);
