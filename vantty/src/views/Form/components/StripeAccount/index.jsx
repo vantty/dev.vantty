@@ -53,26 +53,26 @@ const StripeAccount = ({
   const classes = useStyles();
 
   // Generate Stripe Link
-  let method = user.method;
+
   const mobileNumberWithoutCode = profile.mobileNumber.substring(2, 11);
-  const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user[method].email}&stripe_user[first_name]=${user[method].firstName}&stripe_user[last_name]=${user[method].lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
-  // const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user[method].email}&stripe_user[first_name]=${user[method].firstName}&stripe_user[last_name]=${user[method].lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
+  const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
+  // const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component='main' maxWidth='sm'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography variant="h2" className={classes.title}>
+        <Typography variant='h2' className={classes.title}>
           Conect your bank account
         </Typography>
-        <Typography variant="subtitle1" className={classes.text}>
+        <Typography variant='subtitle1' className={classes.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </Typography>
-        <Link underline="none" color="inherit" href={stripeApi}>
-          <img src={StripeButton} alt="" className={classes.logo} />
+        <Link underline='none' color='inherit' href={stripeApi}>
+          <img src={StripeButton} alt='' className={classes.logo} />
         </Link>
       </div>
       {match.url === "/create-profile" && (

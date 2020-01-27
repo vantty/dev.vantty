@@ -22,7 +22,7 @@ import {
 } from "./types";
 import { getCurrentProfile } from "./profile";
 import { server } from "../utils/axios";
-import { getStrategyEmail } from "../helpers";
+
 import setAlert from "./alert";
 const log = console.log;
 
@@ -72,7 +72,7 @@ export const validateCard = token => async dispatch => {
     const {
       data: { _id }
     } = user;
-    const email = getStrategyEmail(user.data);
+    const email = user.email;
     const body = JSON.stringify({ token, email, _id });
     // const res = await server.post("/book/create-customer", body, config);
     const res = await server.post("/user/customer", body, config);

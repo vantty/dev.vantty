@@ -65,26 +65,24 @@ const AvatarUploader = ({
             name='file'
             multiple
             onChange={onChange}
-            // value={user && method.profilePicture}
           />
         </Button>
       </Fragment>
     );
   };
-  // const method = getStrategy(user);
 
   // const DeletePicture = () => {
   //   return (
   //     <Fragment>
   //       <LinkMui
   //         className={classes.delete}
-  //         // disabled={!method.profilePicture.original && true}
+  //         // disabled={!user.profileImage.original && true}
   //         component='button'
   //         variant='body2'
   //         onClick={() =>
   //           deleteUserPicture(
   //             user._id,
-  //             user && method.profilePicture && method.profilePicture.cloudId
+  //             user && user.profileImage && user.profileImage.cloudId
   //           )
   //         }
   //       >

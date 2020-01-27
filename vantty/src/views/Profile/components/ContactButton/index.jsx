@@ -2,15 +2,11 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-// Helpers
-// import { getStrategyName } from "../../../../helpers";
-
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { Container, Drawer } from "@material-ui/core";
-import { getStrategyName } from "../../../../helpers";
 import { isAndroid, isIOS } from "react-device-detect";
 
 const useStyles = makeStyles(theme => ({
@@ -87,9 +83,7 @@ const ContactButton = ({
   };
 
   const msg = kindOfPhone => {
-    let text = `sms:${mobileNumber}${kindOfPhone}body=Hello! ${getStrategyName(
-      user
-    )},I watched your profile in www.vantty.com,so I wanted to get an appoinment with you!`;
+    let text = `sms:${mobileNumber}${kindOfPhone}body=Hello! ${user.firstName},I watched your profile in www.vantty.com,so I wanted to get an appoinment with you!`;
     return text;
   };
 
@@ -117,33 +111,31 @@ const ContactButton = ({
   const fullList = side => (
     <div
       className={classes.fullList}
-      role="presentation"
+      role='presentation'
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
       {location === "Canada" && (
-        <Grid container direction="row" justify="center" alignItems="center">
+        <Grid container direction='row' justify='center' alignItems='center'>
           {isAndroid ? (
             <a href={msg(isIOS ? "?" : "&")}>
-              <Button className={classes.buttonDrawer} variant="contained">
+              <Button className={classes.buttonDrawer} variant='contained'>
                 SMS
               </Button>
             </a>
           ) : (
             <a href={msg("&")}>
-              <Button className={classes.buttonDrawer} variant="contained">
+              <Button className={classes.buttonDrawer} variant='contained'>
                 SMS
               </Button>
             </a>
           )}
 
           <a
-            target="#"
-            href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${getStrategyName(
-              user
-            )},%20I%20watched%20your%20profile%20in%20www.vantty.com,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
+            target='#'
+            href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hello!%20${user.firstName},%20I%20watched%20your%20profile%20in%20www.vantty.com,%20so%20I%20wanted%20to%20get%20an%20appoinment%20with%20you!`}
           >
-            <Button classes={classes.wtsp} variant="contained">
+            <Button classes={classes.wtsp} variant='contained'>
               Whatsapp
             </Button>
           </a>
@@ -152,15 +144,13 @@ const ContactButton = ({
 
       {true === "Colombia" && (
         <a
-          target="#"
-          href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${getStrategyName(
-            user
-          )},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
+          target='#'
+          href={`https://api.whatsapp.com/send?phone=${mobileNumber}&text=Hola!%20${user.firstName},%20Vi%20tu%20perfíl%20en%20www.vantty.com,%20y%20quiero%20tener%20una%20cita%20contigo!`}
         >
           <Button
             style={{ backgroundColor: "#25D366" }}
             className={classes.buttonDrawer}
-            variant="contained"
+            variant='contained'
           >
             Whatsapp
           </Button>
@@ -172,13 +162,13 @@ const ContactButton = ({
   return (
     <Fragment>
       <div className={classes.root}>
-        <Container maxWidth="md">
+        <Container maxWidth='md'>
           <Fragment>
             <Grid
               container
-              direction="row"
-              justify="space-around"
-              alignItems="center"
+              direction='row'
+              justify='space-around'
+              alignItems='center'
             >
               <Grid item>
                 <h4 className={classes.price}>
@@ -189,13 +179,13 @@ const ContactButton = ({
                 <Button
                   onClick={toggleDrawer("bottom", true)}
                   className={classes.button}
-                  variant="contained"
+                  variant='contained'
                 >
                   Book
                 </Button>
 
                 <Drawer
-                  anchor="bottom"
+                  anchor='bottom'
                   open={state.bottom}
                   onClose={toggleDrawer("bottom", false)}
                 >

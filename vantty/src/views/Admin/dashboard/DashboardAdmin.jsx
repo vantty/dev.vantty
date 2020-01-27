@@ -8,7 +8,7 @@ import { getCurrentProfile, deleteAccount } from "../../../actions/profile";
 import DashboardActions from "./DashboardActions";
 
 //Helpers
-import { getStrategyName } from "../../../helpers";
+
 import { Header } from "../../../components";
 //Material-ui
 import Typography from "@material-ui/core/Typography";
@@ -50,7 +50,7 @@ const DashboardAdmin = ({
           <Typography variant='h4' gutterBottom>
             DashboardAdmin
           </Typography>
-          <Typography variant='h5'>Welcome {getStrategyName(user)}</Typography>
+          <Typography variant='h5'>Welcome {user.firstName}</Typography>
 
           {profile !== null ? (
             <Fragment>
@@ -118,7 +118,6 @@ const mapStateToProps = state => ({
   number: state.number
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, deleteAccount }
-)(DashboardAdmin);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  DashboardAdmin
+);

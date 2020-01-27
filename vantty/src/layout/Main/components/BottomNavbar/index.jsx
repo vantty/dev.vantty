@@ -18,7 +18,7 @@ import { getCurrentProfile } from "../../../../actions/profile";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { CssBaseline } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import { getStrategy, getInitials } from "../../../../helpers";
+import { getInitials } from "../../../../helpers";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -45,8 +45,6 @@ const BottomNavbar = props => {
     auth: { isAuthenticated, user },
     navbarValue
   } = props;
-
-  const method = getStrategy(user);
 
   const classes = useStyles();
 
@@ -103,20 +101,20 @@ const BottomNavbar = props => {
               }
               icon={
                 user ? (
-                  method.profilePicture && method.profilePicture.original ? (
+                  user.profileImage && user.profileImage.original ? (
                     <Avatar
                       alt=''
-                      src={method.profilePicture.original}
+                      src={user.profileImage.original}
                       className={classes.avatar}
                     />
                   ) : (
                     <Avatar className={classes.avatar} src={""}>
-                      {user && getInitials(method.firstName)}
+                      {user && getInitials(user.firstName)}
                     </Avatar>
                   )
                 ) : (
                   <Avatar className={classes.avatar} src={""}>
-                    {user && getInitials(method.firstName)}
+                    {user && getInitials(user.firstName)}
                   </Avatar>
                 )
               }
