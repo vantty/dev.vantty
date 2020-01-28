@@ -43,16 +43,18 @@ const Settings = ({
               : "/search"
           }
         />
-        {isMobile && user !== null ? (
-          <AvatarUser
-            profilePicture={user.profileImage.original}
-            firstName={user.firstName}
-            profile={user.profile}
-          />
-        ) : (
+        {!user ? (
           <CircularProgress />
+        ) : (
+          <Fragment>
+            {/* {console.log(user.profileImage.original)} */}
+            <AvatarUser
+              profileImage={user.profileImage.original}
+              firstName={user.firstName}
+              profile={user.profile}
+            />
+          </Fragment>
         )}
-
         <br />
       </Hidden>
 

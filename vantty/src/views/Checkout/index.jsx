@@ -169,14 +169,14 @@ const Checkout = ({
     address: {},
     descriptionAddress: "",
     services: [],
-    totals: "",
+    totalValue: "",
     stripeCardId: ""
   });
   const {
     date,
     hour,
     // services,
-    // totals,
+    // totalValue,
     address,
     descriptionAddress,
     stripeCardId
@@ -188,7 +188,7 @@ const Checkout = ({
 
   const handleNext = (e, total, addedItems) => {
     e.preventDefault();
-    setCheckout({ ...checkout, totals: total, services: addedItems });
+    setCheckout({ ...checkout, totalValue: total, services: addedItems });
     setActiveStep(activeStep + 1);
 
     if (activeStep === 3) {
