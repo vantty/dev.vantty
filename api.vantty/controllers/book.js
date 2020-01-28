@@ -3,6 +3,7 @@ const sripeLoader = require("stripe"),
   Profile = require("../models/Profile"),
   Book = require("../models/Book"),
   { composeEmail } = require("../helpers");
+serviceBook = require("../services/book");
 
 const log = console.log;
 const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
@@ -76,7 +77,6 @@ exports.completeService = async (req, res) => {
 // Current User
 exports.current = async (req, res) => {
   try {
-    // var method = "";
     const profile = await Profile.findOne({ user: req.user.id });
     const book = await Book.findById(profile.bookId);
     if (!book) {
@@ -106,13 +106,16 @@ exports.current = async (req, res) => {
 // @desc     Get review by ID
 exports.getBookById = async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id);
+    const {
+      params: { id }
+    } = req;
+    const book = await serviceBook.findById(id);
 
     if (!book) {
       return res.status(404).json({ msg: "Review not found" });
     }
 
-    res.json(book);
+    res.status(200).json(book);
   } catch (err) {
     console.error(err.message);
     if (err.kind === "ObjectId") {

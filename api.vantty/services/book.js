@@ -9,4 +9,10 @@ const create = async userId => {
   return book;
 };
 
-module.exports = { create };
+const getById = async id => {
+  const book = await Book.findById(id);
+
+  return book;
+};
+
+module.exports = { create, getById };

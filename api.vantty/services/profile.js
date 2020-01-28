@@ -57,7 +57,7 @@ const update = async (id, field, method) => {
   return profile;
 };
 
-const deleteDb = async (id, field, method) => {
+const remove = async (id, field, method) => {
   const profile = await Profile.findOneAndUpdate(
     { user: id },
     { [method]: field },
@@ -67,4 +67,4 @@ const deleteDb = async (id, field, method) => {
   return profile;
 };
 
-module.exports = { getById, getAll, update, deleteDb, create };
+module.exports = { getById, getAll, update, remove, create };

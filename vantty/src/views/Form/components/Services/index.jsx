@@ -103,19 +103,19 @@ const Price = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    update({ price: price }, history, true);
-    update({ availability: availability }, history, true);
+    update({ price: price });
+    update({ availability: availability });
     nextStep();
   };
 
   const onSubmitAvailability = e => {
     e.preventDefault();
-    update(availability, history, true);
+    update(availability);
   };
 
   const onSubmitStartCost = e => {
     e.preventDefault();
-    update({ price: price }, history, true);
+    update({ price: price });
   };
   const onSubmitPrice = e => {
     e.preventDefault();
@@ -241,7 +241,7 @@ const Price = ({
                       // to='/settings'
                       className={classes.button}
                       // onClick={e => onSubmitPrice(e)}
-                      onClick={e => onSubmitAvailability(e)}
+                      onClick={e => onSubmitStartCost(e)}
                     >
                       Update
                     </Button>

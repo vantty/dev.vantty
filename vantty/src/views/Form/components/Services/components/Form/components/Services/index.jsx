@@ -57,7 +57,6 @@ const Services = ({
   getCurrentProfile,
   updateInfo,
   uploading,
-
   loadUser,
   profile,
   history,

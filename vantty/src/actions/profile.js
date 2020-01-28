@@ -149,6 +149,7 @@ export const update = formData => async dispatch => {
         "Content-type": "application/json"
       }
     };
+
     const res = await server.patch("/profile", formData, config);
 
     dispatch({
@@ -512,7 +513,7 @@ export const addService = (formData, history) => async dispatch => {
 export const deleteService = id => async dispatch => {
   try {
     const res = await server.delete(`/profile/service/${id}`);
-    // console.log(res.data);
+    console.log(res.data);
     await dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
