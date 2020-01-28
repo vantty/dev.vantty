@@ -32,7 +32,6 @@ const AvatarUser = ({ profileImage, firstName, profile }) => {
       <br />
       {profileImage ? (
         <Fragment>
-          {console.log(profileImage)}
           <Avatar className={classes.avatar} src={profileImage} />
           <Typography className={classes.hello}>
             Hello! {firstName}. Welcome back!
