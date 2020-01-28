@@ -75,7 +75,6 @@ exports.login = async (req, res) => {
     const {
       body: { email, password }
     } = req;
-    console.log("PASSPORT", req.info);
     const user = await userService.getByField({ email });
     if (!user)
       return res
@@ -135,6 +134,15 @@ exports.forgot = (req, res, next) => {
       if (err) return next(err);
     }
   );
+};
+
+exports.forgotPass = async (req, res) => {
+  try {
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
+  }
 };
 
 exports.reset = async (req, res, next) => {
