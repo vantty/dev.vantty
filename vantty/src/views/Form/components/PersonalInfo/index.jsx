@@ -83,11 +83,7 @@ const AccountDetails = ({
 
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName: "",
-    email: "",
-    id: "",
-    password: "",
-    profilePicture: ""
+    lastName: ""
   });
 
   //errors

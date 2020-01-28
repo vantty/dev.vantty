@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import Progress from "@material-ui/core/LinearProgress";
 
 // Actions
-import { confirmEmail } from "../../actions/auth";
+import { register } from "../../actions/auth";
 
-const Confirmation = ({ match, confirmEmail, isAuthenticated }) => {
-  confirmEmail(match.params.token);
+const Confirmation = ({ match, register, isAuthenticated }) => {
+  register(match.params.token);
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
@@ -16,7 +16,6 @@ const Confirmation = ({ match, confirmEmail, isAuthenticated }) => {
 };
 
 Confirmation.propTypes = {
-  confirmEmail: PropTypes.func,
   register: PropTypes.func,
   isAuthenticated: PropTypes.bool
 };
@@ -25,7 +24,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { confirmEmail }
-)(Confirmation);
+export default connect(mapStateToProps, { register })(Confirmation);

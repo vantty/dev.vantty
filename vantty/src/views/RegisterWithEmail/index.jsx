@@ -153,15 +153,15 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginTop: theme.spacing(2)
   },
+  link: {
+    color: theme.palette.purpleVantty.main
+  },
   signInButton: {
     margin: theme.spacing(2, 0),
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
       backgroundColor: theme.palette.greenVantty.dark
     }
-  },
-  link: {
-    color: theme.palette.purpleVantty.main
   }
 }));
 
@@ -237,7 +237,7 @@ const Register = props => {
   }
 
   if (user) {
-    return <Redirect push to='/confirmation' />;
+    return <Redirect push to="/confirmation" />;
   }
 
   return (
@@ -247,7 +247,7 @@ const Register = props => {
         <Grid className={classes.quoteContainer} item lg={6}>
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
-              <Typography className={classes.quoteText} variant='h1'>
+              <Typography className={classes.quoteText} variant="h1">
                 {
                   "Find the best Beauty Artist in your area and change your look."
                 }
@@ -259,17 +259,17 @@ const Register = props => {
           <div className={classes.content}>
             <div className={classes.contentHeader}>
               <IconButton>
-                <Link component={RouterLink} to='/register' variant='h6'>
+                <Link component={RouterLink} to="/register" variant="h6">
                   <ArrowBackIcon style={{ color: "black" }} />
                 </Link>
               </IconButton>
             </div>
             <div className={classes.contentBody}>
               <form className={classes.form} onSubmit={handleRegister}>
-                <Typography className={classes.title} variant='h2'>
+                <Typography className={classes.title} variant="h2">
                   Create a new account
                 </Typography>
-                <Typography color='textSecondary' gutterBottom>
+                <Typography color="textSecondary" gutterBottom>
                   with your email address
                 </Typography>
                 <TextField
@@ -279,12 +279,12 @@ const Register = props => {
                   helperText={
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
-                  label='First name'
-                  name='firstName'
+                  label="First name"
+                  name="firstName"
                   onChange={handleChange}
-                  type='text'
+                  type="text"
                   value={formState.values.firstName || ""}
-                  variant='outlined'
+                  variant="outlined"
                 />
                 <TextField
                   className={classes.textField}
@@ -293,12 +293,12 @@ const Register = props => {
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
                   }
-                  label='Last name'
-                  name='lastName'
+                  label="Last name"
+                  name="lastName"
                   onChange={handleChange}
-                  type='text'
+                  type="text"
                   value={formState.values.lastName || ""}
-                  variant='outlined'
+                  variant="outlined"
                 />
 
                 <TextField
@@ -308,12 +308,12 @@ const Register = props => {
                   helperText={
                     hasError("email") ? formState.errors.email[0] : null
                   }
-                  label='Email address'
-                  name='email'
+                  label="Email address"
+                  name="email"
                   onChange={handleChange}
-                  type='text'
+                  type="text"
                   value={formState.values.email || ""}
-                  variant='outlined'
+                  variant="outlined"
                 />
                 <TextField
                   className={classes.textField}
@@ -322,18 +322,18 @@ const Register = props => {
                   helperText={
                     hasError("password") ? formState.errors.password[0] : null
                   }
-                  label='Password'
-                  name='password'
+                  label="Password"
+                  name="password"
                   onChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   value={formState.values.password || ""}
-                  variant='outlined'
+                  variant="outlined"
                   InputProps={{
                     endAdornment: (
-                      <InputAdornment position='end'>
+                      <InputAdornment position="end">
                         <IconButton
-                          edge='end'
-                          aria-label='Toggle password visibility'
+                          edge="end"
+                          aria-label="Toggle password visibility"
                           onClick={handleClickShowPassword}
                         >
                           {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -343,22 +343,22 @@ const Register = props => {
                   }}
                 />
                 <Button
+                  variant="contained"
+                  color="primary"
                   className={classes.signInButton}
-                  color='primary'
                   disabled={!formState.isValid}
                   fullWidth
-                  size='large'
-                  type='submit'
-                  variant='contained'
+                  size="large"
+                  type="submit"
                 >
                   Register now
                 </Button>
-                <Typography color='textSecondary' variant='body1'>
+                <Typography color="textSecondary" variant="body1">
                   By clicking Register Now, you agree to our{" "}
                   <Link
                     component={RouterLink}
-                    to='/terms-of-service'
-                    variant='h6'
+                    to="/terms-of-service"
+                    variant="h6"
                     className={classes.link}
                   >
                     Terms
@@ -366,8 +366,8 @@ const Register = props => {
                   ,{" "}
                   <Link
                     component={RouterLink}
-                    to='/data-policy'
-                    variant='h6'
+                    to="/data-policy"
+                    variant="h6"
                     className={classes.link}
                   >
                     Data Policy
@@ -376,12 +376,12 @@ const Register = props => {
                   can opt out any time.
                 </Typography>
                 <br />
-                <Typography color='textSecondary' variant='body1'>
+                <Typography color="textSecondary" variant="body1">
                   Already have an account?{" "}
                   <Link
                     component={RouterLink}
-                    to='/login'
-                    variant='h6'
+                    to="/login"
+                    variant="h6"
                     className={classes.link}
                   >
                     Login

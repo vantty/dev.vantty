@@ -8,7 +8,7 @@ import { CssBaseline, Typography, Container, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Actions
-import { creacteStripeAccount } from "../../actions/book";
+import { createStripeAccount } from "../../actions/book";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -34,9 +34,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CreateArtistAccount = props => {
-  const { location, creacteStripeAccount } = props;
+  const { location, createStripeAccount } = props;
   const { code } = qs.parse(location.search, { ignoreQueryPrefix: true });
-  creacteStripeAccount(code);
+  createStripeAccount(code);
 
   const classes = useStyles();
   return (
@@ -66,4 +66,4 @@ const CreateArtistAccount = props => {
   );
 };
 
-export default connect(null, { creacteStripeAccount })(CreateArtistAccount);
+export default connect(null, { createStripeAccount })(CreateArtistAccount);

@@ -45,8 +45,8 @@ export const sendEmail = ({
     const config = {
       headers: { "Content-Type": "application/json" }
     };
-    const body = JSON.stringify({ firstName, lastName, email, password });
-    const res = await server.post("/auth/register", body, config);
+    const body = { firstName, lastName, email, password };
+    const res = await server.post("/auth/send", body, config);
     dispatch({
       type: SAVE_CONFIRMATION_EMAIL,
       payload: res.data
@@ -75,29 +75,20 @@ export const resendEmail = user => async dispatch => {
   }
 };
 
-// Confirm Email
-export const confirmEmail = token => async dispatch => {
-  try {
-    await server.get(`/auth/confirmation/${token}`);
-    await dispatch(register(token));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 // Register User
 export const register = token => async dispatch => {
   try {
-    const res = await server.post(`/auth/validated/${token}`);
-    dispatch({
+    const res = await server.get(`/auth/register/${token}`);
+    await dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
-    dispatch(loadUser());
-  } catch (err) {
+    await dispatch(loadUser());
+  } catch (error) {
     dispatch({
       type: REGISTER_FAIL
     });
+    console.log(error);
   }
 };
 
@@ -114,13 +105,9 @@ export const login = ({ email, password }) => async dispatch => {
       payload: res.data
     });
     await dispatch(loadUser());
-  } catch (err) {
-    dispatch(
-      setAlert(
-        "Invalid Credentials; please check your email and password. If everything looks fine, maybe you haven't confirmed your email",
-        "error"
-      )
-    );
+  } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
     dispatch({
       type: LOGIN_FAIL
     });
@@ -280,10 +267,6 @@ export const googleLogin = data => async dispatch => {
 export const logout = () => async dispatch => {
   await dispatch({ type: CLEAR_PROFILE });
   await dispatch({ type: LOGOUT });
-  // if (true) {
-  //   // window.location.href = "http://localhost:3000/";
-  //   window.location.href = "https://vantty.ca/";
-  // }
 };
 
 //Update Personal Info
@@ -294,13 +277,11 @@ export const updateInfo = (formData, edit = false) => async dispatch => {
         "Content-type": "application/json"
       }
     };
-    await server.post("/auth/update-info", formData, config);
+    await server.patch("/user", formData, config);
     await dispatch(loadUser());
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
-    // dispatch(loadUser());
-
     dispatch(setAlert(edit && "User Update", "success"));
   } catch (err) {
     const errors = err.response.data.errors;

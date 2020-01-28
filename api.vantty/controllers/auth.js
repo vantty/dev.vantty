@@ -2,8 +2,9 @@ const JWT = require("jsonwebtoken");
 const User = require("../models/User");
 const async = require("async");
 const crypto = require("crypto");
-const { composeEmail } = require("../helpers");
+const { composeEmail, generateLoginToken } = require("../helpers");
 const userService = require("../services/user");
+const authService = require("../services/auth");
 
 exports.getById = async (req, res) => {
   try {
@@ -18,92 +19,81 @@ exports.getById = async (req, res) => {
   }
 };
 
-exports.sendEmail = async (req, res) => {
+exports.sendConfirmationEmail = async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
-    const existingUser = await User.findOne({ email });
+    const {
+      body: { email, firstName, lastName, password },
+      headers: { origin: uri }
+    } = req;
+    const existingUser = await userService.getByField({ email });
     if (existingUser) {
-      return res.status(403).json({ errors: [{ msg: "User already exists" }] });
+      return res.status(401).send("User already exists");
     }
-    const newUser = await User.create({
-      method: "local",
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      local: { firstName, lastName, email, password },
-    });
-    const emailToken = generateEmailToken(newUser);
-    const subject = "Email Confirmation";
-    const url = `${req.headers.origin}/confirmation/${emailToken}`;
-    const html = `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${url}><strong>click here.</strong></a>`;
-    composeEmail(email, subject, html);
-    res.status(200).json(newUser);
+    const result = await userService.create(
+      email,
+      firstName,
+      lastName,
+      password
+    );
+    authService.sendConfirmationEmail(result, uri);
+    return res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
   }
 };
 
-exports.resendEmail = async (req, res) => {
+exports.resendConfirmationEmail = async (req, res) => {
   try {
-    const { email } = req.body.local;
-    const user = await User.findOne({ "local.email": email });
-    const emailToken = generateEmailToken(user);
-    const subject = "Email Confirmation";
-    const url = `${req.headers.origin}/confirmation/${emailToken}`;
-    const { firstName } = user.local;
-    const html = `Hi ${firstName}, welcome to Vantty! Please confirm your email address by clicking this link: <a href=${url}><strong>Click Here.</strong></a>`;
-    composeEmail(email, subject, html);
+    const {
+      body: user,
+      headers: { origin: uri }
+    } = req;
+    const result = await authService.sendConfirmationEmail(user, uri);
+    return res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
-  }
-};
-
-exports.confirmEmail = async (req, res) => {
-  try {
-    const tokenVerified = JWT.verify(
-      req.params.token,
-      process.env.EMAIL_SECRET
-    );
-    const id = tokenVerified.user;
-    let user = await User.findOneAndUpdate(
-      { _id: id },
-      { $set: { confirmed: true } },
-      { new: true }
-    );
-    res.status(200).json(user);
-  } catch (err) {
-    res.send(err);
   }
 };
 
 exports.register = async (req, res) => {
   try {
-    const tokenVerified = JWT.verify(
-      req.params.token,
-      process.env.EMAIL_SECRET
-    );
-    const id = tokenVerified.user;
-    const user = await User.findOne({ _id: id });
-    const token = generateToken(user);
+    const {
+      params: { token: registerToken }
+    } = req;
+    const token = await authService.register(registerToken);
     res.status(200).json({ token });
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     res.status(500).send("Server error");
   }
 };
 
 exports.login = async (req, res) => {
   try {
-    if (!req.user.confirmed) {
+    const {
+      body: { email, password }
+    } = req;
+    const user = await userService.getByField({ email });
+    if (!user)
       return res
         .status(403)
-        .json({ errors: [{ msg: "Please validate your email" }] });
-    }
-    const token = generateToken(req.user);
+        .json({ message: "Please check you email address and your password" });
+    const isMatch = await user.isValidPassword(password);
+    if (!isMatch)
+      return res
+        .status(403)
+        .json({ message: "Please check you email address and your password" });
+    const { id, confirmed } = user;
+    if (!confirmed)
+      return res.status(403).json({ message: "Please confirm your email" });
+    const token = await generateLoginToken(id);
     res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
@@ -146,6 +136,15 @@ exports.forgot = (req, res, next) => {
   );
 };
 
+exports.forgotPass = async (req, res) => {
+  try {
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
+  }
+};
+
 exports.reset = async (req, res, next) => {
   const { token, password } = req.body;
   async.waterfall(
@@ -183,7 +182,7 @@ exports.reset = async (req, res, next) => {
 
 exports.google = async (req, res) => {
   try {
-    const token = generateToken(req.user);
+    const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).send("Server error");
@@ -192,126 +191,9 @@ exports.google = async (req, res) => {
 
 exports.facebook = async (req, res) => {
   try {
-    const token = generateToken(req.user);
+    const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).send("Server error");
   }
 };
-
-// Login Token Generator
-generateToken = user => {
-  return JWT.sign(
-    {
-      iss: "vantty",
-      sub: user.id,
-      iat: Math.floor(Date.now() / 1000), // current time
-      exp: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60 // current time + 1yr
-    },
-    process.env.JWT_SECRET
-  );
-};
-
-// Email Token Generator
-generateEmailToken = user => {
-  return JWT.sign({ user: user.id }, process.env.EMAIL_SECRET, {
-    expiresIn: "1d"
-  });
-};
-
-//Update Personal Info
-exports.updatePersonalInfo = async (req, res) => {
-  const { firstName, lastName, email, id, profilePicture, profile } = req.body;
-  let user = await User.findById({ _id: req.user._id });
-
-  // Build profile object
-  const strategy = user.method;
-  const userFields = {};
-  userFields.method = strategy;
-  userFields[strategy] = {};
-  //General
-  userFields[strategy].id = user[strategy].id;
-  userFields[strategy].password = user[strategy].password;
-  if (firstName) userFields[strategy].firstName = firstName;
-  if (lastName) userFields[strategy].lastName = lastName;
-  if (email) userFields[strategy].email = email;
-  // if (profile) userFields.profile = profile;
-
-  if (profilePicture)
-    userFields[strategy].profilePicture = user[strategy].profilePicture;
-
-  try {
-    let user = await User.findOneAndUpdate(
-      { _id: req.user._id },
-      { $set: userFields },
-      { new: true }
-    );
-    return res.json(user);
-  } catch (err) {
-    res.status(500).send("Server Error");
-  }
-};
-
-// Add User Pictures
-exports.addUserImage = async (req, res) => {
-  const { original, cloudId, id } = req.body;
-  const newPicture = { original, cloudId };
-
-  try {
-    const user = await User.findById(id);
-    const strategy = user.method;
-    user[strategy].profilePicture = newPicture;
-    await user.save();
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
-// Delete ProfilePicture
-exports.deleteUserPicture = async (req, res) => {
-  try {
-    const user = await User.findById(req.body.dataBaseId);
-
-    const strategy = user.method;
-    user[strategy].profilePicture = {};
-
-    await user.save();
-
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
-exports.isProfile = async (req, res) => {
-  try {
-    const { id, profile } = req.body;
-    let user = await User.findOneAndUpdate(
-      { _id: id },
-      { $set: { profile } },
-      { new: true }
-    );
-    res.status(200).json(user);
-  } catch (err) {
-    res.send(err);
-  }
-};
-
-// exports.hasAuthorization = (req, res, next) => {
-//   let sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
-//   let adminUser = req.profile && req.auth && req.auth.role === "admin";
-
-//   const authorized = sameUser || adminUser;
-
-//   console.log(req);
-
-//   if (!authorized) {
-//     return res.status(403).json({
-//       error: "User is not authorized to perform this action"
-//     });
-//   }
-//   next();
-// };
