@@ -14,8 +14,8 @@ const {
 router.get("/", passportJWT, current);
 router.post("/create-book/:id", passportJWT, createNewBook);
 router.post("/complete-service", completeService);
-router.post("/:id", passportJWT, getBookById);
+// router.post("/:id", passportJWT, getBookById);
 router.post("/booking/:bookingId", passportJWT, changeStateBooking);
-router.get("/user-bookings/:id", getUserBookings);
+router.get("/user-bookings/:id", passportJWT, getUserBookings);
 
 module.exports = router;

@@ -3,7 +3,8 @@ const sripeLoader = require("stripe"),
   Profile = require("../models/Profile"),
   Book = require("../models/Book"),
   { composeEmail } = require("../helpers");
-serviceBook = require("../services/book");
+(serviceBook = require("../services/book")),
+  (serviceProfile = require("../services/profile"));
 
 const log = console.log;
 const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
@@ -77,12 +78,15 @@ exports.completeService = async (req, res) => {
 // Current User
 exports.current = async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
-    const book = await Book.findById(profile.bookId);
+    const {
+      user: { id }
+    } = req;
+    const profile = await serviceProfile.getById(id);
+    const book = await serviceBook.getById(profile.bookId);
     if (!book) {
       return res.status(400).json({ msg: "There is no book for this user" });
     }
-    res.json(book.bookings);
+    res.status(200).json(book.bookings);
   } catch (err) {
     console.error(err.message);
     if (err.kind === "ObjectId") {
@@ -104,82 +108,55 @@ exports.current = async (req, res) => {
 // };
 
 // @desc     Get review by ID
-exports.getBookById = async (req, res) => {
-  try {
-    const {
-      params: { id }
-    } = req;
-    const book = await serviceBook.findById(id);
+// exports.getBookById = async (req, res) => {
+//   try {
+//     const {
+//       params: { id }
+//     } = req;
+//     const book = await serviceBook.getById(id);
 
-    if (!book) {
-      return res.status(404).json({ msg: "Review not found" });
-    }
+//     if (!book) {
+//       return res.status(404).json({ msg: "Review not found" });
+//     }
 
-    res.status(200).json(book);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Review not found" });
-    }
-    res.status(500).send("Server Error");
-  }
-};
+//     res.status(200).json(book);
+//   } catch (err) {
+//     console.error(err.message);
+//     if (err.kind === "ObjectId") {
+//       return res.status(404).json({ msg: "Review not found" });
+//     }
+//     res.status(500).send("Server Error");
+//   }
+// };
 
 // @desc  Create New Booking
 exports.createNewBook = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-    const book = await Book.findById(req.params.id);
-    let method = user.method;
+    const {
+      user,
+      params: { id: bookId },
+      body: fields
+    } = req;
 
-    const newBook = {
-      bookCode: req.body.bookCode,
-      stripeCustomerId: req.body.stripeCustomerId,
-      stripeCardId: req.body.stripeCardId,
-      stripeArtistAccount: req.body.stripeArtistAccount,
-      name: user[method].firstName,
-      date: req.body.date,
-      address: req.body.address,
-      descriptionAddress: req.body.descriptionAddress,
-      hour: req.body.hour,
-      services: req.body.services,
-      totalValue: req.body.totals,
-      userId: req.user.id,
-      requestDate: req.body.requestDate,
-      timeStamp: req.body.timeStamp
-    };
-    book.bookings.unshift(newBook);
-
-    //Add Book id to the User Model
-    if (user.bookings.length < 1) {
-      user.bookings.unshift(req.params.id);
-    }
-    const service = user.bookings.find(service => service == req.params.id);
-
-    if (!service) {
-      user.bookings.unshift(req.params.id);
-    }
-
-    await user.save();
-    await book.save();
+    const book = await serviceBook.createBooking(bookId, user, fields);
 
     // Email subject
     const subject = "Book Requested";
 
     // Email to User
-    const emailUser = user[method].email;
+    const emailUser = user.email;
     const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
-    const htmlUser = `Hi ${user[method].firstName}, your book has been sent to the artist. Once she accepts the service, we will send you a confirmation email with your booking code. To see the state of your request please <a href=${urlUser}><strong>click here.</strong></a>`;
+    const htmlUser = `Hi ${user.firstName}, your book has been sent to the artist. Once she accepts the service, we will send you a confirmation email with your booking code. To see the state of your request please <a href=${urlUser}><strong>click here.</strong></a>`;
     composeEmail(emailUser, subject, htmlUser);
 
     // Email to Artist
     const artist = await User.findById(book.user);
-    const emailArtist = artist[method].email;
+    const emailArtist = artist.email;
     const urlArtist = `${req.headers.origin}/bookings`;
-    const htmlArtist = `Hi ${artist[method].firstName}, you have a new book request. To see the details and accept the request please <a href=${urlArtist}><strong>click here.</strong></a>`;
+    const htmlArtist = `Hi ${artist.firstName}, you have a new book request. To see the details and accept the request please <a href=${urlArtist}><strong>click here.</strong></a>`;
     composeEmail(emailArtist, subject, htmlArtist);
 
-    res.json(book.bookings);
+    res.status(200).json(book.bookings);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -308,21 +285,12 @@ exports.changeStateBooking = async (req, res) => {
 //User bookings
 ///////////////////
 exports.getUserBookings = async (req, res) => {
-  let totalBookings = [];
-
   try {
-    const user = await User.findById(req.params.id);
+    const { user } = req;
 
-    for (let book of user.bookings) {
-      const profileBook = await Book.findById(book);
+    const bookings = await serviceBook.getUserBookings(user);
 
-      for (let bookings of profileBook.bookings) {
-        bookings.userId === user._id;
-        totalBookings.unshift(bookings);
-      }
-    }
-
-    res.json(totalBookings);
+    res.status(200).json(bookings);
   } catch (err) {
     console.error(err.message);
     if (err.kind === "ObjectId") {
