@@ -11,7 +11,6 @@ const create = async userId => {
 
 const getById = async id => {
   const book = await Book.findById(id);
-
   return book;
 };
 

@@ -304,6 +304,15 @@ exports.changeStateBooking = async (req, res) => {
   }
 };
 
+exports.changeStateBooking1 = async (req, res) => {
+  try {
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
+  }
+};
+
 ///////////////////
 //User bookings
 ///////////////////
