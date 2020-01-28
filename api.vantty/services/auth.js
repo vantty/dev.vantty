@@ -6,7 +6,7 @@ const {
   composeEmail,
   emailType
 } = require("../helpers");
-const { CONFIRMATION } = require("../helpers/emailTypes");
+const { CONFIRMATION, FORGOT } = require("../helpers/emailTypes");
 const JWT = require("jsonwebtoken");
 
 const sendConfirmationEmail = async (user, uri) => {
@@ -29,4 +29,36 @@ const register = async registerToken => {
   return token;
 };
 
-module.exports = { sendConfirmationEmail, register };
+const forgot = async (id, email, firstName, uri) => {
+  console.log("USER", id, email, firstName, uri);
+  const token = await generateEmailToken(id);
+  const date = Date.now() + 3600 * 1000;
+  const user = await userService.update(
+    id,
+    {
+      resetPasswordToken: token,
+      resetPasswordExpires: date
+    },
+    "$set"
+  );
+  const { subject, html } = await emailType(FORGOT, uri, token, firstName);
+  console.log("SUB", subject);
+  await composeEmail(email, subject, html);
+  return user;
+};
+
+const reset = async (id, password) => {
+  const user = await userService.update(
+    id,
+    {
+      resetPasswordToken: null,
+      resetPasswordExpires: null
+    },
+    "$set"
+  );
+  user.password = password;
+  await user.save();
+  return user;
+};
+
+module.exports = { sendConfirmationEmail, register, forgot, reset };

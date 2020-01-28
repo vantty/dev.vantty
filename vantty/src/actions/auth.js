@@ -127,13 +127,9 @@ export const forgot = email => async dispatch => {
         "success"
       )
     );
-  } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
+  } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
   }
 };
 

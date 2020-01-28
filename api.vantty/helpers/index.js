@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const JWT = require("jsonwebtoken");
-const { CONFIRMATION } = require("../helpers/emailTypes");
+const { CONFIRMATION, FORGOT } = require("../helpers/emailTypes");
 
 exports.validator = (req, res, next) => {
   req.check("firstName", "Please enter your first name").notEmpty();
@@ -84,10 +84,14 @@ exports.composeEmail = async (email, subject, html) => {
 exports.emailType = (type, uri, token, firstName) => {
   switch (type) {
     case CONFIRMATION:
-      const url = `${uri}/confirmation/${token}`;
       return {
         subject: "Email Confirmation",
-        html: `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${url}><strong>click here.</strong></a>`
+        html: `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${uri}/confirmation/${token}><strong>click here.</strong></a>`
+      };
+    case FORGOT:
+      return {
+        subject: "Reset Password",
+        html: `Hi ${firstName}. Please click this link to reset your password: <a href=${uri}/reset/${token}><strong>Click Here.</strong></a>`
       };
     default:
       return null;

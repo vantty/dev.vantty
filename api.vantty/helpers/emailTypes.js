@@ -1,1 +1,2 @@
 exports.CONFIRMATION = "CONFIRMATION";
+exports.FORGOT = "FORGOT";
