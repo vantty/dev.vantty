@@ -48,7 +48,6 @@ const BookingList = ({ book, changeStateBooking }) => {
                 {book &&
                   book.map(booking => (
                     <ListItem key={booking._id}>
-                      {console.log(booking)}
                       <ListItemAvatar>
                         <Avatar className={classes.avatar}>
                           {booking.state !== "accepted" ? (

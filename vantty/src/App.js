@@ -7,7 +7,7 @@ import store from "./store";
 
 // Actions
 import { loadUser } from "./actions/auth";
-import { getCurrentProfile } from "./actions/profile";
+// import { getCurrentProfile } from "./actions/profile";
 
 // Utils
 import setAuthToken from "./utils/setAuthToken";

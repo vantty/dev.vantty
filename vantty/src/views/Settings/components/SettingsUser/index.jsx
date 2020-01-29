@@ -54,7 +54,6 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
   function ListItemLink(props) {
     return <ListItem button component={Link} {...props} />;
   }
-  console.log("user", profile);
 
   return (
     <Fragment>

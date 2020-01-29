@@ -173,11 +173,7 @@ exports.deleteService = async (req, res) => {
       params: { serv_id }
     } = req;
 
-    const result = await profileService.remove(
-      id,
-      { services: { _id: serv_id } },
-      "$pull"
-    );
+    const result = await profileService.removeService(id, serv_id);
     res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
