@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 // Actions
-import { deleteAccount } from "../../actions/profile";
+import { deleteAccount, getCurrentProfile } from "../../actions/profile";
 import { logout } from "../../actions/auth";
 
 // Helpers
@@ -25,8 +25,12 @@ const Settings = ({
   auth: { user },
   auth,
   history,
-  deleteAccount
+  deleteAccount,
+  getCurrentProfile
 }) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, []);
   return (
     <Fragment>
       <CssBaseline />
@@ -97,11 +101,13 @@ const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
   deleteAccount: PropTypes.func
+  // getCurrentProfile: PropTypes.func
 });
 
 export default connect(mapStateToProps, {
   logout,
-  deleteAccount
+  deleteAccount,
+  getCurrentProfile
 })(Settings);
 
 // {user && user.profile ? (

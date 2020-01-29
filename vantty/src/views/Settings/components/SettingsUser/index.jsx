@@ -54,16 +54,17 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
   function ListItemLink(props) {
     return <ListItem button component={Link} {...props} />;
   }
+  console.log("user", profile);
 
   return (
     <Fragment>
-      <List component="nav">
-        <Container maxWidth="md">
+      <List component='nav'>
+        <Container maxWidth='md'>
           <Grid
             container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
+            direction='row'
+            justify='space-between'
+            alignItems='center'
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -82,9 +83,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 2 */}
           <Grid
             container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
+            direction='row'
+            justify='space-between'
+            alignItems='center'
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -102,9 +103,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 3 */}
           <Grid
             container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
+            direction='row'
+            justify='space-between'
+            alignItems='center'
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -122,9 +123,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 4 */}
           <Grid
             container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
+            direction='row'
+            justify='space-between'
+            alignItems='center'
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink
@@ -142,9 +143,9 @@ const SettingsUser = ({ match, pages, logout, profile, deleteAccount }) => {
           {/* 5 */}
           <Grid
             container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
+            direction='row'
+            justify='space-between'
+            alignItems='center'
           >
             <Grid item xs={11} md={12} lg={12} xl={12}>
               <ListItemLink to={"/help"} className={classes.listItem}>
