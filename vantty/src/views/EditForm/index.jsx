@@ -60,11 +60,7 @@ const EditForm = ({
       <CssBaseline />
       <Header />
       {/* <div> {isMobile && <AppBarForm step={null} />}</div> */}
-      {isMobile && (
-        <SimpleAppBar
-          path={user && user.profile ? "/settings/profile" : "/settings"}
-        />
-      )}
+      {isMobile && <SimpleAppBar path={"/settings"} />}
       <Fragment>
         <Fragment>
           <Alert />
@@ -75,7 +71,7 @@ const EditForm = ({
             <Grid container>
               <Hidden xsDown>
                 <Grid item lg={4} md={4} xs={4}>
-                  <Container maxWidth="md">
+                  <Container maxWidth='md'>
                     <Settings match={match} />
                   </Container>
                 </Grid>

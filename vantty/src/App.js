@@ -30,7 +30,7 @@ require("dotenv-flow").config();
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
-    store.dispatch(getCurrentProfile());
+    // store.dispatch(getCurrentProfile());
     // store.dispatch(getBook());
   }, []);
 

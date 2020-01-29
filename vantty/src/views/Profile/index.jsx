@@ -121,7 +121,7 @@ const Profile = ({
           ) : (
             <Progress className={classes.progress} />
           )}
-          <Container maxWidth="md">
+          <Container maxWidth='md'>
             {/* <main> */}
             <Grid container spacing={1} className={classes.mainGrid}>
               {/* Main content */}

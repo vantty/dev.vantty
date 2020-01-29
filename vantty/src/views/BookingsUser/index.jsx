@@ -15,8 +15,8 @@ function TabPanel(props) {
 
   return (
     <Typography
-      component="div"
-      role="tabpanel"
+      component='div'
+      role='tabpanel'
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
@@ -57,7 +57,7 @@ const Bookings = ({ getUserBookings, changeStateBooking, auth }) => {
 
   useEffect(() => {
     // changeNavbarValue("bookings");
-    getUserBookings(auth && auth.user._id);
+    getUserBookings();
   }, []);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -73,13 +73,13 @@ const Bookings = ({ getUserBookings, changeStateBooking, auth }) => {
       <Tabs
         value={value}
         onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        variant="fullWidth"
-        aria-label="full width tabs example"
+        indicatorColor='primary'
+        textColor='primary'
+        variant='fullWidth'
+        aria-label='full width tabs example'
       >
-        <Tab label="New" {...a11yProps(0)} />
-        <Tab label="All" {...a11yProps(1)} />
+        <Tab label='New' {...a11yProps(0)} />
+        <Tab label='All' {...a11yProps(1)} />
         {/* <Tab label='Item Three' {...a11yProps(2)} /> */}
       </Tabs>
       {/* </AppBar> */}
