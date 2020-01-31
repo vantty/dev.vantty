@@ -10,8 +10,9 @@ exports.getById = async (req, res) => {
     const result = await userService.getById(id);
     res.json(result);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
@@ -23,7 +24,7 @@ exports.sendConfirmationEmail = async (req, res) => {
     } = req;
     const existingUser = await userService.getByField({ email });
     if (existingUser) {
-      return res.status(401).send("User already exists");
+      return res.status(403).json({ message: "User already exist" });
     }
     const result = await userService.create(
       email,
@@ -34,8 +35,9 @@ exports.sendConfirmationEmail = async (req, res) => {
     authService.sendConfirmationEmail(result, uri);
     return res.status(200).json(result);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
@@ -48,8 +50,9 @@ exports.resendConfirmationEmail = async (req, res) => {
     const result = await authService.sendConfirmationEmail(user, uri);
     return res.status(200).json(result);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
@@ -61,8 +64,9 @@ exports.register = async (req, res) => {
     const token = await authService.register(registerToken);
     res.status(200).json({ token });
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
@@ -144,8 +148,10 @@ exports.google = async (req, res) => {
   try {
     const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
@@ -153,7 +159,9 @@ exports.facebook = async (req, res) => {
   try {
     const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };

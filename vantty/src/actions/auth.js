@@ -28,7 +28,9 @@ export const loadUser = () => async dispatch => {
       type: USER_LOADED,
       payload: res.data
     });
-  } catch (err) {
+  } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
     dispatch({
       type: AUTH_ERROR
     });
@@ -52,12 +54,8 @@ export const sendEmail = ({
       payload: res.data
     });
   } catch (error) {
-    dispatch(
-      setAlert(
-        "There is an account with the same email address. Try with another method.",
-        "warning"
-      )
-    );
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -71,7 +69,8 @@ export const resendEmail = user => async dispatch => {
     };
     await server.post("/auth/resend", user, config);
   } catch (error) {
-    console.log(error);
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
   }
 };
 
@@ -85,10 +84,11 @@ export const register = token => async dispatch => {
     });
     await dispatch(loadUser());
   } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
     dispatch({
       type: REGISTER_FAIL
     });
-    console.log(error);
   }
 };
 
@@ -144,13 +144,9 @@ export const reset = (token, password) => async dispatch => {
     await dispatch(
       setAlert("Your password has been successfully changed", "success")
     );
-  } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
-      });
-    }
+  } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
   }
 };
 

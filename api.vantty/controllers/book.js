@@ -1,30 +1,11 @@
-const sripeLoader = require("stripe");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const Book = require("../models/Book");
-const { composeEmail } = require("../helpers");
 const bookService = require("../services/book");
 const profileService = require("../services/profile");
 const userService = require("../services/user");
-
-const log = console.log;
-const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
-// const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
-
-// Create Charge
-const charge = (customer, card, artist, amount) => {
-  return stripe.charges.create({
-    amount: amount * 100,
-    currency: "cad",
-    customer: customer,
-    source: card,
-    description: "Vantty Service",
-    transfer_data: {
-      amount: amount * 100 * 0.72,
-      destination: artist
-    }
-  });
-};
+const stripeService = require("../services/stripe");
+const { composeEmail } = require("../helpers");
 
 // Complete Service
 exports.completeService = async (req, res) => {
@@ -45,7 +26,7 @@ exports.completeService = async (req, res) => {
       totalValue
     } = service;
     const user = await User.findOne({ stripeCustomerId: stripeCustomerId });
-    let data = await charge(
+    let data = await stripeService.charge(
       stripeCustomerId,
       stripeCardId,
       stripeArtistAccount,
@@ -67,14 +48,11 @@ exports.completeService = async (req, res) => {
 
     res.status(200).json(data);
   } catch (error) {
-    log(error);
-    res.status(500).json(error);
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
-
-//////////////////////////
-///BOOK
-//////////////////////////
 
 // Current User
 exports.current = async (req, res) => {
@@ -88,49 +66,14 @@ exports.current = async (req, res) => {
       return res.status(400).json({ msg: "There is no book for this user" });
     }
     res.status(200).json(book.bookings);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Images not found" });
-    }
-    res.status(500).send("Server Error");
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
-// @desc     Get all Books
-// exports.allReviews = async (req, res) => {
-//   try {
-//     const review = await Review.find().sort({ date: -1 });
-//     res.json(review);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// };
-
-// @desc     Get review by ID
-// exports.getBookById = async (req, res) => {
-//   try {
-//     const {
-//       params: { id }
-//     } = req;
-//     const book = await bookService.getById(id);
-
-//     if (!book) {
-//       return res.status(404).json({ msg: "Review not found" });
-//     }
-
-//     res.status(200).json(book);
-//   } catch (err) {
-//     console.error(err.message);
-//     if (err.kind === "ObjectId") {
-//       return res.status(404).json({ msg: "Review not found" });
-//     }
-//     res.status(500).send("Server Error");
-//   }
-// };
-
-// @desc  Create New Booking
+// Create New Booking
 exports.createNewBook = async (req, res) => {
   try {
     const {
@@ -158,9 +101,10 @@ exports.createNewBook = async (req, res) => {
     composeEmail(emailArtist, subject, htmlArtist);
 
     res.status(200).json(book.bookings);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };
 
@@ -195,21 +139,14 @@ exports.changeStateBooking = async (req, res) => {
   }
 };
 
-///////////////////
-//User bookings
-///////////////////
 exports.getUserBookings = async (req, res) => {
   try {
     const { user } = req;
-
     const bookings = await bookService.getUserBookings(user);
-
     res.status(200).json(bookings);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Images not found" });
-    }
-    res.status(500).send("Server Error");
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
   }
 };

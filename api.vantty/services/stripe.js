@@ -55,10 +55,25 @@ const deleteSource = async (stripeCustomerId, cardId) => {
   return null;
 };
 
+const charge = (customer, card, artist, amount) => {
+  return stripe.charges.create({
+    amount: amount * 100,
+    currency: "cad",
+    customer: customer,
+    source: card,
+    description: "Vantty Service",
+    transfer_data: {
+      amount: amount * 100 * 0.72,
+      destination: artist
+    }
+  });
+};
+
 module.exports = {
   createAccount,
   createCustomer,
   retrieveSource,
   createSource,
-  deleteSource
+  deleteSource,
+  charge
 };
