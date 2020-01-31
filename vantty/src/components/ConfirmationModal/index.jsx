@@ -13,7 +13,9 @@ const ConfirmationModal = ({
   changeStateBooking,
   bookingId,
   state,
-  byUser
+  byUser,
+  text,
+  handleCloseForm
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -25,9 +27,10 @@ const ConfirmationModal = ({
     setOpen(false);
   };
 
-  const handleYes = () => {
-    changeStateBooking(bookingId, state, null, byUser);
-    setOpen(false);
+  const handleYes = async () => {
+    await changeStateBooking(bookingId, state, text, byUser);
+    await setOpen(false);
+    await handleCloseForm(false);
   };
 
   return (

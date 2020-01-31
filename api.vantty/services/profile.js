@@ -11,6 +11,11 @@ const getById = async id => {
   return profile;
 };
 
+const getByField = async field => {
+  const profile = await Profile.findOne(field);
+  return profile;
+};
+
 const getAll = async () => {
   const profiles = await Profile.find();
   return profiles;
@@ -67,4 +72,4 @@ const remove = async (id, field, method) => {
   return profile;
 };
 
-module.exports = { getById, getAll, update, remove, create };
+module.exports = { getById, getByField, getAll, update, remove, create };

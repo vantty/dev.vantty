@@ -1,5 +1,4 @@
-const Review = require("../models/Review");
-const serviceReview = require("../services/review");
+const reviewService = require("../services/review");
 
 //Create a review
 exports.create = async (req, res) => {
@@ -7,7 +6,7 @@ exports.create = async (req, res) => {
     const {
       user: { id }
     } = req;
-    const review = await serviceReview.create(id);
+    const review = await reviewService.create(id);
     res.status(200).json(review);
   } catch (err) {
     console.error(err.message);
@@ -32,7 +31,7 @@ exports.getById = async (req, res) => {
     const {
       params: { id }
     } = req;
-    const review = await serviceReview.getById(id);
+    const review = await reviewService.getById(id);
     if (!review) {
       return res.status(404).json({ msg: "Review not found" });
     }
@@ -56,7 +55,7 @@ exports.createComment = async (req, res) => {
       body: fields
     } = req;
 
-    const comments = await serviceReview.createComment(reviewId, user, fields);
+    const comments = await reviewService.createComment(reviewId, user, fields);
 
     res.status(200).json(comments);
   } catch (err) {
@@ -73,7 +72,7 @@ exports.deleteComment = async (req, res) => {
       params: { id: reviewId, comment_id }
     } = req;
 
-    const review = await serviceReview.getById(reviewId);
+    const review = await reviewService.getById(reviewId);
 
     // Pull out comment
     const comment = review.comments.find(comment => comment.id === comment_id);
@@ -89,7 +88,7 @@ exports.deleteComment = async (req, res) => {
       }
     }
 
-    const comments = await serviceReview.deleteComment(review, comment_id);
+    const comments = await reviewService.deleteComment(review, comment_id);
 
     // res.json(review.comments);
     res.status(200).json(comments);

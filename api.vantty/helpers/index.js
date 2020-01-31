@@ -1,6 +1,17 @@
 const nodemailer = require("nodemailer");
 const JWT = require("jsonwebtoken");
-const { CONFIRMATION, FORGOT } = require("../helpers/emailTypes");
+const userService = require("../services/user");
+const profileService = require("../services/profile");
+const {
+  ACCEPTED_USER,
+  ACCEPTED_ARTIST,
+  DECLINED_USER,
+  DECLINED_ARTIST,
+  DECLINED_POSPONED_USER,
+  DECLINED_POSPONED_ARTIST,
+  DECLINED_USER_BY_USER,
+  DECLINED_ARTIST_BY_USER
+} = require("../helpers/emailTypes");
 
 exports.validator = (req, res, next) => {
   req.check("firstName", "Please enter your first name").notEmpty();
@@ -60,44 +71,6 @@ exports.profileValidatorPortfolio = (req, res, next) => {
   next();
 };
 
-// Compose and send email
-exports.composeEmail = async (email, subject, html) => {
-  const transporter = await nodemailer.createTransport({
-    host: "smtp.mailgun.org",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "postmaster@mg.vantty.ca",
-      pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
-    }
-  });
-  const message = {
-    from: "admin@vantty.ca",
-    to: `${email}`,
-    subject: subject,
-    html: html
-  };
-  const { response } = await transporter.sendMail(message);
-  return response;
-};
-
-exports.emailType = (type, uri, token, firstName) => {
-  switch (type) {
-    case CONFIRMATION:
-      return {
-        subject: "Email Confirmation",
-        html: `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${uri}/confirmation/${token}><strong>click here.</strong></a>`
-      };
-    case FORGOT:
-      return {
-        subject: "Reset Password",
-        html: `Hi ${firstName}. Please click this link to reset your password: <a href=${uri}/reset/${token}><strong>Click Here.</strong></a>`
-      };
-    default:
-      return null;
-  }
-};
-
 exports.newCardObj = card => {
   const newCard = {
     stripeCardId: card.id,
@@ -115,9 +88,9 @@ exports.profileImageObject = async newImages => {
     original: newImages[0].eager[0].url,
     cloudId: newImages[0].public_id
   };
-
   return profileImage;
 };
+
 exports.generateEmailToken = id => {
   return JWT.sign({ user: id }, process.env.EMAIL_SECRET, {
     expiresIn: "1d"
@@ -134,4 +107,31 @@ exports.generateLoginToken = id => {
     },
     process.env.JWT_SECRET
   );
+};
+
+exports.emailType = state => {
+  switch (state) {
+    case "accepted":
+      return {
+        user: ACCEPTED_USER,
+        artist: ACCEPTED_ARTIST
+      };
+    case "declined":
+      return {
+        user: DECLINED_USER,
+        artist: DECLINED_ARTIST
+      };
+    case "declined-posponed":
+      return {
+        user: DECLINED_POSPONED_USER,
+        artist: DECLINED_POSPONED_ARTIST
+      };
+    case "declined-user":
+      return {
+        user: DECLINED_USER_BY_USER,
+        artist: DECLINED_ARTIST_BY_USER
+      };
+    default:
+      return null;
+  }
 };

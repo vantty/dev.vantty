@@ -115,6 +115,7 @@ exports.forgot = async (req, res) => {
     });
   }
 };
+
 exports.reset = async (req, res) => {
   try {
     const {

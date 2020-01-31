@@ -29,7 +29,11 @@ exports.getById = async (req, res) => {
     const {
       params: { id }
     } = req;
-    const { pictures: result } = await imageService.getById(id);
+    const images = await imageService.getById(id);
+    if (!images) {
+      return res.status(404).send("Images not found");
+    }
+    const { pictures: result } = images;
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
@@ -56,7 +60,7 @@ exports.save = async (req, res) => {
 exports.saveProfileImage = async (req, res) => {
   try {
     const {
-      user: { id, profile },
+      user: { id },
       params: { remove_cloud_id: removeCloudId }
     } = req;
     const file = Object.values(req.files);
@@ -64,7 +68,6 @@ exports.saveProfileImage = async (req, res) => {
     const image = await Promise.all(cloudImages);
     const profileImage = await profileImageObject(image);
     const result = await userService.update(id, { profileImage }, "$set");
-
     await profileService.update(
       id,
       { profileImage: profileImage.original },

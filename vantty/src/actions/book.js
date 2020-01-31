@@ -246,7 +246,10 @@ export const changeStateBooking = (
   posponedText,
   byUser
 ) => async dispatch => {
-  const formData = { state: data, text: posponedText };
+  const formData = {
+    state: data,
+    text: posponedText
+  };
   try {
     const res = await server.post(`/book/booking/${bookingId}`, formData);
     await dispatch({

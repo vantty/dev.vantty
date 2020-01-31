@@ -1,10 +1,11 @@
-const sripeLoader = require("stripe"),
-  User = require("../models/User"),
-  Profile = require("../models/Profile"),
-  Book = require("../models/Book"),
-  { composeEmail } = require("../helpers");
-(serviceBook = require("../services/book")),
-  (serviceProfile = require("../services/profile"));
+const sripeLoader = require("stripe");
+const User = require("../models/User");
+const Profile = require("../models/Profile");
+const Book = require("../models/Book");
+const { composeEmail } = require("../helpers");
+const bookService = require("../services/book");
+const profileService = require("../services/profile");
+const userService = require("../services/user");
 
 const log = console.log;
 const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
@@ -81,8 +82,8 @@ exports.current = async (req, res) => {
     const {
       user: { id }
     } = req;
-    const profile = await serviceProfile.getById(id);
-    const book = await serviceBook.getById(profile.bookId);
+    const profile = await profileService.getById(id);
+    const book = await bookService.getById(profile.bookId);
     if (!book) {
       return res.status(400).json({ msg: "There is no book for this user" });
     }
@@ -113,7 +114,7 @@ exports.current = async (req, res) => {
 //     const {
 //       params: { id }
 //     } = req;
-//     const book = await serviceBook.getById(id);
+//     const book = await bookService.getById(id);
 
 //     if (!book) {
 //       return res.status(404).json({ msg: "Review not found" });
@@ -138,7 +139,7 @@ exports.createNewBook = async (req, res) => {
       body: fields
     } = req;
 
-    const book = await serviceBook.createBooking(bookId, user, fields);
+    const book = await bookService.createBooking(bookId, user, fields);
 
     // Email subject
     const subject = "Book Requested";
@@ -165,124 +166,28 @@ exports.createNewBook = async (req, res) => {
 
 exports.changeStateBooking = async (req, res) => {
   try {
-    const { state, text } = req.body;
-    const profile = await Profile.findOne({ user: req.user._id });
-    log("profile", req.user.profile);
-    if (!req.user.profile) {
-      const books = await Book.find();
-      let service;
-      books.map(async book => {
-        service = await book.bookings.find(
-          service => service._id == req.params.bookingId
-        );
-        service.state = state;
-        book.save();
-
-        // User Mailing Info
-        const user = await User.findOne({
-          stripeCustomerId: service.stripeCustomerId
-        });
-        let method = user.method;
-        const emailUser = user[method].email;
-        const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
-
-        // Artist Mailing Info
-        const profile = await Profile.findOne({
-          stripeArtistAccount: service.stripeArtistAccount
-        });
-        const artistId = profile.user;
-        const artist = await User.findById(artistId);
-        const emailArtist = artist[method].email;
-        const urlArtist = `${req.headers.origin}/bookings`;
-
-        if (service.state === "declined-user") {
-          // Email subject
-          const subject = "Book Declined";
-
-          // Email to User
-          const htmlUser = `Hi ${user[method].firstName}, you have declined the service. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
-          composeEmail(emailUser, subject, htmlUser);
-
-          // Email to Artist
-          const htmlArtist = `Hi ${artist[method].firstName}, the user has declined the service. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
-          composeEmail(emailArtist, subject, htmlArtist);
-        }
-      });
-      return res.json(books);
-    } else {
-      const book = await Book.findById(profile.bookId);
-      for (const x of book.bookings) {
-        if (x._id == req.params.bookingId) {
-          x.state = state;
-        }
-      }
-      book.save();
-
-      const service = book.bookings.find(
-        service => service._id == req.params.bookingId
-      );
-
-      // User Mailing Info
-      const user = await User.findOne({
-        stripeCustomerId: service.stripeCustomerId
-      });
-      let method = user.method;
-      const emailUser = user[method].email;
-      const urlUser = `${req.headers.origin}/dashboard/user/apponitments`;
-
-      // Artist Mailing Info
-      const artist = await User.findById(book.user);
-      const emailArtist = artist[method].email;
-      const urlArtist = `${req.headers.origin}/bookings`;
-
-      if (service.state === "accepted") {
-        // Email subject
-        const subject = "Book Accepted";
-
-        // Email to User
-        const htmlUser = `Hi ${user[method].firstName}, your book has been accepted by the artist. Your booking code is: <strong>${service.bookCode}</strong>. Please save this code, because you have to give it to the artist once she finish your service. If you need to modify or cancell the service please <a href=${urlUser}><strong>click here.</strong></a>`;
-        composeEmail(emailUser, subject, htmlUser);
-
-        // Email to Artist
-        const htmlArtist = `Hi ${artist[method].firstName}, you have accepted the book request. To see the details of the service please <a href=${urlArtist}><strong>click here.</strong></a>`;
-        composeEmail(emailArtist, subject, htmlArtist);
-      }
-
-      if (service.state === "declined") {
-        // Email subject
-        const subject = "Book Declined";
-
-        // Email to User
-        const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
-        composeEmail(emailUser, subject, htmlUser);
-
-        // Email to Artist
-        const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
-        composeEmail(emailArtist, subject, htmlArtist);
-      }
-
-      if (service.state === "declined-posponed") {
-        // Email subject
-        const subject = "Book Declined";
-
-        // Email to User
-        const htmlUser = `Hi ${user[method].firstName}, your book has been declined by the artist. However she has an alternative proposal for you: ${text}. Please go back to Vantty and <a href=${urlUser}><strong>search for another artist.</strong></a>`;
-        composeEmail(emailUser, subject, htmlUser);
-
-        // Email to Artist
-        const htmlArtist = `Hi ${artist[method].firstName}, you have declined the book request. To see the details of the declined service please <a href=${urlArtist}><strong>click here.</strong></a>`;
-        composeEmail(emailArtist, subject, htmlArtist);
-      }
-
-      res.json(book.bookings);
-    }
-  } catch (err) {
-    res.send(err);
-  }
-};
-
-exports.changeStateBooking1 = async (req, res) => {
-  try {
+    const {
+      body: { state, text: posponeText },
+      params: { bookingId },
+      headers: { origin: uri }
+    } = req;
+    const service = await bookService.changeState(bookingId, state);
+    const result = await Promise.all(service);
+    const { userId, stripeArtistAccount, bookCode } = result[0];
+    const user = await userService.getById(userId);
+    const { user: artistId } = await profileService.getByField({
+      stripeArtistAccount
+    });
+    const artist = await userService.getById(artistId);
+    await bookService.sendEmail(
+      user,
+      artist,
+      uri,
+      state,
+      bookCode,
+      posponeText
+    );
+    res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"
@@ -297,7 +202,7 @@ exports.getUserBookings = async (req, res) => {
   try {
     const { user } = req;
 
-    const bookings = await serviceBook.getUserBookings(user);
+    const bookings = await bookService.getUserBookings(user);
 
     res.status(200).json(bookings);
   } catch (err) {

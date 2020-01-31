@@ -114,6 +114,7 @@ Bookings.propTypes = {
 const mapStateToProps = state => ({
   book: state.book
 });
+
 export default connect(mapStateToProps, { getBook, changeStateBooking })(
   withRouter(Bookings)
 );

@@ -48,7 +48,6 @@ const BookingList = ({ book, changeStateBooking }) => {
                 {book &&
                   book.map(booking => (
                     <ListItem key={booking._id}>
-                      {console.log(booking)}
                       <ListItemAvatar>
                         <Avatar className={classes.avatar}>
                           {booking.state !== "accepted" ? (
@@ -65,18 +64,18 @@ const BookingList = ({ book, changeStateBooking }) => {
                         secondary={
                           <React.Fragment>
                             <Typography
-                              component='span'
-                              variant='body2'
+                              component="span"
+                              variant="body2"
                               className={classes.inline}
-                              color='textPrimary'
+                              color="textPrimary"
                             >
                               {`Value $${booking.totalValue}`}
                             </Typography>
                             <Typography
-                              component='span'
-                              variant='body2'
+                              component="span"
+                              variant="body2"
                               className={classes.inline}
-                              color='textPrimary'
+                              color="textPrimary"
                             >
                               {`State ${booking.state}`}
                             </Typography>

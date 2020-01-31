@@ -1,6 +1,6 @@
-const User = require("../models/User");
 const Book = require("../models/Book");
-const serviceUser = require("../services/user");
+const emailService = require("../services/email");
+const { emailType } = require("../helpers");
 
 const create = async userId => {
   const newBook = new Book({
@@ -58,4 +58,45 @@ const getUserBookings = async user => {
   return totalBookings;
 };
 
-module.exports = { create, getById, createBooking, getUserBookings };
+const changeState = async (bookingId, state) => {
+  const books = await Book.find();
+  const service = await books.map(async book => {
+    const service = await book.bookings.find(
+      service => service._id.toString() === bookingId
+    );
+    service.state = state;
+    book.save();
+    return service;
+  });
+  return service;
+};
+
+const sendEmail = async (user, artist, uri, state, bookCode, posponeText) => {
+  const { firstName: userFirstName, email: userEmail } = user;
+  const { firstName: artistFirstName, email: artistEmail } = artist;
+  const type = await emailType(state);
+  const info = state === "accepted" ? bookCode : posponeText;
+  const { subject: userSubject, html: userHtml } = await emailService.type(
+    type.user,
+    uri,
+    info,
+    userFirstName
+  );
+  const { subject: artistSubject, html: artistHtml } = await emailService.type(
+    type.artist,
+    uri,
+    null,
+    artistFirstName
+  );
+  await emailService.compose(userEmail, userSubject, userHtml);
+  await emailService.compose(artistEmail, artistSubject, artistHtml);
+};
+
+module.exports = {
+  create,
+  getById,
+  createBooking,
+  getUserBookings,
+  changeState,
+  sendEmail
+};
