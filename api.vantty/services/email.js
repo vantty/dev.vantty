@@ -11,10 +11,12 @@ const {
   DECLINED_POSPONED_USER,
   DECLINED_POSPONED_ARTIST,
   DECLINED_USER_BY_USER,
-  DECLINED_ARTIST_BY_USER
+  DECLINED_ARTIST_BY_USER,
+  COMPLETED_USER,
+  COMPLETED_ARTIST
 } = require("../helpers/emailTypes");
 
-const type = (type, uri, token, firstName) => {
+const type = (type, uri, token, firstName, reviewData) => {
   switch (type) {
     case CONFIRMATION:
       return {
@@ -75,6 +77,16 @@ const type = (type, uri, token, firstName) => {
       return {
         subject: "Book Declined",
         html: `Hi ${firstName}, the user has declined the service. To see the details of the declined service please <a href=${uri}/bookings><strong>click here.</strong></a>`
+      };
+    case COMPLETED_USER:
+      return {
+        subject: "Book Completed",
+        html: `Hi ${firstName}, your book has been completed. Your artist will appriciate a review from you. To write it, please <a href=${uri}/profile/artist/${reviewData.artistId}/${reviewData.reviewId}><strong>click here.</strong></a>`
+      };
+    case COMPLETED_ARTIST:
+      return {
+        subject: "Book Completed",
+        html: `Hi ${firstName}, your service has been completed. To see the details of the service please <a href=${uri}/bookings><strong>click here.</strong></a>`
       };
     default:
       return null;

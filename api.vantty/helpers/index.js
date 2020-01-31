@@ -12,7 +12,9 @@ const {
   DECLINED_POSPONED_USER,
   DECLINED_POSPONED_ARTIST,
   DECLINED_USER_BY_USER,
-  DECLINED_ARTIST_BY_USER
+  DECLINED_ARTIST_BY_USER,
+  COMPLETED_USER,
+  COMPLETED_ARTIST
 } = require("../helpers/emailTypes");
 
 exports.validator = (req, res, next) => {
@@ -137,6 +139,11 @@ exports.emailType = state => {
       return {
         user: DECLINED_USER_BY_USER,
         artist: DECLINED_ARTIST_BY_USER
+      };
+    case "completed":
+      return {
+        user: COMPLETED_USER,
+        artist: COMPLETED_ARTIST
       };
     default:
       return null;

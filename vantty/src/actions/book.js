@@ -45,16 +45,12 @@ export const createStripeAccount = code => async dispatch => {
 };
 
 // Complete Service
-export const completeService = code => async dispatch => {
+export const completeService = bookCode => async dispatch => {
   try {
-    const {
-      data: { _id }
-    } = await server.get("/auth");
     const config = {
       headers: { "Content-Type": "application/json" }
     };
-    const body = JSON.stringify({ _id, code });
-    await server.post("/book/complete-service", body, config);
+    await server.post(`/book/complete/${bookCode}`, config);
     await dispatch(getBook());
   } catch (error) {
     log(error);

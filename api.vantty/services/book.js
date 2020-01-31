@@ -1,5 +1,6 @@
 const Book = require("../models/Book");
 const emailService = require("../services/email");
+const stripeService = require("../services/stripe");
 const { emailType } = require("../helpers");
 
 const create = async userId => {
@@ -12,6 +13,11 @@ const create = async userId => {
 
 const getById = async id => {
   const book = await Book.findById(id);
+  return book;
+};
+
+const getByField = async field => {
+  const book = await Book.findOne(field);
   return book;
 };
 
@@ -71,32 +77,57 @@ const changeState = async (bookingId, state) => {
   return service;
 };
 
-const sendEmail = async (user, artist, uri, state, bookCode, posponeText) => {
+const sendEmail = async (
+  user,
+  artist,
+  uri,
+  state,
+  bookCode,
+  posponeText,
+  reviewId
+) => {
   const { firstName: userFirstName, email: userEmail } = user;
-  const { firstName: artistFirstName, email: artistEmail } = artist;
+  const {
+    firstName: artistFirstName,
+    email: artistEmail,
+    id: artistId
+  } = artist;
   const type = await emailType(state);
   const info = state === "accepted" ? bookCode : posponeText;
+  const reviewData = state === "completed" ? { artistId, reviewId } : null;
   const { subject: userSubject, html: userHtml } = await emailService.type(
     type.user,
     uri,
     info,
-    userFirstName
+    userFirstName,
+    reviewData
   );
   const { subject: artistSubject, html: artistHtml } = await emailService.type(
     type.artist,
     uri,
     null,
-    artistFirstName
+    artistFirstName,
+    reviewData
   );
   await emailService.compose(userEmail, userSubject, userHtml);
   await emailService.compose(artistEmail, artistSubject, artistHtml);
 };
 
+const complete = async (artistId, bookCode, state) => {
+  const book = await getByField({ user: artistId });
+  const service = book.bookings.find(service => service.bookCode === bookCode);
+  service.state = state;
+  await book.save();
+  return service;
+};
+
 module.exports = {
   create,
   getById,
+  getByField,
   createBooking,
   getUserBookings,
   changeState,
-  sendEmail
+  sendEmail,
+  complete
 };

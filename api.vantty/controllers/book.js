@@ -63,43 +63,39 @@ exports.createNewBook = async (req, res) => {
 // Complete Service
 exports.completeService = async (req, res) => {
   try {
-    const { reviewId } = await Profile.findOne({ user: req.body._id });
-    const book = await Book.findOne({ user: req.body._id });
-    const service = book.bookings.find(
-      service => service.bookCode === req.body.code
-    );
-    if (!service) {
-      const error = "NO Service";
-      return res.status(500).json(error);
-    }
+    const {
+      user: { id: artistId },
+      params: { book_code: bookCode },
+      headers: { origin: uri }
+    } = req;
+    const state = "completed";
     const {
       stripeCustomerId,
       stripeCardId,
       stripeArtistAccount,
       totalValue
-    } = service;
-    const user = await User.findOne({ stripeCustomerId: stripeCustomerId });
-    let data = await stripeService.charge(
+    } = await bookService.complete(artistId, bookCode, state);
+    const { status } = await stripeService.charge(
       stripeCustomerId,
       stripeCardId,
       stripeArtistAccount,
       totalValue
     );
-    service.state = "completed";
-    await book.save();
-
-    // Email subject
-    const subject = "Book Completed";
-
-    // Email to User
-    let method = user.method;
-    const emailUser = user[method].email;
-    const urlUser = `${req.headers.origin}/profile/artist/${req.body._id}/${reviewId}`;
-    const htmlUser = `Hi ${user[method].firstName}, your book has been completed. Your artist will appriciate a review from you. To write it please <a href=${urlUser}><strong>click here.</strong></a>`;
-
-    composeEmail(emailUser, subject, htmlUser);
-
-    res.status(200).json(data);
+    if (status === "succeeded") {
+      const user = await userService.getByField({ stripeCustomerId });
+      const artist = await userService.getById(artistId);
+      const { reviewId } = await profileService.getById(artistId);
+      await bookService.sendEmail(
+        user,
+        artist,
+        uri,
+        state,
+        null,
+        null,
+        reviewId
+      );
+    }
+    res.status(200).json(status);
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"

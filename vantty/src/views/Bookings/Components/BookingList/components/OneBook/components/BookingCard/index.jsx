@@ -164,19 +164,11 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                             changeStateBooking={changeStateBooking}
                             bookingId={booking._id}
                             state={"declined"}
+                            handleCloseForm={handleCloseForm}
                           />
                           <MenuItem onClick={handleOpenForm}>
                             {"Pospone"}
                           </MenuItem>
-                          {/* <ConfirmationModal
-                            buttonText={"Pospone"}
-                            modalText={
-                              "Are you sure you want to propose the user another date for this service?"
-                            }
-                            changeStateBooking={changeStateBooking}
-                            bookingId={booking._id}
-                            state={"posponed"}
-                          /> */}
                           <ConfirmationModal
                             buttonText={"Accept"}
                             modalText={
@@ -185,6 +177,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                             changeStateBooking={changeStateBooking}
                             bookingId={booking._id}
                             state={"accepted"}
+                            handleCloseForm={handleCloseForm}
                           />
                         </Grid>
                       )}
