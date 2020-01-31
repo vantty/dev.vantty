@@ -2,6 +2,8 @@ const nodemailer = require("nodemailer");
 const {
   CONFIRMATION,
   FORGOT,
+  REQUESTED_USER,
+  REQUESTED_ARTIST,
   ACCEPTED_USER,
   ACCEPTED_ARTIST,
   DECLINED_USER,
@@ -23,6 +25,16 @@ const type = (type, uri, token, firstName) => {
       return {
         subject: "Reset Password",
         html: `Hi ${firstName}. Please click this link to reset your password: <a href=${uri}/reset/${token}><strong>Click Here.</strong></a>`
+      };
+    case REQUESTED_USER:
+      return {
+        subject: "Book Requested",
+        html: `Hi ${firstName}, your book has been sent to the artist. Once she accepts the service, we will send you a confirmation email with your booking code. To see the state of your request please <a href=${uri}/dashboard/user/apponitments><strong>click here.</strong></a>`
+      };
+    case REQUESTED_ARTIST:
+      return {
+        subject: "Book Requested",
+        html: `Hi ${firstName}, you have a new book request. To see the details and accept the request please <a href=${uri}/bookings><strong>click here.</strong></a>`
       };
     case ACCEPTED_USER:
       return {

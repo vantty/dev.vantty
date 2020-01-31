@@ -3,6 +3,8 @@ const JWT = require("jsonwebtoken");
 const userService = require("../services/user");
 const profileService = require("../services/profile");
 const {
+  REQUESTED_USER,
+  REQUESTED_ARTIST,
   ACCEPTED_USER,
   ACCEPTED_ARTIST,
   DECLINED_USER,
@@ -111,6 +113,11 @@ exports.generateLoginToken = id => {
 
 exports.emailType = state => {
   switch (state) {
+    case "requested":
+      return {
+        user: REQUESTED_USER,
+        artist: REQUESTED_ARTIST
+      };
     case "accepted":
       return {
         user: ACCEPTED_USER,
