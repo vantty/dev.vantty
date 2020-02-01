@@ -203,7 +203,7 @@ export const userImage = (e, id, profile, removeCloudId) => async dispatch => {
         profileImage: { original }
       }
     } = await server.post(`/images/profile/${removeCloudId}`, formData);
-    await updatePropertiesAppbase(id, "profilePicture", original);
+    if (profile) await updatePropertiesAppbase(id, "profilePicture", original);
     await dispatch(loadUser());
     await dispatch(getCurrentProfile());
     dispatch({ type: IMAGES_UPLOAD_SUCCESS });

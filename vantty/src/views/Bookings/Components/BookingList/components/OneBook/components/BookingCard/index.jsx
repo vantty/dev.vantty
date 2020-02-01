@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,7 +11,8 @@ import {
   CardContent,
   CardMedia,
   CardHeader,
-  Card
+  Card,
+  MenuItem
 } from "@material-ui/core";
 import { Services } from "./components";
 
@@ -78,6 +79,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function RecipeReviewCard({ booking, changeStateBooking }) {
   const classes = useStyles();
+
+  const [openForm, setOpenForm] = useState(false);
+
+  const handleOpenForm = () => {
+    setOpenForm(true);
+  };
+
+  const handleCloseForm = e => {
+    setOpenForm(e);
+  };
 
   const replace = str => {
     const newString = str.replace(/ /g, "+");
@@ -153,16 +164,11 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                             changeStateBooking={changeStateBooking}
                             bookingId={booking._id}
                             state={"declined"}
+                            handleCloseForm={handleCloseForm}
                           />
-                          <ConfirmationModal
-                            buttonText={"Pospone"}
-                            modalText={
-                              "Are you sure you want to propose the user another date for this service?"
-                            }
-                            changeStateBooking={changeStateBooking}
-                            bookingId={booking._id}
-                            state={"posponed"}
-                          />
+                          <MenuItem onClick={handleOpenForm}>
+                            {"Pospone"}
+                          </MenuItem>
                           <ConfirmationModal
                             buttonText={"Accept"}
                             modalText={
@@ -171,6 +177,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                             changeStateBooking={changeStateBooking}
                             bookingId={booking._id}
                             state={"accepted"}
+                            handleCloseForm={handleCloseForm}
                           />
                         </Grid>
                       )}
@@ -203,18 +210,19 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                         </Typography>
                       </CardActions>
                     )}
-                    {booking.state === "posponed" && (
+                    {openForm && (
                       <CardActions className={classes.statePosponed}>
                         <Grid container>
-                          <Grid item>
+                          {/* <Grid item>
                             <Typography>
                               This service was <strong>Posponed</strong>
                             </Typography>
-                          </Grid>
+                          </Grid> */}
                           <Grid item>
                             <PosponeForm
                               changeStateBooking={changeStateBooking}
                               bookingId={booking._id}
+                              handleCloseForm={handleCloseForm}
                             />
                           </Grid>
                         </Grid>

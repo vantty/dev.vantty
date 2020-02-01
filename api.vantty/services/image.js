@@ -1,5 +1,4 @@
 const Image = require("../models/Image");
-const userService = require("./user");
 
 const create = async userId => {
   const newImages = new Image({

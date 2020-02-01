@@ -13,7 +13,7 @@ const {
 
 router.get("/", passportJWT, current);
 router.post("/create-book/:id", passportJWT, createNewBook);
-router.post("/complete-service", completeService);
+router.post("/complete/:book_code", passportJWT, completeService);
 // router.post("/:id", passportJWT, getBookById);
 router.post("/booking/:bookingId", passportJWT, changeStateBooking);
 router.get("/user-bookings/:id", passportJWT, getUserBookings);

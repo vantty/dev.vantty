@@ -9,6 +9,8 @@ const userSchema = new Schema(
     firstName: { type: String },
     lastName: { type: String },
     password: { type: String },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
     profileImage: {
       original: {
         type: String,

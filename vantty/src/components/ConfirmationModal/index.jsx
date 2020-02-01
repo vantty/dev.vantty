@@ -13,7 +13,9 @@ const ConfirmationModal = ({
   changeStateBooking,
   bookingId,
   state,
-  byUser
+  byUser,
+  text,
+  handleCloseForm
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -25,25 +27,19 @@ const ConfirmationModal = ({
     setOpen(false);
   };
 
-  const handleYes = () => {
-    changeStateBooking(bookingId, state, null, byUser);
-    setOpen(false);
+  const handleYes = async () => {
+    await changeStateBooking(bookingId, state, text, byUser);
+    await setOpen(false);
+    await handleCloseForm(false);
   };
 
   return (
     <div>
       <MenuItem onClick={handleClickOpen}>{buttonText}</MenuItem>
-      <Dialog
-        open={open}
-        onClose={handleNo}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Booking Request"}</DialogTitle>
+      <Dialog open={open} onClose={handleNo}>
+        <DialogTitle>{"Booking Request"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {modalText}
-          </DialogContentText>
+          <DialogContentText>{modalText}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleNo} color="primary">
