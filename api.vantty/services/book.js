@@ -95,14 +95,17 @@ const sendEmail = async (
   const type = await emailType(state);
   const info = state === "accepted" ? bookCode : posponeText;
   const reviewData = state === "completed" ? { artistId, reviewId } : null;
-  const { subject: userSubject, html: userHtml } = await emailService.type(
+  const { subject: userSubject, html: userHtml } = await emailService.content(
     type.user,
     uri,
     info,
     userFirstName,
     reviewData
   );
-  const { subject: artistSubject, html: artistHtml } = await emailService.type(
+  const {
+    subject: artistSubject,
+    html: artistHtml
+  } = await emailService.content(
     type.artist,
     uri,
     null,

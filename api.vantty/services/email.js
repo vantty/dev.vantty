@@ -16,7 +16,7 @@ const {
   COMPLETED_ARTIST
 } = require("../helpers/emailTypes");
 
-const type = (type, uri, token, firstName, reviewData) => {
+const content = (type, uri, token, firstName, reviewData) => {
   switch (type) {
     case CONFIRMATION:
       return {
@@ -113,4 +113,4 @@ const compose = async (email, subject, html) => {
   return response;
 };
 
-module.exports = { type, compose };
+module.exports = { content, compose };
