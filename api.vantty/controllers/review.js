@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
   }
 };
 
-// //Get all review
+// // //Get all review
 // exports.allReviews = async (req, res) => {
 //   try {
 //     const review = await Review.find().sort({ date: -1 });

@@ -60,7 +60,7 @@ const getUserBookings = async user => {
       totalBookings.unshift(bookings);
     }
   }
-
+  //sort this new array
   return totalBookings;
 };
 
