@@ -10,7 +10,8 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETE,
   SERVICE_SUCCESS,
-  CLEAR_IMAGES
+  CLEAR_IMAGES,
+  CLEAR_CART
 } from "./types";
 import { updatePropertiesAppbase } from "../helpers";
 
@@ -39,6 +40,9 @@ export const getProfileById = userId => async dispatch => {
     });
     await dispatch({
       type: CLEAR_IMAGES
+    });
+    await dispatch({
+      type: CLEAR_CART
     });
     const res = await server.get(`/profile/${userId}`);
     await dispatch({

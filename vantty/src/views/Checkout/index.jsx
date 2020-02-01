@@ -284,7 +284,7 @@ const Checkout = ({
         throw new Error("Unknown step");
     }
   }
-  console.log(checkout);
+
   return (
     <Fragment>
       <CssBaseline />

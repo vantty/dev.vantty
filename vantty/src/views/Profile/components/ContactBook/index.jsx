@@ -87,7 +87,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction='up' ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog({
@@ -111,13 +111,13 @@ export default function FullScreenDialog({
     <div>
       <Fragment>
         <div className={classes.root}>
-          <Container maxWidth="md">
+          <Container maxWidth='md'>
             <Fragment>
               <Grid
                 container
-                direction="row"
-                justify="space-around"
-                alignItems="center"
+                direction='row'
+                justify='space-around'
+                alignItems='center'
               >
                 <Grid item>
                   <h4 className={classes.price}>
@@ -129,7 +129,7 @@ export default function FullScreenDialog({
                   <Button
                     className={classes.button}
                     onClick={handleClickOpen}
-                    variant="contained"
+                    variant='contained'
                   >
                     Book
                   </Button>
@@ -149,10 +149,10 @@ export default function FullScreenDialog({
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
-              edge="start"
-              color="inherit"
+              edge='start'
+              color='inherit'
               onClick={handleClose}
-              aria-label="close"
+              aria-label='close'
             >
               <CloseIcon />
             </IconButton>

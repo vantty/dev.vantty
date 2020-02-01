@@ -54,7 +54,10 @@ const EditForm = ({
       {isMobile && (
         <SimpleAppBar
           path={
-            match.url === "/bookings" || match.url === "/bank"
+            match.url === "/bookings" ||
+            match.url === "/bank" ||
+            match.url === "/payments" ||
+            match.url === "/bookings-user"
               ? "/settings"
               : "/settings/profile"
           }
