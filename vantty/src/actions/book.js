@@ -173,6 +173,7 @@ export const getBook = () => async dispatch => {
 export const getBookById = reviewId => async dispatch => {
   try {
     const res = await server.get(`/book/${reviewId}`);
+
     dispatch({
       type: GET_BOOK,
       payload: res.data

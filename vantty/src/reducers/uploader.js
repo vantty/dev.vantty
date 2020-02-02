@@ -4,7 +4,8 @@ import {
   IMAGES_UPLOADING,
   IMAGES_DELETE_SUCCESS,
   IMAGES_DELETE_FAIL,
-  GET_IMAGES
+  GET_IMAGES,
+  CLEAR_IMAGES
 } from "../actions/types";
 
 const initialState = {
@@ -41,6 +42,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         uploading: false
+      };
+    case CLEAR_IMAGES:
+      return {
+        images: null,
+        uploading: false,
+        loading: true
       };
     default:
       return state;

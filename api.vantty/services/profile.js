@@ -62,14 +62,16 @@ const update = async (id, field, method) => {
   return profile;
 };
 
-const remove = async (id, field, method) => {
-  const profile = await Profile.findOneAndUpdate(
-    { user: id },
-    { [method]: field },
-    { multi: true }
-  );
+const removeService = async (id, serv_id) => {
+  const profile = await getById(id);
+  // Get remove index
+  const removeIndex = profile.services.map(item => item.id).indexOf(serv_id);
+
+  profile.services.splice(removeIndex, 1);
+
+  await profile.save();
 
   return profile;
 };
 
-module.exports = { getById, getByField, getAll, update, remove, create };
+module.exports = { getById, getAll, update, removeService, create, getByField };

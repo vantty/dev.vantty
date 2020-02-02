@@ -37,9 +37,10 @@ export default function Summary({ checkout, cards }) {
 
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant='h6' gutterBottom>
         Order summary
       </Typography>
+      {console.log(checkout)}
       <List disablePadding>
         {checkout.services.map(product => (
           <ListItem className={classes.listItem} key={product._id}>
@@ -47,32 +48,32 @@ export default function Summary({ checkout, cards }) {
               primary={product.typeOfService}
               secondary={`Quantity of services ${product.quantity}`}
             />
-            <Typography variant="body2">{`$${product.amount}`}</Typography>
+            <Typography variant='body2'>{`$${product.amount}`}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Fee" />
-          <Typography variant="subtitle1" className={classes.fee}>
-            {`$${checkout.totals * 0.05}`}
+          <ListItemText primary='Fee' />
+          <Typography variant='subtitle1' className={classes.fee}>
+            {`$${checkout.totalValue * 0.05}`}
           </Typography>
         </ListItem>
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" className={classes.total}>
-            {`$${checkout.totals * 0.05 + checkout.totals}`}
+          <ListItemText primary='Total' />
+          <Typography variant='subtitle1' className={classes.total}>
+            {`$${checkout.totalValue * 0.05 + checkout.totalValue}`}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
+          <Typography variant='h6' gutterBottom className={classes.title}>
             Address
           </Typography>
           <Typography gutterBottom>Toronto</Typography>
           <Typography gutterBottom>{checkout.address.street}</Typography>
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
+        <Grid item container direction='column' xs={12} sm={6}>
+          <Typography variant='h6' gutterBottom className={classes.title}>
             Payment details
           </Typography>
           <Grid container>

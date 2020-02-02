@@ -121,15 +121,10 @@ const Profile = ({
           ) : (
             <Progress className={classes.progress} />
           )}
-          <Container maxWidth="md">
-            {/* <main> */}
+          <Container maxWidth='md'>
             <Grid container spacing={1} className={classes.mainGrid}>
-              {/* Main content */}
               <Fragment>
-                {/* <Wait on='sidebar' fallback={<Progress />}> */}
                 <CssBaseline />
-                {/* {profile === null || loading || !images ? ( */}
-                {/* <Progress />) : ( */}
                 <Fragment>
                   {isOwner(auth, user && user._id) === true &&
                     profile &&
@@ -142,15 +137,7 @@ const Profile = ({
                     <Fragment>
                       <ProfileInfo profile={profile} auth={auth} />
                       <br />
-                      {/* {images ? (
-                        <ProfileCarousel profile={profile} images={images} />
-                      ) : (
-                        <Progress className={classes.progress} />
-                      )} */}
-                      <ProfileCarousel
-                        // profile={profile}
-                        images={images}
-                      />
+                      <ProfileCarousel images={images} />
 
                       <br />
                       <br />
@@ -175,11 +162,8 @@ const Profile = ({
                     </Grid>
                   </Hidden>
                 </Fragment>
-                {/* )} */}
               </Fragment>
-              {/* End main content */}
             </Grid>
-            {/* </main> */}
           </Container>
           <div>
             {/* {profile === null ||

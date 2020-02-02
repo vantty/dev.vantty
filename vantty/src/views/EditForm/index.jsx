@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
 const EditForm = ({
   profile: { profile, loading },
   auth: { user },
-  getCurrentProfile,
   Children,
   children,
   match,
@@ -43,14 +42,6 @@ const EditForm = ({
   auth,
   index
 }) => {
-  // const [state, setState] = useState();
-
-  // const shoot = (e, own) => (e, own) => {
-  //   e.preventDefault();
-  //   setState(own);
-  //   console.log(own);
-  // };
-
   const classes = useStyles();
   useEffect(() => {
     // getCurrentProfile(profile ? isOwner(auth, profile.user._id) : true);
@@ -62,7 +53,14 @@ const EditForm = ({
       {/* <div> {isMobile && <AppBarForm step={null} />}</div> */}
       {isMobile && (
         <SimpleAppBar
-          path={user && user.profile ? "/settings/profile" : "/settings"}
+          path={
+            match.url === "/bookings" ||
+            match.url === "/bank" ||
+            match.url === "/payments" ||
+            match.url === "/bookings-user"
+              ? "/settings"
+              : "/settings/profile"
+          }
         />
       )}
       <Fragment>
@@ -75,7 +73,7 @@ const EditForm = ({
             <Grid container>
               <Hidden xsDown>
                 <Grid item lg={4} md={4} xs={4}>
-                  <Container maxWidth="md">
+                  <Container maxWidth='md'>
                     <Settings match={match} />
                   </Container>
                 </Grid>

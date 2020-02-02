@@ -125,6 +125,7 @@ exports.deleteProfilePicture = async (req, res) => {
   }
 };
 
+//TODO: Move a new controller called "Elastic controller"
 exports.loadToElastic = async (req, res) => {
   const { allElasticId, imagesId } = req.body;
   let result = await elasticService.load(imagesId, allElasticId);
@@ -173,18 +174,14 @@ exports.deleteService = async (req, res) => {
       params: { serv_id }
     } = req;
 
-    const result = await profileService.remove(
-      id,
-      { services: { _id: serv_id } },
-      "$pull"
-    );
+    const result = await profileService.removeService(id, serv_id);
     res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
-
+//TODO: Move to stripe controller. NEW CONTROLLER
 exports.createStripeAccount = async (req, res) => {
   try {
     const {

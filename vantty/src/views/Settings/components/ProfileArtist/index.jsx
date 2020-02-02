@@ -49,16 +49,16 @@ const ProfileArtist = ({ match, history }) => {
       {isMobile && (
         <Fragment>
           {/* <div className={classes.root}></div> */}
-          <List component="nav">
+          <List component='nav'>
             {pagesProfile.map((page, ind) => (
               <div key={page.title}>
                 {/* <Container maxWidth='sm'> */}
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Grid
                     container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
+                    direction='row'
+                    justify='space-between'
+                    alignItems='center'
                   >
                     <Grid item xs={11} md={12} lg={12} xl={12}>
                       <ListItemLink

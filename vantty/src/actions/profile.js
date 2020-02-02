@@ -9,14 +9,16 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETE,
-  SERVICE_SUCCESS
+  SERVICE_SUCCESS,
+  CLEAR_IMAGES,
+  CLEAR_CART
 } from "./types";
 import { updatePropertiesAppbase } from "../helpers";
 
 // Get current users profile
 export const getCurrentProfile = (owner = true) => async dispatch => {
   try {
-    !owner && (await dispatch({ type: CLEAR_PROFILE }));
+    // !owner && (await dispatch({ type: CLEAR_PROFILE }));
     const res = await server.get("/profile/me");
     await dispatch({
       type: GET_PROFILE,
@@ -35,6 +37,12 @@ export const getProfileById = userId => async dispatch => {
   try {
     await dispatch({
       type: CLEAR_PROFILE
+    });
+    await dispatch({
+      type: CLEAR_IMAGES
+    });
+    await dispatch({
+      type: CLEAR_CART
     });
     const res = await server.get(`/profile/${userId}`);
     await dispatch({
