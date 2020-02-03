@@ -37,7 +37,7 @@ exports.getUserBookings = async (req, res) => {
     });
   }
 };
-//TODO/ERROR: service. is no a function. NO working
+
 // Create New Booking
 exports.createNewBook = async (req, res) => {
   try {

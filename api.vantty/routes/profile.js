@@ -2,25 +2,19 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const passportJWT = passport.authenticate("jwt", { session: false });
-const {
-  profileValidator,
-  profileValidatorEducation,
-  profileValidatorPortfolio
-} = require("../helpers");
+const { profileValidator, profileValidatorEducation } = require("../helpers");
 const {
   getByUser,
   getById,
   getAll,
   addCategories,
   deleteEducation,
-  addProfileImage,
   deleteProfilePicture,
   loadToElastic,
   verifiedProfile,
   deleteProfileAndUserDashboard,
   addService,
   deleteService,
-  createStripeAccount,
   create,
   update
 } = require("../controllers/profile");
@@ -30,7 +24,6 @@ router.get("/:id", getById);
 router.get("/", getAll);
 router.post("/", passportJWT, profileValidator, create);
 router.patch("/", passportJWT, profileValidator, update);
-router.post("/account/:code", passportJWT, createStripeAccount);
 router.post("/verified", verifiedProfile);
 router.post("/service", passportJWT, addService);
 router.delete("/service/:serv_id", passportJWT, deleteService);
