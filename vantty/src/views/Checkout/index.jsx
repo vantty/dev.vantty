@@ -65,6 +65,7 @@ const useQontoStepIconStyles = makeStyles({
     height: 22,
     alignItems: "center"
   },
+
   active: {
     color: "#784af4"
   },
@@ -103,6 +104,9 @@ function QontoStepIcon(props) {
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative"
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2)
   },
   layout: {
     width: "auto",
@@ -165,34 +169,37 @@ const Checkout = ({
   const [activeStep, setActiveStep] = React.useState(0);
   const [checkout, setCheckout] = React.useState({
     date: "",
-    hour: "",
+    timeStampAppointment: "",
     address: {},
     descriptionAddress: "",
     services: [],
     totalValue: "",
-    stripeCardId: ""
+    stripeCardId: "",
+    place: ""
   });
-  const {
-    date,
-    hour,
-    // services,
-    // totalValue,
-    address,
-    descriptionAddress,
-    stripeCardId
-  } = checkout;
+  const { date, address, descriptionAddress, stripeCardId, place } = checkout;
 
   useEffect(() => {
     getProfileById(match.params.id);
   }, []);
 
-  const handleNext = (e, total, addedItems) => {
+  const [location, setLocation] = useState({
+    toHome: false,
+    artistSite: false
+  });
+  const { toHome, artistSite } = location;
+
+  const handleNext = async (e, total, addedItems) => {
     e.preventDefault();
     setCheckout({ ...checkout, totalValue: total, services: addedItems });
     setActiveStep(activeStep + 1);
 
     if (activeStep === 3) {
       const bookCode = randomCode({ length: 6 });
+
+      place === "artistSite"
+        ? setCheckout({ ...checkout, address: profile.address })
+        : setCheckout({ ...checkout, address: address });
       addNewBook(
         match.params.bookId,
         profile.stripeArtistAccount,
@@ -201,7 +208,6 @@ const Checkout = ({
       );
     }
   };
-
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
@@ -212,12 +218,6 @@ const Checkout = ({
       ...value
     });
   };
-
-  const [location, setLocation] = useState({
-    toHome: false,
-    siteArtist: false
-  });
-  const { toHome, siteArtist } = location;
 
   const onChangeTarget = e =>
     setCheckout({ ...checkout, [e.target.name]: e.target.value });
@@ -233,10 +233,16 @@ const Checkout = ({
 
   const handleChange = event => {
     setLocation(event.target.value);
-    event.target.value === "siteArtists" &&
-      setCheckout({ ...checkout, address: profile.address });
-  };
+    setCheckout({ ...checkout, place: event.target.value });
+    // event.target.value === "artistSite"
+    //   ? setCheckout({ ...checkout, address: profile.address })
+    //   : setCheckout({ ...checkout, address: address });
+    // console.log("PROFILE", profile.address);
 
+    // event.target.value === "siteArtists" &&
+    //   setCheckout({ ...checkout, address: profile.address });
+  };
+  console.log(checkout);
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -248,7 +254,6 @@ const Checkout = ({
             cart={cart}
             onChangeDate={onChangeDate}
             date={date}
-            hour={hour}
           />
         );
       case 1:
@@ -262,7 +267,7 @@ const Checkout = ({
             location={location}
             setLocation={setLocation}
             toHome={toHome}
-            siteArtist={siteArtist}
+            artistSite={artistSite}
             handleChange={handleChange}
           />
         );
@@ -292,12 +297,9 @@ const Checkout = ({
       <Alert />
       {isMobile && <SimpleAppBar />}
       <Container maxWidth='sm'>
-        {/* <main className={classes.layout}> */}
-        {/* <Paper className={classes.paper}> */}
         <Typography component='h1' variant='h4' align='center'>
           Checkout
         </Typography>
-
         <Stepper
           alternativeLabel
           activeStep={activeStep}
@@ -345,13 +347,14 @@ const Checkout = ({
                   <Button
                     variant='contained'
                     disabled={
-                      (total === 0 && true) ||
-                      (date === "" && true) ||
-                      (hour === "" && true)
+                      (total === 0 && true) || (date === "" && true)
+                      // (timeStampAppointment === "" && true)
                     }
                     color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
-                    className={classes.button}
+                    type='submit'
+                    fullWidth
+                    className={classes.submit}
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}
                   </Button>
@@ -360,9 +363,12 @@ const Checkout = ({
                   <Button
                     variant='contained'
                     disabled={
-                      Object.entries(address).length === 0 &&
-                      address.constructor === Object &&
-                      true
+                      false
+                      // Object.entries(address).length === 0 ||
+                      // Object.entries(location) !== "toHome"
+                      // Object.entries(address).length === 0 &&
+                      // address.constructor === Object &&
+                      // true
                     }
                     color='primary'
                     onClick={e => handleNext(e, total, addedItems)}

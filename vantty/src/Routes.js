@@ -111,6 +111,189 @@
 // const Account = React.lazy(() => AccountPromise);
 // const ProfileArtist = React.lazy(() => ProfileArtistPromise);
 
+// const Loading = () => <div>Loading...</div>;
+
+// const Routes = () => {
+//   return (
+//     <Switch>
+//       <React.Suspense fallback={<Loading />}>
+//         <Route exact path='/test' component={Test} />
+//         <Route exact path='/confirm-account' component={CreateArtistAccount} />
+//         <Route exact path='/confirmation/:token' component={Confirmation} />
+//         {/* ADMIN */}
+//         <AdminRoute exact path='/dashboard' component={Board} />
+//         <PrivateRoute exact path='/create-profile' component={Form} />
+//         />
+//         {/*  */}
+//         <Route component={Register} exact path='/register' />
+//         <Route component={RegisterWithEmail} exact path='/register-email' />
+//         <Route component={Login} exact path='/login' />
+//         <Route component={LoginWithEmail} exact path='/login-email' />
+//         <RouteWithLayout
+//           component={ForgotPassword}
+//           exact
+//           layout={MainLayout}
+//           path='/forgot'
+//         />
+//         <RouteWithLayout
+//           component={ResetPassword}
+//           exact
+//           layout={MainLayout}
+//           path='/reset/:token'
+//         />
+//         <RouteWithLayout
+//           component={WaitForConfirmation}
+//           exact
+//           layout={MainLayout}
+//           path='/confirmation'
+//         />
+//         <RouteWithLayout
+//           component={Landing}
+//           exact
+//           layout={MainLayout}
+//           path='/landing'
+//         />
+//         <RouteWithLayout component={Home} exact layout={MainLayout} path='/' />
+//         <RouteWithLayout
+//           component={Search}
+//           exact
+//           layout={MainLayout}
+//           path='/search'
+//         />
+//         {/* PROFILE */}
+//         <RouteWithLayout
+//           component={Profile}
+//           exact
+//           layout={MinimalLayout}
+//           path='/profile/artist/:id'
+//         />
+//         {/* GENERAL */}
+//         <RouteWithLayout
+//           exact
+//           layout={MainLayout}
+//           path='/help'
+//           component={Help}
+//         />
+//         <RouteWithLayout
+//           layout={MainLayout}
+//           component={Terms}
+//           exact
+//           path='/terms'
+//         />
+//         <RouteWithLayout
+//           layout={MainLayout}
+//           component={Policy}
+//           exact
+//           path='/policy'
+//         />
+//         {/* EDIT FORM */}
+//         <RoutePrivateWithLayout
+//           component={EditBookings}
+//           exact
+//           layout={MinimalLayout}
+//           path='/bookings'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditLocation}
+//           exact
+//           layout={MinimalLayout}
+//           path='/location'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditBookingsUser}
+//           exact
+//           layout={MinimalLayout}
+//           path='/bookings-user'
+//         />
+//         <RoutePrivateWithLayout
+//           component={Checkout}
+//           exact
+//           layout={MinimalLayout}
+//           path='/checkout/:id/:bookId'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditPersonalInfo}
+//           exact
+//           layout={MinimalLayout}
+//           path='/personal-info'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditProfile}
+//           exact
+//           layout={MinimalLayout}
+//           path='/edit-profile'
+//         />
+//         <RoutePrivateWithLayout
+//           component={Validation}
+//           exact
+//           layout={MinimalLayout}
+//           path='/validation'
+//         />
+//         <RoutePrivateWithLayout
+//           component={InfoContact}
+//           exact
+//           layout={MinimalLayout}
+//           path='/info-contact'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditPortfolio}
+//           exact
+//           layout={MinimalLayout}
+//           path='/add-portfolio'
+//         />
+//         {/* SETTINGD */}
+//         <PrivateRoute component={Settings} exact path='/settings' />
+//         <PrivateRoute component={Account} exact path='/settings/account' />
+//         <PrivateRoute
+//           component={ProfileArtist}
+//           exact
+//           path='/settings/profile'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditMobile}
+//           exact
+//           layout={MinimalLayout}
+//           path='/mobile'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditPrice}
+//           exact
+//           layout={MinimalLayout}
+//           path='/price'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditCategories}
+//           exact
+//           layout={MinimalLayout}
+//           path='/categories'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditPayment}
+//           exact
+//           layout={MinimalLayout}
+//           path='/payments'
+//         />
+//         <RoutePrivateWithLayout
+//           component={EditBank}
+//           exact
+//           layout={MinimalLayout}
+//           path='/bank'
+//         />
+//         {/* REVIEW */}
+//         <RoutePrivateWithLayout
+//           component={ReviewForm}
+//           exact
+//           layout={MinimalLayout}
+//           path='/profile/artist/:userId/:reviewId'
+//         />
+//         <RouteWithLayout layout={MainLayout} component={NotFound} />
+//       </React.Suspense>
+//     </Switch>
+//   );
+// };
+
+// export default Routes;
+
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
@@ -175,180 +358,175 @@ import {
   ProfileArtist
 } from "./views/Settings/components";
 
-//TODO: Component Loading, change this for your own Loading component
-// const Loading = () => <div>Loading...</div>;
-
 const Routes = () => {
   return (
     <Switch>
-      {/* <React.Suspense fallback={<Loading />}> */}
-      <Route exact path="/test" component={Test} />
-      <Route exact path="/confirm-account" component={CreateArtistAccount} />
-      <Route exact path="/confirmation/:token" component={Confirmation} />
+      <Route exact path='/test' component={Test} />
+      <Route exact path='/confirm-account' component={CreateArtistAccount} />
+      <Route exact path='/confirmation/:token' component={Confirmation} />
       {/* ADMIN */}
-      <AdminRoute exact path="/dashboard" component={Board} />
-      <PrivateRoute exact path="/create-profile" component={Form} />
+      <AdminRoute exact path='/dashboard' component={Board} />
+      <PrivateRoute exact path='/create-profile' component={Form} />
       />
       {/*  */}
-      <Route component={Register} exact path="/register" />
-      <Route component={RegisterWithEmail} exact path="/register-email" />
-      <Route component={Login} exact path="/login" />
-      <Route component={LoginWithEmail} exact path="/login-email" />
+      <Route component={Register} exact path='/register' />
+      <Route component={RegisterWithEmail} exact path='/register-email' />
+      <Route component={Login} exact path='/login' />
+      <Route component={LoginWithEmail} exact path='/login-email' />
       <RouteWithLayout
         component={ForgotPassword}
         exact
         layout={MainLayout}
-        path="/forgot"
+        path='/forgot'
       />
       <RouteWithLayout
         component={ResetPassword}
         exact
         layout={MainLayout}
-        path="/reset/:token"
+        path='/reset/:token'
       />
       <RouteWithLayout
         component={WaitForConfirmation}
         exact
         layout={MainLayout}
-        path="/confirmation"
+        path='/confirmation'
       />
       <RouteWithLayout
         component={Landing}
         exact
         layout={MainLayout}
-        path="/landing"
+        path='/landing'
       />
-      <RouteWithLayout component={Home} exact layout={MainLayout} path="/" />
+      <RouteWithLayout component={Home} exact layout={MainLayout} path='/' />
       <RouteWithLayout
         component={Search}
         exact
         layout={MainLayout}
-        path="/search"
+        path='/search'
       />
       {/* PROFILE */}
       <RouteWithLayout
         component={Profile}
         exact
         layout={MinimalLayout}
-        path="/profile/artist/:id"
+        path='/profile/artist/:id'
       />
       {/* GENERAL */}
       <RouteWithLayout
         exact
         layout={MainLayout}
-        path="/help"
+        path='/help'
         component={Help}
       />
       <RouteWithLayout
         layout={MainLayout}
         component={Terms}
         exact
-        path="/terms"
+        path='/terms'
       />
       <RouteWithLayout
         layout={MainLayout}
         component={Policy}
         exact
-        path="/policy"
+        path='/policy'
       />
       {/* EDIT FORM */}
       <RoutePrivateWithLayout
         component={EditBookings}
         exact
         layout={MinimalLayout}
-        path="/bookings"
+        path='/bookings'
       />
       <RoutePrivateWithLayout
         component={EditLocation}
         exact
         layout={MinimalLayout}
-        path="/location"
+        path='/location'
       />
       <RoutePrivateWithLayout
         component={EditBookingsUser}
         exact
         layout={MinimalLayout}
-        path="/bookings-user"
+        path='/bookings-user'
       />
       <RoutePrivateWithLayout
         component={Checkout}
         exact
         layout={MinimalLayout}
-        path="/checkout/:id/:bookId"
+        path='/checkout/:id/:bookId'
       />
       <RoutePrivateWithLayout
         component={EditPersonalInfo}
         exact
         layout={MinimalLayout}
-        path="/personal-info"
+        path='/personal-info'
       />
       <RoutePrivateWithLayout
         component={EditProfile}
         exact
         layout={MinimalLayout}
-        path="/edit-profile"
+        path='/edit-profile'
       />
       <RoutePrivateWithLayout
         component={Validation}
         exact
         layout={MinimalLayout}
-        path="/validation"
+        path='/validation'
       />
       <RoutePrivateWithLayout
         component={InfoContact}
         exact
         layout={MinimalLayout}
-        path="/info-contact"
+        path='/info-contact'
       />
       <RoutePrivateWithLayout
         component={EditPortfolio}
         exact
         layout={MinimalLayout}
-        path="/add-portfolio"
+        path='/add-portfolio'
       />
       {/* SETTINGD */}
-      <PrivateRoute component={Settings} exact path="/settings" />
-      <PrivateRoute component={Account} exact path="/settings/account" />
-      <PrivateRoute component={ProfileArtist} exact path="/settings/profile" />
+      <PrivateRoute component={Settings} exact path='/settings' />
+      <PrivateRoute component={Account} exact path='/settings/account' />
+      <PrivateRoute component={ProfileArtist} exact path='/settings/profile' />
       <RoutePrivateWithLayout
         component={EditMobile}
         exact
         layout={MinimalLayout}
-        path="/mobile"
+        path='/mobile'
       />
       <RoutePrivateWithLayout
         component={EditPrice}
         exact
         layout={MinimalLayout}
-        path="/price"
+        path='/price'
       />
       <RoutePrivateWithLayout
         component={EditCategories}
         exact
         layout={MinimalLayout}
-        path="/categories"
+        path='/categories'
       />
       <RoutePrivateWithLayout
         component={EditPayment}
         exact
         layout={MinimalLayout}
-        path="/payments"
+        path='/payments'
       />
       <RoutePrivateWithLayout
         component={EditBank}
         exact
         layout={MinimalLayout}
-        path="/bank"
+        path='/bank'
       />
       {/* REVIEW */}
       <RoutePrivateWithLayout
         component={ReviewForm}
         exact
         layout={MinimalLayout}
-        path="/profile/artist/:userId/:reviewId"
+        path='/profile/artist/:userId/:reviewId'
       />
       <RouteWithLayout layout={MainLayout} component={NotFound} />
-      {/* </React.Suspense> */}
     </Switch>
   );
 };

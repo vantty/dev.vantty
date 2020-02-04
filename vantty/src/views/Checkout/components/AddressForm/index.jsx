@@ -40,12 +40,7 @@ export default function AddressForm({
   onChangeTarget,
   localAddress,
   onChangeAddress,
-  descriptionAddress,
-  onChange,
   location,
-  setLocation,
-  siteArtist,
-  toHome,
   handleChange,
   profile: { delivery, place, address }
 }) {
@@ -61,38 +56,37 @@ export default function AddressForm({
   return (
     <Fragment>
       <Fragment>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant='h6' gutterBottom>
           Place of the service
         </Typography>
         <div>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <FormLabel component="legend">Saved Cards</FormLabel>
+          <FormControl component='fieldset' className={classes.formControl}>
+            <FormLabel component='legend'>Saved Cards</FormLabel>
             <RadioGroup
-              aria-label="gender"
-              name="location"
+              name='location'
               value={location}
               onChange={handleChange}
             >
-              <Table className={classes.table} aria-label="simple table">
+              <Table className={classes.table}>
                 <TableHead>
                   <TableRow>
                     <TableCell>Select</TableCell>
-                    <TableCell align="left">Type</TableCell>
+                    <TableCell align='left'>Type</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {delivery && (
-                    <TableRow key={"stripeCardId"}>
-                      <TableCell align="left" key={"stripeCardId"}>
+                    <TableRow key={"toHome"}>
+                      <TableCell align='left' key={"toHome"}>
                         {delivery && (
                           <FormControlLabel
-                            key={"stripeCardId"}
+                            key={"toHome"}
                             value={"toHome"}
                             control={<Radio />}
                           />
                         )}
                       </TableCell>
-                      <TableCell align="left">
+                      <TableCell align='left'>
                         <Grid item xs>
                           <GoogleMapsAutocomplete
                             localAddress={localAddress}
@@ -109,19 +103,19 @@ export default function AddressForm({
                 </TableBody>
                 <TableBody>
                   {place && (
-                    <TableRow key={"stripeCardId"}>
-                      <TableCell align="left" key={"stripeCardId"}>
+                    <TableRow key={"artistSite"}>
+                      <TableCell align='left' key={"artistSite"}>
                         <FormControlLabel
-                          key={"stripeCardId"}
-                          value={"siteArtists"}
+                          key={"artistSite"}
+                          value={"artistSite"}
                           control={<Radio />}
                         />
                       </TableCell>
-                      <TableCell align="left">
+                      <TableCell align='left'>
                         <Card className={classes.card}>
                           <a
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            target='_blank'
+                            rel='noopener noreferrer'
                             href={`https://www.google.com/maps/place/${replace(
                               address.street
                             )}/`}
