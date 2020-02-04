@@ -4,11 +4,7 @@ import PropTypes from "prop-types";
 
 // Actions
 import { userImage } from "../../../../../../actions/uploader";
-import {
-  loadUser,
-  updateInfo,
-  deleteUserPicture
-} from "../../../../../../actions/auth";
+import { loadUser, updateInfo } from "../../../../../../actions/auth";
 
 import { getCurrentProfile } from "../../../../../../actions/profile";
 // Material-UI
@@ -39,7 +35,6 @@ const AvatarUploader = ({
   updateInfo,
   history,
   loadUser,
-  deleteUserPicture,
   auth: { user },
   ...rest
 }) => {
@@ -53,16 +48,16 @@ const AvatarUploader = ({
     return (
       <Fragment>
         <Button
-          component='label'
-          size='small'
-          variant='outlined'
-          color='primary'
+          component="label"
+          size="small"
+          variant="outlined"
+          color="primary"
         >
           Upload Picture
           <input
             style={{ display: "none" }}
-            type='file'
-            name='file'
+            type="file"
+            name="file"
             multiple
             onChange={onChange}
           />
@@ -134,7 +129,6 @@ AvatarUploader.propTypes = {
   updateInfo: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  deleteUserPicture: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 
@@ -146,7 +140,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   userImage,
-  deleteUserPicture,
   loadUser,
   updateInfo,
   getCurrentProfile

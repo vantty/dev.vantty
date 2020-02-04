@@ -24,16 +24,18 @@ import { getCurrentProfile } from "./profile";
 import { server } from "../utils/axios";
 
 import setAlert from "./alert";
+import { loadUser } from "./auth";
 const log = console.log;
 
 // Create Stripe Artist Account
 export const createStripeAccount = code => async dispatch => {
   try {
     const result = await server.post(`/stripe/account/${code}`);
-    dispatch({
+    await dispatch({
       type: CREATE_STRIPE_ACCOUNT_SUCCESS,
       payload: result
     });
+    await dispatch(loadUser());
     await dispatch(getCurrentProfile());
   } catch (error) {
     console.log(error);
@@ -179,7 +181,7 @@ export const addNewBook = (
       }
     };
 
-    const user = await server.get("/auth");
+    const user = await server.get("/user");
     const {
       data: { stripeCustomerId }
     } = user;
@@ -235,7 +237,7 @@ export const changeStateBooking = (
     if (byUser) {
       const {
         data: { _id }
-      } = await server.get("/auth");
+      } = await server.get("/user");
       await dispatch(getUserBookings(_id));
     } else {
       await dispatch(getBook());

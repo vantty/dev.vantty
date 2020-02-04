@@ -123,13 +123,6 @@ exports.deleteProfilePicture = async (req, res) => {
   }
 };
 
-//TODO: Move a new controller called "Elastic controller"
-exports.loadToElastic = async (req, res) => {
-  const { allElasticId, imagesId } = req.body;
-  let result = await elasticService.load(imagesId, allElasticId);
-  res.status(200).json(result);
-};
-
 exports.verifiedProfile = async (req, res) => {
   try {
     const {

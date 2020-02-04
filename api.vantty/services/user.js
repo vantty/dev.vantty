@@ -3,8 +3,11 @@ const Profile = require("../models/Profile");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
 const Book = require("../models/Book");
-const stripeService = require("../services/stripe");
-const { newCardObj } = require("../helpers");
+const userService = require("../services/user");
+const emailService = require("../services/email");
+const { generateEmailToken, generateLoginToken } = require("../helpers");
+const { CONFIRMATION, FORGOT } = require("../helpers/emailTypes");
+const JWT = require("jsonwebtoken");
 
 const getById = async id => {
   const user = await User.findById(id);
@@ -45,58 +48,72 @@ const update = async (id, field, method) => {
   return user;
 };
 
-const createCustomer = async (id, token) => {
-  const {
-    id: customerId,
-    default_source: source
-  } = await stripeService.createCustomer(id, token);
-  const card = await stripeService.retrieveSource(customerId, source);
-  const newCard = await newCardObj(card);
-  const user = await update(
+const sendConfirmationEmail = async (user, uri) => {
+  const { id, email, firstName } = user;
+  const token = await generateEmailToken(id);
+  const { subject, html } = await emailService.type(
+    CONFIRMATION,
+    uri,
+    token,
+    firstName
+  );
+  const result = await emailService.compose(email, subject, html);
+  return result;
+};
+
+const register = async registerToken => {
+  const { user: id } = JWT.verify(registerToken, process.env.EMAIL_SECRET);
+  const user = await userService.update(id, { confirmed: true }, "$set");
+  const token = await generateLoginToken(user);
+  return token;
+};
+
+const forgot = async (id, email, firstName, uri) => {
+  console.log("USER", id, email, firstName, uri);
+  const token = await generateEmailToken(id);
+  const date = Date.now() + 3600 * 1000;
+  const user = await userService.update(
     id,
     {
-      stripeCustomerId: customerId,
-      cards: newCard
+      resetPasswordToken: token,
+      resetPasswordExpires: date
     },
     "$set"
   );
+  const { subject, html } = await emailService.type(
+    FORGOT,
+    uri,
+    token,
+    firstName
+  );
+  await emailService.compose(email, subject, html);
   return user;
 };
 
-const saveCard = async (stripeCustomerId, source, id, cards) => {
-  const card = await stripeService.createSource(stripeCustomerId, source);
-  const existingCard = cards.find(
-    existingCard => existingCard.fingerPrint === card.fingerprint
+const reset = async (id, password) => {
+  const user = await userService.update(
+    id,
+    {
+      resetPasswordToken: null,
+      resetPasswordExpires: null
+    },
+    "$set"
   );
-  if (existingCard) {
-    await stripeService.deleteSource(stripeCustomerId, card.id);
-    const user = await getById(id);
-    return user;
-    // DEBE ENVIAR UN ERROR DE QUE LA TARJETA YA EXISTE
-  } else {
-    const newCard = await newCardObj(card);
-    const user = await update(id, { cards: newCard }, "$push");
-    return user;
-  }
-};
-
-const deleteCard = async (user, stripeCardId) => {
-  const { stripeCustomerId } = user;
-  await stripeService.deleteSource(stripeCustomerId, stripeCardId);
-  const card = user.cards.find(card => card.stripeCardId === stripeCardId);
-  const index = user.cards.indexOf(card);
-  await user.cards.splice(index, 1);
+  user.password = password;
   await user.save();
   return user;
 };
+
+module.exports = { sendConfirmationEmail, register, forgot, reset };
 
 module.exports = {
   getById,
   deleteById,
   getByField,
+  create,
   update,
-  createCustomer,
-  saveCard,
-  deleteCard,
-  create
+  sendConfirmationEmail,
+  register,
+  forgot,
+  reset
 };

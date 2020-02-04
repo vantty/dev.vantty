@@ -10,7 +10,6 @@ const {
   addCategories,
   deleteEducation,
   deleteProfilePicture,
-  loadToElastic,
   verifiedProfile,
   deleteProfileAndUserDashboard,
   addService,
@@ -27,25 +26,14 @@ router.patch("/", passportJWT, profileValidator, update);
 router.post("/verified", verifiedProfile);
 router.post("/service", passportJWT, addService);
 router.delete("/service/:serv_id", passportJWT, deleteService);
-router.put("/elastic", passportJWT, loadToElastic);
 router.put(
   "/categories",
   passportJWT,
   profileValidatorEducation,
   addCategories
 );
-
-// @route    DELETE api/profile/education/:edu_id
-// @desc     Delete education from profile
-// @access   Private
 router.delete("/education/:edu_id", passportJWT, deleteEducation);
-
-// @route    DELETE /profile/portfolio/:pic_id
-// @access   Private
 router.delete("/profilePicture/:pic_id", passportJWT, deleteProfilePicture);
-
-// @route    DELETE /profile/profile-user-dashboard
-// @access   Private
 router.delete(
   "/profile-user-dashboard",
   passportJWT,

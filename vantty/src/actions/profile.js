@@ -447,7 +447,7 @@ export const loadToElastic = async (data, imagesId) => {
       });
 
       const body = { allElasticId, imagesId };
-      await server.put("/profile/elastic", body);
+      await server.post("/elastic", body);
     }
   }
 };

@@ -6,12 +6,12 @@ const morgan = require("morgan");
 const cors = require("cors");
 const formData = require("express-form-data");
 const userRoutes = require("./routes/users");
-const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 const reviewRoutes = require("./routes/review");
 const imagesRoutes = require("./routes/images");
 const bookRoutes = require("./routes/book");
 const stripeRoutes = require("./routes/stripe");
+const elasticRoutes = require("./routes/elastic");
 const app = express();
 
 // Connect Database
@@ -56,12 +56,12 @@ app.use(formData.parse());
 
 // Routes
 app.use("/api/user", userRoutes);
-app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/images", imagesRoutes);
 app.use("/api/book", bookRoutes);
 app.use("/api/stripe", stripeRoutes);
+app.use("/api/elastic", elasticRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
