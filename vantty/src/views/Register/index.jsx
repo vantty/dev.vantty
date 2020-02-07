@@ -24,7 +24,7 @@ import { changeNavbarValue } from "../../actions/navbar";
 import { Alert } from "../../components";
 
 const LoginPhoto =
-  "https://res.cloudinary.com/vantty/image/upload/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
 
 const useStyles = makeStyles(theme => ({
   root: {

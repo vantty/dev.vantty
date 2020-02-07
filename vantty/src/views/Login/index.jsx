@@ -24,10 +24,7 @@ import { changeNavbarValue } from "../../actions/navbar";
 import { Alert } from "../../components";
 
 const LoginPhoto =
-  "https://res.cloudinary.com/vantty/image/upload/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
-
-// const Logo =
-//   "https://res.cloudinary.com/vantty/image/upload/v1572304171/seed/pms9bvmck4uygtqs0ljz.png";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -174,7 +171,7 @@ const Login = props => {
         <Grid className={classes.quoteContainer} item lg={6}>
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
-              <Typography className={classes.quoteText} variant='h1'>
+              <Typography className={classes.quoteText} variant="h1">
                 {
                   "Find the best Beauty Artist in your area and change your look."
                 }
@@ -187,32 +184,32 @@ const Login = props => {
           <div className={classes.content}>
             <div className={classes.contentHeader}>
               <IconButton>
-                <Link component={RouterLink} to='/' variant='h6'>
+                <Link component={RouterLink} to="/" variant="h6">
                   <ArrowBackIcon style={{ color: "black" }} />
                 </Link>
               </IconButton>
             </div>
             <div className={classes.contentBody}>
               <form className={classes.form}>
-                <Typography className={classes.title} variant='h2'>
+                <Typography className={classes.title} variant="h2">
                   Login
                 </Typography>
-                <Typography color='textSecondary' gutterBottom>
+                <Typography color="textSecondary" gutterBottom>
                   with social media
                 </Typography>
                 <Grid className={classes.socialButtons} container spacing={2}>
                   <Grid item xs={12}>
                     <FacebookAuth
                       appId={process.env.REACT_APP_FACEBOOK_ID}
-                      fields='name,email,picture'
+                      fields="name,email,picture"
                       callback={responseFacebook}
                       isMobile={false}
                       render={renderProps => (
                         <Button
                           fullWidth
-                          color='primary'
-                          variant='contained'
-                          size='large'
+                          color="primary"
+                          variant="contained"
+                          size="large"
                           onClick={renderProps.onClick}
                         >
                           <FacebookIcon className={classes.socialIcon} />
@@ -224,16 +221,16 @@ const Login = props => {
                   <Grid item xs={12}>
                     <GoogleAuth
                       clientId={process.env.REACT_APP_GOOGLE_ID}
-                      buttonText='Google'
+                      buttonText="Google"
                       onSuccess={responseGoogle}
                       onFailure={responseGoogle}
                       render={renderProps => (
                         <Button
                           fullWidth
-                          color='secondary'
-                          size='large'
+                          color="secondary"
+                          size="large"
                           onClick={renderProps.onClick}
-                          variant='contained'
+                          variant="contained"
                         >
                           <GoogleIcon className={classes.socialIcon} />
                           Google
@@ -244,20 +241,20 @@ const Login = props => {
                   <Grid item xs={12} className={classes.withEmailGrid}>
                     <Link
                       component={RouterLink}
-                      to='/login-email'
+                      to="/login-email"
                       className={classes.withEmail}
-                      variant='h5'
+                      variant="h5"
                     >
                       Or with your email address
                     </Link>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography color='textSecondary' variant='body1'>
+                    <Typography color="textSecondary" variant="body1">
                       Don't have an account?{" "}
                       <Link
                         component={RouterLink}
-                        to='/register'
-                        variant='h6'
+                        to="/register"
+                        variant="h6"
                         className={classes.link}
                       >
                         Register
