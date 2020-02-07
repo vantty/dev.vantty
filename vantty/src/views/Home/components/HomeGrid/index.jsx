@@ -2,9 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link as RouterLink } from "react-router-dom";
 
-// Assets
-import v2 from "../../../../assets/images/v2.jpg";
-
 // Material-UI
 import {
   Card,
@@ -21,6 +18,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowRight from "@material-ui/icons/ArrowForwardIos";
+
+const profileImage =
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572391341/seed/ha8bgdvtvdaekxhabqja.jpg";
 
 const useStyles = makeStyles(theme => ({
   blockTitle: {
@@ -124,7 +124,11 @@ const HomeGrid = ({ title, subtitle, images }) => {
                 </CardActionArea>
                 <CardContent className={classes.cardContent}>
                   <Toolbar className={classes.cardTitle}>
-                    <Avatar alt="" src={v2} className={classes.avatar} />
+                    <Avatar
+                      alt=""
+                      src={profileImage}
+                      className={classes.avatar}
+                    />
                     <Typography
                       key={index}
                       gutterBottom

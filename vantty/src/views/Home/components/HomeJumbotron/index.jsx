@@ -21,10 +21,10 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 const JumbotronBackground =
-  "https://res.cloudinary.com/vantty/image/upload/v1572391341/seed/ha8bgdvtvdaekxhabqja.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572391341/seed/ha8bgdvtvdaekxhabqja.jpg";
 
 const Logo =
-  "https://res.cloudinary.com/vantty/image/upload/v1572304171/seed/pms9bvmck4uygtqs0ljz.png";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572304171/seed/pms9bvmck4uygtqs0ljz.png";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     alignItems: "center",
     backgroundImage: `url(${JumbotronBackground})`,
-    backgroundSize: "cover",
+    backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center"
   },
