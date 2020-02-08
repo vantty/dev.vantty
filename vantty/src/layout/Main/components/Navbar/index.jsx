@@ -15,7 +15,7 @@ import Progress from "@material-ui/core/LinearProgress";
 import Divider from "@material-ui/core/Divider";
 
 const Logo =
-  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1581095937/seed/polxcm6hcnbmx66jwlma.png";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1581100032/seed/ylzghomgp2petjxms0sx.webp";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,8 +27,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   logo: {
-    height: "80%",
-    width: "5rem",
+    // height: "80%",
+    // width: "5rem",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(2)

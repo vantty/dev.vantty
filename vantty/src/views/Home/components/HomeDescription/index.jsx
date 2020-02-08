@@ -15,8 +15,8 @@ const styles = theme => ({
     backgroundColor: "#F9F9F9"
   },
   container: {
-    marginTop: theme.spacing(16),
-    marginBottom: theme.spacing(16),
+    marginTop: theme.spacing(6),
+    marginBottom: theme.spacing(6),
     display: "flex",
     position: "relative"
   },
@@ -45,7 +45,7 @@ function ProductValues(props) {
 
   return (
     <section className={classes.root}>
-      <Container className={classes.container}>
+      <Container maxWidth="md" className={classes.container}>
         <Grid container spacing={5}>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>

@@ -20,7 +20,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ArrowRight from "@material-ui/icons/ArrowForwardIos";
 
 const profileImage =
-  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357319/seed/mfjnujxkiblsbqffi8hz.webp";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1581100954/seed/mfzmduptk7bl34kjbdt0.webp";
 
 const useStyles = makeStyles(theme => ({
   blockTitle: {
