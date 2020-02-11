@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     display: "inline-block"
   },
   pageBlock: {
-    backgroundColor: "#FFF"
+    backgroundColor: theme.palette.background.gray
   },
   cardGrid: {
     paddingTop: theme.spacing(6),

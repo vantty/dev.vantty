@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(2)
   },
   pageBlock: {
-    backgroundColor: "#F9F9F9"
+    backgroundColor: theme.palette.background.white
   },
   title: {
     display: "inline-block"

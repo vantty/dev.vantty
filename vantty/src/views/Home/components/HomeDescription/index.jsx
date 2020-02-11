@@ -1,35 +1,37 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
 import Trust from "@material-ui/icons/VerifiedUser";
 import User from "@material-ui/icons/Stars";
 import Categories from "@material-ui/icons/Dashboard";
 
 const styles = theme => ({
-  root: {
-    display: "flex",
-    overflow: "hidden",
-    backgroundColor: "#F9F9F9"
-  },
   container: {
-    marginTop: theme.spacing(6),
-    marginBottom: theme.spacing(6),
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(10),
+    backgroundColor: theme.palette.background.white
+  },
+  grid: {
     display: "flex",
     position: "relative"
   },
   item: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    padding: theme.spacing(0, 5)
+    alignItems: "center"
   },
   image: {
     height: 55
   },
   title: {
+    marginBottom: theme.spacing(8),
+    textAlign: "center"
+  },
+  subtitle: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5)
   },
@@ -37,6 +39,9 @@ const styles = theme => ({
     pointerEvents: "none",
     position: "absolute",
     top: -180
+  },
+  infography: {
+    fontSize: 100
   }
 });
 
@@ -44,51 +49,55 @@ function ProductValues(props) {
   const { classes } = props;
 
   return (
-    <section className={classes.root}>
+    <Fragment>
       <Container maxWidth="md" className={classes.container}>
-        <Grid container spacing={5}>
+        <Typography className={classes.title} variant="h2">
+          How it works
+        </Typography>
+        <Grid container spacing={5} className={classes.grid}>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <Trust style={{ fontSize: 100 }} />
-              <Typography variant="h6" className={classes.title}>
-                Confianza y seguridad
+              <Trust className={classes.infography} />
+              <Typography variant="h3" className={classes.subtitle}>
+                Find
               </Typography>
               <Typography variant="h5">
                 {
-                  "Encuentra y contacta a tu artista preferido de forma rápida, confiable y segura."
+                  "Find an artist for your special event or inspiration for your new look browsing all categories we have for you"
                 }
               </Typography>
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <User style={{ fontSize: 100 }} />
-              <Typography variant="h6" className={classes.title}>
-                Artistas Profesonales
+              <User className={classes.infography} />
+              <Typography variant="h3" className={classes.subtitle}>
+                Book
               </Typography>
               <Typography variant="h5">
                 {
-                  "La identidad y el profesionalismo de todos nuestros artistas son verificados."
+                  "Book your artist in 3 easy steps: choose your services, pick the location and pay with your credit card"
                 }
               </Typography>
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
-              <Categories style={{ fontSize: 100 }} />
-              <Typography variant="h6" className={classes.title}>
-                Muchas categorías
+              <Categories className={classes.infography} />
+              <Typography variant="h3" className={classes.subtitle}>
+                Share
               </Typography>
               <Typography variant="h5">
                 {
-                  "Bodas, eventos sociales, fotografía, moda, halloween, y muchas más."
+                  "Leave a review to your artist sharing how was the services and be part of the Vantty community"
                 }
               </Typography>
             </div>
           </Grid>
         </Grid>
       </Container>
-    </section>
+      <Divider />
+    </Fragment>
   );
 }
 

@@ -61,8 +61,8 @@ export default {
     link: colors.blue[600]
   },
   background: {
-    default: "#F4F6F8",
-    paper: white
+    gray: "#F9F9F9",
+    white: white
   },
   whatsApp: {
     primary: "#25D366"
