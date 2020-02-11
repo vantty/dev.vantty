@@ -23,7 +23,7 @@ function Copyright() {
 }
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: theme.palette.background.gray,
+    backgroundColor: theme.palette.background.white,
     [theme.breakpoints.down("sm")]: {
       marginBottom: theme.spacing(8)
     }
@@ -84,7 +84,7 @@ export default function Footer() {
             <Copyright />
           </Box>
         </Container>
-        <Divider />
+        {/* <Divider /> */}
       </div>
     </Fragment>
   );

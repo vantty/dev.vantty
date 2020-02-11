@@ -32,11 +32,7 @@ const connectDB = async () => {
 connectDB();
 
 // CORS config
-var whitelist = [
-  "http://localhost:3000",
-  "https://vantty.ca",
-  "https://www.vantty.ca"
-];
+var whitelist = ["https://vantty.ca", "https://www.vantty.ca"];
 var corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -51,7 +47,8 @@ var corsOptions = {
 app.use(morgan("dev"));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors("*"));
 app.use(formData.parse());
 
 // Routes

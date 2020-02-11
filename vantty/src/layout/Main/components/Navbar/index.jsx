@@ -20,8 +20,7 @@ const Logo =
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#FFF",
-    position: "fixed"
+    backgroundColor: "#FFF"
   },
   title: {
     flexGrow: 1
@@ -58,7 +57,7 @@ const Navbar = props => {
   return (
     <Fragment>
       <CssBaseline />
-      <AppBar className={classes.root}>
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
           <Typography variant="h5" className={classes.title}>
             <LinkMui underline="none" color="inherit" component={Link} to="/">

@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     // maxWidth: 260,
     // backgroundColor: theme.palette.background.paper,
-    marginTop: "5.5rem",
+    // marginTop: "5.5rem",
     position: "absolute"
   },
   chip: {
@@ -101,26 +101,26 @@ export default function Slider({
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
         {/* <div className={classes.section1}> */}
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Starting Cost
         </Typography>
-        <Grid container alignItems='center'>
+        <Grid container alignItems="center">
           <Grid item xs>
-            <Typography gutterBottom variant='h4'>
+            <Typography gutterBottom variant="h4">
               ${profile.price}
               <span className={classes.infoPrice}> /cad </span>
             </Typography>
           </Grid>
         </Grid>
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Availability
         </Typography>
-        <Grid container alignItems='center'>
+        <Grid container alignItems="center">
           <Grid item xs>
-            <Typography variant='h5'>{profile.availability}</Typography>
+            <Typography variant="h5">{profile.availability}</Typography>
           </Grid>
         </Grid>
-        <Typography color='primary' variant='body1'>
+        <Typography color="primary" variant="body1">
           Services
         </Typography>
         <Table services={profile.services} />
@@ -139,7 +139,7 @@ export default function Slider({
           Hour Range
         </Typography>
         <Hour onChangeDate={onChangeDate} state={state} /> */}
-        <Divider variant='middle' />
+        <Divider variant="middle" />
 
         {/* <Typography color="primary" variant="body1">
           Resume
@@ -158,7 +158,7 @@ export default function Slider({
                 // to={"/checkout"}
                 to={`/checkout/${profile.user}/${profile.bookId}`}
                 onClick={() => loadService(state)}
-                variant='contained'
+                variant="contained"
               >
                 Book
               </Button>

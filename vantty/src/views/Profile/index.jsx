@@ -4,9 +4,14 @@ import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 
 // Components
-import { Header } from "../../components/";
-import { Review, Slider, MessageVerified, ContactBook } from "./components";
-import { ProfileCarousel, ProfileInfo } from "./components";
+import {
+  Review,
+  Slider,
+  MessageVerified,
+  ContactBook,
+  ProfileCarousel,
+  ProfileInfo
+} from "./components";
 import { SimpleAppBar } from "../../components";
 import { BottomNavbar } from "../../layout/Main/components";
 
@@ -28,6 +33,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { isOwner } from "../../helpers";
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: theme.spacing(2)
+  },
   mainGrid: {
     [theme.breakpoints.down("sm", "xs")]: {
       marginBottom: theme.spacing(7)
@@ -50,7 +58,6 @@ const Profile = ({
   getImagesById,
   auth,
   auth: { user },
-  // pay: { services },
   match,
   history,
   loadService
@@ -60,36 +67,16 @@ const Profile = ({
     getImagesById(match.params.id || (services && services.id));
   }, [getProfileById, match.params.id]);
 
-  // const handleBack = () => {
-  //   history.goBack();
-  // };
-
   const [state, setState] = useState({
     id: match.params.id
   });
 
   const onChangeDate = value => {
-    // e.preventDefault();
-
     setState({
       ...state,
       ...value
-      // [e.target.name]: e.target.value
     });
   };
-
-  // const onChange = value => event => {
-  //   if (event.target.checked) {
-  //     setState({
-  //       ...state,
-  //       services: {
-  //         [event.target.name]: { type: event.target.value, amount: value }
-  //       }
-  //     });
-  //   } else {
-  //     delete state[event.target.name];
-  //   }
-  // };
 
   const classes = useStyles();
 
@@ -100,11 +87,10 @@ const Profile = ({
       loading ||
       !images ||
       auth.loading ? (
-        // {(!profile && !images) || profile === null || loading ? (
         <Progress className={classes.progress} />
       ) : (
         <Fragment>
-          {isMobile ? (
+          {isMobile && (
             <Fragment>
               <SimpleAppBar
                 path={"/search"}
@@ -118,10 +104,8 @@ const Profile = ({
                 }
               />
             </Fragment>
-          ) : (
-            <Progress className={classes.progress} />
           )}
-          <Container maxWidth='md'>
+          <Container maxWidth="md" className={classes.container}>
             <Grid container spacing={1} className={classes.mainGrid}>
               <Fragment>
                 <CssBaseline />
@@ -132,13 +116,10 @@ const Profile = ({
                     profile.mobileNumber &&
                     !profile.verified && <MessageVerified profile={profile} />}
                   <Grid item xs={12} md={8} sm={10}>
-                    <Header />
-
                     <Fragment>
                       <ProfileInfo profile={profile} auth={auth} />
                       <br />
                       <ProfileCarousel images={images} />
-
                       <br />
                       <br />
                       <Review profile={profile} />
@@ -166,22 +147,6 @@ const Profile = ({
             </Grid>
           </Container>
           <div>
-            {/* {profile === null ||
-            (!loading &&
-              auth.isAuthenticated &&
-              auth.loading === false &&
-              auth.user._id === profile.user._id) ? (
-              isMobile ? (
-                <BottomNavbar />
-              ) : null
-            ) : (
-              isMobile && (
-                <ContactButton
-                  profile={profile}
-                  location={auth.currentLocation}
-                />
-              )
-            )} */}
             {profile === null ||
             (!loading &&
               auth.isAuthenticated &&
