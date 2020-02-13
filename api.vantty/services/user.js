@@ -51,7 +51,7 @@ const update = async (id, field, method) => {
 const sendConfirmationEmail = async (user, uri) => {
   const { id, email, firstName } = user;
   const token = await generateEmailToken(id);
-  const { subject, html } = await emailService.type(
+  const { subject, html } = await emailService.content(
     CONFIRMATION,
     uri,
     token,
@@ -63,7 +63,7 @@ const sendConfirmationEmail = async (user, uri) => {
 
 const register = async registerToken => {
   const { user: id } = JWT.verify(registerToken, process.env.EMAIL_SECRET);
-  const user = await userService.update(id, { confirmed: true }, "$set");
+  const user = await update(id, { confirmed: true }, "$set");
   const token = await generateLoginToken(user);
   return token;
 };
@@ -80,7 +80,7 @@ const forgot = async (id, email, firstName, uri) => {
     },
     "$set"
   );
-  const { subject, html } = await emailService.type(
+  const { subject, html } = await emailService.content(
     FORGOT,
     uri,
     token,

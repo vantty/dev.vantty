@@ -15,13 +15,15 @@ const {
   COMPLETED_USER,
   COMPLETED_ARTIST
 } = require("../helpers/emailTypes");
+const mailgun = require("mailgun-js");
 
 const content = (type, uri, token, firstName, reviewData) => {
   switch (type) {
     case CONFIRMATION:
       return {
         subject: "Email Confirmation",
-        html: `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${uri}/confirmation/${token}><strong>click here.</strong></a>`
+        // html: `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${uri}/confirmation/${token}><strong>click here.</strong></a>`
+        html: `${uri}/confirmation/${token}`
       };
     case FORGOT:
       return {
@@ -105,7 +107,7 @@ const compose = async (email, subject, html) => {
   });
   const message = {
     from: "admin@vantty.ca",
-    to: `${email}`,
+    to: email,
     subject: subject,
     html: html
   };
@@ -113,4 +115,23 @@ const compose = async (email, subject, html) => {
   return response;
 };
 
-module.exports = { content, compose };
+const composeMG = async (email, subject, html) => {
+  const DOMAIN = "mg.vantty.ca";
+  const mg = mailgun({
+    apiKey: "0c2d50a5c1bb599dc98a660b065d1954-9c988ee3-04c0c7be",
+    domain: DOMAIN
+  });
+  const data = {
+    from: "admin@vantty.ca",
+    to: email,
+    subject: subject,
+    template: "confirm-email",
+    "v:url": `${html}`
+  };
+  await mg.messages().send(data, function(error, body) {
+    console.log(body);
+    return body;
+  });
+};
+
+module.exports = { content, compose, composeMG };

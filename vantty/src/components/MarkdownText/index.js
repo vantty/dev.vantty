@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MarkdownText({ text }) {
+export default function MarkdownText({ text, title }) {
   const classes = useStyles();
 
   const [post, setPost] = useState("");
@@ -39,7 +39,7 @@ export default function MarkdownText({ text }) {
         <Grid container className={classes.mainGrid}>
           <Grid item>
             <Typography variant="h1" gutterBottom>
-              {"Terms of services"}
+              {title}
             </Typography>
             <Divider />
             <Markdown className={classes.markdown} key={post.substring(0, 40)}>

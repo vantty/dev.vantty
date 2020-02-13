@@ -49,6 +49,7 @@ export const sendEmail = ({
     };
     const body = { firstName, lastName, email, password };
     const res = await server.post("/user/send", body, config);
+    console.log("RES", res);
     dispatch({
       type: SAVE_CONFIRMATION_EMAIL,
       payload: res.data

@@ -5,7 +5,7 @@ import policy from "./policy.md";
 export default function index() {
   return (
     <div>
-      <MarkdownText text={policy} />
+      <MarkdownText text={policy} title={"Data Policy"} />
     </div>
   );
 }

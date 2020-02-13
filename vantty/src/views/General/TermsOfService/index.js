@@ -5,7 +5,7 @@ import terms from "./terms.md";
 export default function index() {
   return (
     <div>
-      <MarkdownText text={terms} />
+      <MarkdownText text={terms} title={"Terms of Service"} />
     </div>
   );
 }
