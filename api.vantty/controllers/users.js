@@ -58,8 +58,14 @@ exports.sendConfirmationEmail = async (req, res) => {
       lastName,
       password
     );
-    userService.sendConfirmationEmail(result, uri);
-    return res.status(200).json(result);
+    const resMail = await userService.sendConfirmationEmail(result, uri);
+    if (resMail === "202Accepted") {
+      return res.status(200).json(result);
+    } else {
+      return res.status(500).json({
+        message: "Message not sent"
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"

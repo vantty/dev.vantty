@@ -25,7 +25,7 @@ import AddressForm from "./components/AddressForm";
 import PaymentForm from "./components/PaymentForm";
 import Service from "./components/Service";
 import Summary from "./components/Summary";
-import { SimpleAppBar, Alert, Header } from "../../components";
+import { SimpleAppBar, Alert } from "../../components";
 
 // Actions
 import { getProfileById } from "../../actions/profile";

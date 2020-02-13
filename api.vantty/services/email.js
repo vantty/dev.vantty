@@ -16,14 +16,15 @@ const {
   COMPLETED_ARTIST
 } = require("../helpers/emailTypes");
 const mailgun = require("mailgun-js");
+const sgMail = require("@sendgrid/mail");
 
 const content = (type, uri, token, firstName, reviewData) => {
   switch (type) {
     case CONFIRMATION:
       return {
         subject: "Email Confirmation",
-        // html: `Hi ${firstName}, welcome to Vantty! To confirm your email address please <a href=${uri}/confirmation/${token}><strong>click here.</strong></a>`
-        html: `${uri}/confirmation/${token}`
+        html: `Hi ${firstName}, welcome to Vantty!`,
+        url: `${uri}/confirmation/${token}`
       };
     case FORGOT:
       return {
@@ -96,29 +97,31 @@ const content = (type, uri, token, firstName, reviewData) => {
 };
 
 const compose = async (email, subject, html) => {
+  console.log("EMAIL", email);
   const transporter = await nodemailer.createTransport({
     host: "smtp.mailgun.org",
     port: 465,
     secure: true,
     auth: {
       user: "postmaster@mg.vantty.ca",
-      pass: "a0786ff2f0af6c7bc33de732df6b9202-2dfb0afe-a4ab1b23"
+      pass: "1c4be440def569d85fdb79e22aac9bb9-52b6835e-2e59dfb2"
     }
   });
   const message = {
     from: "admin@vantty.ca",
-    to: email,
+    to: `${email}`,
     subject: subject,
     html: html
   };
   const { response } = await transporter.sendMail(message);
+  console.log("RES", response);
   return response;
 };
 
 const composeMG = async (email, subject, html) => {
   const DOMAIN = "mg.vantty.ca";
   const mg = mailgun({
-    apiKey: "0c2d50a5c1bb599dc98a660b065d1954-9c988ee3-04c0c7be",
+    apiKey: "key-f4c2e0fc9d1d209d99ee29604f7a4d19",
     domain: DOMAIN
   });
   const data = {
@@ -129,9 +132,28 @@ const composeMG = async (email, subject, html) => {
     "v:url": `${html}`
   };
   await mg.messages().send(data, function(error, body) {
-    console.log(body);
+    console.log("RES", body);
     return body;
   });
 };
 
-module.exports = { content, compose, composeMG };
+const composeSG = async (email, subject, html, url) => {
+  await sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+    to: email,
+    from: "admin@vantty.ca",
+    subject: subject,
+    templateId: "d-a94e0655e3c447cfad10349050007bf3",
+    dynamic_template_data: {
+      subject: subject,
+      url: url,
+      html: html
+    }
+  };
+  const res = await sgMail.send(msg);
+  const { statusCode, statusMessage } = res[0];
+  const result = statusCode + statusMessage;
+  return result;
+};
+
+module.exports = { content, compose, composeMG, composeSG };
