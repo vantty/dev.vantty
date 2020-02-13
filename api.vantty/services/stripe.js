@@ -1,9 +1,9 @@
 const sripeLoader = require("stripe");
 const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
 // const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
-const profileService = require("../services/profile");
+const { newCardObj } = require("../helpers");
 
-const createAccount = async (id, code) => {
+const createAccount = async code => {
   const { stripe_user_id: stripeArtistAccount } = await stripe.oauth.token({
     grant_type: "authorization_code",
     code: code
@@ -19,34 +19,55 @@ const createAccount = async (id, code) => {
     routingNumber: data[0].routing_number,
     last4: data[0].last4
   };
-  const result = await profileService.update(
-    id,
-    {
-      stripeArtistAccount: stripeArtistAccount,
-      stripeBankData: stripeBankData
-    },
-    "$set"
-  );
-  return result;
+  return { stripeArtistAccount, stripeBankData };
 };
 
-const createCustomer = async (id, source) => {
-  const customer = await stripe.customers.create({
+const createCustomer = async (id, token) => {
+  const {
+    id: customerId,
+    default_source: source
+  } = await stripe.customers.create({
     name: id,
-    source: source
+    source: token
   });
-  return customer;
+  const card = await retrieveSource(customerId, source);
+  const newCard = await newCardObj(card);
+  return { customerId, newCard };
 };
 
-const retrieveSource = async (customerId, source) => {
-  const card = await stripe.customers.retrieveSource(customerId, source);
-  return card;
+const saveCard = async (stripeCustomerId, source, id, cards) => {
+  const card = await createSource(stripeCustomerId, source);
+  const existingCard = cards.find(
+    existingCard => existingCard.fingerPrint === card.fingerprint
+  );
+  if (existingCard) {
+    await deleteSource(stripeCustomerId, card.id);
+    return null;
+  } else {
+    const newCard = await newCardObj(card);
+    return newCard;
+  }
+};
+
+const deleteCard = async (user, stripeCardId) => {
+  const { stripeCustomerId } = user;
+  await deleteSource(stripeCustomerId, stripeCardId);
+  const card = user.cards.find(card => card.stripeCardId === stripeCardId);
+  const index = user.cards.indexOf(card);
+  await user.cards.splice(index, 1);
+  await user.save();
+  return user;
 };
 
 const createSource = async (stripeCustomerId, source) => {
   const card = await stripe.customers.createSource(stripeCustomerId, {
     source: source
   });
+  return card;
+};
+
+const retrieveSource = async (customerId, source) => {
+  const card = await stripe.customers.retrieveSource(customerId, source);
   return card;
 };
 
@@ -72,6 +93,8 @@ const charge = (customer, card, artist, amount) => {
 module.exports = {
   createAccount,
   createCustomer,
+  saveCard,
+  deleteCard,
   retrieveSource,
   createSource,
   deleteSource,

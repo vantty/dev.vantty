@@ -119,16 +119,9 @@ const useStyles = makeStyles(theme => ({
       marginRight: "auto"
     }
   },
-  // paper: {
-  //   marginTop: theme.spacing(3),
-  //   marginBottom: theme.spacing(3),
-  //   padding: theme.spacing(2),
-  //   [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-  //     marginTop: theme.spacing(6),
-  //     marginBottom: theme.spacing(6),
-  //     padding: theme.spacing(3)
-  //   }
-  // },
+  container: {
+    marginTop: theme.spacing(8)
+  },
   stepper: {
     padding: theme.spacing(3, 0, 5)
   },
@@ -293,11 +286,12 @@ const Checkout = ({
   return (
     <Fragment>
       <CssBaseline />
-      <Header />
       <Alert />
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth='sm'>
-        <Typography component='h1' variant='h4' align='center'>
+      <Container maxWidth='sm' className={classes.container}>
+        {/* <main className={classes.layout}> */}
+        {/* <Paper className={classes.paper}> */}
+        <Typography variant='h2' align='center'>
           Checkout
         </Typography>
         <Stepper

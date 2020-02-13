@@ -1,8 +1,8 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useFormik, ErrorMessage, Formik } from "formik";
+import { useFormik } from "formik";
 
 // Actions
 import { addComment } from "../../actions/review";
@@ -24,10 +24,10 @@ import clsx from "clsx";
 // import { Rating } from "@material-ui/lab";
 import LinkMui from "@material-ui/core/Link";
 import { FrameForm, SimpleAppBar } from "../../components";
-import validate from "validate.js";
+// import validate from "validate.js";
 
 //helpers
-import { schemaErrorsReview } from "../../helpers/errorsData";
+// import { schemaErrorsReview } from "../../helpers/errorsData";
 import { isMobile } from "react-device-detect";
 import { ReviewSchema } from "./reviewSchema";
 

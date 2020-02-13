@@ -7,7 +7,8 @@ import {
   HomeBanner,
   HomeCarousel,
   HomeGrid,
-  HomeJumbotron
+  HomeJumbotron,
+  HomeDescription
 } from "./components";
 
 // Actions
@@ -29,6 +30,7 @@ const Home = ({ changeNavbarValue }) => {
       <div data-testid="home">
         <CssBaseline />
         <HomeJumbotron />
+        <HomeDescription />
         <HomeGrid
           title={homeSeed.firstGrid.title}
           subtitle={homeSeed.firstGrid.subtitle}

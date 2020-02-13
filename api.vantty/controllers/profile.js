@@ -1,11 +1,9 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Review = require("../models/Review");
-const Image = require("../models/Image");
 const profileService = require("../services/profile");
 const stripeService = require("../services/stripe");
 const userService = require("../services/user");
-const imageService = require("../services/image");
 const elasticService = require("../services/elastic");
 
 // Get Current Profile By User Id
@@ -125,13 +123,6 @@ exports.deleteProfilePicture = async (req, res) => {
   }
 };
 
-//TODO: Move a new controller called "Elastic controller"
-exports.loadToElastic = async (req, res) => {
-  const { allElasticId, imagesId } = req.body;
-  let result = await elasticService.load(imagesId, allElasticId);
-  res.status(200).json(result);
-};
-
 exports.verifiedProfile = async (req, res) => {
   try {
     const {
@@ -178,21 +169,6 @@ exports.deleteService = async (req, res) => {
     res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-//TODO: Move to stripe controller. NEW CONTROLLER
-exports.createStripeAccount = async (req, res) => {
-  try {
-    const {
-      user: { id },
-      params: { code }
-    } = req;
-    const result = stripeService.createAccount(id, code);
-    await userService.update(id, { profile: true }, "$set");
-    res.status(201).json(result);
-  } catch (error) {
-    console.error(error);
     res.status(500).send("Server Error");
   }
 };

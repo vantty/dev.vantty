@@ -14,8 +14,8 @@ import {
   INFO_UPDATE_FAIL,
   SAVE_CONFIRMATION_EMAIL
 } from "./types";
-import { deleteImages } from "./uploader";
-import { getCurrentProfile } from "./profile";
+// import { deleteImages } from "./uploader";
+// import { getCurrentProfile } from "./profile";
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -23,14 +23,14 @@ export const loadUser = () => async dispatch => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await server.get("/auth");
+    const res = await server.get("/user");
     dispatch({
       type: USER_LOADED,
       payload: res.data
     });
   } catch (error) {
-    const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    // const errors = error.response.data.message;
+    // dispatch(setAlert(errors, "error"));
     dispatch({
       type: AUTH_ERROR
     });
@@ -48,7 +48,7 @@ export const sendEmail = ({
       headers: { "Content-Type": "application/json" }
     };
     const body = { firstName, lastName, email, password };
-    const res = await server.post("/auth/send", body, config);
+    const res = await server.post("/user/send", body, config);
     dispatch({
       type: SAVE_CONFIRMATION_EMAIL,
       payload: res.data
@@ -67,7 +67,7 @@ export const resendEmail = user => async dispatch => {
     const config = {
       headers: { "Content-Type": "application/json" }
     };
-    await server.post("/auth/resend", user, config);
+    await server.post("/user/resend", user, config);
   } catch (error) {
     const errors = error.response.data.message;
     dispatch(setAlert(errors, "error"));
@@ -77,7 +77,7 @@ export const resendEmail = user => async dispatch => {
 // Register User
 export const register = token => async dispatch => {
   try {
-    const res = await server.get(`/auth/register/${token}`);
+    const res = await server.get(`/user/register/${token}`);
     await dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
@@ -99,7 +99,7 @@ export const login = ({ email, password }) => async dispatch => {
   };
   const body = JSON.stringify({ email, password });
   try {
-    const res = await server.post("/auth/login", body, config);
+    const res = await server.post("/user/login", body, config);
     await dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -120,7 +120,7 @@ export const forgot = email => async dispatch => {
     const config = {
       headers: { "Content-Type": "application/json" }
     };
-    await server.post("/auth/forgot", email, config);
+    await server.post("/user/forgot", email, config);
     await dispatch(
       setAlert(
         "An email has been sent with instructions to reset your password",
@@ -140,7 +140,7 @@ export const reset = (token, password) => async dispatch => {
       headers: { "Content-Type": "application/json" }
     };
     const body = { token, password };
-    await server.post("/auth/reset", body, config);
+    await server.post("/user/reset", body, config);
     await dispatch(
       setAlert("Your password has been successfully changed", "success")
     );
@@ -157,7 +157,7 @@ export const facebookRegister = data => async dispatch => {
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/auth/facebook", body, config);
+    const res = await server.post("/user/facebook", body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
@@ -183,7 +183,7 @@ export const googleRegister = data => async dispatch => {
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/auth/google", body, config);
+    const res = await server.post("/user/google", body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
@@ -209,7 +209,7 @@ export const facebookLogin = data => async dispatch => {
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/auth/facebook", body, config);
+    const res = await server.post("/user/facebook", body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -235,7 +235,7 @@ export const googleLogin = data => async dispatch => {
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/auth/google", body, config);
+    const res = await server.post("/user/google", body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -290,23 +290,23 @@ export const updateInfo = (formData, edit = false) => async dispatch => {
 };
 
 // Delete User Picture
-export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
-  try {
-    await server.post(`/auth/userPicture`, { dataBaseId });
-    dispatch(deleteImages(cloudId));
-    dispatch({
-      type: INFO_UPDATE_SUCCESS
-    });
-    dispatch(getCurrentProfile());
-    await dispatch(loadUser());
-    dispatch(setAlert("Picture Removed", "success"));
-  } catch (err) {
-    dispatch({
-      type: INFO_UPDATE_FAIL
-    });
-    dispatch(setAlert("Update Fail", "error"));
-  }
-};
+// export const deleteUserPicture = (dataBaseId, cloudId) => async dispatch => {
+//   try {
+//     await server.post(`/auth/userPicture`, { dataBaseId });
+//     dispatch(deleteImages(cloudId));
+//     dispatch({
+//       type: INFO_UPDATE_SUCCESS
+//     });
+//     dispatch(getCurrentProfile());
+//     await dispatch(loadUser());
+//     dispatch(setAlert("Picture Removed", "success"));
+//   } catch (err) {
+//     dispatch({
+//       type: INFO_UPDATE_FAIL
+//     });
+//     dispatch(setAlert("Update Fail", "error"));
+//   }
+// };
 
 // Get Country
 // export const getGeoInfo = () => async dispatch => {

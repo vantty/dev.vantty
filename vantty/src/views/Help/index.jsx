@@ -18,17 +18,15 @@ import {
 
 // Actions
 import { sendEmail } from "../../actions/help";
-import { Header } from "../../components";
 
 const useStyles = makeStyles(theme => ({
   paper: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: theme.spacing(8)
   },
-  title: {
-    marginTop: theme.spacing(6)
-  },
+  title: {},
   text: {
     marginBottom: theme.spacing(2)
   },
@@ -96,7 +94,7 @@ const Help = ({ sendEmail }) => {
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
-      <Header />
+      {/* <Header /> */}
       <div className={classes.paper}>
         <Typography variant="h2" className={classes.title}>
           Help Center

@@ -13,7 +13,6 @@ const load = async (imagesId, allElasticId) => {
       }
     }
   }
-
   await images.save();
   return images;
 };

@@ -1,7 +1,4 @@
-const nodemailer = require("nodemailer");
 const JWT = require("jsonwebtoken");
-const userService = require("../services/user");
-const profileService = require("../services/profile");
 const {
   REQUESTED_USER,
   REQUESTED_ARTIST,
@@ -17,7 +14,7 @@ const {
   COMPLETED_ARTIST
 } = require("../helpers/emailTypes");
 
-exports.validator = (req, res, next) => {
+const validator = (req, res, next) => {
   req.check("firstName", "Please enter your first name").notEmpty();
   req.check("lastName", "Please enter your last name").notEmpty();
   req
@@ -37,7 +34,7 @@ exports.validator = (req, res, next) => {
   next();
 };
 
-exports.profileValidator = (req, res, next) => {
+const profileValidator = (req, res, next) => {
   // req.check("profession", "Profession is required").notEmpty();
   // req.check("profilePicture", "Picture is required").notEmpty();
   const errors = req.validationErrors();
@@ -47,7 +44,7 @@ exports.profileValidator = (req, res, next) => {
   next();
 };
 
-exports.profileValidatorEducation = (req, res, next) => {
+const profileValidatorEducation = (req, res, next) => {
   // req.check("school", "School is required").notEmpty();
   // req.check("degree", "Degree is required").notEmpty();
   const errors = req.validationErrors();
@@ -57,7 +54,7 @@ exports.profileValidatorEducation = (req, res, next) => {
   next();
 };
 
-exports.reviewValidator = (req, res, next) => {
+const reviewValidator = (req, res, next) => {
   req.check("text", "Text is required").notEmpty();
   const errors = req.validationErrors();
   if (errors) {
@@ -66,7 +63,7 @@ exports.reviewValidator = (req, res, next) => {
   next();
 };
 
-exports.profileValidatorPortfolio = (req, res, next) => {
+const profileValidatorPortfolio = (req, res, next) => {
   req.check("img", "Imagen is required").notEmpty();
   const errors = req.validationErrors();
   if (errors) {
@@ -75,8 +72,8 @@ exports.profileValidatorPortfolio = (req, res, next) => {
   next();
 };
 
-exports.newCardObj = card => {
-  const newCard = {
+const newCardObj = card => {
+  return {
     stripeCardId: card.id,
     fingerPrint: card.fingerprint,
     brand: card.brand,
@@ -84,10 +81,9 @@ exports.newCardObj = card => {
     expYear: card.exp_year,
     last4: card.last4
   };
-  return newCard;
 };
 
-exports.profileImageObject = async newImages => {
+const profileImageObject = async newImages => {
   const profileImage = {
     original: newImages[0].eager[0].url,
     cloudId: newImages[0].public_id
@@ -95,13 +91,13 @@ exports.profileImageObject = async newImages => {
   return profileImage;
 };
 
-exports.generateEmailToken = id => {
+const generateEmailToken = id => {
   return JWT.sign({ user: id }, process.env.EMAIL_SECRET, {
     expiresIn: "1d"
   });
 };
 
-exports.generateLoginToken = id => {
+const generateLoginToken = id => {
   return JWT.sign(
     {
       iss: "vantty",
@@ -113,7 +109,7 @@ exports.generateLoginToken = id => {
   );
 };
 
-exports.emailType = state => {
+const emailType = state => {
   switch (state) {
     case "requested":
       return {
@@ -148,4 +144,17 @@ exports.emailType = state => {
     default:
       return null;
   }
+};
+
+module.exports = {
+  validator,
+  profileValidator,
+  profileValidatorEducation,
+  reviewValidator,
+  profileValidatorPortfolio,
+  newCardObj,
+  profileImageObject,
+  generateEmailToken,
+  generateLoginToken,
+  emailType
 };

@@ -427,8 +427,8 @@ export const deleteProfileAndUserDashboard = ({
 export const loadToElastic = async (data, imagesId) => {
   const elasticConfig = {
     headers: {
-      "Content-type": "application/json",
-      Authorization: process.env.REACT_APP_ELASTIC_TOKEN
+      Authorization: process.env.REACT_APP_ELASTIC_TOKEN,
+      "Content-type": "application/json"
     }
   };
   let allElasticId = [];
@@ -447,7 +447,7 @@ export const loadToElastic = async (data, imagesId) => {
       });
 
       const body = { allElasticId, imagesId };
-      await server.put("/profile/elastic", body);
+      await server.post("/elastic", body);
     }
   }
 };

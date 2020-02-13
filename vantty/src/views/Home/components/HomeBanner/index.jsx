@@ -11,7 +11,7 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
   pageBlock: {
-    backgroundColor: "#F9F9F9"
+    backgroundColor: theme.palette.background.white
   },
   bannerImage: {
     position: "relative",

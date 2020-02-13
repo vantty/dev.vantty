@@ -1,16 +1,16 @@
 // Wedding Grid
 const w1 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357361/seed/hwgrb2wgndtapxgqnpgb.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357361/seed/hwgrb2wgndtapxgqnpgb.jpeg";
 const w2 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357360/seed/o8pcmctcrpwdd6nzff8o.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357360/seed/o8pcmctcrpwdd6nzff8o.jpeg";
 const w3 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357361/seed/wvakynfywz9hlmdtaju7.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357361/seed/wvakynfywz9hlmdtaju7.jpeg";
 const w4 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357360/seed/ght22pjccc88nzx4w2s6.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357360/seed/ght22pjccc88nzx4w2s6.jpeg";
 const w5 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357360/seed/njawrakvtafkb5rpi2g0.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357360/seed/njawrakvtafkb5rpi2g0.jpeg";
 const w6 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357360/seed/xdjngmisqn3tbteks3ir.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357360/seed/xdjngmisqn3tbteks3ir.jpeg";
 
 const weddingImages = [
   { name: "Natalia", photo: w1, id: "5db1bf648d6cac663ea89959" },
@@ -23,44 +23,44 @@ const weddingImages = [
 
 // Banners
 const b1 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357279/seed/he8cxop2xonpauz8nybg.png";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1581097080/seed/hoqigrkeyaqzssndp8rv.jpeg";
 const b2 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357279/seed/vkonxtpdqu8udafpwrrt.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357279/seed/vkonxtpdqu8udafpwrrt.jpeg";
 
 const banner1Image = b1;
 const banner2Image = b2;
 
 // Featured Artist
 const fa1 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357318/seed/aqli7zafg5wnaspvolnt.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357318/seed/aqli7zafg5wnaspvolnt.jpeg";
 const fa2 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357318/seed/zlmph4mccoqlhwjrm5v2.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357318/seed/zlmph4mccoqlhwjrm5v2.jpeg";
 const fa3 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357319/seed/os9g0mmfqyknizdzqq9p.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357319/seed/os9g0mmfqyknizdzqq9p.jpeg";
 const fa4 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357319/seed/rh6ptsxnoaqpujddheus.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357319/seed/rh6ptsxnoaqpujddheus.jpeg";
 const fa5 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357319/seed/mfjnujxkiblsbqffi8hz.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357319/seed/mfjnujxkiblsbqffi8hz.jpeg";
 const fa6 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357319/seed/s9bgdihwj4knronogcjd.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357319/seed/s9bgdihwj4knronogcjd.jpeg";
 const fa7 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357319/seed/ejyuux7vonizshjquyc9.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357319/seed/ejyuux7vonizshjquyc9.jpeg";
 
 const featuredArtistImages = [fa1, fa2, fa3, fa4, fa5, fa6, fa7];
 
 // Featured Makeups
 const fm1 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357297/seed/xu0j4eac8msoiaoc7zwy.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357297/seed/xu0j4eac8msoiaoc7zwy.jpeg";
 const fm2 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357297/seed/vm3mayna7qudcfqknb6g.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357297/seed/vm3mayna7qudcfqknb6g.jpeg";
 const fm3 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357297/seed/pwy2vlywdmfefriv1gng.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357297/seed/pwy2vlywdmfefriv1gng.jpeg";
 const fm4 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357297/seed/xr1vkshva28p6vltjblu.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357297/seed/xr1vkshva28p6vltjblu.jpeg";
 const fm5 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357297/seed/yesg0at1vet2wsrd9k59.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357297/seed/yesg0at1vet2wsrd9k59.jpeg";
 const fm6 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357298/seed/pygexbb10w6zyisq6vge.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357298/seed/pygexbb10w6zyisq6vge.jpeg";
 
 const featuredMakeupsImages = [
   { name: "Natalia", photo: fm1, id: "5db1bf648d6cac663ea89959" },
@@ -73,17 +73,17 @@ const featuredMakeupsImages = [
 
 // Featured Hairstyles
 const fh1 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357338/seed/tmmh7awe1gedhce4n74g.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357338/seed/tmmh7awe1gedhce4n74g.jpeg";
 const fh2 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357338/seed/zzhk9bvavyvdxxr5xxx7.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357338/seed/zzhk9bvavyvdxxr5xxx7.jpeg";
 const fh3 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357338/seed/rjhi3obubzwojxvsghyz.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357319/seed/s9bgdihwj4knronogcjd.jpeg";
 const fh4 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357339/seed/svdts77s2vr2vst7vk2t.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357339/seed/svdts77s2vr2vst7vk2t.jpeg";
 const fh5 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357339/seed/rhtvowzpq0ej0fu8hk3r.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357339/seed/rhtvowzpq0ej0fu8hk3r.jpeg";
 const fh6 =
-  "https://res.cloudinary.com/vantty/image/upload/v1572357340/seed/djygpfoptbkohjpx82lz.jpg";
+  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572357340/seed/djygpfoptbkohjpx82lz.jpeg";
 
 const featuresHairstylesImages = [
   { name: "Natalia", photo: fh1, id: "5db1bf648d6cac663ea89959" },

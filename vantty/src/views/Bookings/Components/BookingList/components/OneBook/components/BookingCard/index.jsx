@@ -102,7 +102,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar aria-label='recipe' className={classes.avatar}>
               {booking.user}
             </Avatar>
           }
@@ -116,8 +116,8 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           // subheader={booking.requestDate}
         />
         <a
-          target="_blank"
-          rel="noopener noreferrer"
+          target='_blank'
+          rel='noopener noreferrer'
           href={`https://www.google.com/maps/place/${replace(
             booking.address.street
           )}/`}
@@ -133,10 +133,10 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           />
         </a>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant='body2' color='textSecondary' component='p'>
             {booking.address.street}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant='body2' color='textSecondary' component='p'>
             {booking.descriptionAddress}
           </Typography>
         </CardContent>
@@ -151,9 +151,9 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       {booking.state === "request" && (
                         <Grid
                           container
-                          direction="row"
-                          justify="flex-end"
-                          alignItems="center"
+                          direction='row'
+                          justify='flex-end'
+                          alignItems='center'
                           spacing={1}
                         >
                           <ConfirmationModal

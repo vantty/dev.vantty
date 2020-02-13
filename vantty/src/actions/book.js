@@ -24,16 +24,18 @@ import { getCurrentProfile } from "./profile";
 import { server } from "../utils/axios";
 
 import setAlert from "./alert";
+import { loadUser } from "./auth";
 const log = console.log;
 
 // Create Stripe Artist Account
 export const createStripeAccount = code => async dispatch => {
   try {
-    const result = await server.post(`/profile/account/${code}`);
-    dispatch({
+    const result = await server.post(`/stripe/account/${code}`);
+    await dispatch({
       type: CREATE_STRIPE_ACCOUNT_SUCCESS,
       payload: result
     });
+    await dispatch(loadUser());
     await dispatch(getCurrentProfile());
   } catch (error) {
     console.log(error);
@@ -44,34 +46,13 @@ export const createStripeAccount = code => async dispatch => {
   }
 };
 
-// Complete Service
-export const completeService = bookCode => async dispatch => {
-  try {
-    const config = {
-      headers: { "Content-Type": "application/json" }
-    };
-    await server.post(`/book/complete/${bookCode}`, config);
-    await dispatch(getBook());
-  } catch (error) {
-    log(error);
-    dispatch(setAlert("You have entered a wrong code", "error"));
-  }
-};
-
 // Validate Card and Create Stripe ID
-export const validateCard = token => async dispatch => {
+export const createStripeCustomer = token => async dispatch => {
   try {
     const config = {
       headers: { "Content-Type": "application/json" }
     };
-    const user = await server.get("/auth");
-    const {
-      data: { _id }
-    } = user;
-    const email = user.email;
-    const body = JSON.stringify({ token, email, _id });
-    // const res = await server.post("/book/create-customer", body, config);
-    const res = await server.post("/user/customer", body, config);
+    const res = await server.post("/stripe/customer", { token }, config);
     await dispatch({
       type: ADD_CARD_SUCCESS,
       payload: res.data
@@ -86,12 +67,7 @@ export const addCard = token => async dispatch => {
     const config = {
       headers: { "Content-Type": "application/json" }
     };
-    const user = await server.get("/auth");
-    const {
-      data: { _id }
-    } = user;
-    const body = JSON.stringify({ token, _id });
-    const res = await server.post("/user/card", body, config);
+    const res = await server.post("/stripe/card", { token }, config);
     await dispatch({
       type: ADD_CARD_SUCCESS,
       payload: res.data
@@ -111,22 +87,27 @@ export const addCard = token => async dispatch => {
 
 export const deleteCard = stripeCardId => async dispatch => {
   try {
-    // const config = {
-    //   headers: { "Content-Type": "application/json" }
-    // };
-    // const user = await server.get("/auth");
-    // const {
-    //   data: { _id, stripeCustomerId }
-    // } = user;
-    // const body = JSON.stringify({ _id, stripeCustomerId, stripeCardId });
-    // const res = await server.post("/book/delete-card", body, config);
-    const res = await server.delete(`/user/card/${stripeCardId}`);
+    const res = await server.delete(`/stripe/card/${stripeCardId}`);
     await dispatch({
       type: DELETE_CARD_SUCCESS,
       payload: res.data
     });
   } catch (error) {
     log(error);
+  }
+};
+
+// Complete Service
+export const completeService = bookCode => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    await server.post(`/book/complete/${bookCode}`, config);
+    await dispatch(getBook());
+  } catch (error) {
+    log(error);
+    dispatch(setAlert("You have entered a wrong code", "error"));
   }
 };
 
@@ -200,7 +181,7 @@ export const addNewBook = (
       }
     };
 
-    const user = await server.get("/auth");
+    const user = await server.get("/user");
     const {
       data: { stripeCustomerId }
     } = user;
@@ -256,7 +237,7 @@ export const changeStateBooking = (
     if (byUser) {
       const {
         data: { _id }
-      } = await server.get("/auth");
+      } = await server.get("/user");
       await dispatch(getUserBookings(_id));
     } else {
       await dispatch(getBook());

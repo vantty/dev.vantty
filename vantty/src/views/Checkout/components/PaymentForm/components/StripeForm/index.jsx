@@ -25,7 +25,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CardsList from "../CardsList";
 
 // Actions
-import { validateCard, addCard } from "../../../../../../actions/book";
+import { createStripeCustomer, addCard } from "../../../../../../actions/book";
 
 // Helpers
 const log = console.log;
@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 const _StripeForm = props => {
   const {
     stripe,
-    validateCard,
+    createStripeCustomer,
     addCard,
     stripeCustomerId,
     cards,
@@ -87,7 +87,7 @@ const _StripeForm = props => {
       event.preventDefault();
       if (stripe) {
         let { token } = await stripe.createToken();
-        validateCard(token);
+        createStripeCustomer(token);
       } else {
         console.log("Stripe.js hasn't loaded yet.");
       }
@@ -225,11 +225,11 @@ const _StripeForm = props => {
 const StripeForm = injectStripe(_StripeForm);
 
 StripeForm.propTypes = {
-  validateCard: PropTypes.func
+  createStripeCustomer: PropTypes.func
 };
 
 // const mapStateToProps = state => ({
 //   user: state.auth.user
 // });
 
-export default connect(null, { validateCard, addCard })(StripeForm);
+export default connect(null, { createStripeCustomer, addCard })(StripeForm);
