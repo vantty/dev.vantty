@@ -11,9 +11,9 @@ import Divider from "@material-ui/core/Divider";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant='body2' color='textSecondary' align='center'>
       {"Copyright © "}
-      <Link color="inherit" href="https://vantty.ca/">
+      <Link color='inherit' href='https://vantty.ca/'>
         Vantty
       </Link>{" "}
       {new Date().getFullYear()}
@@ -52,11 +52,15 @@ const footers = [
   },
   {
     title: "Terms of Use",
-    Link: "/terms-of-service/"
+    Link: "/terms"
   },
   {
     title: "Data Policy",
-    Link: "/data-policy"
+    Link: "/policy"
+  },
+  {
+    title: "Agreement",
+    Link: "/agreement"
   }
 ];
 
@@ -66,14 +70,14 @@ export default function Footer() {
     <Fragment>
       <div className={classes.root}>
         <Divider />
-        <Container maxWidth="md" component="footer" className={classes.footer}>
-          <Grid container direction="row" justify="center" alignItems="center">
+        <Container maxWidth='md' component='footer' className={classes.footer}>
+          <Grid container direction='row' justify='center' alignItems='center'>
             {footers.map(item => (
               <span className={classes.element} key={item.title}>
                 <Link
                   href={item.Link}
-                  variant="subtitle1"
-                  color="textSecondary"
+                  variant='subtitle1'
+                  color='textSecondary'
                 >
                   {item.title}{" "}
                 </Link>

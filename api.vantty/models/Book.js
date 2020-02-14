@@ -35,7 +35,7 @@ const BookSchema = new Schema({
       descriptionAddress: {
         type: String
       },
-      hour: {
+      timeStampAppointment: {
         type: String
       },
       services: [Object],

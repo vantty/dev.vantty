@@ -33,20 +33,20 @@ export default function Summary({ booking }) {
       <Container>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h6" gutterBottom className={classes.title}>
-              Date
+            <Typography variant='h6' gutterBottom className={classes.title}>
+              <strong>Date</strong>
             </Typography>
-            <Typography gutterBottom>{booking.appointment}</Typography>
+            <Typography gutterBottom>{booking.date}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom className={classes.title}>
               Hour
             </Typography>
             <Typography gutterBottom>{booking.appointment}</Typography>
-          </Grid>
+          </Grid> */}
         </Grid>
-        <Typography variant="h6" gutterBottom>
-          Order summary
+        <Typography variant='h6' gutterBottom>
+          <strong>Service Summary</strong>
         </Typography>
         <List disablePadding>
           {booking.services.map(product => (
@@ -55,13 +55,13 @@ export default function Summary({ booking }) {
                 primary={product.typeOfService}
                 secondary={`Quantity of services ${product.quantity}`}
               />
-              <Typography variant="body2">{`$${product.amount}`}</Typography>
+              <Typography variant='body2'>{`$${product.amount}`}</Typography>
             </ListItem>
           ))}
 
           <ListItem className={classes.listItem}>
-            <ListItemText primary="Subtotal" />
-            <Typography variant="subtitle1" className={classes.listItem}>
+            <ListItemText primary='Subtotal' />
+            <Typography variant='subtitle1' className={classes.listItem}>
               {`$${booking.totalValue.toFixed(2)}`}
             </Typography>
           </ListItem>
@@ -72,14 +72,14 @@ export default function Summary({ booking }) {
             </Typography>
           </ListItem> */}
           <ListItem className={classes.listItem}>
-            <ListItemText primary="Transaction Fee" />
-            <Typography variant="subtitle1" className={classes.listItem}>
+            <ListItemText primary='Transaction Fee' />
+            <Typography variant='subtitle1' className={classes.listItem}>
               {`$${money.transFee.toFixed(2)}`}
             </Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <ListItemText primary="Total" />
-            <Typography variant="subtitle1" className={classes.total}>
+            <ListItemText primary='Total' />
+            <Typography variant='subtitle1' className={classes.total}>
               {`$${money.total.toFixed(2)}`}
             </Typography>
           </ListItem>
