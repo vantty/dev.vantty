@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -6,7 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { MarkdownText } from "../../../components";
-import costumer from "./costumer.md";
+import customer from "./customer.md";
 import artist from "./artist.md";
 import { Container } from "@material-ui/core";
 
@@ -75,7 +75,7 @@ export default function Agreement() {
           variant='fullWidth'
           aria-label='full width tabs example'
         >
-          <Tab label='Costumer' {...a11yProps(0)} />
+          <Tab label='Customer' {...a11yProps(0)} />
           <Tab label='Artist' {...a11yProps(1)} />
           {/* <Tab label='Item Three' {...a11yProps(2)} /> */}
         </Tabs>
@@ -87,7 +87,7 @@ export default function Agreement() {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <MarkdownText text={costumer} title={"Costumer"} />
+            <MarkdownText text={customer} title={"Customer"} />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
             <MarkdownText text={artist} title={"Artist"} />
