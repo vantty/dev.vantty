@@ -56,7 +56,8 @@ const EditForm = ({
             match.url === "/bookings" ||
             match.url === "/bank" ||
             match.url === "/payments" ||
-            match.url === "/bookings-user"
+            match.url === "/bookings-user" ||
+            user.profile === false
               ? "/settings"
               : "/settings/profile"
           }
@@ -72,7 +73,7 @@ const EditForm = ({
             <Grid container>
               <Hidden xsDown>
                 <Grid item lg={4} md={4} xs={4}>
-                  <Container maxWidth="md">
+                  <Container maxWidth='md'>
                     <Settings match={match} />
                   </Container>
                 </Grid>
