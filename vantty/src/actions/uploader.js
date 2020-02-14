@@ -51,8 +51,8 @@ export const uploadImages = e => async dispatch => {
     const errs = [];
     const files = Array.from(e.target.files);
 
-    if (files.length > 10) {
-      const msg = "Only 10 images can be uploaded";
+    if (files.length > 5) {
+      const msg = "Only 5 images can be uploaded at a time";
       dispatch({ type: IMAGES_UPLOAD_FAIL });
       return console.log(msg);
     }
@@ -63,10 +63,10 @@ export const uploadImages = e => async dispatch => {
       if (types.every(type => file.type !== type)) {
         errs.push(`"${file.type}" is not a supported format`);
       }
-      const maxFileSize = 5 * 1000 * 1000; // 7MB
+      const maxFileSize = 5 * 1000 * 1000; // 5MB
       if (file.size > maxFileSize) {
         errs.push(
-          `"${file.name}" is too large, please pick a smaller file (Max. 7MB)`
+          `"${file.name}" is too large, please pick a smaller file (Max. 5MB)`
         );
       }
       formData.append(i, file);
