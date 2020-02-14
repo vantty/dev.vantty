@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "0.6rem",
-    backgroundColor: "#FFF",
+    backgroundColor: theme.palette.background.gray,
     boxShadow: "none"
   },
   cardMedia: {

@@ -51,13 +51,20 @@ const update = async (id, field, method) => {
 const sendConfirmationEmail = async (user, uri) => {
   const { id, email, firstName } = user;
   const token = await generateEmailToken(id);
-  const { subject, html, url } = await emailService.content(
+  const { subject, title, html, url, templateId } = await emailService.content(
     CONFIRMATION,
     uri,
     token,
     firstName
   );
-  const result = await emailService.composeSG(email, subject, html, url);
+  const result = await emailService.compose(
+    email,
+    subject,
+    title,
+    html,
+    url,
+    templateId
+  );
   return result;
 };
 
