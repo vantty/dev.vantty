@@ -142,7 +142,6 @@ exports.forgot = async (req, res) => {
       });
     }
     const { id, firstName } = user;
-
     const result = await userService.forgot(id, email, firstName, uri);
     res.status(200).json(result);
   } catch (error) {

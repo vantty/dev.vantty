@@ -51,18 +51,21 @@ const update = async (id, field, method) => {
 const sendConfirmationEmail = async (user, uri) => {
   const { id, email, firstName } = user;
   const token = await generateEmailToken(id);
-  const { subject, title, html, url, templateId } = await emailService.content(
-    CONFIRMATION,
-    uri,
-    token,
-    firstName
-  );
+  const {
+    subject,
+    title,
+    html,
+    url,
+    buttonText,
+    templateId
+  } = await emailService.content(CONFIRMATION, uri, token, firstName);
   const result = await emailService.compose(
     email,
     subject,
     title,
     html,
     url,
+    buttonText,
     templateId
   );
   return result;
@@ -76,10 +79,9 @@ const register = async registerToken => {
 };
 
 const forgot = async (id, email, firstName, uri) => {
-  console.log("USER", id, email, firstName, uri);
   const token = await generateEmailToken(id);
   const date = Date.now() + 3600 * 1000;
-  const user = await userService.update(
+  const user = await update(
     id,
     {
       resetPasswordToken: token,
@@ -87,18 +89,28 @@ const forgot = async (id, email, firstName, uri) => {
     },
     "$set"
   );
-  const { subject, html } = await emailService.content(
-    FORGOT,
-    uri,
-    token,
-    firstName
+  const {
+    subject,
+    title,
+    html,
+    url,
+    buttonText,
+    templateId
+  } = await emailService.content(FORGOT, uri, token, firstName);
+  await emailService.compose(
+    email,
+    subject,
+    title,
+    html,
+    url,
+    buttonText,
+    templateId
   );
-  await emailService.compose(email, subject, html);
   return user;
 };
 
 const reset = async (id, password) => {
-  const user = await userService.update(
+  const user = await update(
     id,
     {
       resetPasswordToken: null,

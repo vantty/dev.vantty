@@ -48,10 +48,11 @@ exports.createNewBook = async (req, res) => {
       headers: { origin: uri }
     } = req;
     const book = await bookService.createBooking(bookId, user, fields);
+    console.log("BOOK", book);
     const { user: artistId } = book;
     const artist = await userService.getById(artistId);
     const state = "requested";
-    await bookService.sendEmail(user, artist, uri, state, null, null);
+    await bookService.sendEmail(user, artist, uri, state, null, null, null);
     res.status(200).json(book.bookings);
   } catch (error) {
     return res.status(500).json({

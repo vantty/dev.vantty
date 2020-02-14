@@ -24,12 +24,17 @@ const content = (type, uri, token, firstName, reviewData) => {
         title: `Hi ${firstName}, we are glad you are here!`,
         html: "To be part of the Vantty community please confirm your email.",
         url: `${uri}/confirmation/${token}`,
+        buttonText: "Confirm your email",
         templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     case FORGOT:
       return {
         subject: "Reset Password",
-        html: `Hi ${firstName}. Please click this link to reset your password: <a href=${uri}/reset/${token}><strong>Click Here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html: "To reset your password please click the link below.",
+        url: `${uri}/reset/${token}`,
+        buttonText: "Reset your password",
+        templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     case REQUESTED_USER:
       return {
@@ -96,7 +101,15 @@ const content = (type, uri, token, firstName, reviewData) => {
   }
 };
 
-const compose = async (email, subject, title, html, url, templateId) => {
+const compose = async (
+  email,
+  subject,
+  title,
+  html,
+  url,
+  buttonText,
+  templateId
+) => {
   await sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
     to: email,
@@ -107,6 +120,7 @@ const compose = async (email, subject, title, html, url, templateId) => {
       subject: subject,
       title: title,
       url: url,
+      buttonText: buttonText,
       html: html
     }
   };
