@@ -302,6 +302,7 @@ import RouteWithLayout from "./router/RouteWithLayout";
 import { Main as MainLayout, Minimal as MinimalLayout } from "./layout";
 import { TermsOfService as Terms } from "./views/General";
 import { DataPolicy as Policy } from "./views/General";
+import { Agreement } from "./views/General";
 
 // Views
 import {
@@ -429,6 +430,12 @@ const Routes = () => {
         component={Policy}
         exact
         path='/policy'
+      />
+      <RouteWithLayout
+        layout={MainLayout}
+        component={Agreement}
+        exact
+        path='/agreement'
       />
       {/* EDIT FORM */}
       <RoutePrivateWithLayout
