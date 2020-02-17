@@ -16,7 +16,7 @@ const {
   COMPLETED_ARTIST
 } = require("../helpers/emailTypes");
 
-const content = (type, uri, token, firstName, reviewData) => {
+const content = (type, uri, token, firstName, reviewData, date) => {
   switch (type) {
     case CONFIRMATION:
       return {
@@ -39,12 +39,24 @@ const content = (type, uri, token, firstName, reviewData) => {
     case REQUESTED_USER:
       return {
         subject: "Book Requested",
-        html: `Hi ${firstName}, your book has been sent to the artist. Once she accepts the service, we will send you a confirmation email with your booking code. To see the state of your request please <a href=${uri}/dashboard/user/apponitments><strong>click here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "Your book has been sent to the artist. Once she accepts the service, we will send you a confirmation email with your booking code. To see the state of your request please click the link below.",
+        details: date,
+        url: `${uri}/bookings-user`,
+        buttonText: "Bookings",
+        templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
       };
     case REQUESTED_ARTIST:
       return {
         subject: "Book Requested",
-        html: `Hi ${firstName}, you have a new book request. To see the details and accept the request please <a href=${uri}/bookings><strong>click here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "You have a new book request. To see the details and accept the request please click the link below.",
+        details: date,
+        url: `${uri}/bookings`,
+        buttonText: "Bookings",
+        templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
       };
     case ACCEPTED_USER:
       return {
@@ -106,6 +118,7 @@ const compose = async (
   subject,
   title,
   html,
+  details,
   url,
   buttonText,
   templateId
@@ -121,7 +134,8 @@ const compose = async (
       title: title,
       url: url,
       buttonText: buttonText,
-      html: html
+      html: html,
+      details: details
     }
   };
   const res = await sgMail.send(msg);

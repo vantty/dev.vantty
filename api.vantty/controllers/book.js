@@ -48,12 +48,52 @@ exports.createNewBook = async (req, res) => {
       headers: { origin: uri }
     } = req;
     const book = await bookService.createBooking(bookId, user, fields);
-    console.log("BOOK", book);
+    const { date } = fields;
     const { user: artistId } = book;
     const artist = await userService.getById(artistId);
     const state = "requested";
-    await bookService.sendEmail(user, artist, uri, state, null, null, null);
+    await bookService.sendEmail(
+      user,
+      artist,
+      uri,
+      state,
+      null,
+      null,
+      null,
+      date
+    );
     res.status(200).json(book.bookings);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
+  }
+};
+
+exports.changeStateBooking = async (req, res) => {
+  try {
+    const {
+      body: { state, text: posponeText },
+      params: { bookingId },
+      headers: { origin: uri }
+    } = req;
+    const service = await bookService.changeState(bookingId, state);
+    const result = await Promise.all(service);
+    const { userId, stripeArtistAccount, bookCode } = result[0];
+    const user = await userService.getById(userId);
+    const { user: artistId } = await profileService.getByField({
+      stripeArtistAccount
+    });
+    const artist = await userService.getById(artistId);
+    await bookService.sendEmail(
+      user,
+      artist,
+      uri,
+      state,
+      bookCode,
+      posponeText
+    );
+    res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"
@@ -97,37 +137,6 @@ exports.completeService = async (req, res) => {
       );
     }
     res.status(200).json(status);
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server Error"
-    });
-  }
-};
-
-exports.changeStateBooking = async (req, res) => {
-  try {
-    const {
-      body: { state, text: posponeText },
-      params: { bookingId },
-      headers: { origin: uri }
-    } = req;
-    const service = await bookService.changeState(bookingId, state);
-    const result = await Promise.all(service);
-    const { userId, stripeArtistAccount, bookCode } = result[0];
-    const user = await userService.getById(userId);
-    const { user: artistId } = await profileService.getByField({
-      stripeArtistAccount
-    });
-    const artist = await userService.getById(artistId);
-    await bookService.sendEmail(
-      user,
-      artist,
-      uri,
-      state,
-      bookCode,
-      posponeText
-    );
-    res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"

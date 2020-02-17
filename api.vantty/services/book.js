@@ -1,6 +1,5 @@
 const Book = require("../models/Book");
 const emailService = require("../services/email");
-const stripeService = require("../services/stripe");
 const { emailType } = require("../helpers");
 
 const create = async userId => {
@@ -30,28 +29,21 @@ const createBooking = async (bookId, user, fields) => {
     userId: id
   };
   book.bookings.unshift(newBook);
-
-  //Add Book id to the User Model
   if (user.bookings.length < 1) {
     user.bookings.unshift(bookId);
   }
   const service = user.bookings.find(service => service == bookId);
-
   if (!service) {
     user.bookings.unshift(bookId);
   }
-
   await user.save();
   await book.save();
-
   return book;
 };
 
 const getUserBookings = async user => {
   const { _id, bookings } = user;
-
   let totalBookings = [];
-
   for (let book of bookings) {
     const profileBook = await getById(book);
 
@@ -60,7 +52,6 @@ const getUserBookings = async user => {
       totalBookings.unshift(bookings);
     }
   }
-  //sort this new array
   return totalBookings;
 };
 
@@ -84,7 +75,8 @@ const sendEmail = async (
   state,
   bookCode,
   posponeText,
-  reviewId
+  reviewId,
+  date
 ) => {
   const { firstName: userFirstName, email: userEmail } = user;
   const {
@@ -95,16 +87,26 @@ const sendEmail = async (
   const type = await emailType(state);
   const info = state === "accepted" ? bookCode : posponeText;
   const reviewData = state === "completed" ? { artistId, reviewId } : null;
-  const { subject: userSubject, html: userHtml } = await emailService.content(
+  const {
+    subject: userSubject,
+    title,
+    html: userHtml,
+    details,
+    url: userUrl,
+    buttonText,
+    templateId
+  } = await emailService.content(
     type.user,
     uri,
     info,
     userFirstName,
-    reviewData
+    reviewData,
+    date
   );
   const {
     subject: artistSubject,
-    html: artistHtml
+    html: artistHtml,
+    url: artistUrl
   } = await emailService.content(
     type.artist,
     uri,
@@ -112,8 +114,29 @@ const sendEmail = async (
     artistFirstName,
     reviewData
   );
-  await emailService.compose(userEmail, userSubject, userHtml);
-  await emailService.compose(artistEmail, artistSubject, artistHtml);
+  const resUser = await emailService.compose(
+    userEmail,
+    userSubject,
+    title,
+    userHtml,
+    details,
+    userUrl,
+    buttonText,
+    templateId
+  );
+  const resArtist = await emailService.compose(
+    artistEmail,
+    artistSubject,
+    title,
+    artistHtml,
+    details,
+    artistUrl,
+    buttonText,
+    templateId
+  );
+  if (resUser === resArtist) {
+    return resUser;
+  }
 };
 
 const complete = async (artistId, bookCode, state) => {
