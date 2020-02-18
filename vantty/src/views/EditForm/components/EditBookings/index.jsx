@@ -6,7 +6,6 @@ const EditBookings = () => {
   return (
     <Fragment>
       <EditForm Children={<Bookings />} />
-      {/* <Bookings /> */}
     </Fragment>
   );
 };

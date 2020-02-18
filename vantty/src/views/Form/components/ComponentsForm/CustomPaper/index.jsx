@@ -2,13 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
-
   layout: {
-    // width: "auto",
-    // padding: theme.spacing(),
-    // marginLeft: theme.spacing(),
-    // marginRight: theme.spacing(),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       padding: theme.spacing(3),
