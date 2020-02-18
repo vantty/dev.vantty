@@ -41,8 +41,9 @@ const content = (type, uri, token, firstName, reviewData, date) => {
         subject: "Book Requested",
         title: `Hi ${firstName},`,
         html:
-          "Your book has been sent to the artist. Once she accepts the service, we will send you a confirmation email with your booking code. To see the state of your request please click the link below.",
+          "Your book has been sent to the artist. Once she accepts the service, we will send you a confirmation email with your booking code. Remember that your appointment is on:",
         details: date,
+        html2: "To see the state of your request please click the link below.",
         url: `${uri}/bookings-user`,
         buttonText: "Bookings",
         templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
@@ -52,8 +53,10 @@ const content = (type, uri, token, firstName, reviewData, date) => {
         subject: "Book Requested",
         title: `Hi ${firstName},`,
         html:
-          "You have a new book request. To see the details and accept the request please click the link below.",
+          "You have a new book request. Remember that your appointment is on:",
         details: date,
+        html2:
+          "To see the details and accept the request please click the link below.",
         url: `${uri}/bookings`,
         buttonText: "Bookings",
         templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
@@ -61,12 +64,28 @@ const content = (type, uri, token, firstName, reviewData, date) => {
     case ACCEPTED_USER:
       return {
         subject: "Book Accepted",
-        html: `Hi ${firstName}, your book has been accepted by the artist. Your booking code is: <strong>${token}</strong>. Please save this code, because you have to give it to the artist once she finish your service. If you need to modify or cancell the service please <a href=${uri}/dashboard/user/apponitments><strong>click here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "Your book request has been accepted by your artist. Once your artists finish your service, please give her this booking code:",
+        details: token,
+        html2:
+          "If you need to modify or cancell the service please click the link below.",
+        url: `${uri}/bookings-user`,
+        buttonText: "Bookings",
+        templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
       };
     case ACCEPTED_ARTIST:
       return {
         subject: "Book Accepted",
-        html: `Hi ${firstName}, you have accepted the book request. To see the details of the service please <a href=${uri}/bookings><strong>click here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "You have accepted the book request. Remember that your appointment is on:",
+        details: date,
+        html2:
+          "Once you finish this services, please ask your client for the book code and click the link below to get paid.",
+        url: `${uri}/bookings`,
+        buttonText: "Bookings",
+        templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
       };
     case DECLINED_USER:
       return {
@@ -118,6 +137,7 @@ const compose = async (
   subject,
   title,
   html,
+  html2,
   details,
   url,
   buttonText,
@@ -135,6 +155,7 @@ const compose = async (
       url: url,
       buttonText: buttonText,
       html: html,
+      html2: html2,
       details: details
     }
   };

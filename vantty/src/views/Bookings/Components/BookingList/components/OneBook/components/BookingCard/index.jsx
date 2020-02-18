@@ -102,7 +102,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar aria-label='recipe' className={classes.avatar}>
+            <Avatar aria-label="recipe" className={classes.avatar}>
               {booking.user}
             </Avatar>
           }
@@ -113,9 +113,8 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
             />
           }
           title={`Your client is ${booking.name}`}
-          // subheader={booking.requestDate}
         />
-        <a
+        {/* <a
           target='_blank'
           rel='noopener noreferrer'
           href={`https://www.google.com/maps/place/${replace(
@@ -131,15 +130,15 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
             }&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C2360+dundas+street+west`}
             title={booking.address.street}
           />
-        </a>
-        <CardContent>
-          <Typography variant='body2' color='textSecondary' component='p'>
+        </a> */}
+        {/* <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
             {booking.address.street}
           </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
+          <Typography variant="body2" color="textSecondary" component="p">
             {booking.descriptionAddress}
           </Typography>
-        </CardContent>
+        </CardContent> */}
         <Fragment>
           <div className={classes.root}>
             <Grid container spacing={0}>
@@ -151,9 +150,9 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       {booking.state === "request" && (
                         <Grid
                           container
-                          direction='row'
-                          justify='flex-end'
-                          alignItems='center'
+                          direction="row"
+                          justify="flex-end"
+                          alignItems="center"
                           spacing={1}
                         >
                           <ConfirmationModal

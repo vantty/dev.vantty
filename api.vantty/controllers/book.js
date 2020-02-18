@@ -79,7 +79,7 @@ exports.changeStateBooking = async (req, res) => {
     } = req;
     const service = await bookService.changeState(bookingId, state);
     const result = await Promise.all(service);
-    const { userId, stripeArtistAccount, bookCode } = result[0];
+    const { userId, stripeArtistAccount, bookCode, date } = result[0];
     const user = await userService.getById(userId);
     const { user: artistId } = await profileService.getByField({
       stripeArtistAccount
@@ -91,7 +91,9 @@ exports.changeStateBooking = async (req, res) => {
       uri,
       state,
       bookCode,
-      posponeText
+      posponeText,
+      null,
+      date
     );
     res.status(200).json(result);
   } catch (error) {

@@ -91,7 +91,8 @@ const sendEmail = async (
     subject: userSubject,
     title,
     html: userHtml,
-    details,
+    html2: userHtml2,
+    details: userDatails,
     url: userUrl,
     buttonText,
     templateId
@@ -106,20 +107,24 @@ const sendEmail = async (
   const {
     subject: artistSubject,
     html: artistHtml,
-    url: artistUrl
+    html2: artistHtml2,
+    url: artistUrl,
+    details: artstDetails
   } = await emailService.content(
     type.artist,
     uri,
     null,
     artistFirstName,
-    reviewData
+    reviewData,
+    date
   );
   const resUser = await emailService.compose(
     userEmail,
     userSubject,
     title,
     userHtml,
-    details,
+    userHtml2,
+    userDatails,
     userUrl,
     buttonText,
     templateId
@@ -129,7 +134,8 @@ const sendEmail = async (
     artistSubject,
     title,
     artistHtml,
-    details,
+    artistHtml2,
+    artstDetails,
     artistUrl,
     buttonText,
     templateId
