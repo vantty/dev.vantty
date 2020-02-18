@@ -16,6 +16,6 @@ router.post("/create-book/:id", passportJWT, createNewBook);
 router.post("/complete/:book_code", passportJWT, completeService);
 // router.post("/:id", passportJWT, getBookById);
 router.post("/booking/:bookingId", passportJWT, changeStateBooking);
-router.get("/user-bookings/:id", passportJWT, getUserBookings);
+router.get("/user-bookings", passportJWT, getUserBookings);
 
 module.exports = router;

@@ -277,7 +277,7 @@ export const changeStateBooking = (
 //////////////
 
 //Get user bookings
-export const getUserBookings = id => async dispatch => {
+export const getUserBookings = () => async dispatch => {
   try {
     const config = {
       headers: {
@@ -285,7 +285,7 @@ export const getUserBookings = id => async dispatch => {
       }
     };
 
-    const res = await server.get(`/book/user-bookings/${id}`, config);
+    const res = await server.get("/book/user-bookings", config);
 
     dispatch({
       type: ADD_BOOKINGS,
