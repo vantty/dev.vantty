@@ -15,6 +15,7 @@ import EventSeatIcon from "@material-ui/icons/EventSeat";
 
 // Components
 import { OneBook } from "./components";
+import { BookingAvatar } from "../../../../components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,13 +50,14 @@ const BookingList = ({ book, changeStateBooking }) => {
                   book.map(booking => (
                     <ListItem key={booking._id}>
                       <ListItemAvatar>
-                        <Avatar className={classes.avatar}>
+                        <BookingAvatar state={booking.state} />
+                        {/* <Avatar className={classes.avatar}>
                           {booking.state !== "accepted" ? (
                             <EventSeatIcon />
                           ) : (
                             <CheckIcon />
                           )}
-                        </Avatar>
+                        </Avatar> */}
                       </ListItemAvatar>
                       <ListItemText
                         key={booking.state}
