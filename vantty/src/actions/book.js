@@ -172,7 +172,8 @@ export const addNewBook = (
   bookId,
   stripeArtistAccount,
   bookCode,
-  formData
+  formData,
+  address
 ) => async dispatch => {
   try {
     const config = {
@@ -188,13 +189,14 @@ export const addNewBook = (
     const today = new Date();
     const body = {
       ...formData,
+      address: address,
       requestDate: today.toString().substr(0, 24),
       timeStamp: today.getTime(),
       bookCode: bookCode,
       stripeCustomerId: stripeCustomerId,
       stripeArtistAccount: stripeArtistAccount
     };
-
+    console.log("BODY", body);
     await server.post(`/book/create-book/${bookId}`, body, config);
 
     await dispatch({
@@ -275,7 +277,7 @@ export const changeStateBooking = (
 //////////////
 
 //Get user bookings
-export const getUserBookings = id => async dispatch => {
+export const getUserBookings = () => async dispatch => {
   try {
     const config = {
       headers: {
@@ -283,7 +285,7 @@ export const getUserBookings = id => async dispatch => {
       }
     };
 
-    const res = await server.get(`/book/user-bookings/${id}`, config);
+    const res = await server.get("/book/user-bookings", config);
 
     dispatch({
       type: ADD_BOOKINGS,

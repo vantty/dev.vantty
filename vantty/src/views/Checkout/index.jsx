@@ -181,7 +181,7 @@ const Checkout = ({
     artistSite: false
   });
   const { toHome, artistSite } = location;
-
+  const testAddress = place === "artistSite" ? profile.address : address;
   const handleNext = async (e, total, addedItems) => {
     e.preventDefault();
     setCheckout({ ...checkout, totalValue: total, services: addedItems });
@@ -190,14 +190,13 @@ const Checkout = ({
     if (activeStep === 3) {
       const bookCode = randomCode({ length: 6 });
 
-      place === "artistSite"
-        ? setCheckout({ ...checkout, address: profile.address })
-        : setCheckout({ ...checkout, address: address });
-      addNewBook(
+      const testAddress = place === "artistSite" ? profile.address : address;
+      await addNewBook(
         match.params.bookId,
         profile.stripeArtistAccount,
         bookCode,
-        checkout
+        checkout,
+        testAddress
       );
     }
   };
@@ -270,7 +269,13 @@ const Checkout = ({
           // </CheckoutContext.Provider>
         );
       case 3:
-        return <Summary checkout={checkout} cards={user.cards} />;
+        return (
+          <Summary
+            checkout={checkout}
+            cards={user.cards}
+            address={testAddress}
+          />
+        );
       default:
         throw new Error("Unknown step");
     }
@@ -351,6 +356,7 @@ const Checkout = ({
                     variant="contained"
                     disabled={
                       false
+
                       // Object.entries(address).length === 0 ||
                       // Object.entries(location) !== "toHome"
                       // Object.entries(address).length === 0 &&

@@ -227,9 +227,9 @@ const CreateProfile = ({
                     <MenuItem value={"Toronto - Canadá"}>
                       Toronto - Canadá
                     </MenuItem>
-                    <MenuItem value={"Medellín - Colombia"}>
+                    {/* <MenuItem value={"Medellín - Colombia"}>
                       Medellín - Colombia
-                    </MenuItem>
+                    </MenuItem> */}
                   </Select>
                 </FormControl>
                 <Grid item md={12} xs={12}>
