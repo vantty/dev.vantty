@@ -48,7 +48,7 @@ exports.createNewBook = async (req, res) => {
       headers: { origin: uri }
     } = req;
     const book = await bookService.createBooking(bookId, user, fields);
-    console.log("BOOK", book);
+    console.log("BODYYYYY", body);
     const { user: artistId } = book;
     const artist = await userService.getById(artistId);
     const state = "requested";

@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Summary({ checkout, cards }) {
+export default function Summary({ checkout, cards, address }) {
   const classes = useStyles();
 
   const card = cards.find(card => card.stripeCardId === checkout.stripeCardId);
@@ -34,13 +34,12 @@ export default function Summary({ checkout, cards }) {
     { name: "Card number", detail: `•••• ${card.last4}` },
     { name: "Expiry date", detail: `${card.expMonth}/${card.expYear}` }
   ];
-
+  console.log("Address", address);
   return (
     <Fragment>
       <Typography variant='h6' gutterBottom>
         Order summary
       </Typography>
-      {console.log(checkout)}
       <List disablePadding>
         {checkout.services.map(product => (
           <ListItem className={classes.listItem} key={product._id}>
@@ -70,7 +69,7 @@ export default function Summary({ checkout, cards }) {
             Address
           </Typography>
           <Typography gutterBottom>Toronto</Typography>
-          <Typography gutterBottom>{checkout.address.street}</Typography>
+          <Typography gutterBottom>{address.street}</Typography>
         </Grid>
         <Grid item container direction='column' xs={12} sm={6}>
           <Typography variant='h6' gutterBottom className={classes.title}>
