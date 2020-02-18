@@ -90,42 +90,88 @@ const content = (type, uri, token, firstName, reviewData, date) => {
     case DECLINED_USER:
       return {
         subject: "Book Declined",
-        html: `Hi ${firstName}, your book has been declined by the artist. Please go back to Vantty and <a href=${uri}/search><strong>search for another artist.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "Your book has been declined by the artist. Please go back to Vantty and search for another one.",
+        url: `${uri}/search`,
+        buttonText: "Go to Vantty",
+        templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     case DECLINED_ARTIST:
       return {
         subject: "Book Declined",
-        html: `Hi ${firstName}, you have declined the book request. To see the details of the declined service please <a href=${uri}/bookings><strong>click here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "You have declined the book request. To see the details of the declined service please click the link below.",
+        url: `${uri}/bookings`,
+        buttonText: "Bookings",
+        templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     case DECLINED_POSPONED_USER:
       return {
         subject: "Book Declined",
-        html: `Hi ${firstName}, your book has been declined by the artist. However she has an alternative proposal for you: <strong>${token}.</strong> If it works for you, please go back to Vantty and <a href=${uri}/search><strong>book again your service.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "Your book has been declined by the artist. However she has an alternative proposal for you:",
+        details: token,
+        html2:
+          "If it works for you, please go back to Vantty and book again your service.",
+        url: `${uri}/bookings`,
+        buttonText: "Go to Vantty",
+        templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
       };
     case DECLINED_POSPONED_ARTIST:
       return {
         subject: "Book Declined",
-        html: `Hi ${firstName}, you have declined the book request and send a proposal to the user. Please wait until the user books you again. To see the details of service please <a href=${uri}/bookings><strong>click here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "You have declined the book request and send this proposal to the user:",
+        details: token,
+        html2:
+          "Please wait until the user books you again. To see the details of service please click the link below.",
+        url: `${uri}/bookings`,
+        buttonText: "Bookings",
+        templateId: "d-b1af9d047c234276bc3950a5e0e4e94f"
       };
     case DECLINED_USER_BY_USER:
       return {
         subject: "Book Declined",
-        html: `Hi ${firstName}, you have declined the service. Please go back to Vantty and <a href=${uri}/search><strong>search for another artist.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "You have declined the service. Please go back to Vantty and book another one.",
+        url: `${uri}/search`,
+        buttonText: "Go to Vantty",
+        templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     case DECLINED_ARTIST_BY_USER:
       return {
         subject: "Book Declined",
-        html: `Hi ${firstName}, the user has declined the service. To see the details of the declined service please <a href=${uri}/bookings><strong>click here.</strong></a>`
+        title: `Hi ${firstName},`,
+        html:
+          "The user has declined the service. To see the details of the declined service please click the link below.",
+        url: `${uri}/bookings`,
+        buttonText: "Bookings",
+        templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     case COMPLETED_USER:
       return {
-        subject: "Book Completed",
-        html: `Hi ${firstName}, your book has been completed. Your artist will appriciate a review from you. To write it, please <a href=${uri}/profile/artist/${reviewData.artistId}/${reviewData.reviewId}><strong>click here.</strong></a>`
+        subject: "Service Completed",
+        title: `Hi ${firstName},`,
+        html:
+          "Your service has been completed. Your artist will appriciate a review from you. To write it, please click the link below.",
+        url: `${uri}/profile/artist/${reviewData.artistId}/${reviewData.reviewId}`,
+        buttonText: "Leave Review",
+        templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     case COMPLETED_ARTIST:
       return {
-        subject: "Book Completed",
-        html: `Hi ${firstName}, your service has been completed. To see the details of the service please <a href=${uri}/bookings><strong>click here.</strong></a>`
+        subject: "Service Completed",
+        title: `Hi ${firstName},`,
+        html:
+          "You have completed the service. To see the details of the service please click the link below.",
+        url: `${uri}/bookings`,
+        buttonText: "Bookings",
+        templateId: "d-a94e0655e3c447cfad10349050007bf3"
       };
     default:
       return null;

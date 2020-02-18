@@ -94,7 +94,7 @@ const sendEmail = async (
     html2: userHtml2,
     details: userDatails,
     url: userUrl,
-    buttonText,
+    buttonText: userButtonText,
     templateId
   } = await emailService.content(
     type.user,
@@ -108,12 +108,13 @@ const sendEmail = async (
     subject: artistSubject,
     html: artistHtml,
     html2: artistHtml2,
+    details: artstDetails,
     url: artistUrl,
-    details: artstDetails
+    buttonText: artistButtonText
   } = await emailService.content(
     type.artist,
     uri,
-    null,
+    info,
     artistFirstName,
     reviewData,
     date
@@ -126,7 +127,7 @@ const sendEmail = async (
     userHtml2,
     userDatails,
     userUrl,
-    buttonText,
+    userButtonText,
     templateId
   );
   const resArtist = await emailService.compose(
@@ -137,7 +138,7 @@ const sendEmail = async (
     artistHtml2,
     artstDetails,
     artistUrl,
-    buttonText,
+    artistButtonText,
     templateId
   );
   if (resUser === resArtist) {
@@ -149,6 +150,7 @@ const complete = async (artistId, bookCode, state) => {
   const book = await getByField({ user: artistId });
   const service = book.bookings.find(service => service.bookCode === bookCode);
   service.state = state;
+  service.bookCode = null;
   await book.save();
   return service;
 };
