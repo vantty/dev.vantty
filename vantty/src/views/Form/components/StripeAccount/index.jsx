@@ -66,10 +66,8 @@ const StripeAccount = ({
           Conect your bank account
         </Typography>
         <Typography variant='subtitle1' className={classes.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          Vantty doesn't save or storage your bank information; however, we use
+          a Stripe as one of the best provider for these services in the world.
         </Typography>
         <Link underline='none' color='inherit' href={stripeApi}>
           <img src={StripeButton} alt='' className={classes.logo} />
