@@ -114,9 +114,9 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           }
           title={`Your client is ${booking.name}`}
         />
-        {/* <a
-          target='_blank'
-          rel='noopener noreferrer'
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
           href={`https://www.google.com/maps/place/${replace(
             booking.address.street
           )}/`}
@@ -130,15 +130,15 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
             }&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C2360+dundas+street+west`}
             title={booking.address.street}
           />
-        </a> */}
-        {/* <CardContent>
+        </a>
+        <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
             {booking.address.street}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {booking.descriptionAddress}
           </Typography>
-        </CardContent> */}
+        </CardContent>
         <Fragment>
           <div className={classes.root}>
             <Grid container spacing={0}>

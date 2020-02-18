@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 const icon = state => {
   switch (state) {
     case "request":
-      return <WarningIcon />;
+      return <EventSeatIcon />;
     case "accepted":
       return <CheckIcon />;
     case "declined":

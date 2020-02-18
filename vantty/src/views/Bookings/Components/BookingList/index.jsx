@@ -7,11 +7,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
-import CheckIcon from "@material-ui/icons/Check";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import EventSeatIcon from "@material-ui/icons/EventSeat";
 
 // Components
 import { OneBook } from "./components";
