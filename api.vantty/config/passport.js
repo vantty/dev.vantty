@@ -44,7 +44,7 @@ passport.use(
         const email = profile.emails[0].value;
         const user = await User.findOne({ email });
         if (user) {
-          return done(null, false);
+          return done(null, { message: "User already exist" });
         }
         const newUser = await User.create({
           method: "google",
@@ -85,7 +85,7 @@ passport.use(
         const email = profile.emails[0].value;
         const user = await User.findOne({ email });
         if (user) {
-          return done(null, false);
+          return done(null, { message: "User already exist" });
         }
         const newUser = await User.create({
           method: "facebook",
@@ -111,25 +111,25 @@ passport.use(
 );
 
 // Local Strategy
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "email"
-    },
-    async (email, password, done) => {
-      try {
-        const user = await User.findOne({ email });
-        if (!user) {
-          return done(null, false, { message: "TEST ERROR" });
-        }
-        const isMatch = await user.isValidPassword(password);
-        if (!isMatch) {
-          return done(null, false, { message: "TEST ERROR" });
-        }
-        return done(null, user);
-      } catch (err) {
-        done(err, false);
-      }
-    }
-  )
-);
+// passport.use(
+//   new LocalStrategy(
+//     {
+//       usernameField: "email"
+//     },
+//     async (email, password, done) => {
+//       try {
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//           return done(null, false, { message: "TEST ERROR" });
+//         }
+//         const isMatch = await user.isValidPassword(password);
+//         if (!isMatch) {
+//           return done(null, false, { message: "TEST ERROR" });
+//         }
+//         return done(null, user);
+//       } catch (err) {
+//         done(err, false);
+//       }
+//     }
+//   )
+// );

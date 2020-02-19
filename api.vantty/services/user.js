@@ -48,8 +48,8 @@ const update = async (id, field, method) => {
 };
 
 const sendConfirmationEmail = async (user, uri) => {
-  const { id, email, firstName } = user;
-  const token = await generateEmailToken(id);
+  const { _id, email, firstName } = user;
+  const token = await generateEmailToken(_id);
   const {
     subject,
     title,
@@ -63,6 +63,8 @@ const sendConfirmationEmail = async (user, uri) => {
     subject,
     title,
     html,
+    null,
+    null,
     url,
     buttonText,
     templateId

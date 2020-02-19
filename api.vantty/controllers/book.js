@@ -115,33 +115,38 @@ exports.completeService = async (req, res) => {
       totalValue,
       chargeStatus
     } = await bookService.complete(artistId, bookCode, state);
-    if (chargeStatus === "succeeded") {
+    if (chargeStatus === "pending") {
+      const { status } = await stripeService.charge(
+        stripeCustomerId,
+        stripeCardId,
+        stripeArtistAccount,
+        totalValue
+      );
+      bookService.updateCharge(artistId, bookCode, status);
+      if (status === "succeeded") {
+        const user = await userService.getByField({ stripeCustomerId });
+        const artist = await userService.getById(artistId);
+        const { reviewId } = await profileService.getById(artistId);
+        await bookService.sendEmail(
+          user,
+          artist,
+          uri,
+          state,
+          null,
+          null,
+          reviewId
+        );
+      } else {
+        return res.status(500).json({
+          message: "Something went wrong. Please contact Client Services"
+        });
+      }
+      res.status(200).json(status);
+    } else {
       return res.status(500).json({
         message: "This service has been already charged"
       });
     }
-    const { status } = await stripeService.charge(
-      stripeCustomerId,
-      stripeCardId,
-      stripeArtistAccount,
-      totalValue
-    );
-    bookService.updateCharge(artistId, bookCode, status);
-    if (status === "succeeded") {
-      const user = await userService.getByField({ stripeCustomerId });
-      const artist = await userService.getById(artistId);
-      const { reviewId } = await profileService.getById(artistId);
-      await bookService.sendEmail(
-        user,
-        artist,
-        uri,
-        state,
-        null,
-        null,
-        reviewId
-      );
-    }
-    res.status(200).json(status);
   } catch (error) {
     return res.status(500).json({
       message: "Something went wrong. Please check your code."

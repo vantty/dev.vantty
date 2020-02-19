@@ -189,13 +189,9 @@ export const googleRegister = data => async dispatch => {
       payload: res.data
     });
     dispatch(loadUser());
-  } catch (err) {
-    dispatch(
-      setAlert(
-        "There is an account with the same email address. Try with another method.",
-        "warning"
-      )
-    );
+  } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "warning"));
     dispatch({
       type: REGISTER_FAIL
     });
