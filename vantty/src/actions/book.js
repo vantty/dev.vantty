@@ -106,8 +106,8 @@ export const completeService = bookCode => async dispatch => {
     await server.post(`/book/complete/${bookCode}`, config);
     await dispatch(getBook());
   } catch (error) {
-    log(error);
-    dispatch(setAlert("You have entered a wrong code", "error"));
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
   }
 };
 

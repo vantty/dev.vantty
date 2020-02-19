@@ -1,11 +1,7 @@
-const User = require("../models/User");
-const Profile = require("../models/Profile");
-const Book = require("../models/Book");
 const bookService = require("../services/book");
 const profileService = require("../services/profile");
 const userService = require("../services/user");
 const stripeService = require("../services/stripe");
-const { composeEmail } = require("../helpers");
 
 // Current User
 exports.current = async (req, res) => {
@@ -116,14 +112,21 @@ exports.completeService = async (req, res) => {
       stripeCustomerId,
       stripeCardId,
       stripeArtistAccount,
-      totalValue
+      totalValue,
+      chargeStatus
     } = await bookService.complete(artistId, bookCode, state);
+    if (chargeStatus === "succeeded") {
+      return res.status(500).json({
+        message: "This service has been already charged"
+      });
+    }
     const { status } = await stripeService.charge(
       stripeCustomerId,
       stripeCardId,
       stripeArtistAccount,
       totalValue
     );
+    bookService.updateCharge(artistId, bookCode, status);
     if (status === "succeeded") {
       const user = await userService.getByField({ stripeCustomerId });
       const artist = await userService.getById(artistId);
@@ -141,7 +144,7 @@ exports.completeService = async (req, res) => {
     res.status(200).json(status);
   } catch (error) {
     return res.status(500).json({
-      message: "Server Error"
+      message: "Something went wrong. Please check your code."
     });
   }
 };

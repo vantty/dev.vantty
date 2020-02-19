@@ -98,7 +98,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
   return (
     <Fragment>
       <Alert />
-
       <Card className={classes.card}>
         <CardHeader
           avatar={

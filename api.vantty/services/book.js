@@ -150,7 +150,14 @@ const complete = async (artistId, bookCode, state) => {
   const book = await getByField({ user: artistId });
   const service = book.bookings.find(service => service.bookCode === bookCode);
   service.state = state;
-  service.bookCode = null;
+  await book.save();
+  return service;
+};
+
+const updateCharge = async (artistId, bookCode, status) => {
+  const book = await getByField({ user: artistId });
+  const service = book.bookings.find(service => service.bookCode === bookCode);
+  service.chargeStatus = status;
   await book.save();
   return service;
 };
@@ -163,5 +170,6 @@ module.exports = {
   getUserBookings,
   changeState,
   sendEmail,
-  complete
+  complete,
+  updateCharge
 };

@@ -58,6 +58,7 @@ const BookSchema = new Schema({
       timeStamp: {
         type: Number
       },
+      chargeStatus: { type: String, default: "pending" },
       bookCode: { type: String },
       stripeCustomerId: { type: String },
       stripeCardId: { type: String },
