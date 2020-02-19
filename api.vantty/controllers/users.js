@@ -1,4 +1,5 @@
 const userService = require("../services/user");
+const emailService = require("../services/email");
 const { generateLoginToken } = require("../helpers");
 
 exports.getById = async (req, res) => {
@@ -190,6 +191,26 @@ exports.facebook = async (req, res) => {
   try {
     const token = generateLoginToken(req.user.id);
     res.status(200).json({ token });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
+  }
+};
+
+exports.help = async (req, res) => {
+  try {
+    const {
+      body: { email, issue, text }
+    } = req;
+    const result = await emailService.sendHelp(email, issue, text);
+    if (result === "202Accepted") {
+      return res.status(200).json(result);
+    } else {
+      return res.status(500).json({
+        message: "Message not sent"
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"

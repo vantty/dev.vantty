@@ -23,7 +23,8 @@
     "MAILGUN_PASS": "@mailgun-pass",
     "STRIPE_SECRET_KEY_TEST": "@stripe-secret-key-test",
     "STRIPE_SECRET_KEY": "@stripe-secret-key",
-    "SENDGRID_API_KEY": "@sendgrid-api-key"
+    "SENDGRID_API_KEY": "@sendgrid-api-key",
+    "HELP_EMAIL": "@help-email"
   },
   "routes": [{ "src": "/api/.*", "dest": "/index.js" }]
 }

@@ -19,7 +19,8 @@ const {
   forgot,
   reset,
   google,
-  facebook
+  facebook,
+  help
 } = require("../controllers/users");
 const { validator } = require("../helpers");
 
@@ -34,5 +35,6 @@ router.post("/google", passportGoogle, google);
 router.post("/facebook", passportFacebook, facebook);
 router.patch("/", passportJWT, update);
 router.delete("/", passportJWT, deleteAccount);
+router.post("/help", help);
 
 module.exports = router;
