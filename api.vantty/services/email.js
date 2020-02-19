@@ -192,7 +192,7 @@ const compose = async (
   await sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
     to: email,
-    from: "Vantty Client Services <info@vantty.ca>",
+    from: "Vantty Client Services <no-reply@vantty.ca>",
     subject: subject,
     templateId: templateId,
     dynamic_template_data: {
