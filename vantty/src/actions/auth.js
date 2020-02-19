@@ -165,7 +165,7 @@ export const facebookRegister = data => async dispatch => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -187,7 +187,7 @@ export const googleRegister = data => async dispatch => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -209,7 +209,7 @@ export const facebookLogin = data => async dispatch => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: LOGIN_FAIL
     });
@@ -232,7 +232,7 @@ export const googleLogin = data => async dispatch => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: LOGIN_FAIL
     });
