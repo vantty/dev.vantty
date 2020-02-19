@@ -106,23 +106,16 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const {
-      body: { email, password }
+      user: { id, message }
     } = req;
-    const user = await userService.getByField({ email });
-    if (!user)
-      return res
-        .status(403)
-        .json({ message: "Please check you email address and your password" });
-    const isMatch = await user.isValidPassword(password);
-    if (!isMatch)
-      return res
-        .status(403)
-        .json({ message: "Please check you email address and your password" });
-    const { id, confirmed } = user;
-    if (!confirmed)
-      return res.status(403).json({ message: "Please confirm your email" });
-    const token = await generateLoginToken(id);
-    res.status(200).json({ token });
+    if (id) {
+      const token = generateLoginToken(id);
+      res.status(200).json({ token });
+    } else {
+      return res.status(403).json({
+        message: message
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"

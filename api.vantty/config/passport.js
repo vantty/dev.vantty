@@ -111,25 +111,33 @@ passport.use(
 );
 
 // Local Strategy
-// passport.use(
-//   new LocalStrategy(
-//     {
-//       usernameField: "email"
-//     },
-//     async (email, password, done) => {
-//       try {
-//         const user = await User.findOne({ email });
-//         if (!user) {
-//           return done(null, false, { message: "TEST ERROR" });
-//         }
-//         const isMatch = await user.isValidPassword(password);
-//         if (!isMatch) {
-//           return done(null, false, { message: "TEST ERROR" });
-//         }
-//         return done(null, user);
-//       } catch (err) {
-//         done(err, false);
-//       }
-//     }
-//   )
-// );
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "email"
+    },
+    async (email, password, done) => {
+      try {
+        const user = await User.findOne({ email });
+        if (!user) {
+          return done(null, {
+            message: "Please check you email address and your password"
+          });
+        }
+        const isMatch = await user.isValidPassword(password);
+        if (!isMatch) {
+          return done(null, {
+            message: "Please check you email address and your password"
+          });
+        }
+        const { confirmed } = user;
+        if (!confirmed) {
+          return done(null, { message: "Please confirm your email" });
+        }
+        return done(null, user);
+      } catch (err) {
+        done(err, false);
+      }
+    }
+  )
+);
