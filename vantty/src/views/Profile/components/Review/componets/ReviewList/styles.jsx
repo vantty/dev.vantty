@@ -7,26 +7,20 @@ const profilePageStyle = {
   deleteReview: {
     color: "red"
   },
+  reportReview: {
+    color: "blue"
+  },
+  reportButton: {
+    paddingLeft: "10px"
+  },
   button: {
     margin: 10
   },
   input: {
     display: "none"
   },
-  //Review
-  review: {
-    // width: "100%",
-    // maxWidth: 800
-    // marginTop: "10px",
-    // minHeight: "32px"
-  },
   inline: {
-    // display: "inline",
     float: "left"
-  },
-  textField: {
-    // marginLeft: "1rem",
-    // marginRight: "1rem"
   },
   date: {
     margin: "0 auto",
@@ -36,13 +30,7 @@ const profilePageStyle = {
   },
   messageReview: {
     display: "block"
-    // position: "relative",
-    // marginTop: "0px",
-    // minHeight: "17px",
-    // textDecoration: "none",
-    // fontSize: "14px"
   },
-
   totalReview: {
     width: "200px",
     height: "200px",
