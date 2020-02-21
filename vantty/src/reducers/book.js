@@ -11,7 +11,10 @@ import {
   GET_BOOK,
   ADD_BOOK,
   ADD_BOOK_SUCCESS,
-  ADD_BOOK_FAIL
+  ADD_BOOK_FAIL,
+  CHANGE_STATE_BOOKING,
+  CHANGE_STATE_BOOKING_SUCCESS,
+  CHANGE_STATE_BOOKING_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -26,6 +29,7 @@ export default function(state = initialState, action) {
     case CREATE_STRIPE_CUSTOMER:
     case ADD_CARD:
     case ADD_BOOK:
+    case CHANGE_STATE_BOOKING:
       return {
         ...state,
         loading: true
@@ -38,6 +42,8 @@ export default function(state = initialState, action) {
     case ADD_CARD_FAIL:
     case ADD_BOOK_SUCCESS:
     case ADD_BOOK_FAIL:
+    case CHANGE_STATE_BOOKING_SUCCESS:
+    case CHANGE_STATE_BOOKING_FAIL:
       return {
         ...state,
         loading: false

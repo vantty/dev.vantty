@@ -11,15 +11,15 @@ import {
   ADD_CARD,
   ADD_CARD_SUCCESS,
   ADD_CARD_FAIL,
+  DELETE_CARD_SUCCESS,
+  CHANGE_STATE_BOOKING,
+  CHANGE_STATE_BOOKING_SUCCESS,
+  CHANGE_STATE_BOOKING_FAIL,
   //
-  REVIEW_ERROR,
-  BOOK_ERROR,
   CLEAR_BOOK,
   GET_BOOK,
-  CHANGE_STATE_BOOKING,
   SERVICE_SUCCESS,
   CLEAR_CART,
-  DELETE_CARD_SUCCESS,
   ADD_BOOKINGS
 } from "./types";
 import { getCurrentProfile } from "./profile";
@@ -61,6 +61,7 @@ export const createStripeCustomer = token => async dispatch => {
   }
 };
 
+// Add Card Stripe
 export const addCard = token => async dispatch => {
   try {
     const config = {
@@ -73,18 +74,15 @@ export const addCard = token => async dispatch => {
       payload: res.data
     });
   } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
     dispatch({
       type: ADD_CARD_FAIL
     });
-    dispatch(
-      setAlert(
-        "This card is already added. Please try with another one.",
-        "error"
-      )
-    );
   }
 };
 
+// Delete Card Stripe
 export const deleteCard = stripeCardId => async dispatch => {
   try {
     const res = await server.delete(`/stripe/card/${stripeCardId}`);
@@ -97,20 +95,12 @@ export const deleteCard = stripeCardId => async dispatch => {
   }
 };
 
-//TODO: What is this?
 export const loadService = services => async dispatch => {
   try {
-    // const config = {
-    //   headers: { "Content-Type": "application/json" }
-    // };
-    // const body = JSON.stringify({ token, amount });
-    // const res = await server.post("/book/pay", body, config);
-
     dispatch({
       type: SERVICE_SUCCESS,
       payload: services
     });
-    // log(services);
   } catch (error) {
     console.log(error);
   }
@@ -124,11 +114,8 @@ export const getBook = () => async dispatch => {
       type: GET_BOOK,
       payload: res.data
     });
-  } catch (err) {
-    dispatch({
-      type: BOOK_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -141,11 +128,26 @@ export const getBookById = reviewId => async dispatch => {
       type: GET_BOOK,
       payload: res.data
     });
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Get Bookings User
+export const getUserBookings = () => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    const res = await server.get("/book/user-bookings", config);
     dispatch({
-      type: REVIEW_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      type: ADD_BOOKINGS,
+      payload: res.data
     });
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -163,7 +165,6 @@ export const addNewBook = (
         "Content-Type": "application/json"
       }
     };
-
     const user = await server.get("/user");
     const {
       data: { stripeCustomerId }
@@ -188,16 +189,13 @@ export const addNewBook = (
       type: CLEAR_CART
     });
     dispatch(setAlert("Request Sent", "success"));
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     dispatch({ type: ADD_BOOK_FAIL });
-    // dispatch({
-    //   type: BOOK_ERROR,
-    //   payload: { msg: err.response.statusText, status: err.response.status }
-    // });
   }
 };
 
-// Change State
+// Change State Bookings
 export const changeStateBooking = (
   bookingId,
   data,
@@ -209,11 +207,8 @@ export const changeStateBooking = (
     text: posponedText
   };
   try {
-    const res = await server.post(`/book/booking/${bookingId}`, formData);
-    await dispatch({
-      type: CHANGE_STATE_BOOKING,
-      payload: res.data
-    });
+    await dispatch({ type: CHANGE_STATE_BOOKING });
+    await server.post(`/book/booking/${bookingId}`, formData);
     if (byUser) {
       const {
         data: { _id }
@@ -222,11 +217,10 @@ export const changeStateBooking = (
     } else {
       await dispatch(getBook());
     }
-  } catch (err) {
-    dispatch({
-      type: BOOK_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
+    await dispatch({ type: CHANGE_STATE_BOOKING_SUCCESS });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: CHANGE_STATE_BOOKING_FAIL });
   }
 };
 
@@ -240,25 +234,5 @@ export const completeService = bookCode => async dispatch => {
   } catch (error) {
     const errors = error.response.data.message;
     dispatch(setAlert(errors, "error"));
-  }
-};
-
-export const getUserBookings = () => async dispatch => {
-  try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-    const res = await server.get("/book/user-bookings", config);
-    dispatch({
-      type: ADD_BOOKINGS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: BOOK_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
   }
 };

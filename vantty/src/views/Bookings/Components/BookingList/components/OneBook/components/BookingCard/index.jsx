@@ -1,4 +1,7 @@
 import React, { Fragment, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +15,8 @@ import {
   CardMedia,
   CardHeader,
   Card,
-  MenuItem
+  MenuItem,
+  LinearProgress
 } from "@material-ui/core";
 import { Services } from "./components";
 
@@ -61,23 +65,12 @@ const useStyles = makeStyles(theme => ({
   statePosponed: {
     backgroundColor: "orange"
   },
-  button: {
-    // width: "10px"
-    // height: "10rem",
-    // fontSize: "10px" + "!important",
-    // margin: theme.spacing(1)
-    // minWidth: "1rem",
-    // minHeight: "1rem",
-    // marginTop: "1rem"
-  },
   buttonAccept: {
-    // width: "10px",
-    // margin: theme.spacing(1),
     color: theme.palette.greenVantty.light
   }
 }));
 
-export default function RecipeReviewCard({ booking, changeStateBooking }) {
+const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
   const classes = useStyles();
 
   const [openForm, setOpenForm] = useState(false);
@@ -98,6 +91,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
   return (
     <Fragment>
       <Alert />
+      {loading && <LinearProgress />}
       <Card className={classes.card}>
         <CardHeader
           avatar={
@@ -211,11 +205,6 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                     {openForm && (
                       <CardActions className={classes.statePosponed}>
                         <Grid container>
-                          {/* <Grid item>
-                            <Typography>
-                              This service was <strong>Posponed</strong>
-                            </Typography>
-                          </Grid> */}
                           <Grid item>
                             <PosponeForm
                               changeStateBooking={changeStateBooking}
@@ -242,4 +231,14 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
       </Card>
     </Fragment>
   );
-}
+};
+
+RecipeReviewCard.propTypes = {
+  loading: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  loading: state.book.loading
+});
+
+export default connect(mapStateToProps, {})(withRouter(RecipeReviewCard));
