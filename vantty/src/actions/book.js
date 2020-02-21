@@ -15,6 +15,9 @@ import {
   CHANGE_STATE_BOOKING,
   CHANGE_STATE_BOOKING_SUCCESS,
   CHANGE_STATE_BOOKING_FAIL,
+  COMPLETE_SERVICE,
+  COMPLETE_SERVICE_SUCCESS,
+  COMPLETE_SERVICE_FAIL,
   //
   CLEAR_BOOK,
   GET_BOOK,
@@ -229,10 +232,13 @@ export const completeService = bookCode => async dispatch => {
     const config = {
       headers: { "Content-Type": "application/json" }
     };
+    await dispatch({ type: COMPLETE_SERVICE });
     await server.post(`/book/complete/${bookCode}`, config);
     await dispatch(getBook());
+    await dispatch({ type: COMPLETE_SERVICE_SUCCESS });
   } catch (error) {
     const errors = error.response.data.message;
     dispatch(setAlert(errors, "error"));
+    dispatch({ type: COMPLETE_SERVICE_FAIL });
   }
 };

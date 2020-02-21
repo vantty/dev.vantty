@@ -14,7 +14,10 @@ import {
   ADD_BOOK_FAIL,
   CHANGE_STATE_BOOKING,
   CHANGE_STATE_BOOKING_SUCCESS,
-  CHANGE_STATE_BOOKING_FAIL
+  CHANGE_STATE_BOOKING_FAIL,
+  COMPLETE_SERVICE,
+  COMPLETE_SERVICE_SUCCESS,
+  COMPLETE_SERVICE_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -30,6 +33,7 @@ export default function(state = initialState, action) {
     case ADD_CARD:
     case ADD_BOOK:
     case CHANGE_STATE_BOOKING:
+    case COMPLETE_SERVICE:
       return {
         ...state,
         loading: true
@@ -44,6 +48,8 @@ export default function(state = initialState, action) {
     case ADD_BOOK_FAIL:
     case CHANGE_STATE_BOOKING_SUCCESS:
     case CHANGE_STATE_BOOKING_FAIL:
+    case COMPLETE_SERVICE_SUCCESS:
+    case COMPLETE_SERVICE_FAIL:
       return {
         ...state,
         loading: false
