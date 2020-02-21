@@ -25,9 +25,6 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: "green"
   },
-  title: {
-    // margin: theme.spacing(4, 0, 2)
-  },
   inline: {
     display: "block"
   }
@@ -48,18 +45,10 @@ const BookingList = ({ book, changeStateBooking }) => {
                     <ListItem key={booking._id}>
                       <ListItemAvatar>
                         <BookingAvatar state={booking.state} />
-                        {/* <Avatar className={classes.avatar}>
-                          {booking.state !== "accepted" ? (
-                            <EventSeatIcon />
-                          ) : (
-                            <CheckIcon />
-                          )}
-                        </Avatar> */}
                       </ListItemAvatar>
                       <ListItemText
                         key={booking.state}
                         primary={booking.name}
-                        // secondary={`Total Service Value $${booking.totalValue}`}
                         secondary={
                           <React.Fragment>
                             <Typography
@@ -81,14 +70,12 @@ const BookingList = ({ book, changeStateBooking }) => {
                           </React.Fragment>
                         }
                       />
-
                       <ListItemSecondaryAction>
                         <OneBook
                           booking={booking}
                           changeStateBooking={changeStateBooking}
                         />
                       </ListItemSecondaryAction>
-                      {/* <Divider /> */}
                     </ListItem>
                   ))}
               </List>
