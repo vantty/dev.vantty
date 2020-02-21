@@ -1,22 +1,24 @@
 import {
-  // GET_REVIEW,
-  REVIEW_ERROR,
-  // REMOVE_COMMENT,
-  ADD_BOOK,
-  BOOK_ERROR,
-  CLEAR_BOOK,
+  CREATE_STRIPE_ACCOUNT,
   CREATE_STRIPE_ACCOUNT_SUCCESS,
   CREATE_STRIPE_ACCOUNT_FAIL,
-  // CREATE_STRIPE_CUSTOMER_SUCCESS,
-  // CREATE_STRIPE_CUSTOMER_FAIL,
-  // PAY_SUCCESS,
-  // PAY_FAIL,
+  CREATE_STRIPE_CUSTOMER,
+  CREATE_STRIPE_CUSTOMER_SUCCESS,
+  CREATE_STRIPE_CUSTOMER_FAIL,
+  ADD_BOOK,
+  ADD_BOOK_SUCCESS,
+  ADD_BOOK_FAIL,
+  ADD_CARD,
+  ADD_CARD_SUCCESS,
+  ADD_CARD_FAIL,
+  //
+  REVIEW_ERROR,
+  BOOK_ERROR,
+  CLEAR_BOOK,
   GET_BOOK,
   CHANGE_STATE_BOOKING,
   SERVICE_SUCCESS,
   CLEAR_CART,
-  ADD_CARD_SUCCESS,
-  ADD_CARD_FAIL,
   DELETE_CARD_SUCCESS,
   ADD_BOOKINGS
 } from "./types";
@@ -25,24 +27,18 @@ import { server } from "../utils/axios";
 
 import setAlert from "./alert";
 import { loadUser } from "./auth";
-const log = console.log;
 
 // Create Stripe Artist Account
 export const createStripeAccount = code => async dispatch => {
   try {
-    const result = await server.post(`/stripe/account/${code}`);
-    await dispatch({
-      type: CREATE_STRIPE_ACCOUNT_SUCCESS,
-      payload: result
-    });
+    await dispatch({ type: CREATE_STRIPE_ACCOUNT });
+    await server.post(`/stripe/account/${code}`);
     await dispatch(loadUser());
     await dispatch(getCurrentProfile());
+    await dispatch({ type: CREATE_STRIPE_ACCOUNT_SUCCESS });
   } catch (error) {
     console.log(error);
-    dispatch({
-      type: CREATE_STRIPE_ACCOUNT_FAIL,
-      payload: null
-    });
+    dispatch({ type: CREATE_STRIPE_ACCOUNT_FAIL });
   }
 };
 
@@ -52,13 +48,16 @@ export const createStripeCustomer = token => async dispatch => {
     const config = {
       headers: { "Content-Type": "application/json" }
     };
+    await dispatch({ type: CREATE_STRIPE_CUSTOMER });
     const res = await server.post("/stripe/customer", { token }, config);
     await dispatch({
       type: ADD_CARD_SUCCESS,
       payload: res.data
     });
+    await dispatch({ type: CREATE_STRIPE_CUSTOMER_SUCCESS });
   } catch (error) {
     console.log(error);
+    dispatch({ type: CREATE_STRIPE_CUSTOMER_FAIL });
   }
 };
 
@@ -67,6 +66,7 @@ export const addCard = token => async dispatch => {
     const config = {
       headers: { "Content-Type": "application/json" }
     };
+    await dispatch({ type: ADD_CARD });
     const res = await server.post("/stripe/card", { token }, config);
     await dispatch({
       type: ADD_CARD_SUCCESS,
@@ -93,28 +93,11 @@ export const deleteCard = stripeCardId => async dispatch => {
       payload: res.data
     });
   } catch (error) {
-    log(error);
+    console.log(error);
   }
 };
 
-// Complete Service
-export const completeService = bookCode => async dispatch => {
-  try {
-    const config = {
-      headers: { "Content-Type": "application/json" }
-    };
-    await server.post(`/book/complete/${bookCode}`, config);
-    await dispatch(getBook());
-  } catch (error) {
-    const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
-  }
-};
-
-//////////////////////////
-//Booking
-//////////////////////////
-
+//TODO: What is this?
 export const loadService = services => async dispatch => {
   try {
     // const config = {
@@ -137,7 +120,6 @@ export const loadService = services => async dispatch => {
 export const getBook = () => async dispatch => {
   try {
     const res = await server.get(`/book`);
-
     dispatch({
       type: GET_BOOK,
       payload: res.data
@@ -196,14 +178,9 @@ export const addNewBook = (
       stripeCustomerId: stripeCustomerId,
       stripeArtistAccount: stripeArtistAccount
     };
-    console.log("BODY", body);
+    await dispatch({ type: ADD_BOOK });
     await server.post(`/book/create-book/${bookId}`, body, config);
-
-    await dispatch({
-      type: ADD_BOOK,
-      payload: true
-    });
-
+    await dispatch({ type: ADD_BOOK_SUCCESS });
     await dispatch({
       type: CLEAR_BOOK
     });
@@ -212,10 +189,11 @@ export const addNewBook = (
     });
     dispatch(setAlert("Request Sent", "success"));
   } catch (err) {
-    dispatch({
-      type: BOOK_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
+    dispatch({ type: ADD_BOOK_FAIL });
+    // dispatch({
+    //   type: BOOK_ERROR,
+    //   payload: { msg: err.response.statusText, status: err.response.status }
+    // });
   }
 };
 
@@ -252,31 +230,19 @@ export const changeStateBooking = (
   }
 };
 
-// Delete comment
-// export const deleteComment = (reviewId, commentId) => async dispatch => {
-//   try {
+export const completeService = bookCode => async dispatch => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" }
+    };
+    await server.post(`/book/complete/${bookCode}`, config);
+    await dispatch(getBook());
+  } catch (error) {
+    const errors = error.response.data.message;
+    dispatch(setAlert(errors, "error"));
+  }
+};
 
-//     await server.delete(`/review/comment/${reviewId}/${commentId}`);
-
-//     dispatch({
-//       type: REMOVE_COMMENT,
-//       payload: commentId
-//     });
-
-//     dispatch(setAlert("Comment Removed", "success"));
-//   } catch (err) {
-//     dispatch({
-//       type: REVIEW_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status }
-//     });
-//   }
-// };
-
-//////////////////
-///User Bookings
-//////////////
-
-//Get user bookings
 export const getUserBookings = () => async dispatch => {
   try {
     const config = {
@@ -284,9 +250,7 @@ export const getUserBookings = () => async dispatch => {
         "Content-Type": "application/json"
       }
     };
-
     const res = await server.get("/book/user-bookings", config);
-
     dispatch({
       type: ADD_BOOKINGS,
       payload: res.data

@@ -71,7 +71,8 @@ const _StripeForm = props => {
     stripeCustomerId,
     cards,
     isEdit,
-    cardSelected
+    cardSelected,
+    loading
   } = props;
   const [errorMessage, setErrorMessage] = useState("");
   const classes = useStyles();
@@ -151,7 +152,12 @@ const _StripeForm = props => {
                     </Grid>
                     <div role="alert">{errorMessage}</div>
                     <Grid item xs={12}>
-                      <Button type="submit" variant="contained" color="primary">
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={loading}
+                      >
                         Add card
                       </Button>
                     </Grid>
@@ -174,46 +180,15 @@ const _StripeForm = props => {
               </Grid>
               <div role="alert">{errorMessage}</div>
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={loading}
+                >
                   Save your card
                 </Button>
               </Grid>
-              {/* <Grid item xs={12}>
-                <div className={classes.root}>
-                  <div className={classes.wrapper}>
-                    <Fab
-                      aria-label="save"
-                      color="primary"
-                      className={buttonClassname}
-                    >
-                      {success ? <CheckIcon /> : <SaveIcon />}
-                    </Fab>
-                    {loading && (
-                      <CircularProgress
-                        size={68}
-                        className={classes.fabProgress}
-                      />
-                    )}
-                  </div>
-                  <div className={classes.wrapper}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      className={buttonClassname}
-                      disabled={loading}
-                    >
-                      Save your card
-                    </Button>
-                    {loading && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
-                  </div>
-                </div>
-              </Grid> */}
             </form>
           </Fragment>
         )}
@@ -225,11 +200,14 @@ const _StripeForm = props => {
 const StripeForm = injectStripe(_StripeForm);
 
 StripeForm.propTypes = {
-  createStripeCustomer: PropTypes.func
+  createStripeCustomer: PropTypes.func,
+  loading: PropTypes.bool
 };
 
-// const mapStateToProps = state => ({
-//   user: state.auth.user
-// });
+const mapStateToProps = state => ({
+  loading: state.book.loading
+});
 
-export default connect(null, { createStripeCustomer, addCard })(StripeForm);
+export default connect(mapStateToProps, { createStripeCustomer, addCard })(
+  StripeForm
+);

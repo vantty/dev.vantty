@@ -224,22 +224,7 @@ export const addCategories = (
   edit = false
 ) => async dispatch => {
   let categories = {};
-  // let makeup = [];
-  // let hair = [];
-
-  // for (const prop in stateMakeup) {
-  //   if (stateMakeup[prop] === true) {
-  //     await makeup.push(prop);
-  //   }
-  // }
-
-  // for (const prop in stateHair) {
-  //   if (stateHair[prop] === true) {
-  //     await hair.push(prop);
-  //   }
-  // }
   categories = { stateMakeup, stateHair };
-
   try {
     const config = {
       headers: {
@@ -521,7 +506,6 @@ export const addService = (formData, history) => async dispatch => {
 export const deleteService = id => async dispatch => {
   try {
     const res = await server.delete(`/profile/service/${id}`);
-    console.log(res.data);
     await dispatch({
       type: UPDATE_PROFILE,
       payload: res.data

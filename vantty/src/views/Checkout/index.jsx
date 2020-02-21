@@ -16,7 +16,8 @@ import {
   StepLabel,
   Button,
   Typography,
-  StepConnector
+  StepConnector,
+  LinearProgress
 } from "@material-ui/core";
 import Check from "@material-ui/icons/Check";
 
@@ -31,9 +32,6 @@ import { SimpleAppBar, Alert } from "../../components";
 import { getProfileById } from "../../actions/profile";
 import { initialServices } from "../../actions/cart";
 import { addNewBook } from "../../actions/book";
-// import CheckoutContext from "./CheckoutContext";
-
-// Helpers
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -153,10 +151,11 @@ const Checkout = ({
   history,
   match,
   cart,
-  cart: { items, addedItems, total, loading },
+  cart: { items, addedItems, total },
   addNewBook,
   user,
-  addUserBookings
+  addUserBookings,
+  loading
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -258,7 +257,6 @@ const Checkout = ({
         );
       case 2:
         return (
-          // <CheckoutContext.Provider value={{ onChangeTarget }}>
           <PaymentForm
             onChangeTarget={onChangeTarget}
             stripeCustomerId={user.stripeCustomerId}
@@ -266,7 +264,6 @@ const Checkout = ({
             isEdit={false}
             cardSelected={stripeCardId}
           />
-          // </CheckoutContext.Provider>
         );
       case 3:
         return (
@@ -284,11 +281,10 @@ const Checkout = ({
   return (
     <Fragment>
       <CssBaseline />
+      {loading && <LinearProgress />}
       <Alert />
       {isMobile && <SimpleAppBar />}
       <Container maxWidth="sm" className={classes.container}>
-        {/* <main className={classes.layout}> */}
-        {/* <Paper className={classes.paper}> */}
         <Typography variant="h2" align="center">
           Checkout
         </Typography>
@@ -320,13 +316,13 @@ const Checkout = ({
                 color="primary"
                 variant="contained"
                 className={classes.bookingsButton}
+                disabled={loading}
               >
                 {"See all bookings"}
               </Button>
             </Fragment>
           ) : (
             <Fragment>
-              {/* <Container maxWidth='sm'> */}
               {profile && getStepContent(activeStep)}
               <div className={classes.buttons}>
                 {activeStep !== 0 && (
@@ -338,10 +334,7 @@ const Checkout = ({
                 {activeStep === 0 && (
                   <Button
                     variant="contained"
-                    disabled={
-                      (total === 0 && true) || (date === "" && true)
-                      // (timeStampAppointment === "" && true)
-                    }
+                    disabled={(total === 0 && true) || (date === "" && true)}
                     color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     type="submit"
@@ -354,15 +347,7 @@ const Checkout = ({
                 {activeStep === 1 && (
                   <Button
                     variant="contained"
-                    disabled={
-                      false
-
-                      // Object.entries(address).length === 0 ||
-                      // Object.entries(location) !== "toHome"
-                      // Object.entries(address).length === 0 &&
-                      // address.constructor === Object &&
-                      // true
-                    }
+                    disabled={false}
                     color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
@@ -394,12 +379,9 @@ const Checkout = ({
                   </Button>
                 )}
               </div>
-              {/* </Container> */}
             </Fragment>
           )}
         </Fragment>
-        {/* </Paper> */}
-        {/* </main> */}
       </Container>
     </Fragment>
   );
@@ -410,7 +392,8 @@ Checkout.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
@@ -418,7 +401,8 @@ const mapStateToProps = state => ({
   auth: state.auth,
   uploader: state.uploader,
   cart: state.cart,
-  user: state.auth.user
+  user: state.auth.user,
+  loading: state.book.loading
 });
 
 export default connect(mapStateToProps, {
