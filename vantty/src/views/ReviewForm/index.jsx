@@ -64,6 +64,10 @@ const ReviewForm = ({
   profile: { profile },
   getProfileById
 }) => {
+  useEffect(() => {
+    getProfileById(match.params.userId);
+  }, []);
+
   const classes = useStyles();
 
   const [data, setData] = useState({
@@ -84,7 +88,6 @@ const ReviewForm = ({
   const [rating, setRating] = useState(4);
 
   useEffect(() => {
-    getProfileById(match.params.userId);
     const errors = validate(formState.values, schemaErrorsReview);
     setFormState(formState => ({
       ...formState,
@@ -119,8 +122,6 @@ const ReviewForm = ({
   const handleBack = () => {
     history.goBack();
   };
-
-  console.log("MATCH", profile);
 
   const onSubmit = e => {
     e.preventDefault();
