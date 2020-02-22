@@ -8,14 +8,6 @@ import { loadUser } from "./auth";
 const appId = process.env.REACT_APP_FACEBOOK_ID;
 const appSecret = process.env.REACT_APP_FACEBOOK_APP;
 
-// const version = "v1.1";
-
-// const redirect = (numberVerified, id) => {
-//   if (numberVerified !== "") {
-//     window.location.href = `https://vantty.ca/profile/artist/${id}`;
-//   }
-// };
-
 export const verifyNumber = res => async dispatch => {
   const auth_code = res.code;
   // Get Access Token
@@ -39,27 +31,21 @@ export const verifyNumber = res => async dispatch => {
           const numberVerified = res.data.phone.number;
           var number = numberVerified.substr(1);
           await dispatch(createMobileNumber({ mobileNumber: number }, true));
-
-          await dispatch({
-            type: NUMBER_VERIFY_SUCCESS,
-            payload: numberVerified
-          });
           await dispatch(getCurrentProfile());
           await dispatch(loadUser());
-
-          // await redirect(numberVerified, id);
+          await dispatch({
+            type: NUMBER_VERIFY_SUCCESS
+          });
         })
         .catch(err => {
           dispatch({
-            type: NUMBER_VERIFY_FAIL,
-            payload: null
+            type: NUMBER_VERIFY_FAIL
           });
         });
     })
     .catch(err => {
       dispatch({
-        type: NUMBER_VERIFY_FAIL,
-        payload: null
+        type: NUMBER_VERIFY_FAIL
       });
     });
 };
