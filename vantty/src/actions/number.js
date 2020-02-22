@@ -3,7 +3,7 @@ import axios from "axios";
 import crypto from "crypto";
 
 import { createMobileNumber, getCurrentProfile } from "./profile";
-
+import setAlert from "./alert";
 import { loadUser } from "./auth";
 const appId = process.env.REACT_APP_FACEBOOK_ID;
 const appSecret = process.env.REACT_APP_FACEBOOK_APP;
@@ -33,19 +33,22 @@ export const verifyNumber = res => async dispatch => {
           await dispatch(createMobileNumber({ mobileNumber: number }, true));
           await dispatch(getCurrentProfile());
           await dispatch(loadUser());
-          await dispatch({
+          dispatch({
             type: NUMBER_VERIFY_SUCCESS
           });
+          dispatch(setAlert("Mobile number validated", "success"));
         })
         .catch(err => {
           dispatch({
             type: NUMBER_VERIFY_FAIL
           });
+          dispatch(setAlert("Something went wrong", "error"));
         });
     })
     .catch(err => {
       dispatch({
         type: NUMBER_VERIFY_FAIL
       });
+      dispatch(setAlert("Something went wrong", "error"));
     });
 };

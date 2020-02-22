@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import ReactPhoneInput from "react-phone-input-2";
@@ -12,7 +11,7 @@ import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography, CircularProgress } from "@material-ui/core";
 import VerifiedIcon from "@material-ui/icons/VerifiedUserRounded";
 
 const useStyles = makeStyles(theme => ({
@@ -42,6 +41,12 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "0.3rem",
     marginBottom: "-0.3rem",
     width: "1rem"
+  },
+  newPhone: {
+    marginTop: theme.spacing(2)
+  },
+  textNewPhone: {
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -78,6 +83,37 @@ const InfoContact = ({
 
   const classes = useStyles();
 
+  const phoneForm = () => {
+    return (
+      <div className={classes.root}>
+        <ReactPhoneInput
+          defaultCountry="us"
+          onlyCountries={["co", "us", "ca"]}
+          masks={{
+            co: "+.. (...) ...-..-..",
+            ca: "+. (...) ...-..-..",
+            us: "+. (...) ...-..-.."
+          }}
+          disableAreaCodes
+          value={phone}
+          onChange={handleOnChange}
+          inputExtraProps={{
+            margin: "normal",
+            autoComplete: "phone",
+            name: "custom-username"
+          }}
+          inputClass={classes.field}
+          dropdownClass={classes.countryList}
+        />
+        <NumberValidation
+          phone={phone}
+          countryCode={countryCode}
+          history={history}
+        />
+      </div>
+    );
+  };
+
   return (
     <Fragment>
       <CustomPaper
@@ -93,42 +129,36 @@ const InfoContact = ({
               if it is necessary.
             </Typography>
             {profile && !profile.mobileNumber ? (
-              <div className={classes.root}>
-                <ReactPhoneInput
-                  defaultCountry="us"
-                  onlyCountries={["co", "us", "ca"]}
-                  masks={{
-                    co: "+.. (...) ...-..-..",
-                    ca: "+. (...) ...-..-..",
-                    us: "+. (...) ...-..-.."
-                  }}
-                  disableAreaCodes
-                  value={phone}
-                  onChange={handleOnChange}
-                  inputExtraProps={{
-                    margin: "normal",
-                    autoComplete: "phone",
-                    name: "custom-username"
-                  }}
-                  inputClass={classes.field}
-                  dropdownClass={classes.countryList}
-                />
-                <NumberValidation
-                  phone={phone}
-                  countryCode={countryCode}
-                  history={history}
-                />
-              </div>
+              phoneForm()
             ) : (
-              <Typography variant="h4" align="center">
-                {`+${profile.mobileNumber}`}
-                <VerifiedIcon className={classes.verifiedIcon} />
-              </Typography>
+              <div className={classes.root}>
+                {!profile ? (
+                  <CircularProgress size={20} />
+                ) : (
+                  <Typography variant="h4" align="center">
+                    {`+${profile.mobileNumber}`}
+                    <VerifiedIcon className={classes.verifiedIcon} />
+                  </Typography>
+                )}
+                {match.url === "/mobile" && (
+                  <div className={classes.newPhone}>
+                    <Typography
+                      variant="h6"
+                      align="center"
+                      className={classes.textNewPhone}
+                    >
+                      If you need to change it, validate a new phone number
+                      here:
+                    </Typography>
+                    {phoneForm()}
+                  </div>
+                )}
+              </div>
             )}
           </div>
         }
       />
-      {match.url === "/create-profile" ? (
+      {match.url === "/create-profile" && (
         <div>
           <FormBottomNav
             step={step}
@@ -142,21 +172,6 @@ const InfoContact = ({
                     disabled={!profile.mobileNumber}
                   >
                     Next
-                  </Button>
-                </div>
-              </div>
-            }
-          />
-        </div>
-      ) : (
-        <div>
-          <FormBottomNav
-            step={step}
-            Children={
-              <div>
-                <div>
-                  <Button component={Link} to="/settings/profile">
-                    Back
                   </Button>
                 </div>
               </div>
