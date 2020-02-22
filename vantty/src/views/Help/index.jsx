@@ -88,6 +88,10 @@ const Help = ({ sendEmail }) => {
     {
       value: "charge-problem",
       text: "My charge is incorrect"
+    },
+    {
+      value: "change-phone",
+      text: "I need to chnage my phone number"
     }
   ];
 

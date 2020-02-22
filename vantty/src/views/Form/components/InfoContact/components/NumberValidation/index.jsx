@@ -16,22 +16,16 @@ const version = "v1.0";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    color: "black",
-    boxShadow: "none",
-    backgroundColor: theme.palette.greenVantty.light,
+    marginTop: theme.spacing(1),
+    textTransform: "none",
+    backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
-      color: "black",
-      backgroundColor: theme.palette.greenVantty.light
+      backgroundColor: theme.palette.greenVantty.dark
     }
   }
 }));
 
-const NumberValidation = ({
-  verifyNumber,
-  phone,
-  countryCode,
-  history
-}) => {
+const NumberValidation = ({ verifyNumber, phone, countryCode, history }) => {
   const classes = useStyles();
   return (
     <AccountKit
@@ -44,8 +38,13 @@ const NumberValidation = ({
       onResponse={res => verifyNumber(res)}
     >
       {p => (
-        <Button variant="contained" className={classes.button} {...p}>
-          Validate and finish
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          {...p}
+        >
+          Validate
         </Button>
       )}
     </AccountKit>
