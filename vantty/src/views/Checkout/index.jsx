@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import clsx from "clsx";
 import randomCode from "crypto-random-string";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Material-UI
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -16,7 +17,8 @@ import {
   StepLabel,
   Button,
   Typography,
-  StepConnector
+  StepConnector,
+  IconButton
 } from "@material-ui/core";
 import Check from "@material-ui/icons/Check";
 
@@ -30,7 +32,7 @@ import { SimpleAppBar, Alert } from "../../components";
 // Actions
 import { getProfileById } from "../../actions/profile";
 import { initialServices } from "../../actions/cart";
-import { addNewBook } from "../../actions/book";
+import { addNewBook, completeService } from "../../actions/book";
 // import CheckoutContext from "./CheckoutContext";
 
 // Helpers
@@ -301,13 +303,23 @@ const Checkout = ({
   //   return false;
   // }
   // </script>
-
   return (
     <Fragment>
       <CssBaseline />
       <Alert />
       {isMobile && <SimpleAppBar />}
       <Container maxWidth='sm' className={classes.container}>
+        {!isMobile && (
+          <IconButton>
+            <Link
+              component={Link}
+              to={`/profile/artist/${match.params.id}`}
+              variant='h6'
+            >
+              <ArrowBackIcon style={{ color: "black" }} />
+            </Link>
+          </IconButton>
+        )}
         {/* <main className={classes.layout}> */}
         {/* <Paper className={classes.paper}> */}
         <Typography variant='h2' align='center'>

@@ -29,7 +29,7 @@ if (localStorage.token) {
 }
 
 ///Google Analytics Events
-const trackingId = "UA-158717921-1";
+const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS;
 
 ReactGA.initialize(trackingId);
 const history = createBrowserHistory();
