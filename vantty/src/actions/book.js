@@ -25,6 +25,7 @@ import { server } from "../utils/axios";
 
 import setAlert from "./alert";
 import { loadUser } from "./auth";
+import { gaEvent } from "../marketing/gAnalytics";
 const log = console.log;
 
 // Create Stripe Artist Account
@@ -196,13 +197,14 @@ export const addNewBook = (
       stripeCustomerId: stripeCustomerId,
       stripeArtistAccount: stripeArtistAccount
     };
-    console.log("BODY", body);
-    await server.post(`/book/create-book/${bookId}`, body, config);
+    const res = await server.post(`/book/create-book/${bookId}`, body, config);
 
     await dispatch({
       type: ADD_BOOK,
       payload: true
     });
+    const bookingId = res.data[0]._id;
+    await gaEvent("New Booking", "Create", bookingId);
 
     await dispatch({
       type: CLEAR_BOOK

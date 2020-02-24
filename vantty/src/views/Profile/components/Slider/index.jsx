@@ -6,14 +6,10 @@ import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import { Paper } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
-//Google Analytics
-import ReactGA from "react-ga";
 import { Table } from "./components";
 
-ReactGA.initialize("UA-108639612-1");
-ReactGA.pageview(window.location.pathname + window.location.search);
-// const ga = ReactGA;
+//Google Analytics
+import { gaEvent } from "../../../../marketing/gAnalytics";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -97,30 +93,34 @@ export default function Slider({
   // const onChange = e => setBook({ ...book, [e.target.name]: e.target.value });
 
   // const { services } = book;
+  const load = (state, profile) => {
+    loadService(state);
+    gaEvent("Button", "Click to checkout", profile.user);
+  };
   return (
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
         {/* <div className={classes.section1}> */}
-        <Typography color="primary" variant="body1">
+        <Typography color='primary' variant='body1'>
           Starting Cost
         </Typography>
-        <Grid container alignItems="center">
+        <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography gutterBottom variant="h4">
+            <Typography gutterBottom variant='h4'>
               ${profile.price}
               <span className={classes.infoPrice}> /cad </span>
             </Typography>
           </Grid>
         </Grid>
-        <Typography color="primary" variant="body1">
+        <Typography color='primary' variant='body1'>
           Availability
         </Typography>
-        <Grid container alignItems="center">
+        <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography variant="h5">{profile.availability}</Typography>
+            <Typography variant='h5'>{profile.availability}</Typography>
           </Grid>
         </Grid>
-        <Typography color="primary" variant="body1">
+        <Typography color='primary' variant='body1'>
           Services
         </Typography>
         <Table services={profile.services} />
@@ -139,7 +139,7 @@ export default function Slider({
           Hour Range
         </Typography>
         <Hour onChangeDate={onChangeDate} state={state} /> */}
-        <Divider variant="middle" />
+        <Divider variant='middle' />
 
         {/* <Typography color="primary" variant="body1">
           Resume
@@ -157,8 +157,8 @@ export default function Slider({
                 component={Link}
                 // to={"/checkout"}
                 to={`/checkout/${profile.user}/${profile.bookId}`}
-                onClick={() => loadService(state)}
-                variant="contained"
+                onClick={() => load(state, profile)}
+                variant='contained'
               >
                 Book
               </Button>

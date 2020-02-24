@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
-
 // Actions
 import { searchValue } from "../../../../actions/search";
 
@@ -111,13 +110,14 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
     setSearch(event.target.value);
   };
 
+
   const handleSearch = async event => {
     event.preventDefault();
     searchValue(search);
   };
 
   if (goSearch) {
-    return <Redirect push to="/search" />;
+    return <Redirect push to='/search' />;
   }
 
   return (
@@ -126,13 +126,13 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
       <div className={classes.root}>
         <Grid container>
           <Grid className={classes.grid} item sm={12}>
-            {isMobile && <img src={Logo} alt="" className={classes.logo} />}
+            {isMobile && <img src={Logo} alt='' className={classes.logo} />}
             <div className={classes.quote}>
-              <Container maxWidth="xl">
+              <Container maxWidth='xl'>
                 <Grid container>
                   <Grid item xs={12} sm={6} lg={4}>
                     <div className={classes.quoteInner}>
-                      <Typography className={classes.quoteText} variant="h1">
+                      <Typography className={classes.quoteText} variant='h1'>
                         Get your dreamed look, done by the perfect artists
                       </Typography>
                       <form onSubmit={handleSearch}>
@@ -142,11 +142,11 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
                               onChange={handleChange}
                               fullWidth
                               className={classes.textField}
-                              variant="outlined"
-                              placeholder="Search"
+                              variant='outlined'
+                              placeholder='Search'
                               InputProps={{
                                 startAdornment: (
-                                  <InputAdornment position="start">
+                                  <InputAdornment position='start'>
                                     <SearchIcon />
                                   </InputAdornment>
                                 )
@@ -155,9 +155,9 @@ const HomeJumbotron = ({ searchValue, goSearch }) => {
                           </Grid>
                           <Grid item>
                             <Button
-                              type="submit"
-                              color="primary"
-                              variant="contained"
+                              type='submit'
+                              color='primary'
+                              variant='contained'
                               className={classes.button}
                             >
                               Search

@@ -280,16 +280,37 @@ const Checkout = ({
         throw new Error("Unknown step");
     }
   }
+  // <!-- Event snippet for Page view conversion page -->
+  // <script>
+  //   gtag('event', 'conversion', {'send_to': 'AW-698611807/0NOLCPXtj8UBEN_wj80C'});
+  // </script>
+
+  //   <!-- Event snippet for Page view conversion page
+  // In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+  // <script>
+  // function gtag_report_conversion(url) {
+  //   var callback = function () {
+  //     if (typeof(url) != 'undefined') {
+  //       window.location = url;
+  //     }
+  //   };
+  //   gtag('event', 'conversion', {
+  //       'send_to': 'AW-698611807/0NOLCPXtj8UBEN_wj80C',
+  //       'event_callback': callback
+  //   });
+  //   return false;
+  // }
+  // </script>
 
   return (
     <Fragment>
       <CssBaseline />
       <Alert />
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth="sm" className={classes.container}>
+      <Container maxWidth='sm' className={classes.container}>
         {/* <main className={classes.layout}> */}
         {/* <Paper className={classes.paper}> */}
-        <Typography variant="h2" align="center">
+        <Typography variant='h2' align='center'>
           Checkout
         </Typography>
         <Stepper
@@ -306,19 +327,19 @@ const Checkout = ({
         <Fragment>
           {activeStep === steps.length ? (
             <Fragment>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant='h5' gutterBottom>
                 Thank you for your order.
               </Typography>
-              <Typography variant="subtitle1">
+              <Typography variant='subtitle1'>
                 Your booking request has been placed and we have emailed your
                 artist this request. Once she accepts it, we will send you the
                 confirmation and your <strong>booking code.</strong>
               </Typography>
               <Button
                 component={Link}
-                to="/bookings-user"
-                color="primary"
-                variant="contained"
+                to='/bookings-user'
+                color='primary'
+                variant='contained'
                 className={classes.bookingsButton}
               >
                 {"See all bookings"}
@@ -337,14 +358,14 @@ const Checkout = ({
 
                 {activeStep === 0 && (
                   <Button
-                    variant="contained"
+                    variant='contained'
                     disabled={
                       (total === 0 && true) || (date === "" && true)
                       // (timeStampAppointment === "" && true)
                     }
-                    color="primary"
+                    color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
-                    type="submit"
+                    type='submit'
                     fullWidth
                     className={classes.submit}
                   >
@@ -353,7 +374,7 @@ const Checkout = ({
                 )}
                 {activeStep === 1 && (
                   <Button
-                    variant="contained"
+                    variant='contained'
                     disabled={
                       false
 
@@ -363,7 +384,7 @@ const Checkout = ({
                       // address.constructor === Object &&
                       // true
                     }
-                    color="primary"
+                    color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >
@@ -372,9 +393,9 @@ const Checkout = ({
                 )}
                 {activeStep === 2 && (
                   <Button
-                    variant="contained"
+                    variant='contained'
                     disabled={!stripeCardId}
-                    color="primary"
+                    color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >
@@ -384,9 +405,9 @@ const Checkout = ({
 
                 {activeStep === 3 && (
                   <Button
-                    variant="contained"
+                    variant='contained'
                     disabled={false}
-                    color="primary"
+                    color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >

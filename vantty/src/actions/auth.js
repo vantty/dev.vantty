@@ -14,6 +14,7 @@ import {
   INFO_UPDATE_FAIL,
   SAVE_CONFIRMATION_EMAIL
 } from "./types";
+import { gaEvent } from "../marketing/gAnalytics";
 // import { deleteImages } from "./uploader";
 // import { getCurrentProfile } from "./profile";
 
@@ -83,6 +84,7 @@ export const register = token => async dispatch => {
       payload: res.data
     });
     await dispatch(loadUser());
+    gaEvent("New User", "Register", "Local");
   } catch (error) {
     const errors = error.response.data.message;
     dispatch(setAlert(errors, "error"));
@@ -163,6 +165,7 @@ export const facebookRegister = data => async dispatch => {
       payload: res.data
     });
     dispatch(loadUser());
+    gaEvent("New User", "Register", "Facebook");
   } catch (err) {
     dispatch(
       setAlert(
@@ -189,6 +192,8 @@ export const googleRegister = data => async dispatch => {
       payload: res.data
     });
     dispatch(loadUser());
+    gaEvent("New User", "Register", "Google");
+
   } catch (err) {
     dispatch(
       setAlert(
