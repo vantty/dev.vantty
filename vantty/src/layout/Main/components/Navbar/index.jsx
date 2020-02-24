@@ -26,8 +26,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   logo: {
-    // height: "80%",
-    // width: "5rem",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(2)
@@ -41,7 +39,19 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: "inherit",
       color: theme.palette.greenVantty.dark
     },
-    "&:action": {},
+    paddingRight: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
+    textTransform: "none"
+  },
+  buttonArtist: {
+    backgroundColor: "inherit",
+    color: theme.palette.greenVantty.dark,
+    boxShadow: "none",
+    transition: theme.transitions.create("backgroundColor"),
+    "&:hover": {
+      backgroundColor: "inherit",
+      color: theme.palette.greenVantty.main
+    },
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
     textTransform: "none"
@@ -69,6 +79,15 @@ const Navbar = props => {
           ) : (
             <Fragment>
               <div className={classes.sectionDesktop}>
+                {!isAuthenticated || (user && !user.profile) ? (
+                  <Button
+                    className={classes.buttonArtist}
+                    component={Link}
+                    to="/register"
+                  >
+                    Become an artist partner
+                  </Button>
+                ) : null}
                 <Button className={classes.button} component={Link} to="/help">
                   Help center
                 </Button>
@@ -93,7 +112,7 @@ const Navbar = props => {
                       component={Link}
                       to="/register"
                     >
-                      Become an artist partner
+                      Register
                     </Button>
                   </Fragment>
                 ) : (

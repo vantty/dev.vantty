@@ -7,7 +7,6 @@ import store from "./store";
 
 // Actions
 import { loadUser } from "./actions/auth";
-// import { getCurrentProfile } from "./actions/profile";
 
 // Utils
 import setAuthToken from "./utils/setAuthToken";
@@ -19,7 +18,6 @@ import { ThemeProvider } from "@material-ui/styles";
 
 //Routes
 import Routes from "./Routes";
-// import { getBook } from "./actions/book";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -30,8 +28,6 @@ require("dotenv-flow").config();
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
-    // store.dispatch(getCurrentProfile());
-    // store.dispatch(getBook());
   }, []);
 
   return (
