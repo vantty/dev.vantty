@@ -160,8 +160,8 @@ const Checkout = ({
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [checkout, setCheckout] = React.useState({
-    date: "",
-    timeStampAppointment: "",
+    appointmentDate: "",
+    appointmentTimeStamp: "",
     address: {},
     descriptionAddress: "",
     services: [],
@@ -169,7 +169,13 @@ const Checkout = ({
     stripeCardId: "",
     place: ""
   });
-  const { date, address, descriptionAddress, stripeCardId, place } = checkout;
+  const {
+    appointmentDate,
+    address,
+    descriptionAddress,
+    stripeCardId,
+    place
+  } = checkout;
 
   useEffect(() => {
     getProfileById(match.params.id);
@@ -237,7 +243,7 @@ const Checkout = ({
             checkout={checkout}
             cart={cart}
             onChangeDate={onChangeDate}
-            date={date}
+            date={appointmentDate}
           />
         );
       case 1:
@@ -334,7 +340,9 @@ const Checkout = ({
                 {activeStep === 0 && (
                   <Button
                     variant="contained"
-                    disabled={(total === 0 && true) || (date === "" && true)}
+                    disabled={
+                      (total === 0 && true) || (appointmentDate === "" && true)
+                    }
                     color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     type="submit"

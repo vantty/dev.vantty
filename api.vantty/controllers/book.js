@@ -44,7 +44,7 @@ exports.createNewBook = async (req, res) => {
       headers: { origin: uri }
     } = req;
     const book = await bookService.createBooking(bookId, user, fields);
-    const { date } = fields;
+    const { appointmentDate } = fields;
     const { user: artistId } = book;
     const artist = await userService.getById(artistId);
     const state = "requested";
@@ -56,7 +56,7 @@ exports.createNewBook = async (req, res) => {
       null,
       null,
       null,
-      date
+      appointmentDate
     );
     res.status(200).json(book.bookings);
   } catch (error) {
@@ -75,7 +75,12 @@ exports.changeStateBooking = async (req, res) => {
     } = req;
     const service = await bookService.changeState(bookingId, state);
     const result = await Promise.all(service);
-    const { userId, stripeArtistAccount, bookCode, date } = result[0];
+    const {
+      userId,
+      stripeArtistAccount,
+      bookCode,
+      appointmentDate
+    } = result[0];
     const user = await userService.getById(userId);
     const { user: artistId } = await profileService.getByField({
       stripeArtistAccount
@@ -89,7 +94,7 @@ exports.changeStateBooking = async (req, res) => {
       bookCode,
       posponeText,
       null,
-      date
+      appointmentDate
     );
     res.status(200).json(result);
   } catch (error) {

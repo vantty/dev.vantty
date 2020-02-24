@@ -146,6 +146,41 @@ const emailType = state => {
   }
 };
 
+const cancelPolicy = (state, appointmentTimeStamp) => {
+  if (state === "declined-user") {
+    const today = new Date();
+    const cancelDate = today.toString().substr(0, 24);
+    const cancelTimeStamp = today.getTime();
+    const diffInHours = Math.floor(
+      (appointmentTimeStamp - cancelTimeStamp) / (1000 * 60 * 60)
+    );
+    if (diffInHours >= 24) {
+      return {
+        policy: "NO_FEE",
+        fee: 0,
+        cancelDate: cancelDate,
+        cancelTimeStamp: cancelTimeStamp
+      };
+    } else if (diffInHours >= 4 && diffInHours < 24) {
+      return {
+        policy: "LATE_CANCEL_FEE",
+        fee: 0.5,
+        cancelDate: cancelDate,
+        cancelTimeStamp: cancelTimeStamp
+      };
+    } else {
+      return {
+        policy: "NO_SHOW_FEE",
+        fee: 1,
+        cancelDate: cancelDate,
+        cancelTimeStamp: cancelTimeStamp
+      };
+    }
+  } else {
+    return null;
+  }
+};
+
 module.exports = {
   validator,
   profileValidator,
@@ -156,5 +191,6 @@ module.exports = {
   profileImageObject,
   generateEmailToken,
   generateLoginToken,
-  emailType
+  emailType,
+  cancelPolicy
 };

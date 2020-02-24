@@ -1,6 +1,6 @@
 const Book = require("../models/Book");
 const emailService = require("../services/email");
-const { emailType } = require("../helpers");
+const { emailType, cancelPolicy } = require("../helpers");
 
 const create = async userId => {
   const newBook = new Book({
@@ -62,6 +62,16 @@ const changeState = async (bookingId, state) => {
       service => service._id.toString() === bookingId
     );
     service.state = state;
+    if (state === "declined-user") {
+      const { policy, fee, cancelDate, cancelTimeStamp } = await cancelPolicy(
+        state,
+        service.appointmentTimeStamp
+      );
+      service.cancelDate = cancelDate;
+      service.cancelTimeStamp = cancelTimeStamp;
+      service.cancelPolicy = policy;
+      service.cancelFee = fee;
+    }
     book.save();
     return service;
   });

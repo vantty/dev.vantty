@@ -177,7 +177,7 @@ export const addNewBook = (
       ...formData,
       address: address,
       requestDate: today.toString().substr(0, 24),
-      timeStamp: today.getTime(),
+      requestTimeStamp: today.getTime(),
       bookCode: bookCode,
       stripeCustomerId: stripeCustomerId,
       stripeArtistAccount: stripeArtistAccount
