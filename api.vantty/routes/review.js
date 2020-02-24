@@ -11,9 +11,8 @@ const {
   deleteComment
 } = require("../controllers/review");
 
+router.get("/:id", getById);
 router.post("/artist/:user_id", passportJWT, reviewValidator, create);
-router.get("/:id", passportJWT, getById);
-// Comments routes
 router.post("/comment/:id", passportJWT, createComment);
 router.delete("/comment/:id/:comment_id", passportJWT, deleteComment);
 

@@ -27,8 +27,6 @@ const Review = ({
     getReview(reviewId);
   }, [getReview]);
   const classes = useStyles();
-  //TODO: review=null cuando no hay nadie autenticado
-  console.log("LOAD", loading, review);
   return loading || review === null ? (
     <Progress />
   ) : (
