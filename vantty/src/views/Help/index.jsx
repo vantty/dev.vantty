@@ -70,7 +70,7 @@ const Help = ({ sendEmail }) => {
       text: "I want to report a problem in the web"
     },
     {
-      value: "artist-problem",
+      value: "report-artist",
       text: "I want to report an artist"
     },
     {
@@ -90,8 +90,8 @@ const Help = ({ sendEmail }) => {
       text: "My charge is incorrect"
     },
     {
-      value: "change-phone",
-      text: "I need to chnage my phone number"
+      value: "report-comment",
+      text: "I want to report a comment in my profile"
     }
   ];
 

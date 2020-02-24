@@ -11,7 +11,7 @@ const profilePageStyle = {
     color: "blue"
   },
   reportButton: {
-    paddingLeft: "10px"
+    // paddingLeft: "10px"
   },
   button: {
     margin: 10

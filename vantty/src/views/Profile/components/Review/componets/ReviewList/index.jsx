@@ -42,8 +42,7 @@ const ReviewItem = ({
         <Grid item>
           <h1>Reviews</h1>
         </Grid>
-
-        <Grid item>
+        {/* <Grid item>
           <LinkMui
             component={Link}
             variant="body1"
@@ -51,9 +50,8 @@ const ReviewItem = ({
           >
             Leave a comment
           </LinkMui>
-        </Grid>
+        </Grid> */}
       </Grid>
-
       <br />
       <Divider variant="middle" />
       <List>
@@ -116,15 +114,16 @@ const ReviewItem = ({
                           >
                             Delete
                           </LinkMui>
-                        ) : null}
-                        <LinkMui
-                          component={Link}
-                          variant="body2"
-                          to={"/help"}
-                          className={classes.reportButton}
-                        >
-                          Report
-                        </LinkMui>
+                        ) : (
+                          <LinkMui
+                            component={Link}
+                            variant="body2"
+                            to={"/help"}
+                            className={classes.reportButton}
+                          >
+                            Report
+                          </LinkMui>
+                        )}
                       </Typography>
                     </Fragment>
                   </Fragment>
