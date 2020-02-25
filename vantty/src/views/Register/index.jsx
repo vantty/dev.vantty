@@ -148,8 +148,7 @@ const Register = props => {
     user,
     googleRegister,
     facebookRegister,
-    changeNavbarValue,
-    history
+    changeNavbarValue
   } = props;
 
   const classes = useStyles();

@@ -1,6 +1,6 @@
-export const pagesProfile = [
+export const desktopArtist = [
   {
-    title: "Profile",
+    title: "Profile info",
     href: "/personal-info"
   },
   {
@@ -16,7 +16,42 @@ export const pagesProfile = [
     href: "/location"
   },
   {
-    title: "Service",
+    title: "Services",
+    href: "/price"
+  },
+  {
+    title: "Mobile",
+    href: "/mobile"
+  },
+  {
+    title: "Bookings",
+    href: "/bookings"
+  },
+  {
+    title: "Banking info",
+    href: "/bank"
+  }
+];
+
+export const mobileArtist = [
+  {
+    title: "Profile info",
+    href: "/personal-info"
+  },
+  {
+    title: "Portfolio",
+    href: "/add-portfolio"
+  },
+  {
+    title: "Categories",
+    href: "/categories"
+  },
+  {
+    title: "Location",
+    href: "/location"
+  },
+  {
+    title: "Services",
     href: "/price"
   },
   {
@@ -25,33 +60,47 @@ export const pagesProfile = [
   }
 ];
 
-export const pagesUser = [
+export const desktopUser = [
   {
     title: "Profile",
     href: "/personal-info"
+  },
+  {
+    title: "Bookings",
+    href: "/bookings-user"
+  },
+  {
+    title: "Payment method",
+    href: "/payments"
   }
-  // {
-  //   title: "Payments",
-  //   href: "/payments"
-  // }
-  // {
-  //   title: "Help Center",
-  //   href: "/helpcenter"
-  // },
+];
 
-  // {
-  //   title: "Change Password",
-  //   href: "/password"
-  // },
-  // {
-  //   title: "Terms",
-  //   href: "/terms-of-service"
-  // },
-
-  // {
-  //   title: "Data Policy",
-  //   href: "/data-policy"
-  // }
+export const mobileSettings = [
+  {
+    title: "Profile",
+    hrefArtist: "settings/profile",
+    hrefUser: "/personal-info"
+  },
+  {
+    title: "Bookings",
+    hrefArtist: "/bookings",
+    hrefUser: "/bookings-user"
+  },
+  {
+    title: "Payment info",
+    hrefArtist: "/bank",
+    hrefUser: "/payments"
+  },
+  {
+    title: "Help",
+    hrefArtist: "/help",
+    hrefUser: "/help"
+  },
+  {
+    title: "Account",
+    hrefArtist: "settings/account",
+    hrefUser: "settings/account"
+  }
 ];
 
 export const pagesGeneral = [

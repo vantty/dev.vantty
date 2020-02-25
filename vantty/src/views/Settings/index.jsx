@@ -9,23 +9,21 @@ import { deleteAccount, getCurrentProfile } from "../../actions/profile";
 import { logout } from "../../actions/auth";
 
 // Helpers
-
-import { pagesProfile, pagesUser } from "./list";
+import { desktopArtist, desktopUser, mobileSettings } from "./list";
 
 // Components
 import { SimpleAppBar } from "../../components";
-import { SettingsProfile, AvatarUser, SettingsUser } from "./components";
+import { MenuDesktop, AvatarUser, MenuMobile } from "./components";
 
 // Material-UI
 import { Hidden, CssBaseline } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
 const Settings = ({
   match,
-  profile: { profile, loading },
+  profile: { profile },
   auth: { user },
-  auth,
   history,
-  deleteAccount,
   getCurrentProfile
 }) => {
   useEffect(() => {
@@ -35,9 +33,8 @@ const Settings = ({
     <Fragment>
       <CssBaseline />
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
-
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
           history={history}
@@ -51,7 +48,6 @@ const Settings = ({
           <CircularProgress />
         ) : (
           <Fragment>
-            {/* {console.log(user.profileImage.original)} */}
             <AvatarUser
               profileImage={user.profileImage.original}
               firstName={user.firstName}
@@ -61,29 +57,17 @@ const Settings = ({
         )}
         <br />
       </Hidden>
-
-      {/* {user && user.profile ? (
-        <SettingsProfile
-          match={match}
-          pages={pagesProfile}
-          profile={true}
-          // deleteAccount={deleteAccount}
-        />
-      ) : (
-        <SettingsProfile match={match} pages={pagesUser} profile={false} />
-      )} */}
       {isMobile ? (
-        <SettingsUser
+        <MenuMobile
           match={match}
+          pages={mobileSettings}
           profile={user && user.profile ? true : false}
-          // deleteAccount={deleteAccount}
         />
       ) : (
-        <SettingsProfile
+        <MenuDesktop
           match={match}
-          pages={user && user.profile ? pagesProfile : pagesUser}
+          pages={user && user.profile ? desktopArtist : desktopUser}
           profile={user && user.profile ? true : false}
-          // deleteAccount={deleteAccount}
         />
       )}
     </Fragment>
@@ -101,7 +85,6 @@ const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
   deleteAccount: PropTypes.func
-  // getCurrentProfile: PropTypes.func
 });
 
 export default connect(mapStateToProps, {
@@ -109,12 +92,3 @@ export default connect(mapStateToProps, {
   deleteAccount,
   getCurrentProfile
 })(Settings);
-
-// {user && user.profile ? (
-//   <SettingsProfile match={match} pagesProfile={pagesProfile} />
-// ) : (
-//   <SettingsUser match={match} pages={pagesUser} />
-// )}
-// {/* {user && user.profile && (
-//   <SettingsProfile match={match} pagesProfile={pagesProfile} />
-// )} */}

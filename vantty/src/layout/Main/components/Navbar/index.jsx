@@ -87,7 +87,15 @@ const Navbar = props => {
                   >
                     Become an artist partner
                   </Button>
-                ) : null}
+                ) : (
+                  <Button
+                    className={classes.buttonArtist}
+                    component={Link}
+                    to="/bookings"
+                  >
+                    Bookings
+                  </Button>
+                )}
                 <Button className={classes.button} component={Link} to="/help">
                   Help center
                 </Button>

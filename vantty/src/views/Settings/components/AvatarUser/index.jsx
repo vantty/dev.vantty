@@ -1,8 +1,12 @@
 import React, { Fragment } from "react";
+import { Link as LinkReact } from "react-router-dom";
+
+// Material-UI
 import { Avatar, Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+// Helpers
 import { getInitials } from "../../../../helpers";
-import { Link as LinkReact } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -59,11 +63,6 @@ const AvatarUser = ({ profileImage, firstName, profile }) => {
           )}
         </Fragment>
       )}
-      {/* <Link href={"/creare-profile"} className={classes.link}>
-      
-    }
-        Become to an Artist
-      </Link> */}
     </div>
   );
 };

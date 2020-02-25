@@ -357,7 +357,7 @@ import {
   // SettingsGeneral,
   Account,
   // ProfileArist,
-  ProfileArtist
+  ProfileSectionMobileArtist
 } from "./views/Settings/components";
 
 const Routes = () => {
@@ -497,7 +497,11 @@ const Routes = () => {
       {/* SETTINGD */}
       <PrivateRoute component={Settings} exact path="/settings" />
       <PrivateRoute component={Account} exact path="/settings/account" />
-      <PrivateRoute component={ProfileArtist} exact path="/settings/profile" />
+      <PrivateRoute
+        component={ProfileSectionMobileArtist}
+        exact
+        path="/settings/profile"
+      />
       <RoutePrivateWithLayout
         component={EditMobile}
         exact

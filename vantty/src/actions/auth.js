@@ -224,7 +224,6 @@ export const googleLogin = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/user/google", body, config);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data

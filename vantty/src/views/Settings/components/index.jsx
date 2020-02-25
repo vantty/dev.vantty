@@ -1,5 +1,5 @@
-export { default as SettingsProfile } from "./SettingsProfile";
-export { default as SettingsUser } from "./SettingsUser";
+export { default as MenuDesktop } from "./MenuDesktop";
+export { default as MenuMobile } from "./MenuMobile";
 export { default as Account } from "./Account";
 export { default as AvatarUser } from "./AvatarUser";
-export { default as ProfileArtist } from "./ProfileArtist";
+export { default as ProfileSectionMobileArtist } from "./ProfileSectionMobileArtist";
