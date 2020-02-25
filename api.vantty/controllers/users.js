@@ -177,8 +177,15 @@ exports.reset = async (req, res) => {
 
 exports.google = async (req, res) => {
   try {
-    const token = generateLoginToken(req.user.id);
-    res.status(200).json({ token });
+    const {
+      user: {
+        register,
+        newUser: { id }
+      }
+    } = req;
+
+    const token = generateLoginToken(id);
+    res.status(200).json({ token, register });
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"
@@ -188,8 +195,14 @@ exports.google = async (req, res) => {
 
 exports.facebook = async (req, res) => {
   try {
-    const token = generateLoginToken(req.user.id);
-    res.status(200).json({ token });
+    const {
+      user: {
+        register,
+        newUser: { id }
+      }
+    } = req;
+    const token = generateLoginToken(id);
+    res.status(200).json({ token, register });
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"

@@ -39,7 +39,7 @@ passport.use(
       try {
         const existingUser = await User.findOne({ methodId: profile.id });
         if (existingUser) {
-          return done(null, existingUser);
+          return done(null, { newUser: existingUser, register: false });
         }
         const email = profile.emails[0].value;
         const user = await User.findOne({ email });
@@ -60,7 +60,7 @@ passport.use(
             email: profile.emails[0].value
           }
         });
-        done(null, newUser);
+        done(null, { newUser, register: "register" });
       } catch (err) {
         done(err, false);
       }
@@ -80,7 +80,7 @@ passport.use(
       try {
         const existingUser = await User.findOne({ methodId: profile.id });
         if (existingUser) {
-          return done(null, existingUser);
+          return done(null, { newUser: existingUser, register: false });
         }
         const email = profile.emails[0].value;
         const user = await User.findOne({ email });
@@ -102,7 +102,7 @@ passport.use(
           },
           email: profile.emails[0].value
         });
-        done(null, newUser);
+        done(null, { newUser, register: true });
       } catch (err) {
         done(err, false);
       }

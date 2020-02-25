@@ -16,7 +16,9 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     // maxWidth: 260,
     // backgroundColor: theme.palette.background.paper,
-    // marginTop: "5.5rem",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "5.5rem"
+    },
     position: "absolute"
   },
   chip: {
@@ -112,6 +114,7 @@ export default function Slider({
             </Typography>
           </Grid>
         </Grid>
+        <br />
         <Typography color='primary' variant='body1'>
           Availability
         </Typography>
@@ -120,6 +123,8 @@ export default function Slider({
             <Typography variant='h5'>{profile.availability}</Typography>
           </Grid>
         </Grid>
+        <br />
+
         <Typography color='primary' variant='body1'>
           Services
         </Typography>

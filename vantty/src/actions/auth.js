@@ -165,7 +165,7 @@ export const facebookRegister = data => async dispatch => {
       payload: res.data
     });
     dispatch(loadUser());
-    gaEvent("New User", "Register", "Facebook");
+    res.data.register && gaEvent("New User", "Register", "Facebook");
   } catch (err) {
     dispatch(
       setAlert(
@@ -186,14 +186,16 @@ export const googleRegister = data => async dispatch => {
   };
   const body = JSON.stringify({ access_token: data });
   try {
+    console.log("Body", body);
     const res = await server.post("/user/google", body, config);
+    console.log("RES", res);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
     dispatch(loadUser());
-    gaEvent("New User", "Register", "Google");
 
+    res.data.register && gaEvent("New User", "Register", "Google");
   } catch (err) {
     dispatch(
       setAlert(
