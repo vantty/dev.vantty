@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 // Material-UI
 import {
@@ -16,7 +17,6 @@ import { completeService } from "../../actions/book";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    // marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1)
   },
   button: {
-    // marginBottom: theme.spacing(10),
+    textTransform: "none",
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
       backgroundColor: theme.palette.greenVantty.dark
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BookCode = ({ completeService }) => {
+const BookCode = ({ completeService, loading }) => {
   const classes = useStyles();
 
   const [code, setCode] = useState("");
@@ -60,9 +60,6 @@ const BookCode = ({ completeService }) => {
       <CssBaseline />
       <div className={classes.paper}>
         <form onSubmit={handleSubmit}>
-          {/* <Typography variant="h2" className={classes.title}>
-            Lorem
-          </Typography> */}
           <Typography variant="subtitle1" className={classes.text}>
             Please enter the booking code given by the user to complete the
             service
@@ -81,8 +78,9 @@ const BookCode = ({ completeService }) => {
             color="primary"
             variant="contained"
             className={classes.button}
+            disabled={loading}
           >
-            End Service
+            {"Complete Service"}
           </Button>
         </form>
       </div>
@@ -90,12 +88,12 @@ const BookCode = ({ completeService }) => {
   );
 };
 
-// BookCode.propTypes = {
-//   user: PropTypes.object
-// };
+BookCode.propTypes = {
+  loading: PropTypes.bool
+};
 
-// const mapStateToProps = state => ({
-//   user: state.auth.user
-// });
+const mapStateToProps = state => ({
+  loading: state.book.loading
+});
 
-export default connect(null, { completeService })(BookCode);
+export default connect(mapStateToProps, { completeService })(BookCode);

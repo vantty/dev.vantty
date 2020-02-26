@@ -5,9 +5,7 @@ import { Location } from "../../../Form/components";
 const EditLocation = () => {
   return (
     <Fragment>
-      <EditForm index={2}>
-        <Location />
-      </EditForm>
+      <EditForm Children={<Location />} />
     </Fragment>
   );
 };

@@ -1,4 +1,5 @@
 const userService = require("../services/user");
+const emailService = require("../services/email");
 const { generateLoginToken } = require("../helpers");
 
 exports.getById = async (req, res) => {
@@ -105,23 +106,16 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const {
-      body: { email, password }
+      user: { id, message }
     } = req;
-    const user = await userService.getByField({ email });
-    if (!user)
-      return res
-        .status(403)
-        .json({ message: "Please check you email address and your password" });
-    const isMatch = await user.isValidPassword(password);
-    if (!isMatch)
-      return res
-        .status(403)
-        .json({ message: "Please check you email address and your password" });
-    const { id, confirmed } = user;
-    if (!confirmed)
-      return res.status(403).json({ message: "Please confirm your email" });
-    const token = await generateLoginToken(id);
-    res.status(200).json({ token });
+    if (id) {
+      const token = generateLoginToken(id);
+      res.status(200).json({ token });
+    } else {
+      return res.status(403).json({
+        message: message
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"
@@ -180,12 +174,19 @@ exports.google = async (req, res) => {
     const {
       user: {
         register,
-        newUser: { id }
+        newUser: { id },
+        message
       }
     } = req;
 
-    const token = generateLoginToken(id);
-    res.status(200).json({ token, register });
+    if (id) {
+      const token = generateLoginToken(id);
+      res.status(200).json({ token, register });
+    } else {
+      return res.status(500).json({
+        message: message
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"
@@ -198,11 +199,39 @@ exports.facebook = async (req, res) => {
     const {
       user: {
         register,
-        newUser: { id }
+        newUser: { id },
+        message
       }
     } = req;
-    const token = generateLoginToken(id);
-    res.status(200).json({ token, register });
+
+    if (id) {
+      const token = generateLoginToken(id);
+      res.status(200).json({ token, register });
+    } else {
+      return res.status(500).json({
+        message: message
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
+  }
+};
+
+exports.help = async (req, res) => {
+  try {
+    const {
+      body: { email, issue, text }
+    } = req;
+    const result = await emailService.sendHelp(email, issue, text);
+    if (result === "202Accepted") {
+      return res.status(200).json(result);
+    } else {
+      return res.status(500).json({
+        message: "Message not sent"
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Server Error"

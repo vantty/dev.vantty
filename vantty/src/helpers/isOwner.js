@@ -1,11 +1,12 @@
-export default (auth, user) => {
-  if (auth.isAuthenticated) {
-    if (auth.loading === false) {
-      if (auth.user._id === user) {
-        return true;
-      } else if (auth.user.role === "Admin") {
-        return true;
-      }
+export default (currentUser, commentId) => {
+  if (currentUser.isAuthenticated) {
+    const {
+      user: { _id: currentUserId, role }
+    } = currentUser;
+    if (currentUserId === commentId || role === "Admin") {
+      return true;
+    } else {
+      return false;
     }
   }
   return false;

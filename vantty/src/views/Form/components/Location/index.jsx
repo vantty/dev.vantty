@@ -44,9 +44,11 @@ const Location = ({
   update,
   step,
   prevStep,
-  profile: { profile }
+  profile: { profile },
+  auth: { user }
 }) => {
   const classes = useStyles();
+  const mode = user && user.profile;
   //Selector
   // const { profile } = useSelector(state => ({
   //   profile: state.profile.profile
@@ -73,7 +75,6 @@ const Location = ({
   const { address, delivery, place, availability } = state;
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.checked });
-    console.log("taget", e.target.checked);
   };
   const onChangeAvailability = e =>
     setState({ ...state, [e.target.name]: e.target.value });
@@ -86,12 +87,25 @@ const Location = ({
       lat
     });
   };
+
   const values = {
     delivery,
     place,
     availability,
-    address: { street: address.street, log: address.log, lat: address.lat }
+    address: {
+      street:
+        "" ||
+        (address && address.street) ||
+        (profile && profile.address && profile.address.street),
+      log:
+        (address.log && address.log) ||
+        (profile && profile.address && profile.address.log),
+      lat:
+        (address.lat && address.lat) ||
+        (profile && profile.address && profile.address.lat)
+    }
   };
+
   const onSubmit = e => {
     e.preventDefault();
     update(values);
@@ -118,12 +132,7 @@ const Location = ({
                     placeholder='Hi! You can take an appointment with me all days on the weekend'
                     // defaultValue='Default Value'
                     name='availability'
-                    value={
-                      availability
-                      // mode === "EDIT" ? profile.availability:availability
-
-                      // availability || profile.availability || ""
-                    }
+                    value={mode ? availability : profile.availability}
                     className={classes.textField}
                     margin='normal'
                     variant='outlined'
@@ -159,6 +168,7 @@ const Location = ({
                           <Grid item xs={12}>
                             <GoogleMapsAutocomplete
                               localAddress={
+                                // profile.address ? profile.address : address
                                 profile.address ? profile.address : address
                               }
                               onChangeAddress={onChangeAddress}
@@ -265,12 +275,14 @@ const Location = ({
   );
 };
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 Location.propTypes = {
   update: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, { update })(withRouter(Location));

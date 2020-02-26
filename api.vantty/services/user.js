@@ -1,13 +1,12 @@
+const JWT = require("jsonwebtoken");
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const Review = require("../models/Review");
 const Image = require("../models/Image");
 const Book = require("../models/Book");
-const userService = require("../services/user");
 const emailService = require("../services/email");
 const { generateEmailToken, generateLoginToken } = require("../helpers");
 const { CONFIRMATION, FORGOT } = require("../helpers/emailTypes");
-const JWT = require("jsonwebtoken");
 
 const getById = async id => {
   const user = await User.findById(id);
@@ -49,8 +48,8 @@ const update = async (id, field, method) => {
 };
 
 const sendConfirmationEmail = async (user, uri) => {
-  const { id, email, firstName } = user;
-  const token = await generateEmailToken(id);
+  const { _id, email, firstName } = user;
+  const token = await generateEmailToken(_id);
   const {
     subject,
     title,
@@ -64,6 +63,8 @@ const sendConfirmationEmail = async (user, uri) => {
     subject,
     title,
     html,
+    null,
+    null,
     url,
     buttonText,
     templateId

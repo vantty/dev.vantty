@@ -132,6 +132,9 @@ const profilePageStyle = theme => ({
     marginLeft: "0.3rem",
     marginBottom: "-0.3rem",
     width: "1rem"
+  },
+  gridItem: {
+    position: "center"
   }
 });
 

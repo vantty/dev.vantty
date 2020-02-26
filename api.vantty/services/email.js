@@ -192,7 +192,7 @@ const compose = async (
   await sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
     to: email,
-    from: "Vantty Client Services <info@vantty.ca>",
+    from: "Vantty Client Services <no-reply@vantty.ca>",
     subject: subject,
     templateId: templateId,
     dynamic_template_data: {
@@ -211,4 +211,18 @@ const compose = async (
   return result;
 };
 
-module.exports = { content, compose };
+const sendHelp = async (email, issue, text) => {
+  await sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+    to: process.env.HELP_EMAIL,
+    from: `Help Center <${email}>`,
+    subject: issue,
+    html: text
+  };
+  const res = await sgMail.send(msg);
+  const { statusCode, statusMessage } = res[0];
+  const result = statusCode + statusMessage;
+  return result;
+};
+
+module.exports = { content, compose, sendHelp };

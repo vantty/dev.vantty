@@ -61,7 +61,7 @@ const Help = ({ sendEmail }) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
   const handleSubmit = event => {
-    event.preventDefault();
+    // event.preventDefault();
     sendEmail(formData);
   };
   const problems = [
@@ -70,7 +70,7 @@ const Help = ({ sendEmail }) => {
       text: "I want to report a problem in the web"
     },
     {
-      value: "artist-problem",
+      value: "report-artist",
       text: "I want to report an artist"
     },
     {
@@ -88,32 +88,36 @@ const Help = ({ sendEmail }) => {
     {
       value: "charge-problem",
       text: "My charge is incorrect"
+    },
+    {
+      value: "report-comment",
+      text: "I want to report a comment in my profile"
     }
   ];
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component='main' maxWidth='sm'>
       <CssBaseline />
       {/* <Header /> */}
       <div className={classes.paper}>
-        <Typography variant="h2" className={classes.title}>
+        <Typography variant='h2' className={classes.title}>
           Help Center
         </Typography>
-        <Typography variant="subtitle1" className={classes.text}>
+        <Typography variant='subtitle1' className={classes.text}>
           Please confirm your email address. If our email is not inside Inbox
           folder, please verify the Spam folder. If you did not receive any
           email, please click the link below.
         </Typography>
         <div>
           <form onSubmit={handleSubmit}>
-            <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl variant='outlined' className={classes.formControl}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <InputLabel>Issue</InputLabel>
                   <Select
                     className={classes.select}
                     value={issue}
-                    name="issue"
+                    name='issue'
                     onChange={handleChange}
                   >
                     {problems.map(problem => (
@@ -127,11 +131,11 @@ const Help = ({ sendEmail }) => {
                   <TextField
                     className={classes.textField}
                     fullWidth
-                    label="Tell us what happened"
-                    name="text"
+                    label='Tell us what happened'
+                    name='text'
                     onChange={handleChange}
-                    type="text"
-                    variant="outlined"
+                    type='text'
+                    variant='outlined'
                     value={text}
                   />
                 </Grid>
@@ -139,20 +143,20 @@ const Help = ({ sendEmail }) => {
                   <TextField
                     className={classes.textField}
                     fullWidth
-                    label="Email"
-                    name="email"
+                    label='Email'
+                    name='email'
                     onChange={handleChange}
-                    type="email"
-                    variant="outlined"
+                    type='email'
+                    variant='outlined'
                     value={email}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <Button
                     fullWidth
-                    type="submit"
-                    color="primary"
-                    variant="contained"
+                    type='submit'
+                    color='primary'
+                    variant='contained'
                     className={classes.button}
                   >
                     Send

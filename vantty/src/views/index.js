@@ -18,5 +18,6 @@ export { default as Checkout } from "./Checkout";
 export { default as CreateArtistAccount } from "./CreateArtistAccount";
 export { default as Help } from "./Help";
 export { default as NotFound } from "./NotFound";
-export { default as Test } from "./Test";
 export { default as BookingsUser } from "./BookingsUser";
+export { default as UserRole } from "./UserRole";
+export { default as Test } from "./Test";

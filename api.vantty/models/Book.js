@@ -18,7 +18,7 @@ const BookSchema = new Schema({
       name: {
         type: String
       },
-      date: {
+      appointmentDate: {
         type: String
       },
       address: {
@@ -35,8 +35,8 @@ const BookSchema = new Schema({
       descriptionAddress: {
         type: String
       },
-      timeStampAppointment: {
-        type: String
+      appointmentTimeStamp: {
+        type: Number
       },
       services: [Object],
       totalValue: {
@@ -55,9 +55,18 @@ const BookSchema = new Schema({
       requestDate: {
         type: String
       },
-      timeStamp: {
+      requestTimeStamp: {
         type: Number
       },
+      cancelDate: {
+        type: String
+      },
+      cancelTimeStamp: {
+        type: Number
+      },
+      chargeStatus: { type: String, default: "pending" },
+      cancelPolicy: { type: String, default: null },
+      cancelFee: { type: Number, default: 0 },
       bookCode: { type: String },
       stripeCustomerId: { type: String },
       stripeCardId: { type: String },

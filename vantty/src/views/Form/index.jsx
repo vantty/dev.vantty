@@ -1,7 +1,5 @@
 import React, { useState, Fragment } from "react";
 import { withRouter } from "react-router-dom";
-
-// Externals
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -13,7 +11,7 @@ import { Container } from "@material-ui/core";
 
 // Material components
 import { Grid, Box } from "@material-ui/core";
-import Progress from "@material-ui/core/LinearProgress";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 // Custom components
 import {
@@ -60,19 +58,13 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
   const [stateHair, setStateHair] = React.useState([]);
   const [stateMakeup, setStateMakeup] = React.useState([]);
 
-  // useEffect(() => {
-  //   getCurrentProfile();
-  // }, []);
-  // Handle fields change
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // Proceed to next step
   const nextStep = () => {
     setActiveStep(activeStep + 1);
   };
 
-  // Go back to prev step
   const prevStep = () => {
     setActiveStep(activeStep - 1);
   };
@@ -92,17 +84,6 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
             onChange={onChange}
           />
         );
-      // case 3:
-      //   return (
-      //     <Validation
-      //       formData={formData}
-      //       step={activeStep}
-      //       nextStep={nextStep}
-      //       getCurrentProfile={getCurrentProfile}
-      //       prevStep={prevStep}
-      //       onChange={onChange}
-      //     />
-      //   );
       case 3:
         return (
           <Categories
@@ -126,12 +107,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
         );
       case 5:
         return (
-          <Location
-            step={activeStep}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            // match={match}
-          />
+          <Location step={activeStep} nextStep={nextStep} prevStep={prevStep} />
         );
       case 6:
         return (
@@ -169,29 +145,16 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Fragment>
-                    {/* <FormContext.Provider
-                      value={{
-                        activeStep,
-                        nextStep,
-                        prevStep,
-                        formData,
-                        setStateHair,
-                        setStateMakeup,
-                        stateHair,
-                        stateMakeup
-                      }}
-                    > */}
                     <Fragment>{getStepContent(activeStep)}</Fragment>
-                    {/* </FormContext.Provider> */}
                   </Fragment>
                 </Container>
               </Grid>
             </Grid>
           </div>
         ) : (
-          <Progress />
+          <LinearProgress />
         )}
       </Box>
     </Fragment>

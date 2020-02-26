@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 //Actions
 import { create } from "../../../../actions/profile";
@@ -20,7 +19,6 @@ import {
   FormControl,
   FormHelperText,
   OutlinedInput,
-  CardActions,
   Divider,
   Card,
   CardHeader,
@@ -34,7 +32,6 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import LinkMui from "@material-ui/core/Link";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -224,8 +221,8 @@ const CreateProfile = ({
                       />
                     }
                   >
-                    <MenuItem value={"Toronto - Canadá"}>
-                      Toronto - Canadá
+                    <MenuItem value={"Toronto - Canada"}>
+                      Toronto - Canada
                     </MenuItem>
                     {/* <MenuItem value={"Medellín - Colombia"}>
                       Medellín - Colombia
@@ -251,15 +248,7 @@ const CreateProfile = ({
           </form>
         </CardContent>
         <Divider />
-        <CardActions className={classes.buttons}>
-          <div>
-            <div>
-              <LinkMui component={Link} to='/'>
-                learn how to build the best profile
-              </LinkMui>
-            </div>
-          </div>
-        </CardActions>
+
         {/* </Grid> */}
       </Card>
       <FormBottomNav

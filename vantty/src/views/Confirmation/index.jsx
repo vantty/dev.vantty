@@ -10,7 +10,7 @@ import { register } from "../../actions/auth";
 const Confirmation = ({ match, register, isAuthenticated }) => {
   register(match.params.token);
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/role" />;
   }
   return <Progress />;
 };

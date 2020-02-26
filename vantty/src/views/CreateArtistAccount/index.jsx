@@ -12,7 +12,6 @@ import { createStripeAccount } from "../../actions/book";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    // marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -25,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2)
   },
   button: {
+    textTransform: "none",
     marginBottom: theme.spacing(10),
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
@@ -40,24 +40,22 @@ const CreateArtistAccount = props => {
 
   const classes = useStyles();
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component='main' maxWidth='sm'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography variant="h2" className={classes.title}>
+        <Typography variant='h2' className={classes.title}>
           You account has been successfully created
         </Typography>
-        <Typography variant="subtitle1" className={classes.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+        <Typography variant='subtitle1' className={classes.text}>
+          Welcome to Vantty. Our team is verifing your profile, and it will be
+          published in 2 hours.
         </Typography>
         <Button
-          color="primary"
-          variant="contained"
+          color='primary'
+          variant='contained'
           className={classes.button}
           component={RouterLink}
-          to="/personal-info"
+          to='/personal-info'
         >
           View your profile
         </Button>

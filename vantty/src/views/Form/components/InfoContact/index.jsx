@@ -1,31 +1,29 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { isMobile } from "react-device-detect";
 
 // Components
 import { NumberValidation } from "./components";
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
-// Material helpers
+//Material-UI
 import { makeStyles } from "@material-ui/styles";
-
-//Material Compoments
-import { Button, Typography, Grid, Box } from "@material-ui/core";
+import { Button, Typography, CircularProgress } from "@material-ui/core";
+import VerifiedIcon from "@material-ui/icons/VerifiedUserRounded";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    textAlign: "center",
+    display: "inline-block"
+  },
   formControl: {
-    // width: "80%",
     alignContent: "center",
     alignItems: "center"
   },
   typography: {
-    // marginTop: "1rem",
     marginBottom: "1.5rem"
   },
   button: {
@@ -37,22 +35,29 @@ const useStyles = makeStyles(theme => ({
       color: "white",
       backgroundColor: theme.palette.greenVantty.light
     }
+  },
+  verifiedIcon: {
+    color: "rgb(0, 223, 212)",
+    marginLeft: "0.3rem",
+    marginBottom: "-0.3rem",
+    width: "1rem"
+  },
+  newPhone: {
+    marginTop: theme.spacing(2)
+  },
+  textNewPhone: {
+    marginBottom: theme.spacing(1)
   }
 }));
 
 const InfoContact = ({
-  profile: { profile, loading },
-  number: { numberIsVerified, numberVerified },
-  getCurrentProfile,
+  profile: { profile },
   history,
   nextStep,
   step,
   prevStep,
-  className,
-  match,
-  ...rest
+  match
 }) => {
-  //validation
   const [formDataNumber, setFormDataNumber] = useState({
     phone: "",
     countryCode: ""
@@ -78,118 +83,81 @@ const InfoContact = ({
 
   const classes = useStyles();
 
+  const phoneForm = () => {
+    return (
+      <div className={classes.root}>
+        <ReactPhoneInput
+          defaultCountry="us"
+          onlyCountries={["co", "us", "ca"]}
+          masks={{
+            co: "+.. (...) ...-..-..",
+            ca: "+. (...) ...-..-..",
+            us: "+. (...) ...-..-.."
+          }}
+          disableAreaCodes
+          value={phone}
+          onChange={handleOnChange}
+          inputExtraProps={{
+            margin: "normal",
+            autoComplete: "phone",
+            name: "custom-username"
+          }}
+          inputClass={classes.field}
+          dropdownClass={classes.countryList}
+        />
+        <NumberValidation
+          phone={phone}
+          countryCode={countryCode}
+          history={history}
+        />
+      </div>
+    );
+  };
+
   return (
     <Fragment>
-      {/* <Divider /> */}
-
       <CustomPaper
         Children={
-          <Fragment>
-            <Grid
-              container
-              direction='row'
-              justify='center'
-              alignItems='center'
+          <div className={classes.root}>
+            <Typography
+              component="h5"
+              variant="h6"
+              align="center"
+              className={classes.typography}
             >
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={12}
-                container
-                direction='row'
-                justify='center'
-                alignItems='center'
-              >
-                <Box>
-                  {!numberIsVerified ? (
+              Enter a cellphone number where we and your clients can reach you
+              if it is necessary.
+            </Typography>
+            {profile && !profile.mobileNumber ? (
+              phoneForm()
+            ) : (
+              <div className={classes.root}>
+                {!profile ? (
+                  <CircularProgress size={20} />
+                ) : (
+                  <Typography variant="h4" align="center">
+                    {`+${profile.mobileNumber}`}
+                    <VerifiedIcon className={classes.verifiedIcon} />
+                  </Typography>
+                )}
+                {match.url === "/mobile" && (
+                  <div className={classes.newPhone}>
                     <Typography
-                      component='h5'
-                      variant='h6'
-                      align='center'
-                      className={classes.typography}
+                      variant="h6"
+                      align="center"
+                      className={classes.textNewPhone}
                     >
-                      This number will be where your clients could contact with
-                      you. You should have this phone with you to validate it.
+                      If you need to change it, validate a new phone number
+                      here:
                     </Typography>
-                  ) : (
-                    <Typography
-                      component='h5'
-                      variant='h6'
-                      align='center'
-                      className={classes.typography}
-                    >
-                      This number has been verified!
-                    </Typography>
-                  )}
-
-                  <br />
-                  {!numberIsVerified ? (
-                    <Fragment>
-                      <div
-                        style={{
-                          textAlign: "center"
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "inline-block"
-                          }}
-                        >
-                          <ReactPhoneInput
-                            defaultCountry='us'
-                            onlyCountries={["co", "us", "ca"]}
-                            masks={{
-                              co: "+.. (...) ...-..-..",
-                              ca: "+. (...) ...-..-..",
-                              us: "+. (...) ...-..-.."
-                            }}
-                            disableAreaCodes
-                            value={phone}
-                            onChange={handleOnChange}
-                            inputExtraProps={{
-                              margin: "normal",
-                              autoComplete: "phone",
-                              name: "custom-username"
-                            }}
-                            inputClass={classes.field}
-                            dropdownClass={classes.countryList}
-                          />
-                        </div>
-                      </div>
-                      <br />
-
-                      <Grid
-                        item
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        container
-                        direction='row'
-                        justify='center'
-                        alignItems='center'
-                      >
-                        <NumberValidation
-                          phone={phone}
-                          countryCode={countryCode}
-                          history={history}
-                        />
-                      </Grid>
-                    </Fragment>
-                  ) : (
-                    "he;;p"
-                  )}
-
-                  <br />
-                </Box>
-              </Grid>
-            </Grid>
-          </Fragment>
+                    {phoneForm()}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         }
       />
-
-      {/* </form> */}
-
       {match.url === "/create-profile" && (
         <div>
           <FormBottomNav
@@ -201,25 +169,9 @@ const InfoContact = ({
                   <Button
                     onClick={next}
                     className={classes.button}
-                    disabled={!numberIsVerified}
+                    disabled={!profile.mobileNumber}
                   >
                     Next
-                  </Button>
-                </div>
-              </div>
-            }
-          />
-        </div>
-      )}
-      {match.url === "/mobile" && isMobile && (
-        <div>
-          <FormBottomNav
-            step={step}
-            Children={
-              <div>
-                <div>
-                  <Button component={Link} to='/settings/profile'>
-                    Back
                   </Button>
                 </div>
               </div>
@@ -232,14 +184,11 @@ const InfoContact = ({
 };
 
 InfoContact.propTypes = {
-  className: PropTypes.string,
-  profile: PropTypes.object.isRequired,
-  number: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
-  number: state.number
+  profile: state.profile
 });
 
 export default connect(mapStateToProps, {})(withRouter(InfoContact));

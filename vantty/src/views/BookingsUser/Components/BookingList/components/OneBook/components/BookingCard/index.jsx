@@ -83,7 +83,7 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label='recipe' className={classes.avatar}>
             {booking.user}
           </Avatar>
         }
@@ -97,8 +97,8 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
         // subheader={booking.requestDate}
       />
       <a
-        target="_blank"
-        rel="noopener noreferrer"
+        target='_blank'
+        rel='noopener noreferrer'
         href={`https://www.google.com/maps/place/${replace(
           booking.address.street
         )}/`}
@@ -114,10 +114,10 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
         />
       </a>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant='body2' color='textSecondary' component='p'>
           {booking.address.street}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant='body2' color='textSecondary' component='p'>
           {booking.descriptionAddress}
         </Typography>
       </CardContent>
@@ -191,20 +191,14 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       </Typography>
                     </CardActions>
                   )}
-                  {booking.state === "declined" && (
-                    <CardActions className={classes.stateDeclined}>
-                      <Typography>
-                        This service was <strong>Declined</strong>
-                      </Typography>
-                    </CardActions>
-                  )}
-                  {booking.state === "declined-user" && (
-                    <CardActions className={classes.stateDeclined}>
-                      <Typography>
-                        This service was <strong>Declined</strong>
-                      </Typography>
-                    </CardActions>
-                  )}
+                  {booking.state === "declined" ||
+                    (booking.state === "declined-user" && (
+                      <CardActions className={classes.stateDeclined}>
+                        <Typography>
+                          This service was <strong>Declined</strong>
+                        </Typography>
+                      </CardActions>
+                    ))}
                   {booking.state === "posponed" && (
                     <CardActions className={classes.statePosponed}>
                       <Grid container>

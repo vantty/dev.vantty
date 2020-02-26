@@ -4,7 +4,7 @@ export default {
   h1: {
     fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
-    fontWeight: 900,
+    fontWeight: 700,
     fontSize: "35px",
     letterSpacing: "-0.24px",
     lineHeight: "40px"

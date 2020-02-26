@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CircularIntegration() {
+const UserRole = () => {
   const classes = useStyles();
   return (
     <Container maxWidth="xs" className={classes.container}>
@@ -57,4 +57,6 @@ export default function CircularIntegration() {
       </Paper>
     </Container>
   );
-}
+};
+
+export default UserRole;

@@ -176,7 +176,6 @@ const Login = props => {
                   "Find the best Beauty Artist in your area and change your look."
                 }
               </Typography>
-              {/* <img src={Logo} alt="" className={classes.logo} /> */}
             </div>
           </div>
         </Grid>

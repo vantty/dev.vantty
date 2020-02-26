@@ -1,6 +1,6 @@
 const Book = require("../models/Book");
 const emailService = require("../services/email");
-const { emailType } = require("../helpers");
+const { emailType, cancelPolicy } = require("../helpers");
 
 const create = async userId => {
   const newBook = new Book({
@@ -46,10 +46,10 @@ const getUserBookings = async user => {
   let totalBookings = [];
   for (let book of bookings) {
     const profileBook = await getById(book);
-
     for (let bookings of profileBook.bookings) {
-      bookings.userId === _id;
-      totalBookings.unshift(bookings);
+      if (bookings.userId === _id.toString()) {
+        totalBookings.unshift(bookings);
+      }
     }
   }
   return totalBookings;
@@ -62,6 +62,16 @@ const changeState = async (bookingId, state) => {
       service => service._id.toString() === bookingId
     );
     service.state = state;
+    if (state === "declined-user") {
+      const { policy, fee, cancelDate, cancelTimeStamp } = await cancelPolicy(
+        state,
+        service.appointmentTimeStamp
+      );
+      service.cancelDate = cancelDate;
+      service.cancelTimeStamp = cancelTimeStamp;
+      service.cancelPolicy = policy;
+      service.cancelFee = fee;
+    }
     book.save();
     return service;
   });
@@ -150,7 +160,14 @@ const complete = async (artistId, bookCode, state) => {
   const book = await getByField({ user: artistId });
   const service = book.bookings.find(service => service.bookCode === bookCode);
   service.state = state;
-  service.bookCode = null;
+  await book.save();
+  return service;
+};
+
+const updateCharge = async (artistId, bookCode, status) => {
+  const book = await getByField({ user: artistId });
+  const service = book.bookings.find(service => service.bookCode === bookCode);
+  service.chargeStatus = status;
   await book.save();
   return service;
 };
@@ -163,5 +180,6 @@ module.exports = {
   getUserBookings,
   changeState,
   sendEmail,
-  complete
+  complete,
+  updateCharge
 };

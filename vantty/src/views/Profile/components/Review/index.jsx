@@ -9,32 +9,32 @@ import { ReviewList } from "./componets";
 import { getReview } from "../../../../actions/review";
 
 // Material-UI
-import withStyles from "@material-ui/core/styles/withStyles";
+import { makeStyles } from "@material-ui/core/styles";
 import Progress from "@material-ui/core/LinearProgress";
 
-// Styles
-import styles from "./styles";
+const useStyles = makeStyles(theme => ({
+  container: {
+    marginBottom: theme.spacing(4)
+  }
+}));
 
 const Review = ({
   getReview,
   review: { review, loading },
-  match,
-  profile: { reviewId },
-  classes
+  profile: { reviewId }
 }) => {
   useEffect(() => {
     getReview(reviewId);
   }, [getReview]);
-
+  const classes = useStyles();
   return loading || review === null ? (
     <Progress />
   ) : (
     <Fragment>
-      <ReviewList review={review} />
-      {review.comments && <p>No reviews yet.</p>}
-
-      <br />
-      <br />
+      <div className={classes.container}>
+        <ReviewList review={review} />
+        {review.comments.length === 0 ? <p>No reviews yet.</p> : null}
+      </div>
     </Fragment>
   );
 };
@@ -49,6 +49,4 @@ const mapStateToProps = state => ({
   review: state.review
 });
 
-export default connect(mapStateToProps, { getReview })(
-  withStyles(styles)(Review)
-);
+export default connect(mapStateToProps, { getReview })(Review);

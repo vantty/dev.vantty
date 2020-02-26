@@ -1,4 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+// Material-UI
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -15,7 +20,7 @@ const ConfirmationModal = ({
   state,
   byUser,
   text,
-  handleCloseForm
+  loading
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -30,7 +35,6 @@ const ConfirmationModal = ({
   const handleYes = async () => {
     await changeStateBooking(bookingId, state, text, byUser);
     await setOpen(false);
-    await handleCloseForm(false);
   };
 
   return (
@@ -42,10 +46,15 @@ const ConfirmationModal = ({
           <DialogContentText>{modalText}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleNo} color="primary">
+          <Button onClick={handleNo} color="primary" disabled={loading}>
             No
           </Button>
-          <Button onClick={handleYes} color="primary" autoFocus>
+          <Button
+            onClick={handleYes}
+            color="primary"
+            disabled={loading}
+            autoFocus
+          >
             Yes
           </Button>
         </DialogActions>
@@ -54,4 +63,12 @@ const ConfirmationModal = ({
   );
 };
 
-export default ConfirmationModal;
+ConfirmationModal.propTypes = {
+  loading: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  loading: state.book.loading
+});
+
+export default connect(mapStateToProps, {})(withRouter(ConfirmationModal));

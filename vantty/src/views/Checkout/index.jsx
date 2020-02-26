@@ -18,7 +18,8 @@ import {
   Button,
   Typography,
   StepConnector,
-  IconButton
+  IconButton,
+  LinearProgress
 } from "@material-ui/core";
 import Check from "@material-ui/icons/Check";
 
@@ -32,7 +33,7 @@ import { SimpleAppBar, Alert } from "../../components";
 // Actions
 import { getProfileById } from "../../actions/profile";
 import { initialServices } from "../../actions/cart";
-import { addNewBook, completeService } from "../../actions/book";
+import { addNewBook } from "../../actions/book";
 // import CheckoutContext from "./CheckoutContext";
 
 // Helpers
@@ -155,16 +156,17 @@ const Checkout = ({
   history,
   match,
   cart,
-  cart: { items, addedItems, total, loading },
+  cart: { items, addedItems, total },
   addNewBook,
   user,
-  addUserBookings
+  addUserBookings,
+  loading
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [checkout, setCheckout] = React.useState({
-    date: "",
-    timeStampAppointment: "",
+    appointmentDate: "",
+    appointmentTimeStamp: "",
     address: {},
     descriptionAddress: "",
     services: [],
@@ -172,7 +174,13 @@ const Checkout = ({
     stripeCardId: "",
     place: ""
   });
-  const { date, address, descriptionAddress, stripeCardId, place } = checkout;
+  const {
+    appointmentDate,
+    address,
+    descriptionAddress,
+    stripeCardId,
+    place
+  } = checkout;
 
   useEffect(() => {
     getProfileById(match.params.id);
@@ -240,7 +248,7 @@ const Checkout = ({
             checkout={checkout}
             cart={cart}
             onChangeDate={onChangeDate}
-            date={date}
+            date={appointmentDate}
           />
         );
       case 1:
@@ -260,7 +268,6 @@ const Checkout = ({
         );
       case 2:
         return (
-          // <CheckoutContext.Provider value={{ onChangeTarget }}>
           <PaymentForm
             onChangeTarget={onChangeTarget}
             stripeCustomerId={user.stripeCustomerId}
@@ -268,7 +275,6 @@ const Checkout = ({
             isEdit={false}
             cardSelected={stripeCardId}
           />
-          // </CheckoutContext.Provider>
         );
       case 3:
         return (
@@ -282,34 +288,15 @@ const Checkout = ({
         throw new Error("Unknown step");
     }
   }
-  // <!-- Event snippet for Page view conversion page -->
-  // <script>
-  //   gtag('event', 'conversion', {'send_to': 'AW-698611807/0NOLCPXtj8UBEN_wj80C'});
-  // </script>
 
-  //   <!-- Event snippet for Page view conversion page
-  // In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
-  // <script>
-  // function gtag_report_conversion(url) {
-  //   var callback = function () {
-  //     if (typeof(url) != 'undefined') {
-  //       window.location = url;
-  //     }
-  //   };
-  //   gtag('event', 'conversion', {
-  //       'send_to': 'AW-698611807/0NOLCPXtj8UBEN_wj80C',
-  //       'event_callback': callback
-  //   });
-  //   return false;
-  // }
-  // </script>
   return (
     <Fragment>
       <CssBaseline />
+      {loading && <LinearProgress />}
       <Alert />
       {isMobile && <SimpleAppBar />}
       <Container maxWidth='sm' className={classes.container}>
-        {!isMobile && (
+        {!isMobile && activeStep === 0 && (
           <IconButton>
             <Link
               component={Link}
@@ -353,13 +340,13 @@ const Checkout = ({
                 color='primary'
                 variant='contained'
                 className={classes.bookingsButton}
+                disabled={loading}
               >
                 {"See all bookings"}
               </Button>
             </Fragment>
           ) : (
             <Fragment>
-              {/* <Container maxWidth='sm'> */}
               {profile && getStepContent(activeStep)}
               <div className={classes.buttons}>
                 {activeStep !== 0 && (
@@ -372,8 +359,7 @@ const Checkout = ({
                   <Button
                     variant='contained'
                     disabled={
-                      (total === 0 && true) || (date === "" && true)
-                      // (timeStampAppointment === "" && true)
+                      (total === 0 && true) || (appointmentDate === "" && true)
                     }
                     color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
@@ -389,12 +375,11 @@ const Checkout = ({
                     variant='contained'
                     disabled={
                       false
-
                       // Object.entries(address).length === 0 ||
-                      // Object.entries(location) !== "toHome"
-                      // Object.entries(address).length === 0 &&
-                      // address.constructor === Object &&
-                      // true
+                      // Object.entries(location) !== "toHome" ||
+                      // (Object.entries(address).length === 0 &&
+                      //   address.constructor === Object &&
+                      //   true)
                     }
                     color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
@@ -427,12 +412,9 @@ const Checkout = ({
                   </Button>
                 )}
               </div>
-              {/* </Container> */}
             </Fragment>
           )}
         </Fragment>
-        {/* </Paper> */}
-        {/* </main> */}
       </Container>
     </Fragment>
   );
@@ -443,7 +425,8 @@ Checkout.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
@@ -451,7 +434,8 @@ const mapStateToProps = state => ({
   auth: state.auth,
   uploader: state.uploader,
   cart: state.cart,
-  user: state.auth.user
+  user: state.auth.user,
+  loading: state.book.loading
 });
 
 export default connect(mapStateToProps, {

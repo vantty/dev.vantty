@@ -333,22 +333,9 @@ const AccountDetails = ({
                   <Grid
                     container
                     direction='row'
-                    justify='space-between'
-                    alignItems='flex-start'
+                    justify='flex-end'
+                    alignItems='center'
                   >
-                    <Grid>
-                      {user && !user.profile && (
-                        <Button
-                          component={Link}
-                          size='small'
-                          className={classes.button}
-                          to={"/create-profile"}
-                        >
-                          Create Profile as Artist
-                        </Button>
-                      )}
-                    </Grid>
-
                     <Grid>
                       <Button
                         onClick={e => onSubmit(e)}

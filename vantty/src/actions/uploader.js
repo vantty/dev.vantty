@@ -87,6 +87,8 @@ export const uploadImages = e => async dispatch => {
 
     await loadToElastic(data, resProfile.data.imagesId);
     await dispatch(getImages());
+
+    console.log("RESPROF", resProfile, "RESIMG", resImages);
   } catch (error) {
     console.log(error);
     dispatch({ type: IMAGES_UPLOAD_FAIL });
@@ -114,6 +116,18 @@ export const uploadTag = tagObj => async dispatch => {
         await dispatch(getImages());
       }
     }
+    const {
+      data: { user: userId, profileImage: original }
+    } = await server.get("/profile/me");
+    await uploadProfileImageToAppbase(userId, original);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const uploadProfileImageToAppbase = async (id, url) => {
+  try {
+    await updatePropertiesAppbase(id, "profilePicture", url);
   } catch (error) {
     console.log(error);
   }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -31,12 +31,18 @@ const Bookings = ({ getBook, book: { book }, changeStateBooking }) => {
   return (
     <CustomPaper
       Children={
-        <div className={classes.root}>
-          <BookingList
-            book={book && book}
-            changeStateBooking={changeStateBooking}
-          />
-        </div>
+        <Fragment>
+          {book.length === 0 ? (
+            <p>No bookings yet.</p>
+          ) : (
+            <div className={classes.root}>
+              <BookingList
+                book={book && book}
+                changeStateBooking={changeStateBooking}
+              />
+            </div>
+          )}
+        </Fragment>
       }
     />
   );

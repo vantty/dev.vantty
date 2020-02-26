@@ -1,11 +1,7 @@
-const User = require("../models/User");
-const Profile = require("../models/Profile");
-const Book = require("../models/Book");
 const bookService = require("../services/book");
 const profileService = require("../services/profile");
 const userService = require("../services/user");
 const stripeService = require("../services/stripe");
-const { composeEmail } = require("../helpers");
 
 // Current User
 exports.current = async (req, res) => {
@@ -48,7 +44,7 @@ exports.createNewBook = async (req, res) => {
       headers: { origin: uri }
     } = req;
     const book = await bookService.createBooking(bookId, user, fields);
-    const { date } = fields;
+    const { appointmentDate } = fields;
     const { user: artistId } = book;
     const artist = await userService.getById(artistId);
     const state = "requested";
@@ -60,7 +56,7 @@ exports.createNewBook = async (req, res) => {
       null,
       null,
       null,
-      date
+      appointmentDate
     );
     res.status(200).json(book.bookings);
   } catch (error) {
@@ -79,7 +75,12 @@ exports.changeStateBooking = async (req, res) => {
     } = req;
     const service = await bookService.changeState(bookingId, state);
     const result = await Promise.all(service);
-    const { userId, stripeArtistAccount, bookCode, date } = result[0];
+    const {
+      userId,
+      stripeArtistAccount,
+      bookCode,
+      appointmentDate
+    } = result[0];
     const user = await userService.getById(userId);
     const { user: artistId } = await profileService.getByField({
       stripeArtistAccount
@@ -93,7 +94,7 @@ exports.changeStateBooking = async (req, res) => {
       bookCode,
       posponeText,
       null,
-      date
+      appointmentDate
     );
     res.status(200).json(result);
   } catch (error) {
@@ -116,32 +117,44 @@ exports.completeService = async (req, res) => {
       stripeCustomerId,
       stripeCardId,
       stripeArtistAccount,
-      totalValue
+      totalValue,
+      chargeStatus
     } = await bookService.complete(artistId, bookCode, state);
-    const { status } = await stripeService.charge(
-      stripeCustomerId,
-      stripeCardId,
-      stripeArtistAccount,
-      totalValue
-    );
-    if (status === "succeeded") {
-      const user = await userService.getByField({ stripeCustomerId });
-      const artist = await userService.getById(artistId);
-      const { reviewId } = await profileService.getById(artistId);
-      await bookService.sendEmail(
-        user,
-        artist,
-        uri,
-        state,
-        null,
-        null,
-        reviewId
+    if (chargeStatus === "pending") {
+      const { status } = await stripeService.charge(
+        stripeCustomerId,
+        stripeCardId,
+        stripeArtistAccount,
+        totalValue
       );
+      bookService.updateCharge(artistId, bookCode, status);
+      if (status === "succeeded") {
+        const user = await userService.getByField({ stripeCustomerId });
+        const artist = await userService.getById(artistId);
+        const { reviewId } = await profileService.getById(artistId);
+        await bookService.sendEmail(
+          user,
+          artist,
+          uri,
+          state,
+          null,
+          null,
+          reviewId
+        );
+      } else {
+        return res.status(500).json({
+          message: "Something went wrong. Please contact Client Services"
+        });
+      }
+      res.status(200).json(status);
+    } else {
+      return res.status(500).json({
+        message: "This service has been already charged"
+      });
     }
-    res.status(200).json(status);
   } catch (error) {
     return res.status(500).json({
-      message: "Server Error"
+      message: "Something went wrong. Please check your code."
     });
   }
 };

@@ -18,7 +18,6 @@ import {
   ExpansionPanelDetails
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { green } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 // Components
@@ -31,35 +30,17 @@ import { createStripeCustomer, addCard } from "../../../../../../actions/book";
 const log = console.log;
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex",
-    alignItems: "center"
-  },
   panel: {
     width: "100%"
   },
-  wrapper: {
-    margin: theme.spacing(1),
-    position: "relative"
-  },
-  buttonSuccess: {
-    backgroundColor: green[500],
+  button: {
+    textTransform: "none",
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+    backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
-      backgroundColor: green[700]
+      backgroundColor: theme.palette.greenVantty.dark
     }
-  },
-  fabProgress: {
-    color: green[500],
-    position: "absolute",
-    top: -6,
-    left: -6,
-    zIndex: 1
-  },
-  buttonProgress: {
-    color: green[500],
-    position: "absolute",
-    top: "50%",
-    left: "50%"
   }
 }));
 
@@ -71,7 +52,8 @@ const _StripeForm = props => {
     stripeCustomerId,
     cards,
     isEdit,
-    cardSelected
+    cardSelected,
+    loading
   } = props;
   const [errorMessage, setErrorMessage] = useState("");
   const classes = useStyles();
@@ -133,13 +115,11 @@ const _StripeForm = props => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
-                <Typography className={classes.heading}>
-                  Add a new card
-                </Typography>
+                <Typography>Add a new card</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <form onSubmit={handleAddCard}>
-                  <Grid container spacing={3}>
+                  <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <CardNumberElement onChange={handleChange} />
                     </Grid>
@@ -151,7 +131,13 @@ const _StripeForm = props => {
                     </Grid>
                     <div role="alert">{errorMessage}</div>
                     <Grid item xs={12}>
-                      <Button type="submit" variant="contained" color="primary">
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={loading}
+                        className={classes.button}
+                      >
                         Add card
                       </Button>
                     </Grid>
@@ -163,57 +149,29 @@ const _StripeForm = props => {
         ) : (
           <Fragment>
             <form onSubmit={handleSubmit}>
-              <Grid item xs={12}>
-                <CardNumberElement onChange={handleChange} />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <CardNumberElement onChange={handleChange} />
+                </Grid>
+                <Grid item xs={12}>
+                  <CardExpiryElement onChange={handleChange} />
+                </Grid>
+                <Grid item xs={12}>
+                  <CardCVCElement onChange={handleChange} />
+                </Grid>
+                <div role="alert">{errorMessage}</div>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={loading}
+                    className={classes.button}
+                  >
+                    Save your card
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <CardExpiryElement onChange={handleChange} />
-              </Grid>
-              <Grid item xs={12}>
-                <CardCVCElement onChange={handleChange} />
-              </Grid>
-              <div role="alert">{errorMessage}</div>
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary">
-                  Save your card
-                </Button>
-              </Grid>
-              {/* <Grid item xs={12}>
-                <div className={classes.root}>
-                  <div className={classes.wrapper}>
-                    <Fab
-                      aria-label="save"
-                      color="primary"
-                      className={buttonClassname}
-                    >
-                      {success ? <CheckIcon /> : <SaveIcon />}
-                    </Fab>
-                    {loading && (
-                      <CircularProgress
-                        size={68}
-                        className={classes.fabProgress}
-                      />
-                    )}
-                  </div>
-                  <div className={classes.wrapper}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      className={buttonClassname}
-                      disabled={loading}
-                    >
-                      Save your card
-                    </Button>
-                    {loading && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
-                  </div>
-                </div>
-              </Grid> */}
             </form>
           </Fragment>
         )}
@@ -225,11 +183,14 @@ const _StripeForm = props => {
 const StripeForm = injectStripe(_StripeForm);
 
 StripeForm.propTypes = {
-  createStripeCustomer: PropTypes.func
+  createStripeCustomer: PropTypes.func,
+  loading: PropTypes.bool
 };
 
-// const mapStateToProps = state => ({
-//   user: state.auth.user
-// });
+const mapStateToProps = state => ({
+  loading: state.book.loading
+});
 
-export default connect(null, { createStripeCustomer, addCard })(StripeForm);
+export default connect(mapStateToProps, { createStripeCustomer, addCard })(
+  StripeForm
+);

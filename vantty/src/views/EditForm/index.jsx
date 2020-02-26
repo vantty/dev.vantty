@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { isMobile } from "react-device-detect";
 
 // Actions
@@ -11,6 +12,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Box, Grid, Hidden } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 // Components
 import { Alert, SimpleAppBar } from "../../components";
@@ -29,11 +31,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EditForm = ({ auth: { user }, Children, match }) => {
+const EditForm = ({ auth: { user }, Children, match, loading }) => {
   const classes = useStyles();
   return (
     <Fragment>
       <CssBaseline />
+      {loading && <LinearProgress />}
       {isMobile && (
         <SimpleAppBar
           path={
@@ -41,7 +44,7 @@ const EditForm = ({ auth: { user }, Children, match }) => {
             match.url === "/bank" ||
             match.url === "/payments" ||
             match.url === "/bookings-user" ||
-            user.profile === false
+            (user && user.profile === false)
               ? "/settings"
               : "/settings/profile"
           }
@@ -56,7 +59,7 @@ const EditForm = ({ auth: { user }, Children, match }) => {
             <Grid container>
               <Hidden xsDown>
                 <Grid item xs={4}>
-                  <Container maxWidth="md">
+                  <Container maxWidth='md'>
                     <Settings match={match} />
                   </Container>
                 </Grid>
@@ -72,9 +75,16 @@ const EditForm = ({ auth: { user }, Children, match }) => {
   );
 };
 
+EditForm.propTypes = {
+  auth: PropTypes.object,
+  loading: PropTypes.bool
+};
+
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  loading: state.book.loading
 });
+
 export default connect(mapStateToProps, { getCurrentProfile })(
   withRouter(EditForm)
 );

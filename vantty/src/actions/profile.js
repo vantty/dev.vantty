@@ -16,9 +16,8 @@ import {
 import { updatePropertiesAppbase } from "../helpers";
 
 // Get current users profile
-export const getCurrentProfile = (owner = true) => async dispatch => {
+export const getCurrentProfile = () => async dispatch => {
   try {
-    // !owner && (await dispatch({ type: CLEAR_PROFILE }));
     const res = await server.get("/profile/me");
     await dispatch({
       type: GET_PROFILE,
@@ -100,12 +99,6 @@ export const createProfile = (
       const { user, price } = res.data;
       await updatePropertiesAppbase(user, "price", price);
     }
-
-    // console.log("FORMDATA", formData);
-    // if (formData.profilePicture) {
-    //   const { user, profilePicture } = res.data;
-    //   await updatePropertiesAppbase(user, "profilePicture", profilePicture);
-    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -184,10 +177,7 @@ export const update = formData => async dispatch => {
 };
 
 //Create Mobile Number
-export const createMobileNumber = (
-  formData,
-  edit = false
-) => async dispatch => {
+export const createMobileNumber = (formData, edit) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -199,16 +189,8 @@ export const createMobileNumber = (
       type: GET_PROFILE,
       payload: res.data
     });
-
-    dispatch(setAlert(edit ? "Mobile Number Validated" : null, "success"));
-    dispatch(setAlert(!edit ? "Mobile Number NO Validated" : null, "error"));
-
-    // const data = elasticData(res);
-    // const { profileId, elasticId } = data;
-    // loadToElastic(data, profileId, elasticId);
   } catch (err) {
     console.log(err);
-
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -224,22 +206,7 @@ export const addCategories = (
   edit = false
 ) => async dispatch => {
   let categories = {};
-  // let makeup = [];
-  // let hair = [];
-
-  // for (const prop in stateMakeup) {
-  //   if (stateMakeup[prop] === true) {
-  //     await makeup.push(prop);
-  //   }
-  // }
-
-  // for (const prop in stateHair) {
-  //   if (stateHair[prop] === true) {
-  //     await hair.push(prop);
-  //   }
-  // }
   categories = { stateMakeup, stateHair };
-
   try {
     const config = {
       headers: {
@@ -521,7 +488,6 @@ export const addService = (formData, history) => async dispatch => {
 export const deleteService = id => async dispatch => {
   try {
     const res = await server.delete(`/profile/service/${id}`);
-    console.log(res.data);
     await dispatch({
       type: UPDATE_PROFILE,
       payload: res.data

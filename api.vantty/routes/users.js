@@ -19,7 +19,8 @@ const {
   forgot,
   reset,
   google,
-  facebook
+  facebook,
+  help
 } = require("../controllers/users");
 const { validator } = require("../helpers");
 
@@ -27,12 +28,13 @@ router.get("/", passportJWT, getById);
 router.post("/send", validator, sendConfirmationEmail);
 router.post("/resend", resendConfirmationEmail);
 router.get("/register/:token", register);
-router.post("/login", login);
+router.post("/login", passportLocal, login);
 router.post("/forgot", forgot);
 router.post("/reset", reset);
 router.post("/google", passportGoogle, google);
 router.post("/facebook", passportFacebook, facebook);
 router.patch("/", passportJWT, update);
 router.delete("/", passportJWT, deleteAccount);
+router.post("/help", help);
 
 module.exports = router;

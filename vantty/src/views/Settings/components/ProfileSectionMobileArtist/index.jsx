@@ -8,9 +8,11 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { pagesProfile } from "../../list";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { isMobile } from "react-device-detect";
+
+// Components
+import { mobileArtist } from "../../list";
 import { SimpleAppBar } from "../../../../components";
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ProfileArtist = ({ match, history }) => {
+const ProfileSectionMobileArtist = ({ match, history }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -48,30 +50,22 @@ const ProfileArtist = ({ match, history }) => {
       <SimpleAppBar history={history} path={"/settings"} />
       {isMobile && (
         <Fragment>
-          {/* <div className={classes.root}></div> */}
-          <List component='nav'>
-            {pagesProfile.map((page, ind) => (
+          <List component="nav">
+            {mobileArtist.map((page, ind) => (
               <div key={page.title}>
-                {/* <Container maxWidth='sm'> */}
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Grid
                     container
-                    direction='row'
-                    justify='space-between'
-                    alignItems='center'
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
                   >
                     <Grid item xs={11} md={12} lg={12} xl={12}>
                       <ListItemLink
-                        href={page.href}
                         to={page.href}
                         selected={page.href === match.url}
                       >
-                        <ListItemText
-                          primary={page.title}
-                          // className={classes.title}
-                        >
-                          {/* <Typography variant='h5'>{page.title}</Typography> */}
-                        </ListItemText>
+                        <ListItemText primary={page.title}></ListItemText>
                       </ListItemLink>
                     </Grid>
                     <Grid item xs={1}>
@@ -80,7 +74,6 @@ const ProfileArtist = ({ match, history }) => {
                   </Grid>
                   <Divider />
                 </Container>
-                {/* </Container> */}
               </div>
             ))}
           </List>
@@ -90,4 +83,4 @@ const ProfileArtist = ({ match, history }) => {
   );
 };
 
-export default ProfileArtist;
+export default ProfileSectionMobileArtist;

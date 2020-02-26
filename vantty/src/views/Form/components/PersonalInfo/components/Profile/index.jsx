@@ -127,8 +127,8 @@ const EditProfile = ({
                       />
                     }
                   >
-                    <MenuItem value={"Toronto - Canadá"}>
-                      Toronto - Canadá
+                    <MenuItem value={"Toronto - Canada"}>
+                      Toronto - Canada
                     </MenuItem>
                     {/* <MenuItem value={"Medellín - Colombia"}>
                       Medellín - Colombia

@@ -41,7 +41,7 @@ export default function Summary({ booking }) {
             <Typography variant='h6' gutterBottom className={classes.title}>
               <strong>Date</strong>
             </Typography>
-            <Typography gutterBottom>{booking.date}</Typography>
+            <Typography gutterBottom>{booking.appointmentDate}</Typography>
           </Grid>
           {/* <Grid item xs={12} sm={6}>
             <Typography variant='h6' gutterBottom className={classes.title}>

@@ -1,4 +1,7 @@
 import React, { Fragment, useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +15,8 @@ import {
   CardMedia,
   CardHeader,
   Card,
-  MenuItem
+  MenuItem,
+  LinearProgress
 } from "@material-ui/core";
 import { Services } from "./components";
 
@@ -61,23 +65,12 @@ const useStyles = makeStyles(theme => ({
   statePosponed: {
     backgroundColor: "orange"
   },
-  button: {
-    // width: "10px"
-    // height: "10rem",
-    // fontSize: "10px" + "!important",
-    // margin: theme.spacing(1)
-    // minWidth: "1rem",
-    // minHeight: "1rem",
-    // marginTop: "1rem"
-  },
   buttonAccept: {
-    // width: "10px",
-    // margin: theme.spacing(1),
     color: theme.palette.greenVantty.light
   }
 }));
 
-export default function RecipeReviewCard({ booking, changeStateBooking }) {
+const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
   const classes = useStyles();
 
   const [openForm, setOpenForm] = useState(false);
@@ -98,11 +91,11 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
   return (
     <Fragment>
       <Alert />
-
+      {loading && <LinearProgress />}
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar aria-label='recipe' className={classes.avatar}>
               {booking.user}
             </Avatar>
           }
@@ -115,8 +108,8 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           title={`Your client is ${booking.name}`}
         />
         <a
-          target="_blank"
-          rel="noopener noreferrer"
+          target='_blank'
+          rel='noopener noreferrer'
           href={`https://www.google.com/maps/place/${replace(
             booking.address.street
           )}/`}
@@ -132,10 +125,10 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
           />
         </a>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant='body2' color='textSecondary' component='p'>
             {booking.address.street}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant='body2' color='textSecondary' component='p'>
             {booking.descriptionAddress}
           </Typography>
         </CardContent>
@@ -150,9 +143,9 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                       {booking.state === "request" && (
                         <Grid
                           container
-                          direction="row"
-                          justify="flex-end"
-                          alignItems="center"
+                          direction='row'
+                          justify='flex-end'
+                          alignItems='center'
                           spacing={1}
                         >
                           <ConfirmationModal
@@ -202,21 +195,17 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
                         </Typography>
                       </CardActions>
                     )}
-                    {booking.state === "declined" && (
-                      <CardActions className={classes.stateDeclined}>
-                        <Typography>
-                          This service was <strong>Declined</strong>
-                        </Typography>
-                      </CardActions>
-                    )}
+                    {booking.state === "declined" ||
+                      (booking.state === "declined-user" && (
+                        <CardActions className={classes.stateDeclined}>
+                          <Typography>
+                            This service was <strong>Declined</strong>
+                          </Typography>
+                        </CardActions>
+                      ))}
                     {openForm && (
                       <CardActions className={classes.statePosponed}>
                         <Grid container>
-                          {/* <Grid item>
-                            <Typography>
-                              This service was <strong>Posponed</strong>
-                            </Typography>
-                          </Grid> */}
                           <Grid item>
                             <PosponeForm
                               changeStateBooking={changeStateBooking}
@@ -243,4 +232,14 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
       </Card>
     </Fragment>
   );
-}
+};
+
+RecipeReviewCard.propTypes = {
+  loading: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  loading: state.book.loading
+});
+
+export default connect(mapStateToProps, {})(withRouter(RecipeReviewCard));

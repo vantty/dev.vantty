@@ -166,13 +166,9 @@ export const facebookRegister = data => async dispatch => {
     });
     dispatch(loadUser());
     res.data.register && gaEvent("New User", "Register", "Facebook");
-  } catch (err) {
-    dispatch(
-      setAlert(
-        "There is an account with the same email address. Try with another method.",
-        "warning"
-      )
-    );
+  } catch (error) {
+    const errors = error.response.data.message;
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -196,13 +192,9 @@ export const googleRegister = data => async dispatch => {
     dispatch(loadUser());
 
     res.data.register && gaEvent("New User", "Register", "Google");
-  } catch (err) {
-    dispatch(
-      setAlert(
-        "There is an account with the same email address. Try with another method.",
-        "warning"
-      )
-    );
+  } catch (error) {
+    const errors = error.response.data.message;
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -222,13 +214,9 @@ export const facebookLogin = data => async dispatch => {
       payload: res.data
     });
     dispatch(loadUser());
-  } catch (err) {
-    dispatch(
-      setAlert(
-        "There is an account with the same email address. Try with another method.",
-        "warning"
-      )
-    );
+  } catch (error) {
+    const errors = error.response.data.message;
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: LOGIN_FAIL
     });
@@ -243,19 +231,14 @@ export const googleLogin = data => async dispatch => {
   const body = JSON.stringify({ access_token: data });
   try {
     const res = await server.post("/user/google", body, config);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
     dispatch(loadUser());
-  } catch (err) {
-    dispatch(
-      setAlert(
-        "There is an account with the same email address. Try with another method.",
-        "warning"
-      )
-    );
+  } catch (error) {
+    const errors = error.response.data.message;
+    if (errors) dispatch(setAlert(errors, "error"));
     dispatch({
       type: LOGIN_FAIL
     });
