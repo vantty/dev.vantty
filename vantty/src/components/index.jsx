@@ -12,3 +12,4 @@ export { default as ConfirmationModal } from "./ConfirmationModal";
 export { default as MarkdownText } from "./MarkdownText";
 export { default as LoadingButton } from "./LoadingButton";
 export { default as BookingAvatar } from "./BookingAvatar";
+export { default as ContactButtons } from "./ContactButtons";

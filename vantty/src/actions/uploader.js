@@ -87,8 +87,6 @@ export const uploadImages = e => async dispatch => {
 
     await loadToElastic(data, resProfile.data.imagesId);
     await dispatch(getImages());
-
-    console.log("RESPROF", resProfile, "RESIMG", resImages);
   } catch (error) {
     console.log(error);
     dispatch({ type: IMAGES_UPLOAD_FAIL });

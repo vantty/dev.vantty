@@ -182,9 +182,7 @@ export const googleRegister = data => async dispatch => {
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    console.log("Body", body);
     const res = await server.post("/user/google", body, config);
-    console.log("RES", res);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data

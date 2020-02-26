@@ -1,4 +1,7 @@
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,37 +14,25 @@ import {
   CardContent,
   CardMedia,
   CardHeader,
-  Card
+  Card,
+  LinearProgress
 } from "@material-ui/core";
 import { Services } from "./components";
 
 // Components
 import { PosponeForm, HelpButton } from "./components";
+import { Alert, ContactButtons } from "../../../../../../../../components";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    // maxWidth: 345
     marginTop: "2rem"
   },
   media: {
     height: 0,
     paddingTop: "30%" // 16:9
   },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  },
   avatar: {
     backgroundColor: "red"
-  },
-  margin: {
-    margin: theme.spacing(1)
   },
   stateAccepted: {
     backgroundColor: theme.palette.greenVantty.main
@@ -54,24 +45,10 @@ const useStyles = makeStyles(theme => ({
   },
   statePosponed: {
     backgroundColor: "orange"
-  },
-  button: {
-    // width: "10px"
-    // height: "10rem",
-    // fontSize: "10px" + "!important",
-    // margin: theme.spacing(1)
-    // minWidth: "1rem",
-    // minHeight: "1rem",
-    // marginTop: "1rem"
-  },
-  buttonAccept: {
-    // width: "10px",
-    // margin: theme.spacing(1),
-    color: theme.palette.greenVantty.light
   }
 }));
 
-export default function RecipeReviewCard({ booking, changeStateBooking }) {
+const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
   const classes = useStyles();
 
   const replace = str => {
@@ -80,93 +57,55 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
   };
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label='recipe' className={classes.avatar}>
-            {booking.user}
-          </Avatar>
-        }
-        action={
-          <HelpButton
-            booking={booking}
-            changeStateBooking={changeStateBooking}
-          />
-        }
-        title={`Your client is ${booking.name}`}
-        // subheader={booking.requestDate}
-      />
-      <a
-        target='_blank'
-        rel='noopener noreferrer'
-        href={`https://www.google.com/maps/place/${replace(
-          booking.address.street
-        )}/`}
-      >
-        <CardMedia
-          className={classes.media}
-          image={`https://maps.googleapis.com/maps/api/staticmap?center=${replace(
-            booking.address.street
-          )}&zoom=13&scale=false&size=500x500&maptype=terrain&key=${
-            process.env.REACT_APP_GOOGLE_MAPS_ID
-          }&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C2360+dundas+street+west`}
-          title={booking.address.street}
+    <Fragment>
+      <Alert />
+      {loading && <LinearProgress />}
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {booking.user}
+            </Avatar>
+          }
+          action={
+            <HelpButton
+              booking={booking}
+              changeStateBooking={changeStateBooking}
+            />
+          }
+          title={`Your client is ${booking.name}`}
         />
-      </a>
-      <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p'>
-          {booking.address.street}
-        </Typography>
-        <Typography variant='body2' color='textSecondary' component='p'>
-          {booking.descriptionAddress}
-        </Typography>
-      </CardContent>
-      <Fragment>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://www.google.com/maps/place/${replace(
+            booking.address.street
+          )}/`}
+        >
+          <CardMedia
+            className={classes.media}
+            image={`https://maps.googleapis.com/maps/api/staticmap?center=${replace(
+              booking.address.street
+            )}&zoom=13&scale=false&size=500x500&maptype=terrain&key=${
+              process.env.REACT_APP_GOOGLE_MAPS_ID
+            }&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C2360+dundas+street+west`}
+            title={booking.address.street}
+          />
+        </a>
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {booking.address.street}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {booking.descriptionAddress}
+          </Typography>
+        </CardContent>
         <div className={classes.root}>
           <Grid container spacing={0}>
             <Grid item md={12} sm={12} xs={12}>
               <div className={classes.demo}>
                 <List>
                   <Services booking={booking} />
-                  {/* <CardActions>
-                    {booking.state === "request" && (
-                      <Grid
-                        container
-                        direction="row"
-                        justify="flex-end"
-                        alignItems="center"
-                        spacing={1}
-                      >
-                        <ConfirmationModal
-                          buttonText={"Decline"}
-                          modalText={
-                            "Are you sure you want to decline this service?"
-                          }
-                          changeStateBooking={changeStateBooking}
-                          bookingId={booking._id}
-                          state={"declined"}
-                        />
-                        <ConfirmationModal
-                          buttonText={"Pospone"}
-                          modalText={
-                            "Are you sure you want to propose the user another date for this service?"
-                          }
-                          changeStateBooking={changeStateBooking}
-                          bookingId={booking._id}
-                          state={"posponed"}
-                        />
-                        <ConfirmationModal
-                          buttonText={"Accept"}
-                          modalText={
-                            "Are you sure you want to accept this service?"
-                          }
-                          changeStateBooking={changeStateBooking}
-                          bookingId={booking._id}
-                          state={"accepted"}
-                        />
-                      </Grid>
-                    )}
-                  </CardActions> */}
                   {booking.state === "accepted" && (
                     <CardActions className={classes.stateAccepted}>
                       <Grid container>
@@ -228,7 +167,18 @@ export default function RecipeReviewCard({ booking, changeStateBooking }) {
             </Grid>
           </Grid>
         </div>
-      </Fragment>
-    </Card>
+        {booking.state === "accepted" && <ContactButtons type="artist" />}
+      </Card>
+    </Fragment>
   );
-}
+};
+
+RecipeReviewCard.propTypes = {
+  loading: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  loading: state.book.loading
+});
+
+export default connect(mapStateToProps, {})(withRouter(RecipeReviewCard));
