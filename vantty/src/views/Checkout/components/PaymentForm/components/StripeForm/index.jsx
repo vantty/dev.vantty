@@ -30,6 +30,9 @@ import { createStripeCustomer, addCard } from "../../../../../../actions/book";
 const log = console.log;
 
 const useStyles = makeStyles(theme => ({
+  title: {
+    marginBottom: theme.spacing(3)
+  },
   panel: {
     width: "100%"
   },
@@ -92,9 +95,39 @@ const _StripeForm = props => {
     }
   };
 
+  const stripeElements = text => {
+    return (
+      <Fragment>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <CardNumberElement onChange={handleChange} />
+          </Grid>
+          <Grid item xs={12}>
+            <CardExpiryElement onChange={handleChange} />
+          </Grid>
+          <Grid item xs={12}>
+            <CardCVCElement onChange={handleChange} />
+          </Grid>
+          <div role="alert">{errorMessage}</div>
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={loading}
+              className={classes.button}
+            >
+              {text}
+            </Button>
+          </Grid>
+        </Grid>
+      </Fragment>
+    );
+  };
+
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" className={classes.title}>
         Payment method
       </Typography>
       <Grid container spacing={1}>
@@ -119,29 +152,7 @@ const _StripeForm = props => {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <form onSubmit={handleAddCard}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <CardNumberElement onChange={handleChange} />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CardExpiryElement onChange={handleChange} />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CardCVCElement onChange={handleChange} />
-                    </Grid>
-                    <div role="alert">{errorMessage}</div>
-                    <Grid item xs={12}>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={loading}
-                        className={classes.button}
-                      >
-                        Add card
-                      </Button>
-                    </Grid>
-                  </Grid>
+                  {stripeElements("Add card")}
                 </form>
               </ExpansionPanelDetails>
             </ExpansionPanel>
@@ -149,29 +160,7 @@ const _StripeForm = props => {
         ) : (
           <Fragment>
             <form onSubmit={handleSubmit}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <CardNumberElement onChange={handleChange} />
-                </Grid>
-                <Grid item xs={12}>
-                  <CardExpiryElement onChange={handleChange} />
-                </Grid>
-                <Grid item xs={12}>
-                  <CardCVCElement onChange={handleChange} />
-                </Grid>
-                <div role="alert">{errorMessage}</div>
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    disabled={loading}
-                    className={classes.button}
-                  >
-                    Save your card
-                  </Button>
-                </Grid>
-              </Grid>
+              {stripeElements("Save your card")}
             </form>
           </Fragment>
         )}
