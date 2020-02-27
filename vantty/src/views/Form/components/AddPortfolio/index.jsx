@@ -80,12 +80,25 @@ const AddPortfolio = ({
     e.preventDefault();
     prevStep();
   };
-
+  console.log("TAGs", tags);
   const submit = async (e, id, tag) => {
     e.preventDefault();
     await uploadTag(tags);
   };
   const classes = useStyles();
+
+  const desable = () => {
+    if (
+      images &&
+      images.length >= 5 &&
+      tags &&
+      Object.keys(tags).length === images.length
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   return (
     <CustomPaper
       Children={
@@ -141,46 +154,47 @@ const AddPortfolio = ({
                                 <Fragment>
                                   <Button
                                     className={classes.button}
-                                    disabled={
-                                      images && images.length < 5 && true
+                                    disabled={desable()}
+                                    // disabled={
+                                    //   images && images.length < 5 && true
+                                    // }
+                                    // profile && !loading && images
+                                    //   ? images.length >= 5
+                                    //     ? Object.keys(tags).length ===
+                                    //       images.length
+                                    //       ? false
+                                    //       : true
+                                    //     : true
+                                    //   : false
 
-                                      // profile && !loading && images
-                                      //   ? images.length >= 5
-                                      //     ? Object.keys(tags).length ===
-                                      //       images.length
-                                      //       ? false
-                                      //       : true
-                                      //     : true
-                                      //   : false
+                                    // profile &&
+                                    // !loading &&
+                                    // images &&
+                                    // (images.map(img => img.tag)).length &&
+                                    // false
 
-                                      // profile &&
-                                      // !loading &&
-                                      // images &&
-                                      // (images.map(img => img.tag)).length &&
-                                      // false
+                                    // profile &&
+                                    // !loading &&
+                                    // images &&
+                                    // images
+                                    //   .map(img => img.tag)
+                                    //   .splice(undefined) === images.length &&
+                                    // false
+                                    //     images.length &&
+                                    // (images &&
+                                    //   Object.keys(tags).length !==
+                                    //     images.length &&
+                                    //   false)
+                                    // profile &&
+                                    // !loading &&
+                                    // images &&
+                                    // images.length < 5 &&
+                                    // true &&
+                                    // profile &&
+                                    // !loading &&
+                                    // Object.keys(tags).length < 1 &&
+                                    // true
 
-                                      // profile &&
-                                      // !loading &&
-                                      // images &&
-                                      // images
-                                      //   .map(img => img.tag)
-                                      //   .splice(undefined) === images.length &&
-                                      // false
-                                      //     images.length &&
-                                      // (images &&
-                                      //   Object.keys(tags).length !==
-                                      //     images.length &&
-                                      //   false)
-                                      // profile &&
-                                      // !loading &&
-                                      // images &&
-                                      // images.length < 5 &&
-                                      // true &&
-                                      // profile &&
-                                      // !loading &&
-                                      // Object.keys(tags).length < 1 &&
-                                      // true
-                                    }
                                     onClick={continues}
                                   >
                                     Next
