@@ -50,8 +50,7 @@ const BookingList = ({ book, changeStateBooking }) => {
                       </ListItemAvatar>
                       <ListItemText
                         key={booking.state}
-                        primary={booking.name}
-                        // secondary={`Total Service Value $${booking.totalValue}`}
+                        primary={booking.artistName}
                         secondary={
                           <React.Fragment>
                             <Typography

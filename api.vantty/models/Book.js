@@ -70,7 +70,10 @@ const BookSchema = new Schema({
       bookCode: { type: String },
       stripeCustomerId: { type: String },
       stripeCardId: { type: String },
-      stripeArtistAccount: { type: String }
+      stripeArtistAccount: { type: String },
+      userPhone: { type: String },
+      artistPhone: { type: String },
+      artistName: { type: String }
     }
   ]
 });

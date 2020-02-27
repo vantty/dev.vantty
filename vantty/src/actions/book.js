@@ -18,12 +18,12 @@ import {
   COMPLETE_SERVICE,
   COMPLETE_SERVICE_SUCCESS,
   COMPLETE_SERVICE_FAIL,
-  //
   CLEAR_BOOK,
   GET_BOOK,
   SERVICE_SUCCESS,
   CLEAR_CART,
-  ADD_BOOKINGS
+  ADD_BOOKINGS,
+  SAVE_USER_NUMBER_SUCCESS
 } from "./types";
 import { getCurrentProfile } from "./profile";
 import { server } from "../utils/axios";
@@ -161,7 +161,8 @@ export const addNewBook = (
   stripeArtistAccount,
   bookCode,
   formData,
-  address
+  address,
+  artistName
 ) => async dispatch => {
   try {
     const config = {
@@ -181,11 +182,21 @@ export const addNewBook = (
       requestTimeStamp: today.getTime(),
       bookCode: bookCode,
       stripeCustomerId: stripeCustomerId,
-      stripeArtistAccount: stripeArtistAccount
+      stripeArtistAccount: stripeArtistAccount,
+      artistName: artistName
     };
     await dispatch({ type: ADD_BOOK });
     const res = await server.post(`/book/create-book/${bookId}`, body, config);
     await dispatch({ type: ADD_BOOK_SUCCESS });
+    const userUpdated = await server.patch(
+      "/user",
+      { mobileNumber: body.userPhone },
+      "$set"
+    );
+    await dispatch({
+      type: SAVE_USER_NUMBER_SUCCESS,
+      payload: userUpdated.data
+    });
     await dispatch({
       type: CLEAR_BOOK
     });

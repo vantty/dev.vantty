@@ -178,14 +178,14 @@ exports.google = async (req, res) => {
         message
       }
     } = req;
-
+    if (message) {
+      return res.status(401).json({
+        message: message
+      });
+    }
     if (id) {
       const token = generateLoginToken(id);
       res.status(200).json({ token, register });
-    } else {
-      return res.status(500).json({
-        message: message
-      });
     }
   } catch (error) {
     return res.status(500).json({
@@ -203,14 +203,14 @@ exports.facebook = async (req, res) => {
         message
       }
     } = req;
-
+    if (message) {
+      return res.status(401).json({
+        message: message
+      });
+    }
     if (id) {
       const token = generateLoginToken(id);
       res.status(200).json({ token, register });
-    } else {
-      return res.status(500).json({
-        message: message
-      });
     }
   } catch (error) {
     return res.status(500).json({

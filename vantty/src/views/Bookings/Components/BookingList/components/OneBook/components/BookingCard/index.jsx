@@ -9,7 +9,6 @@ import {
   Grid,
   List,
   Typography,
-  Avatar,
   CardActions,
   CardContent,
   CardMedia,
@@ -24,34 +23,23 @@ import { Services } from "./components";
 import {
   BookCode,
   ConfirmationModal,
-  Alert
+  Alert,
+  ContactButtons,
+  BookingAvatar
 } from "../../../../../../../../components";
 import { PosponeForm, HelpButton } from "./components";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    // maxWidth: 345
-    marginTop: "2rem"
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4)
   },
   media: {
     height: 0,
     paddingTop: "30%" // 16:9
   },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  },
   avatar: {
     backgroundColor: "red"
-  },
-  margin: {
-    margin: theme.spacing(1)
   },
   stateAccepted: {
     backgroundColor: theme.palette.greenVantty.main
@@ -64,9 +52,6 @@ const useStyles = makeStyles(theme => ({
   },
   statePosponed: {
     backgroundColor: "orange"
-  },
-  buttonAccept: {
-    color: theme.palette.greenVantty.light
   }
 }));
 
@@ -94,11 +79,7 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
       {loading && <LinearProgress />}
       <Card className={classes.card}>
         <CardHeader
-          avatar={
-            <Avatar aria-label='recipe' className={classes.avatar}>
-              {booking.user}
-            </Avatar>
-          }
+          avatar={<BookingAvatar state={booking.state} />}
           action={
             <HelpButton
               booking={booking}
@@ -108,8 +89,8 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
           title={`Your client is ${booking.name}`}
         />
         <a
-          target='_blank'
-          rel='noopener noreferrer'
+          target="_blank"
+          rel="noopener noreferrer"
           href={`https://www.google.com/maps/place/${replace(
             booking.address.street
           )}/`}
@@ -125,10 +106,10 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
           />
         </a>
         <CardContent>
-          <Typography variant='body2' color='textSecondary' component='p'>
+          <Typography variant="body2" color="textSecondary" component="p">
             {booking.address.street}
           </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
+          <Typography variant="body2" color="textSecondary" component="p">
             {booking.descriptionAddress}
           </Typography>
         </CardContent>
@@ -143,9 +124,9 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                       {booking.state === "request" && (
                         <Grid
                           container
-                          direction='row'
-                          justify='flex-end'
-                          alignItems='center'
+                          direction="row"
+                          justify="flex-end"
+                          alignItems="center"
                           spacing={1}
                         >
                           <ConfirmationModal
@@ -229,6 +210,13 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
             </Grid>
           </div>
         </Fragment>
+        {booking.state === "accepted" && (
+          <ContactButtons
+            customerType="client"
+            number={booking.userPhone}
+            message="Hi! I'm your artrist of the Vantty service!"
+          />
+        )}
       </Card>
     </Fragment>
   );

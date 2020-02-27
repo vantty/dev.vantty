@@ -10,31 +10,56 @@ import ClearIcon from "@material-ui/icons/Clear";
 import WarningIcon from "@material-ui/icons/Warning";
 
 const useStyles = makeStyles(theme => ({
-  avatar: {
+  request: {
+    backgroundColor: theme.palette.purpleVantty.light
+  },
+  accepted: {
     backgroundColor: theme.palette.greenVantty.main
+  },
+  completed: {
+    backgroundColor: theme.palette.greenVantty.light
+  },
+  declined: {
+    backgroundColor: "red"
   }
 }));
 
 const icon = state => {
+  const classes = useStyles();
   switch (state) {
     case "request":
-      return <EventSeatIcon />;
+      return (
+        <Avatar className={classes.request}>
+          <EventSeatIcon />
+        </Avatar>
+      );
     case "accepted":
-      return <CheckIcon />;
+      return (
+        <Avatar className={classes.accepted}>
+          <CheckIcon />
+        </Avatar>
+      );
     case "declined":
     case "declined-posponed":
     case "declined-user":
-      return <ClearIcon />;
+      return (
+        <Avatar className={classes.declined}>
+          <ClearIcon />
+        </Avatar>
+      );
     case "completed":
-      return <AttachMoneyIcon />;
+      return (
+        <Avatar className={classes.completed}>
+          <AttachMoneyIcon />
+        </Avatar>
+      );
     default:
       return <WarningIcon />;
   }
 };
 
 const BookingAvatar = ({ state }) => {
-  const classes = useStyles();
-  return <Avatar className={classes.avatar}>{icon(state)}</Avatar>;
+  return icon(state);
 };
 
 export default BookingAvatar;

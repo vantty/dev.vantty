@@ -15,8 +15,6 @@ import {
   SAVE_CONFIRMATION_EMAIL
 } from "./types";
 import { gaEvent } from "../marketing/gAnalytics";
-// import { deleteImages } from "./uploader";
-// import { getCurrentProfile } from "./profile";
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -30,8 +28,6 @@ export const loadUser = () => async dispatch => {
       payload: res.data
     });
   } catch (error) {
-    // const errors = error.response.data.message;
-    // dispatch(setAlert(errors, "error"));
     dispatch({
       type: AUTH_ERROR
     });

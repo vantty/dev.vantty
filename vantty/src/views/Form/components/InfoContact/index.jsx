@@ -87,12 +87,12 @@ const InfoContact = ({
     return (
       <div className={classes.root}>
         <ReactPhoneInput
-          defaultCountry="us"
+          defaultCountry="ca"
           onlyCountries={["co", "us", "ca"]}
           masks={{
-            co: "+.. (...) ...-..-..",
             ca: "+. (...) ...-..-..",
-            us: "+. (...) ...-..-.."
+            us: "+. (...) ...-..-..",
+            co: "+.. (...) ...-..-.."
           }}
           disableAreaCodes
           value={phone}
@@ -102,8 +102,6 @@ const InfoContact = ({
             autoComplete: "phone",
             name: "custom-username"
           }}
-          inputClass={classes.field}
-          dropdownClass={classes.countryList}
         />
         <NumberValidation
           phone={phone}

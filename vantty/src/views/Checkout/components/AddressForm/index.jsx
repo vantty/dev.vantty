@@ -16,19 +16,15 @@ import {
   TableBody
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { GoogleMapsAutocomplete } from "../../../../components";
+import { GoogleMapsAutocomplete, PhoneInput } from "../../../../components";
 
 const useStyles = makeStyles(theme => ({
-  // formControl: {
-  //   margin: theme.spacing(1),
-  //   minWidth: 200
-  // },
   media: {
     height: 0,
     paddingTop: "30%" // 16:9
   },
   formControl: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(4),
     width: "100%"
   },
   table: {
@@ -42,13 +38,12 @@ export default function AddressForm({
   onChangeAddress,
   location,
   handleChange,
-  profile: { delivery, place, address }
+  onChangePhone,
+  profile: { delivery, place, address },
+  userPhone
 }) {
   const classes = useStyles();
 
-  // const handleChange = event => {
-  //   setLocation(event.target.value);
-  // };
   const replace = str => {
     const newString = str.replace(/ /g, "+");
     return newString;
@@ -57,11 +52,13 @@ export default function AddressForm({
     <Fragment>
       <Fragment>
         <Typography variant='h6' gutterBottom>
-          Place of the service
+          Contact number
         </Typography>
+        <PhoneInput onChangePhone={onChangePhone} userPhone={userPhone} />
+
         <div>
           <FormControl component='fieldset' className={classes.formControl}>
-            <FormLabel component='legend'>Saved Cards</FormLabel>
+            <FormLabel component='legend'>Place of service</FormLabel>
             <RadioGroup
               name='location'
               value={location}
@@ -92,9 +89,6 @@ export default function AddressForm({
                             localAddress={localAddress}
                             onChangeTarget={onChangeTarget}
                             onChangeAddress={onChangeAddress}
-
-                            // onChange={onChange}
-                            // descriptionAddress={descriptionAddress}
                           />
                         </Grid>
                       </TableCell>

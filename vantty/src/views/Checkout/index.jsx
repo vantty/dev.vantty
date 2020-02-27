@@ -173,14 +173,16 @@ const Checkout = ({
     services: [],
     totalValue: "",
     stripeCardId: "",
-    place: ""
+    place: "",
+    userPhone: ""
   });
   const {
     appointmentDate,
     address,
     descriptionAddress,
     stripeCardId,
-    place
+    place,
+    userPhone
   } = checkout;
 
   useEffect(() => {
@@ -213,7 +215,8 @@ const Checkout = ({
         profile.stripeArtistAccount,
         bookCode,
         checkout,
-        testAddress
+        testAddress,
+        profile.name.firstName
       );
     }
   };
@@ -237,6 +240,14 @@ const Checkout = ({
       address,
       log,
       lat
+    });
+  };
+
+  const onChangePhone = phone => {
+    setCheckout({
+      ...checkout,
+      userPhone: phone,
+      artistPhone: profile.mobileNumber
     });
   };
 
@@ -271,6 +282,8 @@ const Checkout = ({
             toHome={toHome}
             artistSite={artistSite}
             handleChange={handleChange}
+            onChangePhone={onChangePhone}
+            userPhone={userPhone}
           />
         );
       case 2:
@@ -296,15 +309,24 @@ const Checkout = ({
     }
   }
 
-  const desable = (address, location) => {
-    if (location === "toHome" && address.street) {
+  const desable = (address, location, userPhone) => {
+    if (
+      (location === "toHome" && address.street && userPhone.length === 11) ||
+      (location === "toHome" &&
+        address.street &&
+        user.mobileNumber.length === 11)
+    ) {
       return false;
-    } else if (location === "artistSite") {
+    } else if (
+      (location === "artistSite" && userPhone.length === 11) ||
+      (location === "artistSite" && user && user.mobileNumber.length === 11)
+    ) {
       return false;
     } else {
       return true;
     }
   };
+
   return (
     <Fragment>
       <CssBaseline />
@@ -372,24 +394,27 @@ const Checkout = ({
                 )}
 
                 {activeStep === 0 && (
-                  <Button
-                    variant='contained'
-                    disabled={
-                      (total === 0 && true) || (appointmentDate === "" && true)
-                    }
-                    color='primary'
-                    onClick={e => handleNext(e, total, addedItems)}
-                    type='submit'
-                    fullWidth
-                    className={classes.submit}
-                  >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                  </Button>
+                  <Container maxWidth='xs'>
+                    <Button
+                      variant='contained'
+                      disabled={
+                        (total === 0 && true) ||
+                        (appointmentDate === "" && true)
+                      }
+                      color='primary'
+                      onClick={e => handleNext(e, total, addedItems)}
+                      type='submit'
+                      fullWidth
+                      className={classes.submit}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  </Container>
                 )}
                 {activeStep === 1 && (
                   <Button
                     variant='contained'
-                    disabled={desable(address, location)}
+                    disabled={desable(address, location, userPhone)}
                     color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
