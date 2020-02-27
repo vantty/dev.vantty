@@ -172,7 +172,8 @@ const Checkout = ({
     services: [],
     totalValue: "",
     stripeCardId: "",
-    place: ""
+    place: "",
+    userPhone: ""
   });
   const {
     appointmentDate,
@@ -233,6 +234,14 @@ const Checkout = ({
     });
   };
 
+  const onChangePhone = phone => {
+    setCheckout({
+      ...checkout,
+      userPhone: phone,
+      artistPhone: profile.mobileNumber
+    });
+  };
+
   const handleChange = event => {
     setLocation(event.target.value);
     setCheckout({ ...checkout, place: event.target.value });
@@ -264,6 +273,7 @@ const Checkout = ({
             toHome={toHome}
             artistSite={artistSite}
             handleChange={handleChange}
+            onChangePhone={onChangePhone}
           />
         );
       case 2:
@@ -295,13 +305,13 @@ const Checkout = ({
       {loading && <LinearProgress />}
       <Alert />
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth='sm' className={classes.container}>
+      <Container maxWidth="sm" className={classes.container}>
         {!isMobile && activeStep === 0 && (
           <IconButton>
             <Link
               component={Link}
               to={`/profile/artist/${match.params.id}`}
-              variant='h6'
+              variant="h6"
             >
               <ArrowBackIcon style={{ color: "black" }} />
             </Link>
@@ -309,7 +319,7 @@ const Checkout = ({
         )}
         {/* <main className={classes.layout}> */}
         {/* <Paper className={classes.paper}> */}
-        <Typography variant='h2' align='center'>
+        <Typography variant="h2" align="center">
           Checkout
         </Typography>
         <Stepper
@@ -326,19 +336,19 @@ const Checkout = ({
         <Fragment>
           {activeStep === steps.length ? (
             <Fragment>
-              <Typography variant='h5' gutterBottom>
+              <Typography variant="h5" gutterBottom>
                 Thank you for your order.
               </Typography>
-              <Typography variant='subtitle1'>
+              <Typography variant="subtitle1">
                 Your booking request has been placed and we have emailed your
                 artist this request. Once she accepts it, we will send you the
                 confirmation and your <strong>booking code.</strong>
               </Typography>
               <Button
                 component={Link}
-                to='/bookings-user'
-                color='primary'
-                variant='contained'
+                to="/bookings-user"
+                color="primary"
+                variant="contained"
                 className={classes.bookingsButton}
                 disabled={loading}
               >
@@ -357,13 +367,13 @@ const Checkout = ({
 
                 {activeStep === 0 && (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     disabled={
                       (total === 0 && true) || (appointmentDate === "" && true)
                     }
-                    color='primary'
+                    color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
-                    type='submit'
+                    type="submit"
                     fullWidth
                     className={classes.submit}
                   >
@@ -372,7 +382,7 @@ const Checkout = ({
                 )}
                 {activeStep === 1 && (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     disabled={
                       false
                       // Object.entries(address).length === 0 ||
@@ -381,7 +391,7 @@ const Checkout = ({
                       //   address.constructor === Object &&
                       //   true)
                     }
-                    color='primary'
+                    color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >
@@ -390,9 +400,9 @@ const Checkout = ({
                 )}
                 {activeStep === 2 && (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     disabled={!stripeCardId}
-                    color='primary'
+                    color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >
@@ -402,9 +412,9 @@ const Checkout = ({
 
                 {activeStep === 3 && (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     disabled={false}
-                    color='primary'
+                    color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >

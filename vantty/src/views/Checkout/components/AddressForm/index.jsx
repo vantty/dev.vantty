@@ -16,13 +16,9 @@ import {
   TableBody
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { GoogleMapsAutocomplete } from "../../../../components";
+import { GoogleMapsAutocomplete, PhoneInput } from "../../../../components";
 
 const useStyles = makeStyles(theme => ({
-  // formControl: {
-  //   margin: theme.spacing(1),
-  //   minWidth: 200
-  // },
   media: {
     height: 0,
     paddingTop: "30%" // 16:9
@@ -42,13 +38,11 @@ export default function AddressForm({
   onChangeAddress,
   location,
   handleChange,
+  onChangePhone,
   profile: { delivery, place, address }
 }) {
   const classes = useStyles();
 
-  // const handleChange = event => {
-  //   setLocation(event.target.value);
-  // };
   const replace = str => {
     const newString = str.replace(/ /g, "+");
     return newString;
@@ -56,14 +50,18 @@ export default function AddressForm({
   return (
     <Fragment>
       <Fragment>
-        <Typography variant='h6' gutterBottom>
-          Place of the service
+        <Typography variant="h6" gutterBottom>
+          Contact number
+        </Typography>
+        <PhoneInput onChangePhone={onChangePhone} />
+        <Typography variant="h6" gutterBottom>
+          Place of service
         </Typography>
         <div>
-          <FormControl component='fieldset' className={classes.formControl}>
-            <FormLabel component='legend'>Saved Cards</FormLabel>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <FormLabel component="legend">Saved Cards</FormLabel>
             <RadioGroup
-              name='location'
+              name="location"
               value={location}
               onChange={handleChange}
             >
@@ -71,13 +69,13 @@ export default function AddressForm({
                 <TableHead>
                   <TableRow>
                     <TableCell>Select</TableCell>
-                    <TableCell align='left'>Type</TableCell>
+                    <TableCell align="left">Type</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {delivery && (
                     <TableRow key={"toHome"}>
-                      <TableCell align='left' key={"toHome"}>
+                      <TableCell align="left" key={"toHome"}>
                         {delivery && (
                           <FormControlLabel
                             key={"toHome"}
@@ -86,15 +84,12 @@ export default function AddressForm({
                           />
                         )}
                       </TableCell>
-                      <TableCell align='left'>
+                      <TableCell align="left">
                         <Grid item xs>
                           <GoogleMapsAutocomplete
                             localAddress={localAddress}
                             onChangeTarget={onChangeTarget}
                             onChangeAddress={onChangeAddress}
-
-                            // onChange={onChange}
-                            // descriptionAddress={descriptionAddress}
                           />
                         </Grid>
                       </TableCell>
@@ -104,18 +99,18 @@ export default function AddressForm({
                 <TableBody>
                   {place && (
                     <TableRow key={"artistSite"}>
-                      <TableCell align='left' key={"artistSite"}>
+                      <TableCell align="left" key={"artistSite"}>
                         <FormControlLabel
                           key={"artistSite"}
                           value={"artistSite"}
                           control={<Radio />}
                         />
                       </TableCell>
-                      <TableCell align='left'>
+                      <TableCell align="left">
                         <Card className={classes.card}>
                           <a
-                            target='_blank'
-                            rel='noopener noreferrer'
+                            target="_blank"
+                            rel="noopener noreferrer"
                             href={`https://www.google.com/maps/place/${replace(
                               address.street
                             )}/`}

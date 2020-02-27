@@ -29,7 +29,7 @@ import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(8),
+    // marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -190,10 +190,10 @@ const Review = ({
 
   return (
     <Fragment>
-      <Container component='main' maxWidth='xs'>
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component='h1' variant='h5'>
+          <Typography component="h1" variant="h5">
             Date
           </Typography>
           <form className={classes.form} noValidate>
@@ -202,9 +202,9 @@ const Review = ({
               {profile && items ? (
                 <Grid
                   container
-                  direction='row'
-                  justify='space-between'
-                  alignItems='center'
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
                 >
                   {items.map(product => (
                     <ListItem className={classes.listItem} key={product._id}>
@@ -218,7 +218,7 @@ const Review = ({
                       </Grid>
                       <Grid item xs={2}>
                         <Typography
-                          variant='body1'
+                          variant="body1"
                           key={product.id}
                           className={classes.typo}
                         >
@@ -235,8 +235,8 @@ const Review = ({
                             }
                             onClick={() => handleSubtractQuantity(product._id)}
                             key={product._id}
-                            color='primary'
-                            aria-label='add'
+                            color="primary"
+                            aria-label="add"
                             className={classes.newButtonSubstract}
                           >
                             <RemoveIcon className={classes.icon} />
@@ -253,8 +253,8 @@ const Review = ({
                                 : handleAddQuantity(product._id)
                             }
                             key={product.id}
-                            color='primary'
-                            aria-label='add'
+                            color="primary"
+                            aria-label="add"
                             className={classes.newButton}
                           >
                             <AddIcon />
@@ -272,25 +272,25 @@ const Review = ({
             <div className={classes.totals}>
               <Grid
                 container
-                direction='row'
-                justify='flex-end'
-                alignItems='center'
+                direction="row"
+                justify="flex-end"
+                alignItems="center"
               >
                 <ListItem className={classes.values}>
-                  <ListItemText primary='Service' />
-                  <Typography variant='subtitle1' className={classes.subtitle}>
+                  <ListItemText primary="Service" />
+                  <Typography variant="subtitle1" className={classes.subtitle}>
                     ${subtotal.toFixed(2)}
                   </Typography>
                 </ListItem>
                 <ListItem className={classes.values}>
-                  <ListItemText primary='Fee' />
-                  <Typography variant='subtitle1' className={classes.subtitle}>
+                  <ListItemText primary="Fee" />
+                  <Typography variant="subtitle1" className={classes.subtitle}>
                     ${money.transFee.toFixed(2)}
                   </Typography>
                 </ListItem>
                 <ListItem className={classes.values}>
-                  <ListItemText primary='Total' />
-                  <Typography variant='subtitle1' className={classes.total}>
+                  <ListItemText primary="Total" />
+                  <Typography variant="subtitle1" className={classes.total}>
                     ${money.total.toFixed(2)}
                   </Typography>
                 </ListItem>
