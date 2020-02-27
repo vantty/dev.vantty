@@ -44,7 +44,11 @@ passport.use(
         const email = profile.emails[0].value;
         const user = await User.findOne({ email });
         if (user) {
-          return done(null, { message: "User already exist" });
+          return done(null, {
+            newUser: user,
+            message: "User already exist",
+            register: false
+          });
         }
         const newUser = await User.create({
           method: "google",
@@ -85,7 +89,11 @@ passport.use(
         const email = profile.emails[0].value;
         const user = await User.findOne({ email });
         if (user) {
-          return done(null, { message: "User already exist" });
+          return done(null, {
+            newUser: user,
+            message: "User already exist",
+            register: false
+          });
         }
         const newUser = await User.create({
           method: "facebook",
