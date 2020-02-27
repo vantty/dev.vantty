@@ -1,5 +1,6 @@
 import { SEND_EMAIL_HELP_CENTER_SUCCESS } from "./types";
 import { server } from "../utils/axios";
+import setAlert from "./alert";
 
 export const sendEmail = problem => async dispatch => {
   try {
@@ -8,6 +9,7 @@ export const sendEmail = problem => async dispatch => {
       type: SEND_EMAIL_HELP_CENTER_SUCCESS,
       payload: true
     });
+    await dispatch(setAlert("Email sent successfully", "success"));
   } catch (error) {
     console.log(error);
   }

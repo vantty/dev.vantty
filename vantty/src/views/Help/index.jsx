@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 
 // Material-UI
@@ -19,18 +19,24 @@ import {
 // Actions
 import { sendEmail } from "../../actions/help";
 
+// Components
+import { Alert } from "../../components";
+
 const useStyles = makeStyles(theme => ({
   paper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: theme.spacing(8)
+    marginTop: theme.spacing(4)
   },
-  title: {},
+  title: {
+    marginBottom: theme.spacing(2)
+  },
   text: {
     marginBottom: theme.spacing(2)
   },
   button: {
+    textTransform: "none",
     marginBottom: theme.spacing(10),
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
@@ -50,7 +56,7 @@ const useStyles = makeStyles(theme => ({
 
 const Help = ({ sendEmail }) => {
   const classes = useStyles();
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     email: "",
     issue: "",
     text: ""
@@ -60,9 +66,10 @@ const Help = ({ sendEmail }) => {
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
-  const handleSubmit = event => {
-    // event.preventDefault();
-    sendEmail(formData);
+  const handleSubmit = async event => {
+    event.preventDefault();
+    await sendEmail(formData);
+    await setFormData({ email: "", issue: "", text: "" });
   };
   const problems = [
     {
@@ -96,78 +103,77 @@ const Help = ({ sendEmail }) => {
   ];
 
   return (
-    <Container component='main' maxWidth='sm'>
+    <Fragment>
       <CssBaseline />
-      {/* <Header /> */}
-      <div className={classes.paper}>
-        <Typography variant='h2' className={classes.title}>
-          Help Center
-        </Typography>
-        <Typography variant='subtitle1' className={classes.text}>
-          Please confirm your email address. If our email is not inside Inbox
-          folder, please verify the Spam folder. If you did not receive any
-          email, please click the link below.
-        </Typography>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <FormControl variant='outlined' className={classes.formControl}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <InputLabel>Issue</InputLabel>
-                  <Select
-                    className={classes.select}
-                    value={issue}
-                    name='issue'
-                    onChange={handleChange}
-                  >
-                    {problems.map(problem => (
-                      <MenuItem value={problem.value} key={problem.value}>
-                        {problem.text}
-                      </MenuItem>
-                    ))}
-                  </Select>
+      <Alert />
+      <Container component="main" maxWidth="sm">
+        <div className={classes.paper}>
+          <Typography variant="h2" className={classes.title}>
+            Help Center
+          </Typography>
+          <div>
+            <form onSubmit={handleSubmit}>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <InputLabel>Issue</InputLabel>
+                    <Select
+                      className={classes.select}
+                      value={issue}
+                      name="issue"
+                      onChange={handleChange}
+                    >
+                      {problems.map(problem => (
+                        <MenuItem value={problem.value} key={problem.value}>
+                          {problem.text}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.textField}
+                      fullWidth
+                      label="Tell us what happened"
+                      name="text"
+                      onChange={handleChange}
+                      type="text"
+                      variant="outlined"
+                      value={text}
+                      multiline={true}
+                      rows="5"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      className={classes.textField}
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      onChange={handleChange}
+                      type="email"
+                      variant="outlined"
+                      value={email}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      fullWidth
+                      type="submit"
+                      color="primary"
+                      variant="contained"
+                      className={classes.button}
+                    >
+                      Send
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.textField}
-                    fullWidth
-                    label='Tell us what happened'
-                    name='text'
-                    onChange={handleChange}
-                    type='text'
-                    variant='outlined'
-                    value={text}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.textField}
-                    fullWidth
-                    label='Email'
-                    name='email'
-                    onChange={handleChange}
-                    type='email'
-                    variant='outlined'
-                    value={email}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    fullWidth
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    className={classes.button}
-                  >
-                    Send
-                  </Button>
-                </Grid>
-              </Grid>
-            </FormControl>
-          </form>
+              </FormControl>
+            </form>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </Fragment>
   );
 };
 

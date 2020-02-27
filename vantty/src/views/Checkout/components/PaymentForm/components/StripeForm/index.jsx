@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     textTransform: "none",
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(1),
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
       backgroundColor: theme.palette.greenVantty.dark
