@@ -48,14 +48,7 @@ const Location = ({
   auth: { user }
 }) => {
   const classes = useStyles();
-  const mode = user && user.profile;
-  //Selector
-  // const { profile } = useSelector(state => ({
-  //   profile: state.profile.profile
-  // }));
-  // States
 
-  // const [availability, setAvailability] = useState("");
   const [state, setState] = React.useState({
     place: false,
     delivery: false,
@@ -66,7 +59,7 @@ const Location = ({
     setState({
       ...state,
       availability: profile ? profile.availability : "",
-      // address: profile ? profile.address : "",
+      address: profile ? profile.address : "",
       place: profile ? profile.place : false,
       delivery: profile ? profile.delivery : false
     });
@@ -92,21 +85,21 @@ const Location = ({
     delivery,
     place,
     availability,
-    address: {
-      street:
-        "" ||
-        (address && address.street) ||
-        (profile && profile.address && profile.address.street) ||
-        "",
-      log:
-        (address.log && address.log) ||
-        (profile && profile.address && profile.address.log),
-      lat:
-        (address.lat && address.lat) ||
-        (profile && profile.address && profile.address.lat)
-    }
+    address: address
+    //   address: {
+    //     street: add
+    //       "" ||
+    //       (address && address.street) ||
+    //       (profile && profile.address && profile.address.street) ||
+    //       "",
+    //     log:
+    //       (address.log && address.log) ||
+    //       (profile && profile.address && profile.address.log),
+    //     lat:
+    //       (address.lat && address.lat) ||
+    //       (profile && profile.address && profile.address.lat)
+    //   }
   };
-  console.log(values);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -152,7 +145,7 @@ const Location = ({
                     placeholder='Hi! You can take an appointment with me all days on the weekend'
                     // defaultValue='Default Value'
                     name='availability'
-                    value={"" || availability || profile.availability}
+                    value={availability}
                     className={classes.textField}
                     margin='normal'
                     variant='outlined'
@@ -189,7 +182,7 @@ const Location = ({
                             <GoogleMapsAutocomplete
                               localAddress={
                                 // profile.address ? profile.address : address
-                                profile.address ? profile.address : address
+                                address
                               }
                               onChangeAddress={onChangeAddress}
                             />

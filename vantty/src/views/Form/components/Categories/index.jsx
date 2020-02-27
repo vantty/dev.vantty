@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -65,7 +65,6 @@ const useStyles = makeStyles(theme => ({
 const AddCategories = ({
   addCategories,
   history,
-
   nextStep,
   prevStep,
   step,
@@ -73,24 +72,23 @@ const AddCategories = ({
   setStateHair,
   setStateMakeup,
   stateHair,
-  stateMakeup
+  stateMakeup,
+  profile: { profile }
 }) => {
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   setStateHairElement({
-  //     ...stateHairElement,
-  //     hair: profile ? profile.categories.hair : []
-  //   });
-  // }, [profile]);
+  useEffect(() => {
+    setStateHairElement(profile ? profile.categories.hair : []);
+    setStateMakeupElement(profile ? profile.categories.makeup : []);
+  }, [profile]);
 
   const back = e => {
     e.preventDefault();
     prevStep();
   };
-  const [stateHairElement, setStateHairElement] = React.useState([]);
-  const [stateMakeupElement, setStateMakeupElement] = React.useState([]);
 
+  const [stateHairElement, setStateHairElement] = useState([]);
+  const [stateMakeupElement, setStateMakeupElement] = useState([]);
   const onSubmit = async e => {
     e.preventDefault();
     match.url === "/categories" &&
@@ -144,7 +142,7 @@ const AddCategories = ({
                     <InputLabel>Hair</InputLabel>
                     <Select
                       multiple
-                      value={stateHair || stateHairElement}
+                      value={stateHairElement}
                       onChange={handleChangeHair}
                       input={<Input />}
                       renderValue={selected => (
