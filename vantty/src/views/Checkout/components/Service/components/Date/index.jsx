@@ -1,19 +1,14 @@
 import "date-fns";
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    // width: 250
-  },
-  margin: {
-    // margin: "1rem"
-  },
-  select: {
-    width: "100%"
+  input: {
+    width: "300px"
   }
 }));
 
@@ -31,24 +26,27 @@ export default function MaterialUIPickers({ onChangeDate, localDate }) {
   };
 
   return (
-    <form className={classes.root} noValidate>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DateTimePicker
-              fullWidth
-              name="date"
-              margin="normal"
-              value={localDate || selectedDate}
-              disablePast
-              inputVariant="outlined"
-              onChange={handleDate}
-              showTodayButton
-              minutesStep={5}
-            />
-          </MuiPickersUtilsProvider>
+    <Container maxWidth="xs">
+      <form noValidate>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DateTimePicker
+                fullWidth
+                name="date"
+                margin="normal"
+                value={localDate || selectedDate}
+                disablePast
+                inputVariant="outlined"
+                onChange={handleDate}
+                showTodayButton
+                minutesStep={5}
+                className={classes.input}
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
         </Grid>
-      </Grid>
-    </form>
+      </form>
+    </Container>
   );
 }

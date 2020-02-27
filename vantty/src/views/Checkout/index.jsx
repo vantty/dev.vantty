@@ -366,19 +366,22 @@ const Checkout = ({
                 )}
 
                 {activeStep === 0 && (
-                  <Button
-                    variant="contained"
-                    disabled={
-                      (total === 0 && true) || (appointmentDate === "" && true)
-                    }
-                    color="primary"
-                    onClick={e => handleNext(e, total, addedItems)}
-                    type="submit"
-                    fullWidth
-                    className={classes.submit}
-                  >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                  </Button>
+                  <Container maxWidth="xs">
+                    <Button
+                      variant="contained"
+                      disabled={
+                        (total === 0 && true) ||
+                        (appointmentDate === "" && true)
+                      }
+                      color="primary"
+                      onClick={e => handleNext(e, total, addedItems)}
+                      type="submit"
+                      fullWidth
+                      className={classes.submit}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Button>
+                  </Container>
                 )}
                 {activeStep === 1 && (
                   <Button
