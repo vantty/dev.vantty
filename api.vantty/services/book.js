@@ -48,7 +48,7 @@ const getUserBookings = async user => {
     const profileBook = await getById(book);
     for (let bookings of profileBook.bookings) {
       if (bookings.userId === _id.toString()) {
-        totalBookings.unshift(bookings);
+        totalBookings.push(bookings);
       }
     }
   }
