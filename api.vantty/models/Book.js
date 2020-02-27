@@ -72,7 +72,8 @@ const BookSchema = new Schema({
       stripeCardId: { type: String },
       stripeArtistAccount: { type: String },
       userPhone: { type: String },
-      artistPhone: { type: String }
+      artistPhone: { type: String },
+      artistName: { type: String }
     }
   ]
 });

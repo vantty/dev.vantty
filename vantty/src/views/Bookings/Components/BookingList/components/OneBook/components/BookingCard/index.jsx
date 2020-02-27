@@ -9,7 +9,6 @@ import {
   Grid,
   List,
   Typography,
-  Avatar,
   CardActions,
   CardContent,
   CardMedia,
@@ -25,7 +24,8 @@ import {
   BookCode,
   ConfirmationModal,
   Alert,
-  ContactButtons
+  ContactButtons,
+  BookingAvatar
 } from "../../../../../../../../components";
 import { PosponeForm, HelpButton } from "./components";
 
@@ -79,11 +79,7 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
       {loading && <LinearProgress />}
       <Card className={classes.card}>
         <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {booking.user}
-            </Avatar>
-          }
+          avatar={<BookingAvatar state={booking.state} />}
           action={
             <HelpButton
               booking={booking}

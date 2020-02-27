@@ -207,7 +207,8 @@ const Checkout = ({
         profile.stripeArtistAccount,
         bookCode,
         checkout,
-        testAddress
+        testAddress,
+        profile.name.firstName
       );
     }
   };

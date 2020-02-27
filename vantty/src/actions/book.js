@@ -161,7 +161,8 @@ export const addNewBook = (
   stripeArtistAccount,
   bookCode,
   formData,
-  address
+  address,
+  artistName
 ) => async dispatch => {
   try {
     const config = {
@@ -181,7 +182,8 @@ export const addNewBook = (
       requestTimeStamp: today.getTime(),
       bookCode: bookCode,
       stripeCustomerId: stripeCustomerId,
-      stripeArtistAccount: stripeArtistAccount
+      stripeArtistAccount: stripeArtistAccount,
+      artistName: artistName
     };
     await dispatch({ type: ADD_BOOK });
     const res = await server.post(`/book/create-book/${bookId}`, body, config);

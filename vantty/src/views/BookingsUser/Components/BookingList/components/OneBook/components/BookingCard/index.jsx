@@ -9,7 +9,6 @@ import {
   Grid,
   List,
   Typography,
-  Avatar,
   CardActions,
   CardContent,
   CardMedia,
@@ -21,7 +20,11 @@ import { Services } from "./components";
 
 // Components
 import { PosponeForm, HelpButton } from "./components";
-import { Alert, ContactButtons } from "../../../../../../../../components";
+import {
+  Alert,
+  ContactButtons,
+  BookingAvatar
+} from "../../../../../../../../components";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -63,18 +66,14 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
       {loading && <LinearProgress />}
       <Card className={classes.card}>
         <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {booking.user}
-            </Avatar>
-          }
+          avatar={<BookingAvatar state={booking.state} />}
           action={
             <HelpButton
               booking={booking}
               changeStateBooking={changeStateBooking}
             />
           }
-          title={`Your client is ${booking.name}`}
+          title={`Your artist is ${booking.artistName}`}
         />
         <a
           target="_blank"
