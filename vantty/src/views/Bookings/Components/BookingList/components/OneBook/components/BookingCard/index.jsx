@@ -214,7 +214,13 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
             </Grid>
           </div>
         </Fragment>
-        {booking.state === "accepted" && <ContactButtons type="client" />}
+        {booking.state === "accepted" && (
+          <ContactButtons
+            customerType="client"
+            number={booking.userPhone}
+            message="Hi! I'm your artrist of the Vantty service!"
+          />
+        )}
       </Card>
     </Fragment>
   );

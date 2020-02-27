@@ -25,7 +25,8 @@ import { Alert, ContactButtons } from "../../../../../../../../components";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    marginTop: "2rem"
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4)
   },
   media: {
     height: 0,
@@ -167,7 +168,13 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
             </Grid>
           </Grid>
         </div>
-        {booking.state === "accepted" && <ContactButtons type="artist" />}
+        {booking.state === "accepted" && (
+          <ContactButtons
+            customerType="artist"
+            number={booking.artistPhone}
+            message="Hi! I'm your client of the Vantty service!"
+          />
+        )}
       </Card>
     </Fragment>
   );

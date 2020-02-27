@@ -1,6 +1,7 @@
 import React from "react";
+import { isIOS } from "react-device-detect";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Typography, Button, Container } from "@material-ui/core";
+import { Grid, Typography, Button, Container, Link } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   contact: {
@@ -27,39 +28,56 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ContactButtons = ({ type }) => {
+const ContactButtons = ({ customerType, number, message }) => {
   const classes = useStyles();
+
+  const brand = isIOS ? "?" : "&";
+  const buttons = [
+    {
+      type: "wapp",
+      text: "Chat via Whatsapp",
+      link: `https://api.whatsapp.com/send?phone=${number}&text=${message}`
+    },
+    {
+      type: "sms",
+      text: "Chat via SMS",
+      link: `sms:${number}${brand}body=${message}`
+    }
+  ];
+
   return (
     <div className={classes.contact}>
       <Container maxWidth="lg">
         <Grid item xs={12}>
-          <Typography>{`If you need to contact your ${type}:`}</Typography>
+          <Typography>{`If you need to contact your ${customerType}:`}</Typography>
         </Grid>
       </Container>
       <Container className={classes.contactButtonsContainer}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Button
-              fullWidth
-              color="primary"
-              size="small"
-              variant="contained"
-              className={classes.wappButton}
-            >
-              Chat via Whatsapp
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              fullWidth
-              color="primary"
-              size="small"
-              variant="contained"
-              className={classes.smsButton}
-            >
-              Chat via SMS
-            </Button>
-          </Grid>
+          {buttons.map(button => (
+            <Grid item xs={12}>
+              <Link
+                href={button.link}
+                target="_blank"
+                rel="noopener"
+                underline="none"
+              >
+                <Button
+                  fullWidth
+                  color="primary"
+                  size="small"
+                  variant="contained"
+                  className={
+                    button.type === "wapp"
+                      ? classes.wappButton
+                      : classes.smsButton
+                  }
+                >
+                  {button.text}
+                </Button>
+              </Link>
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </div>
