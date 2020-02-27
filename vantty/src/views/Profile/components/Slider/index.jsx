@@ -97,7 +97,7 @@ export default function Slider({
   // const { services } = book;
   const load = (state, profile) => {
     loadService(state);
-    gaEvent("Button", "Click to checkout", profile.user);
+    gaEvent("Inicio checkout", "Click to checkout", profile.user);
   };
   return (
     <div className={classes.root}>

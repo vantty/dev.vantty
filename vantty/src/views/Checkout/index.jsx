@@ -34,6 +34,7 @@ import { SimpleAppBar, Alert } from "../../components";
 import { getProfileById } from "../../actions/profile";
 import { initialServices } from "../../actions/cart";
 import { addNewBook } from "../../actions/book";
+import { gaEvent } from "../../marketing/gAnalytics";
 // import CheckoutContext from "./CheckoutContext";
 
 // Helpers
@@ -187,14 +188,20 @@ const Checkout = ({
   }, []);
 
   const [location, setLocation] = useState({
-    toHome: false,
+    toHome: true,
     artistSite: false
   });
   const { toHome, artistSite } = location;
   const testAddress = place === "artistSite" ? profile.address : address;
+
   const handleNext = async (e, total, addedItems) => {
     e.preventDefault();
     setCheckout({ ...checkout, totalValue: total, services: addedItems });
+    //ga
+    activeStep === 0 && gaEvent("Checkout", "Service");
+    activeStep === 1 && gaEvent("Checkout", "Address");
+    activeStep === 2 && gaEvent("Checkout", "Payment");
+    activeStep === 3 && gaEvent("Checkout", "Finished");
     setActiveStep(activeStep + 1);
 
     if (activeStep === 3) {
@@ -289,6 +296,15 @@ const Checkout = ({
     }
   }
 
+  const desable = (address, location) => {
+    if (location === "toHome" && address.street) {
+      return false;
+    } else if (location === "artistSite") {
+      return false;
+    } else {
+      return true;
+    }
+  };
   return (
     <Fragment>
       <CssBaseline />
@@ -373,14 +389,7 @@ const Checkout = ({
                 {activeStep === 1 && (
                   <Button
                     variant='contained'
-                    disabled={
-                      false
-                      // Object.entries(address).length === 0 ||
-                      // Object.entries(location) !== "toHome" ||
-                      // (Object.entries(address).length === 0 &&
-                      //   address.constructor === Object &&
-                      //   true)
-                    }
+                    disabled={desable(address, location)}
                     color='primary'
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}

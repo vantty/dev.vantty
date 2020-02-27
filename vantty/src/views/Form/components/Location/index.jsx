@@ -96,7 +96,8 @@ const Location = ({
       street:
         "" ||
         (address && address.street) ||
-        (profile && profile.address && profile.address.street),
+        (profile && profile.address && profile.address.street) ||
+        "",
       log:
         (address.log && address.log) ||
         (profile && profile.address && profile.address.log),
@@ -105,11 +106,30 @@ const Location = ({
         (profile && profile.address && profile.address.lat)
     }
   };
+  console.log(values);
 
   const onSubmit = e => {
     e.preventDefault();
     update(values);
     match.url === "/create-profile" && nextStep();
+  };
+
+  const desable = values => {
+    const { address, availability, place } = values;
+    if (availability && place && Object.values(address)[0]) {
+      return false;
+    } else if (
+      availability &&
+      delivery &&
+      place &&
+      !Object.values(address)[0]
+    ) {
+      return true;
+    } else if (availability && delivery) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   return (
@@ -132,7 +152,7 @@ const Location = ({
                     placeholder='Hi! You can take an appointment with me all days on the weekend'
                     // defaultValue='Default Value'
                     name='availability'
-                    value={mode ? availability : profile.availability}
+                    value={"" || availability || profile.availability}
                     className={classes.textField}
                     margin='normal'
                     variant='outlined'
@@ -226,7 +246,7 @@ const Location = ({
                                 <Button
                                   className={classes.button}
                                   onClick={e => onSubmit(e)}
-                                  disabled={!place && !delivery}
+                                  disabled={desable(values)}
                                 >
                                   {match.url === "/location"
                                     ? "Update"

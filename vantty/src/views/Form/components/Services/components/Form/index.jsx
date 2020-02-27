@@ -30,15 +30,12 @@ export default function NestedList({
   // };
 
   return (
-    <List component="div" disablePadding>
+    <List component='div' disablePadding>
       <ListItem className={classes.nested}>
         <Services
           serviceData={serviceData}
           onChange={onChange}
           onSubmitPrice={onSubmitPrice}
-          availability={availability}
-          onChangeAvailability={onChangeAvailability}
-          onSubmitAvailability={onSubmitAvailability}
         />
       </ListItem>
     </List>

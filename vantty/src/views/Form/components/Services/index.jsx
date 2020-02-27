@@ -66,7 +66,7 @@ const Price = ({
   deleteService
 }) => {
   const [formData, setFormData] = useState({
-    price: 60
+    price: 80
   });
   const [serviceData, setServiceData] = useState({
     typeOfService: "",
@@ -86,8 +86,8 @@ const Price = ({
   const onChange = e =>
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
 
-  const onChangeAvailability = e =>
-    setAvailability({ ...availability, [e.target.name]: e.target.value });
+  // const onChangeAvailability = e =>
+  //   setAvailability({ ...availability, [e.target.name]: e.target.value });
 
   const { price } = formData;
   const { typeOfService, amount, description } = serviceData;
@@ -104,14 +104,13 @@ const Price = ({
   const onSubmit = e => {
     e.preventDefault();
     update({ price: price });
-    update({ availability: availability });
     nextStep();
   };
 
-  const onSubmitAvailability = e => {
-    e.preventDefault();
-    update(availability);
-  };
+  // const onSubmitAvailability = e => {
+  //   e.preventDefault();
+  //   update(availability);
+  // };
 
   const onSubmitStartCost = e => {
     e.preventDefault();
@@ -125,6 +124,16 @@ const Price = ({
   const deleteServiceFunction = (e, id) => {
     e.preventDefault();
     deleteService(id);
+  };
+
+  const desable = (profile, price) => {
+    if (profile.services.length === 0) {
+      return true;
+    } else if (price === 0 || price === "") {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const classes = useStyles();
@@ -143,9 +152,6 @@ const Price = ({
                   onChange={onChange}
                   onSubmitPrice={onSubmitPrice}
                   services={profile.services}
-                  availability={availability}
-                  onChangeAvailability={onChangeAvailability}
-                  onSubmitAvailability={onSubmitAvailability}
                 />
                 <Divider />
 
@@ -194,32 +200,16 @@ const Price = ({
             Children={
               <div>
                 <div>
-                  {match.url === "/price" ? (
-                    <Fragment>
-                      <Button component={Link} to='/settings/profile'>
-                        Back
-                      </Button>
-                      <Button
-                        component={Link}
-                        to='/settings/profile'
-                        className={classes.button}
-                        onClick={e => onSubmitAvailability(e)}
-                      >
-                        Update
-                      </Button>
-                    </Fragment>
-                  ) : (
-                    <Fragment>
-                      <Button onClick={back}>Back</Button>
-                      <Button
-                        className={classes.button}
-                        onClick={e => onSubmit(e)}
-                        disabled={profile.services.length === 0}
-                      >
-                        Next
-                      </Button>
-                    </Fragment>
-                  )}
+                  <Fragment>
+                    <Button onClick={back}>Back</Button>
+                    <Button
+                      className={classes.button}
+                      onClick={e => onSubmit(e)}
+                      disabled={desable(profile, price)}
+                    >
+                      Next
+                    </Button>
+                  </Fragment>
                 </div>
               </div>
             }

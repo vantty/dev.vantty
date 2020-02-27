@@ -68,9 +68,7 @@ const Services = ({
   serviceData,
   onChange,
   onSubmitPrice,
-  availability,
-  onChangeAvailability,
-  onSubmitAvailability,
+
   ...rest
 }) => {
   const classes = useStyles();
@@ -141,12 +139,6 @@ const Services = ({
     }));
     onChange(event);
   };
-
-  // const onSubmitPrice = async e => {
-  //   e.preventDefault();
-
-  //   await updateInfo(serviceData, true);
-  // };
 
   //errors
   const hasError = field =>
