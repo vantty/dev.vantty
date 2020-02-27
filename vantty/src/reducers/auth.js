@@ -12,7 +12,8 @@ import {
   ADD_CARD_SUCCESS,
   ADD_CARD_FAIL,
   DELETE_CARD_SUCCESS,
-  ADD_BOOKINGS
+  ADD_BOOKINGS,
+  SAVE_USER_NUMBER_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -59,6 +60,7 @@ export default function(state = initialState, action) {
         user: null,
         bookings: []
       };
+    case SAVE_USER_NUMBER_SUCCESS:
     case SAVE_CONFIRMATION_EMAIL:
     case ADD_CARD_SUCCESS:
     case DELETE_CARD_SUCCESS:

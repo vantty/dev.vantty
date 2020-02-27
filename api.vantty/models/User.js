@@ -6,6 +6,7 @@ const userSchema = new Schema(
     method: { type: String, default: "local" },
     methodId: { type: String, default: null },
     email: { type: String, lowercase: true, unique: true, sparse: true },
+    mobileNumber: { type: String, default: "" },
     firstName: { type: String },
     lastName: { type: String },
     password: { type: String, default: null },

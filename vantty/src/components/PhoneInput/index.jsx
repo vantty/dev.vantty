@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import ReactPhoneInput from "react-phone-input-2";
 
-const PhoneInput = ({ onChangePhone }) => {
-  const [phone, setPhone] = useState("");
+const PhoneInput = ({ onChangePhone, user: { mobileNumber } }) => {
+  const [phone, setPhone] = useState(mobileNumber);
 
   const handleChange = value => {
     setPhone(value.replace(/[^0-9]+/g, ""));
@@ -11,12 +13,10 @@ const PhoneInput = ({ onChangePhone }) => {
 
   return (
     <ReactPhoneInput
-      defaultCountry="ca"
-      onlyCountries={["ca", "us", "co"]}
+      country="ca"
+      onlyCountries={["ca"]}
       masks={{
-        ca: "+. (...) ...-..-..",
-        us: "+. (...) ...-..-..",
-        co: "+.. (...) ...-..-.."
+        ca: "+. (...) ...-..-.."
       }}
       disableAreaCodes
       value={phone}
@@ -30,4 +30,12 @@ const PhoneInput = ({ onChangePhone }) => {
   );
 };
 
-export default PhoneInput;
+PhoneInput.propTypes = {
+  user: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
+
+export default connect(mapStateToProps, {})(PhoneInput);
