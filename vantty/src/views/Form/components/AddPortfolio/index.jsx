@@ -89,8 +89,8 @@ const AddPortfolio = ({
 
   const desable = () => {
     const array = [];
-    const BDarray =
-      images &&
+
+    images &&
       images
         .map(obj => Object.keys(obj))
         .map(tag =>
@@ -98,6 +98,7 @@ const AddPortfolio = ({
             return element === "tag" && array.push(element);
           })
         );
+
     const sum = array.concat(Object.keys(tags));
     if (
       (images &&

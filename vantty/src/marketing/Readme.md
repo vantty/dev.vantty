@@ -23,4 +23,4 @@
 
    - File: actions/book = Fun => addNewBook
      Events:
-     gaEvent("New Booking", "Create", bookingId);
+     gaEvent("New Booking", "Create", bookingId, \$\$ The value of the service);

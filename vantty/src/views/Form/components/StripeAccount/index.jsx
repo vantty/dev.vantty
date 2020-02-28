@@ -55,7 +55,7 @@ const StripeAccount = ({
   // Generate Stripe Link
 
   // const mobileNumberWithoutCode = profile.mobileNumber.substring(2, 11);
-  const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[phone_number]=44&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}&scope=read_only`;
+  const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}&scope=read_only`;
   // const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
   // const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
 

@@ -205,7 +205,8 @@ export const addNewBook = (
     });
     dispatch(setAlert("Request Sent", "success"));
     const bookingId = res.data[0]._id;
-    await gaEvent("New Booking", "Create", bookingId);
+    const serviceValue = res.data[0].totalValue;
+    await gaEvent("New Booking", "Create", bookingId, serviceValue);
   } catch (error) {
     console.log(error);
     dispatch({ type: ADD_BOOK_FAIL });
