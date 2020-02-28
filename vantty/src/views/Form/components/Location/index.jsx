@@ -59,7 +59,7 @@ const Location = ({
     setState({
       ...state,
       availability: profile ? profile.availability : "",
-      address: profile ? profile.address : "",
+      // address: profile ? profile.address : "",
       place: profile ? profile.place : false,
       delivery: profile ? profile.delivery : false
     });
@@ -85,20 +85,21 @@ const Location = ({
     delivery,
     place,
     availability,
-    address: address
-    //   address: {
-    //     street: add
-    //       "" ||
-    //       (address && address.street) ||
-    //       (profile && profile.address && profile.address.street) ||
-    //       "",
-    //     log:
-    //       (address.log && address.log) ||
-    //       (profile && profile.address && profile.address.log),
-    //     lat:
-    //       (address.lat && address.lat) ||
-    //       (profile && profile.address && profile.address.lat)
-    //   }
+    // address: address
+    address: {
+      street:
+        "" ||
+        (address && address.street) ||
+        (profile && profile.address && profile.address.street)
+      // log:
+      //   "" ||
+      //   (address.log && address.log) ||
+      //   (profile && profile.address && profile.address.log),
+      // lat:
+      //   "" ||
+      //   (address.lat && address.lat) ||
+      //   (profile && profile.address && profile.address.lat)
+    }
   };
 
   const onSubmit = e => {
@@ -109,6 +110,7 @@ const Location = ({
 
   const desable = values => {
     const { address, availability, place } = values;
+    console.log("Aaddress", address);
     if (availability && place && Object.values(address)[0]) {
       return false;
     } else if (
@@ -181,8 +183,8 @@ const Location = ({
                           <Grid item xs={12}>
                             <GoogleMapsAutocomplete
                               localAddress={
-                                // profile.address ? profile.address : address
-                                address
+                                profile.address ? profile.address : address
+                                // address
                               }
                               onChangeAddress={onChangeAddress}
                             />

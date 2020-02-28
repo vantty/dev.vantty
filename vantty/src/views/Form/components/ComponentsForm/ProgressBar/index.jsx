@@ -31,17 +31,16 @@ export default function ProgressBarForm({ value }) {
     3: 37.5,
     4: 50,
     5: 62.5,
-    6: 75,
-    7: 87.5,
-    8: 100
+    6: 88,
+    7: 100
   };
 
   return (
     <div className={classes.root}>
       <BorderLinearProgress
         className={classes.margin}
-        variant="determinate"
-        color="secondary"
+        variant='determinate'
+        color='secondary'
         value={progress[value]}
       />
     </div>

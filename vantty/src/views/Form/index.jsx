@@ -17,7 +17,6 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {
   CreateProfile,
   AddPortfolio,
-  InfoContact,
   Services,
   PersonalInfo,
   Categories,
@@ -25,7 +24,7 @@ import {
   Location
 } from "./components";
 
-import { AppBarForm } from "./components/ComponentsForm";
+import { s } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -113,15 +112,8 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
         return (
           <Services step={activeStep} nextStep={nextStep} prevStep={prevStep} />
         );
+
       case 7:
-        return (
-          <InfoContact
-            step={activeStep}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        );
-      case 8:
         return (
           <StripeAccount
             step={activeStep}
@@ -138,14 +130,14 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
   return (
     <Fragment>
       <div>
-        <AppBarForm step={activeStep} />
+        <s step={activeStep} />
       </div>
       <Box pt={11} pb={11}>
         {profile ? (
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Fragment>
                     <Fragment>{getStepContent(activeStep)}</Fragment>
                   </Fragment>

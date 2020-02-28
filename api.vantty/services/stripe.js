@@ -9,7 +9,8 @@ const createAccount = async code => {
     code: code
   });
   const {
-    external_accounts: { data }
+    external_accounts: { data },
+    business_profile: { support_phone }
   } = await stripe.accounts.retrieve(stripeArtistAccount);
   const stripeBankData = {
     bankId: data[0].id,
@@ -19,7 +20,7 @@ const createAccount = async code => {
     routingNumber: data[0].routing_number,
     last4: data[0].last4
   };
-  return { stripeArtistAccount, stripeBankData };
+  return { stripeArtistAccount, stripeBankData, support_phone };
 };
 
 const createCustomer = async (id, token) => {

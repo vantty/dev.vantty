@@ -80,7 +80,7 @@ const AddPortfolio = ({
     e.preventDefault();
     prevStep();
   };
-  console.log("TAGs", tags);
+
   const submit = async (e, id, tag) => {
     e.preventDefault();
     await uploadTag(tags);
@@ -88,17 +88,30 @@ const AddPortfolio = ({
   const classes = useStyles();
 
   const desable = () => {
-    if (
+    const array = [];
+    const BDarray =
       images &&
-      images.length >= 5 &&
-      tags &&
-      Object.keys(tags).length === images.length
+      images
+        .map(obj => Object.keys(obj))
+        .map(tag =>
+          tag.forEach(element => {
+            return element === "tag" && array.push(element);
+          })
+        );
+    const sum = array.concat(Object.keys(tags));
+    if (
+      (images &&
+        images.length >= 5 &&
+        tags &&
+        Object.keys(tags).length === images.length) ||
+      (images && images.length >= 5 && sum.length === images.length)
     ) {
       return false;
     } else {
       return true;
     }
   };
+
   return (
     <CustomPaper
       Children={
@@ -155,46 +168,6 @@ const AddPortfolio = ({
                                   <Button
                                     className={classes.button}
                                     disabled={desable()}
-                                    // disabled={
-                                    //   images && images.length < 5 && true
-                                    // }
-                                    // profile && !loading && images
-                                    //   ? images.length >= 5
-                                    //     ? Object.keys(tags).length ===
-                                    //       images.length
-                                    //       ? false
-                                    //       : true
-                                    //     : true
-                                    //   : false
-
-                                    // profile &&
-                                    // !loading &&
-                                    // images &&
-                                    // (images.map(img => img.tag)).length &&
-                                    // false
-
-                                    // profile &&
-                                    // !loading &&
-                                    // images &&
-                                    // images
-                                    //   .map(img => img.tag)
-                                    //   .splice(undefined) === images.length &&
-                                    // false
-                                    //     images.length &&
-                                    // (images &&
-                                    //   Object.keys(tags).length !==
-                                    //     images.length &&
-                                    //   false)
-                                    // profile &&
-                                    // !loading &&
-                                    // images &&
-                                    // images.length < 5 &&
-                                    // true &&
-                                    // profile &&
-                                    // !loading &&
-                                    // Object.keys(tags).length < 1 &&
-                                    // true
-
                                     onClick={continues}
                                   >
                                     Next

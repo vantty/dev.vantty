@@ -87,7 +87,7 @@ const InfoContact = ({
     return (
       <div className={classes.root}>
         <ReactPhoneInput
-          defaultCountry="ca"
+          defaultCountry='ca'
           onlyCountries={["co", "us", "ca"]}
           masks={{
             ca: "+. (...) ...-..-..",
@@ -118,9 +118,9 @@ const InfoContact = ({
         Children={
           <div className={classes.root}>
             <Typography
-              component="h5"
-              variant="h6"
-              align="center"
+              component='h5'
+              variant='h6'
+              align='center'
               className={classes.typography}
             >
               Enter a cellphone number where we and your clients can reach you
@@ -133,7 +133,7 @@ const InfoContact = ({
                 {!profile ? (
                   <CircularProgress size={20} />
                 ) : (
-                  <Typography variant="h4" align="center">
+                  <Typography variant='h4' align='center'>
                     {`+${profile.mobileNumber}`}
                     <VerifiedIcon className={classes.verifiedIcon} />
                   </Typography>
@@ -141,8 +141,8 @@ const InfoContact = ({
                 {match.url === "/mobile" && (
                   <div className={classes.newPhone}>
                     <Typography
-                      variant="h6"
-                      align="center"
+                      variant='h6'
+                      align='center'
                       className={classes.textNewPhone}
                     >
                       If you need to change it, validate a new phone number
@@ -167,7 +167,7 @@ const InfoContact = ({
                   <Button
                     onClick={next}
                     className={classes.button}
-                    disabled={!profile.mobileNumber}
+                    // disabled={!profile.mobileNumber}
                   >
                     Next
                   </Button>
