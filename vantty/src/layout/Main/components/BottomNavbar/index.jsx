@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import PropTypes, { array } from "prop-types";
 
 // Actions
 import { logout } from "../../../../actions/auth";
@@ -16,9 +16,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountIcon from "@material-ui/icons/AccountCircle";
 import { getCurrentProfile } from "../../../../actions/profile";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, Badge } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { getInitials } from "../../../../helpers";
+import { getBook, getUserBookings } from "../../../../actions/book";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -42,12 +43,36 @@ const useStyles = makeStyles(theme => ({
 
 const BottomNavbar = props => {
   const {
-    auth: { isAuthenticated, user },
+    auth: { isAuthenticated, user, id, bookings },
+    book: { book },
+    getBook,
+    getUserBookings,
     navbarValue
   } = props;
 
   const classes = useStyles();
 
+  useEffect(() => {
+    getBook();
+    getUserBookings(id);
+  }, []);
+
+  const countBookingsArtist = () => {
+    const arr = [];
+    book.map(bookings => bookings.state === "request" && arr.push(bookings));
+    return arr.length;
+  };
+
+  const countBookingsUser = () => {
+    const arr = [];
+    bookings.map(
+      book =>
+        book.state !== "request" &&
+        book.state !== "declined-user" &&
+        arr.push(bookings)
+    );
+    return arr.length;
+  };
   return (
     <Fragment>
       <CssBaseline />
@@ -71,15 +96,32 @@ const BottomNavbar = props => {
             to='/search'
             icon={<SearchIcon />}
           />
-          {isAuthenticated && (
-            <BottomNavigationAction
-              label='Bookings'
-              value='bookings'
-              component={Link}
-              to={user && user.profile ? "/bookings" : "/bookings-user"}
-              icon={<Event />}
-            />
-          )}
+          {isAuthenticated &&
+            (user && user.profile ? (
+              <BottomNavigationAction
+                label='Bookings'
+                value='bookings'
+                component={Link}
+                to={"/bookings"}
+                icon={
+                  <Badge color='secondary' badgeContent={countBookingsArtist()}>
+                    <Event />
+                  </Badge>
+                }
+              />
+            ) : (
+              <BottomNavigationAction
+                label='Bookings'
+                value='bookings'
+                component={Link}
+                to={"/bookings-user"}
+                icon={
+                  <Badge color='secondary' badgeContent={countBookingsUser()}>
+                    <Event />
+                  </Badge>
+                }
+              />
+            ))}
           {!isAuthenticated ? (
             <BottomNavigationAction
               label='Join Now'
@@ -136,17 +178,16 @@ const BottomNavbar = props => {
 };
 
 BottomNavbar.propTypes = {
-  logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  navbarValue: PropTypes.string.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  navbarValue: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  book: state.book,
   navbarValue: state.navbar.navbarValue
 });
 
-export default connect(mapStateToProps, { logout, getCurrentProfile })(
+export default connect(mapStateToProps, { getBook, getUserBookings })(
   BottomNavbar
 );

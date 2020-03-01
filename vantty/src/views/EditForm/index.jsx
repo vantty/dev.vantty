@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -31,23 +31,32 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EditForm = ({ auth: { user }, Children, match, loading }) => {
+const EditForm = ({
+  auth: { user },
+  Children,
+  match,
+  loading,
+  getCurrentProfile
+}) => {
   const classes = useStyles();
+  useEffect(() => {
+    getCurrentProfile();
+  }, []);
   return (
     <Fragment>
       <CssBaseline />
       {loading && <LinearProgress />}
       {isMobile && (
         <SimpleAppBar
-          path={
-            match.url === "/bookings" ||
-            match.url === "/bank" ||
-            match.url === "/payments" ||
-            match.url === "/bookings-user" ||
-            (user && user.profile === false)
-              ? "/settings"
-              : "/settings/profile"
-          }
+        // path={
+        //   match.url === "/bookings" ||
+        //   match.url === "/bank" ||
+        //   match.url === "/payments" ||
+        //   match.url === "/bookings-user" ||
+        //   (user && user.profile === false)
+        //     ? "/settings"
+        //     : "/settings/profile"
+        // }
         />
       )}
       <Fragment>
@@ -77,7 +86,8 @@ const EditForm = ({ auth: { user }, Children, match, loading }) => {
 
 EditForm.propTypes = {
   auth: PropTypes.object,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  getCurrentProfile: PropTypes.func
 };
 
 const mapStateToProps = state => ({

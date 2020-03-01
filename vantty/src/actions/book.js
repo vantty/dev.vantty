@@ -150,6 +150,7 @@ export const getUserBookings = () => async dispatch => {
       type: ADD_BOOKINGS,
       payload: res.data
     });
+    console.log(res.data);
   } catch (error) {
     console.log(error);
   }
@@ -193,6 +194,7 @@ export const addNewBook = (
       { mobileNumber: body.userPhone },
       "$set"
     );
+    console.log("BODY", body);
     await dispatch({
       type: SAVE_USER_NUMBER_SUCCESS,
       payload: userUpdated.data

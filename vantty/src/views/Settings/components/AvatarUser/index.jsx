@@ -40,13 +40,6 @@ const AvatarUser = ({ profileImage, firstName, profile }) => {
           <Typography className={classes.hello}>
             Hello! {firstName}. Welcome back!
           </Typography>
-          {!profile && (
-            <Typography className={classes.hello}>
-              <Link component={LinkReact} to={"/create-profile"}>
-                Become to an Artists
-              </Link>
-            </Typography>
-          )}
         </Fragment>
       ) : (
         <Fragment>
@@ -54,13 +47,6 @@ const AvatarUser = ({ profileImage, firstName, profile }) => {
           <Typography className={classes.hello}>
             Hello! {firstName}. Welcome back!
           </Typography>
-          {!profile && (
-            <Typography className={classes.hello}>
-              <Link component={LinkReact} to={"/create-profile"}>
-                Become to an Artists
-              </Link>
-            </Typography>
-          )}
         </Fragment>
       )}
     </div>

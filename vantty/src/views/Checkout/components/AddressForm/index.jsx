@@ -29,6 +29,12 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     width: "100%"
+  },
+  address: {
+    marginTop: "0.5rem",
+    fontSize: "9px",
+    letterSpacing: "-0.05px",
+    lineHeight: "10px"
   }
 }));
 
@@ -77,6 +83,7 @@ export default function AddressForm({
                       <TableCell align='left' key={"toHome"}>
                         {delivery && (
                           <FormControlLabel
+                            label='Your place'
                             key={"toHome"}
                             value={"toHome"}
                             control={<Radio />}
@@ -100,12 +107,14 @@ export default function AddressForm({
                     <TableRow key={"artistSite"}>
                       <TableCell align='left' key={"artistSite"}>
                         <FormControlLabel
+                          label='Artist place'
                           key={"artistSite"}
                           value={"artistSite"}
                           control={<Radio />}
                         />
                       </TableCell>
                       <TableCell align='left'>
+                        <br />
                         <Card className={classes.card}>
                           <a
                             target='_blank'
@@ -125,6 +134,9 @@ export default function AddressForm({
                             />
                           </a>
                         </Card>
+                        <Typography className={classes.address}>
+                          {address.street}
+                        </Typography>
                       </TableCell>
                     </TableRow>
                   )}

@@ -123,8 +123,9 @@ const InfoContact = ({
               align='center'
               className={classes.typography}
             >
-              Enter a cellphone number where we and your clients can reach you
-              if it is necessary.
+              {/* Enter a cellphone number where we and your clients can reach you
+              if it is necessary. */}
+              Your cellphone number has been verified.
             </Typography>
             {profile && !profile.mobileNumber ? (
               phoneForm()
@@ -138,7 +139,7 @@ const InfoContact = ({
                     <VerifiedIcon className={classes.verifiedIcon} />
                   </Typography>
                 )}
-                {match.url === "/mobile" && (
+                {/* {match.url === "/mobile" && (
                   <div className={classes.newPhone}>
                     <Typography
                       variant='h6'
@@ -150,7 +151,7 @@ const InfoContact = ({
                     </Typography>
                     {phoneForm()}
                   </div>
-                )}
+                )} */}
               </div>
             )}
           </div>

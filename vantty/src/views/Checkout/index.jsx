@@ -187,6 +187,7 @@ const Checkout = ({
 
   useEffect(() => {
     getProfileById(match.params.id);
+    setCheckout({ ...checkout, userPhone: user ? user.mobileNumber : "" });
   }, []);
 
   const [location, setLocation] = useState({

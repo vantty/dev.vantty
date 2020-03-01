@@ -17,7 +17,8 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  CircularProgress
+  CircularProgress,
+  Button
 } from "@material-ui/core";
 import MuiLink from "@material-ui/core/Link";
 
@@ -84,6 +85,12 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     paddingLeft: "0.5rem",
     fontSize: "12px"
+  },
+  button: {
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
   }
 }));
 
@@ -97,8 +104,8 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
   const Filters = () => (
     <Fragment>
       <MultiDataList
-        componentId="categoryFilter"
-        dataField="tag.keyword"
+        componentId='categoryFilter'
+        dataField='tag.keyword'
         showSearch={false}
         data={[
           {
@@ -140,7 +147,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
         ]}
         value={values}
         onChange={setValues}
-        title="Category"
+        title='Category'
       />
       {/* <RatingsFilter
         title="Rating"
@@ -175,9 +182,9 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             children={
               <DataSearch
                 onChange={clearSearch}
-                componentId="searchbox"
-                dataField="*"
-                placeholder="Search..."
+                componentId='searchbox'
+                dataField='*'
+                placeholder='Search...'
                 defaultValue={searchValue}
               />
             }
@@ -185,21 +192,21 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             invisible={values}
           />
         )}
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth='lg' className={classes.container}>
           <Grid
             container
-            direction="row"
-            justify="center"
-            alignItems="flex-start"
+            direction='row'
+            justify='center'
+            alignItems='flex-start'
           >
             <Hidden xsDown>
               <Grid item md={4} className={classes.filters}>
                 <Grid item xs={12}>
                   <DataSearch
                     onChange={clearSearch}
-                    componentId="searchbox"
-                    dataField="*"
-                    placeholder="Search..."
+                    componentId='searchbox'
+                    dataField='*'
+                    placeholder='Search...'
                     defaultValue={searchValue}
                   />
                 </Grid>
@@ -210,9 +217,9 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             </Hidden>
             <Grid item xs={12} md={8}>
               <ReactiveList
-                componentId="result"
-                dataField="*"
-                title="Results"
+                componentId='result'
+                dataField='*'
+                title='Results'
                 size={31}
                 infiniteScroll={true}
                 showResultStats={false}
@@ -227,6 +234,22 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                 render={({ data }) => (
                   <Fragment>
                     <ResultCardsWrapper>
+                      {values[0] && (
+                        <Fragment>
+                          <Typography gutterBottom h2>
+                            Don’t give up! Try with another category
+                          </Typography>
+                          <Button
+                            type='submit'
+                            color='primary'
+                            variant='contained'
+                            onClick={() => setValues("")}
+                            className={classes.button}
+                          >
+                            Clear Search
+                          </Button>
+                        </Fragment>
+                      )}
                       <Fragment>
                         {data.map(pic => (
                           <Fragment key={pic.cloudId}>
@@ -244,7 +267,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             key={pic.original}
                                             className={classes.cardMedia}
                                             image={pic.original}
-                                            title="Image title"
+                                            title='Image title'
                                           />
                                         </MuiLink>
                                       </CardActionArea>
@@ -253,7 +276,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                       >
                                         <Toolbar className={classes.cardTitle}>
                                           <Avatar
-                                            alt=""
+                                            alt=''
                                             src={pic.profilePicture}
                                             className={classes.avatar}
                                           />
@@ -272,7 +295,8 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                 </ResultCard>
                               </Fragment>
                             ) : (
-                              values.indexOf(pic.tag) > -1 && (
+                              values.indexOf(pic.tag) > -1 &&
+                              pic.verified && (
                                 <Fragment>
                                   <ResultCard className={classes.resultCard}>
                                     <Fragment>
@@ -286,7 +310,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                               key={pic.original}
                                               className={classes.cardMedia}
                                               image={pic.original}
-                                              title="Image title"
+                                              title='Image title'
                                             />
                                           </MuiLink>
                                         </CardActionArea>
@@ -297,7 +321,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             className={classes.cardTitle}
                                           >
                                             <Avatar
-                                              alt=""
+                                              alt=''
                                               src={pic.profilePicture}
                                               className={classes.avatar}
                                             />
