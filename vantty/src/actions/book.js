@@ -150,7 +150,6 @@ export const getUserBookings = () => async dispatch => {
       type: ADD_BOOKINGS,
       payload: res.data
     });
-    console.log(res.data);
   } catch (error) {
     console.log(error);
   }
