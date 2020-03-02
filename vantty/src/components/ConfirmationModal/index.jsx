@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -11,6 +11,26 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  buttonAccept: {
+    color: "white",
+    fontWeight: "bold",
+    borderRadius: "0.5rem",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
+  },
+  buttons: {
+    backgroundColor: "inherit",
+    "&:hover": {
+      color: theme.palette.greenVantty.dark,
+      backgroundColor: "inherit"
+    }
+  }
+}));
 
 const ConfirmationModal = ({
   buttonText,
@@ -23,16 +43,15 @@ const ConfirmationModal = ({
   text,
   loading
 }) => {
-  const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleNo = () => {
     setOpen(false);
   };
-
   const handleYes = async () => {
     await changeStateBooking(bookingId, bookId, state, text, byUser);
     await setOpen(false);
@@ -40,7 +59,14 @@ const ConfirmationModal = ({
 
   return (
     <div>
-      <MenuItem onClick={handleClickOpen}>{buttonText}</MenuItem>
+      <MenuItem
+        className={
+          buttonText === "Accept" ? classes.buttonAccept : classes.buttons
+        }
+        onClick={handleClickOpen}
+      >
+        {buttonText}
+      </MenuItem>
       <Dialog open={open} onClose={handleNo}>
         <DialogTitle>{"Booking Request"}</DialogTitle>
         <DialogContent>

@@ -38,6 +38,10 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: "red"
   },
+  stateRequested: {
+    marginBottom: theme.spacing(1),
+    backgroundColor: theme.palette.purpleVantty.light
+  },
   stateAccepted: {
     backgroundColor: theme.palette.greenVantty.main
   },
@@ -106,6 +110,13 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
               <div className={classes.demo}>
                 <List>
                   <Services booking={booking} />
+                  {booking.state === "request" && (
+                    <CardActions className={classes.stateRequested}>
+                      <Typography>
+                        This service was <strong>Requested</strong>
+                      </Typography>
+                    </CardActions>
+                  )}
                   {booking.state === "accepted" && (
                     <CardActions className={classes.stateAccepted}>
                       <Grid container>
