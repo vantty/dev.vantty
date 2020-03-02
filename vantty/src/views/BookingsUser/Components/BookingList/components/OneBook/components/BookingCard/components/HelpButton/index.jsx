@@ -9,7 +9,10 @@ import { ConfirmationModal } from "../../../../../../../../../../components";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-const HelpButton = ({ changeStateBooking, booking: { state, _id } }) => {
+const HelpButton = ({
+  changeStateBooking,
+  booking: { state, _id, bookId }
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
@@ -47,6 +50,7 @@ const HelpButton = ({ changeStateBooking, booking: { state, _id } }) => {
             }
             changeStateBooking={changeStateBooking}
             bookingId={_id}
+            bookId={bookId}
             state={"declined-user"}
             byUser={true}
           />

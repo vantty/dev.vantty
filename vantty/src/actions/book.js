@@ -217,6 +217,7 @@ export const addNewBook = (
 // Change State Bookings
 export const changeStateBooking = (
   bookingId,
+  bookId,
   data,
   posponedText,
   byUser
@@ -227,7 +228,7 @@ export const changeStateBooking = (
   };
   try {
     await dispatch({ type: CHANGE_STATE_BOOKING });
-    await server.post(`/book/booking/${bookingId}`, formData);
+    await server.post(`/book/booking/${bookId}/${bookingId}`, formData);
     if (byUser) {
       const {
         data: { _id }

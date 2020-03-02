@@ -1,10 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import PropTypes, { array } from "prop-types";
-
-// Actions
-import { logout } from "../../../../actions/auth";
+import PropTypes from "prop-types";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,12 +11,16 @@ import HomeIcon from "@material-ui/icons/Home";
 import Event from "@material-ui/icons/Event";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountIcon from "@material-ui/icons/AccountCircle";
-import { getCurrentProfile } from "../../../../actions/profile";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { CssBaseline, Badge } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
+
+// Helpers
 import { getInitials } from "../../../../helpers";
+
+// Actions
 import { getBook, getUserBookings } from "../../../../actions/book";
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -83,40 +84,40 @@ const BottomNavbar = props => {
           showLabels
         >
           <BottomNavigationAction
-            label='Home'
-            value='home'
+            label="Home"
+            value="home"
             component={Link}
-            to='/'
+            to="/"
             icon={<HomeIcon />}
           />
           <BottomNavigationAction
-            label='Search'
-            value='search'
+            label="Search"
+            value="search"
             component={Link}
-            to='/search'
+            to="/search"
             icon={<SearchIcon />}
           />
           {isAuthenticated &&
             (user && user.profile ? (
               <BottomNavigationAction
-                label='Bookings'
-                value='bookings'
+                label="Bookings"
+                value="bookings"
                 component={Link}
                 to={"/bookings"}
                 icon={
-                  <Badge color='secondary' badgeContent={countBookingsArtist()}>
+                  <Badge color="secondary" badgeContent={countBookingsArtist()}>
                     <Event />
                   </Badge>
                 }
               />
             ) : (
               <BottomNavigationAction
-                label='Bookings'
-                value='bookings'
+                label="Bookings"
+                value="bookings"
                 component={Link}
                 to={"/bookings-user"}
                 icon={
-                  <Badge color='secondary' badgeContent={countBookingsUser()}>
+                  <Badge color="secondary" badgeContent={countBookingsUser()}>
                     <Event />
                   </Badge>
                 }
@@ -124,16 +125,16 @@ const BottomNavbar = props => {
             ))}
           {!isAuthenticated ? (
             <BottomNavigationAction
-              label='Join Now'
-              value='register'
+              label="Join Now"
+              value="register"
               component={Link}
-              to='/register'
+              to="/register"
               icon={<AccountIcon />}
             />
           ) : (
             <BottomNavigationAction
-              label='Profile'
-              value='profile'
+              label="Profile"
+              value="profile"
               className={classes.selected}
               component={Link}
               to={
@@ -145,7 +146,7 @@ const BottomNavbar = props => {
                 user ? (
                   user.profileImage && user.profileImage.original ? (
                     <Avatar
-                      alt=''
+                      alt=""
                       src={user.profileImage.original}
                       className={classes.avatar}
                     />
@@ -164,10 +165,10 @@ const BottomNavbar = props => {
           )}
           {user && user.role === "Admin" && (
             <BottomNavigationAction
-              label='Admin'
-              value='admin'
+              label="Admin"
+              value="admin"
               component={Link}
-              to='/dashboard'
+              to="/dashboard"
               icon={<LocationOnIcon />}
             />
           )}

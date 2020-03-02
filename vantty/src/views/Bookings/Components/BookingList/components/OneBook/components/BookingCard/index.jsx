@@ -41,6 +41,10 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: "red"
   },
+  stateRequested: {
+    marginBottom: theme.spacing(1),
+    backgroundColor: theme.palette.purpleVantty.light
+  },
   stateAccepted: {
     backgroundColor: theme.palette.greenVantty.main
   },
@@ -52,6 +56,13 @@ const useStyles = makeStyles(theme => ({
   },
   statePosponed: {
     backgroundColor: "orange"
+  },
+  button: {
+    backgroundColor: "inherit",
+    "&:hover": {
+      color: theme.palette.greenVantty.dark,
+      backgroundColor: "inherit"
+    }
   }
 }));
 
@@ -120,39 +131,53 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                 <div className={classes.demo}>
                   <List>
                     <Services booking={booking} />
+                    {booking.state === "request" && (
+                      <CardActions className={classes.stateRequested}>
+                        <Typography>
+                          This service was <strong>Requested</strong>
+                        </Typography>
+                      </CardActions>
+                    )}
                     <CardActions>
                       {booking.state === "request" && (
-                        <Grid
-                          container
-                          direction="row"
-                          justify="flex-end"
-                          alignItems="center"
-                          spacing={1}
-                        >
-                          <ConfirmationModal
-                            buttonText={"Decline"}
-                            modalText={
-                              "Are you sure you want to decline this service?"
-                            }
-                            changeStateBooking={changeStateBooking}
-                            bookingId={booking._id}
-                            state={"declined"}
-                            handleCloseForm={handleCloseForm}
-                          />
-                          <MenuItem onClick={handleOpenForm}>
-                            {"Pospone"}
-                          </MenuItem>
-                          <ConfirmationModal
-                            buttonText={"Accept"}
-                            modalText={
-                              "Are you sure you want to accept this service?"
-                            }
-                            changeStateBooking={changeStateBooking}
-                            bookingId={booking._id}
-                            state={"accepted"}
-                            handleCloseForm={handleCloseForm}
-                          />
-                        </Grid>
+                        <Fragment>
+                          <Grid
+                            container
+                            direction="row"
+                            justify="flex-end"
+                            alignItems="center"
+                            spacing={1}
+                          >
+                            <ConfirmationModal
+                              buttonText={"Decline"}
+                              modalText={
+                                "Are you sure you want to decline this service?"
+                              }
+                              changeStateBooking={changeStateBooking}
+                              bookingId={booking._id}
+                              bookId={booking.bookId}
+                              state={"declined"}
+                              handleCloseForm={handleCloseForm}
+                            />
+                            <MenuItem
+                              onClick={handleOpenForm}
+                              className={classes.button}
+                            >
+                              {"Pospone"}
+                            </MenuItem>
+                            <ConfirmationModal
+                              buttonText={"Accept"}
+                              modalText={
+                                "Are you sure you want to accept this service?"
+                              }
+                              changeStateBooking={changeStateBooking}
+                              bookingId={booking._id}
+                              bookId={booking.bookId}
+                              state={"accepted"}
+                              handleCloseForm={handleCloseForm}
+                            />
+                          </Grid>
+                        </Fragment>
                       )}
                     </CardActions>
                     {booking.state === "accepted" && (
@@ -176,14 +201,20 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                         </Typography>
                       </CardActions>
                     )}
-                    {booking.state === "declined" ||
-                      (booking.state === "declined-user" && (
-                        <CardActions className={classes.stateDeclined}>
-                          <Typography>
-                            This service was <strong>Declined</strong>
-                          </Typography>
-                        </CardActions>
-                      ))}
+                    {booking.state === "declined" && (
+                      <CardActions className={classes.stateDeclined}>
+                        <Typography>
+                          This service was <strong>Declined</strong>
+                        </Typography>
+                      </CardActions>
+                    )}
+                    {booking.state === "declined-user" && (
+                      <CardActions className={classes.stateDeclined}>
+                        <Typography>
+                          This service was <strong>Declined</strong>
+                        </Typography>
+                      </CardActions>
+                    )}
                     {openForm && (
                       <CardActions className={classes.statePosponed}>
                         <Grid container>
@@ -191,6 +222,7 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                             <PosponeForm
                               changeStateBooking={changeStateBooking}
                               bookingId={booking._id}
+                              bookId={booking.bookId}
                               handleCloseForm={handleCloseForm}
                             />
                           </Grid>

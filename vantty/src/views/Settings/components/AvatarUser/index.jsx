@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
-import { Link as LinkReact } from "react-router-dom";
 
 // Material-UI
-import { Avatar, Typography, Link } from "@material-ui/core";
+import { Avatar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Helpers
@@ -24,9 +23,6 @@ const useStyles = makeStyles(theme => ({
   },
   delete: {
     marginRight: "1rem"
-  },
-  link: {
-    margin: "auto"
   }
 }));
 const AvatarUser = ({ profileImage, firstName, profile }) => {

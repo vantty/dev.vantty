@@ -70,17 +70,11 @@ exports.changeStateBooking = async (req, res) => {
   try {
     const {
       body: { state, text: posponeText },
-      params: { bookingId },
+      params: { bookId, bookingId },
       headers: { origin: uri }
     } = req;
-    const service = await bookService.changeState(bookingId, state);
-    const result = await Promise.all(service);
-    const {
-      userId,
-      stripeArtistAccount,
-      bookCode,
-      appointmentDate
-    } = result[0];
+    const result = await bookService.changeState(bookingId, bookId, state);
+    const { userId, stripeArtistAccount, bookCode, appointmentDate } = result;
     const user = await userService.getById(userId);
     const { user: artistId } = await profileService.getByField({
       stripeArtistAccount
