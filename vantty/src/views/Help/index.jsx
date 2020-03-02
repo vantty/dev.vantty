@@ -111,6 +111,10 @@ const Help = ({ sendEmail }) => {
           <Typography variant="h2" className={classes.title}>
             Help Center
           </Typography>
+          <Typography variant="subtitle1" className={classes.text}>
+            Please tell us what problem do you may have. Our Customer Services
+            Team will reach you ASAP.
+          </Typography>
           <div>
             <form onSubmit={handleSubmit}>
               <FormControl variant="outlined" className={classes.formControl}>

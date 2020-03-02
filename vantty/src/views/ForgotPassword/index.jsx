@@ -66,7 +66,7 @@ const ForgotPassword = ({ forgot }) => {
         <div className={classes.paper}>
           <form onSubmit={handleLogin}>
             <Typography variant="h2" className={classes.title}>
-              Forgot Password
+              Reset Password
             </Typography>
             <Typography variant="subtitle1" className={classes.text}>
               Please enter your email address to reset your password:
@@ -106,7 +106,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(
-  mapStateToProps,
-  { forgot }
-)(ForgotPassword);
+export default connect(mapStateToProps, { forgot })(ForgotPassword);

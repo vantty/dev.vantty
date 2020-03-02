@@ -137,20 +137,20 @@ const Location = ({
             <Fragment>
               <div className={classes.root}>
                 <Typography>Tell your costumers your availability</Typography>
-                <form name='availability'>
+                <form name="availability">
                   <TextField
-                    id='availability'
+                    id="availability"
                     fullWidth
-                    label='Availability'
+                    label="Availability"
                     multiline
-                    rows='2'
-                    placeholder='Hi! You can take an appointment with me all days on the weekend'
+                    rows="2"
+                    placeholder="Hi! You can take an appointment with me all days on the weekend"
                     // defaultValue='Default Value'
-                    name='availability'
+                    name="availability"
                     value={availability}
                     className={classes.textField}
-                    margin='normal'
-                    variant='outlined'
+                    margin="normal"
+                    variant="outlined"
                     onChange={onChangeAvailability}
                   />
 
@@ -159,9 +159,9 @@ const Location = ({
                   <Fragment>
                     <Grid
                       container
-                      direction='row'
-                      justify='flex-start'
-                      alignItems='center'
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
                     >
                       <Fragment>
                         <Grid item xs={10}>
@@ -173,9 +173,9 @@ const Location = ({
                         <Grid item xs={2}>
                           <Switch
                             checked={place}
-                            name='place'
+                            name="place"
                             onChange={handleChange}
-                            value='place'
+                            value="place"
                             inputProps={{ "aria-label": "secondary checkbox" }}
                           />
                         </Grid>
@@ -199,10 +199,10 @@ const Location = ({
                         <Grid item xs={2}>
                           <Switch
                             checked={delivery}
-                            name='delivery'
+                            name="delivery"
                             onChange={handleChange}
-                            value='delivery'
-                            color='primary'
+                            value="delivery"
+                            color="primary"
                             inputProps={{ "aria-label": "primary checkbox" }}
                           />
                         </Grid>
@@ -214,9 +214,9 @@ const Location = ({
                       <CardActions>
                         <Grid
                           container
-                          direction='row'
-                          justify='flex-end'
-                          alignItems='flex-start'
+                          direction="row"
+                          justify="flex-end"
+                          alignItems="flex-start"
                         >
                           <Button
                             className={classes.button}
@@ -245,7 +245,7 @@ const Location = ({
                                 >
                                   {match.url === "/location"
                                     ? "Update"
-                                    : "next"}
+                                    : "Next"}
                                 </Button>
                               </Fragment>
                             </div>

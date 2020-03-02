@@ -357,7 +357,7 @@ const Register = props => {
                   By clicking Register Now, you agree to our{" "}
                   <Link
                     component={RouterLink}
-                    to="/terms-of-service"
+                    to="/terms"
                     variant="h6"
                     className={classes.link}
                   >
@@ -366,7 +366,7 @@ const Register = props => {
                   ,{" "}
                   <Link
                     component={RouterLink}
-                    to="/data-policy"
+                    to="/policy"
                     variant="h6"
                     className={classes.link}
                   >

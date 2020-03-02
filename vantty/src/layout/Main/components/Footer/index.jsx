@@ -11,9 +11,9 @@ import Divider from "@material-ui/core/Divider";
 
 function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
+    <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color='inherit' href='https://vantty.ca/'>
+      <Link color="inherit" href="https://vantty.ca/">
         Vantty
       </Link>{" "}
       {new Date().getFullYear()}
@@ -43,15 +43,11 @@ const useStyles = makeStyles(theme => ({
 
 const footers = [
   {
-    title: "Team",
-    Link: "/"
+    title: "Contact us",
+    Link: "/help"
   },
   {
-    title: "Contact Us",
-    Link: "/"
-  },
-  {
-    title: "Terms of Use",
+    title: "Terms",
     Link: "/terms"
   },
   {
@@ -59,8 +55,8 @@ const footers = [
     Link: "/policy"
   },
   {
-    title: "Agreement",
-    Link: "/agreement"
+    title: "FAQ",
+    Link: "/faq"
   }
 ];
 
@@ -70,18 +66,24 @@ export default function Footer() {
     <Fragment>
       <div className={classes.root}>
         <Divider />
-        <Container maxWidth='md' component='footer' className={classes.footer}>
-          <Grid container direction='row' justify='center' alignItems='center'>
+        <Container maxWidth="md" component="footer" className={classes.footer}>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
             {footers.map(item => (
-              <span className={classes.element} key={item.title}>
+              <Grid item className={classes.element} key={item.title}>
                 <Link
                   href={item.Link}
-                  variant='subtitle1'
-                  color='textSecondary'
+                  variant="subtitle1"
+                  color="textSecondary"
                 >
                   {item.title}{" "}
                 </Link>
-              </span>
+              </Grid>
             ))}
           </Grid>
           <Box mt={3} mb={2}>
