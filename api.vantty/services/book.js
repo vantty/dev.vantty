@@ -26,7 +26,8 @@ const createBooking = async (bookId, user, fields) => {
   const newBook = {
     ...fields,
     name: firstName,
-    userId: id
+    userId: id,
+    bookId: bookId
   };
   book.bookings.unshift(newBook);
   if (user.bookings.length < 1) {
@@ -55,26 +56,23 @@ const getUserBookings = async user => {
   return totalBookings;
 };
 
-const changeState = async (bookingId, state) => {
-  const books = await Book.find();
-  const service = await books.map(async book => {
-    const service = await book.bookings.find(
-      service => service._id.toString() === bookingId
+const changeState = async (bookingId, bookId, state) => {
+  const book = await Book.findById(bookId);
+  const service = await book.bookings.find(
+    service => service._id.toString() === bookingId
+  );
+  service.state = state;
+  if (state === "declined-user") {
+    const { policy, fee, cancelDate, cancelTimeStamp } = await cancelPolicy(
+      state,
+      service.appointmentTimeStamp
     );
-    service.state = state;
-    if (state === "declined-user") {
-      const { policy, fee, cancelDate, cancelTimeStamp } = await cancelPolicy(
-        state,
-        service.appointmentTimeStamp
-      );
-      service.cancelDate = cancelDate;
-      service.cancelTimeStamp = cancelTimeStamp;
-      service.cancelPolicy = policy;
-      service.cancelFee = fee;
-    }
-    book.save();
-    return service;
-  });
+    service.cancelDate = cancelDate;
+    service.cancelTimeStamp = cancelTimeStamp;
+    service.cancelPolicy = policy;
+    service.cancelFee = fee;
+  }
+  book.save();
   return service;
 };
 

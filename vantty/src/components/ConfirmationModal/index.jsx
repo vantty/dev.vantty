@@ -17,6 +17,7 @@ const ConfirmationModal = ({
   modalText,
   changeStateBooking,
   bookingId,
+  bookId,
   state,
   byUser,
   text,
@@ -33,7 +34,7 @@ const ConfirmationModal = ({
   };
 
   const handleYes = async () => {
-    await changeStateBooking(bookingId, state, text, byUser);
+    await changeStateBooking(bookingId, bookId, state, text, byUser);
     await setOpen(false);
   };
 

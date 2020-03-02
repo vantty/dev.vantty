@@ -39,7 +39,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PosponeForm = ({ changeStateBooking, bookingId, handleCloseForm }) => {
+const PosponeForm = ({
+  changeStateBooking,
+  bookingId,
+  bookId,
+  handleCloseForm
+}) => {
   const classes = useStyles();
 
   const [text, setText] = useState("");
@@ -85,6 +90,7 @@ const PosponeForm = ({ changeStateBooking, bookingId, handleCloseForm }) => {
             }
             changeStateBooking={changeStateBooking}
             bookingId={bookingId}
+            bookId={bookId}
             state={"declined-posponed"}
             text={text}
             handleCloseForm={handleCloseForm}

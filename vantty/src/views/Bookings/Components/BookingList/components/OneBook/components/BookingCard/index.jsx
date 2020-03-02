@@ -136,6 +136,7 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                             }
                             changeStateBooking={changeStateBooking}
                             bookingId={booking._id}
+                            bookId={booking.bookId}
                             state={"declined"}
                             handleCloseForm={handleCloseForm}
                           />
@@ -149,6 +150,7 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                             }
                             changeStateBooking={changeStateBooking}
                             bookingId={booking._id}
+                            bookId={booking.bookId}
                             state={"accepted"}
                             handleCloseForm={handleCloseForm}
                           />
@@ -176,14 +178,20 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                         </Typography>
                       </CardActions>
                     )}
-                    {booking.state === "declined" ||
-                      (booking.state === "declined-user" && (
-                        <CardActions className={classes.stateDeclined}>
-                          <Typography>
-                            This service was <strong>Declined</strong>
-                          </Typography>
-                        </CardActions>
-                      ))}
+                    {booking.state === "declined" && (
+                      <CardActions className={classes.stateDeclined}>
+                        <Typography>
+                          This service was <strong>Declined</strong>
+                        </Typography>
+                      </CardActions>
+                    )}
+                    {booking.state === "declined-user" && (
+                      <CardActions className={classes.stateDeclined}>
+                        <Typography>
+                          This service was <strong>Declined</strong>
+                        </Typography>
+                      </CardActions>
+                    )}
                     {openForm && (
                       <CardActions className={classes.statePosponed}>
                         <Grid container>
@@ -191,6 +199,7 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                             <PosponeForm
                               changeStateBooking={changeStateBooking}
                               bookingId={booking._id}
+                              bookId={booking.bookId}
                               handleCloseForm={handleCloseForm}
                             />
                           </Grid>

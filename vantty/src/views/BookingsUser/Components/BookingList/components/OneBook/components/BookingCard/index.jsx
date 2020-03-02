@@ -130,14 +130,20 @@ const RecipeReviewCard = ({ booking, changeStateBooking, loading }) => {
                       </Typography>
                     </CardActions>
                   )}
-                  {booking.state === "declined" ||
-                    (booking.state === "declined-user" && (
-                      <CardActions className={classes.stateDeclined}>
-                        <Typography>
-                          This service was <strong>Declined</strong>
-                        </Typography>
-                      </CardActions>
-                    ))}
+                  {booking.state === "declined" && (
+                    <CardActions className={classes.stateDeclined}>
+                      <Typography>
+                        This service was <strong>Declined</strong>
+                      </Typography>
+                    </CardActions>
+                  )}
+                  {booking.state === "declined-user" && (
+                    <CardActions className={classes.stateDeclined}>
+                      <Typography>
+                        This service was <strong>Declined</strong>
+                      </Typography>
+                    </CardActions>
+                  )}
                   {booking.state === "posponed" && (
                     <CardActions className={classes.statePosponed}>
                       <Grid container>
