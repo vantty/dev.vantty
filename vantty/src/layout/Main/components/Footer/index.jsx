@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -41,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const footers = [
+const items = [
   {
     title: "Contact us",
     Link: "/help"
@@ -74,10 +75,11 @@ export default function Footer() {
             alignItems="center"
             spacing={2}
           >
-            {footers.map(item => (
+            {items.map(item => (
               <Grid item className={classes.element} key={item.title}>
                 <Link
-                  href={item.Link}
+                  component={RouterLink}
+                  to={item.Link}
                   variant="subtitle1"
                   color="textSecondary"
                 >
@@ -90,7 +92,6 @@ export default function Footer() {
             <Copyright />
           </Box>
         </Container>
-        {/* <Divider /> */}
       </div>
     </Fragment>
   );
