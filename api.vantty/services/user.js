@@ -103,6 +103,8 @@ const forgot = async (id, email, firstName, uri) => {
     subject,
     title,
     html,
+    null,
+    null,
     url,
     buttonText,
     templateId

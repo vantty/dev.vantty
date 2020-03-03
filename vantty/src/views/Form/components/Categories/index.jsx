@@ -134,7 +134,7 @@ const AddCategories = ({
       <CustomPaper
         Children={
           <Fragment>
-            <form autoComplete='off' noValidate>
+            <form autoComplete="off" noValidate>
               <div>
                 <Fragment>
                   <Typography>Categoties</Typography>
@@ -202,9 +202,9 @@ const AddCategories = ({
                   <CardActions>
                     <Grid
                       container
-                      direction='row'
-                      justify='flex-end'
-                      alignItems='flex-start'
+                      direction="row"
+                      justify="flex-end"
+                      alignItems="flex-start"
                     >
                       <Button
                         className={classes.button}
@@ -233,7 +233,7 @@ const AddCategories = ({
                                 stateMakeup.length === 0
                               }
                             >
-                              {match.url === "/categories" ? "Update" : "next"}
+                              {match.url === "/categories" ? "Update" : "Next"}
                             </Button>
                           </Fragment>
                         </div>

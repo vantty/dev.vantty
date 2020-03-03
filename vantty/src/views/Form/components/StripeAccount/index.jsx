@@ -43,35 +43,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const StripeAccount = ({
-  match,
-  prevStep,
-  step,
-  profile: { profile },
-  user
-}) => {
+const StripeAccount = ({ match, prevStep, step, user }) => {
   const classes = useStyles();
 
   // Generate Stripe Link
-
-  // const mobileNumberWithoutCode = profile.mobileNumber.substring(2, 11);
-  const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}&scope=read_only`;
-  // const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
-  // const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID}&stripe_user[country]=CA&stripe_user[phone_number]=${mobileNumberWithoutCode}&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&redirect_uri=${process.env.REACT_APP_STRIPE_REDIRECT_URI}`;
+  const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID_TEST}&stripe_user[country]=CA&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&scope=read_only`;
+  // const stripeApi = `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID}&stripe_user[country]=CA&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&scope=read_only`;
 
   return (
-    <Container component='main' maxWidth='sm'>
+    <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography variant='h2' className={classes.title}>
+        <Typography variant="h2" className={classes.title}>
           Conect your bank account
         </Typography>
-        <Typography variant='subtitle1' className={classes.text}>
+        <Typography variant="subtitle1" className={classes.text}>
           Vantty doesn't save or storage your bank information; however, we use
           a Stripe as one of the best provider for these services in the world.
         </Typography>
-        <Link underline='none' color='inherit' href={stripeApi}>
-          <img src={StripeButton} alt='' className={classes.logo} />
+        <Link underline="none" color="inherit" href={stripeApi}>
+          <img src={StripeButton} alt="" className={classes.logo} />
         </Link>
       </div>
       {match.url === "/create-profile" && (
@@ -95,12 +86,10 @@ const StripeAccount = ({
 // export default StripeAccount;
 
 StripeAccount.propTypes = {
-  profile: PropTypes.object,
   user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
   user: state.auth.user
 });
 

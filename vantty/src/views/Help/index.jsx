@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 // Material-UI
@@ -54,13 +55,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Help = ({ sendEmail }) => {
+const Help = ({ sendEmail, user }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
-    email: "",
+    email: user ? user.email : "",
     issue: "",
     text: ""
   });
+
   const { email, issue, text } = formData;
 
   const handleChange = event => {
@@ -69,7 +71,7 @@ const Help = ({ sendEmail }) => {
   const handleSubmit = async event => {
     event.preventDefault();
     await sendEmail(formData);
-    await setFormData({ email: "", issue: "", text: "" });
+    await setFormData({ email: user ? user.email : "", issue: "", text: "" });
   };
   const problems = [
     {
@@ -110,6 +112,10 @@ const Help = ({ sendEmail }) => {
         <div className={classes.paper}>
           <Typography variant="h2" className={classes.title}>
             Help Center
+          </Typography>
+          <Typography variant="subtitle1" className={classes.text}>
+            Please tell us what problem do you may have. Our Customer Services
+            Team will reach you ASAP.
           </Typography>
           <div>
             <form onSubmit={handleSubmit}>
@@ -177,4 +183,12 @@ const Help = ({ sendEmail }) => {
   );
 };
 
-export default connect(null, { sendEmail })(Help);
+Help.propTypes = {
+  user: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
+
+export default connect(mapStateToProps, { sendEmail })(Help);
