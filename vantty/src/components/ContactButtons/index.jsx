@@ -55,7 +55,7 @@ const ContactButtons = ({ customerType, number, message }) => {
       <Container className={classes.contactButtonsContainer}>
         <Grid container spacing={2}>
           {buttons.map(button => (
-            <Grid item xs={12}>
+            <Grid item xs={12} key={button.type}>
               <Link
                 href={button.link}
                 target="_blank"

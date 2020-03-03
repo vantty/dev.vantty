@@ -23,14 +23,19 @@ export default function Summary({ booking }) {
   const classes = useStyles();
 
   const subtotal = booking.totalValue;
+  // const money = {
+  //   vanttyFee: subtotal * process.env.REACT_APP_VANTTY_FEE,
+  //   transFee: subtotal * process.env.REACT_APP_TRANSFER_FEE,
+  //   total:
+  //     subtotal *
+  //     (1 -
+  //       process.env.REACT_APP_VANTTY_FEE -
+  //       process.env.REACT_APP_TRANSFER_FEE)
+  // };
   const money = {
-    vanttyFee: subtotal * process.env.REACT_APP_VANTTY_FEE,
-    transFee: subtotal * process.env.REACT_APP_TRANSFER_FEE,
-    total:
-      subtotal *
-      (1 -
-        process.env.REACT_APP_VANTTY_FEE -
-        process.env.REACT_APP_TRANSFER_FEE)
+    vanttyFee: subtotal * 0,
+    transFee: subtotal * 0,
+    total: subtotal
   };
 
   return (
@@ -38,7 +43,7 @@ export default function Summary({ booking }) {
       <Container>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
-            <Typography variant='h6' gutterBottom className={classes.title}>
+            <Typography variant="h6" gutterBottom className={classes.title}>
               <strong>Date</strong>
             </Typography>
             <Typography gutterBottom>{booking.appointmentDate}</Typography>
@@ -50,7 +55,7 @@ export default function Summary({ booking }) {
             <Typography gutterBottom>{booking.appointment}</Typography>
           </Grid> */}
         </Grid>
-        <Typography variant='h6' gutterBottom>
+        <Typography variant="h6" gutterBottom>
           <strong>Service summary</strong>
         </Typography>
         <List disablePadding>
@@ -60,31 +65,31 @@ export default function Summary({ booking }) {
                 primary={product.typeOfService}
                 secondary={`Quantity of services ${product.quantity}`}
               />
-              <Typography variant='body2'>{`$${product.amount}`}</Typography>
+              <Typography variant="body2">{`$${product.amount}`}</Typography>
             </ListItem>
           ))}
 
           <ListItem className={classes.listItem}>
-            <ListItemText primary='Subtotal' />
-            <Typography variant='subtitle1' className={classes.listItem}>
+            <ListItemText primary="Subtotal" />
+            <Typography variant="subtitle1" className={classes.listItem}>
               {`$${booking.totalValue.toFixed(2)}`}
             </Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <ListItemText primary='Vantty Fee' />
-            <Typography variant='subtitle1' className={classes.listItem}>
+            <ListItemText primary="Vantty Fee" />
+            <Typography variant="subtitle1" className={classes.listItem}>
               {`$${money.vanttyFee.toFixed(2)}`}
             </Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <ListItemText primary='Transaction Fee' />
-            <Typography variant='subtitle1' className={classes.listItem}>
+            <ListItemText primary="Transaction Fee" />
+            <Typography variant="subtitle1" className={classes.listItem}>
               {`$${money.transFee.toFixed(2)}`}
             </Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <ListItemText primary='Total' />
-            <Typography variant='subtitle1' className={classes.total}>
+            <ListItemText primary="Total" />
+            <Typography variant="subtitle1" className={classes.total}>
               {`$${money.total.toFixed(2)}`}
             </Typography>
           </ListItem>

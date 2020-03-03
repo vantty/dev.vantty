@@ -121,7 +121,6 @@ exports.completeService = async (req, res) => {
         stripeArtistAccount,
         totalValue
       );
-      console.log("CHARGE", charge);
       bookService.updateCharge(artistId, bookCode, charge.status);
       if (charge.status === "succeeded") {
         const user = await userService.getByField({ stripeCustomerId });
