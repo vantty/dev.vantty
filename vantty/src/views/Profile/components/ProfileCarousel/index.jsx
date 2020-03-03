@@ -5,7 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
 import { Link } from "@material-ui/core";
 import MainPicture from "./components/MainPicture";
-// import { List } from "./components";
+
 const useStyles = makeStyles({
   image: {
     float: "left",
@@ -66,21 +66,21 @@ const Porfolio = ({ images }) => {
           arrows
           // autoPlaySpeed={3000}
           // centerMode={false}
-          containerClass='container'
+          containerClass="container"
           // dotListClass=''
           draggable
           // focusOnSelect={false}
           infinite
-          itemClass=''
+          itemClass=""
           keyBoardControl
           minimumTouchDrag={2}
-          partialVisbile='right'
+          partialVisbile="right"
           renderDotsOutside={false}
           removeArrowOnDeviceType={["tablet", "mobile"]}
         >
           {images.map(image => (
             <Link
-              component='button'
+              component="button"
               onChange={e => setState({ picture: image.original })}
               onClick={() => {
                 setState({ picture: image.original, tag: image.tag });

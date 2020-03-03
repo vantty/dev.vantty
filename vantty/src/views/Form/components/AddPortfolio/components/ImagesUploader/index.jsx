@@ -75,7 +75,7 @@ const ImagesUploader = ({
     if (profile !== null && images && images.length < 5) {
       return (
         <Typography variant="h5">
-          You can upload as many pictures as you whant, and ech of them must be
+          You can upload as many pictures as you whant, and each of them must be
           tagged. However, please upload no more than 5 pictures at a time.
         </Typography>
       );

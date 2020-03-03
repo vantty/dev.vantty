@@ -40,17 +40,8 @@ const ReviewItem = ({
         alignItems="stretch"
       >
         <Grid item>
-          <h1>Reviews</h1>
+          <Typography variant="h3">Reviews</Typography>
         </Grid>
-        {/* <Grid item>
-          <LinkMui
-            component={Link}
-            variant="body1"
-            to={`/profile/artist/${user}/${_id}`}
-          >
-            Leave a comment
-          </LinkMui>
-        </Grid> */}
       </Grid>
       <br />
       <Divider variant="middle" />

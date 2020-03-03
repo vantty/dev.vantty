@@ -25,8 +25,8 @@ export default function DenseTable({ services }) {
       <Table className={classes.table} padding="none">
         <TableHead>
           <TableRow>
-            <TableCell>Service</TableCell>
-            <TableCell align="right">Amount</TableCell>
+            <TableCell>Type</TableCell>
+            <TableCell align="right">Price</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -35,7 +35,7 @@ export default function DenseTable({ services }) {
               <TableCell component="th" scope="row">
                 {row.typeOfService}
               </TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
+              <TableCell align="right">{`$${row.amount}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>

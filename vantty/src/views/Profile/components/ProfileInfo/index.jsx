@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { isMobile } from "react-device-detect";
@@ -11,12 +11,39 @@ import VerifiedIcon from "@material-ui/icons/VerifiedUserRounded";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import withStyles from "@material-ui/core/styles/withStyles";
+import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 // Styles
-import styles from "./styles";
+const useStyles = makeStyles(theme => ({
+  root: {
+    textAlign: "center"
+  },
+  avatar: {
+    margin: 10,
+    width: 90,
+    height: 90,
+    fontWeight: "bold",
+    fontSize: "35px",
+    backgroundColor: theme.palette.greenVantty.main
+  },
+  verifiedIcon: {
+    color: "rgb(0, 223, 212)",
+    marginLeft: "0.3rem",
+    marginBottom: "-0.3rem",
+    width: "1rem"
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
+  }
+}));
 
 const ProfileInfo = ({
   auth,
@@ -29,12 +56,12 @@ const ProfileInfo = ({
     name,
     categories,
     verified
-  },
-  classes
+  }
 }) => {
+  const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container justify="center" alignItems="center">
+      <Grid container justify="center" alignItems="center" spacing={3}>
         {profileImage ? (
           <Avatar src={profileImage} className={classes.avatar} />
         ) : (
@@ -42,33 +69,42 @@ const ProfileInfo = ({
             {user && getInitials(name.firstName)}
           </Avatar>
         )}
+        <Grid item xs={12}>
+          <Typography variant="h2">
+            {`${name.firstName} ${name.lastName}`}
+            {verified && <VerifiedIcon className={classes.verifiedIcon} />}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h4">{profession}</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">{`${categories.makeup.join(
+            " | "
+          )} | ${categories.hair.join(" | ")}`}</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body1">{bio}</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">{city}</Typography>
+        </Grid>
       </Grid>
-      <Typography variant="h2" className={classes.name}>
-        {`${name.firstName} ${name.lastName}`}
-        {verified && <VerifiedIcon className={classes.verifiedIcon} />}
-      </Typography>
-      <h3 className={classes.subTitle}>{profession}</h3>
-      <br />
-      <h5 className={classes.subSubTitle}>{`${categories.makeup.join(
-        " | "
-      )} | ${categories.hair.join(" | ")}`}</h5>
-      <h3 className={classes.description}>{bio}</h3>
-      <p>{<span>{city}</span>}</p>
-      <div style={{ display: "inline-block" }}></div>
-      <Grid>
+      <Grid item xs={12}>
         {isOwner(auth, user) === true && user === auth.user._id && !isMobile && (
           <Button
             component={Link}
-            variant="outlined"
+            variant="contained"
+            color="primary"
             size="small"
             className={classes.button}
+            startIcon={<SettingsIcon />}
             to={"/personal-info"}
           >
             Settings
           </Button>
         )}
       </Grid>
-
       <Divider variant="middle" />
     </div>
   );
@@ -80,4 +116,4 @@ ProfileInfo.propTypes = {
   auth: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ProfileInfo);
+export default ProfileInfo;

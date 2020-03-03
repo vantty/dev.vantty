@@ -57,7 +57,7 @@ export default {
   },
   text: {
     primary: "rgb(47, 48, 52)",
-    secondary: "rgb(117, 117, 117)",
+    secondary: "rgb(85, 85, 85)",
     link: colors.blue[600]
   },
   background: {

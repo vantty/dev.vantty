@@ -170,8 +170,8 @@ const CreateProfile = ({
                       />
                     }
                   >
-                    <MenuItem value={"Makeup Artists"}>Makeup Artists</MenuItem>
-                    <MenuItem value={"Makeup & Hair Artist "}>
+                    <MenuItem value={"Makeup Artist"}>Makeup Artist</MenuItem>
+                    <MenuItem value={"Makeup & Hair Artist"}>
                       Makeup & Hair Artist
                     </MenuItem>
                     <MenuItem value={"Hair Stylist"}>Hair Stylist</MenuItem>

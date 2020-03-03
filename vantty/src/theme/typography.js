@@ -43,7 +43,7 @@ export default {
   },
   h6: {
     fontFamily: "'Montserrat', 'sans-serif'",
-    color: palette.text.primary,
+    color: palette.text.secondary,
     fontWeight: 500,
     fontSize: "14px",
     letterSpacing: "-0.05px",

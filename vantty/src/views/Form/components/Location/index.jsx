@@ -149,8 +149,8 @@ const Location = ({
                       <Fragment>
                         <Grid item xs={10}>
                           <Typography>
-                            You want your customers to go to a place where you
-                            provide the service. Tell them the address:
+                            Do you have a place where you can provide your
+                            services?
                           </Typography>
                         </Grid>
                         <Grid item xs={2}>
@@ -176,7 +176,9 @@ const Location = ({
                         <br />
                         <br />
                         <Grid item xs={10}>
-                          <Typography>Do you provide home delivery?</Typography>
+                          <Typography>
+                            Do you provide your services at client's home?
+                          </Typography>
                         </Grid>
                         <Grid item xs={2}>
                           <Switch

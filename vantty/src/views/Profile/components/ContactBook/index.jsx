@@ -11,16 +11,6 @@ import Slide from "@material-ui/core/Slide";
 import { Container, Grid } from "@material-ui/core";
 import Slider from "../Slider";
 
-// const useStyles = makeStyles(theme => ({
-//   appBar: {
-//     position: "relative"
-//   },
-//   title: {
-//     marginLeft: theme.spacing(2),
-//     flex: 1
-//   }
-// }));
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -31,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     border: "grey",
     marginBottom: "1remknm  "
   },
-
   button: {
     marginTop: "0.5rem",
     marginBottom: "0.5rem",
@@ -75,9 +64,6 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     backgroundColor: "grey"
   },
-  buttom: {
-    // margin: "2rem"
-  },
   book: {
     paddingTop: "-4rem"
   },
@@ -87,7 +73,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog({
@@ -111,13 +97,13 @@ export default function FullScreenDialog({
     <div>
       <Fragment>
         <div className={classes.root}>
-          <Container maxWidth='md'>
+          <Container maxWidth="md">
             <Fragment>
               <Grid
                 container
-                direction='row'
-                justify='space-around'
-                alignItems='center'
+                direction="row"
+                justify="space-around"
+                alignItems="center"
               >
                 <Grid item>
                   <h4 className={classes.price}>
@@ -129,7 +115,7 @@ export default function FullScreenDialog({
                   <Button
                     className={classes.button}
                     onClick={handleClickOpen}
-                    variant='contained'
+                    variant="contained"
                   >
                     Book
                   </Button>
@@ -149,10 +135,10 @@ export default function FullScreenDialog({
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
-              edge='start'
-              color='inherit'
+              edge="start"
+              color="inherit"
               onClick={handleClose}
-              aria-label='close'
+              aria-label="close"
             >
               <CloseIcon />
             </IconButton>
