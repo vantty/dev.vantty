@@ -101,6 +101,14 @@ const Help = ({ sendEmail, user }) => {
     {
       value: "report-comment",
       text: "I want to report a comment in my profile"
+    },
+    {
+      value: "change-phone",
+      text: "I want change my phone number"
+    },
+    {
+      value: "change-bank-account",
+      text: "I want change my bank account"
     }
   ];
 

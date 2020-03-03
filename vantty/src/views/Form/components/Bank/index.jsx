@@ -1,14 +1,20 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
-import { Grid, LinearProgress, Typography } from "@material-ui/core";
+import { Grid, LinearProgress, Typography, Link } from "@material-ui/core";
+
+// Components
 import { CustomPaper } from "../ComponentsForm";
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    marginBottom: theme.spacing(2)
+  },
   cardIcon: {
     fontSize: "50px"
   }
@@ -24,7 +30,7 @@ const Bank = ({ profile: { profile } }) => {
             <LinearProgress />
           ) : (
             <Fragment>
-              <Grid container>
+              <Grid container className={classes.container}>
                 <Grid item xs={2}>
                   <CreditCardIcon className={classes.cardIcon} />
                 </Grid>
@@ -44,6 +50,12 @@ const Bank = ({ profile: { profile } }) => {
                   </Grid>
                 </Grid>
               </Grid>
+              <Typography variant="h6" align="laft">
+                If you need to change it, please contact us{" "}
+                <Link component={RouterLink} to="/help" variant="h6">
+                  here.
+                </Link>
+              </Typography>
             </Fragment>
           )}
         </Fragment>
@@ -60,4 +72,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, {})(Bank);
+export default connect(mapStateToProps, {})(withRouter(Bank));

@@ -74,8 +74,9 @@ const ImagesUploader = ({
     // const classesMsg = useStyles();
     if (profile !== null && images && images.length < 5) {
       return (
-        <Typography variant='h5'>
-          You need at least 5 pictures and each one of them must have a tag.
+        <Typography variant="h5">
+          You can upload as many pictures as you whant, and ech of them must be
+          tagged. However, please upload no more than 5 pictures at a time.
         </Typography>
       );
     }
@@ -86,17 +87,17 @@ const ImagesUploader = ({
       <Fragment>
         <div className={classes.div}>
           <Button
-            variant='contained'
-            color='default'
+            variant="contained"
+            color="default"
             className={classes.button}
             startIcon={<CloudUploadIcon />}
-            component='label'
+            component="label"
           >
-            Upload Picture
+            Upload Pictures
             <input
               style={{ display: "none" }}
-              type='file'
-              name='file'
+              type="file"
+              name="file"
               multiple
               onChange={onChange}
             />
@@ -125,7 +126,7 @@ const ImagesUploader = ({
       {uploading || !profile ? (
         <Fragment>
           <Progress />
-          <Typography variant='h5' className={classes.waitMessage}>
+          <Typography variant="h5" className={classes.waitMessage}>
             {"This may take a while. Please wait..."}
           </Typography>
         </Fragment>

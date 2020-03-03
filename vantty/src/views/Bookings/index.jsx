@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
 // Actions
 import { getBook, changeStateBooking } from "../../actions/book";
@@ -33,7 +34,7 @@ const Bookings = ({ getBook, book: { book }, changeStateBooking }) => {
       Children={
         <Fragment>
           {book.length === 0 ? (
-            <p>No bookings yet.</p>
+            <Typography variant="h6">No bookings yet.</Typography>
           ) : (
             <div className={classes.root}>
               <BookingList

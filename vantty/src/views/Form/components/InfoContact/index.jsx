@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -11,7 +11,7 @@ import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 //Material-UI
 import { makeStyles } from "@material-ui/styles";
-import { Button, Typography, CircularProgress } from "@material-ui/core";
+import { Button, Typography, CircularProgress, Link } from "@material-ui/core";
 import VerifiedIcon from "@material-ui/icons/VerifiedUserRounded";
 
 const useStyles = makeStyles(theme => ({
@@ -19,12 +19,12 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     display: "inline-block"
   },
-  formControl: {
+  phone: {
     alignContent: "center",
     alignItems: "center"
   },
   typography: {
-    marginBottom: "1.5rem"
+    marginBottom: theme.spacing(2)
   },
   button: {
     float: "right",
@@ -41,12 +41,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "0.3rem",
     marginBottom: "-0.3rem",
     width: "1rem"
-  },
-  newPhone: {
-    marginTop: theme.spacing(2)
-  },
-  textNewPhone: {
-    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -87,7 +81,7 @@ const InfoContact = ({
     return (
       <div className={classes.root}>
         <ReactPhoneInput
-          defaultCountry='ca'
+          defaultCountry="ca"
           onlyCountries={["co", "us", "ca"]}
           masks={{
             ca: "+. (...) ...-..-..",
@@ -116,45 +110,39 @@ const InfoContact = ({
     <Fragment>
       <CustomPaper
         Children={
-          <div className={classes.root}>
+          <Fragment>
             <Typography
-              component='h5'
-              variant='h6'
-              align='center'
+              variant="h6"
+              align="laft"
               className={classes.typography}
             >
-              {/* Enter a cellphone number where we and your clients can reach you
-              if it is necessary. */}
               Your cellphone number has been verified.
             </Typography>
             {profile && !profile.mobileNumber ? (
               phoneForm()
             ) : (
-              <div className={classes.root}>
+              <Fragment>
                 {!profile ? (
                   <CircularProgress size={20} />
                 ) : (
-                  <Typography variant='h4' align='center'>
-                    {`+${profile.mobileNumber}`}
+                  <Typography
+                    variant="h4"
+                    align="center"
+                    className={classes.typography}
+                  >
+                    {`${profile.mobileNumber}`}
                     <VerifiedIcon className={classes.verifiedIcon} />
                   </Typography>
                 )}
-                {/* {match.url === "/mobile" && (
-                  <div className={classes.newPhone}>
-                    <Typography
-                      variant='h6'
-                      align='center'
-                      className={classes.textNewPhone}
-                    >
-                      If you need to change it, validate a new phone number
-                      here:
-                    </Typography>
-                    {phoneForm()}
-                  </div>
-                )} */}
-              </div>
+              </Fragment>
             )}
-          </div>
+            <Typography variant="h6" align="laft">
+              If you need to change it, please contact us{" "}
+              <Link component={RouterLink} to="/help" variant="h6">
+                here.
+              </Link>
+            </Typography>
+          </Fragment>
         }
       />
       {match.url === "/create-profile" && (
@@ -165,11 +153,7 @@ const InfoContact = ({
               <div>
                 <div>
                   <Button onClick={back}>Back</Button>
-                  <Button
-                    onClick={next}
-                    className={classes.button}
-                    // disabled={!profile.mobileNumber}
-                  >
+                  <Button onClick={next} className={classes.button}>
                     Next
                   </Button>
                 </div>

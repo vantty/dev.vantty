@@ -11,6 +11,7 @@ import { getReview } from "../../../../actions/review";
 // Material-UI
 import { makeStyles } from "@material-ui/core/styles";
 import Progress from "@material-ui/core/LinearProgress";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,7 +34,9 @@ const Review = ({
     <Fragment>
       <div className={classes.container}>
         <ReviewList review={review} />
-        {review.comments.length === 0 ? <p>No reviews yet.</p> : null}
+        {review.comments.length === 0 ? (
+          <Typography variant="h6">No reviews yet.</Typography>
+        ) : null}
       </div>
     </Fragment>
   );

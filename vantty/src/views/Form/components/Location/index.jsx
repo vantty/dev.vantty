@@ -39,13 +39,11 @@ const useStyles = makeStyles(theme => ({
 
 const Location = ({
   nextStep,
-  history,
   match,
   update,
   step,
   prevStep,
-  profile: { profile },
-  auth: { user }
+  profile: { profile }
 }) => {
   const classes = useStyles();
 
@@ -59,7 +57,6 @@ const Location = ({
     setState({
       ...state,
       availability: profile ? profile.availability : "",
-      // address: profile ? profile.address : "",
       place: profile ? profile.place : false,
       delivery: profile ? profile.delivery : false
     });
@@ -85,20 +82,11 @@ const Location = ({
     delivery,
     place,
     availability,
-    // address: address
     address: {
       street:
         "" ||
         (address && address.street) ||
         (profile && profile.address && profile.address.street)
-      // log:
-      //   "" ||
-      //   (address.log && address.log) ||
-      //   (profile && profile.address && profile.address.log),
-      // lat:
-      //   "" ||
-      //   (address.lat && address.lat) ||
-      //   (profile && profile.address && profile.address.lat)
     }
   };
 
@@ -110,7 +98,6 @@ const Location = ({
 
   const desable = values => {
     const { address, availability, place } = values;
-    console.log("Aaddress", address);
     if (availability && place && Object.values(address)[0]) {
       return false;
     } else if (
@@ -145,7 +132,6 @@ const Location = ({
                     multiline
                     rows="2"
                     placeholder="Hi! You can take an appointment with me all days on the weekend"
-                    // defaultValue='Default Value'
                     name="availability"
                     value={availability}
                     className={classes.textField}
@@ -153,9 +139,6 @@ const Location = ({
                     variant="outlined"
                     onChange={onChangeAvailability}
                   />
-
-                  {/* {match.url === "/location" && ( */}
-
                   <Fragment>
                     <Grid
                       container
@@ -184,7 +167,6 @@ const Location = ({
                             <GoogleMapsAutocomplete
                               localAddress={
                                 profile.address ? profile.address : address
-                                // address
                               }
                               onChangeAddress={onChangeAddress}
                             />
@@ -208,7 +190,6 @@ const Location = ({
                         </Grid>
                       </Fragment>
                     </Grid>
-
                     <Divider />
                     {!isMobile && match.url === "/location" && (
                       <CardActions>
@@ -228,7 +209,6 @@ const Location = ({
                       </CardActions>
                     )}
                   </Fragment>
-                  {/* )} */}
                   <Fragment>
                     {match.url === "/create-profile" ? (
                       <FormBottomNav
@@ -290,14 +270,12 @@ const Location = ({
   );
 };
 const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth
+  profile: state.profile
 });
 
 Location.propTypes = {
   update: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, { update })(withRouter(Location));

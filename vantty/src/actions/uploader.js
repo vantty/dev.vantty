@@ -54,7 +54,7 @@ export const uploadImages = e => async dispatch => {
     if (files.length > 5) {
       const msg = "Only 5 images can be uploaded at a time";
       dispatch({ type: IMAGES_UPLOAD_FAIL });
-      return console.log(msg);
+      return dispatch(setAlert(msg, "warning"));
     }
 
     const formData = new FormData();
@@ -73,7 +73,7 @@ export const uploadImages = e => async dispatch => {
     });
     if (errs.length) {
       dispatch({ type: IMAGES_UPLOAD_FAIL });
-      return errs.forEach(err => console.log(err));
+      return errs.forEach(err => dispatch(setAlert(err, "warning")));
     }
 
     dispatch({ type: IMAGES_UPLOADING });

@@ -1,8 +1,19 @@
 const profilePageStyle = theme => ({
-  profile: {
+  root: {
     textAlign: "center"
   },
-
+  avatar: {
+    margin: 10,
+    width: 90,
+    height: 90,
+    fontWeight: "bold",
+    fontSize: "35px",
+    backgroundColor: theme.palette.greenVantty.main,
+    marginBottom: theme.spacing(2)
+  },
+  name: {
+    marginBottom: theme.spacing(2)
+  },
   container: {
     paddingRight: "15px",
     paddingLeft: "15px",
@@ -10,14 +21,7 @@ const profilePageStyle = theme => ({
     marginLeft: "auto",
     width: "100%"
   },
-
-  //All Text
-  name: {
-    marginTop: "2px",
-    marginBottom: "0px"
-  },
   description: {
-    // margin: "1.071rem auto 0",
     margin: "0 auto",
     maxWidth: "600px",
     color: "#999",
@@ -56,41 +60,21 @@ const profilePageStyle = theme => ({
     textDecoration: "none",
     fontSize: "14px"
   },
-
   navWrapper: {
     margin: "20px auto 50px auto",
     textAlign: "center"
   },
-  avatar: {
-    margin: "auto",
-    height: 90,
-    width: 90
-  },
-  bigAvatar: {
-    margin: 10,
-    width: 90,
-    height: 90,
-    fontWeight: "bold",
-    fontSize: "35px",
-    backgroundColor: theme.palette.greenVantty.main
-  },
   button: {
     margin: 10,
     color: theme.palette.vantty
-    // backgroundColor: "rgb(120, 40, 146)"
   },
   input: {
     display: "none"
   },
-  //Review
   review: {
-    // width: "100%",
     maxWidth: 800
-    // marginTop: "10px",
-    // minHeight: "32px"
   },
   inline: {
-    // display: "inline",
     float: "left"
   },
   textField: {
@@ -111,12 +95,9 @@ const profilePageStyle = theme => ({
     textDecoration: "none",
     fontSize: "14px"
   },
-
   marks: {
-    // position: "absolute",
     display: "inline"
   },
-
   totalReview: {
     width: "200px",
     height: "200px",
