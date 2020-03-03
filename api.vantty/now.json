@@ -24,7 +24,9 @@
     "STRIPE_SECRET_KEY_TEST": "@stripe-secret-key-test",
     "STRIPE_SECRET_KEY": "@stripe-secret-key",
     "SENDGRID_API_KEY": "@sendgrid-api-key",
-    "HELP_EMAIL": "@help-email"
+    "HELP_EMAIL": "@help-email",
+    "TRANSFER_USER_FEE": "@transfer-user-fee",
+    "NET_ARTIST_FEE": "@net-artist-fee"
   },
   "routes": [{ "src": "/api/.*", "dest": "/index.js" }]
 }

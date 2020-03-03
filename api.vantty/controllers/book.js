@@ -115,14 +115,15 @@ exports.completeService = async (req, res) => {
       chargeStatus
     } = await bookService.complete(artistId, bookCode, state);
     if (chargeStatus === "pending") {
-      const { status } = await stripeService.charge(
+      const charge = await stripeService.charge(
         stripeCustomerId,
         stripeCardId,
         stripeArtistAccount,
         totalValue
       );
-      bookService.updateCharge(artistId, bookCode, status);
-      if (status === "succeeded") {
+      console.log("CHARGE", charge);
+      bookService.updateCharge(artistId, bookCode, charge.status);
+      if (charge.status === "succeeded") {
         const user = await userService.getByField({ stripeCustomerId });
         const artist = await userService.getById(artistId);
         const { reviewId } = await profileService.getById(artistId);
@@ -140,7 +141,7 @@ exports.completeService = async (req, res) => {
           message: "Something went wrong. Please contact Client Services"
         });
       }
-      res.status(200).json(status);
+      res.status(200).json(charge.status);
     } else {
       return res.status(500).json({
         message: "This service has been already charged"

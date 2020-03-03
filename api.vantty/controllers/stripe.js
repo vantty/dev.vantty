@@ -17,13 +17,16 @@ exports.createAccount = async (req, res) => {
       id,
       {
         stripeArtistAccount: stripeArtistAccount,
-        stripeBankData: stripeBankData
+        stripeBankData: stripeBankData,
+        mobileNumber: support_phone
       },
       "$set"
     );
-    await userService.update(id, { profile: true }, "$set");
-    await userService.update(id, { mobileNumber: support_phone }, "$set");
-    await profileService.update(id, { mobileNumber: support_phone }, "$set");
+    await userService.update(
+      id,
+      { profile: true, mobileNumber: support_phone },
+      "$set"
+    );
     res.status(201).json(result);
   } catch (error) {
     console.error(error);
@@ -34,13 +37,14 @@ exports.createAccount = async (req, res) => {
 exports.createCustomer = async (req, res) => {
   try {
     const {
-      user: { id },
+      user: { id, email },
       body: {
         token: { id: token }
       }
     } = req;
     const { customerId, newCard } = await stripeService.createCustomer(
       id,
+      email,
       token
     );
     const result = await userService.update(

@@ -23,12 +23,13 @@ const createAccount = async code => {
   return { stripeArtistAccount, stripeBankData, support_phone };
 };
 
-const createCustomer = async (id, token) => {
+const createCustomer = async (id, email, token) => {
   const {
     id: customerId,
     default_source: source
   } = await stripe.customers.create({
     name: id,
+    email: email,
     source: token
   });
   const card = await retrieveSource(customerId, source);
@@ -79,13 +80,13 @@ const deleteSource = async (stripeCustomerId, cardId) => {
 
 const charge = (customer, card, artist, amount) => {
   return stripe.charges.create({
-    amount: amount * 100,
+    amount: amount * 100 * process.env.TRANSFER_USER_FEE,
     currency: "cad",
     customer: customer,
     source: card,
     description: "Vantty Service",
     transfer_data: {
-      amount: amount * 100 * 0.72,
+      amount: amount * 100,
       destination: artist
     }
   });

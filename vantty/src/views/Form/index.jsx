@@ -6,14 +6,12 @@ import { connect } from "react-redux";
 // Actions
 import { getCurrentProfile, createProfile } from "../../actions/profile";
 
-// Material helpers
-import { Container } from "@material-ui/core";
+// Material-UI
+import { Grid, Box, Container, LinearProgress } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-// Material components
-import { Grid, Box } from "@material-ui/core";
-import LinearProgress from "@material-ui/core/LinearProgress";
-
-// Custom components
+// Components
+import { Alert } from "../../components";
 import {
   CreateProfile,
   AddPortfolio,
@@ -23,10 +21,6 @@ import {
   StripeAccount,
   Location
 } from "./components";
-
-import { s } from "./components/ComponentsForm";
-
-import { makeStyles } from "@material-ui/core/styles";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -129,6 +123,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
 
   return (
     <Fragment>
+      <Alert />
       <div>
         <s step={activeStep} />
       </div>
@@ -137,7 +132,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth='md'>
+                <Container maxWidth="md">
                   <Fragment>
                     <Fragment>{getStepContent(activeStep)}</Fragment>
                   </Fragment>
