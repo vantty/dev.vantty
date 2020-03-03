@@ -153,22 +153,22 @@ export default function Slider({
         {/* <Divider variant="middle" /> */}
         <Fragment>
           {/* <Divider variant='middle' /> */}
-
-          {!owner && (
-            <div className={classes.section3}>
-              <Button
-                className={classes.button}
-                // disabled={!verified}
-                component={Link}
-                // to={"/checkout"}
-                to={`/checkout/${profile.user}/${profile.bookId}`}
-                onClick={() => load(state, profile)}
-                variant='contained'
-              >
-                Book
-              </Button>
-            </div>
-          )}
+          {user.profile ||
+            (!owner && (
+              <div className={classes.section3}>
+                <Button
+                  className={classes.button}
+                  // disabled={!verified}
+                  component={Link}
+                  // to={"/checkout"}
+                  to={`/checkout/${profile.user}/${profile.bookId}`}
+                  onClick={() => load(state, profile)}
+                  variant='contained'
+                >
+                  Book
+                </Button>
+              </div>
+            ))}
         </Fragment>
         {/* {!disabled && (
           <Fragment>

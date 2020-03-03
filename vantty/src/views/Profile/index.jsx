@@ -105,7 +105,7 @@ const Profile = ({
               />
             </Fragment>
           )}
-          <Container maxWidth="md" className={classes.container}>
+          <Container maxWidth='md' className={classes.container}>
             <Grid container spacing={1} className={classes.mainGrid}>
               <Fragment>
                 <CssBaseline />
@@ -132,7 +132,7 @@ const Profile = ({
                           profile={profile}
                           verified={profile.verified}
                           disabled={user && user._id === profile.user}
-                          user={user}
+                          user={user && user}
                           // onChange={onChange}
                           loadService={loadService}
                           onChangeDate={onChangeDate}

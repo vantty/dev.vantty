@@ -53,6 +53,9 @@ const getUserBookings = async user => {
       }
     }
   }
+  totalBookings.sort(
+    (a, b) => parseFloat(b.requestTimeStamp) - parseFloat(a.requestTimeStamp)
+  );
   return totalBookings;
 };
 

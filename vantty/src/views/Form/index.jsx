@@ -24,7 +24,7 @@ import {
   Location
 } from "./components";
 
-import { s } from "./components/ComponentsForm";
+import { AppBarForm } from "./components/ComponentsForm";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -130,7 +130,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
   return (
     <Fragment>
       <div>
-        <s step={activeStep} />
+        <AppBarForm step={activeStep} />
       </div>
       <Box pt={11} pb={11}>
         {profile ? (
