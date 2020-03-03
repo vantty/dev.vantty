@@ -14,8 +14,7 @@ const PaymentForm = ({
   cardSelected
 }) => {
   return (
-    <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY_TEST}>
-      {/* <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}> */}
+    <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}>
       <CheckoutContext.Provider value={{ onChangeTarget }}>
         <Elements>
           <StripeForm

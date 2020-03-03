@@ -29,24 +29,13 @@ import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    // marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
   form: {
     width: "100%",
     marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  root: {
-    paddingRight: `0rem !important`
   },
   listItem: {
     padding: theme.spacing(1, 0)
@@ -64,15 +53,10 @@ const useStyles = makeStyles(theme => ({
   totals: {
     width: "10rem",
     marginTop: "3rem"
-    // marginLeft: "rem"
-  },
-  title: {
-    marginTop: theme.spacing(2)
   },
   icon: {
     fontSize: "30"
   },
-  grid: { width: "12rem" },
   margin: {
     width: "2rem",
     margin: "1rem",
@@ -92,18 +76,6 @@ const useStyles = makeStyles(theme => ({
       listStyle: "none"
     }
   },
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`
-  },
-  card: {
-    margin: "1rem"
-  },
-  toolbar: {
-    flexWrap: "wrap"
-  },
-  toolbarTitle: {
-    flexGrow: 1
-  },
   button: {
     backgroundColor: theme.palette.greenVantty.main,
     width: "1rem",
@@ -112,37 +84,14 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "0rem",
     fontSize: "0.3rem"
   },
-  generalButton: {
-    padding: "0px"
-  },
-  link: {
-    margin: theme.spacing(1, 1.5)
-  },
-  heroContent: {
-    padding: theme.spacing(8, 0, 6)
-  },
-  cardHeader: {
-    backgroundColor:
-      theme.palette.type === "dark"
-        ? theme.palette.grey[700]
-        : theme.palette.grey[200]
-  },
-  cardPricing: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "baseline",
-    marginBottom: theme.spacing(2)
-  },
-  newButton: {
+  addSubstractButton: {
     minHeight: `24px !important`,
     width: "2rem",
     height: "2rem",
-    backgroundColor: theme.palette.greenVantty.main
-  },
-  newButtonSubstract: {
-    minHeight: `24px !important`,
-    width: "2rem",
-    height: "2rem"
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
   }
 }));
 
@@ -237,14 +186,15 @@ const Review = ({
                             key={product._id}
                             color="primary"
                             aria-label="add"
-                            className={classes.newButtonSubstract}
+                            className={classes.addSubstractButton}
                           >
                             <RemoveIcon className={classes.icon} />
                           </Fab>
                           <span className={classes.margin}>
-                            {product.quantity}
+                            {product.quantity === undefined
+                              ? "0"
+                              : product.quantity}
                           </span>
-
                           <Fab
                             disabled={product.quantity === 3 && true}
                             onClick={() =>
@@ -255,7 +205,7 @@ const Review = ({
                             key={product.id}
                             color="primary"
                             aria-label="add"
-                            className={classes.newButton}
+                            className={classes.addSubstractButton}
                           >
                             <AddIcon />
                           </Fab>
@@ -303,13 +253,6 @@ const Review = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    // cart: state.cart
-    // items: state.items,
-    // addedItems: state.addedItems
-  };
-};
 const mapDispatchToProps = dispatch => {
   return {
     removeItem: id => {
@@ -326,4 +269,5 @@ const mapDispatchToProps = dispatch => {
     }
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Review);
+
+export default connect(null, mapDispatchToProps)(Review);

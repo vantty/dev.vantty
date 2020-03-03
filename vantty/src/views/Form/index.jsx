@@ -124,11 +124,11 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
 
   return (
     <Fragment>
-      <Alert />
       <div>
         <AppBarForm step={activeStep} />
       </div>
       <Box pt={11} pb={11}>
+        <Alert />
         {profile ? (
           <div className={classes.root}>
             <Grid container spacing={4}>

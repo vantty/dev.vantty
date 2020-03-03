@@ -129,16 +129,20 @@ const useStyles = makeStyles(theme => ({
   stepper: {
     padding: theme.spacing(3, 0, 5)
   },
-  buttons: {
+  containerButtons: {
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    marginBottom: theme.spacing(3)
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
   },
   bookingsButton: {
-    textTransform: "none",
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
     backgroundColor: theme.palette.greenVantty.main,
@@ -334,13 +338,13 @@ const Checkout = ({
       {loading && <LinearProgress />}
       <Alert />
       {isMobile && <SimpleAppBar />}
-      <Container maxWidth='sm' className={classes.container}>
+      <Container maxWidth="sm" className={classes.container}>
         {!isMobile && activeStep === 0 && (
           <IconButton>
             <Link
               component={Link}
               to={`/profile/artist/${match.params.id}`}
-              variant='h6'
+              variant="h6"
             >
               <ArrowBackIcon style={{ color: "black" }} />
             </Link>
@@ -348,7 +352,7 @@ const Checkout = ({
         )}
         {/* <main className={classes.layout}> */}
         {/* <Paper className={classes.paper}> */}
-        <Typography variant='h2' align='center'>
+        <Typography variant="h2" align="center">
           Checkout
         </Typography>
         <Stepper
@@ -365,19 +369,19 @@ const Checkout = ({
         <Fragment>
           {activeStep === steps.length ? (
             <Fragment>
-              <Typography variant='h5' gutterBottom>
+              <Typography variant="h5" gutterBottom>
                 Thank you for your order.
               </Typography>
-              <Typography variant='subtitle1'>
+              <Typography variant="subtitle1">
                 Your booking request has been placed and we have emailed your
                 artist this request. Once she accepts it, we will send you the
                 confirmation and your <strong>booking code.</strong>
               </Typography>
               <Button
                 component={Link}
-                to='/bookings-user'
-                color='primary'
-                variant='contained'
+                to="/bookings-user"
+                color="primary"
+                variant="contained"
                 className={classes.bookingsButton}
                 disabled={loading}
               >
@@ -387,26 +391,31 @@ const Checkout = ({
           ) : (
             <Fragment>
               {profile && getStepContent(activeStep)}
-              <div className={classes.buttons}>
+              <div className={classes.containerButtons}>
                 {activeStep !== 0 && (
-                  <Button onClick={handleBack} className={classes.button}>
+                  <Button
+                    onClick={handleBack}
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                  >
                     Back
                   </Button>
                 )}
 
                 {activeStep === 0 && (
-                  <Container maxWidth='xs'>
+                  <Container maxWidth="xs">
                     <Button
-                      variant='contained'
+                      variant="contained"
                       disabled={
                         (total === 0 && true) ||
                         (appointmentDate === "" && true)
                       }
-                      color='primary'
+                      color="primary"
                       onClick={e => handleNext(e, total, addedItems)}
-                      type='submit'
+                      type="submit"
                       fullWidth
-                      className={classes.submit}
+                      className={classes.button}
                     >
                       {activeStep === steps.length - 1 ? "Place order" : "Next"}
                     </Button>
@@ -414,9 +423,9 @@ const Checkout = ({
                 )}
                 {activeStep === 1 && (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     disabled={desable(address, location, userPhone)}
-                    color='primary'
+                    color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >
@@ -425,9 +434,9 @@ const Checkout = ({
                 )}
                 {activeStep === 2 && (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     disabled={!stripeCardId}
-                    color='primary'
+                    color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >
@@ -437,9 +446,9 @@ const Checkout = ({
 
                 {activeStep === 3 && (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     disabled={false}
-                    color='primary'
+                    color="primary"
                     onClick={e => handleNext(e, total, addedItems)}
                     className={classes.button}
                   >

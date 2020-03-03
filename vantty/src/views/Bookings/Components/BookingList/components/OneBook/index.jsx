@@ -19,6 +19,12 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginLeft: theme.spacing(1),
     flex: 1
+  },
+  button: {
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
   }
 }));
 
@@ -40,7 +46,13 @@ export default function FullScreenDialog({ booking, changeStateBooking }) {
 
   return (
     <div>
-      <Button size="small" variant="contained" onClick={handleClickOpen}>
+      <Button
+        size="small"
+        variant="contained"
+        color="primary"
+        onClick={handleClickOpen}
+        className={classes.button}
+      >
         View
       </Button>
       <Dialog

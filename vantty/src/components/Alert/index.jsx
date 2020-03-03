@@ -56,7 +56,6 @@ const Snackbar = ({ className, message, variant }) => {
   return (
     <SnackbarContent
       className={clsx(classes[variant])}
-      // aria-describedby='client-snackbar'
       message={
         <span className={classes.message}>
           <Icon className={clsx(classes.icon, classes.iconVariant)} />
@@ -84,15 +83,13 @@ const useStyles2 = makeStyles(theme => ({
     }
   },
   root: {
-    // [theme.breakpoints.down("md")]: {
     borderRadius: 4,
-    marginTop: "2rem",
+    marginTop: theme.spacing(1),
     marginLeft: "0.5rem",
     minWidth: "10rem",
     maxWidth: "10rem",
-    zIndex: 1,
+    zIndex: 10,
     position: "absolute"
-    // }
   }
 }));
 

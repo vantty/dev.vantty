@@ -1,6 +1,5 @@
 const sripeLoader = require("stripe");
-const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY_TEST);
-// const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
+const stripe = new sripeLoader(process.env.STRIPE_SECRET_KEY);
 const { newCardObj } = require("../helpers");
 
 const createAccount = async code => {
