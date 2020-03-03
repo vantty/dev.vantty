@@ -21,6 +21,7 @@ import {
   StripeAccount,
   Location
 } from "./components";
+import { AppBarForm } from "./components/ComponentsForm";
 
 // Component styles
 const useStyles = makeStyles(theme => ({
@@ -125,7 +126,7 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
     <Fragment>
       <Alert />
       <div>
-        <s step={activeStep} />
+        <AppBarForm step={activeStep} />
       </div>
       <Box pt={11} pb={11}>
         {profile ? (

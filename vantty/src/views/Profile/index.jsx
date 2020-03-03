@@ -132,8 +132,7 @@ const Profile = ({
                           profile={profile}
                           verified={profile.verified}
                           disabled={user && user._id === profile.user}
-                          user={user}
-                          // onChange={onChange}
+                          user={user && user}
                           loadService={loadService}
                           onChangeDate={onChangeDate}
                           state={state}

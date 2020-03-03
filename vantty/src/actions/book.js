@@ -193,7 +193,7 @@ export const addNewBook = (
       { mobileNumber: body.userPhone },
       "$set"
     );
-    console.log("BODY", body);
+
     await dispatch({
       type: SAVE_USER_NUMBER_SUCCESS,
       payload: userUpdated.data

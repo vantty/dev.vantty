@@ -161,6 +161,11 @@ export const update = formData => async dispatch => {
       const { user, price } = res.data;
       await updatePropertiesAppbase(user, "price", price);
     }
+    if (formData.name) {
+      const { name, user } = res.data;
+      await updatePropertiesAppbase(user, "name", name);
+    }
+
     dispatch(setAlert("Profile Updated", "success"));
   } catch (err) {
     const errors = err.response.data.errors;

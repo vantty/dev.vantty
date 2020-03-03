@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Slider({ profile, loadService, state, owner }) {
+export default function Slider({ profile, loadService, state, owner, user }) {
   const classes = useStyles();
 
   const load = (state, profile) => {
@@ -77,20 +77,21 @@ export default function Slider({ profile, loadService, state, owner }) {
         <Table services={profile.services} />
         <Divider variant="middle" />
         <Fragment>
-          {!owner && (
-            <div className={classes.book}>
-              <Button
-                className={classes.button}
-                component={Link}
-                to={`/checkout/${profile.user}/${profile.bookId}`}
-                onClick={() => load(state, profile)}
-                variant="contained"
-                color="primary"
-              >
-                Book
-              </Button>
-            </div>
-          )}
+          {user.profile ||
+            (!owner && (
+              <div className={classes.book}>
+                <Button
+                  className={classes.button}
+                  component={Link}
+                  to={`/checkout/${profile.user}/${profile.bookId}`}
+                  onClick={() => load(state, profile)}
+                  variant="contained"
+                  color="primary"
+                >
+                  Book
+                </Button>
+              </div>
+            ))}
         </Fragment>
       </Paper>
     </div>
