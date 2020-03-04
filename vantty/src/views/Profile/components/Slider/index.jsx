@@ -51,33 +51,33 @@ export default function Slider({ profile, loadService, state, owner, user }) {
   return (
     <div className={classes.root}>
       <Paper elevation={1} className={classes.paper}>
-        <Typography className={classes.title} variant="body1">
+        <Typography className={classes.title} variant='body1'>
           Starting Cost
         </Typography>
-        <Grid container alignItems="center">
+        <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography variant="h5" className={classes.data}>
+            <Typography variant='h5' className={classes.data}>
               ${profile.price}
             </Typography>
           </Grid>
         </Grid>
-        <Typography className={classes.title} variant="body1">
+        <Typography className={classes.title} variant='body1'>
           Availability
         </Typography>
-        <Grid container alignItems="center">
+        <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography variant="h5" className={classes.data}>
+            <Typography variant='h5' className={classes.data}>
               {profile.availability}
             </Typography>
           </Grid>
         </Grid>
-        <Typography className={classes.title} variant="body1">
+        <Typography className={classes.title} variant='body1'>
           Services
         </Typography>
         <Table services={profile.services} />
-        <Divider variant="middle" />
+        <Divider variant='middle' />
         <Fragment>
-          {user.profile ||
+          {(user && user.profile) ||
             (!owner && (
               <div className={classes.book}>
                 <Button
@@ -85,8 +85,8 @@ export default function Slider({ profile, loadService, state, owner, user }) {
                   component={Link}
                   to={`/checkout/${profile.user}/${profile.bookId}`}
                   onClick={() => load(state, profile)}
-                  variant="contained"
-                  color="primary"
+                  variant='contained'
+                  color='primary'
                 >
                   Book
                 </Button>
