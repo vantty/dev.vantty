@@ -24,7 +24,7 @@ exports.createAccount = async (req, res) => {
     );
     await userService.update(
       id,
-      { profile: true, mobileNumber: support_phone },
+      { profile: true, mobileNumber: support_phone, profileStarted: false },
       "$set"
     );
     res.status(201).json(result);

@@ -33,7 +33,7 @@ const Settings = ({
     <Fragment>
       <CssBaseline />
       {!isMobile && match.url === "/settings" && (
-        <Redirect to="/personal-info" />
+        <Redirect to='/personal-info' />
       )}
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar
@@ -51,7 +51,7 @@ const Settings = ({
             <AvatarUser
               profileImage={user.profileImage.original}
               firstName={user.firstName}
-              profile={user.profile}
+              profileStarted={profile && profile.profileStarted}
             />
           </Fragment>
         )}
