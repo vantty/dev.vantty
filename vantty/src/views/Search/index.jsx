@@ -234,22 +234,29 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                 render={({ data }) => (
                   <Fragment>
                     <ResultCardsWrapper>
-                      {values[0] && (
-                        <Fragment>
-                          <Typography gutterBottom h2>
-                            Don’t give up! Try with another category
-                          </Typography>
-                          <Button
-                            type='submit'
-                            color='primary'
-                            variant='contained'
-                            onClick={() => setValues("")}
-                            className={classes.button}
-                          >
-                            Clear Search
-                          </Button>
-                        </Fragment>
-                      )}
+                      <Grid
+                        container
+                        direction='column'
+                        justify='center'
+                        alignItems='center'
+                      >
+                        {values[0] && !data[0] && (
+                          <Fragment>
+                            <Typography gutterBottom h2>
+                              Don’t give up! Try with another category
+                            </Typography>
+                            <Button
+                              type='submit'
+                              color='primary'
+                              variant='contained'
+                              onClick={() => setValues("")}
+                              className={classes.button}
+                            >
+                              Clear Search
+                            </Button>
+                          </Fragment>
+                        )}
+                      </Grid>
                       <Fragment>
                         {data.map(pic => (
                           <Fragment key={pic.cloudId}>
