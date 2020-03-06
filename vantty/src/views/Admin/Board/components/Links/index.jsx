@@ -23,75 +23,7 @@ export default function Links({ id }) {
           justify='space-between'
           alignItems='flex-start'
         >
-          <Grid item md={6}>
-            <Typography>Form</Typography>
-            <Typography>
-              <LinkMui
-                component={Link}
-                to={"/edit-profile"}
-                className={classes.link}
-              >
-                /edit-profile
-              </LinkMui>
-            </Typography>
-            <Typography>
-              <LinkMui
-                component={Link}
-                to={"/add-portfolio"}
-                className={classes.link}
-              >
-                /add-portfolio
-              </LinkMui>
-            </Typography>
-            <Typography>
-              <LinkMui
-                component={Link}
-                to={"/personal-info"}
-                className={classes.link}
-              >
-                /personal-info
-              </LinkMui>
-            </Typography>
-            <Typography>
-              <LinkMui
-                component={Link}
-                to={"/validation"}
-                className={classes.link}
-              >
-                /validation
-              </LinkMui>
-            </Typography>
-            <Typography>
-              <LinkMui component={Link} to={"/price"} className={classes.link}>
-                /price
-              </LinkMui>
-            </Typography>
-            <Typography>
-              <LinkMui component={Link} to={"/mobile"} className={classes.link}>
-                /mobile
-              </LinkMui>
-            </Typography>
-            <Typography>
-              <LinkMui
-                component={Link}
-                to={"/categories"}
-                className={classes.link}
-              >
-                /categories
-              </LinkMui>
-            </Typography>
-
-            <Typography>
-              <LinkMui
-                component={Link}
-                to={"/create-profile"}
-                className={classes.link}
-              >
-                /create-profile
-              </LinkMui>
-            </Typography>
-          </Grid>
-          <Grid item md={6}>
+          <Grid item>
             <Typography>Site</Typography>
             <Typography>
               <LinkMui component={Link} to={"/"} className={classes.link}>

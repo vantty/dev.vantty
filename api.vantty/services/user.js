@@ -18,6 +18,11 @@ const getByField = async field => {
   return user;
 };
 
+const getAll = async () => {
+  const profiles = await Profile.find();
+  return profiles;
+};
+
 const create = async (email, firstName, lastName, password) => {
   const newUser = await User.create({
     email: email,
@@ -131,6 +136,7 @@ module.exports = { sendConfirmationEmail, register, forgot, reset };
 module.exports = {
   getById,
   deleteById,
+  getAll,
   getByField,
   create,
   update,

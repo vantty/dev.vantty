@@ -20,11 +20,13 @@ const {
   reset,
   google,
   facebook,
-  help
+  help,
+  getAll
 } = require("../controllers/users");
 const { validator } = require("../helpers");
 
 router.get("/", passportJWT, getById);
+router.get("/all", passportJWT, getAll);
 router.post("/send", validator, sendConfirmationEmail);
 router.post("/resend", resendConfirmationEmail);
 router.get("/register/:token", register);

@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useContext } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,17 +18,14 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { connect } from "react-redux";
-import {
-  getProfiles,
-  getCurrentProfile,
-  deleteAccount
-} from "../../../actions/profile";
+import { getProfiles, deleteAccount } from "../../../actions/profile";
 import PropTypes from "prop-types";
 import { UsersTable, TotalUsers, Links } from "./components";
+import BoardContext from "./BoardContext";
 
 import Progress from "@material-ui/core/LinearProgress";
 import { mainListItems, secondaryListItems } from "../listItems";
-import { loadUser } from "../../../actions/auth";
+import { loadUser, getUsers } from "../../../actions/auth";
 // import Chart from "./Chart";
 // import Deposits from "./Deposits";
 // import Orders from "./Orders";
@@ -117,14 +114,15 @@ const useStyles = makeStyles(theme => ({
 
 const Board = ({
   getProfiles,
-  getCurrentProfile,
+  getUsers,
   loadUser,
+  auth: { users },
   profile: { profiles, loading, profile }
 }) => {
   useEffect(() => {
     getProfiles();
+    getUsers();
     loadUser();
-    getCurrentProfile();
   }, []);
 
   // const [formData, setFormData] = useState({
@@ -146,107 +144,104 @@ const Board = ({
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component={Link}
-            to={"/"}
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            Dashboard
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        {loading ? (
-          <Progress />
-        ) : (
-          <Fragment>
-            {profiles.length > 0 ? (
-              <Fragment>
-                <Container maxWidth="lg" className={classes.container}>
-                  <Grid container spacing={3}>
-                    {/* Chart */}
-                    <Grid item xs={12} md={8} lg={9}>
-                      <Paper className={fixedHeightPaper}>
-                        <Links id={profile && profile.user._id} />
-                      </Paper>
+      <BoardContext.Provider value={{ profiles, users, deleteAccount }}>
+        <CssBaseline />
+        <AppBar
+          position='absolute'
+          className={clsx(classes.appBar, open && classes.appBarShift)}
+        >
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge='start'
+              color='inherit'
+              aria-label='open drawer'
+              onClick={handleDrawerOpen}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component={Link}
+              to={"/"}
+              variant='h6'
+              color='inherit'
+              noWrap
+              className={classes.title}
+            >
+              Dashboard
+            </Typography>
+            <IconButton color='inherit'>
+              <Badge badgeContent={4} color='secondary'>
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant='permanent'
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>{mainListItems}</List>
+          <Divider />
+          <List>{secondaryListItems}</List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          {loading ? (
+            <Progress />
+          ) : (
+            <Fragment>
+              {profiles.length > 0 ? (
+                <Fragment>
+                  <Container maxWidth='lg' className={classes.container}>
+                    <Grid container spacing={3}>
+                      {/* Chart */}
+                      <Grid item xs={12} md={8} lg={9}>
+                        <Paper className={fixedHeightPaper}>
+                          <Links id={profile && profile.user._id} />
+                        </Paper>
+                      </Grid>
+                      {/* Recent Deposits */}
+                      <Grid item xs={12} md={4} lg={3}>
+                        <Paper className={fixedHeightPaper}>
+                          <TotalUsers />
+                        </Paper>
+                      </Grid>
+                      {/* Recent Orders */}
+                      <Grid item xs={12}>
+                        {/* <Paper className={classes.paper}> */}
+                        {<UsersTable />}
+                        {/* </Paper> */}
+                      </Grid>
                     </Grid>
-                    {/* Recent Deposits */}
-                    <Grid item xs={12} md={4} lg={3}>
-                      <Paper className={fixedHeightPaper}>
-                        <TotalUsers />
-                      </Paper>
-                    </Grid>
-                    {/* Recent Orders */}
-                    <Grid item xs={12}>
-                      {/* <Paper className={classes.paper}> */}
-                      {
-                        <UsersTable
-                          profiles={data}
-                          deleteAccount={deleteAccount}
-                        />
-                      }
-                      {/* </Paper> */}
-                    </Grid>
-                  </Grid>
-                </Container>
-              </Fragment>
-            ) : (
-              <Progress />
-            )}
-          </Fragment>
-        )}
-      </main>
+                  </Container>
+                </Fragment>
+              ) : (
+                <Progress />
+              )}
+            </Fragment>
+          )}
+        </main>
+      </BoardContext.Provider>
     </div>
   );
 };
 
 Board.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
+  getUsers: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
@@ -256,6 +251,6 @@ const mapStateToProps = state => ({
 });
 export default connect(mapStateToProps, {
   getProfiles,
-  getCurrentProfile,
+  getUsers,
   loadUser
 })(Board);

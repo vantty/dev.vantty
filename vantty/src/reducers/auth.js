@@ -2,6 +2,8 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  USERS_LOADED,
+  USERS_ERROR,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -21,6 +23,7 @@ const initialState = {
   currentLocation: "",
   loading: true,
   user: null,
+  users: [],
   bookings: []
 };
 
@@ -33,6 +36,11 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: payload
+      };
+    case USERS_LOADED:
+      return {
+        ...state,
+        users: payload
       };
     case USER_LOCATION:
       return {
@@ -49,6 +57,7 @@ export default function(state = initialState, action) {
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:
+    case USERS_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
     case ACCOUNT_DELETE:

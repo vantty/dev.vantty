@@ -5,6 +5,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  USERS_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -12,7 +13,8 @@ import {
   CLEAR_PROFILE,
   INFO_UPDATE_SUCCESS,
   INFO_UPDATE_FAIL,
-  SAVE_CONFIRMATION_EMAIL
+  SAVE_CONFIRMATION_EMAIL,
+  USERS_ERROR
 } from "./types";
 import { gaEvent } from "../marketing/gAnalytics";
 
@@ -30,6 +32,23 @@ export const loadUser = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: AUTH_ERROR
+    });
+  }
+};
+
+// // Get all profiles
+export const getUsers = () => async dispatch => {
+  try {
+    const res = await server.get("/user/all");
+
+    dispatch({
+      type: USERS_LOADED,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: USERS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
