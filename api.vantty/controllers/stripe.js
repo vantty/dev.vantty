@@ -18,13 +18,14 @@ exports.createAccount = async (req, res) => {
       {
         stripeArtistAccount: stripeArtistAccount,
         stripeBankData: stripeBankData,
-        mobileNumber: support_phone
+        mobileNumber: support_phone,
+        profileStarted: false
       },
       "$set"
     );
     await userService.update(
       id,
-      { profile: true, mobileNumber: support_phone, profileStarted: false },
+      { profile: true, mobileNumber: support_phone },
       "$set"
     );
     res.status(201).json(result);
