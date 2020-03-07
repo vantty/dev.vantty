@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useContext } from "react";
+import React, { useEffect, Fragment } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -129,7 +129,7 @@ const Board = ({
   //   verified: false
   // });
 
-  const data = profiles;
+  // const data = profiles;
 
   // const [users] = useState(data);
   const classes = useStyles();
@@ -147,14 +147,14 @@ const Board = ({
       <BoardContext.Provider value={{ profiles, users, deleteAccount }}>
         <CssBaseline />
         <AppBar
-          position='absolute'
+          position="absolute"
           className={clsx(classes.appBar, open && classes.appBarShift)}
         >
           <Toolbar className={classes.toolbar}>
             <IconButton
-              edge='start'
-              color='inherit'
-              aria-label='open drawer'
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
               onClick={handleDrawerOpen}
               className={clsx(
                 classes.menuButton,
@@ -166,22 +166,22 @@ const Board = ({
             <Typography
               component={Link}
               to={"/"}
-              variant='h6'
-              color='inherit'
+              variant="h6"
+              color="inherit"
               noWrap
               className={classes.title}
             >
               Dashboard
             </Typography>
-            <IconButton color='inherit'>
-              <Badge badgeContent={4} color='secondary'>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer
-          variant='permanent'
+          variant="permanent"
           classes={{
             paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
           }}
@@ -205,7 +205,7 @@ const Board = ({
             <Fragment>
               {profiles.length > 0 ? (
                 <Fragment>
-                  <Container maxWidth='lg' className={classes.container}>
+                  <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                       {/* Chart */}
                       <Grid item xs={12} md={8} lg={9}>
