@@ -248,3 +248,12 @@ exports.help = async (req, res) => {
     });
   }
 };
+
+exports.test = (req, res) => {
+  try {
+    console.log("result", req.body);
+    return res.status(200).json(req.body);
+  } catch (error) {
+    console.log("ERROR", error);
+  }
+};

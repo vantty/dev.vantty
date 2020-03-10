@@ -21,12 +21,14 @@ const {
   google,
   facebook,
   help,
-  getAll
+  getAll,
+  test
 } = require("../controllers/users");
 const { validator } = require("../helpers");
 
+router.post("/test", test);
 router.get("/", passportJWT, getById);
-router.get("/all", passportJWT, getAll);
+router.get("/all", getAll);
 router.post("/send", validator, sendConfirmationEmail);
 router.post("/resend", resendConfirmationEmail);
 router.get("/register/:token", register);

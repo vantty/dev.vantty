@@ -33,9 +33,11 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "concurrently": "^4.1.1",
+    "faker": "^4.1.0",
     "mocha": "^7.1.0",
     "mockgoose": "^8.0.4",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   },
   "engines": {
     "node": "12.x"

@@ -1,5 +1,5 @@
 require("dotenv-flow").config();
-const { connectDB } = require("./db");
+const connectDB = require("./db");
 const express = require("express");
 const expressValidator = require("express-validator");
 const morgan = require("morgan");
@@ -12,6 +12,7 @@ const imagesRoutes = require("./routes/images");
 const bookRoutes = require("./routes/book");
 const stripeRoutes = require("./routes/stripe");
 const elasticRoutes = require("./routes/elastic");
+const testRoutes = require("./routes/test");
 const app = express();
 
 // Connect Database
@@ -37,7 +38,7 @@ var corsOptions = {
 app.use(morgan("dev"));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
-app.use(cors(corsOptions));
+app.use(cors("*"));
 app.use(formData.parse());
 
 // Routes
@@ -48,6 +49,7 @@ app.use("/api/images", imagesRoutes);
 app.use("/api/book", bookRoutes);
 app.use("/api/stripe", stripeRoutes);
 app.use("/api/elastic", elasticRoutes);
+app.use("/api/test", testRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
@@ -68,6 +70,8 @@ app.use((error, req, res, next) => {
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
+
+module.exports = app;
 
 // Felipe Comments
 // getAll should be using pagination. Use in profile, book, user, .... upset (in mongo:skip), limit 10, sort = data organizada. result = object: items \\\\\ Example:    const review = await Review.find().sort({ date: -1 });
