@@ -28,8 +28,7 @@ const create = async (email, firstName, lastName, password) => {
     email: email,
     firstName: firstName,
     lastName: lastName,
-    password: password,
-    local: { firstName, lastName, email, password }
+    password: password
   });
   return newUser;
 };
@@ -131,7 +130,10 @@ const reset = async (id, password) => {
   return user;
 };
 
-module.exports = { sendConfirmationEmail, register, forgot, reset };
+const sum = async (num1, num2) => {
+  const total = num1 + num2;
+  return total;
+};
 
 module.exports = {
   getById,
@@ -143,5 +145,6 @@ module.exports = {
   sendConfirmationEmail,
   register,
   forgot,
-  reset
+  reset,
+  sum
 };

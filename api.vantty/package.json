@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node .",
     "server": "nodemon .",
+    "test": "mocha --timeout 120000 --recursive --exit || true",
     "dev": "concurrently \"npm run server\" \"npm start --prefix ../vantty\""
   },
   "author": "",
@@ -30,7 +31,10 @@
     "stripe": "^7.13.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "concurrently": "^4.1.1",
+    "mocha": "^7.1.0",
+    "mockgoose": "^8.0.4",
     "nodemon": "^1.19.1"
   },
   "engines": {

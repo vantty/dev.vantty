@@ -1,6 +1,6 @@
 require("dotenv-flow").config();
+const { connectDB } = require("./db");
 const express = require("express");
-const mongoose = require("mongoose");
 const expressValidator = require("express-validator");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -15,20 +15,6 @@ const elasticRoutes = require("./routes/elastic");
 const app = express();
 
 // Connect Database
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false
-    });
-    console.log("DB Connected...");
-  } catch (err) {
-    console.error(err.message);
-    process.exit(1);
-  }
-};
 connectDB();
 
 // CORS config
