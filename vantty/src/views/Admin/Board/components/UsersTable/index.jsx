@@ -77,7 +77,7 @@ const UsersTable = props => {
     ...rest
   } = props;
 
-  const { profiles, deleteAccount } = useContext(BoardContext);
+  const { profiles } = useContext(BoardContext);
 
   const [verifyButton, setVerifyButton] = useState({});
   const [users] = useState(profiles);

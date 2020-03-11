@@ -19,8 +19,8 @@ const getByField = async field => {
 };
 
 const getAll = async () => {
-  const profiles = await Profile.find();
-  return profiles;
+  const users = await User.find();
+  return users;
 };
 
 const create = async (email, firstName, lastName, password) => {

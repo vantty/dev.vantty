@@ -129,9 +129,6 @@ const Board = ({
   //   verified: false
   // });
 
-  const data = profiles;
-
-  // const [users] = useState(data);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
