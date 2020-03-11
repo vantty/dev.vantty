@@ -11,7 +11,6 @@ import { Grid, Box, Container, LinearProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Components
-import { Alert } from "../../components";
 import {
   CreateProfile,
   AddPortfolio,
@@ -128,12 +127,11 @@ const Form = ({ profile, getCurrentProfile, uploader: { images }, match }) => {
         <AppBarForm step={activeStep} />
       </div>
       <Box pt={11} pb={11}>
-        <Alert />
         {profile ? (
           <div className={classes.root}>
             <Grid container spacing={4}>
               <Grid item lg={12} md={12} xl={12} xs={12}>
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Fragment>
                     <Fragment>{getStepContent(activeStep)}</Fragment>
                   </Fragment>

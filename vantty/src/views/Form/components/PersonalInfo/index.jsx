@@ -15,6 +15,7 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 // Actions
 import { updateInfo } from "../../../../actions/auth";
@@ -54,6 +55,11 @@ const useStyles = makeStyles(theme => ({
       borderWidth: "0.1px",
       borderColor: "grey"
     }
+  },
+
+  arrow: {
+    marginLeft: "7px",
+    fontSize: "13px"
   }
 }));
 
@@ -333,9 +339,25 @@ const AccountDetails = ({
                   <Grid
                     container
                     direction='row'
-                    justify='flex-end'
+                    justify='space-between'
                     alignItems='center'
                   >
+                    <Grid>
+                      {profile && profile.profileStarted && (
+                        <Button
+                          component={Link}
+                          variant='contained'
+                          color='primary'
+                          size='small'
+                          className={classes.button}
+                          // startIcon={<SettingsIcon />}
+                          to={"/create-profile"}
+                        >
+                          Finish my profile{" "}
+                          {<ArrowForwardIosIcon className={classes.arrow} />}
+                        </Button>
+                      )}
+                    </Grid>
                     <Grid>
                       <Button
                         onClick={e => onSubmit(e)}

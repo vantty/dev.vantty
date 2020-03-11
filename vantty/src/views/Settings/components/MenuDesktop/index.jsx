@@ -59,17 +59,17 @@ const MenuDesktop = ({ match, logout, pages }) => {
 
   return (
     <Fragment>
-      <List component="nav">
+      <List component='nav'>
         {!isMobile ? (
           <Fragment>
             {pages.map(page => (
               <div key={page.title}>
-                <Container maxWidth="md">
+                <Container maxWidth='md'>
                   <Grid
                     container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
+                    direction='row'
+                    justify='space-between'
+                    alignItems='center'
                   >
                     <Grid item xs={12}>
                       <ListItemLink
@@ -86,7 +86,7 @@ const MenuDesktop = ({ match, logout, pages }) => {
                 </Container>
               </div>
             ))}
-            <Container maxWidth="md">
+            <Container maxWidth='md'>
               <ListItem button onClick={logout} className={classes.listItem}>
                 <ListItemText primary={"Logout"} />
               </ListItem>

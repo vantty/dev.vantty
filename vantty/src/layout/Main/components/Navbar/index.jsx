@@ -83,11 +83,11 @@ const Navbar = props => {
   return (
     <Fragment>
       <CssBaseline />
-      <AppBar position="static" className={classes.root}>
+      <AppBar position='static' className={classes.root}>
         <Toolbar>
-          <Typography variant="h5" className={classes.title}>
-            <LinkMui underline="none" color="inherit" component={Link} to="/">
-              <img src={Logo} alt="" className={classes.logo} />
+          <Typography variant='h5' className={classes.title}>
+            <LinkMui underline='none' color='inherit' component={Link} to='/'>
+              <img src={Logo} alt='' className={classes.logo} />
             </LinkMui>
           </Typography>
           {loading ? (
@@ -99,7 +99,7 @@ const Navbar = props => {
                   <Button
                     className={classes.buttonArtist}
                     component={Link}
-                    to="/register"
+                    to='/register'
                   >
                     Become an artist partner
                   </Button>
@@ -107,10 +107,10 @@ const Navbar = props => {
                   <Button
                     className={classes.buttonArtist}
                     component={Link}
-                    to="/bookings"
+                    to='/bookings'
                   >
                     <Badge
-                      color="secondary"
+                      color='secondary'
                       className={classes.badge}
                       badgeContent={countBookingsArtist()}
                     >
@@ -118,14 +118,14 @@ const Navbar = props => {
                     </Badge>
                   </Button>
                 )}
-                <Button className={classes.button} component={Link} to="/help">
+                <Button className={classes.button} component={Link} to='/help'>
                   Help center
                 </Button>
 
                 <Button
                   className={classes.button}
                   component={Link}
-                  to="/search"
+                  to='/search'
                 >
                   See all artists
                 </Button>
@@ -134,14 +134,14 @@ const Navbar = props => {
                     <Button
                       className={classes.button}
                       component={Link}
-                      to="/login"
+                      to='/login'
                     >
                       Login
                     </Button>
                     <Button
                       className={classes.button}
                       component={Link}
-                      to="/register"
+                      to='/register'
                     >
                       Register
                     </Button>
@@ -167,10 +167,10 @@ const Navbar = props => {
                     )}
                     {user && user.role === "Admin" && (
                       <Button
-                        color="inherit"
+                        color='inherit'
                         className={classes.button}
                         component={Link}
-                        to="/dashboard"
+                        to='/dashboard'
                       >
                         Admin
                       </Button>
