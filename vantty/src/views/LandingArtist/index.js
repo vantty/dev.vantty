@@ -25,7 +25,7 @@ const Home = ({ changeNavbarValue }) => {
         <CssBaseline />
         <Jumbotron />
         <Description />
-        <Grid
+        {/* <Grid
           title={homeSeed.firstGrid.title}
           subtitle={homeSeed.firstGrid.subtitle}
           images={homeSeed.firstGrid.images}
@@ -34,7 +34,7 @@ const Home = ({ changeNavbarValue }) => {
           title={homeSeed.carousel.title}
           artist={homeSeed.carousel.artist}
           images={homeSeed.carousel.images}
-        />
+        /> */}
         <Grid
           title={homeSeed.secondGrid.title}
           subtitle={homeSeed.secondGrid.subtitle}

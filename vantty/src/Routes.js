@@ -92,12 +92,7 @@ const Routes = () => {
         layout={MainLayout}
         path='/confirmation'
       />
-      <Route
-        component={LandingArtist}
-        exact
-        layout={MainLayout}
-        path='/landing'
-      />
+      <Route component={Landing} exact layout={MainLayout} path='/landing' />
       <RouteWithLayout component={Home} exact layout={MainLayout} path='/' />
       <RouteWithLayout
         component={Search}
