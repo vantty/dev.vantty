@@ -1,9 +1,9 @@
 process.env.NODE_ENV = "test";
 const request = require("supertest");
 const { assert } = require("chai");
-const connectDB = require("../../db");
 const mock = require("../mock");
 const app = require("../../index");
+const connectDB = require("../../db");
 
 describe("user controller", () => {
   describe("POST /send", () => {
