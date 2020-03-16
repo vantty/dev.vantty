@@ -63,6 +63,32 @@ exports.createCustomer = async (req, res) => {
   }
 };
 
+exports.retrieveAccount = async (req, res) => {
+  try {
+    const {
+      params: { account_id: accountId }
+    } = req;
+    const result = await stripeService.retrieveAccount(accountId);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.deleteAccount = async (req, res) => {
+  try {
+    const {
+      params: { account_id: accountId }
+    } = req;
+    const result = await stripeService.deleteAccount(accountId);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
 exports.createCustomerCard = async (req, res) => {
   try {
     const {
@@ -96,6 +122,19 @@ exports.deleteCustomerCard = async (req, res) => {
       params: { card_id: stripeCardId }
     } = req;
     const result = await stripeService.deleteCard(user, stripeCardId);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.generateLink = async (req, res) => {
+  try {
+    const {
+      params: { account_id: accountId }
+    } = req;
+    const result = await stripeService.generateLink(accountId);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
