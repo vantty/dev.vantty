@@ -25,7 +25,6 @@ import {
 
 import {
   Profile,
-  Landing,
   Home,
   Register,
   RegisterWithEmail,
@@ -90,12 +89,6 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/confirmation"
-      />
-      <RouteWithLayout
-        component={Landing}
-        exact
-        layout={MainLayout}
-        path="/landing"
       />
       <RouteWithLayout component={Home} exact layout={MainLayout} path="/" />
       <RouteWithLayout
