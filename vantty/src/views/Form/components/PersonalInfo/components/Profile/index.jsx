@@ -12,29 +12,10 @@ import {
   Grid
 } from "@material-ui/core";
 
-// const useStyles = makeStyles(theme => ({
-//   root: {},
-//   buttons: {
-//     textAlign: "right"
-//   },
-//   button: {
-//     float: "right",
-//     color: "white",
-//     boxShadow: "none",
-//     backgroundColor: theme.palette.greenVantty.main,
-//     "&:hover": {
-//       color: "white",
-//       backgroundColor: theme.palette.greenVantty.light
-//     }
-//   }
-// }));
-
 const EditProfile = ({
   formData,
   onChange,
-
   formState,
-
   handleChange,
   hasError
 }) => {
@@ -50,32 +31,30 @@ const EditProfile = ({
     <Fragment>
       <Fragment>
         <Fragment>
-          <form autoComplete='off' noValidate>
+          <form autoComplete="off" noValidate>
             <Grid container>
               <Grid item md={12} xs={12}>
-                <FormControl variant='outlined' margin='dense' fullWidth>
-                  <InputLabel ref={inputLabel} htmlFor='profession'>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <InputLabel ref={inputLabel} htmlFor="profession">
                     Profesion
                   </InputLabel>
                   <Select
                     select
                     error={hasError("profession")}
-                    value={
-                      formState.values.profession || formData.profession || ""
-                    }
+                    value={formState.values.profession || formData.profession}
                     onChange={handleChange}
-                    id='profession'
-                    name='profession'
-                    label='profession'
+                    id="profession"
+                    name="profession"
+                    label="profession"
                     input={
                       <OutlinedInput
                         labelWidth={labelWidth}
-                        name='profession'
-                        id='profession'
+                        name="profession"
+                        id="profession"
                       />
                     }
                   >
-                    <MenuItem value={"Makeup Artists"}>Makeup Artists</MenuItem>
+                    <MenuItem value={"Makeup Artist"}>Makeup Artist</MenuItem>
                     <MenuItem value={"Makeup Artist & Hair"}>
                       Makeup Artist & Hair
                     </MenuItem>
@@ -89,14 +68,14 @@ const EditProfile = ({
                 <Grid item xs={12}>
                   <TextField
                     required
-                    variant='outlined'
-                    id='bio'
-                    name='bio'
-                    label='bio'
-                    margin='normal'
+                    variant="outlined"
+                    id="bio"
+                    name="bio"
+                    label="bio"
+                    margin="normal"
                     onChange={handleChange}
                     multiline
-                    rows='6'
+                    rows="6"
                     fullWidth
                     value={formState.values.bio || formData.bio}
                     error={hasError("bio")}
@@ -108,22 +87,22 @@ const EditProfile = ({
               </Grid>
               <Grid item md={12} xs={12}>
                 {/* <div className={classes.field}> */}
-                <FormControl variant='outlined' margin='dense' fullWidth>
-                  <InputLabel ref={inputLabel} htmlFor='city'>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <InputLabel ref={inputLabel} htmlFor="city">
                     City
                   </InputLabel>
                   <Select
                     select
-                    id='city'
-                    name='city'
+                    id="city"
+                    name="city"
                     value={formData.city}
-                    label='city'
+                    label="city"
                     onChange={e => onChange(e)}
                     input={
                       <OutlinedInput
                         labelWidth={labelWidth}
-                        name='city'
-                        id='city'
+                        name="city"
+                        id="city"
                       />
                     }
                   >
@@ -138,10 +117,10 @@ const EditProfile = ({
                 <Grid item md={12} xs={12}>
                   <TextField
                     fullWidth
-                    margin='dense'
-                    variant='outlined'
-                    id='instagramUsername'
-                    name='instagramUsername'
+                    margin="dense"
+                    variant="outlined"
+                    id="instagramUsername"
+                    name="instagramUsername"
                     label={`@Username`}
                     value={formData.instagramUsername}
                     onChange={e => onChange(e)}
