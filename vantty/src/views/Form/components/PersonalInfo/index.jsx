@@ -129,15 +129,7 @@ const AccountDetails = ({
             : profile.instagramUsername,
         city: loading || !profile.city ? "" : profile.city
       });
-  }, [
-    auth.loading,
-    loading,
-    profile.bio,
-    profile.city,
-    profile.instagramUsername,
-    profile.profession,
-    user
-  ]);
+  }, [auth.loading, loading, user]);
 
   const { firstName, lastName } = formData;
 
