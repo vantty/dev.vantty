@@ -45,7 +45,8 @@ import {
   Help,
   NotFound,
   UserRole,
-  Test
+  Test,
+  LandingPage
 } from "./views";
 
 //Routes
@@ -56,7 +57,6 @@ import {
   Account,
   ProfileSectionMobileArtist
 } from "./views/Settings/components";
-import LandingArtist from "./views/LandingArtist";
 
 const Routes = () => {
   return (
@@ -92,7 +92,12 @@ const Routes = () => {
         layout={MainLayout}
         path='/confirmation'
       />
-      <Route component={Landing} exact layout={MainLayout} path='/landing' />
+      <Route
+        component={LandingPage}
+        exact
+        layout={MainLayout}
+        path='/landing'
+      />
       <RouteWithLayout component={Home} exact layout={MainLayout} path='/' />
       <RouteWithLayout
         component={Search}
