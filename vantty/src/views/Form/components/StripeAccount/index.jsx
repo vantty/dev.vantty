@@ -82,8 +82,6 @@ const StripeAccount = ({ match, prevStep, step, user }) => {
   );
 };
 
-// export default StripeAccount;
-
 StripeAccount.propTypes = {
   user: PropTypes.object
 };
