@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Link as RouterLink } from "react-router-dom";
 
 // Material-UI
 import {
@@ -38,6 +39,16 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.greenVantty.dark
     }
   },
+  saveButton: {
+    float: "right",
+    color: "white",
+    boxShadow: "none",
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      color: "white",
+      backgroundColor: theme.palette.greenVantty.light
+    }
+  },
   logo: {
     width: "16rem"
   }
@@ -72,6 +83,9 @@ const StripeAccount = ({ match, prevStep, step, user }) => {
               <div>
                 <div>
                   <Button onClick={prevStep}>Back</Button>
+                  <Button href={`${process.env.REACT_APP_URI}/personal-info`}>
+                    Save
+                  </Button>
                 </div>
               </div>
             }

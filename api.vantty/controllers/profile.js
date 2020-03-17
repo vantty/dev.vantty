@@ -140,7 +140,7 @@ exports.verifiedProfile = async (req, res) => {
 exports.addService = async (req, res) => {
   try {
     const {
-      user: { id },
+      user: { id, profile },
       body
     } = req;
 
@@ -149,7 +149,9 @@ exports.addService = async (req, res) => {
       { services: { $each: [body], $position: 0 } },
       "$push"
     );
-
+    if (profile === false) {
+      await userService.update(id, { profile: true }, "$set");
+    }
     res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
