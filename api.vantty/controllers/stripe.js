@@ -22,8 +22,7 @@ exports.createAccount = async (req, res) => {
         stripeArtistAccount: stripeArtistAccount,
         stripeBankData: stripeBankData,
         stripeLink: stripeLink,
-        mobileNumber: support_phone,
-        profileStarted: false
+        mobileNumber: support_phone
       },
       "$set"
     );

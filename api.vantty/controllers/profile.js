@@ -149,8 +149,10 @@ exports.addService = async (req, res) => {
       { services: { $each: [body], $position: 0 } },
       "$push"
     );
+
     if (profile === false) {
-      await userService.update(id, { profile: true }, "$set");
+      userService.update(id, { profile: true }, "$set");
+      profileService.update(id, { profileStarted: false }, "$set");
     }
     res.status(200).json(result);
   } catch (err) {

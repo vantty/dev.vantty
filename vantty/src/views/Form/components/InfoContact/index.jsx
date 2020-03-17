@@ -111,37 +111,43 @@ const InfoContact = ({
       <CustomPaper
         Children={
           <Fragment>
-            <Typography
-              variant="h6"
-              align="laft"
-              className={classes.typography}
-            >
-              Your cellphone number has been verified.
-            </Typography>
             {profile && !profile.mobileNumber ? (
-              phoneForm()
+              <Fragment>
+                <Typography variant="h6" align="laft">
+                  You phone will be validated once you have saved your banking
+                  information. To do it please click{" "}
+                  <Link component={RouterLink} to="/bank" variant="h6">
+                    here.
+                  </Link>
+                </Typography>
+              </Fragment>
             ) : (
               <Fragment>
                 {!profile ? (
                   <CircularProgress size={20} />
                 ) : (
-                  <Typography
-                    variant="h4"
-                    align="center"
-                    className={classes.typography}
-                  >
-                    {`${profile.mobileNumber}`}
-                    <VerifiedIcon className={classes.verifiedIcon} />
-                  </Typography>
+                  <Fragment>
+                    <Typography
+                      variant="h6"
+                      align="laft"
+                      className={classes.typography}
+                    >
+                      Your cellphone number has been verified.
+                    </Typography>
+                    <Typography variant="h4" className={classes.typography}>
+                      {`${profile.mobileNumber}`}
+                      <VerifiedIcon className={classes.verifiedIcon} />
+                    </Typography>
+                    <Typography variant="h6" align="laft">
+                      If you need to change it, please contact us{" "}
+                      <Link component={RouterLink} to="/help" variant="h6">
+                        here.
+                      </Link>
+                    </Typography>
+                  </Fragment>
                 )}
               </Fragment>
             )}
-            <Typography variant="h6" align="laft">
-              If you need to change it, please contact us{" "}
-              <Link component={RouterLink} to="/help" variant="h6">
-                here.
-              </Link>
-            </Typography>
           </Fragment>
         }
       />
