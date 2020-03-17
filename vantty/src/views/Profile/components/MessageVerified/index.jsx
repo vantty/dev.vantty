@@ -6,8 +6,9 @@ const useStyles = makeStyles(theme => ({
   root: {},
   snackbar: {
     position: "relative",
-    marginTop: "1rem",
-    zIndex: 0,
+    marginBottom: theme.spacing(2),
+    width: "100%",
+    zIndex: 10,
     backgroundColor: theme.palette.purpleVantty.light
   }
 }));
@@ -15,22 +16,20 @@ const useStyles = makeStyles(theme => ({
 const MessageVerified = ({ profile }) => {
   const classes = useStyles();
   return (
-    <div>
-      <Fragment>
-        <Snackbar />
-        <SnackbarContent
-          className={classes.snackbar}
-          aria-describedby="client-snackbar"
-          message={
-            <span id="client-snackbar" className={classes.message}>
-              Hello {profile.name.firstName}. Your profile will be enabled in 2
-              hours by one of our artists! Thank you for believing in you and
-              your personal brand. Att: the founders of vantty{" "}
-            </span>
-          }
-        />
-      </Fragment>
-    </div>
+    <Fragment>
+      <Snackbar />
+      <SnackbarContent
+        className={classes.snackbar}
+        aria-describedby="client-snackbar"
+        message={
+          <span id="client-snackbar" className={classes.message}>
+            Hello {profile.name.firstName}. Your profile will be enabled in 2
+            hours by one of our artists! Thank you for believing in you and your
+            personal brand.{" "}
+          </span>
+        }
+      />
+    </Fragment>
   );
 };
 

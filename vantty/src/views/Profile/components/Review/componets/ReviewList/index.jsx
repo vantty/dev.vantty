@@ -44,7 +44,7 @@ const ReviewItem = ({
         </Grid>
       </Grid>
       <br />
-      <Divider variant="middle" />
+      <Divider />
       <List>
         {comments.map(comment => (
           <Fragment key={comment._id}>

@@ -36,12 +36,14 @@ const useStyles = makeStyles(theme => ({
     width: "1rem"
   },
   button: {
-    marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     backgroundColor: theme.palette.greenVantty.main,
     "&:hover": {
       backgroundColor: theme.palette.greenVantty.dark
     }
+  },
+  city: {
+    marginBottom: theme.spacing(3)
   }
 }));
 
@@ -86,7 +88,7 @@ const ProfileInfo = ({
         <Grid item xs={12}>
           <Typography variant="body1">{bio}</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.city}>
           <Typography variant="h6">{city}</Typography>
         </Grid>
       </Grid>
@@ -105,7 +107,6 @@ const ProfileInfo = ({
           </Button>
         )}
       </Grid>
-      <Divider variant="middle" />
     </div>
   );
 };

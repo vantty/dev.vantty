@@ -46,8 +46,8 @@ const useStyles = makeStyles(theme => ({
     position: "sticky", //it must keep here
     top: "0"
   },
-  progress: {
-    margin: "1rem"
+  grid: {
+    marginBottom: theme.spacing(3)
   }
 }));
 
@@ -87,14 +87,13 @@ const Profile = ({
       loading ||
       !images ||
       auth.loading ? (
-        <Progress className={classes.progress} />
+        <Progress />
       ) : (
         <Fragment>
           {isMobile && (
             <Fragment>
               <SimpleAppBar
                 path={"/search"}
-                // path={history}
                 owner={
                   isOwner(auth, user && user._id) === true &&
                   profile &&
@@ -116,14 +115,15 @@ const Profile = ({
                     profile.mobileNumber &&
                     !profile.verified && <MessageVerified profile={profile} />}
                   <Grid item xs={12} md={8} sm={10}>
-                    <Fragment>
+                    <div>
                       <ProfileInfo profile={profile} auth={auth} />
-                      <br />
+                    </div>
+                    <div className={classes.grid}>
                       <ProfileCarousel images={images} />
-                      <br />
-                      <br />
+                    </div>
+                    <div className={classes.grid}>
                       <Review profile={profile} />
-                    </Fragment>
+                    </div>
                   </Grid>
                   <Hidden smDown>
                     <Grid item md={4}>
