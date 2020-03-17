@@ -14,6 +14,7 @@ const ProfileSchema = new mongoose.Schema({
     last4: { type: String, default: null }
   },
   stripeArtistAccount: { type: String, default: null },
+  stripeLink: { type: String, default: null },
   name: {
     firstName: {
       type: String

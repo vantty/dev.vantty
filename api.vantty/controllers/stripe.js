@@ -13,11 +13,15 @@ exports.createAccount = async (req, res) => {
       stripeBankData,
       support_phone
     } = await stripeService.createAccount(code);
+    const { url: stripeLink } = await stripeService.generateLink(
+      stripeArtistAccount
+    );
     const result = await profileService.update(
       id,
       {
         stripeArtistAccount: stripeArtistAccount,
         stripeBankData: stripeBankData,
+        stripeLink: stripeLink,
         mobileNumber: support_phone,
         profileStarted: false
       },
@@ -122,19 +126,6 @@ exports.deleteCustomerCard = async (req, res) => {
       params: { card_id: stripeCardId }
     } = req;
     const result = await stripeService.deleteCard(user, stripeCardId);
-    res.status(200).json(result);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
-  }
-};
-
-exports.generateLink = async (req, res) => {
-  try {
-    const {
-      params: { account_id: accountId }
-    } = req;
-    const result = await stripeService.generateLink(accountId);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

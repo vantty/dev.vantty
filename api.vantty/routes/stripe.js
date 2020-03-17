@@ -8,8 +8,7 @@ const {
   deleteAccount,
   createCustomer,
   createCustomerCard,
-  deleteCustomerCard,
-  generateLink
+  deleteCustomerCard
 } = require("../controllers/stripe");
 
 router.post("/account/:code", passportJWT, createAccount);
@@ -18,6 +17,5 @@ router.delete("/account/:account_id", deleteAccount);
 router.post("/customer", passportJWT, createCustomer);
 router.post("/card", passportJWT, createCustomerCard);
 router.delete("/card/:card_id", passportJWT, deleteCustomerCard);
-router.post("/link/:account_id", generateLink);
 
 module.exports = router;

@@ -1,12 +1,19 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 //Material-UI
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { makeStyles } from "@material-ui/styles";
-import CreditCardIcon from "@material-ui/icons/CreditCard";
-import { Grid, LinearProgress, Typography, Link } from "@material-ui/core";
+import {
+  Grid,
+  LinearProgress,
+  Typography,
+  Link,
+  Button
+} from "@material-ui/core";
 
 // Components
 import { CustomPaper } from "../ComponentsForm";
@@ -16,8 +23,17 @@ const StripeButton =
   "https://res.cloudinary.com/vantty/image/upload/v1584400238/seed/igwpowudr2ekm2zepvan.png";
 
 const useStyles = makeStyles(theme => ({
-  cardIcon: {
+  iconContainer: {
+    textAlign: "center"
+  },
+  icon: {
     fontSize: "50px"
+  },
+  button: {
+    backgroundColor: theme.palette.greenVantty.main,
+    "&:hover": {
+      backgroundColor: theme.palette.greenVantty.dark
+    }
   }
 }));
 
@@ -26,6 +42,7 @@ const Bank = ({ profile: { profile }, user }) => {
   const stripeApi =
     user &&
     `https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_STRIPE_CLIENT_ID}&stripe_user[country]=CA&stripe_user[email]=${user.email}&stripe_user[first_name]=${user.firstName}&stripe_user[last_name]=${user.lastName}&scope=read_only`;
+
   return (
     <CustomPaper
       Children={
@@ -73,18 +90,18 @@ const Bank = ({ profile: { profile }, user }) => {
               ) : (
                 <Fragment>
                   <Grid container spacing={2}>
-                    <Grid item xs={2}>
-                      <CreditCardIcon className={classes.cardIcon} />
+                    <Grid item xs={2} className={classes.iconContainer}>
+                      <AccountBalanceIcon className={classes.icon} />
                     </Grid>
                     <Grid item xs={10}>
                       <Grid container>
                         <Grid item xs={12}>
-                          <Typography variant="h4">
+                          <Typography variant="h3">
                             {profile.stripeBankData.bankName}
                           </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                          <Typography variant="h4">
+                          <Typography variant="h5">
                             {profile.stripeBankData.routingNumber} - ••••{" "}
                             {profile.stripeBankData.last4}
                           </Typography>
@@ -93,12 +110,21 @@ const Bank = ({ profile: { profile }, user }) => {
                     </Grid>
                     <Grid item>
                       <Typography variant="h6" align="laft">
-                        If you need to change your banking information, please
-                        click{" "}
-                        <Link component={RouterLink} to="/help" variant="h6">
-                          here.
-                        </Link>
+                        To view your payments history or to edit your banking
+                        information, please go to your Stripe Account.{" "}
                       </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        href={profile.stripeLink}
+                        target="_blank"
+                        color="primary"
+                        variant="contained"
+                        className={classes.button}
+                        startIcon={<AccountBalanceWalletIcon />}
+                      >
+                        {"Stripe Account"}
+                      </Button>
                     </Grid>
                   </Grid>
                 </Fragment>
