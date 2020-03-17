@@ -61,10 +61,10 @@ const ImagesUploader = ({
   onChangeTags
 }) => {
   const classes = useStyles();
+
   useEffect(() => {
-    // getCurrentProfile();
     getImages();
-  }, []);
+  }, [getImages]);
 
   const onChange = e => {
     uploadImages(e);

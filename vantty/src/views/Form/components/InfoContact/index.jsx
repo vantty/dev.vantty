@@ -1,12 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import ReactPhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 
 // Components
-import { NumberValidation } from "./components";
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 //Material-UI
@@ -46,26 +43,11 @@ const useStyles = makeStyles(theme => ({
 
 const InfoContact = ({
   profile: { profile },
-  history,
   nextStep,
   step,
   prevStep,
   match
 }) => {
-  const [formDataNumber, setFormDataNumber] = useState({
-    phone: "",
-    countryCode: ""
-  });
-
-  const { phone, countryCode } = formDataNumber;
-
-  function handleOnChange(value, data) {
-    setFormDataNumber({
-      phone: value.replace(/[^0-9]+/g, ""),
-      countryCode: data.countryCode === "co" ? "57" : "1"
-    });
-  }
-
   const back = e => {
     e.preventDefault();
     prevStep();
@@ -76,35 +58,6 @@ const InfoContact = ({
   };
 
   const classes = useStyles();
-
-  const phoneForm = () => {
-    return (
-      <div className={classes.root}>
-        <ReactPhoneInput
-          defaultCountry="ca"
-          onlyCountries={["co", "us", "ca"]}
-          masks={{
-            ca: "+. (...) ...-..-..",
-            us: "+. (...) ...-..-..",
-            co: "+.. (...) ...-..-.."
-          }}
-          disableAreaCodes
-          value={phone}
-          onChange={handleOnChange}
-          inputExtraProps={{
-            margin: "normal",
-            autoComplete: "phone",
-            name: "custom-username"
-          }}
-        />
-        <NumberValidation
-          phone={phone}
-          countryCode={countryCode}
-          history={history}
-        />
-      </div>
-    );
-  };
 
   return (
     <Fragment>

@@ -111,7 +111,7 @@ const Review = ({
 
   useEffect(() => {
     initialServices(profile.services);
-  }, []);
+  }, [initialServices, profile.services]);
 
   //to add to cart
   const handleAddToCart = id => {

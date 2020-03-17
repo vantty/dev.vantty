@@ -24,41 +24,41 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const icon = state => {
-  const classes = useStyles();
-  switch (state) {
-    case "request":
-      return (
-        <Avatar className={classes.request}>
-          <EventSeatIcon />
-        </Avatar>
-      );
-    case "accepted":
-      return (
-        <Avatar className={classes.accepted}>
-          <CheckIcon />
-        </Avatar>
-      );
-    case "declined":
-    case "declined-posponed":
-    case "declined-user":
-      return (
-        <Avatar className={classes.declined}>
-          <ClearIcon />
-        </Avatar>
-      );
-    case "completed":
-      return (
-        <Avatar className={classes.completed}>
-          <AttachMoneyIcon />
-        </Avatar>
-      );
-    default:
-      return <WarningIcon />;
-  }
-};
-
 const BookingAvatar = ({ state }) => {
+  const classes = useStyles();
+  const icon = state => {
+    switch (state) {
+      case "request":
+        return (
+          <Avatar className={classes.request}>
+            <EventSeatIcon />
+          </Avatar>
+        );
+      case "accepted":
+        return (
+          <Avatar className={classes.accepted}>
+            <CheckIcon />
+          </Avatar>
+        );
+      case "declined":
+      case "declined-posponed":
+      case "declined-user":
+        return (
+          <Avatar className={classes.declined}>
+            <ClearIcon />
+          </Avatar>
+        );
+      case "completed":
+        return (
+          <Avatar className={classes.completed}>
+            <AttachMoneyIcon />
+          </Avatar>
+        );
+      default:
+        return <WarningIcon />;
+    }
+  };
+
   return icon(state);
 };
 

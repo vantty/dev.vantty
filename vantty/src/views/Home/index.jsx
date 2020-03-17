@@ -23,7 +23,7 @@ import { homeSeed } from "./../../assets/seed/homeSeed";
 const Home = ({ changeNavbarValue }) => {
   useEffect(() => {
     changeNavbarValue("home");
-  }, []);
+  }, [changeNavbarValue]);
 
   return (
     <Fragment>

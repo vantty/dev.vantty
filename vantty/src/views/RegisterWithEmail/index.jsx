@@ -194,7 +194,7 @@ const Register = props => {
   }, [formState.values]);
   useEffect(() => {
     changeNavbarValue("register");
-  }, []);
+  }, [changeNavbarValue]);
 
   const handleChange = event => {
     event.persist();

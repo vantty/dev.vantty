@@ -150,7 +150,7 @@ const Login = props => {
 
   useEffect(() => {
     changeNavbarValue("login");
-  }, []);
+  }, [changeNavbarValue]);
 
   const responseFacebook = res => {
     facebookLogin(res.accessToken);

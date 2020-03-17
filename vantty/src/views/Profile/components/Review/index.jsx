@@ -26,7 +26,8 @@ const Review = ({
 }) => {
   useEffect(() => {
     getReview(reviewId);
-  }, [getReview]);
+  }, [getReview, reviewId]);
+
   const classes = useStyles();
   return loading || review === null ? (
     <Progress />

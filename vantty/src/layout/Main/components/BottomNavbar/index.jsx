@@ -56,7 +56,7 @@ const BottomNavbar = props => {
   useEffect(() => {
     getBook();
     getUserBookings(id);
-  }, []);
+  }, [getBook, getUserBookings, id]);
 
   const countBookingsArtist = () => {
     const arr = [];

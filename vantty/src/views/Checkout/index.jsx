@@ -192,7 +192,7 @@ const Checkout = ({
   useEffect(() => {
     getProfileById(match.params.id);
     setCheckout({ ...checkout, userPhone: user ? user.mobileNumber : "" });
-  }, []);
+  }, [checkout, getProfileById, match.params.id, user]);
 
   const [location, setLocation] = useState({
     toHome: true,

@@ -66,7 +66,7 @@ const ReviewForm = ({
 }) => {
   useEffect(() => {
     getProfileById(match.params.userId);
-  }, []);
+  }, [getProfileById, match.params.userId]);
 
   const classes = useStyles();
 
@@ -95,7 +95,7 @@ const ReviewForm = ({
       isValid: errors ? false : true,
       errors: errors || {}
     }));
-  }, [formState.values]);
+  }, [formState.values, data]);
 
   const onChange = e => setData({ ...data, [e.target.name]: e.target.value });
 

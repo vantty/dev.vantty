@@ -41,7 +41,8 @@ const EditForm = ({
   const classes = useStyles();
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
+
   return (
     <Fragment>
       <CssBaseline />
@@ -68,7 +69,7 @@ const EditForm = ({
             <Grid container>
               <Hidden xsDown>
                 <Grid item xs={4}>
-                  <Container maxWidth='md'>
+                  <Container maxWidth="md">
                     <Settings match={match} />
                   </Container>
                 </Grid>

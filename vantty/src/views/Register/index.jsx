@@ -157,7 +157,7 @@ const Register = props => {
 
   useEffect(() => {
     changeNavbarValue("register");
-  }, []);
+  }, [changeNavbarValue]);
 
   const { sendConfirmation } = formState;
 

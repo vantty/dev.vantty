@@ -104,7 +104,7 @@ const Services = ({
       isValid: errors ? false : true,
       errors: errors || {}
     }));
-  }, [formState.values]);
+  }, [formState.values, serviceData]);
 
   //Errors
   const handleChange = async event => {

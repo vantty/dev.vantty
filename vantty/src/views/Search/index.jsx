@@ -97,15 +97,16 @@ const useStyles = makeStyles(theme => ({
 const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
   useEffect(() => {
     changeNavbarValue("search");
-  }, []);
+  }, [changeNavbarValue]);
+
   const classes = useStyles();
   const [values, setValues] = useState("");
 
   const Filters = () => (
     <Fragment>
       <MultiDataList
-        componentId='categoryFilter'
-        dataField='tag.keyword'
+        componentId="categoryFilter"
+        dataField="tag.keyword"
         showSearch={false}
         data={[
           {
@@ -147,7 +148,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
         ]}
         value={values}
         onChange={setValues}
-        title='Category'
+        title="Category"
       />
       {/* <RatingsFilter
         title="Rating"
@@ -182,9 +183,9 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             children={
               <DataSearch
                 onChange={clearSearch}
-                componentId='searchbox'
-                dataField='*'
-                placeholder='Search...'
+                componentId="searchbox"
+                dataField="*"
+                placeholder="Search..."
                 defaultValue={searchValue}
               />
             }
@@ -192,21 +193,21 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             invisible={values}
           />
         )}
-        <Container maxWidth='lg' className={classes.container}>
+        <Container maxWidth="lg" className={classes.container}>
           <Grid
             container
-            direction='row'
-            justify='center'
-            alignItems='flex-start'
+            direction="row"
+            justify="center"
+            alignItems="flex-start"
           >
             <Hidden xsDown>
               <Grid item md={4} className={classes.filters}>
                 <Grid item xs={12}>
                   <DataSearch
                     onChange={clearSearch}
-                    componentId='searchbox'
-                    dataField='*'
-                    placeholder='Search...'
+                    componentId="searchbox"
+                    dataField="*"
+                    placeholder="Search..."
                     defaultValue={searchValue}
                   />
                 </Grid>
@@ -217,9 +218,9 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
             </Hidden>
             <Grid item xs={12} md={8}>
               <ReactiveList
-                componentId='result'
-                dataField='*'
-                title='Results'
+                componentId="result"
+                dataField="*"
+                title="Results"
                 size={31}
                 infiniteScroll={true}
                 showResultStats={false}
@@ -236,9 +237,9 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                     <ResultCardsWrapper>
                       <Grid
                         container
-                        direction='column'
-                        justify='center'
-                        alignItems='center'
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
                       >
                         {values[0] && !data[0] && (
                           <Fragment>
@@ -246,9 +247,9 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                               Don’t give up! Try with another category
                             </Typography>
                             <Button
-                              type='submit'
-                              color='primary'
-                              variant='contained'
+                              type="submit"
+                              color="primary"
+                              variant="contained"
                               onClick={() => setValues("")}
                               className={classes.button}
                             >
@@ -274,7 +275,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             key={pic.original}
                                             className={classes.cardMedia}
                                             image={pic.original}
-                                            title='Image title'
+                                            title="Image title"
                                           />
                                         </MuiLink>
                                       </CardActionArea>
@@ -283,7 +284,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                       >
                                         <Toolbar className={classes.cardTitle}>
                                           <Avatar
-                                            alt=''
+                                            alt=""
                                             src={pic.profilePicture}
                                             className={classes.avatar}
                                           />
@@ -317,7 +318,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                               key={pic.original}
                                               className={classes.cardMedia}
                                               image={pic.original}
-                                              title='Image title'
+                                              title="Image title"
                                             />
                                           </MuiLink>
                                         </CardActionArea>
@@ -328,7 +329,7 @@ const Search = ({ changeNavbarValue, searchValue, clearSearch }) => {
                                             className={classes.cardTitle}
                                           >
                                             <Avatar
-                                              alt=''
+                                              alt=""
                                               src={pic.profilePicture}
                                               className={classes.avatar}
                                             />

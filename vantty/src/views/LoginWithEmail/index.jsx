@@ -172,7 +172,7 @@ const Login = props => {
 
   useEffect(() => {
     changeNavbarValue("login");
-  }, []);
+  }, [changeNavbarValue]);
 
   const handleChange = event => {
     event.persist();

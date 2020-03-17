@@ -65,7 +65,7 @@ const Profile = ({
   useEffect(() => {
     getProfileById(match.params.id || (services && services.id));
     getImagesById(match.params.id || (services && services.id));
-  }, [getProfileById, match.params.id]);
+  }, [getProfileById, getImagesById, match.params.id, services]);
 
   const [state, setState] = useState({
     id: match.params.id

@@ -60,7 +60,7 @@ const Location = ({
       place: profile ? profile.place : false,
       delivery: profile ? profile.delivery : false
     });
-  }, [profile]);
+  }, [profile, state]);
 
   const { address, delivery, place, availability } = state;
   const handleChange = e => {

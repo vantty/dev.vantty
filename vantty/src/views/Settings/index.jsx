@@ -28,12 +28,13 @@ const Settings = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
+
   return (
     <Fragment>
       <CssBaseline />
       {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+        <Redirect to="/personal-info" />
       )}
       <Hidden only={["md", "lg", "xl"]}>
         <SimpleAppBar

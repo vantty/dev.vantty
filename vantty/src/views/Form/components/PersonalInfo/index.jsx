@@ -129,7 +129,15 @@ const AccountDetails = ({
             : profile.instagramUsername,
         city: loading || !profile.city ? "" : profile.city
       });
-  }, [auth.loading, loading]);
+  }, [
+    auth.loading,
+    loading,
+    profile.bio,
+    profile.city,
+    profile.instagramUsername,
+    profile.profession,
+    user
+  ]);
 
   const { firstName, lastName } = formData;
 
@@ -144,7 +152,7 @@ const AccountDetails = ({
       isValid: errors ? false : true,
       errors: errors || {}
     }));
-  }, [formState.values]);
+  }, [formState.values, formData]);
 
   ///Profile Errors
   useEffect(() => {
@@ -155,7 +163,7 @@ const AccountDetails = ({
       isValid: errors ? false : true,
       errors: errors || {}
     }));
-  }, [formStateProfile.values]);
+  }, [formStateProfile.values, formDataProfile]);
 
   const handleChangeProfile = async event => {
     event.persist();
@@ -237,14 +245,14 @@ const AccountDetails = ({
     <Fragment>
       <CustomPaper
         Children={
-          <form autoComplete='off' noValidate>
+          <form autoComplete="off" noValidate>
             <Typography>Profile</Typography>
             <Grid container spacing={1}>
               <Grid
                 container
-                direction='row'
-                justify='center'
-                alignItems='center'
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
                 <Grid item>
                   <Grid item>
@@ -268,14 +276,14 @@ const AccountDetails = ({
                     hasError("firstName") ? formState.errors.firstName[0] : null
                   }
                   fullWidth
-                  label='First name'
-                  margin='dense'
-                  name='firstName'
+                  label="First name"
+                  margin="dense"
+                  name="firstName"
                   required
-                  type='text'
-                  variant='outlined'
-                  id='firstName'
-                  autoComplete='fname'
+                  type="text"
+                  variant="outlined"
+                  id="firstName"
+                  autoComplete="fname"
                   value={formState.values.firstName || firstName}
                   onChange={handleChange}
                 />
@@ -283,12 +291,12 @@ const AccountDetails = ({
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
-                  label='Last name'
-                  margin='dense'
-                  name='lastName'
+                  label="Last name"
+                  margin="dense"
+                  name="lastName"
                   required
-                  variant='outlined'
-                  id='lastName'
+                  variant="outlined"
+                  id="lastName"
                   error={hasError("lastName")}
                   helperText={
                     hasError("lastName") ? formState.errors.lastName[0] : null
@@ -338,17 +346,17 @@ const AccountDetails = ({
                 <CardActions>
                   <Grid
                     container
-                    direction='row'
-                    justify='space-between'
-                    alignItems='center'
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
                   >
                     <Grid>
                       {profile && profile.profileStarted && (
                         <Button
                           component={Link}
-                          variant='contained'
-                          color='primary'
-                          size='small'
+                          variant="contained"
+                          color="primary"
+                          size="small"
                           className={classes.button}
                           // startIcon={<SettingsIcon />}
                           to={"/create-profile"}

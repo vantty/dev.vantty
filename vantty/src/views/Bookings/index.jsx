@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
 const Bookings = ({ getBook, book: { book }, changeStateBooking }) => {
   useEffect(() => {
     getBook();
-  }, []);
+  }, [getBook]);
+
   const classes = useStyles();
   return (
     <CustomPaper

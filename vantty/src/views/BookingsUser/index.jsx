@@ -24,7 +24,8 @@ const Bookings = ({ getUserBookings, changeStateBooking, auth }) => {
   const classes = useStyles();
   useEffect(() => {
     getUserBookings();
-  }, []);
+  }, [getUserBookings]);
+
   return (
     <CustomPaper
       Children={
