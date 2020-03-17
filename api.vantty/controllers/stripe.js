@@ -13,21 +13,20 @@ exports.createAccount = async (req, res) => {
       stripeBankData,
       support_phone
     } = await stripeService.createAccount(code);
+    const { url: stripeLink } = await stripeService.generateLink(
+      stripeArtistAccount
+    );
     const result = await profileService.update(
       id,
       {
         stripeArtistAccount: stripeArtistAccount,
         stripeBankData: stripeBankData,
-        mobileNumber: support_phone,
-        profileStarted: false
+        stripeLink: stripeLink,
+        mobileNumber: support_phone
       },
       "$set"
     );
-    await userService.update(
-      id,
-      { profile: true, mobileNumber: support_phone },
-      "$set"
-    );
+    await userService.update(id, { mobileNumber: support_phone }, "$set");
     res.status(201).json(result);
   } catch (error) {
     console.error(error);
@@ -56,6 +55,32 @@ exports.createCustomer = async (req, res) => {
       },
       "$set"
     );
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.retrieveAccount = async (req, res) => {
+  try {
+    const {
+      params: { account_id: accountId }
+    } = req;
+    const result = await stripeService.retrieveAccount(accountId);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.deleteAccount = async (req, res) => {
+  try {
+    const {
+      params: { account_id: accountId }
+    } = req;
+    const result = await stripeService.deleteAccount(accountId);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

@@ -22,6 +22,16 @@ const createAccount = async code => {
   return { stripeArtistAccount, stripeBankData, support_phone };
 };
 
+const retrieveAccount = async accountId => {
+  const result = await stripe.accounts.retrieve(accountId);
+  return result;
+};
+
+const deleteAccount = async accountId => {
+  const result = await stripe.accounts.del(accountId);
+  return result;
+};
+
 const createCustomer = async (id, email, token) => {
   const {
     id: customerId,
@@ -91,13 +101,21 @@ const charge = (customer, card, artist, amount) => {
   });
 };
 
+const generateLink = async accountId => {
+  const result = await stripe.accounts.createLoginLink(accountId);
+  return result;
+};
+
 module.exports = {
   createAccount,
+  retrieveAccount,
+  deleteAccount,
   createCustomer,
   saveCard,
   deleteCard,
   retrieveSource,
   createSource,
   deleteSource,
-  charge
+  charge,
+  generateLink
 };

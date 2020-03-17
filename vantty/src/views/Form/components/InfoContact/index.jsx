@@ -1,12 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import ReactPhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 
 // Components
-import { NumberValidation } from "./components";
 import { FormBottomNav, CustomPaper } from "../ComponentsForm";
 
 //Material-UI
@@ -52,20 +49,6 @@ const InfoContact = ({
   prevStep,
   match
 }) => {
-  const [formDataNumber, setFormDataNumber] = useState({
-    phone: "",
-    countryCode: ""
-  });
-
-  const { phone, countryCode } = formDataNumber;
-
-  function handleOnChange(value, data) {
-    setFormDataNumber({
-      phone: value.replace(/[^0-9]+/g, ""),
-      countryCode: data.countryCode === "co" ? "57" : "1"
-    });
-  }
-
   const back = e => {
     e.preventDefault();
     prevStep();
@@ -77,71 +60,48 @@ const InfoContact = ({
 
   const classes = useStyles();
 
-  const phoneForm = () => {
-    return (
-      <div className={classes.root}>
-        <ReactPhoneInput
-          defaultCountry="ca"
-          onlyCountries={["co", "us", "ca"]}
-          masks={{
-            ca: "+. (...) ...-..-..",
-            us: "+. (...) ...-..-..",
-            co: "+.. (...) ...-..-.."
-          }}
-          disableAreaCodes
-          value={phone}
-          onChange={handleOnChange}
-          inputExtraProps={{
-            margin: "normal",
-            autoComplete: "phone",
-            name: "custom-username"
-          }}
-        />
-        <NumberValidation
-          phone={phone}
-          countryCode={countryCode}
-          history={history}
-        />
-      </div>
-    );
-  };
-
   return (
     <Fragment>
       <CustomPaper
         Children={
           <Fragment>
-            <Typography
-              variant="h6"
-              align="laft"
-              className={classes.typography}
-            >
-              Your cellphone number has been verified.
-            </Typography>
             {profile && !profile.mobileNumber ? (
-              phoneForm()
+              <Fragment>
+                <Typography variant="h6" align="laft">
+                  You phone will be validated once you have saved your banking
+                  information. To do it please click{" "}
+                  <Link component={RouterLink} to="/bank" variant="h6">
+                    here.
+                  </Link>
+                </Typography>
+              </Fragment>
             ) : (
               <Fragment>
                 {!profile ? (
                   <CircularProgress size={20} />
                 ) : (
-                  <Typography
-                    variant="h4"
-                    align="center"
-                    className={classes.typography}
-                  >
-                    {`${profile.mobileNumber}`}
-                    <VerifiedIcon className={classes.verifiedIcon} />
-                  </Typography>
+                  <Fragment>
+                    <Typography
+                      variant="h6"
+                      align="laft"
+                      className={classes.typography}
+                    >
+                      Your cellphone number has been verified.
+                    </Typography>
+                    <Typography variant="h4" className={classes.typography}>
+                      {`${profile.mobileNumber}`}
+                      <VerifiedIcon className={classes.verifiedIcon} />
+                    </Typography>
+                    <Typography variant="h6" align="laft">
+                      If you need to change it, please contact us{" "}
+                      <Link component={RouterLink} to="/help" variant="h6">
+                        here.
+                      </Link>
+                    </Typography>
+                  </Fragment>
                 )}
               </Fragment>
             )}
-            <Typography variant="h6" align="laft">
-              If you need to change it, please contact us{" "}
-              <Link component={RouterLink} to="/help" variant="h6">
-                here.
-              </Link>
-            </Typography>
           </Fragment>
         }
       />

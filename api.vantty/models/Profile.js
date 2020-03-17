@@ -6,14 +6,15 @@ const ProfileSchema = new mongoose.Schema({
     ref: "User"
   },
   stripeBankData: {
-    bankId: { type: String },
-    country: { type: String },
-    currency: { type: String },
-    bankName: { type: String },
-    routingNumber: { type: String },
-    last4: { type: String }
+    bankId: { type: String, default: null },
+    country: { type: String, default: null },
+    currency: { type: String, default: null },
+    bankName: { type: String, default: null },
+    routingNumber: { type: String, default: null },
+    last4: { type: String, default: null }
   },
-  stripeArtistAccount: { type: String },
+  stripeArtistAccount: { type: String, default: null },
+  stripeLink: { type: String, default: null },
   name: {
     firstName: {
       type: String
