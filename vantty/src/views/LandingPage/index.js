@@ -65,14 +65,26 @@ const LandingPage = props => {
       zIndex: "3"
     },
     mainRaised: {
-      margin: "-60px 30px 0px",
-      borderRadius: "6px",
-      boxShadow:
-        "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+      [theme.breakpoints.up("sm")]: {
+        margin: "-30px 30px 0px",
+        paddingBottom: theme.spacing(1),
+        borderRadius: "6px",
+        boxShadow:
+          "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+      },
+      [theme.breakpoints.down("sm")]: {
+        margin: "-30px 1px 0px 2px",
+        borderRadius: "6px",
+        paddingBottom: theme.spacing(1),
+        boxShadow:
+          "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+      }
     },
     button: {
       color: "white",
       boxShadow: "none",
+      fontSize: "18px",
+      textAlign: "start",
       backgroundColor: theme.palette.greenVantty.main,
       "&:hover": {
         color: "white",
@@ -121,7 +133,7 @@ const LandingPage = props => {
                 title={vid.title}
                 paragraph={vid.paragraph}
                 direction={vid.direction}
-                video={vid.video}
+                url={vid.url}
               />
             </div>
           ))}

@@ -1,6 +1,5 @@
 export { default as ReviewForm } from "./ReviewForm";
 export { default as Profile } from "./Profile";
-export { default as Landing } from "./Landing";
 export { default as Search } from "./Search";
 export { default as Board } from "./Admin/Board";
 export { default as Home } from "./Home";

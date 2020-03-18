@@ -16,16 +16,16 @@ export default function TotalUsers() {
   return (
     <React.Fragment>
       <Title>Total Users</Title>
-      <Typography component='p' variant='h4'>
+      <Typography component="p" variant="h4">
         {users.length}
       </Typography>
       <br />
       <Title>Total Profiles</Title>
-      <Typography component='p' variant='h4'>
+      <Typography component="p" variant="h4">
         {profiles.length}
       </Typography>
       <Typography
-        color='textSecondary'
+        color="textSecondary"
         className={classes.depositContext}
       ></Typography>
       {/* <div>

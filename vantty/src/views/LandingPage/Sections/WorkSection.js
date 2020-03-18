@@ -9,7 +9,10 @@ import { Link } from "react-router-dom";
 export default function WorkSection() {
   const useStyles = makeStyles(theme => ({
     section: {
-      marginBottom: theme.spacing(5)
+      marginBottom: theme.spacing(5),
+      paddingTop: theme.spacing(5),
+      background: theme.palette.vanttyPink.light,
+      borderRadius: "8px"
     },
 
     description: {

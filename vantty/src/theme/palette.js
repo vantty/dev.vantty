@@ -19,6 +19,12 @@ export default {
     main: "rgb(90, 56, 152)",
     light: "rgb(125, 97, 186)"
   },
+  vanttyPink: {
+    contrastText: white,
+    dark: "rgb(205, 130, 136)",
+    main: "rgb(252, 200, 199)",
+    light: "rgb(255, 242, 243)"
+  },
   primary: {
     contrastText: white,
     dark: colors.indigo[900],

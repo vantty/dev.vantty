@@ -3,11 +3,15 @@ import GridContainer from "../components/GridContainer";
 import GridItem from "../components/GridItem";
 import { Typography, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { Video } from "../../../components";
 
-const BookingSection = ({ title, paragraph, video, direction }) => {
+const BookingSection = ({ title, paragraph, url, direction }) => {
   const useStyles = makeStyles(theme => ({
     section: {
-      padding: theme.spacing(4)
+      padding: theme.spacing(4),
+      background: theme.palette.vanttyPink.light,
+
+      borderRadius: "8px"
     },
     title: {
       minHeight: "32px",
@@ -31,19 +35,10 @@ const BookingSection = ({ title, paragraph, video, direction }) => {
           <Typography variant='h5' className={classes.subTitle}>
             {paragraph}
           </Typography>
-          {/* </h5> */}
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <iframe
-              id='video'
-              width='560'
-              height='315'
-              src={video}
-              frameborder='0'
-              allow='autoplay; encrypted-media'
-              allowfullscreen
-            ></iframe>
+            <Video video={url} />
           </Card>
         </GridItem>
       </GridContainer>
