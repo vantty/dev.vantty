@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Fragment, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // Components
 import {
@@ -9,20 +9,20 @@ import {
   HomeGrid,
   HomeJumbotron,
   HomeDescription
-} from "./components";
+} from './components';
 
 // Actions
-import { changeNavbarValue } from "../../actions/navbar";
+import { changeNavbarValue } from '../../actions/navbar';
 
 // Material-UI
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Seed
-import { homeSeed } from "./../../assets/seed/homeSeed";
+import { homeSeed } from './../../assets/seed/homeSeed';
 
 const Home = ({ changeNavbarValue }) => {
   useEffect(() => {
-    changeNavbarValue("home");
+    changeNavbarValue('home');
   }, []);
 
   return (
@@ -50,6 +50,7 @@ const Home = ({ changeNavbarValue }) => {
           image={homeSeed.firstBanner.image}
           text={homeSeed.firstBanner.text}
           buttonText={homeSeed.firstBanner.buttonText}
+          url={'/register'}
         />
         <HomeGrid
           title={homeSeed.thirdGrid.title}
@@ -60,6 +61,7 @@ const Home = ({ changeNavbarValue }) => {
           image={homeSeed.secondBanner.image}
           text={homeSeed.secondBanner.text}
           buttonText={homeSeed.secondBanner.buttonText}
+          url={'/artist'}
         />
       </div>
     </Fragment>

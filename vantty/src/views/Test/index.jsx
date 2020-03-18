@@ -1,60 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Container, Paper } from "@material-ui/core";
+import ReactPlayer from "react-player";
+// import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    textAlign: "center",
-    marginTop: "40vh"
-  },
-  paper: {
-    padding: theme.spacing(3)
-  },
-  button: {
-    backgroundColor: theme.palette.greenVantty.main,
-    "&:hover": {
-      backgroundColor: theme.palette.greenVantty.dark
-    },
-    textTransform: "none",
-    fontWeight: "bold"
-  }
-}));
+// const useStyles = makeStyles(theme => ({}));
 
 export default function CircularIntegration() {
-  const classes = useStyles();
-  return (
-    <Container maxWidth="xs" className={classes.container}>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Button
-              fullWidth
-              color="primary"
-              variant="contained"
-              size="large"
-              className={classes.button}
-              component={Link}
-              to="/create-profile"
-            >
-              I'm a Beauty Artist
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              fullWidth
-              color="primary"
-              variant="contained"
-              size="large"
-              className={classes.button}
-              component={Link}
-              to="/"
-            >
-              I'm looking for a Beauty Artist
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
-  );
+  // const classes = useStyles();
+
+  const video = "https://www.youtube.com/watch?v=B-cE3l9_ro0&feature=youtu.be";
+
+  return <ReactPlayer url={video} volume={1} controls />;
 }

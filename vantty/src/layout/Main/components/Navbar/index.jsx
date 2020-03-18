@@ -1,28 +1,28 @@
-import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // Material-UI
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import LinkMui from "@material-ui/core/Link";
-import Progress from "@material-ui/core/LinearProgress";
-import Divider from "@material-ui/core/Divider";
-import { getBook } from "../../../../actions/book";
-import { Badge } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import LinkMui from '@material-ui/core/Link';
+import Progress from '@material-ui/core/LinearProgress';
+import Divider from '@material-ui/core/Divider';
+import { getBook } from '../../../../actions/book';
+import { Badge } from '@material-ui/core';
 
 const Logo =
-  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1581100032/seed/ylzghomgp2petjxms0sx.webp";
+  'https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1581100032/seed/ylzghomgp2petjxms0sx.webp';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#FFF"
+    backgroundColor: '#FFF'
   },
   title: {
     flexGrow: 1
@@ -33,36 +33,36 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2)
   },
   button: {
-    backgroundColor: "inherit",
+    backgroundColor: 'inherit',
     color: theme.palette.text.primary,
-    boxShadow: "none",
-    transition: theme.transitions.create("backgroundColor"),
-    "&:hover": {
-      backgroundColor: "inherit",
+    boxShadow: 'none',
+    transition: theme.transitions.create('backgroundColor'),
+    '&:hover': {
+      backgroundColor: 'inherit',
       color: theme.palette.greenVantty.dark
     },
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    textTransform: "none"
+    textTransform: 'none'
   },
   buttonArtist: {
-    backgroundColor: "inherit",
+    backgroundColor: 'inherit',
     color: theme.palette.greenVantty.dark,
-    boxShadow: "none",
-    transition: theme.transitions.create("backgroundColor"),
-    "&:hover": {
-      backgroundColor: "inherit",
+    boxShadow: 'none',
+    transition: theme.transitions.create('backgroundColor'),
+    '&:hover': {
+      backgroundColor: 'inherit',
       color: theme.palette.greenVantty.main
     },
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    textTransform: "none"
+    textTransform: 'none'
   },
   sectionDesktop: {
-    display: "flex"
+    display: 'flex'
   },
   badge: {
-    paddingBottom: "-5rem"
+    paddingBottom: '-5rem'
   }
 }));
 
@@ -77,17 +77,17 @@ const Navbar = props => {
 
   const countBookingsArtist = () => {
     const arr = [];
-    book.map(bookings => bookings.state === "request" && arr.push(bookings));
+    book.map(bookings => bookings.state === 'request' && arr.push(bookings));
     return arr.length;
   };
   return (
     <Fragment>
       <CssBaseline />
-      <AppBar position='static' className={classes.root}>
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
-          <Typography variant='h5' className={classes.title}>
-            <LinkMui underline='none' color='inherit' component={Link} to='/'>
-              <img src={Logo} alt='' className={classes.logo} />
+          <Typography variant="h5" className={classes.title}>
+            <LinkMui underline="none" color="inherit" component={Link} to="/">
+              <img src={Logo} alt="" className={classes.logo} />
             </LinkMui>
           </Typography>
           {loading ? (
@@ -99,7 +99,7 @@ const Navbar = props => {
                   <Button
                     className={classes.buttonArtist}
                     component={Link}
-                    to='/register'
+                    to="/artist"
                   >
                     Become an artist partner
                   </Button>
@@ -107,10 +107,10 @@ const Navbar = props => {
                   <Button
                     className={classes.buttonArtist}
                     component={Link}
-                    to='/bookings'
+                    to="/bookings"
                   >
                     <Badge
-                      color='secondary'
+                      color="secondary"
                       className={classes.badge}
                       badgeContent={countBookingsArtist()}
                     >
@@ -118,14 +118,14 @@ const Navbar = props => {
                     </Badge>
                   </Button>
                 )}
-                <Button className={classes.button} component={Link} to='/help'>
+                <Button className={classes.button} component={Link} to="/help">
                   Help center
                 </Button>
 
                 <Button
                   className={classes.button}
                   component={Link}
-                  to='/search'
+                  to="/search"
                 >
                   See all artists
                 </Button>
@@ -134,14 +134,14 @@ const Navbar = props => {
                     <Button
                       className={classes.button}
                       component={Link}
-                      to='/login'
+                      to="/login"
                     >
                       Login
                     </Button>
                     <Button
                       className={classes.button}
                       component={Link}
-                      to='/register'
+                      to="/register"
                     >
                       Register
                     </Button>
@@ -160,17 +160,17 @@ const Navbar = props => {
                       <Button
                         className={classes.button}
                         component={Link}
-                        to={"/settings"}
+                        to={'/settings'}
                       >
                         Profile
                       </Button>
                     )}
-                    {user && user.role === "Admin" && (
+                    {user && user.role === 'Admin' && (
                       <Button
-                        color='inherit'
+                        color="inherit"
                         className={classes.button}
                         component={Link}
-                        to='/dashboard'
+                        to="/dashboard"
                       >
                         Admin
                       </Button>

@@ -44,6 +44,7 @@ import {
   Help,
   NotFound,
   UserRole,
+  LandingPage,
   Test
 } from './views';
 
@@ -90,6 +91,7 @@ const Routes = () => {
         layout={MainLayout}
         path="/confirmation"
       />
+      <Route component={LandingPage} exact layout={MainLayout} path="/artist" />
       <RouteWithLayout component={Home} exact layout={MainLayout} path="/" />
       <RouteWithLayout
         component={Search}

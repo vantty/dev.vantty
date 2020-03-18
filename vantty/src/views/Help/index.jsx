@@ -110,6 +110,10 @@ const Help = ({ sendEmail, user }) => {
     {
       value: 'change-bank-account',
       text: 'I want change my bank account'
+    },
+    {
+      value: 'not-listed-problem',
+      text: 'Poblem not listed'
     }
   ];
 
@@ -201,7 +205,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(
-  mapStateToProps,
-  { sendEmail }
-)(Help);
+export default connect(mapStateToProps, { sendEmail })(Help);

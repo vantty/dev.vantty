@@ -20,3 +20,4 @@ export { default as NotFound } from './NotFound';
 export { default as BookingsUser } from './BookingsUser';
 export { default as UserRole } from './UserRole';
 export { default as Test } from './Test';
+export { default as LandingPage } from './LandingPage';
