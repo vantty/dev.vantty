@@ -7,16 +7,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // core components
 import GridContainer from "../components/GridContainer.js";
 import GridItem from "../components/GridItem.js";
-import CustomInput from "../components/CustomInput.js";
 import {
-  Button,
   ExpansionPanel,
   ExpansionPanelSummary,
   Typography,
   ExpansionPanelDetails
 } from "@material-ui/core";
 import { faq } from "../FAQList.js";
-// import Button from "./components/CustomButtons/Button.js";
 
 export default function WorkSection() {
   const title = {
@@ -43,13 +40,7 @@ export default function WorkSection() {
       textAlign: "center",
       marginBottom: "2rem"
     },
-    textCenter: {
-      textAlign: "center"
-    },
-    textArea: {
-      marginRight: "15px",
-      marginLeft: "15px"
-    },
+
     root: {
       width: "100%"
     },

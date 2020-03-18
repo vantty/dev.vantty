@@ -12,10 +12,6 @@ import GridItem from "../components/GridItem";
 import InfoArea from "../components/InfoArea";
 import { Typography } from "@material-ui/core";
 
-// import styles from "assets/jss/material-kit-react/views/landingPageSections/productStyle.js";
-
-// const useStyles = makeStyles(styles);
-
 export default function ProductSection() {
   const title = {
     color: "#3C4858",
@@ -37,7 +33,8 @@ export default function ProductSection() {
       textDecoration: "none"
     },
     description: {
-      color: "#999"
+      color: "#999",
+      marginBottom: theme.spacing(2)
     }
   }));
   const classes = useStyles();

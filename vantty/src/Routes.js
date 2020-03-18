@@ -25,7 +25,6 @@ import {
 
 import {
   Profile,
-  Landing,
   Home,
   Register,
   RegisterWithEmail,

@@ -4,7 +4,7 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-// @material-ui/icons
+import { video } from "./videoList.js";
 
 // core components
 import GridContainer from "./components/GridContainer";
@@ -14,10 +14,8 @@ import Parallax from "./components/Parallax";
 
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
-import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
-import CreateProfileSection from "./Sections/CreateProfileSection.js";
-import BookingSection from "./Sections/BookingSection.js";
+import VideoSection from "./Sections/VideoSection.js";
 import FAQSection from "./Sections/FAQSection.js";
 const JumbotronBackground =
   //with background
@@ -25,9 +23,6 @@ const JumbotronBackground =
 //Without
 // "https://res.cloudinary.com/vantty/image/upload/v1583976620/seed/nuk2l4mrcmyz5br8mrte.jpg";
 // "https://res.cloudinary.com/vantty/image/upload/v1583978169/seed/y9agox8oupnme4ohwftx.jpg";
-const dashboardRoutes = [];
-
-// const useStyles = makeStyles(styles);
 
 const LandingPage = props => {
   const conatinerFluid = {
@@ -77,8 +72,6 @@ const LandingPage = props => {
     },
     button: {
       color: "white",
-      width: "8rem",
-      height: "2rem",
       boxShadow: "none",
       backgroundColor: theme.palette.greenVantty.main,
       "&:hover": {
@@ -89,7 +82,6 @@ const LandingPage = props => {
   }));
 
   const classes = useStyles();
-  const { ...rest } = props;
   return (
     <div>
       <Parallax filter image={JumbotronBackground}>
@@ -108,11 +100,11 @@ const LandingPage = props => {
                 component={Link}
                 variant='contained'
                 color='primary'
-                size='small'
+                size='large'
                 target='_blank'
                 rel='noopener noreferrer'
                 className={classes.button}
-                to={"/create-profile"}
+                to={"/register"}
               >
                 Get Started
               </Button>
@@ -123,14 +115,20 @@ const LandingPage = props => {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <ProductSection />
-          <CreateProfileSection />
-          <BookingSection />
+          {video.map(vid => (
+            <div key={vid.title}>
+              <VideoSection
+                title={vid.title}
+                paragraph={vid.paragraph}
+                direction={vid.direction}
+                video={vid.video}
+              />
+            </div>
+          ))}
           <FAQSection />
-          {/* <TeamSection /> */}
           <WorkSection />
         </div>
       </div>
-      {/* <Footer /> */}
     </div>
   );
 };
