@@ -1,11 +1,13 @@
-import React from "react";
-import { MarkdownText } from "../../../components";
-import policy from "./policy.md";
+import React from 'react';
+import { MarkdownText, SimpleAppBar } from '../../../components';
+import policy from './policy.md';
+import { isMobile } from 'react-device-detect';
 
 export default function index() {
   return (
     <div>
-      <MarkdownText text={policy} title={"Data Policy"} />
+      {isMobile && <SimpleAppBar />}
+      <MarkdownText text={policy} title={'Data Policy'} />
     </div>
   );
 }

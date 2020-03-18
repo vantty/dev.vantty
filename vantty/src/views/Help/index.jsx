@@ -21,7 +21,8 @@ import {
 import { sendEmail } from '../../actions/help';
 
 // Components
-import { Alert } from '../../components';
+import { Alert, SimpleAppBar } from '../../components';
+import { isMobile } from 'react-device-detect';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -115,6 +116,7 @@ const Help = ({ sendEmail, user }) => {
   return (
     <Fragment>
       <CssBaseline />
+      {isMobile && <SimpleAppBar />}
       <Alert />
       <Container component="main" maxWidth="sm">
         <div className={classes.paper}>
@@ -199,4 +201,7 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, { sendEmail })(Help);
+export default connect(
+  mapStateToProps,
+  { sendEmail }
+)(Help);

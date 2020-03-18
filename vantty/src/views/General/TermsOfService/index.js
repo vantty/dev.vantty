@@ -1,11 +1,13 @@
-import React from "react";
-import { MarkdownText } from "../../../components";
-import terms from "./terms.md";
+import React from 'react';
+import { MarkdownText, SimpleAppBar } from '../../../components';
+import terms from './terms.md';
+import { isMobile } from 'react-device-detect';
 
 export default function index() {
   return (
     <div>
-      <MarkdownText text={terms} title={"Terms of Service"} />
+      {isMobile && <SimpleAppBar />}
+      <MarkdownText text={terms} title={'Terms of Service'} />
     </div>
   );
 }

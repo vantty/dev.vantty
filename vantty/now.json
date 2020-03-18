@@ -15,7 +15,8 @@
       "REACT_APP_STRIPE_CLIENT_ID": "@stripe-client-id",
       "REACT_APP_VANTTY_FEE": "@vantty-fee",
       "REACT_APP_TRANSFER_FEE": "@transfer-fee",
-      "REACT_APP_GOOGLE_ANALYTICS": "@google-analytics"
+      "REACT_APP_GOOGLE_ANALYTICS": "@google-analytics",
+      "REACT_APP_URI": "@uri"
     }
   }
 }
