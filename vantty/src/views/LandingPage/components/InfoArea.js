@@ -7,10 +7,6 @@ import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
-// import styles from "assets/jss/material-kit-react/components/infoStyle.js";
-
-// const useStyles = makeStyles(styles);
-
 export default function rea(props) {
   const useStyles = makeStyles(theme => ({
     infoArea: {
@@ -23,27 +19,16 @@ export default function rea(props) {
       marginTop: "24px",
       marginRight: "10px"
     },
-    primary: {
-      color: "black"
+    pink: {
+      color: theme.palette.pinkVantty.dark
     },
-    warning: {
-      color: "black"
+    purple: {
+      color: theme.palette.purpleVantty.light
     },
-    danger: {
-      color: "black"
+    green: {
+      color: theme.palette.greenVantty.dark
     },
-    success: {
-      color: "black"
-    },
-    info: {
-      color: "black"
-    },
-    rose: {
-      color: "black"
-    },
-    gray: {
-      color: "black"
-    },
+
     icon: {
       width: "36px",
       height: "36px"
@@ -56,7 +41,7 @@ export default function rea(props) {
       marginBottom: "1rem"
     },
     description: {
-      color: "black",
+      color: theme.palette.text.secondary,
       overflow: "hidden",
       marginTop: "0px",
       fontSize: "14px",

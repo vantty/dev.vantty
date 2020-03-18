@@ -6,17 +6,19 @@ import GridContainer from "../components/GridContainer.js";
 import GridItem from "../components/GridItem.js";
 import { Button, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-export default function WorkSection() {
+
+
+export default function WorkSection({text}) {
   const useStyles = makeStyles(theme => ({
     section: {
       marginBottom: theme.spacing(5),
       paddingTop: theme.spacing(5),
-      background: theme.palette.vanttyPink.light,
+      background: theme.palette.pinkVantty.light,
       borderRadius: "8px"
     },
 
     description: {
-      color: "#999",
+
       textAlign: "center"
     },
     textCenter: {
@@ -40,7 +42,7 @@ export default function WorkSection() {
       <GridContainer justify='center'>
         <GridItem cs={12} sm={12} md={8}>
           <Typography variant='h1' className={classes.description}>
-            Divide details about your product or agency work into parts. Write a
+           {text}
           </Typography>
           <GridContainer justify='center'>
             <GridItem xs={12} sm={12} md={12} className={classes.textCenter}>

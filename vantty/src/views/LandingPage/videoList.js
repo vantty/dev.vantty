@@ -1,23 +1,18 @@
 export const video = [
   {
+    name: "profile",
     title: "How can I create my profile?",
     paragraph:
-      "This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information.    Remember that by this time, the user is curious, otherwise he wouldnt scroll to get here. Add a button if you want the user to see    more.",
+      "Create your professional profile is very easy. Tell us your biografy, the skills you have, upload you portfolio, list the services you offer and connect you bank account.",
     direction: "center",
-    name: "profile",
     url: "https://youtu.be/joSTaIRsEuA"
   },
   {
-    title: "How my client can book me?",
-    paragraph:
-      "This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information.    Remember that by this time, the user is curious, otherwise he wouldnt scroll to get here. Add a button if you want the user to see    more.",
-    direction: "row-reverse",
     name: "book",
-    url: "https://youtu.be/B-cE3l9_ro0"
+    title: "How booking service works?",
+    paragraph:
+      "Once your clients send a booking, you will receive a notification to accept it. After you finish the service, your client will give you a Book Code which you can use in you Vantty account to get paid.",
+    direction: "row-reverse",
+    url: "https://youtu.be/Zi3Y-CKSxo4"
   }
 ];
-
-// const videos = [
-//   { name: "create", url: "https://youtu.be/B-cE3l9_ro0" },
-//   { name: "book", url: "https://youtu.be/B-cE3l9_ro0" }
-// ];

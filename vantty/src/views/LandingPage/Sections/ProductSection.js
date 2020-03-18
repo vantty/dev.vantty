@@ -3,7 +3,12 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
-import Chat from "@material-ui/icons/Chat";
+// import Chat from "@material-ui/icons/Chat";
+import Today from "@material-ui/icons/Today";
+import Review from "@material-ui/icons/RateReview";
+import Money from "@material-ui/icons/MonetizationOn";
+import Payment from "@material-ui/icons/Payment";
+
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 // core components
@@ -13,20 +18,15 @@ import InfoArea from "../components/InfoArea";
 import { Typography } from "@material-ui/core";
 
 export default function ProductSection() {
-  const title = {
-    color: "#3C4858",
-    margin: "1.75rem 0 0.875rem",
-    textDecoration: "none",
-    fontWeight: "700",
-    fontFamily: `"Roboto Slab", "Times New Roman", serif`
-  };
+ 
   const useStyles = makeStyles(theme => ({
     section: {
       padding: "70px 0",
       textAlign: "center"
     },
     title: {
-      ...title,
+      color: "#3C4858",
+      margin: "1.75rem 0 0.875rem",
       marginBottom: "1rem",
       marginTop: "30px",
       minHeight: "32px",
@@ -43,15 +43,15 @@ export default function ProductSection() {
       <GridContainer justify='center'>
         <GridItem xs={12} sm={12} md={8}>
           <Typography variant='h2' className={classes.title}>
-            What Vantty is?
+            What is Vantty?
           </Typography>
           {/* <h5 className={classes.description}> */}
-          <Typography variant='h5' className={classes.description}>
-            This is the paragraph where you can write more details about your
-            product. Keep you user engaged by providing meaningful information.
-            Remember that by this time, the user is curious, otherwise he wouldn
-            {"'"}t scroll to get here. Add a button if you want the user to see
-            more.
+          <Typography variant='h4' className={classes.description}>
+            Vantty is a beauty platform which uses an advanced search engine to
+            connect beauty artist with clients. Anywhere, Anytime.{" "}
+            <strong>
+              Our goal its to grow your personal brand and stand you out.
+            </strong>
           </Typography>
           {/* </h5> */}
         </GridItem>
@@ -61,54 +61,54 @@ export default function ProductSection() {
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
               title='Online Booking'
-              description='Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.'
-              icon={Chat}
-              iconColor='info'
+              description='Your clients can book your services in 3 easy steps. You will be notified via email to accept the service.'
+              icon={Today}
+              iconColor='pink'
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
               title='Get Reviews'
-              description='Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.'
-              icon={VerifiedUser}
-              iconColor='success'
+              description='Once you have completed the service, your client will leave a review about her experience.'
+              icon={Review}
+              iconColor='purple'
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title='We make ads for you '
-              description='Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.'
-              icon={Fingerprint}
-              iconColor='danger'
+              title='Advertising'
+              description='We create exclusive campaigns in Facebook, Instagram and Google for you to increase your clients.'
+              icon={Money}
+              iconColor='green'
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
               title='Secure and Fast payments'
-              description='Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.'
-              icon={Chat}
-              iconColor='info'
+              description='Your clients will pay using their credit card, and in 7 days you will receive your money in your banck account.'
+              icon={Payment}
+              iconColor='purple'
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title='Commision'
-              description='Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.'
+              title='Professional Profile'
+              description='You will have a dedicated profile where you can show your experience, upload your portfolio and save client reviews.'
               icon={VerifiedUser}
-              iconColor='success'
+              iconColor='green'
               vertical
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title='Chat Directly with your user'
-              description='Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.'
+              title='Direct Chat'
+              description='After accepting the service, you can chat wuth your client via Whatsapp or SMS.'
               icon={Fingerprint}
-              iconColor='danger'
+              iconColor='pink'
               vertical
             />
           </GridItem>

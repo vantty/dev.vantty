@@ -1,7 +1,7 @@
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
+import { Link as RouterLink } from "react-router-dom";
 // @material-ui/icons
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // core components
@@ -11,29 +11,25 @@ import {
   ExpansionPanel,
   ExpansionPanelSummary,
   Typography,
-  ExpansionPanelDetails
+  ExpansionPanelDetails,
+  Link
 } from "@material-ui/core";
 import { faq } from "../FAQList.js";
 
 export default function WorkSection() {
-  const title = {
-    color: "#3C4858",
-
-    textDecoration: "none",
-    fontWeight: "700",
-    fontFamily: `"Roboto Slab", "Times New Roman", serif`
-  };
+  
   const useStyles = makeStyles(theme => ({
     section: {
       padding: "70px 0"
     },
     title: {
-      ...title,
-      marginBottom: theme.spacing(1),
-      marginTop: theme.spacing(1),
+      color: "#3C4858",
+      margin: "1.75rem 0 0.875rem",
+      marginTop: "30px",
       minHeight: "32px",
       textDecoration: "none",
       textAlign: "center"
+
     },
     description: {
       color: "#999",
@@ -54,12 +50,16 @@ export default function WorkSection() {
     <div className={classes.section}>
       <GridContainer justify='center'>
         <GridItem cs={12} sm={12} md={8}>
-          <h2 className={classes.title}>Work with us</h2>
+          <Typography variant="h2" className={classes.title}>
+          FAQ
+          </Typography>
+
           <Typography variant='h4' className={classes.description}>
-            Divide details about your product or agency work into parts. Write a
-            few lines about each one and contact us about any further
-            collaboration. We will responde get back to you in a couple of
-            hours.
+            Here you can find a list of frequenlty asked questions about Vantty
+            services. If you have another one, please contact us{" "}
+            <Link component={RouterLink} to='/help' variant='h4'>
+              here.
+            </Link>
           </Typography>
 
           <GridContainer>
@@ -74,11 +74,14 @@ export default function WorkSection() {
                         id='panel1a-header'
                       >
                         <Typography className={classes.heading}>
-                          {qst.question}
+                          <strong>{qst.question}</strong>
                         </Typography>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
                         <Typography>{qst.answer}</Typography>
+                        <Typography className={classes.heading}>
+                          {qst.continue}
+                        </Typography>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
                   </div>

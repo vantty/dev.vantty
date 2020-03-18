@@ -58,6 +58,10 @@ const LandingPage = props => {
       minHeight: "32px",
       color: "#FFFFFF"
     },
+    subTitle: {
+
+      color: "#FFFFFF"
+    },
 
     main: {
       background: "#FFFFFF",
@@ -85,6 +89,7 @@ const LandingPage = props => {
       boxShadow: "none",
       fontSize: "18px",
       textAlign: "start",
+      marginTop:theme.spacing(1),
       backgroundColor: theme.palette.greenVantty.main,
       "&:hover": {
         color: "white",
@@ -99,13 +104,13 @@ const LandingPage = props => {
       <Parallax filter image={JumbotronBackground}>
         <div className={classes.container}>
           <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
+            <GridItem xs={12} md={8} >
               <Typography variant='h1' className={classes.title}>
-                Your Story Starts With Us.
+                Become an Artist Partner
               </Typography>
-              <Typography variant='h3' className={classes.title}>
-                Find the best match for your services and grow up your personal
-                brand
+              <Typography variant='h3'className={classes.subTitle} >
+                Build your professional profile and let customers book your
+                services easier and faster
               </Typography>
               <br />
               <Button
@@ -137,8 +142,9 @@ const LandingPage = props => {
               />
             </div>
           ))}
+          <WorkSection text={"Be part to the Vantty community"}/>          
           <FAQSection />
-          <WorkSection />
+          <WorkSection text={"Show your talent and become a Vantty partnered artist!"} />
         </div>
       </div>
     </div>

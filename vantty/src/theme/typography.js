@@ -5,7 +5,7 @@ export default {
     fontFamily: "'Montserrat', 'sans-serif'",
     color: palette.text.primary,
     fontWeight: 700,
-    fontSize: "35px",
+    fontSize: "45px",
     letterSpacing: "-0.24px",
     lineHeight: "40px"
   },

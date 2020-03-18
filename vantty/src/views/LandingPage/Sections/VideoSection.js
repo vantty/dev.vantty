@@ -9,8 +9,7 @@ const BookingSection = ({ title, paragraph, url, direction }) => {
   const useStyles = makeStyles(theme => ({
     section: {
       padding: theme.spacing(4),
-      background: theme.palette.vanttyPink.light,
-
+      background: theme.palette.pinkVantty.light,
       borderRadius: "8px"
     },
     title: {
@@ -20,8 +19,11 @@ const BookingSection = ({ title, paragraph, url, direction }) => {
       position: "relative"
     },
     subTitle: {
-      margintop: theme.spacing(2),
+      marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2)
+    },
+    video: {
+      height: "300px"
     }
   }));
   const classes = useStyles();
@@ -37,7 +39,7 @@ const BookingSection = ({ title, paragraph, url, direction }) => {
           </Typography>
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
-          <Card>
+          <Card className={classes.video}>
             <Video video={url} />
           </Card>
         </GridItem>
