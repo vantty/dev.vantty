@@ -15,12 +15,13 @@ import {
   Typography,
   ExpansionPanelDetails
 } from "@material-ui/core";
+import { faq } from "../FAQList.js";
 // import Button from "./components/CustomButtons/Button.js";
 
 export default function WorkSection() {
   const title = {
     color: "#3C4858",
-    margin: "1.75rem 0 0.875rem",
+
     textDecoration: "none",
     fontWeight: "700",
     fontFamily: `"Roboto Slab", "Times New Roman", serif`
@@ -31,15 +32,16 @@ export default function WorkSection() {
     },
     title: {
       ...title,
-      marginBottom: "50px",
-      marginTop: "30px",
+      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(1),
       minHeight: "32px",
       textDecoration: "none",
       textAlign: "center"
     },
     description: {
       color: "#999",
-      textAlign: "center"
+      textAlign: "center",
+      marginBottom: "2rem"
     },
     textCenter: {
       textAlign: "center"
@@ -62,52 +64,34 @@ export default function WorkSection() {
       <GridContainer justify='center'>
         <GridItem cs={12} sm={12} md={8}>
           <h2 className={classes.title}>Work with us</h2>
-          <h4 className={classes.description}>
+          <Typography variant='h4' className={classes.description}>
             Divide details about your product or agency work into parts. Write a
             few lines about each one and contact us about any further
             collaboration. We will responde get back to you in a couple of
             hours.
-          </h4>
+          </Typography>
 
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <div className={classes.root}>
-                <ExpansionPanel>
-                  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls='panel1a-content'
-                    id='panel1a-header'
-                  >
-                    <Typography className={classes.heading}>
-                      Expansion Panel 1
-                    </Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-                <ExpansionPanel>
-                  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls='panel2a-content'
-                    id='panel2a-header'
-                  >
-                    <Typography className={classes.heading}>
-                      Expansion Panel 2
-                    </Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
+                {faq.map(qst => (
+                  <div key={qst.title}>
+                    <ExpansionPanel>
+                      <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls='panel1a-content'
+                        id='panel1a-header'
+                      >
+                        <Typography className={classes.heading}>
+                          {qst.question}
+                        </Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        <Typography>{qst.answer}</Typography>
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  </div>
+                ))}
               </div>
             </GridItem>
           </GridContainer>
