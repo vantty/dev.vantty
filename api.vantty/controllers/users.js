@@ -248,3 +248,30 @@ exports.help = async (req, res) => {
     });
   }
 };
+
+exports.adminEmail = async (req, res) => {
+  try {
+    const {
+      body: { email, subject, title, html, buttonText, url }
+    } = req;
+    const result = await emailService.sendAdminEmail(
+      email,
+      subject,
+      title,
+      html,
+      buttonText,
+      url
+    );
+    if (result === "202Accepted") {
+      return res.status(200).json(result);
+    } else {
+      return res.status(500).json({
+        message: "Message not sent"
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server Error"
+    });
+  }
+};

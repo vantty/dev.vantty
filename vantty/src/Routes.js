@@ -1,12 +1,12 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import RoutePrivateWithLayout from "./router/RoutePrivateWithLayout";
-import RouteWithLayout from "./router/RouteWithLayout";
-import { Main as MainLayout, Minimal as MinimalLayout } from "./layout";
-import { TermsOfService as Terms } from "./views/General";
-import { DataPolicy as Policy } from "./views/General";
-import { FAQ } from "./views/General";
+import RoutePrivateWithLayout from './router/RoutePrivateWithLayout';
+import RouteWithLayout from './router/RouteWithLayout';
+import { Main as MainLayout, Minimal as MinimalLayout } from './layout';
+import { TermsOfService as Terms } from './views/General';
+import { DataPolicy as Policy } from './views/General';
+import { FAQ } from './views/General';
 
 // Views
 import {
@@ -21,7 +21,7 @@ import {
   EditBank,
   EditBookingsUser,
   EditLocation
-} from "./views/EditForm/components";
+} from './views/EditForm/components';
 
 import {
   Profile,
@@ -45,16 +45,16 @@ import {
   NotFound,
   UserRole,
   Test
-} from "./views";
+} from './views';
 
 //Routes
-import PrivateRoute from "./router/PrivateRoute";
-import AdminRoute from "./router/AdminRoute";
-import { InfoContact, Validation } from "./views/Form/components";
+import PrivateRoute from './router/PrivateRoute';
+import AdminRoute from './router/AdminRoute';
+import { InfoContact, Validation } from './views/Form/components';
 import {
   Account,
   ProfileSectionMobileArtist
-} from "./views/Settings/components";
+} from './views/Settings/components';
 
 const Routes = () => {
   return (

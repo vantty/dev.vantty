@@ -225,4 +225,26 @@ const sendHelp = async (email, issue, text) => {
   return result;
 };
 
-module.exports = { content, compose, sendHelp };
+const sendAdminEmail = async (email, subject, title, html, buttonText, url) => {
+  await sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const templateId = "d-864047377edd4d62b0b8452bbf8e6a90";
+  const msg = {
+    to: email,
+    from: "Vantty Client Services <no-reply@vantty.ca>",
+    subject: subject,
+    templateId: templateId,
+    dynamic_template_data: {
+      subject: subject,
+      title: title,
+      html: html,
+      buttonText: buttonText,
+      url: url
+    }
+  };
+  const res = await sgMail.send(msg);
+  const { statusCode, statusMessage } = res[0];
+  const result = statusCode + statusMessage;
+  return result;
+};
+
+module.exports = { content, compose, sendHelp, sendAdminEmail };
