@@ -7,23 +7,18 @@ import { Link } from "react-router-dom";
 // @material-ui/icons
 
 // core components
-import Header from "./components/Header.js";
-import Footer from "./components/Footer.js";
 import GridContainer from "./components/GridContainer";
 import GridItem from "./components/GridItem";
 import { Button, Typography } from "@material-ui/core";
-// import Button from "./components/Button";
-
-// import {Burr}from "components"
-// import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "./components/Parallax";
-
-// import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
+import CreateProfileSection from "./Sections/CreateProfileSection.js";
+import BookingSection from "./Sections/BookingSection.js";
+import FAQSection from "./Sections/FAQSection.js";
 const JumbotronBackground =
   //with background
   "https://res.cloudinary.com/vantty/image/upload/v1583973869/seed/ouoswijho4fvbxzgql9c.png";
@@ -68,11 +63,7 @@ const LandingPage = props => {
       minHeight: "32px",
       color: "#FFFFFF"
     },
-    subtitle: {
-      fontSize: "1.313rem",
-      maxWidth: "500px",
-      margin: "10px auto 0"
-    },
+
     main: {
       background: "#FFFFFF",
       position: "relative",
@@ -86,6 +77,8 @@ const LandingPage = props => {
     },
     button: {
       color: "white",
+      width: "8rem",
+      height: "2rem",
       boxShadow: "none",
       backgroundColor: theme.palette.greenVantty.main,
       "&:hover": {
@@ -99,18 +92,6 @@ const LandingPage = props => {
   const { ...rest } = props;
   return (
     <div>
-      {/* <Header
-        color='transparent'
-        routes={dashboardRoutes}
-        brand='Material Kit React'
-        // rightLinks={<HeaderLinks />}
-        fixed
-        changeColorOnScroll={{
-          height: 400,
-          color: "white"
-        }}
-        {...rest}
-      /> */}
       <Parallax filter image={JumbotronBackground}>
         <div className={classes.container}>
           <GridContainer>
@@ -119,8 +100,8 @@ const LandingPage = props => {
                 Your Story Starts With Us.
               </Typography>
               <Typography variant='h3' className={classes.title}>
-                Every landing page needs a small description after the big bold
-                title,
+                Find the best match for your services and grow up your personal
+                brand
               </Typography>
               <br />
               <Button
@@ -142,7 +123,10 @@ const LandingPage = props => {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <ProductSection />
-          <TeamSection />
+          <CreateProfileSection />
+          <BookingSection />
+          <FAQSection />
+          {/* <TeamSection /> */}
           <WorkSection />
         </div>
       </div>

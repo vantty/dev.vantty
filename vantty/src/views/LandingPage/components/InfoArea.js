@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 
 // import styles from "assets/jss/material-kit-react/components/infoStyle.js";
 
@@ -51,12 +52,15 @@ export default function rea(props) {
       color: "black",
       overflow: "hidden"
     },
-    title,
+    title: {
+      marginBottom: "1rem"
+    },
     description: {
       color: "black",
       overflow: "hidden",
       marginTop: "0px",
-      fontSize: "14px"
+      fontSize: "14px",
+      marginBottom: "2rem"
     },
     iconWrapperVertical: {
       float: "none"
@@ -84,8 +88,12 @@ export default function rea(props) {
         <props.icon className={iconClasses} />
       </div>
       <div className={classes.descriptionWrapper}>
-        <h4 className={classes.title}>{title}</h4>
-        <p className={classes.description}>{description}</p>
+        <Typography variant='h4' className={classes.title}>
+          {title}
+        </Typography>
+        <Typography variant='h5' className={classes.description}>
+          {description}
+        </Typography>
       </div>
     </div>
   );
