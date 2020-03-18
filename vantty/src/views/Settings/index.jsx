@@ -1,23 +1,23 @@
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { isMobile } from "react-device-detect";
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { isMobile } from 'react-device-detect';
 
 // Actions
-import { deleteAccount, getCurrentProfile } from "../../actions/profile";
-import { logout } from "../../actions/auth";
+import { deleteAccount, getCurrentProfile } from '../../actions/profile';
+import { logout } from '../../actions/auth';
 
 // Helpers
-import { desktopArtist, desktopUser, mobileSettings } from "./list";
+import { desktopArtist, desktopUser, mobileSettings } from './list';
 
 // Components
-import { SimpleAppBar } from "../../components";
-import { MenuDesktop, AvatarUser, MenuMobile } from "./components";
+import { SimpleAppBar } from '../../components';
+import { MenuDesktop, AvatarUser, MenuMobile } from './components';
 
 // Material-UI
-import { Hidden, CssBaseline } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Hidden, CssBaseline } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Settings = ({
   match,
@@ -29,19 +29,20 @@ const Settings = ({
   useEffect(() => {
     getCurrentProfile();
   }, []);
+
   return (
     <Fragment>
       <CssBaseline />
-      {!isMobile && match.url === "/settings" && (
-        <Redirect to='/personal-info' />
+      {!isMobile && match.url === '/settings' && (
+        <Redirect to="/personal-info" />
       )}
-      <Hidden only={["md", "lg", "xl"]}>
+      <Hidden only={['md', 'lg', 'xl']}>
         <SimpleAppBar
           history={history}
           path={
             user && user.profile && profile
               ? `/profile/artist/${profile.user}`
-              : "/search"
+              : '/search'
           }
         />
         {!user ? (
@@ -59,12 +60,14 @@ const Settings = ({
       </Hidden>
       {isMobile ? (
         <MenuMobile
+          stripe={profile && profile.stripeArtistAccount}
           match={match}
           pages={mobileSettings}
           profile={user && user.profile ? true : false}
         />
       ) : (
         <MenuDesktop
+          stripe={profile && profile.stripeArtistAccount}
           match={match}
           pages={user && user.profile ? desktopArtist : desktopUser}
           profile={user && user.profile ? true : false}
@@ -87,8 +90,11 @@ const mapStateToProps = state => ({
   deleteAccount: PropTypes.func
 });
 
-export default connect(mapStateToProps, {
-  logout,
-  deleteAccount,
-  getCurrentProfile
-})(Settings);
+export default connect(
+  mapStateToProps,
+  {
+    logout,
+    deleteAccount,
+    getCurrentProfile
+  }
+)(Settings);

@@ -1,41 +1,41 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // Material-UI
-import { makeStyles } from "@material-ui/core/styles";
-import { Container, Grid } from "@material-ui/core";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { makeStyles } from '@material-ui/core/styles';
+import { Container, Grid, Badge } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 // Actions
-import { logout } from "../../../../actions/auth";
+import { logout } from '../../../../actions/auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    position: "sticky",
-    float: "left",
-    width: "100%",
+    position: 'sticky',
+    float: 'left',
+    width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-    fontSize: "20px"
+    fontSize: '20px'
   },
   tabs: {
     borderRight: `4px solid ${theme.palette.divider}`,
     marginRight: `3rem !important`,
-    float: "left",
-    minWidth: "130px",
-    maxWidth: "130px",
+    float: 'left',
+    minWidth: '130px',
+    maxWidth: '130px',
     color: theme.palette.common.black
   },
   title: {
     color: theme.palette.text.primary,
-    backgroundColor: "#F3F3F3",
+    backgroundColor: '#F3F3F3',
     paddingTop: `0.09rem !important`,
     paddingBottom: `0.09rem !important`
   },
@@ -44,12 +44,12 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: `0.2rem !important`
   },
   arrow: {
-    marginLeft: "7px",
+    marginLeft: '7px',
     color: theme.palette.text.primary,
-    fontSize: "16px"
+    fontSize: '16px'
   }
 }));
-const MenuMobile = ({ pages, logout, profile }) => {
+const MenuMobile = ({ pages, logout, profile, stripe }) => {
   const classes = useStyles();
 
   function ListItemLink(props) {
@@ -73,7 +73,13 @@ const MenuMobile = ({ pages, logout, profile }) => {
                     to={profile ? page.hrefArtist : page.hrefUser}
                     className={classes.listItem}
                   >
-                    <ListItemText primary={page.title}></ListItemText>
+                    {page.hrefArtist === '/bank' && !stripe ? (
+                      <Badge color="primary" badgeContent={'!'}>
+                        <ListItemText primary={page.title}></ListItemText>
+                      </Badge>
+                    ) : (
+                      <ListItemText primary={page.title}></ListItemText>
+                    )}
                   </ListItemLink>
                 </Grid>
                 <Grid item xs={1}>
@@ -86,7 +92,7 @@ const MenuMobile = ({ pages, logout, profile }) => {
         ))}
         <Container maxWidth="md">
           <ListItem button onClick={logout} className={classes.listItem}>
-            <ListItemText primary={"Logout"} />
+            <ListItemText primary={'Logout'} />
           </ListItem>
         </Container>
       </List>
@@ -98,4 +104,7 @@ MenuMobile.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-export default connect(null, { logout })(MenuMobile);
+export default connect(
+  null,
+  { logout }
+)(MenuMobile);

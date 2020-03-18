@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // Material-UI
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import {
   CssBaseline,
   Typography,
@@ -15,19 +15,20 @@ import {
   MenuItem,
   FormControl,
   Select
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 // Actions
-import { sendEmail } from "../../actions/help";
+import { sendEmail } from '../../actions/help';
 
 // Components
-import { Alert } from "../../components";
+import { Alert, SimpleAppBar } from '../../components';
+import { isMobile } from 'react-device-detect';
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     marginTop: theme.spacing(4)
   },
   title: {
@@ -37,10 +38,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2)
   },
   button: {
-    textTransform: "none",
+    textTransform: 'none',
     marginBottom: theme.spacing(10),
     backgroundColor: theme.palette.greenVantty.main,
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.greenVantty.dark
     }
   },
@@ -51,16 +52,16 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   select: {
-    width: "100%"
+    width: '100%'
   }
 }));
 
 const Help = ({ sendEmail, user }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
-    email: user ? user.email : "",
-    issue: "",
-    text: ""
+    email: user ? user.email : '',
+    issue: '',
+    text: ''
   });
 
   const { email, issue, text } = formData;
@@ -71,50 +72,51 @@ const Help = ({ sendEmail, user }) => {
   const handleSubmit = async event => {
     event.preventDefault();
     await sendEmail(formData);
-    await setFormData({ email: user ? user.email : "", issue: "", text: "" });
+    await setFormData({ email: user ? user.email : '', issue: '', text: '' });
   };
   const problems = [
     {
-      value: "app-problem",
-      text: "I want to report a problem in the web"
+      value: 'app-problem',
+      text: 'I want to report a problem in the web'
     },
     {
-      value: "report-artist",
-      text: "I want to report an artist"
+      value: 'report-artist',
+      text: 'I want to report an artist'
     },
     {
-      value: "apponitment-problem",
+      value: 'apponitment-problem',
       text: "The artist didn't show up"
     },
     {
-      value: "cancel-problem",
+      value: 'cancel-problem',
       text: "I can't cancel my booking"
     },
     {
-      value: "payment-problem",
-      text: "I have a problem with my payment method"
+      value: 'payment-problem',
+      text: 'I have a problem with my payment method'
     },
     {
-      value: "charge-problem",
-      text: "My charge is incorrect"
+      value: 'charge-problem',
+      text: 'My charge is incorrect'
     },
     {
-      value: "report-comment",
-      text: "I want to report a comment in my profile"
+      value: 'report-comment',
+      text: 'I want to report a comment in my profile'
     },
     {
-      value: "change-phone",
-      text: "I want change my phone number"
+      value: 'change-phone',
+      text: 'I want change my phone number'
     },
     {
-      value: "change-bank-account",
-      text: "I want change my bank account"
+      value: 'change-bank-account',
+      text: 'I want change my bank account'
     }
   ];
 
   return (
     <Fragment>
       <CssBaseline />
+      {isMobile && <SimpleAppBar />}
       <Alert />
       <Container component="main" maxWidth="sm">
         <div className={classes.paper}>
@@ -199,4 +201,7 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, { sendEmail })(Help);
+export default connect(
+  mapStateToProps,
+  { sendEmail }
+)(Help);

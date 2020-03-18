@@ -1,32 +1,32 @@
-import React, { Fragment, useEffect } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { isMobile } from "react-device-detect";
+import React, { Fragment, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 
 // Actions
-import { getCurrentProfile } from "../../actions/profile";
+import { getCurrentProfile } from '../../actions/profile';
 
 //Material-UI
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { Box, Grid, Hidden } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Box, Grid, Hidden } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // Components
-import { Alert, SimpleAppBar } from "../../components";
-import Settings from "../../views/Settings";
+import { Alert, SimpleAppBar } from '../../components';
+import Settings from '../../views/Settings';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "auto",
+    width: 'auto',
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 800,
-      marginLeft: "auto",
-      marginRight: "auto"
+      marginLeft: 'auto',
+      marginRight: 'auto'
     }
   }
 }));
@@ -46,19 +46,7 @@ const EditForm = ({
     <Fragment>
       <CssBaseline />
       {loading && <LinearProgress />}
-      {isMobile && (
-        <SimpleAppBar
-        // path={
-        //   match.url === "/bookings" ||
-        //   match.url === "/bank" ||
-        //   match.url === "/payments" ||
-        //   match.url === "/bookings-user" ||
-        //   (user && user.profile === false)
-        //     ? "/settings"
-        //     : "/settings/profile"
-        // }
-        />
-      )}
+      {isMobile && <SimpleAppBar />}
       <Fragment>
         <Fragment>
           <Alert />
@@ -68,7 +56,7 @@ const EditForm = ({
             <Grid container>
               <Hidden xsDown>
                 <Grid item xs={4}>
-                  <Container maxWidth='md'>
+                  <Container maxWidth="md">
                     <Settings match={match} />
                   </Container>
                 </Grid>
@@ -95,6 +83,7 @@ const mapStateToProps = state => ({
   loading: state.book.loading
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(
-  withRouter(EditForm)
-);
+export default connect(
+  mapStateToProps,
+  { getCurrentProfile }
+)(withRouter(EditForm));
