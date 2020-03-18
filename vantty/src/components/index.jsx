@@ -14,3 +14,4 @@ export { default as LoadingButton } from "./LoadingButton";
 export { default as BookingAvatar } from "./BookingAvatar";
 export { default as ContactButtons } from "./ContactButtons";
 export { default as PhoneInput } from "./PhoneInput";
+export { default as Video } from "./Video";
