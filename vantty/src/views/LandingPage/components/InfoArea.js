@@ -1,23 +1,23 @@
-import React from "react";
+import React from 'react';
 // nodejs library to set properties for components
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 // nodejs library that concatenates classes
-import classNames from "classnames";
+import classNames from 'classnames';
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
-export default function rea(props) {
+export default function Area(props) {
   const useStyles = makeStyles(theme => ({
     infoArea: {
-      maxWidth: "360px",
-      margin: "0 auto",
-      padding: "0px"
+      maxWidth: '360px',
+      margin: '0 auto',
+      padding: '0px'
     },
     iconWrapper: {
-      float: "left",
-      marginTop: "24px",
-      marginRight: "10px"
+      float: 'left',
+      marginTop: '24px',
+      marginRight: '10px'
     },
     pink: {
       color: theme.palette.pinkVantty.dark
@@ -30,29 +30,29 @@ export default function rea(props) {
     },
 
     icon: {
-      width: "36px",
-      height: "36px"
+      width: '36px',
+      height: '36px'
     },
     descriptionWrapper: {
-      color: "black",
-      overflow: "hidden"
+      color: 'black',
+      overflow: 'hidden'
     },
     title: {
-      marginBottom: "1rem"
+      marginBottom: '1rem'
     },
     description: {
       color: theme.palette.text.secondary,
-      overflow: "hidden",
-      marginTop: "0px",
-      fontSize: "14px",
-      marginBottom: "2rem"
+      overflow: 'hidden',
+      marginTop: '0px',
+      fontSize: '14px',
+      marginBottom: '2rem'
     },
     iconWrapperVertical: {
-      float: "none"
+      float: 'none'
     },
     iconVertical: {
-      width: "61px",
-      height: "61px"
+      width: '61px',
+      height: '61px'
     }
   }));
 
@@ -73,10 +73,10 @@ export default function rea(props) {
         <props.icon className={iconClasses} />
       </div>
       <div className={classes.descriptionWrapper}>
-        <Typography variant='h4' className={classes.title}>
+        <Typography variant="h4" className={classes.title}>
           {title}
         </Typography>
-        <Typography variant='h5' className={classes.description}>
+        <Typography variant="h5" className={classes.description}>
           {description}
         </Typography>
       </div>
@@ -84,22 +84,22 @@ export default function rea(props) {
   );
 }
 
-rea.defaultProps = {
-  iconColor: "gray"
+Area.defaultProps = {
+  iconColor: 'gray'
 };
 
-rea.propTypes = {
+Area.propTypes = {
   icon: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   iconColor: PropTypes.oneOf([
-    "primary",
-    "warning",
-    "danger",
-    "success",
-    "info",
-    "rose",
-    "gray"
+    'primary',
+    'warning',
+    'danger',
+    'success',
+    'info',
+    'rose',
+    'gray'
   ]),
   vertical: PropTypes.bool
 };
