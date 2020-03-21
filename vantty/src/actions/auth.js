@@ -1,6 +1,6 @@
-import { server } from "../utils/axios";
-import setAlert from "./alert";
-import setAuthToken from "../utils/setAuthToken";
+import { server } from '../utils/axios';
+import setAlert from './alert';
+import setAuthToken from '../utils/setAuthToken';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -15,8 +15,8 @@ import {
   INFO_UPDATE_FAIL,
   SAVE_CONFIRMATION_EMAIL,
   USERS_ERROR
-} from "./types";
-import { gaEvent } from "../marketing/gAnalytics";
+} from './types';
+import { gaEvent } from '../marketing/gAnalytics';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -24,7 +24,7 @@ export const loadUser = () => async dispatch => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await server.get("/user");
+    const res = await server.get('/user');
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -39,7 +39,7 @@ export const loadUser = () => async dispatch => {
 // // Get all profiles
 export const getUsers = () => async dispatch => {
   try {
-    const res = await server.get("/user/all");
+    const res = await server.get('/user/all');
 
     dispatch({
       type: USERS_LOADED,
@@ -61,17 +61,17 @@ export const sendEmail = ({
 }) => async dispatch => {
   try {
     const config = {
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' }
     };
     const body = { firstName, lastName, email, password };
-    const res = await server.post("/user/send", body, config);
+    const res = await server.post('/user/send', body, config);
     dispatch({
       type: SAVE_CONFIRMATION_EMAIL,
       payload: res.data
     });
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    dispatch(setAlert(errors, 'error'));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -81,12 +81,12 @@ export const sendEmail = ({
 export const resendEmail = user => async dispatch => {
   try {
     const config = {
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' }
     };
-    await server.post("/user/resend", user, config);
+    await server.post('/user/resend', user, config);
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    dispatch(setAlert(errors, 'error'));
   }
 };
 
@@ -99,10 +99,10 @@ export const register = token => async dispatch => {
       payload: res.data
     });
     await dispatch(loadUser());
-    gaEvent("New User", "Register", "Local");
+    gaEvent('New User', 'Register', 'Local');
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    dispatch(setAlert(errors, 'error'));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -112,11 +112,11 @@ export const register = token => async dispatch => {
 // Login User
 export const login = ({ email, password }) => async dispatch => {
   const config = {
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' }
   };
   const body = JSON.stringify({ email, password });
   try {
-    const res = await server.post("/user/login", body, config);
+    const res = await server.post('/user/login', body, config);
     await dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -124,7 +124,7 @@ export const login = ({ email, password }) => async dispatch => {
     await dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    dispatch(setAlert(errors, 'error'));
     dispatch({
       type: LOGIN_FAIL
     });
@@ -135,18 +135,18 @@ export const login = ({ email, password }) => async dispatch => {
 export const forgot = email => async dispatch => {
   try {
     const config = {
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' }
     };
-    await server.post("/user/forgot", email, config);
+    await server.post('/user/forgot', email, config);
     await dispatch(
       setAlert(
-        "An email has been sent with instructions to reset your password",
-        "success"
+        'An email has been sent with instructions to reset your password',
+        'success'
       )
     );
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    dispatch(setAlert(errors, 'error'));
   }
 };
 
@@ -154,36 +154,36 @@ export const forgot = email => async dispatch => {
 export const reset = (token, password) => async dispatch => {
   try {
     const config = {
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' }
     };
     const body = { token, password };
-    await server.post("/user/reset", body, config);
+    await server.post('/user/reset', body, config);
     await dispatch(
-      setAlert("Your password has been successfully changed", "success")
+      setAlert('Your password has been successfully changed', 'success')
     );
   } catch (error) {
     const errors = error.response.data.message;
-    dispatch(setAlert(errors, "error"));
+    dispatch(setAlert(errors, 'error'));
   }
 };
 
 // Facebook Register
 export const facebookRegister = data => async dispatch => {
   const config = {
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' }
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/user/facebook", body, config);
+    const res = await server.post('/user/facebook', body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
     dispatch(loadUser());
-    res.data.register && gaEvent("New User", "Register", "Facebook");
+    res.data.register && gaEvent('New User', 'Register', 'Facebook');
   } catch (error) {
     const errors = error.response.data.message;
-    if (errors) dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, 'error'));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -193,21 +193,21 @@ export const facebookRegister = data => async dispatch => {
 // Google Register
 export const googleRegister = data => async dispatch => {
   const config = {
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' }
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/user/google", body, config);
+    const res = await server.post('/user/google', body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
     dispatch(loadUser());
 
-    res.data.register && gaEvent("New User", "Register", "Google");
+    res.data.register && gaEvent('New User', 'Register', 'Google');
   } catch (error) {
     const errors = error.response.data.message;
-    if (errors) dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, 'error'));
     dispatch({
       type: REGISTER_FAIL
     });
@@ -217,11 +217,11 @@ export const googleRegister = data => async dispatch => {
 // Facebook Login
 export const facebookLogin = data => async dispatch => {
   const config = {
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' }
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/user/facebook", body, config);
+    const res = await server.post('/user/facebook', body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -229,7 +229,7 @@ export const facebookLogin = data => async dispatch => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.message;
-    if (errors) dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, 'error'));
     dispatch({
       type: LOGIN_FAIL
     });
@@ -239,11 +239,11 @@ export const facebookLogin = data => async dispatch => {
 // Google Login
 export const googleLogin = data => async dispatch => {
   const config = {
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' }
   };
   const body = JSON.stringify({ access_token: data });
   try {
-    const res = await server.post("/user/google", body, config);
+    const res = await server.post('/user/google', body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -251,7 +251,7 @@ export const googleLogin = data => async dispatch => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.message;
-    if (errors) dispatch(setAlert(errors, "error"));
+    if (errors) dispatch(setAlert(errors, 'error'));
     dispatch({
       type: LOGIN_FAIL
     });
@@ -269,26 +269,26 @@ export const updateInfo = (formData, edit = false) => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-type": "application/json"
+        'Content-type': 'application/json'
       }
     };
-    await server.patch("/user", formData, config);
+    await server.patch('/user', formData, config);
     await dispatch(loadUser());
     dispatch({
       type: INFO_UPDATE_SUCCESS
     });
-    dispatch(setAlert(edit && "User Update", "success"));
+    dispatch(setAlert(edit && 'User Update', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
+        dispatch(setAlert(error.msg, 'error'));
       });
     }
     dispatch({
       type: INFO_UPDATE_FAIL
     });
-    dispatch(setAlert("Update Fail", "error"));
+    dispatch(setAlert('Update Fail', 'error'));
   }
 };
 

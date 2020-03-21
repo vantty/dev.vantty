@@ -16,15 +16,16 @@ import {
   DELETE_CARD_SUCCESS,
   ADD_BOOKINGS,
   SAVE_USER_NUMBER_SUCCESS
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
   isAuthenticated: null,
-  currentLocation: "",
+  currentLocation: '',
   loading: true,
   user: null,
   users: [],
-  bookings: []
+  bookings: [],
+  register: false
 };
 
 export default function(state = initialState, action) {
@@ -49,11 +50,12 @@ export default function(state = initialState, action) {
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem("token", payload.token);
+      localStorage.setItem('token', payload.token);
       return {
         ...state,
         isAuthenticated: true,
-        loading: false
+        loading: false,
+        register: payload.register
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:
@@ -61,13 +63,14 @@ export default function(state = initialState, action) {
     case LOGIN_FAIL:
     case LOGOUT:
     case ACCOUNT_DELETE:
-      localStorage.removeItem("token");
+      localStorage.removeItem('token');
       return {
         ...state,
         isAuthenticated: false,
         loading: false,
         user: null,
-        bookings: []
+        bookings: [],
+        register: false
       };
     case SAVE_USER_NUMBER_SUCCESS:
     case SAVE_CONFIRMATION_EMAIL:

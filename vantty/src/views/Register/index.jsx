@@ -1,58 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { Redirect, Link as RouterLink, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import FacebookAuth from "react-facebook-login/dist/facebook-login-render-props";
-import GoogleAuth from "react-google-login";
+import React, { useState, useEffect } from 'react';
+import { Redirect, Link as RouterLink, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import FacebookAuth from 'react-facebook-login/dist/facebook-login-render-props';
+import GoogleAuth from 'react-google-login';
 
 // Material-UI
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, IconButton, Link, Typography } from "@material-ui/core";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button, IconButton, Link, Typography } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 // Assets
 import {
   Facebook as FacebookIcon,
   Google as GoogleIcon
-} from "../../assets/icons";
+} from '../../assets/icons';
 
 // Actions
-import { googleRegister, facebookRegister } from "../../actions/auth";
-import { changeNavbarValue } from "../../actions/navbar";
+import { googleRegister, facebookRegister } from '../../actions/auth';
+import { changeNavbarValue } from '../../actions/navbar';
 
 // Components
-import { Alert } from "../../components";
+import { Alert } from '../../components';
 
 const LoginPhoto =
-  "https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg";
+  'https://res.cloudinary.com/vantty/image/upload/q_auto:low/v1572358347/seed/rscpy0xhyou7dmehngv4.jpg';
 
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.default,
-    height: "100vh"
+    height: '100vh'
   },
   grid: {
-    height: "100%"
+    height: '100%'
   },
   quoteContainer: {
-    [theme.breakpoints.down("md")]: {
-      display: "none"
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
     }
   },
   quote: {
     backgroundColor: theme.palette.neutral,
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundImage: `url(${LoginPhoto})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center"
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center'
   },
   quoteInner: {
-    textAlign: "center",
-    flexBasis: "600px"
+    textAlign: 'center',
+    flexBasis: '600px'
   },
   quoteText: {
     color: theme.palette.white
@@ -66,18 +66,18 @@ const useStyles = makeStyles(theme => ({
   },
   contentContainer: {},
   content: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column"
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   contentHeader: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     paddingTop: theme.spacing(2),
     paddingBototm: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(1)
     }
   },
@@ -86,26 +86,26 @@ const useStyles = makeStyles(theme => ({
   },
   contentBody: {
     flexGrow: 1,
-    display: "flex",
-    alignItems: "center",
-    [theme.breakpoints.down("md")]: {
-      justifyContent: "center"
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'center'
     }
   },
   form: {
     paddingLeft: 100,
     paddingRight: 100,
     flexBasis: 700,
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       paddingBottom: 125
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2)
     }
   },
   title: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       marginTop: theme.spacing(3)
     }
   },
@@ -124,7 +124,7 @@ const useStyles = makeStyles(theme => ({
   signInButton: {
     margin: theme.spacing(2, 0),
     backgroundColor: theme.palette.greenVantty.main,
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.greenVantty.dark
     }
   },
@@ -133,7 +133,7 @@ const useStyles = makeStyles(theme => ({
   },
   withEmail: {
     color: theme.palette.greenVantty.main,
-    "&:hover": {
+    '&:hover': {
       color: theme.palette.greenVantty.dark
     }
   },
@@ -145,10 +145,12 @@ const useStyles = makeStyles(theme => ({
 const Register = props => {
   const {
     isAuthenticated,
+    isRegister,
     user,
     googleRegister,
     facebookRegister,
-    changeNavbarValue
+    changeNavbarValue,
+    history
   } = props;
 
   const classes = useStyles();
@@ -156,7 +158,7 @@ const Register = props => {
   const [formState, setFormState] = useState({ sendConfirmation: false });
 
   useEffect(() => {
-    changeNavbarValue("register");
+    changeNavbarValue('register');
   }, []);
 
   const { sendConfirmation } = formState;
@@ -174,8 +176,12 @@ const Register = props => {
     googleRegister(res.accessToken);
   };
 
-  if (user && isAuthenticated) {
+  if (isRegister) {
     return <Redirect push to="/role" />;
+  }
+
+  if (user && isAuthenticated) {
+    history.goBack();
   }
 
   if (sendConfirmation) {
@@ -191,7 +197,7 @@ const Register = props => {
             <div className={classes.quoteInner}>
               <Typography className={classes.quoteText} variant="h1">
                 {
-                  "Find the best Beauty Artist in your area and change your look."
+                  'Find the best Beauty Artist in your area and change your look.'
                 }
               </Typography>
             </div>
@@ -202,7 +208,7 @@ const Register = props => {
             <div className={classes.contentHeader}>
               <IconButton>
                 <Link component={RouterLink} to="/" variant="h6">
-                  <ArrowBackIcon style={{ color: "black" }} />
+                  <ArrowBackIcon style={{ color: 'black' }} />
                 </Link>
               </IconButton>
             </div>
@@ -267,7 +273,7 @@ const Register = props => {
                   </Grid>
                   <Grid item xs={12}>
                     <Typography color="textSecondary" variant="body1">
-                      By registering, you agree to our{" "}
+                      By registering, you agree to our{' '}
                       <Link
                         component={RouterLink}
                         to="/terms"
@@ -276,7 +282,7 @@ const Register = props => {
                       >
                         Terms
                       </Link>
-                      ,{" "}
+                      ,{' '}
                       <Link
                         component={RouterLink}
                         to="/policy"
@@ -291,7 +297,7 @@ const Register = props => {
                   </Grid>
                   <Grid item xs={12}>
                     <Typography color="textSecondary" variant="body1">
-                      Already have an account?{" "}
+                      Already have an account?{' '}
                       <Link
                         component={RouterLink}
                         to="/login"
@@ -319,12 +325,14 @@ Register.propTypes = {
   googleLogin: PropTypes.func,
   facebookLogin: PropTypes.func,
   changeNavbarValue: PropTypes.func,
-  user: PropTypes.object
+  user: PropTypes.object,
+  isRegister: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
+  user: state.auth.user,
+  isRegister: state.auth.register
 });
 
 export default connect(mapStateToProps, {

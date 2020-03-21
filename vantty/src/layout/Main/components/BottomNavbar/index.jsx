@@ -1,40 +1,40 @@
-import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // Material-UI
-import { makeStyles } from "@material-ui/core/styles";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import HomeIcon from "@material-ui/icons/Home";
-import Event from "@material-ui/icons/Event";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountIcon from "@material-ui/icons/AccountCircle";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { CssBaseline, Badge } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import HomeIcon from '@material-ui/icons/Home';
+import Event from '@material-ui/icons/Event';
+import SearchIcon from '@material-ui/icons/Search';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { CssBaseline, Badge } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 
 // Helpers
-import { getInitials } from "../../../../helpers";
+import { getInitials } from '../../../../helpers';
 
 // Actions
-import { getBook, getUserBookings } from "../../../../actions/book";
+import { getBook, getUserBookings } from '../../../../actions/book';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
-    position: "fixed",
+    width: '100%',
+    position: 'fixed',
     bottom: 0,
     zIndex: 10,
-    borderTopWidth: "10px",
-    borderTopColor: "black"
+    borderTopWidth: '10px',
+    borderTopColor: 'black'
   },
   avatar: {
     width: 22,
     height: 22,
-    fontWeight: "bold",
-    fontSize: "10px",
+    fontWeight: 'bold',
+    fontSize: '10px',
     backgroundColor: theme.palette.greenVantty.main
   },
   select: {
@@ -60,7 +60,7 @@ const BottomNavbar = props => {
 
   const countBookingsArtist = () => {
     const arr = [];
-    book.map(bookings => bookings.state === "request" && arr.push(bookings));
+    book.map(bookings => bookings.state === 'request' && arr.push(bookings));
     return arr.length;
   };
 
@@ -68,8 +68,8 @@ const BottomNavbar = props => {
     const arr = [];
     bookings.map(
       book =>
-        book.state !== "request" &&
-        book.state !== "declined-user" &&
+        book.state !== 'request' &&
+        book.state !== 'declined-user' &&
         arr.push(bookings)
     );
     return arr.length;
@@ -103,7 +103,7 @@ const BottomNavbar = props => {
                 label="Bookings"
                 value="bookings"
                 component={Link}
-                to={"/bookings"}
+                to={'/bookings'}
                 icon={
                   <Badge color="secondary" badgeContent={countBookingsArtist()}>
                     <Event />
@@ -115,7 +115,7 @@ const BottomNavbar = props => {
                 label="Bookings"
                 value="bookings"
                 component={Link}
-                to={"/bookings-user"}
+                to={'/bookings-user'}
                 icon={
                   <Badge color="secondary" badgeContent={countBookingsUser()}>
                     <Event />
@@ -125,13 +125,23 @@ const BottomNavbar = props => {
             ))}
           {!isAuthenticated ? (
             <BottomNavigationAction
-              label="Join Now"
+              label="Login"
+              value="login"
+              component={Link}
+              to="/login"
+              icon={<AccountIcon />}
+            />
+          ) : null}
+          {!isAuthenticated ? (
+            <BottomNavigationAction
+              label="Register"
               value="register"
               component={Link}
               to="/register"
               icon={<AccountIcon />}
             />
-          ) : (
+          ) : null}
+          {isAuthenticated ? (
             <BottomNavigationAction
               label="Profile"
               value="profile"
@@ -140,7 +150,7 @@ const BottomNavbar = props => {
               to={
                 user && user.profile
                   ? `/profile/artist/${user && user._id}`
-                  : "/settings"
+                  : '/settings'
               }
               icon={
                 user ? (
@@ -151,19 +161,19 @@ const BottomNavbar = props => {
                       className={classes.avatar}
                     />
                   ) : (
-                    <Avatar className={classes.avatar} src={""}>
+                    <Avatar className={classes.avatar} src={''}>
                       {user && getInitials(user.firstName)}
                     </Avatar>
                   )
                 ) : (
-                  <Avatar className={classes.avatar} src={""}>
+                  <Avatar className={classes.avatar} src={''}>
                     {user && getInitials(user.firstName)}
                   </Avatar>
                 )
               }
             />
-          )}
-          {user && user.role === "Admin" && (
+          ) : null}
+          {user && user.role === 'Admin' && (
             <BottomNavigationAction
               label="Admin"
               value="admin"

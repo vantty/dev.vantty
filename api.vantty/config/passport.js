@@ -64,7 +64,7 @@ passport.use(
             email: profile.emails[0].value
           }
         });
-        done(null, { newUser, register: "register" });
+        done(null, { newUser, register: true });
       } catch (err) {
         done(err, false);
       }
