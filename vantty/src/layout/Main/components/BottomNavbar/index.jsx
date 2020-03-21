@@ -10,7 +10,8 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import HomeIcon from '@material-ui/icons/Home';
 import Event from '@material-ui/icons/Event';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountIcon from '@material-ui/icons/AccountCircle';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+import InputIcon from '@material-ui/icons/Input';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { CssBaseline, Badge } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
@@ -129,7 +130,7 @@ const BottomNavbar = props => {
               value="login"
               component={Link}
               to="/login"
-              icon={<AccountIcon />}
+              icon={<PersonPinIcon />}
             />
           ) : null}
           {!isAuthenticated ? (
@@ -138,7 +139,7 @@ const BottomNavbar = props => {
               value="register"
               component={Link}
               to="/register"
-              icon={<AccountIcon />}
+              icon={<InputIcon />}
             />
           ) : null}
           {isAuthenticated ? (
