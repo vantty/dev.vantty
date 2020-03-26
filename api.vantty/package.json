@@ -27,7 +27,8 @@
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "stripe": "^7.15.0"
+    "stripe": "^7.15.0",
+    "twilio": "^3.41.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
