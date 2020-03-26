@@ -7,7 +7,9 @@ exports.send = async (req, res) => {
     } = req;
     let result = 0;
     await numbers.forEach(number => {
-      twilioService.send(number);
+      twilioService.send(number).then(res => {
+        console.log('NUM', res);
+      });
       result = result + 1;
     });
     res.status(201).json({ messagesSend: result });

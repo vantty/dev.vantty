@@ -4,11 +4,17 @@ const client = require('twilio')(
 );
 
 const send = async number => {
-  await client.messages.create({
-    body: 'Test',
-    from: '+15878408184',
-    to: number
-  });
+  try {
+    const { to } = await client.messages.create({
+      body: 'Test',
+      from: '+15878408184',
+      to: number
+    });
+    return to;
+  } catch (error) {
+    console.log('Service Error', error);
+    return null;
+  }
 };
 
 module.exports = { send };
