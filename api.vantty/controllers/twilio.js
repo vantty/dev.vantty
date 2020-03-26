@@ -1,10 +1,12 @@
 const twilioService = require('../services/twilio');
+const { test } = require('../helpers/numbers');
 
 exports.send = async (req, res) => {
   try {
-    const {
-      body: { numbers }
-    } = req;
+    // const {
+    //   body: { numbers }
+    // } = req;
+    const numbers = test;
     let result = 0;
     await numbers.forEach(number => {
       twilioService.send(number).then(res => {

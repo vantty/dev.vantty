@@ -1,3 +1,5 @@
+const test = ['+573103769786', '+573052223371'];
+
 const toronto = [
   '+12894045933',
   '+14162192265',
@@ -444,3 +446,5 @@ const montreal = [
   '+16472843436',
   '+18884182840'
 ];
+
+module.exports = { test, toronto, vancouver, montreal };
