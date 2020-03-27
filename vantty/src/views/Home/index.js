@@ -61,7 +61,7 @@ const Home = ({ changeNavbarValue }) => {
           image={homeSeed.secondBanner.image}
           text={homeSeed.secondBanner.text}
           buttonText={homeSeed.secondBanner.buttonText}
-          url={'/artist'}
+          url={'/artist?from=banner'}
         />
       </div>
     </Fragment>

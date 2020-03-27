@@ -99,7 +99,7 @@ const Navbar = props => {
                   <Button
                     className={classes.buttonArtist}
                     component={Link}
-                    to="/artist"
+                    to="/artist?from=navbar"
                   >
                     Become an artist partner
                   </Button>
