@@ -3,10 +3,10 @@ const client = require('twilio')(
   process.env.TWILIO_TOKEN
 );
 
-const send = async number => {
+const send = async (number, msg) => {
   try {
     const { to } = await client.messages.create({
-      body: 'Test',
+      body: msg,
       from: '+15878408184',
       to: number
     });

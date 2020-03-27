@@ -1,4 +1,10 @@
-const test = ['+573103769786', '+573052223371', '+14376884507'];
+const msg = `
+Hi Artist! I want to invite you to be part of Vantty, an exclusive platform for Makeup Artists and Hair Stylists. 
+Go to this link to get 3 months of CERO COMISSION!
+https://vantty.ca/artist
+`;
+
+const test = ['+573103769786', '+14376884507'];
 
 const toronto = [
   '+12894045933',
@@ -446,4 +452,4 @@ const montreal = [
   '+18884182840'
 ];
 
-module.exports = { test, toronto, vancouver, montreal };
+module.exports = { msg, test, toronto, vancouver, montreal };
