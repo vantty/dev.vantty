@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { video } from './videoList.js';
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import MuiLink from '@material-ui/core/Link';
 // core components
 import GridContainer from './components/GridContainer';
 import GridItem from './components/GridItem';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, IconButton } from '@material-ui/core';
 import Parallax from './components/Parallax';
 
 // Sections for this page
@@ -94,6 +95,16 @@ const LandingPage = props => {
         color: 'white',
         backgroundColor: theme.palette.greenVantty.light
       }
+    },
+    arrowBack: {
+      color: 'white',
+      position: 'fixed',
+      top: 0,
+      marginTop: theme.spacing(1)
+    },
+    goVantty: {
+      color: 'white',
+      paddingLeft: theme.spacing(1)
     }
   }));
 
@@ -102,6 +113,16 @@ const LandingPage = props => {
     <div>
       <Parallax filter image={JumbotronBackground}>
         <div className={classes.container}>
+          <GridContainer className={classes.arrowBack}>
+            <MuiLink underline="none" component={Link} to={'/'}>
+              <IconButton className={classes.arrowBack}>
+                <ArrowBackIcon />
+                <Typography variant="body1" className={classes.goVantty}>
+                  Go to Vantty
+                </Typography>
+              </IconButton>
+            </MuiLink>
+          </GridContainer>
           <GridContainer>
             <GridItem xs={12} md={8}>
               <Typography variant="h1" className={classes.title}>
