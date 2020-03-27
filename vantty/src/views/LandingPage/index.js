@@ -1,4 +1,5 @@
 import React from 'react';
+import qs from 'query-string';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // @material-ui/core components
@@ -25,6 +26,10 @@ const JumbotronBackground =
 // "https://res.cloudinary.com/vantty/image/upload/v1583978169/seed/y9agox8oupnme4ohwftx.jpg";
 
 const LandingPage = props => {
+  const { location } = props;
+  const { from } = qs.parse(location.search, { ignoreQueryPrefix: true });
+  console.log('FROM', from);
+
   const conatinerFluid = {
     paddingRight: '15px',
     paddingLeft: '15px',
