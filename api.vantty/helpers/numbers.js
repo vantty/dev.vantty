@@ -1,7 +1,6 @@
 const msg = `
-Hi Artist! I want to invite you to be part of Vantty, an exclusive platform for Makeup Artists and Hair Stylists. 
-Go to this link to get 3 months of CERO COMISSION!
-https://vantty.ca/artist
+Hi Artist! Do you want to boost your career to the next level? Vantty is an exclusive platform for Makeup Artists and Hair Stylists.
+Join now at https://vantty.ca/artist
 `;
 
 const test = ['+573103769786', '+14376884507'];

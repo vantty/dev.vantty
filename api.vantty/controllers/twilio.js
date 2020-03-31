@@ -1,14 +1,10 @@
 const twilioService = require('../services/twilio');
-const { msg, toronto } = require('../helpers/numbers');
+const { msg, test: numbers } = require('../helpers/numbers');
 
 exports.send = async (req, res) => {
   try {
     let result = 0;
-    // const numbers = toronto.slice(0, 50); // sent march-27th
-    // const numbers = toronto.slice(50, 100); // sent march-28th
-    // const numbers = toronto.slice(100, 150); // sent march-29th
-    // const numbers = toronto.slice(150, 200); // sent march-30th
-    // const numbers = toronto.slice(200, 242); // sent march-30th
+    // const numbers = toronto.slice(0, 50);
     await numbers.forEach(number => {
       twilioService.send(number, msg).then(res => {
         console.log('NUM', res);

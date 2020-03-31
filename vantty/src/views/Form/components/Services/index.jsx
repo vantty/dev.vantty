@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import React, { Fragment, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 //Actions
 import {
@@ -9,15 +9,15 @@ import {
   update,
   addService,
   deleteService
-} from "../../../../actions/profile";
+} from '../../../../actions/profile';
 
 //Components
-import { FormBottomNav, CustomPaper } from "../ComponentsForm";
+import { FormBottomNav, CustomPaper } from '../ComponentsForm';
 
-import { isMobile } from "react-device-detect";
+import { isMobile } from 'react-device-detect';
 
 // Externals
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // Material components
 
@@ -27,28 +27,28 @@ import {
   Button,
   CardActions,
   Grid
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import Progress from "@material-ui/core/LinearProgress";
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import Progress from '@material-ui/core/LinearProgress';
 
-import { Form, ServiceCard, StartService } from "./components";
+import { Form, ServiceCard, StartService } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: "0"
+    padding: '0'
   },
   button: {
-    float: "right",
-    color: "white",
-    boxShadow: "none",
+    float: 'right',
+    color: 'white',
+    boxShadow: 'none',
     backgroundColor: theme.palette.greenVantty.main,
-    "&:hover": {
-      color: "white",
+    '&:hover': {
+      color: 'white',
       backgroundColor: theme.palette.greenVantty.light
     }
   },
   content: {
-    padding: "1rem"
+    padding: '1rem'
   }
 }));
 
@@ -65,28 +65,22 @@ const Price = ({
   addService,
   deleteService
 }) => {
-  const [formData, setFormData] = useState({
-    price: 80
-  });
+  const [price, setPrice] = useState('1000');
+
   const [serviceData, setServiceData] = useState({
-    typeOfService: "",
-    amount: "",
-    description: ""
+    typeOfService: '',
+    amount: '',
+    description: ''
   });
 
   useEffect(() => {
-    setFormData({
-      price: loading || !profile.price ? "" : profile.price
-    });
+    setPrice(loading || !profile.price ? '' : profile.price);
   }, [loading, getCurrentProfile]);
 
   const onChange = e =>
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
 
-  // const onChangeAvailability = e =>
-  //   setAvailability({ ...availability, [e.target.name]: e.target.value });
-
-  const { price } = formData;
+  // const { price } = formData;
   const { typeOfService, amount, description } = serviceData;
 
   const back = e => {
@@ -94,8 +88,16 @@ const Price = ({
     prevStep();
   };
 
-  const handleChange = (event, price) => {
-    setFormData({ price });
+  // const handleChange = (event, price) => {
+  //   setFormData({ price });
+  // };
+
+  // functions that sort the lowest price
+
+  const changeStartPrice = newPrice => {
+    // if (newPrice < price) {
+    setPrice(newPrice);
+    // }
   };
 
   const onSubmit = e => {
@@ -103,19 +105,32 @@ const Price = ({
     update({ price: price });
     nextStep();
   };
-
-  // const onSubmitAvailability = e => {
-  //   e.preventDefault();
-  //   update(availability);
-  // };
-
   const onSubmitStartCost = e => {
     e.preventDefault();
     update({ price: price });
   };
-  const onSubmitPrice = e => {
+
+  const onSubmitPrice = async e => {
     e.preventDefault();
-    addService({ typeOfService, amount, description }, history, true);
+    await addService({ typeOfService, amount, description }, history, true);
+    const newPrice = Number(amount);
+    const amounts = await amountsArr();
+    const minAmount = Math.min(...amounts);
+    if (newPrice < minAmount) {
+      await update({ price: newPrice });
+      setPrice(amount);
+    }
+  };
+
+  const amountsArr = async () => {
+    let amounts = [];
+    if (profile) {
+      const services = profile.services;
+      await services.forEach(service => {
+        return amounts.push(service.amount);
+      });
+      return amounts;
+    }
   };
 
   const deleteServiceFunction = (e, id) => {
@@ -126,7 +141,7 @@ const Price = ({
   const desable = (profile, price) => {
     if (profile.services.length === 0) {
       return true;
-    } else if (price === 0 || price === "") {
+    } else if (price === 0 || price === '') {
       return true;
     } else {
       return false;
@@ -140,10 +155,7 @@ const Price = ({
         Children={
           <Fragment>
             {profile ? (
-              <form autoComplete='off' noValidate>
-                {/* <Divider /> */}
-
-                <StartService price={price} handleChange={handleChange} />
+              <form autoComplete="off" noValidate>
                 <Form
                   serviceData={serviceData}
                   onChange={onChange}
@@ -151,27 +163,20 @@ const Price = ({
                   services={profile.services}
                 />
                 <Divider />
-
-                <CardHeader
-                  // subheader='from what value do your services start'
-                  title='Services'
-                />
+                <CardHeader title="Services" />
                 <ServiceCard
                   services={profile.services}
                   deleteService={deleteServiceFunction}
                 />
-
-                {/* <ServiceForm /> */}
-
-                {match.url === "/price" && !isMobile && (
+                {match.url === '/price' && !isMobile && (
                   <Fragment>
                     <Divider />
                     <CardActions>
                       <Grid
                         container
-                        direction='row'
-                        justify='flex-end'
-                        alignItems='flex-start'
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="flex-start"
                       >
                         <Button
                           className={classes.button}
@@ -191,7 +196,7 @@ const Price = ({
         }
       />
       <Fragment>
-        {match.url === "/create-profile" ? (
+        {match.url === '/create-profile' ? (
           <FormBottomNav
             step={step}
             Children={
@@ -213,21 +218,18 @@ const Price = ({
           />
         ) : null}
 
-        {match.url === "/price" && isMobile ? (
+        {match.url === '/price' && isMobile ? (
           <FormBottomNav
             step={step}
             Children={
               <div>
                 <div>
                   <Fragment>
-                    <Button component={Link} to='/settings'>
+                    <Button component={Link} to="/settings">
                       Back
                     </Button>
                     <Button
-                      // component={Link}
-                      // to='/settings'
                       className={classes.button}
-                      // onClick={e => onSubmitPrice(e)}
                       onClick={e => onSubmitStartCost(e)}
                     >
                       Update
