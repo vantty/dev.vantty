@@ -65,6 +65,8 @@ const Price = ({
   addService,
   deleteService
 }) => {
+  const classes = useStyles();
+
   const [price, setPrice] = useState('1000');
 
   const [serviceData, setServiceData] = useState({
@@ -76,6 +78,10 @@ const Price = ({
   useEffect(() => {
     setPrice(loading || !profile.price ? '' : profile.price);
   }, [loading, getCurrentProfile]);
+
+  if (!profile) {
+    return <Progress />;
+  }
 
   const onChange = e =>
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
@@ -114,7 +120,7 @@ const Price = ({
     e.preventDefault();
     await addService({ typeOfService, amount, description }, history, true);
     const newPrice = Number(amount);
-    const amounts = await amountsArr();
+    const amounts = await amountsArr(profile.services);
     const minAmount = Math.min(...amounts);
     if (newPrice < minAmount) {
       await update({ price: newPrice });
@@ -122,20 +128,20 @@ const Price = ({
     }
   };
 
-  const amountsArr = async () => {
+  const amountsArr = async services => {
     let amounts = [];
-    if (profile) {
-      const services = profile.services;
-      await services.forEach(service => {
-        return amounts.push(service.amount);
-      });
-      return amounts;
-    }
+    await services.forEach(service => {
+      return amounts.push(service.amount);
+    });
+    return amounts;
   };
 
-  const deleteServiceFunction = (e, id) => {
+  const deleteServiceFunction = async (e, id) => {
     e.preventDefault();
-    deleteService(id);
+    const { services } = await deleteService(id);
+    const amounts = await amountsArr(services);
+    const minAmount = Math.min(...amounts);
+    update({ price: minAmount });
   };
 
   const desable = (profile, price) => {
@@ -148,7 +154,6 @@ const Price = ({
     }
   };
 
-  const classes = useStyles();
   return (
     <Fragment>
       <CustomPaper
