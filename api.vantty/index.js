@@ -52,7 +52,7 @@ var corsOptions = {
 app.use(morgan('dev'));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
-app.use(cors('*'));
+app.use(cors(corsOptions));
 app.use(formData.parse());
 
 // Routes
