@@ -25,7 +25,7 @@ const JumbotronBackground =
 // "https://res.cloudinary.com/vantty/image/upload/v1583976620/seed/nuk2l4mrcmyz5br8mrte.jpg";
 // "https://res.cloudinary.com/vantty/image/upload/v1583978169/seed/y9agox8oupnme4ohwftx.jpg";
 
-const LandingPage = props => {
+const LandingPage = () => {
   const conatinerFluid = {
     paddingRight: '15px',
     paddingLeft: '15px',

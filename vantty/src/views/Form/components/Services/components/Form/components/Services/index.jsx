@@ -1,100 +1,40 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import validate from "validate.js";
-import NumberFormat from "react-number-format";
+import React, { useState, useEffect, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import validate from 'validate.js';
 
 //Material-UI
-import { makeStyles } from "@material-ui/styles";
-import {
-  Grid,
-  Button,
-  TextField,
-  FormControl,
-  Typography
-} from "@material-ui/core";
-
-// Actions
-import { updateInfo, loadUser } from "../../../../../../../../actions/auth";
-import { getCurrentProfile } from "../../../../../../../../actions/profile";
+import { makeStyles } from '@material-ui/styles';
+import { Grid, Button, TextField, Typography } from '@material-ui/core';
 
 // Helpers
-import { serviceSchemaErrors } from "../../../../../../../../helpers/errorsData";
+import { serviceSchemaErrors } from '../../../../../../../../helpers/errorsData';
 
 const useStyles = makeStyles(theme => ({
+  title: {
+    marginBottom: theme.spacing(1)
+  },
+  form: {
+    marginTop: theme.spacing(1)
+  },
   button: {
     backgroundColor: theme.palette.greenVantty.main,
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.greenVantty.light
-    }
-  },
-  textField: {
-    padding: "0.3rem",
-    fontSize: "0.6rem"
-  },
-  description: {
-    padding: "0.3rem",
-    maxWidth: "420px",
-    fontSize: "0.6rem"
+    },
+    marginBottom: theme.spacing(2)
   }
 }));
 
-const Services = ({
-  auth,
-  getCurrentProfile,
-  updateInfo,
-  uploading,
-  loadUser,
-  profile,
-  history,
-  className,
-  nextStep,
-  prevStep,
-  match,
-  step,
-  serviceData,
-  onChange,
-  onSubmitPrice,
-
-  ...rest
-}) => {
+const Services = ({ serviceData, onChange, onSubmitPrice }) => {
   const classes = useStyles();
 
-  function NumberFormatCustom(props) {
-    const { inputRef, onChange, ...other } = props;
-
-    return (
-      <NumberFormat
-        {...other}
-        getInputRef={inputRef}
-        onValueChange={values => {
-          onChange({
-            target: {
-              value: values.value
-            }
-          });
-        }}
-        thousandSeparator
-        isNumericString
-        prefix="$"
-      />
-    );
-  }
-
-  NumberFormatCustom.propTypes = {
-    inputRef: PropTypes.func.isRequired
-  };
-
-  //errors
   const [formState, setFormState] = useState({
     isValid: false,
     values: {},
     touched: {},
     errors: {}
   });
-
-  // const { typeOfService, amount } = formData;
 
   useEffect(() => {
     const errors = validate(formState.values, serviceSchemaErrors);
@@ -115,7 +55,7 @@ const Services = ({
       values: {
         ...formState.values,
         [event.target.name]:
-          event.target.name === "checkbox"
+          event.target.name === 'checkbox'
             ? event.target.checked
             : event.target.value
       },
@@ -128,69 +68,66 @@ const Services = ({
     onChange(event);
   };
 
-  //errors
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
+
   return (
     <Fragment>
-      {/* <form autoComplete='off' noValidate> */}
-
-      <div className={classes.root}>
-        <br />
-        <Typography>Add a Service</Typography>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item md={5} xs={5}>
-            <FormControl>
-              <TextField
-                error={hasError("typeOfService")}
-                helperText={
-                  hasError("typeOfService")
-                    ? formState.errors.typeOfService[0]
-                    : null
-                }
-                className={classes.textField}
-                label="Service"
-                margin="dense"
-                name="typeOfService"
-                required
-                type="text"
-                variant="outlined"
-                id="typeOfService"
-                autoComplete="fname"
-                value={
-                  formState.values.typeOfService || serviceData.typeOfService
-                }
-                onChange={handleChange}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item md={5} xs={5}>
+      <div>
+        <Typography variant="h5" className={classes.title}>
+          Add a Service
+        </Typography>
+        <Typography color="textSecondary" variant="body1">
+          Please tell us the sevices you provide, how much they cost, and a
+          brief description of each one.
+        </Typography>
+        <Grid container direction="row" spacing={2} className={classes.form}>
+          <Grid item xs={12} sm={6}>
             <TextField
-              label="Amount"
+              fullWidth
+              error={hasError('typeOfService')}
+              helperText={
+                hasError('typeOfService')
+                  ? formState.errors.typeOfService[0]
+                  : null
+              }
+              label="Name of service"
+              margin="dense"
+              name="typeOfService"
+              required
+              type="text"
+              variant="outlined"
+              id="typeOfService"
+              autoComplete="fname"
+              value={
+                formState.values.typeOfService || serviceData.typeOfService
+              }
+              onChange={handleChange}
+              placeholder="Social makeup"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Cost $"
               margin="dense"
               name="amount"
               required
-              className={classes.textField}
               variant="outlined"
+              type="number"
               id="amount"
-              error={hasError("amount")}
+              error={hasError('amount')}
               helperText={
-                hasError("amount") ? formState.errors.amount[0] : null
+                hasError('amount') ? formState.errors.amount[0] : null
               }
               value={formState.values.amount || serviceData.amount}
-              // id='formatted-numberformat-input'
-              // InputProps={{
-              //   inputComponent: NumberFormatCustom
-              // }}
               onChange={handleChange}
-              // onChange={handleChange("amount")}
+              placeholder="100"
             />
           </Grid>
-          <Grid item md={10} xs={10}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
-              className={classes.description}
               label="Description"
               margin="dense"
               name="description"
@@ -200,12 +137,13 @@ const Services = ({
               rows="3"
               variant="outlined"
               autoComplete="description"
-              error={hasError("description")}
+              error={hasError('description')}
               helperText={
-                hasError("description") ? formState.errors.description[0] : null
+                hasError('description') ? formState.errors.description[0] : null
               }
               value={formState.values.description || serviceData.description}
               onChange={handleChange}
+              placeholder="Suitable for parties and social events."
             />
           </Grid>
           <Grid
@@ -228,27 +166,8 @@ const Services = ({
           </Grid>
         </Grid>
       </div>
-      {/* </form> */}
     </Fragment>
   );
 };
 
-Services.propTypes = {
-  className: PropTypes.string,
-  updateInfo: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  uploading: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth,
-  uploading: state.uploader.uploading
-});
-
-export default connect(mapStateToProps, {
-  getCurrentProfile,
-  updateInfo,
-  loadUser
-})(withRouter(Services));
+export default connect(null, {})(withRouter(Services));

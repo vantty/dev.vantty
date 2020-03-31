@@ -1,7 +1,7 @@
-import { server, elastic } from "../utils/axios";
-import setAlert from "./alert";
-import { loadUser } from "./auth";
-import { deleteImages } from "./uploader";
+import { server, elastic } from '../utils/axios';
+import setAlert from './alert';
+import { loadUser } from './auth';
+import { deleteImages } from './uploader';
 import {
   GET_PROFILE,
   GET_PROFILES,
@@ -12,13 +12,13 @@ import {
   SERVICE_SUCCESS,
   CLEAR_IMAGES,
   CLEAR_CART
-} from "./types";
-import { updatePropertiesAppbase } from "../helpers";
+} from './types';
+import { updatePropertiesAppbase } from '../helpers';
 
 // Get current users profile
 export const getCurrentProfile = () => async dispatch => {
   try {
-    const res = await server.get("/profile/me");
+    const res = await server.get('/profile/me');
     await dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -62,7 +62,7 @@ export const getProfiles = () => async dispatch => {
     await dispatch({
       type: CLEAR_PROFILE
     });
-    const res = await server.get("/profile");
+    const res = await server.get('/profile');
 
     dispatch({
       type: GET_PROFILES,
@@ -85,25 +85,25 @@ export const createProfile = (
   try {
     const config = {
       headers: {
-        "Content-type": "application/json"
+        'Content-type': 'application/json'
       }
     };
-    const res = await server.post("/profile", formData, config);
+    const res = await server.post('/profile', formData, config);
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
-    dispatch(setAlert(edit ? "Profile Update" : "Profile Created", "success"));
+    dispatch(setAlert(edit ? 'Profile Update' : 'Profile Created', 'success'));
     if (formData.price) {
       const { user, price } = res.data;
-      await updatePropertiesAppbase(user, "price", price);
+      await updatePropertiesAppbase(user, 'price', price);
     }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
+        dispatch(setAlert(error.msg, 'error'));
       });
     }
     dispatch({
@@ -118,21 +118,21 @@ export const create = formData => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-type": "application/json"
+        'Content-type': 'application/json'
       }
     };
-    const res = await server.post("/profile", formData, config);
+    const res = await server.post('/profile', formData, config);
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
-    dispatch(setAlert("Profile Created", "success"));
+    dispatch(setAlert('Profile Created', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
+        dispatch(setAlert(error.msg, 'error'));
       });
     }
     dispatch({
@@ -147,11 +147,11 @@ export const update = formData => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-type": "application/json"
+        'Content-type': 'application/json'
       }
     };
 
-    const res = await server.patch("/profile", formData, config);
+    const res = await server.patch('/profile', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -159,19 +159,19 @@ export const update = formData => async dispatch => {
     });
     if (formData.price) {
       const { user, price } = res.data;
-      await updatePropertiesAppbase(user, "price", price);
+      await updatePropertiesAppbase(user, 'price', price);
     }
     if (formData.name) {
       const { name, user } = res.data;
-      await updatePropertiesAppbase(user, "name", name);
+      await updatePropertiesAppbase(user, 'name', name);
     }
 
-    dispatch(setAlert("Profile Updated", "success"));
+    dispatch(setAlert('Profile Updated', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
+        dispatch(setAlert(error.msg, 'error'));
       });
     }
     dispatch({
@@ -186,10 +186,10 @@ export const createMobileNumber = (formData, edit) => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-type": "application/json"
+        'Content-type': 'application/json'
       }
     };
-    const res = await server.post("/profile", formData, config);
+    const res = await server.post('/profile', formData, config);
     dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -215,24 +215,24 @@ export const addCategories = (
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     };
 
-    const res = await server.put("/profile/categories", categories, config);
+    const res = await server.put('/profile/categories', categories, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert("Categories Added", "success"));
-    edit && history.push("/settings");
+    dispatch(setAlert('Categories Added', 'success'));
+    edit && history.push('/settings');
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "error")));
+      errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
     }
 
     dispatch({
@@ -252,7 +252,7 @@ export const deleteEducation = id => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert("Education Removed", "success"));
+    dispatch(setAlert('Education Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -263,15 +263,15 @@ export const deleteEducation = id => async dispatch => {
 
 // Delete Account & PROFILE
 export const deleteAccount = () => async dispatch => {
-  if (window.confirm("Are you sure?")) {
+  if (window.confirm('Are you sure?')) {
     try {
-      await server.delete("/user");
+      await server.delete('/user');
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETE });
 
       dispatch(
-        setAlert("Your account has been permanantly deleted", "success")
+        setAlert('Your account has been permanantly deleted', 'success')
       );
     } catch (err) {
       dispatch({
@@ -303,7 +303,7 @@ export const deletePicture = (
       payload: res.data
     });
 
-    dispatch(setAlert("Picture Removed", "success"));
+    dispatch(setAlert('Picture Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -325,7 +325,7 @@ export const deleteProfilePicture = (dataBaseId, cloudId) => async dispatch => {
 
     dispatch(getCurrentProfile());
 
-    dispatch(setAlert("Picture Removed", "success"));
+    dispatch(setAlert('Picture Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -339,15 +339,15 @@ export const verifiedProfile = formData => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-type": "application/json"
+        'Content-type': 'application/json'
       }
     };
-    await server.post("/profile/verified", formData, config);
+    await server.post('/profile/verified', formData, config);
     const resImages = await server.get(`/images/${formData.id}`);
 
     const elasticConfig = {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
         Authorization: process.env.REACT_APP_ELASTIC_TOKEN
       }
     };
@@ -365,7 +365,7 @@ export const verifiedProfile = formData => async dispatch => {
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach(error => {
-        dispatch(setAlert(error.msg, "error"));
+        dispatch(setAlert(error.msg, 'error'));
       });
     }
     dispatch({
@@ -379,12 +379,12 @@ export const verifiedProfile = formData => async dispatch => {
 export const deleteProfileAndUserDashboard = ({
   formData
 }) => async dispatch => {
-  if (window.confirm("Are you sure?")) {
+  if (window.confirm('Are you sure?')) {
     try {
       // await deleteFromElastic(elastidId);
-      await server.delete("/profile/profile-user-dashboard", formData);
+      await server.delete('/profile/profile-user-dashboard', formData);
       dispatch(
-        setAlert("Your account has been permanantly deleted", "success")
+        setAlert('Your account has been permanantly deleted', 'success')
       );
     } catch (err) {
       dispatch({
@@ -400,7 +400,7 @@ export const loadToElastic = async (data, imagesId) => {
   const elasticConfig = {
     headers: {
       Authorization: process.env.REACT_APP_ELASTIC_TOKEN,
-      "Content-type": "application/json"
+      'Content-type': 'application/json'
     }
   };
   let allElasticId = [];
@@ -410,7 +410,7 @@ export const loadToElastic = async (data, imagesId) => {
     if (datum.elasticId == null) {
       const {
         data: { _id }
-      } = await elastic.post("/", datum, elasticConfig);
+      } = await elastic.post('/', datum, elasticConfig);
 
       await allElasticId.push({
         _id: datum.pictureId,
@@ -419,7 +419,7 @@ export const loadToElastic = async (data, imagesId) => {
       });
 
       const body = { allElasticId, imagesId };
-      await server.post("/elastic", body);
+      await server.post('/elastic', body);
     }
   }
 };
@@ -427,7 +427,7 @@ export const loadToElastic = async (data, imagesId) => {
 export const tagsToElastic = async data => {
   const elasticConfig = {
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
       Authorization: process.env.REACT_APP_ELASTIC_TOKEN
     }
   };
@@ -440,7 +440,7 @@ export const tagsToElastic = async data => {
 const deleteFromElastic = async elasticId => {
   const elasticConfig = {
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
       Authorization: process.env.REACT_APP_ELASTIC_TOKEN
     }
   };
@@ -464,23 +464,24 @@ export const addService = (formData, history) => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     };
     await dispatch(loadUser());
-    const res = await server.post("/profile/service", formData, config);
+    const res = await server.post('/profile/service', formData, config);
 
     await dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert("Service Added", "success"));
+    dispatch(setAlert('Service Added', 'success'));
+    return res.data;
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "error")));
+      errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
     }
 
     dispatch({
@@ -498,7 +499,8 @@ export const deleteService = id => async dispatch => {
       payload: res.data
     });
 
-    dispatch(setAlert("Service Removed", "success"));
+    dispatch(setAlert('Service Removed', 'success'));
+    return res.data;
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
