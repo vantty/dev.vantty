@@ -1,14 +1,31 @@
 {
-  "name": "api-now",
+  "name": "vantty-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node .",
     "server": "nodemon .",
-    "dev": "concurrently \"npm run server\" \"npm start --prefix ../vantty\""
+    "dev": "concurrently \"npm run server\" \"npm start --prefix ../vantty\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
-  "author": "",
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.js"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html",
+      "lcov"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "author": "Vantty Team",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^6.5.4",
@@ -31,8 +48,11 @@
     "twilio": "^3.41.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "concurrently": "^4.1.1",
-    "nodemon": "^1.19.1"
+    "jest": "^25.2.7",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   },
   "engines": {
     "node": "12.x"
