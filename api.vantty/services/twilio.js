@@ -8,7 +8,7 @@ const send = async (number, msg) => {
     const { to } = await client.messages.create({
       body: msg,
       from: '+15878408184',
-      to: number
+      to: number,
     });
     return to;
   } catch (error) {

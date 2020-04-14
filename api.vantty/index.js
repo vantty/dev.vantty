@@ -14,7 +14,7 @@ const stripeRoutes = require('./routes/stripe');
 const elasticRoutes = require('./routes/elastic');
 const twilioRoutes = require('./routes/twilio');
 const app = express();
-// CAMBIO
+
 // Connect Database
 const connectDB = async () => {
   try {
