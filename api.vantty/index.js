@@ -14,7 +14,7 @@ const stripeRoutes = require('./routes/stripe');
 const elasticRoutes = require('./routes/elastic');
 const twilioRoutes = require('./routes/twilio');
 const app = express();
-
+// CAMBIO
 // Connect Database
 const connectDB = async () => {
   try {
@@ -22,7 +22,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     });
     console.log('DB Connected...');
   } catch (err) {
@@ -36,16 +36,16 @@ connectDB();
 var whitelist = [
   'http://localhost:3000',
   'https://vantty.ca',
-  'https://www.vantty.ca'
+  'https://www.vantty.ca',
 ];
 var corsOptions = {
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
-  }
+  },
 };
 
 // Init Middleware
@@ -75,8 +75,8 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({
     error: {
-      message: error.message
-    }
+      message: error.message,
+    },
   });
 });
 
