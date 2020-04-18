@@ -5,14 +5,8 @@ const expressValidator = require('express-validator');
 const morgan = require('morgan');
 const cors = require('cors');
 const formData = require('express-form-data');
-const userRoutes = require('./routes/users');
-const profileRoutes = require('./routes/profile');
-const reviewRoutes = require('./routes/review');
-const imagesRoutes = require('./routes/images');
-const bookRoutes = require('./routes/book');
-const stripeRoutes = require('./routes/stripe');
-const elasticRoutes = require('./routes/elastic');
-const twilioRoutes = require('./routes/twilio');
+
+const apiRoutes = require('./routes');
 const app = express();
 
 const PORT = process.env.PORT || 5000;
@@ -61,14 +55,7 @@ app.use(corsCallback);
 app.use(formData.parse());
 
 // Routes
-app.use('/api/user', userRoutes);
-app.use('/api/profile', profileRoutes);
-app.use('/api/review', reviewRoutes);
-app.use('/api/images', imagesRoutes);
-app.use('/api/book', bookRoutes);
-app.use('/api/stripe', stripeRoutes);
-app.use('/api/elastic', elasticRoutes);
-app.use('/api/twilio', twilioRoutes);
+app.use('/api', apiRoutes);
 
 app.use((req, res, next) => {
   const error = new Error('Not found');
