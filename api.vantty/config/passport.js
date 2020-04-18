@@ -109,7 +109,6 @@ passport.use(
             lastName: profile.name.familyName,
             email: profile.emails[0].value,
           },
-          email: profile.emails[0].value,
         });
         done(null, { newUser, register: true });
       } catch (err) {
