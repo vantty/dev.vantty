@@ -15,6 +15,8 @@ const elasticRoutes = require('./routes/elastic');
 const twilioRoutes = require('./routes/twilio');
 const app = express();
 
+const PORT = process.env.PORT || 5000;
+
 // Connect Database
 const connectDB = async () => {
   try {
@@ -48,11 +50,14 @@ var corsOptions = {
   },
 };
 
+const corsCallback =
+  process.env.NODE_ENV === 'test' ? cors() : cors(corsOptions);
+
 // Init Middleware
 app.use(morgan('dev'));
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
-app.use(cors(corsOptions));
+app.use(corsCallback);
 app.use(formData.parse());
 
 // Routes
@@ -81,8 +86,8 @@ app.use((error, req, res, next) => {
 });
 
 // Connect Server
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
 
 module.exports = app;

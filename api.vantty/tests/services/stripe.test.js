@@ -1,12 +1,8 @@
 const {
   mockToken,
   mockRetrieve,
-  mockCreateLoginLink,
-  mockDelete,
-  mockCreate,
   mockCreateSource,
   mockDeleteSource,
-  mockRetrieveSource,
 } = require('../../helpers/mocks/stripe');
 
 const StripeService = require('../../services/stripe');
@@ -17,7 +13,6 @@ describe('Stripe service', () => {
   });
 
   test(`should create a stripe account with correct params`, async () => {
-    //Arrange
     const code = '123';
     const stripe_user_id = '1234';
     const data = [
@@ -67,8 +62,6 @@ describe('Stripe service', () => {
     });
     expect(mockRetrieve).toHaveBeenCalledWith(stripe_user_id);
   });
-
-  xtest('should create a customer', async () => {});
 
   test('should save a card', async () => {
     const stripeCustomerId = 'd33c1bfd-9705-4f6e-a8cd-e8e45d636cf5';
