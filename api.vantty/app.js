@@ -5,9 +5,12 @@ const formData = require('express-form-data');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-
+const swaggerUI = require('swagger-ui-express');
 const apiRoutes = require('./routes');
+
 const cors = require('./config/cors');
+const specs = require('./config/swagger');
+
 const app = express();
 
 const connectDB = async () => {
@@ -42,6 +45,9 @@ app.use(cors());
 app.use(expressValidator());
 app.use(express.json({ extended: false }));
 app.use(formData.parse());
+
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
+
 app.use('/api', apiRoutes);
 
 app.use((req, res, next) => {

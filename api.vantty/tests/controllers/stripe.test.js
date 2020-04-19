@@ -90,10 +90,9 @@ describe('Stripe Controller', () => {
         .set(
           'authorization',
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ2YW50dHkiLCJzdWIiOiI1ZTZkMjk1MTY2ZDZmMDE0MWNkNTcyNjUiLCJpYXQiOjE1ODQyMTIzMDUsImV4cCI6MTYxNTc0ODMwNX0.SyNLiMFl3E0LGOefXXxOPzNXeHgPd9KBi2EiRdIhvEA'
-        )
-        .send({ code: '123' });
+        );
 
-      expect(StripeService.createAccount).toHaveBeenCalledWith('123');
+      expect(StripeService.createAccount).toHaveBeenCalledWith(code);
       expect(StripeService.generateLink).toHaveBeenCalledWith(
         '851cbe44-f92f-4095-954a-3e86122bcc1e'
       );
@@ -119,6 +118,7 @@ describe('Stripe Controller', () => {
         },
         '$set'
       );
+
       expect(response.status).toEqual(201);
       expect(response.body).toEqual({});
     });

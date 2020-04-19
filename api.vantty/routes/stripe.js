@@ -12,8 +12,8 @@ const {
 } = require('../controllers/stripe');
 
 router.post('/account/:code', passportJWT, createAccount);
-router.get('/account/:account_id', retrieveAccount);
-router.delete('/account/:account_id', deleteAccount);
+router.get('/account/:id', retrieveAccount);
+router.delete('/account/:id', deleteAccount);
 router.post('/customer', passportJWT, createCustomer);
 router.post('/card', passportJWT, createCustomerCard);
 router.delete('/card/:card_id', passportJWT, deleteCustomerCard);

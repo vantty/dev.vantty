@@ -67,7 +67,7 @@ exports.createCustomer = async (req, res) => {
 exports.retrieveAccount = async (req, res) => {
   try {
     const {
-      params: { account_id: accountId },
+      params: { id: accountId },
     } = req;
     const result = await stripeService.retrieveAccount(accountId);
     res.status(200).json(result);
@@ -80,7 +80,7 @@ exports.retrieveAccount = async (req, res) => {
 exports.deleteAccount = async (req, res) => {
   try {
     const {
-      params: { account_id: accountId },
+      params: { id: accountId },
     } = req;
     const result = await stripeService.deleteAccount(accountId);
     res.status(200).json(result);
