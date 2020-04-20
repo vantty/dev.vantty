@@ -1,5 +1,3 @@
-const { defaults } = require('jest-config');
-
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['**/*.{js}', '!**/node_modules/**'],
@@ -13,7 +11,7 @@ module.exports = {
       statements: 80,
     },
   },
-  moduleFileExtensions: [...defaults.moduleFileExtensions],
+  moduleFileExtensions: ['js', 'json'],
   testEnvironment: 'node',
   verbose: true,
 };
