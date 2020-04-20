@@ -46,7 +46,9 @@ app.use(expressValidator());
 app.use(express.json({ extended: false }));
 app.use(formData.parse());
 
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
+if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') {
+  app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
+}
 
 app.use('/api', apiRoutes);
 
