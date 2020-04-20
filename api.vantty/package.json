@@ -1,14 +1,17 @@
 {
-  "name": "api-now",
+  "name": "vantty-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node .",
     "server": "nodemon .",
-    "dev": "concurrently \"npm run server\" \"npm start --prefix ../vantty\""
+    "dev": "concurrently \"npm run server\" \"npm start --prefix ../vantty\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
-  "author": "",
+  "author": "Vantty Team",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^6.5.4",
@@ -28,11 +31,18 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "stripe": "^7.15.0",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
     "twilio": "^3.41.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "concurrently": "^4.1.1",
-    "nodemon": "^1.19.1"
+    "helmet": "^3.22.0",
+    "jest": "^25.4.0",
+    "nodemon": "^2.0.3",
+    "sinon": "^9.0.2",
+    "supertest": "^4.0.2"
   },
   "engines": {
     "node": "12.x"

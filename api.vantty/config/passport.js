@@ -1,21 +1,22 @@
-const passport = require("passport");
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const LocalStrategy = require("passport-local").Strategy;
-const GooglePlusTokenStrategy = require("passport-google-plus-token");
-const FacebookTokenStrategy = require("passport-facebook-token");
-const User = require("../models/User");
+const passport = require('passport');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const LocalStrategy = require('passport-local').Strategy;
+const GooglePlusTokenStrategy = require('passport-google-plus-token');
+const FacebookTokenStrategy = require('passport-facebook-token');
+const User = require('../models/User');
 
 // JWT Strategy
 passport.use(
   new JwtStrategy(
     {
-      jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-      secretOrKey: process.env.JWT_SECRET
+      jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+      secretOrKey: process.env.JWT_SECRET,
     },
-    async (payLoad, done) => {
+    async (payload, done) => {
       try {
-        const user = await User.findById(payLoad.sub);
+        const user = await User.findById(payload.sub);
+
         if (!user) {
           return done(null, false);
         }
@@ -29,11 +30,11 @@ passport.use(
 
 // Google OAuth Strategy
 passport.use(
-  "googleToken",
+  'googleToken',
   new GooglePlusTokenStrategy(
     {
       clientID: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
+      clientSecret: process.env.GOOGLE_SECRET,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -46,12 +47,12 @@ passport.use(
         if (user) {
           return done(null, {
             newUser: user,
-            message: "User already exist",
-            register: false
+            message: 'User already exist',
+            register: false,
           });
         }
         const newUser = await User.create({
-          method: "google",
+          method: 'google',
           methodId: profile.id,
           email: profile.emails[0].value,
           firstName: profile.name.givenName,
@@ -61,8 +62,8 @@ passport.use(
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
             profilePicture: profile.photos[0].value,
-            email: profile.emails[0].value
-          }
+            email: profile.emails[0].value,
+          },
         });
         done(null, { newUser, register: true });
       } catch (err) {
@@ -74,11 +75,11 @@ passport.use(
 
 // Facebook OAuth Strategy
 passport.use(
-  "facebookToken",
+  'facebookToken',
   new FacebookTokenStrategy(
     {
       clientID: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET
+      clientSecret: process.env.FACEBOOK_SECRET,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -91,12 +92,12 @@ passport.use(
         if (user) {
           return done(null, {
             newUser: user,
-            message: "User already exist",
-            register: false
+            message: 'User already exist',
+            register: false,
           });
         }
         const newUser = await User.create({
-          method: "facebook",
+          method: 'facebook',
           methodId: profile.id,
           email: profile.emails[0].value,
           firstName: profile.name.givenName,
@@ -106,9 +107,8 @@ passport.use(
             profilePicture: profile.photos[0].value,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
-            email: profile.emails[0].value
+            email: profile.emails[0].value,
           },
-          email: profile.emails[0].value
         });
         done(null, { newUser, register: true });
       } catch (err) {
@@ -122,25 +122,25 @@ passport.use(
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "email"
+      usernameField: 'email',
     },
     async (email, password, done) => {
       try {
         const user = await User.findOne({ email });
         if (!user) {
           return done(null, {
-            message: "Please check you email address and your password"
+            message: 'Please check you email address and your password',
           });
         }
         const isMatch = await user.isValidPassword(password);
         if (!isMatch) {
           return done(null, {
-            message: "Please check you email address and your password"
+            message: 'Please check you email address and your password',
           });
         }
         const { confirmed } = user;
         if (!confirmed) {
-          return done(null, { message: "Please confirm your email" });
+          return done(null, { message: 'Please confirm your email' });
         }
         return done(null, user);
       } catch (err) {
